@@ -1,13 +1,14 @@
 {
   "name": "lights-out-st-agnes",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "type": "module",
   "description": "Lights Out at St. Agnes: first-person PS1-style psychological horror for PC browsers",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "playwright test"
   },
   "dependencies": {
     "three": "0.186.1"
