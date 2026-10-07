@@ -94,3 +94,25 @@ test.describe('in the browser', () => {
     await page.evaluate(() => window.__stAgnes.settings.reset());
   });
 });
+
+test('F3 toggles the debug overlay, off by default', async ({ page }) => {
+  await page.goto('./');
+  await waitForBoot(page);
+  const overlay = page.locator('#debug-overlay');
+  await expect(overlay).toBeHidden();
+  await page.keyboard.press('F3');
+  await expect(overlay).toBeVisible();
+  await page.keyboard.press('F3');
+  await expect(overlay).toBeHidden();
+});
+
+test('walking into a trigger volume activates it', async ({ page }) => {
+  await page.goto('./');
+  await waitForBoot(page);
+  await page.evaluate(() => window.__stAgnes.startTestPlay?.());
+  await page.keyboard.down('ShiftLeft');
+  await page.keyboard.down('KeyW');
+  await page.waitForFunction(() => window.__stAgnes.triggers.active.has('lullaby_start'), null, { timeout: 8000 });
+  await page.keyboard.up('KeyW');
+  await page.keyboard.up('ShiftLeft');
+});

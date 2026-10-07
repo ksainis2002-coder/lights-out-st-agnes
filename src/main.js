@@ -5,6 +5,8 @@ import { createPipeline } from './render/pipeline.js';
 import { createWorld } from './world.js';
 import { createInput } from './player/input.js';
 import { createController } from './player/controller.js';
+import { createTriggers } from './levels/triggers.js';
+import { createDebugOverlay } from './debug/overlay.js';
 import testCorridor from './levels/test_corridor.json';
 
 // Boot and main loop.
@@ -28,7 +30,9 @@ function boot() {
   input.setEnabled(true);
   canvas.addEventListener('click', () => input.lockPointer());
 
-  const game = { pipeline, world, input, player, i18n, saves, settings, frame: 0, time: 0, booted: true };
+  const triggers = createTriggers(world.level);
+  const game = { pipeline, world, input, player, triggers, i18n, saves, settings, mode: 'playing', frame: 0, time: 0, booted: true };
+  game.debug = createDebugOverlay(game);
   window.__stAgnes = game;
 
   pipeline.renderer.setAnimationLoop((timestamp) => {
@@ -39,7 +43,9 @@ function boot() {
     player.update(dt, input, settings);
     if (input.wasPressed('flashlight')) world.flashlight.toggle();
     player.applyToCamera(world.camera, settings);
+    triggers.update({ ...player.state.position, y: 0.5 });
     pipeline.render(world.scene, world.camera, { look: 'game', time: game.time });
+    game.debug.update(dt);
     input.endFrame();
   });
 }

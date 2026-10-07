@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.0.10 — Debug overlay on F3 (fps, draws, tris, room, player, stamina, noise, triggers drawn in the world), trigger tracking, finer level faces for a gentler affine warp.
 - 0.0.9 — First-person controller: mouse look, walk/run with stamina, crouch, lean, head bob, wall collision, noise level, flashlight on F; all keys from settings.
 - 0.0.8 — PS1 render pipeline (320×180 target, vertex snap, affine warp, 15-bit dither, fog, VHS grain/bleed), generated textures, data-driven test corridor, flashlight.
 - 0.0.7 — Recorded owner decisions: all 0.1 stills approved, settings defaults accepted, comfort mode also reduces effects and flicker.

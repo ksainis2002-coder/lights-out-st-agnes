@@ -1,7 +1,7 @@
 // Builds Three.js meshes for a parsed level: one merged mesh per material.
 // Floors and ceilings per open cell; a wall face wherever an open cell
-// touches a solid one. Walls are split in two rows so the affine warp
-// stays PS1-like instead of tearing whole faces.
+// touches a solid one. Faces are split into a small grid so the affine
+// warp stays PS1-like instead of tearing whole faces.
 import * as THREE from 'three';
 import { createPs1Material } from '../render/ps1Material.js';
 
@@ -11,7 +11,7 @@ const SIDES = [
   { dc: -1, dr: 0, normal: [1, 0, 0] },
   { dc: 1, dr: 0, normal: [-1, 0, 0] },
 ];
-const WALL_ROWS = 2;
+const SPLIT = 3; // segments per face edge
 
 function createBucket() {
   return { positions: [], normals: [], uvs: [] };
@@ -26,30 +26,36 @@ function addQuad(bucket, corners, normal, uvs) {
   }
 }
 
+// Adds a face spanned by origin + u*edgeU + v*edgeV, split SPLIT×SPLIT.
+// Texture coordinates run 0..1 across the whole face.
+function addFace(bucket, origin, edgeU, edgeV, normal) {
+  const point = (u, v) => origin.map((o, i) => o + edgeU[i] * u + edgeV[i] * v);
+  for (let j = 0; j < SPLIT; j++) {
+    for (let i = 0; i < SPLIT; i++) {
+      const u0 = i / SPLIT, u1 = (i + 1) / SPLIT, v0 = j / SPLIT, v1 = (j + 1) / SPLIT;
+      const corners = [point(u0, v0), point(u1, v0), point(u1, v1), point(u0, v1)];
+      addQuad(bucket, corners, normal, [[u0, v0], [u1, v0], [u1, v1], [u0, v1]]);
+    }
+  }
+}
+
 function addFloorAndCeiling(buckets, level, col, row) {
   const s = level.cellSize;
   const h = level.wallHeight;
-  const x0 = col * s, x1 = x0 + s, z0 = row * s, z1 = z0 + s;
-  const uv = [[0, 0], [1, 0], [1, 1], [0, 1]];
-  addQuad(buckets.floor, [[x0, 0, z1], [x1, 0, z1], [x1, 0, z0], [x0, 0, z0]], [0, 1, 0], uv);
-  addQuad(buckets.ceiling, [[x0, h, z0], [x1, h, z0], [x1, h, z1], [x0, h, z1]], [0, -1, 0], uv);
+  const x0 = col * s, z0 = row * s;
+  addFace(buckets.floor, [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
+  addFace(buckets.ceiling, [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
 }
 
 // Wall face on the edge between open cell (col,row) and its solid neighbour.
 function addWall(bucket, level, col, row, side) {
   const s = level.cellSize;
-  const cx = (col + 0.5) * s, cz = (row + 0.5) * s;
   const [nx, , nz] = side.normal;
-  const ex = cx - nx * s * 0.5, ez = cz - nz * s * 0.5; // edge centre
+  const ex = (col + 0.5) * s - nx * s * 0.5; // edge centre
+  const ez = (row + 0.5) * s - nz * s * 0.5;
   const tx = nz, tz = -nx; // tangent: u runs left to right when facing the wall
-  const a = [ex - tx * s * 0.5, ez - tz * s * 0.5];
-  const b = [ex + tx * s * 0.5, ez + tz * s * 0.5];
-  for (let i = 0; i < WALL_ROWS; i++) {
-    const v0 = i / WALL_ROWS, v1 = (i + 1) / WALL_ROWS;
-    const y0 = v0 * level.wallHeight, y1 = v1 * level.wallHeight;
-    const corners = [[a[0], y0, a[1]], [b[0], y0, b[1]], [b[0], y1, b[1]], [a[0], y1, a[1]]];
-    addQuad(bucket, corners, side.normal, [[0, v0], [1, v0], [1, v1], [0, v1]]);
-  }
+  const origin = [ex - tx * s * 0.5, 0, ez - tz * s * 0.5];
+  addFace(bucket, origin, [tx * s, 0, tz * s], [0, level.wallHeight, 0], side.normal);
 }
 
 function toMesh(bucket, texture) {
