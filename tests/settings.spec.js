@@ -47,3 +47,13 @@ test('language setting drives the game language and survives reload', async ({ p
   await page.waitForFunction(() => window.__stAgnes?.booted);
   expect(await page.evaluate(() => window.__stAgnes.i18n.t('warning.continue'))).toBe('ΣΥΝΕΧΕΙΑ');
 });
+
+test('comfort mode on also turns on reduce effects and flicker off, which stay editable', () => {
+  const settings = createSettings(createStore(memoryStorage()));
+  settings.set('comfortMode', true);
+  expect(settings.get('reduceEffects')).toBe(true);
+  expect(settings.get('flickerOff')).toBe(true);
+  settings.set('flickerOff', false);
+  expect(settings.get('flickerOff')).toBe(false);
+  expect(settings.get('comfortMode')).toBe(true);
+});

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.0.11 — Content warning (first launch), VHS main menu with pause/resume, VCR settings menu (4 tabs, key rebinding), comfort mode also turns on reduce effects and flicker off; all text in English and Greek.
 - 0.0.10 — Debug overlay on F3 (fps, draws, tris, room, player, stamina, noise, triggers drawn in the world), trigger tracking, finer level faces for a gentler affine warp.
 - 0.0.9 — First-person controller: mouse look, walk/run with stamina, crouch, lean, head bob, wall collision, noise level, flashlight on F; all keys from settings.
 - 0.0.8 — PS1 render pipeline (320×180 target, vertex snap, affine warp, 15-bit dither, fog, VHS grain/bleed), generated textures, data-driven test corridor, flashlight.

@@ -17,7 +17,7 @@ test('collision keeps a circle out of solid cells and slides along walls', () =>
   const position = { x: 2.25, z: 3.75 };
   expect(collides(level, position.x, position.z, 0.3)).toBe(false);
   moveWithCollision(level, position, 0.5, -2, 0.3);
-  expect(position.z).toBe(3.75);
+  expect(position.z).toBe(3.75); // blocked by the north wall
   expect(position.x).toBe(2.75);
 });
 
@@ -25,7 +25,7 @@ test.describe('in the browser', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('./');
     await waitForBoot(page);
-    await page.evaluate(() => window.__stAgnes.startTestPlay?.());
+    await page.evaluate(() => window.__stAgnes.play());
   });
 
   test('W walks forward along the facing direction', async ({ page }) => {
@@ -44,17 +44,17 @@ test.describe('in the browser', () => {
   });
 
   test('running is faster than walking and uses stamina', async ({ page }) => {
-    const start = await playerState(page);
-    await holdKey(page, 'KeyW', 600);
-    const walked = (await playerState(page)).position.x - start.position.x;
-    await page.waitForTimeout(400);
-    const mid = await playerState(page);
+    const speed = (state) => Math.hypot(state.velocity.x, state.velocity.z);
+    await page.keyboard.down('KeyW');
+    await page.waitForTimeout(800);
+    const walking = await playerState(page);
     await page.keyboard.down('ShiftLeft');
-    await holdKey(page, 'KeyW', 600);
+    await page.waitForTimeout(800);
+    const running = await playerState(page);
     await page.keyboard.up('ShiftLeft');
-    const end = await playerState(page);
-    expect(end.position.x - mid.position.x).toBeGreaterThan(walked * 1.3);
-    expect(end.stamina).toBeLessThan(100);
+    await page.keyboard.up('KeyW');
+    expect(speed(running)).toBeGreaterThan(speed(walking) * 1.5);
+    expect(running.stamina).toBeLessThan(100);
   });
 
   test('crouch lowers the eye and lean moves the camera sideways', async ({ page }) => {
@@ -109,7 +109,7 @@ test('F3 toggles the debug overlay, off by default', async ({ page }) => {
 test('walking into a trigger volume activates it', async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
-  await page.evaluate(() => window.__stAgnes.startTestPlay?.());
+  await page.evaluate(() => window.__stAgnes.play());
   await page.keyboard.down('ShiftLeft');
   await page.keyboard.down('KeyW');
   await page.waitForFunction(() => window.__stAgnes.triggers.active.has('lullaby_start'), null, { timeout: 8000 });

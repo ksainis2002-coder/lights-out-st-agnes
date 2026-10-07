@@ -75,8 +75,18 @@ export function createSettings(store, { migrations = SETTINGS_MIGRATIONS, versio
     const next = sanitize({ ...current, [name]: value });
     if (JSON.stringify(next[name]) !== JSON.stringify(value)) throw new Error(`Invalid value for setting "${name}".`);
     current = next;
+    applyLinked(name, value);
     persist();
     listeners.forEach((fn) => fn(name, current));
+  }
+
+  // Owner decision: turning comfort mode on also turns on reduce effects and
+  // flicker off. Both can be turned back off by hand afterwards.
+  function applyLinked(name, value) {
+    if (name === 'comfortMode' && value === true) {
+      current.reduceEffects = true;
+      current.flickerOff = true;
+    }
   }
 
   function reset() {
