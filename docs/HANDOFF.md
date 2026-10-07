@@ -23,25 +23,18 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
   `registry.npmjs.org` allowed and the package-manager defaults ticked. If npm is still blocked,
   fall back to building and testing on GitHub Actions, and ask the owner first.
 
-## Waiting on the owner
-1. **Approve the stills** in `docs/mockups/stills/`, or name the ones to change:
-   - `warning_en.png`, `warning_el.png`: content warning on first launch
-   - `menu.png`: VHS-player main menu
-   - `settings.png`: VCR on-screen-display settings menu
-   - `game.png`: PS1 in-game look (320×180, 15-bit dither, fog, flashlight, VHS grain)
-   - `debug.png`: debug overlay
-
-   The in-game still was drawn without Three.js, so the vertex wobble and affine texture warp
-   are not shown in it.
-2. **Confirm the proposals** below. These were invented for the mockups and are not decisions yet:
-   - F3 toggles the debug overlay.
-   - Menu items: PLAY = new game, REWIND = continue/load, SETUP = settings, EJECT = extras/credits.
-   - Settings tabs: Game / Controls / Audio / Video.
-   - Proposed defaults: Normal difficulty, comfort off, subtitles on. Defaults lock at 0.2.
-   - In `st-agnes-scare-rules`: the 90 s jump-scare cooldown, the 1.5 s reaction window and the
-     warning cue for each enemy.
-3. **Check that GitHub Pages is on**, with GitHub Actions as its source (a 0.1 hand-over item; not
-   yet confirmed).
+## Owner decisions (2026-10-07, second session)
+- **All six stills approved** as drawn: warning (en, el), menu, settings, game, debug.
+- Menu items approved: PLAY = new game, REWIND = continue/load, SETUP = settings, EJECT = extras/credits.
+- Settings tabs approved: Game / Controls / Audio / Video.
+- **Comfort mode** cuts jump scares and slows enemies, and turning it on also switches on
+  reduce effects and flicker off (the player can turn those two back off by hand).
+- **F3** toggles the debug overlay (off by default in builds).
+- **Settings defaults accepted** as in `src/save/settings.js` (English, Normal, comfort off,
+  subtitles on, reduce effects off, flicker off off, FOV 70, sensitivity 1.0, invert Y off,
+  volumes 80%, brief's key layout). They lock at 0.2.
+- Scare-rule timings (90 s cooldown, 1.5 s reaction window, enemy cues): deferred to 0.2.
+- GitHub Pages is on with GitHub Actions as its source.
 
 ## Next for 0.1 (in order)
 1. ~~Scaffold~~ done in 0.0.3 (Vite 8, Three.js 0.186, deploy workflow runs `npm test` then builds).
