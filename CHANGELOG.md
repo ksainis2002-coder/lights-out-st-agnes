@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.0.15 — Audio plumbing (no sounds yet): music/effects/voices buses in dB tied to the volume settings, ducking, limiter, HRTF positional playback, listener follows the camera.
 - 0.0.14 — Fix flaky controls tests: tests step game time directly (game.advance) instead of waiting on real time.
 - 0.0.13 — Tests run on GitHub Actions for every push and pull request; Three.js split into its own cached chunk.
 - 0.0.12 — Handoff note updated: 0.1 built, release on hold for owner testing.

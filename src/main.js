@@ -8,6 +8,8 @@ import { createController } from './player/controller.js';
 import { createTriggers } from './levels/triggers.js';
 import { createDebugOverlay } from './debug/overlay.js';
 import { createUi, UI_WIDTH, UI_HEIGHT } from './ui/manager.js';
+import { createMixer } from './audio/mixer.js';
+import { updateListener } from './audio/sounds.js';
 import testCorridor from './levels/test_corridor.json';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
@@ -26,6 +28,7 @@ function createGame() {
     input: createInput(canvas, settings),
     player: createController(world.level),
     triggers: createTriggers(world.level),
+    mixer: createMixer(settings),
     session: { active: false, playTime: 0 },
     mode: 'ui', frame: 0, time: 0, booted: false,
   };
@@ -52,6 +55,10 @@ function setupModes(game) {
     ui.open('menu');
     if (document.pointerLockElement) document.exitPointerLock();
   };
+
+  const startAudio = () => game.mixer.start();
+  window.addEventListener('pointerdown', startAudio, { once: true });
+  window.addEventListener('keydown', startAudio, { once: true });
 
   canvas.addEventListener('click', () => {
     if (game.mode === 'playing' && !document.pointerLockElement) input.lockPointer();
@@ -91,6 +98,8 @@ function tick(game, dt) {
   game.time += dt;
   simulate(game, dt);
   player.applyToCamera(world.camera, settings);
+  world.camera.updateMatrixWorld();
+  updateListener(game.mixer, world.camera);
   const uiDirty = game.ui.update();
   game.pipeline.render(world.scene, world.camera, { look: game.ui.look(), time: game.time, uiDirty });
   game.debug.update(dt);
