@@ -75,21 +75,34 @@ function applySettings(game) {
   settings.onChange(sync);
 }
 
-function tick(game, dt) {
+// Game logic for one step (no rendering).
+function simulate(game, dt) {
   const { player, input, world, settings, triggers } = game;
+  if (game.mode !== 'playing') return;
+  game.session.playTime += dt;
+  player.update(dt, input, settings);
+  if (input.wasPressed('flashlight')) world.flashlight.toggle();
+  triggers.update({ ...player.state.position, y: 0.5 });
+}
+
+function tick(game, dt) {
+  const { player, input, world, settings } = game;
   game.frame += 1;
   game.time += dt;
-  if (game.mode === 'playing') {
-    game.session.playTime += dt;
-    player.update(dt, input, settings);
-    if (input.wasPressed('flashlight')) world.flashlight.toggle();
-    triggers.update({ ...player.state.position, y: 0.5 });
-  }
+  simulate(game, dt);
   player.applyToCamera(world.camera, settings);
   const uiDirty = game.ui.update();
   game.pipeline.render(world.scene, world.camera, { look: game.ui.look(), time: game.time, uiDirty });
   game.debug.update(dt);
   input.endFrame();
+}
+
+// Runs the simulation for a fixed span of game time at 60 steps per second,
+// independent of frame rate. Used by tests and bot playthroughs.
+function advance(game, seconds) {
+  const step = 1 / 60;
+  for (let t = 0; t < seconds - 1e-9; t += step) simulate(game, step);
+  game.player.applyToCamera(game.world.camera, game.settings);
 }
 
 function boot() {
@@ -98,6 +111,7 @@ function boot() {
   setupModes(game);
   const warningSeen = store.read('flags')?.warningSeen === true;
   game.ui.open(warningSeen ? 'menu' : 'warning');
+  game.advance = (seconds) => advance(game, seconds);
   window.__stAgnes = game;
 
   const timer = new THREE.Timer();

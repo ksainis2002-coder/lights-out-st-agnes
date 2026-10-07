@@ -6,9 +6,11 @@ import { waitForBoot } from './helpers.js';
 
 const corridor = JSON.parse(readFileSync(new URL('../src/levels/test_corridor.json', import.meta.url), 'utf8'));
 const playerState = (page) => page.evaluate(() => structuredClone(window.__stAgnes.player.state));
-const holdKey = async (page, key, ms) => {
+// Game time is stepped directly so results do not depend on frame rate.
+const advance = (page, seconds) => page.evaluate((s) => window.__stAgnes.advance(s), seconds);
+const holdKey = async (page, key, seconds) => {
   await page.keyboard.down(key);
-  await page.waitForTimeout(ms);
+  await advance(page, seconds);
   await page.keyboard.up(key);
 };
 
@@ -30,7 +32,7 @@ test.describe('in the browser', () => {
 
   test('W walks forward along the facing direction', async ({ page }) => {
     const before = await playerState(page);
-    await holdKey(page, 'KeyW', 700);
+    await holdKey(page, 'KeyW', 0.7);
     const after = await playerState(page);
     expect(after.position.x - before.position.x).toBeGreaterThan(0.5);
     expect(Math.abs(after.position.z - before.position.z)).toBeLessThan(0.05);
@@ -38,7 +40,7 @@ test.describe('in the browser', () => {
   });
 
   test('walls stop the player', async ({ page }) => {
-    await holdKey(page, 'KeyA', 1500);
+    await holdKey(page, 'KeyA', 1.5);
     const state = await playerState(page);
     expect(state.position.z).toBeGreaterThanOrEqual(3 + 0.3 - 0.001);
   });
@@ -46,10 +48,10 @@ test.describe('in the browser', () => {
   test('running is faster than walking and uses stamina', async ({ page }) => {
     const speed = (state) => Math.hypot(state.velocity.x, state.velocity.z);
     await page.keyboard.down('KeyW');
-    await page.waitForTimeout(800);
+    await advance(page, 0.8);
     const walking = await playerState(page);
     await page.keyboard.down('ShiftLeft');
-    await page.waitForTimeout(800);
+    await advance(page, 0.8);
     const running = await playerState(page);
     await page.keyboard.up('ShiftLeft');
     await page.keyboard.up('KeyW');
@@ -59,11 +61,11 @@ test.describe('in the browser', () => {
 
   test('crouch lowers the eye and lean moves the camera sideways', async ({ page }) => {
     await page.keyboard.down('ControlLeft');
-    await page.waitForTimeout(600);
+    await advance(page, 0.6);
     expect((await playerState(page)).eyeHeight).toBeLessThan(1.2);
     await page.keyboard.up('ControlLeft');
     await page.keyboard.down('KeyE');
-    await page.waitForTimeout(500);
+    await advance(page, 0.5);
     const lean = await page.evaluate(() => {
       const { camera } = window.__stAgnes.world;
       const { position } = window.__stAgnes.player.state;
@@ -76,11 +78,10 @@ test.describe('in the browser', () => {
   test('mouse look turns the view and the flashlight toggles with F', async ({ page }) => {
     const before = await playerState(page);
     await page.evaluate(() => window.__stAgnes.input.addLook(200, 0));
-    await page.waitForTimeout(100);
+    await advance(page, 1 / 60);
     expect((await playerState(page)).yaw).toBeLessThan(before.yaw);
     await page.keyboard.press('KeyF');
-    await page.waitForTimeout(100);
-    expect(await page.evaluate(() => window.__stAgnes.world.flashlight.isOn())).toBe(false);
+    await page.waitForFunction(() => !window.__stAgnes.world.flashlight.isOn());
   });
 
   test('rebound keys are used for movement', async ({ page }) => {
@@ -89,7 +90,7 @@ test.describe('in the browser', () => {
       settings.set('keys', { ...settings.get('keys'), forward: 'KeyI' });
     });
     const before = await playerState(page);
-    await holdKey(page, 'KeyI', 500);
+    await holdKey(page, 'KeyI', 0.5);
     expect((await playerState(page)).position.x).toBeGreaterThan(before.position.x + 0.3);
     await page.evaluate(() => window.__stAgnes.settings.reset());
   });
@@ -110,9 +111,12 @@ test('walking into a trigger volume activates it', async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
   await page.evaluate(() => window.__stAgnes.play());
-  await page.keyboard.down('ShiftLeft');
   await page.keyboard.down('KeyW');
-  await page.waitForFunction(() => window.__stAgnes.triggers.active.has('lullaby_start'), null, { timeout: 8000 });
+  const entered = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    for (let i = 0; i < 20 && !game.triggers.active.has('lullaby_start'); i++) game.advance(0.5);
+    return game.triggers.active.has('lullaby_start');
+  });
   await page.keyboard.up('KeyW');
-  await page.keyboard.up('ShiftLeft');
+  expect(entered).toBe(true);
 });
