@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.0.8 — PS1 render pipeline (320×180 target, vertex snap, affine warp, 15-bit dither, fog, VHS grain/bleed), generated textures, data-driven test corridor, flashlight.
 - 0.0.7 — Recorded owner decisions: all 0.1 stills approved, settings defaults accepted, comfort mode also reduces effects and flicker.
 - 0.0.6 — Save system (3 slots + autosave, versioned JSON, migration chain, backup fallback) and settings store with proposed defaults; round-trip and migration tests.
 - 0.0.5 — i18n tables (en, el) with t() lookup, fallback to English, placeholders, and missing-key and render tests.

@@ -1,24 +1,11 @@
 import * as THREE from 'three';
 import { i18n } from './i18n/index.js';
 import { saves, settings } from './save/index.js';
+import { createPipeline } from './render/pipeline.js';
+import { createWorld } from './world.js';
+import testCorridor from './levels/test_corridor.json';
 
-// Boot and main loop. Screens and effects are added once their mockup
-// stills are approved; for now the loop only clears to black.
-
-function createRenderer(canvas) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
-  renderer.setPixelRatio(1);
-  renderer.setClearColor(0x000000, 1);
-  return renderer;
-}
-
-function resize(renderer, camera) {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  renderer.setSize(width, height, false);
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-}
+// Boot and main loop.
 
 function boot() {
   i18n.setLanguage(settings.get('language'));
@@ -27,27 +14,27 @@ function boot() {
   });
 
   const canvas = document.getElementById('game');
-  const renderer = createRenderer(canvas);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(70, 1, 0.05, 100);
-  const clock = new THREE.Clock();
+  const uiCanvas = document.createElement('canvas');
+  uiCanvas.width = 480;
+  uiCanvas.height = 270;
+  const pipeline = createPipeline(canvas, uiCanvas);
+  const world = createWorld(testCorridor);
+  const timer = new THREE.Timer();
 
-  resize(renderer, camera);
-  window.addEventListener('resize', () => resize(renderer, camera));
+  const { camera, level } = world;
+  camera.position.set(level.spawn.x, 1.6, level.spawn.z);
+  camera.rotation.set(0, level.spawn.yaw, 0, 'YXZ');
 
-  const game = { renderer, scene, camera, i18n, saves, settings, frame: 0, booted: true };
+  const game = { pipeline, world, i18n, saves, settings, frame: 0, time: 0, booted: true };
   window.__stAgnes = game;
 
-  renderer.setAnimationLoop(() => {
-    const dt = Math.min(clock.getDelta(), 0.1);
-    update(game, dt);
-    renderer.render(scene, camera);
+  pipeline.renderer.setAnimationLoop((timestamp) => {
+    timer.update(timestamp);
+    const dt = Math.min(timer.getDelta(), 0.1);
+    game.frame += 1;
+    game.time += dt;
+    pipeline.render(world.scene, camera, { look: 'game', time: game.time });
   });
-}
-
-function update(game, dt) {
-  game.frame += 1;
-  game.lastDt = dt;
 }
 
 boot();
