@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.0.17 — docs/SOUNDS_0.2.md: CC0 sound list for the owner to download for 0.2.
 - 0.0.16 — Bot playthrough harness: scripted routes in tests/bot-routes walk the real controller and must finish; results saved to test-results/bot.
 - 0.0.15 — Audio plumbing (no sounds yet): music/effects/voices buses in dB tied to the volume settings, ducking, limiter, HRTF positional playback, listener follows the camera.
 - 0.0.14 — Fix flaky controls tests: tests step game time directly (game.advance) instead of waiting on real time.
