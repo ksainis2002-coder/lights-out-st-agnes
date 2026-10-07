@@ -44,15 +44,13 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
    yet confirmed).
 
 ## Next for 0.1 (in order)
-1. Scaffold: Three.js + Vite in plain JS, `vite.config.js` with `base: './'`, `index.html`,
-   `src/main.js` (boot and loop), `assets/CREDITS.md`, and a Pages deploy workflow that runs on
-   `v*` tags.
-2. Playwright test runner: `npm test` through the Vite preview server, a boot test and a
-   no-console-errors check.
-3. i18n: `src/i18n/en.json`, `src/i18n/el.json`, a `t()` lookup and a test for missing keys.
-   The Greek content-warning text is in `docs/mockups/source/screens.js`.
-4. Save system and settings store: 3 slots + autosave, versioned JSON, a migration chain and a
-   backup fallback, with round-trip and migration tests.
+1. ~~Scaffold~~ done in 0.0.3 (Vite 8, Three.js 0.186, deploy workflow runs `npm test` then builds).
+2. ~~Playwright runner~~ done in 0.0.4 (`@playwright/test` pinned to 1.56.1 to match the
+   pre-installed Chromium 1194; WebGL via SwiftShader).
+3. ~~i18n~~ done in 0.0.5. Only the content-warning strings exist; menu and settings strings get
+   added with their screens once the owner confirms the names.
+4. ~~Save system and settings store~~ done in 0.0.6 (`src/save/`). Settings defaults are the
+   proposals above and are not locked yet. `window.__stAgnes` exposes saves, settings and i18n for tests.
 5. After the stills are approved: PS1 render pipeline, first-person controller, debug overlay,
    content warning, menus and settings UI.
 6. Release 0.1 with the `st-agnes-release` skill.

@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { i18n } from './i18n/index.js';
+import { saves, settings } from './save/index.js';
 
 // Boot and main loop. Screens and effects are added once their mockup
 // stills are approved; for now the loop only clears to black.
@@ -20,6 +21,11 @@ function resize(renderer, camera) {
 }
 
 function boot() {
+  i18n.setLanguage(settings.get('language'));
+  settings.onChange((name, all) => {
+    if (name === 'language' || name === null) i18n.setLanguage(all.language);
+  });
+
   const canvas = document.getElementById('game');
   const renderer = createRenderer(canvas);
   const scene = new THREE.Scene();
@@ -29,7 +35,7 @@ function boot() {
   resize(renderer, camera);
   window.addEventListener('resize', () => resize(renderer, camera));
 
-  const game = { renderer, scene, camera, i18n, frame: 0, booted: true };
+  const game = { renderer, scene, camera, i18n, saves, settings, frame: 0, booted: true };
   window.__stAgnes = game;
 
   renderer.setAnimationLoop(() => {
