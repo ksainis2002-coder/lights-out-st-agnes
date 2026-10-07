@@ -51,4 +51,13 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
    When they say go: PR into `main`, owner merges, then version 0.1.0 + tag `v0.1.0` on `main`.
    Perf not measured on a GPU yet (container uses SwiftShader: ~13 fps, 4 draws, 2.4k tris).
 
+## Extra plumbing done while waiting (0.0.13–0.0.17, no approval needed)
+- CI: `.github/workflows/test.yml` runs `npm test` on every push and PR.
+- Three.js in its own chunk. `game.advance(seconds)` steps game time at 60 Hz for tests and bots.
+- Audio mixer (`src/audio/`): music/effects/voices buses in dB, ducking, limiter, HRTF playback.
+  No sound files yet.
+- Bot harness: `tests/bot-routes/*.json` routes walk the real controller; results go to
+  `test-results/bot/`.
+- `docs/SOUNDS_0.2.md`: the CC0 sound list for the owner (0.2 hand-over item).
+
 Follow `st-agnes-release` for every commit: one commit, a version bump, a CHANGELOG line.
