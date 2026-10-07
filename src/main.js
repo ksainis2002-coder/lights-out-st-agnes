@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { i18n } from './i18n/index.js';
 
 // Boot and main loop. Screens and effects are added once their mockup
 // stills are approved; for now the loop only clears to black.
@@ -28,7 +29,7 @@ function boot() {
   resize(renderer, camera);
   window.addEventListener('resize', () => resize(renderer, camera));
 
-  const game = { renderer, scene, camera, frame: 0, booted: true };
+  const game = { renderer, scene, camera, i18n, frame: 0, booted: true };
   window.__stAgnes = game;
 
   renderer.setAnimationLoop(() => {

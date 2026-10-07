@@ -1,0 +1,14 @@
+{
+  "game.title": "Lights Out at St. Agnes",
+  "language.label": "LANGUAGE",
+  "language.en": "EN",
+  "language.el": "ΕΛ",
+  "warning.title": "CONTENT WARNING",
+  "warning.intro": "This game contains:",
+  "warning.item.gore": "graphic gore and surgery scenes",
+  "warning.item.flicker": "flashing lights and flicker",
+  "warning.item.childDeath": "themes of child death",
+  "warning.note": "Flicker, flashes and jump scares can be reduced at any time in Settings.",
+  "warning.continue": "CONTINUE",
+  "warning.settings": "SETTINGS"
+}

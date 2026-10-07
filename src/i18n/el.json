@@ -1,0 +1,14 @@
+{
+  "game.title": "Lights Out at St. Agnes",
+  "language.label": "ΓΛΩΣΣΑ",
+  "language.en": "EN",
+  "language.el": "ΕΛ",
+  "warning.title": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ ΠΕΡΙΕΧΟΜΕΝΟΥ",
+  "warning.intro": "Το παιχνίδι περιέχει:",
+  "warning.item.gore": "έντονες σκηνές αίματος και χειρουργείου",
+  "warning.item.flicker": "φώτα που αναβοσβήνουν",
+  "warning.item.childDeath": "θέματα θανάτου παιδιών",
+  "warning.note": "Τα εφέ, οι λάμψεις και τα ξαφνικά τρομάγματα μειώνονται οποτεδήποτε από τις Ρυθμίσεις.",
+  "warning.continue": "ΣΥΝΕΧΕΙΑ",
+  "warning.settings": "ΡΥΘΜΙΣΕΙΣ"
+}

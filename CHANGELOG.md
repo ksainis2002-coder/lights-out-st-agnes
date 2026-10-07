@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.0.5 — i18n tables (en, el) with t() lookup, fallback to English, placeholders, and missing-key and render tests.
 - 0.0.4 — Playwright test runner (npm test via Vite preview), boot and no-console-errors tests; deploy runs tests first.
 - 0.0.3 — Vite + Three.js scaffold (base ./), boot and main loop, assets/CREDITS.md, Pages deploy workflow on v* tags.
 - 0.0.2 — Mockup stills for 0.1 screens (awaiting approval) and docs/HANDOFF.md for the next session.
