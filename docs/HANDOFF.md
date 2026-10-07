@@ -44,8 +44,11 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
    added with their screens once the owner confirms the names.
 4. ~~Save system and settings store~~ done in 0.0.6 (`src/save/`). Settings defaults are the
    proposals above and are not locked yet. `window.__stAgnes` exposes saves, settings and i18n for tests.
-5. After the stills are approved: PS1 render pipeline, first-person controller, debug overlay,
-   content warning, menus and settings UI.
-6. Release 0.1 with the `st-agnes-release` skill.
+5. ~~PS1 pipeline, controller, debug overlay, warning, menu, settings~~ done in 0.0.8–0.0.11.
+   Choices made without asking (owner may change): REWIND/EJECT greyed as "not on this tape yet";
+   VCR words stay English in Greek; settings footer adds "TAB PAGE".
+6. **Release 0.1: on hold.** Owner is testing the branch on real hardware first (2026-10-07).
+   When they say go: PR into `main`, owner merges, then version 0.1.0 + tag `v0.1.0` on `main`.
+   Perf not measured on a GPU yet (container uses SwiftShader: ~13 fps, 4 draws, 2.4k tris).
 
 Follow `st-agnes-release` for every commit: one commit, a version bump, a CHANGELOG line.
