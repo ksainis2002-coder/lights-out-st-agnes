@@ -10,6 +10,7 @@ import { createDebugOverlay } from './debug/overlay.js';
 import { createUi, UI_WIDTH, UI_HEIGHT } from './ui/manager.js';
 import { createMixer } from './audio/mixer.js';
 import { updateListener } from './audio/sounds.js';
+import { runBot } from './debug/bot.js';
 import testCorridor from './levels/test_corridor.json';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
@@ -121,6 +122,7 @@ function boot() {
   const warningSeen = store.read('flags')?.warningSeen === true;
   game.ui.open(warningSeen ? 'menu' : 'warning');
   game.advance = (seconds) => advance(game, seconds);
+  game.runBot = (route, options) => runBot(game, route, options);
   window.__stAgnes = game;
 
   const timer = new THREE.Timer();

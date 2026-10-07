@@ -5,6 +5,7 @@ export function createInput(target, settings) {
   const down = new Set();
   const pressedThisFrame = new Set();
   const look = { x: 0, y: 0 };
+  const virtual = new Set(); // actions held by a bot, not the keyboard
   let enabled = false;
 
   window.addEventListener('keydown', (event) => {
@@ -28,7 +29,11 @@ export function createInput(target, settings) {
   const codeFor = (action) => settings.get('keys')[action];
 
   return {
-    isDown: (action) => enabled && down.has(codeFor(action)),
+    isDown: (action) => enabled && (virtual.has(action) || down.has(codeFor(action))),
+    setVirtual(action, held) {
+      if (held) virtual.add(action);
+      else virtual.delete(action);
+    },
     wasPressed: (action) => enabled && pressedThisFrame.has(codeFor(action)),
     wasCodePressed: (code) => pressedThisFrame.has(code),
     takeLook() {
@@ -43,7 +48,10 @@ export function createInput(target, settings) {
     },
     setEnabled(value) {
       enabled = value;
-      if (!value) down.clear();
+      if (!value) {
+        down.clear();
+        virtual.clear();
+      }
     },
     lockPointer() {
       target.requestPointerLock?.()?.catch?.(() => {});
