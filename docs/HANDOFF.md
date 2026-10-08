@@ -23,38 +23,41 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
   `registry.npmjs.org` allowed and the package-manager defaults ticked. If npm is still blocked,
   fall back to building and testing on GitHub Actions, and ask the owner first.
 
-## Waiting on the owner
-1. **Approve the stills** in `docs/mockups/stills/`, or name the ones to change:
-   - `warning_en.png`, `warning_el.png`: content warning on first launch
-   - `menu.png`: VHS-player main menu
-   - `settings.png`: VCR on-screen-display settings menu
-   - `game.png`: PS1 in-game look (320×180, 15-bit dither, fog, flashlight, VHS grain)
-   - `debug.png`: debug overlay
-
-   The in-game still was drawn without Three.js, so the vertex wobble and affine texture warp
-   are not shown in it.
-2. **Confirm the proposals** below. These were invented for the mockups and are not decisions yet:
-   - F3 toggles the debug overlay.
-   - Menu items: PLAY = new game, REWIND = continue/load, SETUP = settings, EJECT = extras/credits.
-   - Settings tabs: Game / Controls / Audio / Video.
-   - Proposed defaults: Normal difficulty, comfort off, subtitles on. Defaults lock at 0.2.
-   - In `st-agnes-scare-rules`: the 90 s jump-scare cooldown, the 1.5 s reaction window and the
-     warning cue for each enemy.
-3. **Check that GitHub Pages is on**, with GitHub Actions as its source (a 0.1 hand-over item; not
-   yet confirmed).
+## Owner decisions (2026-10-07, second session)
+- **All six stills approved** as drawn: warning (en, el), menu, settings, game, debug.
+- Menu items approved: PLAY = new game, REWIND = continue/load, SETUP = settings, EJECT = extras/credits.
+- Settings tabs approved: Game / Controls / Audio / Video.
+- **Comfort mode** cuts jump scares and slows enemies, and turning it on also switches on
+  reduce effects and flicker off (the player can turn those two back off by hand).
+- **F3** toggles the debug overlay (off by default in builds).
+- **Settings defaults accepted** as in `src/save/settings.js` (English, Normal, comfort off,
+  subtitles on, reduce effects off, flicker off off, FOV 70, sensitivity 1.0, invert Y off,
+  volumes 80%, brief's key layout). They lock at 0.2.
+- Scare-rule timings (90 s cooldown, 1.5 s reaction window, enemy cues): deferred to 0.2.
+- GitHub Pages is on with GitHub Actions as its source.
 
 ## Next for 0.1 (in order)
-1. Scaffold: Three.js + Vite in plain JS, `vite.config.js` with `base: './'`, `index.html`,
-   `src/main.js` (boot and loop), `assets/CREDITS.md`, and a Pages deploy workflow that runs on
-   `v*` tags.
-2. Playwright test runner: `npm test` through the Vite preview server, a boot test and a
-   no-console-errors check.
-3. i18n: `src/i18n/en.json`, `src/i18n/el.json`, a `t()` lookup and a test for missing keys.
-   The Greek content-warning text is in `docs/mockups/source/screens.js`.
-4. Save system and settings store: 3 slots + autosave, versioned JSON, a migration chain and a
-   backup fallback, with round-trip and migration tests.
-5. After the stills are approved: PS1 render pipeline, first-person controller, debug overlay,
-   content warning, menus and settings UI.
-6. Release 0.1 with the `st-agnes-release` skill.
+1. ~~Scaffold~~ done in 0.0.3 (Vite 8, Three.js 0.186, deploy workflow runs `npm test` then builds).
+2. ~~Playwright runner~~ done in 0.0.4 (`@playwright/test` pinned to 1.56.1 to match the
+   pre-installed Chromium 1194; WebGL via SwiftShader).
+3. ~~i18n~~ done in 0.0.5. Only the content-warning strings exist; menu and settings strings get
+   added with their screens once the owner confirms the names.
+4. ~~Save system and settings store~~ done in 0.0.6 (`src/save/`). Settings defaults are the
+   proposals above and are not locked yet. `window.__stAgnes` exposes saves, settings and i18n for tests.
+5. ~~PS1 pipeline, controller, debug overlay, warning, menu, settings~~ done in 0.0.8–0.0.11.
+   Choices made without asking (owner may change): REWIND/EJECT greyed as "not on this tape yet";
+   VCR words stay English in Greek; settings footer adds "TAB PAGE".
+6. **Release 0.1:** owner playtested on 2026-10-08 (Intel UHD, 60 fps, nothing broken, asked for
+   a little darker: done in 0.0.19) and said release. Version 0.1.0 goes to `main` by PR; after the
+   merge, tag `v0.1.0` on `main` and check the Pages URL boots.
+
+## Extra plumbing done while waiting (0.0.13–0.0.17, no approval needed)
+- CI: `.github/workflows/test.yml` runs `npm test` on every push and PR.
+- Three.js in its own chunk. `game.advance(seconds)` steps game time at 60 Hz for tests and bots.
+- Audio mixer (`src/audio/`): music/effects/voices buses in dB, ducking, limiter, HRTF playback.
+  No sound files yet.
+- Bot harness: `tests/bot-routes/*.json` routes walk the real controller; results go to
+  `test-results/bot/`.
+- `docs/SOUNDS_0.2.md`: the CC0 sound list for the owner (0.2 hand-over item).
 
 Follow `st-agnes-release` for every commit: one commit, a version bump, a CHANGELOG line.

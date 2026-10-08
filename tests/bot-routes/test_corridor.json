@@ -1,0 +1,11 @@
+{
+  "id": "test_corridor",
+  "level": "test_corridor",
+  "points": [
+    { "cell": [6, 3] },
+    { "cell": [12, 2], "pace": "run" },
+    { "cell": [15, 3] },
+    { "cell": [15, 6], "pace": "crouch" },
+    { "cell": [17, 6] }
+  ]
+}
