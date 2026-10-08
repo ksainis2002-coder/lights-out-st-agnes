@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.5 — Owner confirmed all 19 batch-1 sound pages are CC0; credits updated.
 - 0.1.4 — Sound credits filled in from the owner's Freesound links (licences still to confirm); merged the owner's edit on main.
 - 0.1.3 — Fix: assets/sounds/incoming is no longer git-ignored, so the owner can keep pushing new downloads there.
 - 0.1.2 — First CC0 sound batch (player, building, doors) cut and converted to 31 mono Ogg clips by tools/process-sounds.mjs; credits await source links.
