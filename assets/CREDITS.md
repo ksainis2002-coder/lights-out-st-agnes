@@ -26,14 +26,14 @@ generated in code and need no line unless a file is added.
 | drawer | ------ | ------ | [-------](https://freesound.org/people/alegemaate/sounds/667278/) |
 | paper_pickup | ------ | ------ | [-------](https://freesound.org/people/scholzi982/sounds/566189/) |
 | key_pickup | ------ | ------ | [-------](https://freesound.org/people/RealSquink/sounds/788310/) |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
+| amb_rain_inside | ------ | ------ | [-------](https://freesound.org/people/JW_Audio/sounds/826394/) |
+| amb_building_hum | ------ | ------ | [-------](https://freesound.org/people/richwise/sounds/456207/) |
+| amb_pipes | ------ | ------ | [-------](https://freesound.org/people/RutgerMuller/sounds/104087/) |
+| amb_wind_corridor | ------ | ------ | [-------](https://freesound.org/people/decembered/sounds/459146/) |
+| amb_clock | ------ | ------ | [-------](https://freesound.org/people/Nox_Sound/sounds/790019/) |
+| thunder_far (×1) | ------ | ------ | [-------](https://freesound.org/people/nickmaysoundmusic/sounds/513249/) |
+| thunder_far (×2) | ------ | ------ | [-------](https://freesound.org/people/Sadiquecat/sounds/737428/) |
+| thunder_far (×3) | ------ | ------ | [-------](https://freesound.org/people/Fission9/sounds/581125/) |
 | ---- | ------ | ------ | ------- |
 | ---- | ------ | ------ | ------- |
 | ---- | ------ | ------ | ------- |
