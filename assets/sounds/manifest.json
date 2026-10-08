@@ -1,0 +1,20 @@
+{
+  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs. Originals are removed after processing; they stay in git history (batch 1: commit 45f0a32).",
+  "sounds": {
+    "step_tile": { "mode": "split", "from": ["step_tile (×1).wav", "step_tile (×2).wav", "step_tile (×3).wav"], "take": [0, 5, 1], "maxLength": 0.45 },
+    "step_wood": { "mode": "split", "from": ["step_wood (×1).wav", "step_wood (×2).wav"], "take": 3, "maxLength": 0.5 },
+    "breath_run": { "mode": "loop", "from": "breath_run.mp3", "maxLength": 12, "minLength": 4 },
+    "breath_hold": { "mode": "whole", "from": "breath_hold.wav", "maxLength": 4 },
+    "heartbeat": { "mode": "loop", "from": "heartbeat.wav", "maxLength": 8, "minLength": 2 },
+    "flashlight_click": { "mode": "whole", "from": "flashlight_click.wav", "fade": 0.01 },
+    "cloth_crouch": { "mode": "split", "from": "cloth_crouch.wav", "take": 3, "maxLength": 0.8, "fade": 0.2 },
+    "door_open_slow": { "mode": "whole", "from": "door_open_slow.flac", "maxLength": 8, "fade": 0.4 },
+    "door_use": { "mode": "whole", "from": ["door_open_close (×1).wav", "door_open_close (×2).wav", "door_open_close (×3).wav"], "maxLength": 4 },
+    "door_locked": { "mode": "trim", "from": "door_locked.wav", "maxLength": 2, "fade": 0.15 },
+    "bed_creak": { "mode": "split", "from": "bed_creak.wav", "take": 3, "maxLength": 2, "fade": 0.2 },
+    "locker_open": { "mode": "whole", "from": "locker_open.flac", "maxLength": 4 },
+    "drawer": { "mode": "whole", "from": "drawer.wav", "maxLength": 3 },
+    "key_pickup": { "mode": "whole", "from": "key_pickup.wav", "maxLength": 2 },
+    "paper_pickup": { "mode": "whole", "from": "paper_pickup.wav", "maxLength": 2 }
+  }
+}

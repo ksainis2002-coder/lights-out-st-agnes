@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.2 — First CC0 sound batch (player, building, doors) cut and converted to 31 mono Ogg clips by tools/process-sounds.mjs; credits await source links.
 - 0.1.1 — Handoff note: 0.1.0 is live on Pages; how releases are tagged from now on.
 - 0.1.0 — Foundation release: Vite + Three.js, PS1 render pipeline, first-person controller, debug overlay, Playwright tests, i18n (EN/EL), save system, settings, content warning, VHS menu. Perf: 60 fps (16.7 ms) on Intel UHD Graphics, owner's laptop.
 - 0.0.19 — Darker ambient light (owner playtest: "a little darker"); flashlight unchanged.
