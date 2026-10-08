@@ -3,4 +3,3 @@ dist/
 test-results/
 playwright-report/
 shot.tmp.mjs
-assets/sounds/incoming/
