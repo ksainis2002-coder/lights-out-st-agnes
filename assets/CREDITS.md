@@ -27,7 +27,7 @@ generated in code and need no line unless a file is added.
 | paper_pickup | ------ | ------ | [-------](https://freesound.org/people/scholzi982/sounds/566189/) |
 | key_pickup | ------ | ------ | [-------](https://freesound.org/people/RealSquink/sounds/788310/) |
 | amb_rain_inside | ------ | ------ | [-------](https://freesound.org/people/JW_Audio/sounds/826394/) |
-| amb_building_hum | ------ | ------ | [-------](https://freesound.org/people/richwise/sounds/456207/) |
+| amb_building_hum | ------ | ------ | https://freesound.org/people/mwcomposer/sounds/401972/ |
 | amb_pipes | ------ | ------ | [-------](https://freesound.org/people/RutgerMuller/sounds/104087/) |
 | amb_wind_corridor | ------ | ------ | [-------](https://freesound.org/people/decembered/sounds/459146/) |
 | amb_clock | ------ | ------ | [-------](https://freesound.org/people/Nox_Sound/sounds/790019/) |
