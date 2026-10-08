@@ -1,5 +1,5 @@
 {
-  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3).",
+  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac).",
   "sounds": {
     "step_tile": {
       "mode": "split",
@@ -134,6 +134,12 @@
       ],
       "maxLength": 14,
       "fade": 2
+    },
+    "amb_building_hum": {
+      "mode": "bed",
+      "from": "amb_building_hum.wav",
+      "maxLength": 60,
+      "crossfade": 4
     }
   }
 }
