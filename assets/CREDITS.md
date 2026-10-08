@@ -37,4 +37,4 @@ checked by the owner on its Freesound page (batches 1–2: 2026-10-08). A licenc
 | sounds/thunder_far_1.ogg | thunder_far (×1).wav | [freesound 513249](https://freesound.org/people/nickmaysoundmusic/sounds/513249/) | nickmaysoundmusic | CC0 |
 | sounds/thunder_far_2.ogg | thunder_far (×2).wav | [freesound 737428](https://freesound.org/people/Sadiquecat/sounds/737428/) | Sadiquecat | CC0 |
 | sounds/thunder_far_3.ogg | thunder_far (×3).wav | [freesound 581125](https://freesound.org/people/Fission9/sounds/581125/) | Fission9 | CC0 |
-| sounds/amb_building_hum.ogg | amb_building_hum.wav | [freesound 401972](https://freesound.org/people/mwcomposer/sounds/401972/) | mwcomposer | CC0 (to confirm) |
+| sounds/amb_building_hum.ogg | amb_building_hum.wav | [freesound 401972](https://freesound.org/people/mwcomposer/sounds/401972/) | mwcomposer | CC0 |
