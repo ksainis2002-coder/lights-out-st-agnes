@@ -11,7 +11,7 @@ export function createWorld(levelData) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(FOG_COLOR);
   scene.fog = new THREE.FogExp2(FOG_COLOR, 0.09);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.45));
 
   const camera = new THREE.PerspectiveCamera(70, 16 / 9, 0.05, 60);
   scene.add(camera);

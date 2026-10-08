@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.0.19 — Darker ambient light (owner playtest: "a little darker"); flashlight unchanged.
 - 0.0.18 — Handoff note lists the extra plumbing done while 0.1 waits for owner testing.
 - 0.0.17 — docs/SOUNDS_0.2.md: CC0 sound list for the owner to download for 0.2.
 - 0.0.16 — Bot playthrough harness: scripted routes in tests/bot-routes walk the real controller and must finish; results saved to test-results/bot.
