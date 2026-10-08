@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.6 — Sound batch 2: rain, wind, pipes and clock ambience as seamless loops, three distant thunders; sound script gains a stereo 'bed' loop mode. Credits await links.
 - 0.1.5 — Owner confirmed all 19 batch-1 sound pages are CC0; credits updated.
 - 0.1.4 — Sound credits filled in from the owner's Freesound links (licences still to confirm); merged the owner's edit on main.
 - 0.1.3 — Fix: assets/sounds/incoming is no longer git-ignored, so the owner can keep pushing new downloads there.

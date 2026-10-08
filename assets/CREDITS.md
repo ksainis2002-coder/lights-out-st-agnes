@@ -30,3 +30,10 @@ checked by the owner on its Freesound page (batch 1: 2026-10-08). A licence mark
 | sounds/drawer.ogg | drawer.wav | [freesound 667278](https://freesound.org/people/alegemaate/sounds/667278/) | alegemaate | CC0 |
 | sounds/key_pickup.ogg | key_pickup.wav | [freesound 788310](https://freesound.org/people/RealSquink/sounds/788310/) | RealSquink | CC0 |
 | sounds/paper_pickup.ogg | paper_pickup.wav | [freesound 566189](https://freesound.org/people/scholzi982/sounds/566189/) | scholzi982 | CC0 |
+| sounds/amb_rain_inside.ogg | amb_rain_inside.wav | link pending | pending | CC0 (to confirm) |
+| sounds/amb_wind_corridor.ogg | amb_wind_corridor.wav | link pending | pending | CC0 (to confirm) |
+| sounds/amb_pipes.ogg | amb_pipes.aiff | link pending | pending | CC0 (to confirm) |
+| sounds/amb_clock.ogg | amb_clock.wav | link pending | Nox_Sound (file tag) | CC0 (to confirm) |
+| sounds/thunder_far_1.ogg | thunder_far (×1).wav | link pending | pending | CC0 (to confirm) |
+| sounds/thunder_far_2.ogg | thunder_far (×2).wav | link pending | Sadiquecat (file tag) | CC0 (to confirm) |
+| sounds/thunder_far_3.ogg | thunder_far (×3).wav | link pending | Fission9 (file tag) | CC0 (to confirm) |

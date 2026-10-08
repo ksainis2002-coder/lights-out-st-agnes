@@ -11,6 +11,8 @@
 //            (a number, or one number per source), numbered id_1, id_2…
 //   loop   – starts at the first event and ends just before a later event,
 //            so the clip loops on a natural boundary (breathing, heartbeat)
+//   bed    – stereo ambience bed, up to maxLength, with its end crossfaded
+//            into its start (crossfade seconds) so it loops without a seam
 import { spawnSync } from 'node:child_process';
 import { readFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -121,6 +123,24 @@ function encode(file, samples, from, to, outName, fade) {
   return { out: `${outName}.ogg`, seconds: Number(length.toFixed(2)) };
 }
 
+// Seamless loop: [xf, L] crossfaded into [0, xf], so the output's end
+// flows straight back into its start.
+function encodeBed(file, samples, entry, outName) {
+  const length = Math.min(samples.length / RATE, entry.maxLength ?? 60);
+  const xf = entry.crossfade ?? 3;
+  const gain = PEAK_DB - samplePeakDb(samples, 0, length);
+  const graph = [
+    `[0:a]atrim=start=${xf}:end=${length.toFixed(3)},asetpts=PTS-STARTPTS[body]`,
+    `[1:a]atrim=start=0:end=${xf},asetpts=PTS-STARTPTS[head]`,
+    `[body][head]acrossfade=d=${xf}:c1=tri:c2=tri,volume=${gain.toFixed(2)}dB[out]`,
+  ].join(';');
+  const out = join(OUT_DIR, `${outName}.ogg`);
+  // The file is opened twice: one asplit feeding acrossfade stalls in ffmpeg.
+  const result = spawnSync('ffmpeg', ['-v', 'error', '-y', '-i', file, '-i', file, '-filter_complex', graph, '-map', '[out]', '-ac', '2', '-ar', String(RATE), '-c:a', 'libvorbis', '-q:a', '4', out]);
+  if (result.status !== 0) throw new Error(`ffmpeg could not write ${out}: ${result.stderr}`);
+  return { out: `${outName}.ogg`, seconds: Number((length - xf).toFixed(2)) };
+}
+
 function clipsFor(entry, file, samples, events, sourceIndex) {
   const duration = samples.length / RATE;
   const pre = 0.02;
@@ -156,6 +176,10 @@ function processEntry(id, entry) {
   sources.forEach((source, sourceIndex) => {
     const file = join(IN_DIR, source);
     const samples = decode(file);
+    if (entry.mode === 'bed') {
+      results.push({ source, ...encodeBed(file, samples, entry, id) });
+      return;
+    }
     const events = findEvents(envelope(samples));
     for (const [from, to] of clipsFor(entry, file, samples, events, sourceIndex)) {
       counter += 1;
