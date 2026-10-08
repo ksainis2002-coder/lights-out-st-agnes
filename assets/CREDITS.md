@@ -6,7 +6,7 @@ generated in code and need no line unless a file is added.
 
 Files in `assets/sounds/` are cut and converted from the owner's downloads by
 `tools/process-sounds.mjs` (see `assets/sounds/manifest.json`). Every licence below was
-checked by the owner on its Freesound page (batch 1: 2026-10-08). A licence marked
+checked by the owner on its Freesound page (batches 1–2: 2026-10-08). A licence marked
 "CC0 (to confirm)" has not been checked yet and must not ship in a release.
 
 | File | Original download | Source | Author | Licence |
@@ -30,10 +30,10 @@ checked by the owner on its Freesound page (batch 1: 2026-10-08). A licence mark
 | sounds/drawer.ogg | drawer.wav | [freesound 667278](https://freesound.org/people/alegemaate/sounds/667278/) | alegemaate | CC0 |
 | sounds/key_pickup.ogg | key_pickup.wav | [freesound 788310](https://freesound.org/people/RealSquink/sounds/788310/) | RealSquink | CC0 |
 | sounds/paper_pickup.ogg | paper_pickup.wav | [freesound 566189](https://freesound.org/people/scholzi982/sounds/566189/) | scholzi982 | CC0 |
-| sounds/amb_rain_inside.ogg | amb_rain_inside.wav | link pending | pending | CC0 (to confirm) |
-| sounds/amb_wind_corridor.ogg | amb_wind_corridor.wav | link pending | pending | CC0 (to confirm) |
-| sounds/amb_pipes.ogg | amb_pipes.aiff | link pending | pending | CC0 (to confirm) |
-| sounds/amb_clock.ogg | amb_clock.wav | link pending | Nox_Sound (file tag) | CC0 (to confirm) |
-| sounds/thunder_far_1.ogg | thunder_far (×1).wav | link pending | pending | CC0 (to confirm) |
-| sounds/thunder_far_2.ogg | thunder_far (×2).wav | link pending | Sadiquecat (file tag) | CC0 (to confirm) |
-| sounds/thunder_far_3.ogg | thunder_far (×3).wav | link pending | Fission9 (file tag) | CC0 (to confirm) |
+| sounds/amb_rain_inside.ogg | amb_rain_inside.wav | [freesound 826394](https://freesound.org/people/JW_Audio/sounds/826394/) | JW_Audio | CC0 |
+| sounds/amb_wind_corridor.ogg | amb_wind_corridor.wav | [freesound 459146](https://freesound.org/people/decembered/sounds/459146/) | decembered | CC0 |
+| sounds/amb_pipes.ogg | amb_pipes.aiff | [freesound 104087](https://freesound.org/people/RutgerMuller/sounds/104087/) | RutgerMuller | CC0 |
+| sounds/amb_clock.ogg | amb_clock.wav | [freesound 790019](https://freesound.org/people/Nox_Sound/sounds/790019/) | Nox_Sound | CC0 |
+| sounds/thunder_far_1.ogg | thunder_far (×1).wav | [freesound 513249](https://freesound.org/people/nickmaysoundmusic/sounds/513249/) | nickmaysoundmusic | CC0 |
+| sounds/thunder_far_2.ogg | thunder_far (×2).wav | [freesound 737428](https://freesound.org/people/Sadiquecat/sounds/737428/) | Sadiquecat | CC0 |
+| sounds/thunder_far_3.ogg | thunder_far (×3).wav | [freesound 581125](https://freesound.org/people/Fission9/sounds/581125/) | Fission9 | CC0 |

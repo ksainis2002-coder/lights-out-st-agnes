@@ -1,6 +1,6 @@
 {
   "name": "lights-out-st-agnes",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "type": "module",
   "description": "Lights Out at St. Agnes: first-person PS1-style psychological horror for PC browsers",
