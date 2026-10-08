@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.10 — Handoff note: sound progress and the sound hand-over routine.
 - 0.1.9 — Owner confirmed the building hum is CC0.
 - 0.1.8 — Building hum ambience as a seamless 30 s loop; credit added (licence to confirm).
 - 0.1.7 — Batch-2 sound credits filled from the owner's links (owner confirmed CC0); merged the owner's edit on main.
