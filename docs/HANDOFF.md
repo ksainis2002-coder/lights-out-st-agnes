@@ -47,9 +47,18 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
 5. ~~PS1 pipeline, controller, debug overlay, warning, menu, settings~~ done in 0.0.8–0.0.11.
    Choices made without asking (owner may change): REWIND/EJECT greyed as "not on this tape yet";
    VCR words stay English in Greek; settings footer adds "TAB PAGE".
-6. **Release 0.1:** owner playtested on 2026-10-08 (Intel UHD, 60 fps, nothing broken, asked for
-   a little darker: done in 0.0.19) and said release. Version 0.1.0 goes to `main` by PR; after the
-   merge, tag `v0.1.0` on `main` and check the Pages URL boots.
+6. **0.1.0 shipped** on 2026-10-08: PR #1 merged, tag `v0.1.0`, live at
+   https://ksainis2002-coder.github.io/lights-out-st-agnes/ (owner confirmed it boots).
+
+## Release notes for next time
+- Cloud sessions cannot push tags (the push hangs up). The owner creates the tag by publishing a
+  GitHub release (Releases → Draft a new release → tag `vX.Y.Z` on `main`).
+- The `github-pages` environment now allows tags `v*` (owner added the rule on 2026-10-08).
+- github.io is blocked from the session network; the owner checks the live site.
+
+## Next: 0.2 vertical slice
+Waiting on the owner for the CC0 sounds in `docs/SOUNDS_0.2.md`. Start with mockup stills for the
+intro, patient room hub and dorms (ghost children, Tommy) before building them.
 
 ## Extra plumbing done while waiting (0.0.13–0.0.17, no approval needed)
 - CI: `.github/workflows/test.yml` runs `npm test` on every push and PR.
