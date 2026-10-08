@@ -47,9 +47,9 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
 5. ~~PS1 pipeline, controller, debug overlay, warning, menu, settings~~ done in 0.0.8–0.0.11.
    Choices made without asking (owner may change): REWIND/EJECT greyed as "not on this tape yet";
    VCR words stay English in Greek; settings footer adds "TAB PAGE".
-6. **Release 0.1: on hold.** Owner is testing the branch on real hardware first (2026-10-07).
-   When they say go: PR into `main`, owner merges, then version 0.1.0 + tag `v0.1.0` on `main`.
-   Perf not measured on a GPU yet (container uses SwiftShader: ~13 fps, 4 draws, 2.4k tris).
+6. **Release 0.1:** owner playtested on 2026-10-08 (Intel UHD, 60 fps, nothing broken, asked for
+   a little darker: done in 0.0.19) and said release. Version 0.1.0 goes to `main` by PR; after the
+   merge, tag `v0.1.0` on `main` and check the Pages URL boots.
 
 ## Extra plumbing done while waiting (0.0.13–0.0.17, no approval needed)
 - CI: `.github/workflows/test.yml` runs `npm test` on every push and PR.
