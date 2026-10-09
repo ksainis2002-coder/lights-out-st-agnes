@@ -3,11 +3,19 @@
 import { createWarningScreen } from './screens/warning.js';
 import { createMenuScreen } from './screens/menu.js';
 import { createSettingsScreen } from './screens/settings.js';
+import { createJournalScreen } from './screens/journal.js';
+import { createDocumentScreen } from './screens/document.js';
 
 export const UI_WIDTH = 480;
 export const UI_HEIGHT = 270;
 
-const SCREENS = { warning: createWarningScreen, menu: createMenuScreen, settings: createSettingsScreen };
+const SCREENS = {
+  warning: createWarningScreen,
+  menu: createMenuScreen,
+  settings: createSettingsScreen,
+  journal: createJournalScreen,
+  document: createDocumentScreen,
+};
 
 export function createUi(game, canvas, uiCanvas) {
   const ctx = uiCanvas.getContext('2d');
@@ -20,6 +28,8 @@ export function createUi(game, canvas, uiCanvas) {
     settings: game.settings,
     open,
     play: () => game.play(),
+    resume: () => game.resume(),
+    game,
     hasSession: () => game.session.active,
     playTime: () => game.session.playTime,
     finishWarning(next) {

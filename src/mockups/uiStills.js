@@ -1,29 +1,12 @@
 // Dev-only mockups of the 0.2 in-game screens, drawn on the 480×270 UI layer
 // over a real dorm render. Copy here is mockup text, not game text.
 import { osdText, wrapText, fittedSize, COLORS } from '../ui/osd.js';
+import { drawIcon } from '../ui/icons.js';
 
 const W = 480;
 const H = 270;
 const PAPER = '#d9cfb4';
 const INK = '#2a2418';
-
-// 16×16 pixel icons as rows of palette letters ('.' = clear).
-const ICONS = {
-  plate: { pal: { b: '#8a7444', d: '#3a2c14' }, rows: ['................', '................', '................', '................', 'bbbbbbbbbbbbbbbb', 'bbbbbbbbbbbbbbbb', 'bbddbdbbddbdddbb', 'bbdbbdbbdbbbdbbb', 'bbddbdbbddbbdbbb', 'bbbbbbbbbbbbbbbb', 'bbbbbbbbbbbbbbbb'] },
-  key: { pal: { k: '#b8a060' }, rows: ['................', '................', '....kkk.........', '...k...k........', '...k...kkkkkkkkk', '...k...k....k.k.', '....kkk.....k.k.'] },
-  horse: { pal: { h: '#8a5a30', d: '#4a2c14' }, rows: ['................', '............hh..', '...........hhh..', '..hhhhhhhhhhh...', '..hhhhhhhhhh....', '..h.h....h.h....', '..h.h....h.h....', '.dddddddddddd...'] },
-  battery: { pal: { g: '#7a8a6a', s: '#d0d0c0' }, rows: ['................', '................', '.gggggggggggggs.', '.gggggggggggggss', '.gggggggggggggss', '.gggggggggggggs.'] },
-  pills: { pal: { w: '#e0e0d8', r: '#b03028' }, rows: ['................', '.....rrrrr......', '.....wwwww......', '....wwwwwww.....', '....wrrrrrw.....', '....wwwwwww.....', '....wwwwwww.....', '....wwwwwww.....'] },
-};
-
-function icon(ctx, name, x, y, scale = 1) {
-  const { pal, rows } = ICONS[name];
-  rows.forEach((row, ry) => [...row].forEach((c, rx) => {
-    if (c === '.') return;
-    ctx.fillStyle = pal[c];
-    ctx.fillRect(x + rx * scale, y + ry * scale, scale, scale);
-  }));
-}
 
 function panel(ctx, x, y, w, h, alpha = 0.7) {
   ctx.fillStyle = `rgba(5,7,10,${alpha})`;
@@ -82,7 +65,7 @@ export function inventory(ctx) {
     const x = x0 + i * (size + 4);
     ctx.fillStyle = i === 2 ? 'rgba(232,240,255,0.25)' : 'rgba(232,240,255,0.07)';
     ctx.fillRect(x, y0, size, size);
-    if (item) icon(ctx, item, x + 2, y0 + 2, 2);
+    if (item) drawIcon(ctx, item, x + 2, y0 + 2, 2);
   });
   osdText(ctx, 'SMALL BRASS KEY', x0, y0 + size + 6, 10, COLORS.text);
   osdText(ctx, 'Tag reads “linen cupboard”. Cold, as if just held.', x0, y0 + size + 19, 9, COLORS.soft);

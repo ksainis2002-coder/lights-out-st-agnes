@@ -25,6 +25,7 @@ export function createI18n(tables, language = FALLBACK_LANGUAGE) {
 
   return {
     t,
+    has: (key) => key in (tables[current] ?? {}) || key in (tables[FALLBACK_LANGUAGE] ?? {}),
     setLanguage,
     getLanguage: () => current,
     languages: () => Object.keys(tables),

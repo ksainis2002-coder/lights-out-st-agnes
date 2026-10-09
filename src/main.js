@@ -17,6 +17,12 @@ import { createInteraction } from './player/interact.js';
 import { setupLevelFlow } from './levelFlow.js';
 import { drawHud } from './ui/hud.js';
 import { createGameAudio } from './audio/gameAudio.js';
+import { createInventory } from './items/inventory.js';
+import { createProgress } from './progress.js';
+import { createJournal } from './journal.js';
+import { createMessages } from './ui/messages.js';
+import { setupClues } from './clues.js';
+import { setupInventoryControls } from './items/controls.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -29,20 +35,27 @@ function createGame() {
 
   const pipeline = createPipeline(canvas, uiCanvas);
   const world = createWorld(LEVELS[START_LEVEL]);
+  const events = createEvents();
   const game = {
+    events,
+    inventory: createInventory(events),
+    journal: createJournal(events),
     canvas, pipeline, world, i18n, store, saves, settings,
     input: createInput(canvas, settings),
     player: createController(world.level),
     triggers: createTriggers(world.level),
     mixer: createMixer(settings),
-    events: createEvents(),
     interaction: createInteraction(),
+    progress: createProgress(),
+    messages: createMessages(),
     session: { active: false, playTime: 0 },
     mode: 'ui', frame: 0, time: 0, booted: false,
   };
   game.ui = createUi(game, canvas, uiCanvas);
   game.ui.setHud((ctx) => game.mode === 'playing' && drawHud(ctx, game));
   setupLevelFlow(game);
+  setupClues(game);
+  setupInventoryControls(game);
   game.sfx = createGameAudio(game);
   game.debug = createDebugOverlay(game);
   return game;
@@ -55,6 +68,21 @@ function setupModes(game) {
     game.mode = 'playing';
     game.session.active = true;
     game.events.emit('game.play');
+    ui.close();
+    input.setEnabled(true);
+    input.lockPointer();
+  };
+
+  // Modal screens during play (journal, documents): the world waits.
+  game.openScreen = (name, options) => {
+    game.mode = 'ui';
+    input.setEnabled(false);
+    ui.open(name, options);
+    if (document.pointerLockElement) document.exitPointerLock();
+  };
+
+  game.resume = () => {
+    game.mode = 'playing';
     ui.close();
     input.setEnabled(true);
     input.lockPointer();
@@ -107,6 +135,8 @@ function simulate(game, dt) {
     world.update(dt);
     return;
   }
+  game.updateItems();
+  if (game.mode !== 'playing') return;
   player.update(dt, input, settings);
   if (input.wasPressed('flashlight')) {
     world.flashlight.toggle();
@@ -118,6 +148,7 @@ function simulate(game, dt) {
   game.interaction.update(world.camera, input);
   world.update(dt);
   game.sfx.update(dt);
+  game.messages.update(dt);
 }
 
 function tick(game, dt) {

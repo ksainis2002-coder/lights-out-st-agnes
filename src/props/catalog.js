@@ -125,7 +125,21 @@ function sheetPile(t) {
   return group(...lumps.map(([x, y, z, w, h, d]) => box(t.sheet, [w, h, d], [x, y, z])));
 }
 
+// Small item lying in the world (keys, pills, a crank): a coloured box.
+function smallItem(t, { color = '#b8a060', size = [0.1, 0.02, 0.04] } = {}) {
+  return group(box(t.paintedWood, size, [0, 0, 0], { color }));
+}
+
+// One sheet of paper (documents to read).
+function paperSheet(t) {
+  const sheet = plane(t.sheet, [0.21, 0.29], [0, 0.004, 0]);
+  sheet.rotation.x = -Math.PI / 2;
+  return group(sheet);
+}
+
 export const PROPS = {
+  smallItem,
+  paperSheet,
   chair,
   papers,
   blocks,

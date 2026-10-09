@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.24 — Build step 3: inventory (TAB strip, 8 slots, wheel/1–8 select, use items on things), pickups (office key in the washroom drain, linen key on Sister's desk), locked doors open with the right key, documents with transcript (Sister M.'s night-duty note), journal (J) with clues written automatically, message lines; all text in English and Greek.
 - 0.1.23 — Build step 2: sounds in the game. Footstep every stride (wood/tile, quieter crouching, louder running), door open/close/locked sounds, flashlight click, menu blip, tape-insert on PLAY, room ambience beds crossfading between rooms (rain, hum, wind, pipes, clock, low drone in the dorms), distant thunder.
 - 0.1.22 — Owner playtest fixes: travelling between levels fades to black and back instead of jumping; the flashlight dims near walls and the floor so close surfaces stay readable.
 - 0.1.21 — Build step 1: use prompt + left-click use, doors that swing open/closed (locked and hidden doors), travel between the patient room and the new orphanage wing level (9 rooms from the approved plan), per-room textures, use/inventory/combine key bindings.

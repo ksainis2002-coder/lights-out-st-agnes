@@ -1,7 +1,8 @@
 // Moving between levels and the per-level things that come with it
 // (usable doors). game.travel('orphanage_wing', 'landing').
 import { LEVELS } from './levels/index.js';
-import { doorInteractables } from './levels/doorUse.js';
+import { doorInteractables, applyDoorProgress } from './levels/doorUse.js';
+import { createPickups } from './items/pickups.js';
 
 export function setupLevelFlow(game) {
   let usable = [];
@@ -11,9 +12,12 @@ export function setupLevelFlow(game) {
     const data = LEVELS[id];
     if (!data) throw new Error(`Unknown level "${id}"`);
     const level = game.world.loadLevel(data);
+    applyDoorProgress(level, game.progress);
     game.player.setLevel(level, level.spawns[spawnName] ?? level.spawn);
     game.triggers.setLevel(level);
-    usable = doorInteractables(game);
+    const pickups = createPickups(game, level, data);
+    game.world.levelGroup.add(pickups.group);
+    usable = [...doorInteractables(game), ...pickups.usable];
     game.interaction.clear();
     game.events.emit('level.loaded', level);
     return level;
@@ -46,8 +50,7 @@ export function setupLevelFlow(game) {
     if (trip.loaded && trip.t >= FADE_OUT + FADE_IN) trip = null;
   };
 
-  usable = doorInteractables(game); // the level the world started with
+  game.hasItem = (id) => game.inventory.has(id);
 
-  // Inventory arrives in a later step; until then nothing is carried.
-  game.hasItem = (id) => game.inventory?.has(id) ?? false;
+  game.loadLevel(game.world.level.id); // set up the level the world started with
 }

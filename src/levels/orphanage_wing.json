@@ -838,5 +838,36 @@
    "name": "amb_building_hum",
    "volume": 0.3
   }
+ ],
+ "pickups": [
+  {
+   "id": "washroom_drain_key",
+   "item": "office_key",
+   "at": [
+    8.4,
+    16.6
+   ],
+   "y": 0.0
+  },
+  {
+   "id": "office_desk_key",
+   "item": "linen_key",
+   "at": [
+    17.3,
+    13.85
+   ],
+   "y": 0.76
+  }
+ ],
+ "documents": [
+  {
+   "id": "night_duty",
+   "at": [
+    17.95,
+    14.1
+   ],
+   "y": 0.765,
+   "rotation": 15
+  }
  ]
 }
