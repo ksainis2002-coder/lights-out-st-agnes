@@ -8,8 +8,10 @@ export function createInput(target, settings) {
   const virtual = new Set(); // actions held by a bot, not the keyboard
   let enabled = false;
 
+  // Presses only count while the game has input; a key that closes a menu
+  // (J for the journal) must not also act in the game on the next frame.
   window.addEventListener('keydown', (event) => {
-    if (!down.has(event.code)) pressedThisFrame.add(event.code);
+    if (enabled && !down.has(event.code)) pressedThisFrame.add(event.code);
     down.add(event.code);
     if (enabled && isGameKey(event.code)) event.preventDefault();
   });
@@ -19,7 +21,7 @@ export function createInput(target, settings) {
   // Mouse buttons are codes too ("Mouse0" = left), so they can be bound like keys.
   document.addEventListener('mousedown', (event) => {
     const code = `Mouse${event.button}`;
-    if (!down.has(code)) pressedThisFrame.add(code);
+    if (enabled && !down.has(code)) pressedThisFrame.add(code);
     down.add(code);
   });
   document.addEventListener('mouseup', (event) => down.delete(`Mouse${event.button}`));
@@ -63,6 +65,7 @@ export function createInput(target, settings) {
     },
     setEnabled(value) {
       enabled = value;
+      pressedThisFrame.clear();
       if (!value) {
         down.clear();
         virtual.clear();
