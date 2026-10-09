@@ -34,16 +34,22 @@ generated in code and need no line unless a file is added.
 | thunder_far (×1) | ------ | ------ | [-------](https://freesound.org/people/nickmaysoundmusic/sounds/513249/) |
 | thunder_far (×2) | ------ | ------ | [-------](https://freesound.org/people/Sadiquecat/sounds/737428/) |
 | thunder_far (×3) | ------ | ------ | [-------](https://freesound.org/people/Fission9/sounds/581125/) |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
+| child_laugh_far (×1) | ------ | ------ | [-------](https://freesound.org/people/kikorurelas/sounds/642516/) |
+| child_laugh_far (×2) | ------ | ------ | [-------](https://freesound.org/people/medyk3D/sounds/616088/) |
+| child_laugh_far (×3) | ------ | ------ | [-------](https://freesound.org/people/medyk3D/sounds/616088/) |
+| child_footsteps_run | ------ | ------ | [-------](https://freesound.org/people/14FPanskaBubik_Lukas/sounds/418545/) |
+| whisper (×3) | ------ | ------ | [-------](https://freesound.org/people/RaspberryTickle/sounds/234044/) |
+| whisper (×2) | ------ | ------ | [-------](https://freesound.org/people/geoneo0/sounds/193818/) |
+| whisper (×1) | ------ | ------ | [-------](https://freesound.org/people/dimbark1/sounds/316797/) |
+| child giggle | ------ | ------ | [-------](https://freesound.org/people/medyk3D/sounds/616088/) |
+| wooden_toy | ------ | ------ | [-------](https://freesound.org/people/itinerantmonk108/sounds/557272/) |
+| rocking_horse | ------ | ------ | [-------](https://freesound.org/people/rsellick/sounds/545551/) |
+| swing_chain | ------ | ------ | [-------](https://freesound.org/people/bajko/sounds/387896/) |
+| mus_music_box | ------ | ------ | [-------](https://freesound.org/people/f-r-a-g-i-l-e/sounds/613089/) |
+| mus_lullaby_hum | ------ | ------ | [-------](https://freesound.org/people/AlucardsBride/sounds/193938/) |
+| mus_drone_low | ------ | ------ | [-------](https://freesound.org/people/kkenny101/sounds/864671/) |
+| mus_stinger_1 | ------ | ------ | [-------](https://freesound.org/people/OverlookHotelRecords/sounds/840810/) |
+| mus_stinger_2 | ------ | ------ | [-------](https://freesound.org/people/MathewHenry/sounds/636194/) |
 | ---- | ------ | ------ | ------- |
 | ---- | ------ | ------ | ------- |
 | ---- | ------ | ------ | ------- |
