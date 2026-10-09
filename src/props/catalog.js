@@ -1,7 +1,7 @@
 // Low-poly props built in code. Each builder returns a Group with its origin
 // on the floor at the prop's centre, facing +z (its "front").
 import * as THREE from 'three';
-import { box, plane, materialFor, namePlateTexture, drawingTexture } from './parts.js';
+import { box, plane, decal, materialFor, namePlateTexture, drawingTexture } from './parts.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -21,7 +21,7 @@ function bed(t, { name, unmade = false } = {}) {
     box(t.sheet, [0.84, unmade ? 0.1 : 0.05, unmade ? 1.1 : 1.4], [unmade ? 0.06 : 0, 0.48, unmade ? 0.3 : 0.2]),
     box(t.sheet, [0.5, 0.08, 0.3], [0, 0.48, -0.72]),
   ];
-  if (name) parts.push(plane(namePlateTexture(name), [0.3, 0.075], [0, 0.55, 0.97]));
+  if (name) parts.push(decal(namePlateTexture(name), [0.3, 0.075], [0, 0.55, 0.97]));
   return group(...parts);
 }
 
@@ -62,11 +62,11 @@ function cubbies(t) {
 
 // Child's drawing pinned flat to a wall (place with its back to the wall).
 function drawing(t, { kind = 'house' } = {}) {
-  return group(plane(drawingTexture(kind), [0.4, 0.4], [0, 1.2, 0.01]));
+  return group(decal(drawingTexture(kind), [0.4, 0.4], [0, 1.2, 0.03]));
 }
 
 function windowFrame(t) {
-  return group(plane(t.windowPane, [1, 1.3], [0, 1.6, 0.01]));
+  return group(decal(t.windowPane, [1, 1.3], [0, 1.6, 0.03]));
 }
 
 // Ceiling fluorescent tube (glowing, unlit material) at the given height.

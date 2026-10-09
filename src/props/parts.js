@@ -18,6 +18,14 @@ export function box(texture, [w, h, d], [x, y, z] = [0, 0, 0], options) {
   return mesh;
 }
 
+// Flat things on walls (drawings, windows, name plates) win the depth test
+// against the wall behind them, so they never flicker at a distance.
+const DECAL = { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 };
+
+export function decal(texture, [w, h], [x, y, z], options = {}) {
+  return plane(texture, [w, h], [x, y, z], { ...DECAL, ...options });
+}
+
 export function plane(texture, [w, h], [x, y, z] = [0, 0, 0], options) {
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), materialFor(texture, options));
   mesh.position.set(x, y, z);

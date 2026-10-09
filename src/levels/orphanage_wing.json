@@ -627,8 +627,8 @@
   {
    "type": "drawing",
    "at": [
-    12.99,
-    6.0
+    13,
+    6
    ],
    "rotation": 90,
    "options": {
@@ -638,7 +638,7 @@
   {
    "type": "drawing",
    "at": [
-    19.01,
+    19,
     5.4
    ],
    "rotation": -90,
@@ -675,7 +675,7 @@
    "type": "drawing",
    "at": [
     29.8,
-    3.01
+    3
    ],
    "options": {
     "kind": "horse"
@@ -732,7 +732,7 @@
    "type": "drawing",
    "at": [
     3.6,
-    9.01
+    9
    ],
    "options": {
     "kind": "house"

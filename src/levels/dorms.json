@@ -250,7 +250,7 @@
     {
       "type": "drawing",
       "at": [
-        0.99,
+        1,
         7.4
       ],
       "rotation": 90,
@@ -261,7 +261,7 @@
     {
       "type": "drawing",
       "at": [
-        8.01,
+        8,
         5.1
       ],
       "rotation": -90,
