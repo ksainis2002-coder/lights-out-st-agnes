@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.11 — Sound batch 3: ghost children (laughs, giggle, running, whispers), dorm toys, rocking horse, swing, music box, lullaby, drone, stingers (21 clips; music in stereo). Credits added; licences and one link to confirm.
 - 0.1.10 — Handoff note: sound progress and the sound hand-over routine.
 - 0.1.9 — Owner confirmed the building hum is CC0.
 - 0.1.8 — Building hum ambience as a seamless 30 s loop; credit added (licence to confirm).

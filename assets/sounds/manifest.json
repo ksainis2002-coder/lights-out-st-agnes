@@ -1,5 +1,5 @@
 {
-  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac).",
+  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d).",
   "sounds": {
     "step_tile": {
       "mode": "split",
@@ -140,6 +140,96 @@
       "from": "amb_building_hum.wav",
       "maxLength": 60,
       "crossfade": 4
+    },
+    "child_laugh_far": {
+      "mode": "split",
+      "from": [
+        "child_laugh_far (×1).wav",
+        "child_laugh_far (×2).mp3"
+      ],
+      "take": [
+        2,
+        1
+      ],
+      "maxLength": 3.5,
+      "minGap": 2.5,
+      "fade": 0.4
+    },
+    "giggle_close": {
+      "mode": "whole",
+      "from": "child giggle.wav",
+      "maxLength": 3
+    },
+    "child_footsteps_run": {
+      "mode": "whole",
+      "from": "child_footsteps_run.wav",
+      "maxLength": 8,
+      "fade": 1
+    },
+    "whisper": {
+      "mode": "split",
+      "from": [
+        "whisper (×1).wav",
+        "whisper (×2).wav",
+        "whisper (×3).wav"
+      ],
+      "take": [
+        3,
+        2,
+        1
+      ],
+      "maxLength": 4,
+      "minGap": 1.5,
+      "fade": 0.4
+    },
+    "wooden_toy": {
+      "mode": "split",
+      "from": "wooden_toy.wav",
+      "take": 3,
+      "maxLength": 2,
+      "minGap": 1,
+      "fade": 0.3
+    },
+    "rocking_horse": {
+      "mode": "loop",
+      "from": "rocking_horse.wav",
+      "maxLength": 12,
+      "minLength": 4
+    },
+    "swing_chain": {
+      "mode": "loop",
+      "from": "swing_chain.wav",
+      "maxLength": 10,
+      "minLength": 3
+    },
+    "mus_music_box": {
+      "mode": "whole",
+      "from": "mus_music_box.mp3",
+      "channels": 2,
+      "fade": 1.5
+    },
+    "mus_lullaby_hum": {
+      "mode": "whole",
+      "from": "mus_lullaby_hum.wav",
+      "channels": 2,
+      "maxLength": 57,
+      "fade": 2
+    },
+    "mus_drone_low": {
+      "mode": "bed",
+      "from": "mus_drone_low.mp3",
+      "maxLength": 120,
+      "crossfade": 6
+    },
+    "mus_stinger": {
+      "mode": "whole",
+      "from": [
+        "mus_stinger_1.wav",
+        "mus_stinger_2.wav"
+      ],
+      "channels": 2,
+      "maxLength": 17,
+      "fade": 1
     }
   }
 }

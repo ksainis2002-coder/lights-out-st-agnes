@@ -1,5 +1,6 @@
 // Converts the owner's downloaded sounds (assets/sounds/incoming) into game
-// clips (assets/sounds/<id>.ogg, mono 44.1 kHz Vorbis, peak -3 dBFS),
+// clips (assets/sounds/<id>.ogg, 44.1 kHz Vorbis, peak -3 dBFS; mono unless
+// the entry sets "channels": 2, as music does),
 // following assets/sounds/manifest.json. Needs ffmpeg on PATH.
 // Usage: node tools/process-sounds.mjs
 //
@@ -106,7 +107,7 @@ function samplePeakDb(samples, from, to) {
   return 20 * Math.log10(peak + 1e-12);
 }
 
-function encode(file, samples, from, to, outName, fade) {
+function encode(file, samples, from, to, outName, fade, channels = 1) {
   const length = Math.max(0.05, to - from);
   const gain = PEAK_DB - samplePeakDb(samples, from, to);
   const fadeOut = Math.min(fade, length / 3);
@@ -118,7 +119,7 @@ function encode(file, samples, from, to, outName, fade) {
     `afade=t=out:st=${(length - fadeOut).toFixed(3)}:d=${fadeOut.toFixed(3)}`,
   ].join(',');
   const out = join(OUT_DIR, `${outName}.ogg`);
-  const result = spawnSync('ffmpeg', ['-v', 'error', '-y', '-i', file, '-af', filters, '-ac', '1', '-ar', String(RATE), '-c:a', 'libvorbis', '-q:a', '4', out]);
+  const result = spawnSync('ffmpeg', ['-v', 'error', '-y', '-i', file, '-af', filters, '-ac', String(channels), '-ar', String(RATE), '-c:a', 'libvorbis', '-q:a', '4', out]);
   if (result.status !== 0) throw new Error(`ffmpeg could not write ${out}: ${result.stderr}`);
   return { out: `${outName}.ogg`, seconds: Number(length.toFixed(2)) };
 }
@@ -184,7 +185,7 @@ function processEntry(id, entry) {
     for (const [from, to] of clipsFor(entry, file, samples, events, sourceIndex)) {
       counter += 1;
       const numbered = entry.mode === 'split' || sources.length > 1;
-      results.push({ source, ...encode(file, samples, from, to, numbered ? `${id}_${counter}` : id, entry.fade ?? 0.05) });
+      results.push({ source, ...encode(file, samples, from, to, numbered ? `${id}_${counter}` : id, entry.fade ?? 0.05, entry.channels) });
     }
   });
   return results;
