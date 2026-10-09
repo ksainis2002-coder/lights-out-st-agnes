@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.19 — All 0.2 in-game screens approved (use = click, inventory TAB, combine R, journal J, transcript T); build order written in DESIGN_0.2.md.
 - 0.1.18 — 0.2 stills approved (recorded in handoff); mockups of the in-game screens: use prompt, inventory, journal, document viewer, save at the tape recorder.
 - 0.1.17 — Owner decision: ghost children are subtitled as "a child" until the player learns their name; Tommy still approved.
 - 0.1.16 — Tommy, low-sanity and rewind stills re-rendered in the approved smaller dorm.

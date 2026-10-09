@@ -25,3 +25,22 @@ the dorm register), then "(Tommy, whispering)". Same rule for every ghost child.
 ## Mockup stills (docs/mockups/stills-0.2/, made with the real renderer: mockup.html)
 intro_wake, hub, dorm, tommy, low_sanity, rewind. Approval status is tracked in HANDOFF.md.
 Names on the dorm beds are placeholders until the content sheet is written.
+
+## In-game screens (approved 2026-10-09)
+- **Use:** left mouse click. Prompt = centre dot + one line ("CLICK Take name plate").
+- **Inventory:** TAB, 8 slots in a strip at the bottom, game keeps running; CLICK uses, R combines.
+- **Journal:** J, notebook with CLUES / DOCUMENTS / MAPS tabs; entries warp at low sanity.
+- **Documents:** the paper fills the view with a typed transcript beside it (T hides it); CLICK puts back.
+- **Saving:** at tape recorders, VCR "RECORD TO TAPE" menu with 3 tapes; REWIND in the main menu
+  uses the same tape list to load. Autosave at checkpoints is silent and separate.
+
+## Build order for 0.2
+1. Interaction (use prompt, doors) and moving between levels; wing map for the dorms (owner approves)
+2. Sounds in the game (footsteps by floor, ambience per room, music)
+3. Inventory, pickups, journal, documents (EN + EL)
+4. Tape-recorder saving, REWIND loading, checkpoint autosave
+5. Sanity: drains, screen effects, fake children, collapse → rewind
+6. Ghost children and Tommy, subtitles (name rule)
+7. The three puzzles and their rewards
+8. Intro
+9. Bot route, balance (≈45 min, 2–4 rewinds/hour), tests, release 0.2.0
