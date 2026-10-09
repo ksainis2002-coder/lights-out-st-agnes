@@ -86,4 +86,47 @@ function ghostChild(t, { opacity = 0.55 } = {}) {
   return group(gown, head, ...arms);
 }
 
-export const PROPS = { bed, table, tapeRecorder, toyHorse, cubbies, drawing, windowFrame, fluorescent, ghostChild };
+// Wooden chair; toppled lies on its back.
+function chair(t, { toppled = false } = {}) {
+  const legs = [[-0.18, -0.18], [0.18, -0.18], [-0.18, 0.18], [0.18, 0.18]].map(([x, z]) => box(t.paintedWood, [0.04, 0.45, 0.04], [x, 0, z]));
+  const c = group(...legs, box(t.paintedWood, [0.42, 0.04, 0.42], [0, 0.45, 0]), box(t.paintedWood, [0.42, 0.45, 0.04], [0, 0.49, -0.19]));
+  if (toppled) {
+    c.rotation.x = -Math.PI / 2;
+    c.position.set(0, 0.21, 0.25);
+    return group(c);
+  }
+  return c;
+}
+
+// Loose sheets of paper on the floor (letters, register pages).
+function papers(t, { count = 4 } = {}) {
+  const sheets = [];
+  for (let i = 0; i < count; i++) {
+    const sheet = plane(t.sheet, [0.21, 0.29], [((i * 37) % 7) * 0.08 - 0.25, 0.005 + i * 0.002, ((i * 53) % 5) * 0.09 - 0.2]);
+    sheet.rotation.set(-Math.PI / 2, 0, i * 1.3);
+    sheets.push(sheet);
+  }
+  return group(...sheets);
+}
+
+// Wooden toy blocks, a few stacked, a few spilled.
+function blocks(t) {
+  const spots = [[0, 0, 0], [0.09, 0, 0.02], [0.04, 0.08, 0.01], [0.3, 0, 0.2], [-0.25, 0, 0.3], [0.15, 0, -0.3]];
+  return group(...spots.map(([x, y, z], i) => {
+    const b = box(t.paintedWood, [0.08, 0.08, 0.08], [x, y, z]);
+    b.rotation.y = i * 0.7;
+    return b;
+  }));
+}
+
+// Sheet pulled off a bed, heaped on the floor.
+function sheetPile(t) {
+  const lumps = [[0, 0, 0, 0.7, 0.12, 0.5], [0.2, 0.05, 0.1, 0.4, 0.1, 0.35], [-0.25, 0, -0.1, 0.35, 0.08, 0.4]];
+  return group(...lumps.map(([x, y, z, w, h, d]) => box(t.sheet, [w, h, d], [x, y, z])));
+}
+
+export const PROPS = {
+  chair,
+  papers,
+  blocks,
+  sheetPile, bed, table, tapeRecorder, toyHorse, cubbies, drawing, windowFrame, fluorescent, ghostChild };

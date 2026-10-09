@@ -59,15 +59,15 @@ const STILLS = {
   dorm: {
     level: dorms,
     setup({ world }) {
-      aim(world.camera, [5.6, 1.6, 17.0], -14, -2);
+      aim(world.camera, [5.0, 1.6, 12.6], -12, -6);
     },
   },
   // Tommy, far away at the end of the dorm, lit only by the moonlight.
   tommy: {
     level: dorms,
     setup({ world }) {
-      addGhost(world, [7.4, 6.2], { opacity: 0.6 });
-      aim(world.camera, [7.0, 1.6, 15.5], 2, -2);
+      addGhost(world, [5.9, 3.4], { opacity: 0.6 });
+      aim(world.camera, [5.85, 1.6, 12.4], 0, -2);
     },
     ui(ctx) {
       subtitle(ctx, '(Tommy, whispering) Follow me. They put the names wrong.');
@@ -77,10 +77,10 @@ const STILLS = {
   low_sanity: {
     level: dorms,
     setup({ world, fx }) {
-      addGhost(world, [4.0, 9.5], { opacity: 0.35, rotation: 0.6 });
-      addGhost(world, [10.4, 7.0], { opacity: 0.3, rotation: -0.5 });
-      addGhost(world, [7.8, 4.6], { opacity: 0.4 });
-      aim(world.camera, [7.0, 1.55, 14.0], -6, -3, 6);
+      addGhost(world, [3.4, 8.0], { opacity: 0.35, rotation: 0.6 });
+      addGhost(world, [8.2, 6.0], { opacity: 0.3, rotation: -0.5 });
+      addGhost(world, [6.2, 3.8], { opacity: 0.4 });
+      aim(world.camera, [5.8, 1.55, 11.8], -6, -3, 6);
       Object.assign(fx, { aberration: 2, blur: 0.5, vignette: 0.6 });
     },
   },
@@ -88,7 +88,7 @@ const STILLS = {
   rewind: {
     level: dorms,
     setup({ world, fx }) {
-      aim(world.camera, [7.0, 1.2, 12.0], 20, 10, 18);
+      aim(world.camera, [5.8, 1.2, 10.0], 20, 10, 18);
       Object.assign(fx, { rewind: 1, aberration: 1.5 });
     },
     ui(ctx) {
