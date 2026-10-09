@@ -138,7 +138,8 @@ function paperSheet(t) {
 }
 
 // Wooden wall clock with a pendulum case; hangs with its back on the wall
-// (origin on the wall line, body towards +z). Hands stopped near three.
+// (origin on the wall line, body towards +z). Its hands show the player's
+// real local time (see clocks.js), which matters for the 3:00 secret room.
 function wallClock(t, { height = 1.45 } = {}) {
   const face = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.02, 10), materialFor(t.sheet, { color: '#d8d0b0' }));
   face.rotation.x = Math.PI / 2;
@@ -150,13 +151,17 @@ function wallClock(t, { height = 1.45 } = {}) {
     pivot.rotation.z = angle;
     return pivot;
   };
-  return group(
+  const hours = hand(0.07, 0);
+  const minutes = hand(0.105, 0);
+  const clock = group(
     box(t.paintedWood, [0.34, 0.62, 0.12], [0, height, 0.06], { color: '#6a4a30' }),
     box(t.paintedWood, [0.22, 0.4, 0.1], [0, height - 0.38, 0.05], { color: '#6a4a30' }),
     face,
-    hand(0.1, -Math.PI / 2),
-    hand(0.075, 0),
+    hours,
+    minutes,
   );
+  clock.userData.clockHands = { hours, minutes };
+  return clock;
 }
 
 export const PROPS = {

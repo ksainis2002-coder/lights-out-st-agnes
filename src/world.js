@@ -7,6 +7,7 @@ import { buildLevelMeshes } from './levels/build.js';
 import { createDoors } from './levels/doors.js';
 import { createFlashlight } from './player/flashlight.js';
 import { placeProps, placeLights } from './props/place.js';
+import { updateClocks } from './props/clocks.js';
 
 const FOG_COLOR = 0x06090a;
 
@@ -40,8 +41,11 @@ export function createWorld(levelData) {
     return level;
   };
 
+  world.now = () => new Date(); // replaced in tests to fix the time
+
   world.update = (dt) => {
     world.doors?.update(dt);
+    if (world.levelGroup) updateClocks(world.levelGroup, world.now());
     flashlight.update(world.level, dt);
   };
 

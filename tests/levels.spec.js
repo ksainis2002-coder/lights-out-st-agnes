@@ -24,3 +24,12 @@ for (const [file, data] of levels) {
     }
   });
 }
+
+test('wall clock hands follow the local time', async () => {
+  const { handAngles } = await import('../src/props/clocks.js');
+  const at = (h, m) => handAngles(new Date(2026, 9, 10, h, m, 0));
+  expect(at(3, 0).hours).toBeCloseTo(Math.PI / 2);
+  expect(at(3, 0).minutes).toBeCloseTo(0);
+  expect(at(15, 30).hours).toBeCloseTo((3.5 / 12) * Math.PI * 2);
+  expect(at(15, 30).minutes).toBeCloseTo(Math.PI);
+});
