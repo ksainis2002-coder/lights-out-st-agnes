@@ -50,16 +50,16 @@ generated in code and need no line unless a file is added.
 | mus_drone_low | ------ | ------ | [-------](https://freesound.org/people/kkenny101/sounds/864671/) |
 | mus_stinger_1 | ------ | ------ | [-------](https://freesound.org/people/OverlookHotelRecords/sounds/840810/) |
 | mus_stinger_2 | ------ | ------ | [-------](https://freesound.org/people/MathewHenry/sounds/636194/) |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
-| ---- | ------ | ------ | ------- |
+| vhs_rewind | ------ | ------ | [-------](https://freesound.org/people/Poulpy2.0/sounds/754845/) |
+| vhs insert | ------ | ------ | [-------](https://freesound.org/people/LukaCafuka/sounds/845461/) |
+| vhs_eject | ------ | ------ | [-------](https://freesound.org/people/telescapes/sounds/837697/) |
+| tape_hiss | ------ | ------ | [-------](https://freesound.org/people/Sassaby/sounds/264934/) |
+| tinnitus | ------ | ------ | [-------](https://freesound.org/people/SpliceSound/sounds/188201/) |
+| radio static tuning | ------ | ------ | [-------](https://freesound.org/people/quantumriver/sounds/552160/) |
+| ui_beep | ------ | ------ | [-------](https://freesound.org/people/nfrae/sounds/625805/) |
+| wake_gasp | ------ | ------ | [-------](https://freesound.org/people/ThePig01/sounds/588666/) |
+| hospital_drip | ------ | ------ | [-------](https://freesound.org/people/Ev-Dawg/sounds/337525/) |
+| fluorescent_buzz | ------ | ------ | [-------](https://freesound.org/people/kyles/sounds/637546/) |
 | ---- | ------ | ------ | ------- |
 | ---- | ------ | ------ | ------- |
 | ---- | ------ | ------ | ------- |
