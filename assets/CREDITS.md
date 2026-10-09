@@ -35,7 +35,7 @@ generated in code and need no line unless a file is added.
 | thunder_far (×2) | ------ | ------ | [-------](https://freesound.org/people/Sadiquecat/sounds/737428/) |
 | thunder_far (×3) | ------ | ------ | [-------](https://freesound.org/people/Fission9/sounds/581125/) |
 | child_laugh_far (×1) | ------ | ------ | [-------](https://freesound.org/people/kikorurelas/sounds/642516/) |
-| child_laugh_far (×2) | ------ | ------ | [-------](https://freesound.org/people/medyk3D/sounds/616088/) |
+| child_laugh_far (×2) | ------ | ------ | [-------]https://freesound.org/people/Iamgiorgio/sounds/371342/ |
 | child_laugh_far (×3) | ------ | ------ | [-------](https://freesound.org/people/medyk3D/sounds/616088/) |
 | child_footsteps_run | ------ | ------ | [-------](https://freesound.org/people/14FPanskaBubik_Lukas/sounds/418545/) |
 | whisper (×3) | ------ | ------ | [-------](https://freesound.org/people/RaspberryTickle/sounds/234044/) |
