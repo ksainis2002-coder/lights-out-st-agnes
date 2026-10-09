@@ -9,6 +9,7 @@ import { PROPS } from '../props/catalog.js';
 import { osdText, wrapText, COLORS } from '../ui/osd.js';
 import patientRoom from '../levels/patient_room.json';
 import dorms from '../levels/dorms.json';
+import * as screens from './uiStills.js';
 
 const W = 480;
 const H = 270;
@@ -97,6 +98,14 @@ const STILLS = {
       subtitle(ctx, '(Tommy, whispering) Don’t stay in the dark so long. They get in.');
     },
   },
+  // In-game screens (second set), all over the same dorm view.
+  ...Object.fromEntries(['prompt', 'inventory', 'journal', 'documentView', 'save'].map((name) => [`ui_${name}`, {
+    level: dorms,
+    setup({ world }) {
+      aim(world.camera, name === 'prompt' ? [6.8, 1.5, 8.6] : [5.0, 1.6, 12.6], name === 'prompt' ? -55 : -12, name === 'prompt' ? -32 : -6);
+    },
+    ui: screens[name],
+  }])),
 };
 
 async function render() {

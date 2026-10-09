@@ -3,7 +3,7 @@
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
-const ALL = ['intro_wake', 'hub', 'dorm', 'tommy', 'low_sanity', 'rewind'];
+const ALL = ['intro_wake', 'hub', 'dorm', 'tommy', 'low_sanity', 'rewind', 'ui_prompt', 'ui_inventory', 'ui_journal', 'ui_documentView', 'ui_save'];
 const names = process.argv.slice(2).length ? process.argv.slice(2) : ALL;
 const out = new URL('../docs/mockups/stills-0.2/', import.meta.url).pathname;
 mkdirSync(out, { recursive: true });

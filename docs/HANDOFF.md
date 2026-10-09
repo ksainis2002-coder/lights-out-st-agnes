@@ -57,6 +57,10 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
 - github.io is blocked from the session network; the owner checks the live site.
 
 ## Next: 0.2 vertical slice
+**0.2 stills approved (2026-10-09):** intro_wake, hub, dorm (revised: smaller + messier), tommy,
+low_sanity, rewind — see `docs/DESIGN_0.2.md` for the design picks. Next: UI stills (prompt,
+inventory, journal, document viewer, save at tape recorder), then build.
+
 All sounds in `docs/SOUNDS_0.2.md` are in (58 clips in `assets/sounds/`, all credited and
 CC0-confirmed by the owner). Next: owner says "start 0.2", then mockup stills for the intro,
 patient room hub and dorms before building them. Sound routine: owner pushes files to
