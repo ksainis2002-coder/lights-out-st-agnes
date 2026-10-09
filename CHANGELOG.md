@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.27 — Owner playtest: a wooden wall clock in Sister's office; its ticking now comes from the clock (positional sound emitters in level data) instead of filling the whole room.
 - 0.1.26 — Fix: a key pressed to close a menu (J for the journal) no longer also acts in the game on the next frame, which could reopen the journal; this also made a journal test flaky.
 - 0.1.25 — Fix (owner playtest): drawings, windows and name plates no longer flicker at a distance (drawn on top of their wall) and no longer vanish up close (some were placed just behind the wall); a test checks every wall decal sits on its wall.
 - 0.1.24 — Build step 3: inventory (TAB strip, 8 slots, wheel/1–8 select, use items on things), pickups (office key in the washroom drain, linen key on Sister's desk), locked doors open with the right key, documents with transcript (Sister M.'s night-duty note), journal (J) with clues written automatically, message lines; all text in English and Greek.

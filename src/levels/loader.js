@@ -71,6 +71,7 @@ export function parseLevel(data) {
     props: data.props ?? [],
     lights: data.lights ?? [],
     ambience: data.ambience ?? [],
+    emitters: data.emitters ?? [],
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
   };
 }

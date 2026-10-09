@@ -228,10 +228,6 @@
     {
      "name": "amb_building_hum",
      "volume": 0.3
-    },
-    {
-     "name": "amb_clock",
-     "volume": 0.5
     }
    ]
   }
@@ -737,6 +733,14 @@
    "options": {
     "kind": "house"
    }
+  },
+  {
+   "type": "wallClock",
+   "at": [
+    15.0,
+    15.6
+   ],
+   "rotation": 90
   }
  ],
  "lights": [
@@ -868,6 +872,18 @@
    ],
    "y": 0.765,
    "rotation": 15
+  }
+ ],
+ "emitters": [
+  {
+   "sound": "amb_clock",
+   "at": [
+    15.15,
+    15.6
+   ],
+   "height": 1.85,
+   "volume": 0.9,
+   "distance": 1.5
   }
  ]
 }

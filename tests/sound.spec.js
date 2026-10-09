@@ -45,3 +45,18 @@ test('doors and the flashlight make sounds; rooms have ambience', async ({ page 
   expect(result.beds).toContain('amb_rain_inside');
   expect(result.beds).toContain('amb_wind_corridor');
 });
+
+test('the office clock ticks from the clock on the wall, not everywhere', async ({ page }) => {
+  const result = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.loadLevel('orphanage_wing', 'landing');
+    const c = game.world.level.cellCenter(17, 15);
+    Object.assign(game.player.state.position, { x: c.x, z: c.z });
+    game.advance(0.2);
+    const hasClockProp = game.world.level.props.some((p) => p.type === 'wallClock');
+    return { played: game.sfx.played(), beds: game.sfx.beds(), hasClockProp };
+  });
+  expect(result.hasClockProp).toBe(true);
+  expect(result.played.amb_clock).toBeGreaterThanOrEqual(1);
+  expect(result.beds).not.toContain('amb_clock');
+});

@@ -12,11 +12,11 @@ export async function loadSound(ctx, path) {
   return cache.get(path);
 }
 
-function createPanner(ctx, position) {
+function createPanner(ctx, position, refDistance = 1) {
   const panner = ctx.createPanner();
   panner.panningModel = 'HRTF';
   panner.distanceModel = 'inverse';
-  panner.refDistance = 1;
+  panner.refDistance = refDistance;
   panner.rolloffFactor = 1.2;
   panner.maxDistance = 30;
   panner.positionX.value = position.x;
@@ -26,7 +26,7 @@ function createPanner(ctx, position) {
 }
 
 // Plays a decoded buffer into a mixer bus. Returns the source node.
-export function playSound(mixer, buffer, { bus = 'effects', position = null, volume = 1, pitchJitter = 0.05, volumeJitter = 0.1, loop = false } = {}) {
+export function playSound(mixer, buffer, { bus = 'effects', position = null, volume = 1, pitchJitter = 0.05, volumeJitter = 0.1, loop = false, refDistance } = {}) {
   const ctx = mixer.context();
   if (!ctx || !buffer) return null;
   const source = ctx.createBufferSource();
@@ -36,7 +36,7 @@ export function playSound(mixer, buffer, { bus = 'effects', position = null, vol
   const gain = ctx.createGain();
   gain.gain.value = volume * (1 - Math.random() * volumeJitter);
   let node = source.connect(gain);
-  if (position) node = node.connect(createPanner(ctx, position));
+  if (position) node = node.connect(createPanner(ctx, position, refDistance));
   node.connect(mixer.bus(bus));
   source.start();
   return source;

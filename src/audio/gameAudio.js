@@ -21,11 +21,11 @@ export function createGameAudio(game) {
   let thunderIn = 30;
   const played = {}; // name → count, for the debug overlay and tests
 
-  function play(name, { position = null, volume = 1, bus = 'effects', loop = false, pitchJitter } = {}) {
+  function play(name, { position = null, volume = 1, bus = 'effects', loop = false, pitchJitter, refDistance } = {}) {
     if (!ready) return null;
     played[name] = (played[name] ?? 0) + 1;
     const buffer = library.pick(name);
-    return buffer ? playSound(mixer, buffer, { position, volume, bus, loop, pitchJitter }) : null;
+    return buffer ? playSound(mixer, buffer, { position, volume, bus, loop, pitchJitter, refDistance }) : null;
   }
 
   async function start() {
@@ -33,6 +33,7 @@ export function createGameAudio(game) {
     await library.preload();
     ready = true;
     lastRoom = undefined; // start the current room's ambience
+    startEmitters();
   }
 
   function doorPosition(door) {
@@ -47,9 +48,26 @@ export function createGameAudio(game) {
   events.on('ui.move', () => play('ui_beep', { volume: 0.5, bus: 'effects', pitchJitter: 0 }));
   events.on('game.play', () => play('vhs_insert', { volume: 0.8, pitchJitter: 0 }));
   events.on('level.leaving', () => play('door_use', { volume: 0.9 }));
+  // Positional loops placed in the level (the office clock): "emitters".
+  let emitterSources = [];
+  function startEmitters() {
+    emitterSources.forEach((source) => source.stop());
+    const { level } = game.world;
+    emitterSources = level.emitters
+      .map(({ sound, at, height = 1.5, volume = 1, distance = 1 }) => play(sound, {
+        position: { x: at[0] * level.cellSize, y: height, z: at[1] * level.cellSize },
+        volume,
+        loop: true,
+        pitchJitter: 0,
+        refDistance: distance,
+      }))
+      .filter(Boolean);
+  }
+
   events.on('level.loaded', () => {
     lastRoom = undefined;
     lastPosition = null;
+    startEmitters();
   });
 
   function floorUnderPlayer() {
