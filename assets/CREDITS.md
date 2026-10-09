@@ -6,7 +6,7 @@ generated in code and need no line unless a file is added.
 
 Files in `assets/sounds/` are cut and converted from the owner's downloads by
 `tools/process-sounds.mjs` (see `assets/sounds/manifest.json`). Every licence below was
-checked by the owner on its Freesound page (batches 1–2: 2026-10-08). A licence marked
+checked by the owner on its Freesound page (batches 1–3: 2026-10-08/09). A licence marked
 "CC0 (to confirm)" has not been checked yet and must not ship in a release.
 
 | File | Original download | Source | Author | Licence |
@@ -38,18 +38,18 @@ checked by the owner on its Freesound page (batches 1–2: 2026-10-08). A licenc
 | sounds/thunder_far_2.ogg | thunder_far (×2).wav | [freesound 737428](https://freesound.org/people/Sadiquecat/sounds/737428/) | Sadiquecat | CC0 |
 | sounds/thunder_far_3.ogg | thunder_far (×3).wav | [freesound 581125](https://freesound.org/people/Fission9/sounds/581125/) | Fission9 | CC0 |
 | sounds/amb_building_hum.ogg | amb_building_hum.wav | [freesound 401972](https://freesound.org/people/mwcomposer/sounds/401972/) | mwcomposer | CC0 |
-| sounds/child_laugh_far_1–2.ogg | child_laugh_far (×1).wav | [freesound 642516](https://freesound.org/people/kikorurelas/sounds/642516/) | kikorurelas | CC0 (to confirm) |
-| sounds/child_laugh_far_3.ogg | child_laugh_far (×2).mp3 | link pending | pending | CC0 (to confirm) |
-| sounds/giggle_close.ogg | child giggle.wav | [freesound 616088](https://freesound.org/people/medyk3D/sounds/616088/) | medyk3D | CC0 (to confirm) |
-| sounds/child_footsteps_run.ogg | child_footsteps_run.wav | [freesound 418545](https://freesound.org/people/14FPanskaBubik_Lukas/sounds/418545/) | 14FPanskaBubik_Lukas | CC0 (to confirm) |
-| sounds/whisper_1–3.ogg | whisper (×1).wav | [freesound 316797](https://freesound.org/people/dimbark1/sounds/316797/) | dimbark1 | CC0 (to confirm) |
-| sounds/whisper_4–5.ogg | whisper (×2).wav | [freesound 193818](https://freesound.org/people/geoneo0/sounds/193818/) | geoneo0 | CC0 (to confirm) |
-| sounds/whisper_6.ogg | whisper (×3).wav | [freesound 234044](https://freesound.org/people/RaspberryTickle/sounds/234044/) | RaspberryTickle | CC0 (to confirm) |
-| sounds/wooden_toy_1–3.ogg | wooden_toy.wav | [freesound 557272](https://freesound.org/people/itinerantmonk108/sounds/557272/) | itinerantmonk108 | CC0 (to confirm) |
-| sounds/rocking_horse.ogg | rocking_horse.wav | [freesound 545551](https://freesound.org/people/rsellick/sounds/545551/) | rsellick | CC0 (to confirm) |
-| sounds/swing_chain.ogg | swing_chain.wav | [freesound 387896](https://freesound.org/people/bajko/sounds/387896/) | bajko | CC0 (to confirm) |
-| sounds/mus_music_box.ogg | mus_music_box.mp3 | [freesound 613089](https://freesound.org/people/f-r-a-g-i-l-e/sounds/613089/) | f-r-a-g-i-l-e | CC0 (to confirm) |
-| sounds/mus_lullaby_hum.ogg | mus_lullaby_hum.wav | [freesound 193938](https://freesound.org/people/AlucardsBride/sounds/193938/) | AlucardsBride | CC0 (to confirm) |
-| sounds/mus_drone_low.ogg | mus_drone_low.mp3 | [freesound 864671](https://freesound.org/people/kkenny101/sounds/864671/) | kkenny101 | CC0 (to confirm) |
-| sounds/mus_stinger_1.ogg | mus_stinger_1.wav | [freesound 840810](https://freesound.org/people/OverlookHotelRecords/sounds/840810/) | OverlookHotelRecords | CC0 (to confirm) |
-| sounds/mus_stinger_2.ogg | mus_stinger_2.wav | [freesound 636194](https://freesound.org/people/MathewHenry/sounds/636194/) | MathewHenry | CC0 (to confirm) |
+| sounds/child_laugh_far_1–2.ogg | child_laugh_far (×1).wav | [freesound 642516](https://freesound.org/people/kikorurelas/sounds/642516/) | kikorurelas | CC0 |
+| sounds/child_laugh_far_3.ogg | child_laugh_far (×2).mp3 | [freesound 371342](https://freesound.org/people/Iamgiorgio/sounds/371342/) | Iamgiorgio | CC0 |
+| sounds/giggle_close.ogg | child giggle.wav | [freesound 616088](https://freesound.org/people/medyk3D/sounds/616088/) | medyk3D | CC0 |
+| sounds/child_footsteps_run.ogg | child_footsteps_run.wav | [freesound 418545](https://freesound.org/people/14FPanskaBubik_Lukas/sounds/418545/) | 14FPanskaBubik_Lukas | CC0 |
+| sounds/whisper_1–3.ogg | whisper (×1).wav | [freesound 316797](https://freesound.org/people/dimbark1/sounds/316797/) | dimbark1 | CC0 |
+| sounds/whisper_4–5.ogg | whisper (×2).wav | [freesound 193818](https://freesound.org/people/geoneo0/sounds/193818/) | geoneo0 | CC0 |
+| sounds/whisper_6.ogg | whisper (×3).wav | [freesound 234044](https://freesound.org/people/RaspberryTickle/sounds/234044/) | RaspberryTickle | CC0 |
+| sounds/wooden_toy_1–3.ogg | wooden_toy.wav | [freesound 557272](https://freesound.org/people/itinerantmonk108/sounds/557272/) | itinerantmonk108 | CC0 |
+| sounds/rocking_horse.ogg | rocking_horse.wav | [freesound 545551](https://freesound.org/people/rsellick/sounds/545551/) | rsellick | CC0 |
+| sounds/swing_chain.ogg | swing_chain.wav | [freesound 387896](https://freesound.org/people/bajko/sounds/387896/) | bajko | CC0 |
+| sounds/mus_music_box.ogg | mus_music_box.mp3 | [freesound 613089](https://freesound.org/people/f-r-a-g-i-l-e/sounds/613089/) | f-r-a-g-i-l-e | CC0 |
+| sounds/mus_lullaby_hum.ogg | mus_lullaby_hum.wav | [freesound 193938](https://freesound.org/people/AlucardsBride/sounds/193938/) | AlucardsBride | CC0 |
+| sounds/mus_drone_low.ogg | mus_drone_low.mp3 | [freesound 864671](https://freesound.org/people/kkenny101/sounds/864671/) | kkenny101 | CC0 |
+| sounds/mus_stinger_1.ogg | mus_stinger_1.wav | [freesound 840810](https://freesound.org/people/OverlookHotelRecords/sounds/840810/) | OverlookHotelRecords | CC0 |
+| sounds/mus_stinger_2.ogg | mus_stinger_2.wav | [freesound 636194](https://freesound.org/people/MathewHenry/sounds/636194/) | MathewHenry | CC0 |

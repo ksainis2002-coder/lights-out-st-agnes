@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.12 — Batch-3 credits complete: fixed laugh link, owner confirmed all batch-3 sounds are CC0.
 - 0.1.11 — Sound batch 3: ghost children (laughs, giggle, running, whispers), dorm toys, rocking horse, swing, music box, lullaby, drone, stingers (21 clips; music in stereo). Credits added; licences and one link to confirm.
 - 0.1.10 — Handoff note: sound progress and the sound hand-over routine.
 - 0.1.9 — Owner confirmed the building hum is CC0.
