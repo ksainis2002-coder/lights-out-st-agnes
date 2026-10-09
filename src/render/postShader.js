@@ -3,7 +3,7 @@
 // menu dimming, chroma bleed, grain, scanlines, a tracking band, vignette.
 // 0.2 effects (all 0 = off): uBlur (waking, sanity), uAberration (sanity,
 // in scene pixels), uEyelid (0 open … 1 closed), uVignette (extra darkening),
-// uRewind (VHS rewind tearing).
+// uRewind (VHS rewind tearing), uFade (0 … 1 = black, for level changes).
 import * as THREE from 'three';
 
 const vertexShader = /* glsl */ `
@@ -32,6 +32,7 @@ uniform float uAberration;
 uniform float uEyelid;
 uniform float uVignette;
 uniform float uRewind;
+uniform float uFade;
 varying vec2 vUv;
 
 float bayer2(vec2 a) { a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0.75); }
@@ -92,7 +93,7 @@ void main() {
     float lid = smoothstep(open * 0.55, open * 0.55 + 0.12, abs(v.y) + v.x * v.x * 0.6);
     color *= 1.0 - lid;
   }
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(color * (1.0 - uFade), 1.0);
 }
 `;
 
@@ -120,6 +121,7 @@ export function createPostMaterial(sceneTexture, uiTexture) {
       uEyelid: { value: 0 },
       uVignette: { value: 0 },
       uRewind: { value: 0 },
+      uFade: { value: 0 },
     },
   });
 }

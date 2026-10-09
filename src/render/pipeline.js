@@ -76,7 +76,7 @@ export function createPipeline(canvas, uiCanvas) {
   }
 
   // Screen effects for the current frame (sanity, waking, rewind).
-  const fx = { blur: 0, aberration: 0, eyelid: 0, vignette: 0, rewind: 0 };
+  const fx = { blur: 0, aberration: 0, eyelid: 0, vignette: 0, rewind: 0, fade: 0 };
 
   function applyEffects() {
     const u = post.uniforms;
@@ -86,6 +86,7 @@ export function createPipeline(canvas, uiCanvas) {
     u.uEyelid.value = fx.eyelid;
     u.uVignette.value = fx.vignette;
     u.uRewind.value = calm || effects.flickerOff ? fx.rewind * 0.25 : fx.rewind;
+    u.uFade.value = fx.fade;
   }
 
   function render(scene, camera, { look = 'game', time = 0, uiDirty = false } = {}) {

@@ -74,3 +74,34 @@ test('the use prompt is drawn while looking at a door', async ({ page }) => {
   });
   expect(label).toBe('Open');
 });
+
+test('travel fades to black and back instead of jumping', async ({ page }) => {
+  const fades = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    const values = [];
+    game.travel('orphanage_wing', 'landing');
+    for (let i = 0; i < 70; i++) {
+      game.advance(1 / 60);
+      values.push(game.pipeline.fx.fade);
+    }
+    return { peak: Math.max(...values), end: values.at(-1), level: game.world.level.id };
+  });
+  expect(fades.peak).toBeGreaterThan(0.95);
+  expect(fades.end).toBe(0);
+  expect(fades.level).toBe('orphanage_wing');
+});
+
+test('the flashlight dims close to a wall so it does not wash out', async ({ page }) => {
+  const power = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.loadLevel('orphanage_wing');
+    const at = (dz) => {
+      Object.assign(game.player.state.position, { x: 6 * 1.3 + 0.65, z: 10 * 1.3 + dz });
+      game.player.state.yaw = 0;
+      game.advance(1);
+      return game.world.flashlight.light.intensity;
+    };
+    return { near: at(0.45), far: at(2.4) };
+  });
+  expect(power.near).toBeLessThan(power.far * 0.3);
+});

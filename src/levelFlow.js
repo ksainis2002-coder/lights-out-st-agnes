@@ -19,9 +19,31 @@ export function setupLevelFlow(game) {
     return level;
   };
 
+  // Travel fades to black, swaps the level, then fades back in. While it
+  // runs the player cannot move (game.isTravelling()).
+  const FADE_OUT = 0.35;
+  const FADE_IN = 0.6;
+  let trip = null;
+
   game.travel = (id, spawnName) => {
-    game.loadLevel(id, spawnName);
-    game.events.emit('level.travelled', id);
+    if (trip) return;
+    trip = { id, spawnName, t: 0, loaded: false };
+    game.events.emit('level.leaving', id);
+  };
+
+  game.isTravelling = () => trip !== null;
+
+  game.updateTravel = (dt) => {
+    if (!trip) return;
+    trip.t += dt;
+    if (!trip.loaded && trip.t >= FADE_OUT) {
+      game.loadLevel(trip.id, trip.spawnName);
+      trip.loaded = true;
+      game.events.emit('level.travelled', trip.id);
+    }
+    const fade = trip.loaded ? 1 - (trip.t - FADE_OUT) / FADE_IN : trip.t / FADE_OUT;
+    game.pipeline.fx.fade = Math.max(0, Math.min(1, fade));
+    if (trip.loaded && trip.t >= FADE_OUT + FADE_IN) trip = null;
   };
 
   usable = doorInteractables(game); // the level the world started with

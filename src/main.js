@@ -99,6 +99,11 @@ function simulate(game, dt) {
   const { player, input, world, settings, triggers } = game;
   if (game.mode !== 'playing') return;
   game.session.playTime += dt;
+  game.updateTravel(dt);
+  if (game.isTravelling()) {
+    world.update(dt);
+    return;
+  }
   player.update(dt, input, settings);
   if (input.wasPressed('flashlight')) world.flashlight.toggle();
   triggers.update({ ...player.state.position, y: 0.5 });

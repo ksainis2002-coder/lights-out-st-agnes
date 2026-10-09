@@ -40,7 +40,10 @@ export function createWorld(levelData) {
     return level;
   };
 
-  world.update = (dt) => world.doors?.update(dt);
+  world.update = (dt) => {
+    world.doors?.update(dt);
+    flashlight.update(world.level, dt);
+  };
 
   world.loadLevel(levelData);
   return world;
