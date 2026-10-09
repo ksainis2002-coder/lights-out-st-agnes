@@ -16,6 +16,7 @@ import { createEvents } from './events.js';
 import { createInteraction } from './player/interact.js';
 import { setupLevelFlow } from './levelFlow.js';
 import { drawHud } from './ui/hud.js';
+import { createGameAudio } from './audio/gameAudio.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -42,6 +43,7 @@ function createGame() {
   game.ui = createUi(game, canvas, uiCanvas);
   game.ui.setHud((ctx) => game.mode === 'playing' && drawHud(ctx, game));
   setupLevelFlow(game);
+  game.sfx = createGameAudio(game);
   game.debug = createDebugOverlay(game);
   return game;
 }
@@ -52,6 +54,7 @@ function setupModes(game) {
   game.play = () => {
     game.mode = 'playing';
     game.session.active = true;
+    game.events.emit('game.play');
     ui.close();
     input.setEnabled(true);
     input.lockPointer();
@@ -65,7 +68,7 @@ function setupModes(game) {
     if (document.pointerLockElement) document.exitPointerLock();
   };
 
-  const startAudio = () => game.mixer.start();
+  const startAudio = () => game.sfx.start();
   window.addEventListener('pointerdown', startAudio, { once: true });
   window.addEventListener('keydown', startAudio, { once: true });
 
@@ -105,12 +108,16 @@ function simulate(game, dt) {
     return;
   }
   player.update(dt, input, settings);
-  if (input.wasPressed('flashlight')) world.flashlight.toggle();
+  if (input.wasPressed('flashlight')) {
+    world.flashlight.toggle();
+    game.events.emit('flashlight.toggled', world.flashlight.isOn());
+  }
   triggers.update({ ...player.state.position, y: 0.5 });
   player.applyToCamera(world.camera, settings);
   world.camera.updateMatrixWorld();
   game.interaction.update(world.camera, input);
   world.update(dt);
+  game.sfx.update(dt);
 }
 
 function tick(game, dt) {
@@ -121,6 +128,7 @@ function tick(game, dt) {
   player.applyToCamera(world.camera, settings);
   world.camera.updateMatrixWorld();
   updateListener(game.mixer, world.camera);
+  if (game.mode !== 'playing') game.sfx.update(dt); // ambience keeps fading in menus
   const uiDirty = game.ui.update();
   game.pipeline.render(world.scene, world.camera, { look: game.ui.look(), time: game.time, uiDirty });
   game.debug.update(dt);

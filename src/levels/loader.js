@@ -70,6 +70,7 @@ export function parseLevel(data) {
     spawns: { default: spawn, ...spawns },
     props: data.props ?? [],
     lights: data.lights ?? [],
+    ambience: data.ambience ?? [],
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
   };
 }

@@ -119,5 +119,15 @@
         "prompt": "prompt.leave"
       }
     }
+  ],
+  "ambience": [
+    {
+      "name": "fluorescent_buzz",
+      "volume": 0.3
+    },
+    {
+      "name": "amb_building_hum",
+      "volume": 0.45
+    }
   ]
 }

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.23 — Build step 2: sounds in the game. Footstep every stride (wood/tile, quieter crouching, louder running), door open/close/locked sounds, flashlight click, menu blip, tape-insert on PLAY, room ambience beds crossfading between rooms (rain, hum, wind, pipes, clock, low drone in the dorms), distant thunder.
 - 0.1.22 — Owner playtest fixes: travelling between levels fades to black and back instead of jumping; the flashlight dims near walls and the floor so close surfaces stay readable.
 - 0.1.21 — Build step 1: use prompt + left-click use, doors that swing open/closed (locked and hidden doors), travel between the patient room and the new orphanage wing level (9 rooms from the approved plan), per-room textures, use/inventory/combine key bindings.
 - 0.1.20 — Draft plan of wing 1 (orphanage dorms): rooms, locked doors and the puzzle route, for owner approval.

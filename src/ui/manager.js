@@ -51,7 +51,9 @@ export function createUi(game, canvas, uiCanvas) {
 
   window.addEventListener('keydown', (event) => {
     if (!screen || event.code === 'F3') return;
-    if (screen.key(event.code, event)) event.preventDefault();
+    if (!screen.key(event.code, event)) return;
+    event.preventDefault();
+    if (event.code.startsWith('Arrow') || event.code === 'Tab') game.events.emit('ui.move');
   });
   canvas.addEventListener('mousemove', (event) => hitAt(toUi(event))?.hover?.());
   canvas.addEventListener('click', (event) => {

@@ -61,7 +61,21 @@
     12
    ],
    "wall": "plaster",
-   "floor": "wood"
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_wind_corridor",
+     "volume": 0.2
+    }
+   ]
   },
   {
    "id": "corridor",
@@ -72,7 +86,21 @@
     11
    ],
    "wall": "plaster",
-   "floor": "floor"
+   "floor": "floor",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_wind_corridor",
+     "volume": 0.3
+    }
+   ]
   },
   {
    "id": "east_dorm",
@@ -83,7 +111,21 @@
     8
    ],
    "wall": "wallpaper",
-   "floor": "wood"
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "mus_drone_low",
+     "volume": 0.35
+    }
+   ]
   },
   {
    "id": "playroom",
@@ -105,7 +147,21 @@
     8
    ],
    "wall": "wallpaper",
-   "floor": "wood"
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "mus_drone_low",
+     "volume": 0.35
+    }
+   ]
   },
   {
    "id": "quiet_room",
@@ -127,7 +183,21 @@
     17
    ],
    "wall": "tile",
-   "floor": "floor"
+   "floor": "floor",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_pipes",
+     "volume": 0.55
+    }
+   ]
   },
   {
    "id": "linen",
@@ -149,7 +219,21 @@
     18
    ],
    "wall": "wallpaper",
-   "floor": "wood"
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_clock",
+     "volume": 0.5
+    }
+   ]
   }
  ],
  "doors": [
@@ -743,6 +827,16 @@
    "intensity": 1.2,
    "distance": 5,
    "type": "point"
+  }
+ ],
+ "ambience": [
+  {
+   "name": "amb_rain_inside",
+   "volume": 0.4
+  },
+  {
+   "name": "amb_building_hum",
+   "volume": 0.3
   }
  ]
 }
