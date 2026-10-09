@@ -75,6 +75,19 @@ export function createPipeline(canvas, uiCanvas) {
     u.uSaturation.value = look.saturation;
   }
 
+  // Screen effects for the current frame (sanity, waking, rewind).
+  const fx = { blur: 0, aberration: 0, eyelid: 0, vignette: 0, rewind: 0 };
+
+  function applyEffects() {
+    const u = post.uniforms;
+    const calm = effects.reduceEffects;
+    u.uBlur.value = fx.blur;
+    u.uAberration.value = calm ? fx.aberration * 0.3 : fx.aberration;
+    u.uEyelid.value = fx.eyelid;
+    u.uVignette.value = fx.vignette;
+    u.uRewind.value = calm || effects.flickerOff ? fx.rewind * 0.25 : fx.rewind;
+  }
+
   function render(scene, camera, { look = 'game', time = 0, uiDirty = false } = {}) {
     renderer.setRenderTarget(target);
     renderer.render(scene, camera);
@@ -82,6 +95,7 @@ export function createPipeline(canvas, uiCanvas) {
     stats.triangles = renderer.info.render.triangles;
     if (uiDirty) uiTexture.needsUpdate = true;
     applyLook(look, time);
+    applyEffects();
     renderer.setRenderTarget(null);
     renderer.render(postScene, postCamera);
   }
@@ -98,5 +112,5 @@ export function createPipeline(canvas, uiCanvas) {
   resize();
   window.addEventListener('resize', resize);
 
-  return { renderer, render, resize, effects, stats, frame, sceneBrightness, aspect: SCENE_WIDTH / SCENE_HEIGHT };
+  return { renderer, render, resize, effects, fx, stats, frame, sceneBrightness, aspect: SCENE_WIDTH / SCENE_HEIGHT };
 }

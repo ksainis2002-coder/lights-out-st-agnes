@@ -1,0 +1,268 @@
+{
+  "id": "dorms",
+  "wing": "orphanage",
+  "cellSize": 1.5,
+  "wallHeight": 3.0,
+  "floorTexture": "wood",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "wallpaper",
+    "2": "door"
+  },
+  "map": [
+    "1111111111",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1111211111"
+  ],
+  "spawn": {
+    "cell": [
+      5.0,
+      12.5
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "dorm_east",
+      "cells": [
+        1,
+        1,
+        8,
+        12
+      ]
+    }
+  ],
+  "triggers": [],
+  "props": [
+    {
+      "type": "bed",
+      "at": [
+        1.67,
+        2.0
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "TOMMY",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        8.33,
+        2.0
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "MAGGIE"
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.67,
+        3.6
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "EDITH",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        8.33,
+        3.6
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "SAM"
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.67,
+        5.2
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "LOUISA",
+        "unmade": true
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        8.33,
+        5.2
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "PETER"
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.67,
+        6.800000000000001
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "ROSE",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        8.33,
+        6.800000000000001
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "ALFIE"
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.67,
+        8.4
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "IVY",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        8.33,
+        8.4
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "WALTER"
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.67,
+        10.0
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "NELL",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        8.33,
+        10.0
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "ARTHUR"
+      }
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        3.0,
+        1.0
+      ]
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        7.0,
+        1.0
+      ]
+    },
+    {
+      "type": "cubbies",
+      "at": [
+        5.0,
+        1.13
+      ]
+    },
+    {
+      "type": "toyHorse",
+      "at": [
+        1.9,
+        5.2
+      ],
+      "y": 0.5,
+      "rotation": 30
+    },
+    {
+      "type": "drawing",
+      "at": [
+        0.99,
+        9.0
+      ],
+      "rotation": 90,
+      "options": {
+        "kind": "children"
+      }
+    },
+    {
+      "type": "drawing",
+      "at": [
+        9.01,
+        7.4
+      ],
+      "rotation": -90,
+      "options": {
+        "kind": "sun"
+      }
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        3.0,
+        1.6
+      ],
+      "height": 1.8,
+      "color": "#5a6c9c",
+      "intensity": 5,
+      "distance": 14
+    },
+    {
+      "type": "point",
+      "at": [
+        7.0,
+        1.6
+      ],
+      "height": 1.8,
+      "color": "#5a6c9c",
+      "intensity": 5,
+      "distance": 14
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 1.7
+  }
+}

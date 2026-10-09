@@ -39,12 +39,12 @@ function addFace(bucket, origin, edgeU, edgeV, normal) {
   }
 }
 
-function addFloorAndCeiling(buckets, level, col, row) {
+function addFloorAndCeiling(bucketFor, level, col, row) {
   const s = level.cellSize;
   const h = level.wallHeight;
   const x0 = col * s, z0 = row * s;
-  addFace(buckets.floor, [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
-  addFace(buckets.ceiling, [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
+  addFace(bucketFor(level.floorTexture), [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
+  addFace(bucketFor(level.ceilingTexture), [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
 }
 
 // Wall face on the edge between open cell (col,row) and its solid neighbour.
@@ -66,23 +66,28 @@ function toMesh(bucket, texture) {
   return new THREE.Mesh(geometry, createPs1Material(texture));
 }
 
+// Wall cells name their texture through the level legend ("1": "plaster").
 export function buildLevelMeshes(level, textures) {
-  const buckets = { floor: createBucket(), ceiling: createBucket(), plaster: createBucket(), door: createBucket() };
+  const buckets = new Map();
+  const bucketFor = (name) => {
+    if (!buckets.has(name)) buckets.set(name, createBucket());
+    return buckets.get(name);
+  };
   for (let row = 0; row < level.rows; row++) {
     for (let col = 0; col < level.cols; col++) {
       if (level.isSolid(col, row)) continue;
-      addFloorAndCeiling(buckets, level, col, row);
+      addFloorAndCeiling(bucketFor, level, col, row);
       for (const side of SIDES) {
         if (!level.isSolid(col + side.dc, row + side.dr)) continue;
-        const kind = level.kindAt(col + side.dc, row + side.dr);
-        addWall(buckets[kind] ?? buckets.plaster, level, col, row, side);
+        addWall(bucketFor(level.kindAt(col + side.dc, row + side.dr)), level, col, row, side);
       }
     }
   }
   const group = new THREE.Group();
   group.name = `level:${level.id}`;
-  for (const [name, bucket] of Object.entries(buckets)) {
-    if (bucket.positions.length) group.add(toMesh(bucket, textures[name]));
+  for (const [name, bucket] of buckets) {
+    if (!textures[name]) throw new Error(`Level ${level.id}: unknown texture "${name}"`);
+    group.add(toMesh(bucket, textures[name]));
   }
   return group;
 }
