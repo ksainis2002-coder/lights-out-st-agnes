@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.16 — Tommy, low-sanity and rewind stills re-rendered in the approved smaller dorm.
 - 0.1.15 — Dorm mockup revised after owner feedback: smaller room (10 beds), more mess (unmade beds, sheet pile, toppled chair, papers, blocks); new props chair, papers, blocks, sheet pile.
 - 0.1.14 — 0.2 design picks recorded; mockup stills for intro, hub, dorm, Tommy, low sanity and rewind rendered with the real engine (props, room textures, per-level ambient, new screen effects: blur, aberration, eyelids, vignette, rewind).
 - 0.1.13 — Sound batch 4: VHS rewind/insert/eject, tape hiss, tinnitus, radio static, menu blip, waking gasp, drip, fluorescent buzz (owner confirmed CC0). All 0.2 sounds are in; sound script gains a start offset.
