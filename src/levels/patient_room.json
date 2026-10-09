@@ -54,7 +54,8 @@
         3.2
       ],
       "y": 0.76,
-      "rotation": -90
+      "rotation": -90,
+      "use": "save"
     },
     {
       "type": "drawing",

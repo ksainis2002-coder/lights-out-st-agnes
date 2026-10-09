@@ -3,6 +3,7 @@
 import { LEVELS } from './levels/index.js';
 import { doorInteractables, applyDoorProgress } from './levels/doorUse.js';
 import { createPickups } from './items/pickups.js';
+import { propInteractables } from './props/usable.js';
 
 export function setupLevelFlow(game) {
   let usable = [];
@@ -17,7 +18,7 @@ export function setupLevelFlow(game) {
     game.triggers.setLevel(level);
     const pickups = createPickups(game, level, data);
     game.world.levelGroup.add(pickups.group);
-    usable = [...doorInteractables(game), ...pickups.usable];
+    usable = [...doorInteractables(game), ...pickups.usable, ...propInteractables(game, level)];
     game.interaction.clear();
     game.events.emit('level.loaded', level);
     return level;

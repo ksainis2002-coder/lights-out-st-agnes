@@ -6,7 +6,7 @@ const W = 480;
 const H = 270;
 const ITEMS = [
   { id: 'play', icon: '▶', label: 'menu.play', hint: 'menu.play.hint', ready: true },
-  { id: 'rewind', icon: '◀◀', label: 'menu.rewind', hint: 'menu.rewind.hint', ready: false },
+  { id: 'rewind', icon: '◀◀', label: 'menu.rewind', hint: 'menu.rewind.hint', ready: (ui) => ui.game.hasAnySave() },
   { id: 'setup', icon: '■', label: 'menu.setup', hint: 'menu.setup.hint', ready: true },
   { id: 'eject', icon: '⏏', label: 'menu.eject', hint: 'menu.eject.hint', ready: false },
 ];
@@ -21,15 +21,18 @@ export function createMenuScreen(ui) {
   const { t } = ui;
   let focus = 0;
 
+  const isReady = (item) => (typeof item.ready === 'function' ? item.ready(ui) : item.ready);
+
   function activate(index) {
     const item = ITEMS[index];
-    if (!item.ready) return;
-    if (item.id === 'play') ui.play();
+    if (!isReady(item)) return;
+    if (item.id === 'play') ui.hasSession() ? ui.play() : ui.newGame();
+    if (item.id === 'rewind') ui.open('load', { returnTo: 'menu' });
     if (item.id === 'setup') ui.open('settings', { returnTo: 'menu' });
   }
 
   function hintFor(item) {
-    if (!item.ready) return `${t(item.hint)}: ${t('menu.notYet')}`;
+    if (!isReady(item)) return `${t(item.hint)}: ${t(item.id === 'rewind' ? 'menu.noTapes' : 'menu.notYet')}`;
     if (item.id === 'play' && ui.hasSession()) return t('menu.play.resume');
     return t(item.hint);
   }
@@ -56,7 +59,7 @@ export function createMenuScreen(ui) {
       ctx.fillRect(150, y - 3, 180, 18);
     }
     const base = on ? COLORS.ink : COLORS.text;
-    const color = item.ready ? base : on ? '#4a5160' : COLORS.dim;
+    const color = isReady(item) ? base : on ? '#4a5160' : COLORS.dim;
     osdText(ctx, item.icon, 172, y, 11, color);
     osdText(ctx, t(item.label), 206, y, fittedSize(ctx, t(item.label), 11, 118), color);
   }

@@ -47,6 +47,7 @@ export function createGameAudio(game) {
   events.on('flashlight.toggled', () => play('flashlight_click', { volume: 0.7, pitchJitter: 0.02 }));
   events.on('ui.move', () => play('ui_beep', { volume: 0.5, bus: 'effects', pitchJitter: 0 }));
   events.on('game.play', () => play('vhs_insert', { volume: 0.8, pitchJitter: 0 }));
+  events.on('game.saved', () => play('vhs_eject', { volume: 0.7, pitchJitter: 0 }));
   events.on('level.leaving', () => play('door_use', { volume: 0.9 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];

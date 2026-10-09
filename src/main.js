@@ -23,6 +23,8 @@ import { createJournal } from './journal.js';
 import { createMessages } from './ui/messages.js';
 import { setupClues } from './clues.js';
 import { setupInventoryControls } from './items/controls.js';
+import { setupSaving } from './save/saving.js';
+import { resetState } from './save/gameState.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -56,6 +58,7 @@ function createGame() {
   setupLevelFlow(game);
   setupClues(game);
   setupInventoryControls(game);
+  setupSaving(game);
   game.sfx = createGameAudio(game);
   game.debug = createDebugOverlay(game);
   return game;
@@ -71,6 +74,11 @@ function setupModes(game) {
     ui.close();
     input.setEnabled(true);
     input.lockPointer();
+  };
+
+  game.newGame = () => {
+    resetState(game);
+    game.play();
   };
 
   // Modal screens during play (journal, documents): the world waits.

@@ -5,6 +5,7 @@ import { createMenuScreen } from './screens/menu.js';
 import { createSettingsScreen } from './screens/settings.js';
 import { createJournalScreen } from './screens/journal.js';
 import { createDocumentScreen } from './screens/document.js';
+import { createTapeScreen } from './screens/tapes.js';
 
 export const UI_WIDTH = 480;
 export const UI_HEIGHT = 270;
@@ -15,6 +16,8 @@ const SCREENS = {
   settings: createSettingsScreen,
   journal: createJournalScreen,
   document: createDocumentScreen,
+  save: (api, options) => createTapeScreen(api, { ...options, mode: 'save' }),
+  load: (api, options) => createTapeScreen(api, { ...options, mode: 'load' }),
 };
 
 export function createUi(game, canvas, uiCanvas) {
@@ -29,6 +32,7 @@ export function createUi(game, canvas, uiCanvas) {
     open,
     play: () => game.play(),
     resume: () => game.resume(),
+    newGame: () => game.newGame(),
     game,
     hasSession: () => game.session.active,
     playTime: () => game.session.playTime,
