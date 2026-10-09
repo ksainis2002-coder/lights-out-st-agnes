@@ -5,7 +5,7 @@ import { DEFAULT_KEYS } from '../save/settings.js';
 const KEY_NAMES = {
   ShiftLeft: 'L-SHIFT', ShiftRight: 'R-SHIFT', ControlLeft: 'L-CTRL', ControlRight: 'R-CTRL',
   AltLeft: 'L-ALT', AltRight: 'R-ALT', Space: 'SPACE', Tab: 'TAB', Enter: 'ENTER', Backspace: 'BKSP',
-  ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', CapsLock: 'CAPS',
+  ArrowUp: '↑', Mouse0: 'CLICK', Mouse1: 'M-CLICK', Mouse2: 'R-CLICK', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', CapsLock: 'CAPS',
 };
 
 export function keyName(code) {

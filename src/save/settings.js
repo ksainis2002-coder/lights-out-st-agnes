@@ -20,6 +20,9 @@ export const DEFAULT_KEYS = {
   flashlight: 'KeyF',
   camcorder: 'KeyC',
   journal: 'KeyJ',
+  use: 'Mouse0',
+  inventory: 'Tab',
+  combine: 'KeyR',
 };
 
 export const DEFAULT_SETTINGS = {

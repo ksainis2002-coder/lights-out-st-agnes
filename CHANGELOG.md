@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.21 — Build step 1: use prompt + left-click use, doors that swing open/closed (locked and hidden doors), travel between the patient room and the new orphanage wing level (9 rooms from the approved plan), per-room textures, use/inventory/combine key bindings.
 - 0.1.20 — Draft plan of wing 1 (orphanage dorms): rooms, locked doors and the puzzle route, for owner approval.
 - 0.1.19 — All 0.2 in-game screens approved (use = click, inventory TAB, combine R, journal J, transcript T); build order written in DESIGN_0.2.md.
 - 0.1.18 — 0.2 stills approved (recorded in handoff); mockups of the in-game screens: use prompt, inventory, journal, document viewer, save at the tape recorder.

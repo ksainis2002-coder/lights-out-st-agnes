@@ -27,7 +27,10 @@ test.describe('in the browser', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('./');
     await waitForBoot(page);
-    await page.evaluate(() => window.__stAgnes.play());
+    await page.evaluate(() => {
+      window.__stAgnes.play();
+      window.__stAgnes.loadLevel('test_corridor');
+    });
   });
 
   test('W walks forward along the facing direction', async ({ page }) => {
@@ -110,7 +113,10 @@ test('F3 toggles the debug overlay, off by default', async ({ page }) => {
 test('walking into a trigger volume activates it', async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
-  await page.evaluate(() => window.__stAgnes.play());
+  await page.evaluate(() => {
+      window.__stAgnes.play();
+      window.__stAgnes.loadLevel('test_corridor');
+    });
   await page.keyboard.down('KeyW');
   const entered = await page.evaluate(() => {
     const game = window.__stAgnes;

@@ -83,5 +83,13 @@
   "settings.reduceEffects": "Λιγότερα εφέ",
   "settings.reduceEffects.help": "Πιο ήπιος κόκκος και χωρίς λάμψεις.",
   "settings.flickerOff": "Χωρίς τρεμόπαιγμα",
-  "settings.flickerOff.help": "Χωρίς φώτα που τρεμοπαίζουν και χωρίς τρέμουλο της κασέτας."
+  "settings.flickerOff.help": "Χωρίς φώτα που τρεμοπαίζουν και χωρίς τρέμουλο της κασέτας.",
+  "prompt.open": "Άνοιξε",
+  "prompt.close": "Κλείσε",
+  "prompt.locked": "Κλειδωμένη",
+  "prompt.leave": "Βγες από το δωμάτιο",
+  "prompt.stairsUp": "Ανέβα τη σκάλα",
+  "settings.action.use": "Χρήση",
+  "settings.action.inventory": "Αντικείμενα",
+  "settings.action.combine": "Συνδύασε"
 }

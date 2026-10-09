@@ -26,6 +26,14 @@ the dorm register), then "(Tommy, whispering)". Same rule for every ghost child.
 intro_wake, hub, dorm, tommy, low_sanity, rewind. Approval status is tracked in HANDOFF.md.
 Names on the dorm beds are placeholders until the content sheet is written.
 
+## Wing 1 plan (approved 2026-10-09)
+Plan: `docs/mockups/stills-0.2/wing_map.png`. Landing → corridor; washroom (office key) →
+office (register, linen key) → east dorm (names to beds → music box crank) → linen cupboard
+(3 toys) → playroom (toys home → west dorm unlocks) → west dorm (lullaby → hidden door) →
+quiet room (horse, statue piece, file page) → back to the landing and the hub.
+**Paper map:** the found map shows a blank wall where the quiet room is. A child's scribble
+appears there once the player has found a specific note; the room is pencilled in once entered.
+
 ## In-game screens (approved 2026-10-09)
 - **Use:** left mouse click. Prompt = centre dot + one line ("CLICK Take name plate").
 - **Inventory:** TAB, 8 slots in a strip at the bottom, game keeps running; CLICK uses, R combines.

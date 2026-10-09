@@ -11,7 +11,11 @@ import { createUi, UI_WIDTH, UI_HEIGHT } from './ui/manager.js';
 import { createMixer } from './audio/mixer.js';
 import { updateListener } from './audio/sounds.js';
 import { runBot } from './debug/bot.js';
-import testCorridor from './levels/test_corridor.json';
+import { LEVELS, START_LEVEL } from './levels/index.js';
+import { createEvents } from './events.js';
+import { createInteraction } from './player/interact.js';
+import { setupLevelFlow } from './levelFlow.js';
+import { drawHud } from './ui/hud.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -23,17 +27,21 @@ function createGame() {
   uiCanvas.height = UI_HEIGHT;
 
   const pipeline = createPipeline(canvas, uiCanvas);
-  const world = createWorld(testCorridor);
+  const world = createWorld(LEVELS[START_LEVEL]);
   const game = {
     canvas, pipeline, world, i18n, store, saves, settings,
     input: createInput(canvas, settings),
     player: createController(world.level),
     triggers: createTriggers(world.level),
     mixer: createMixer(settings),
+    events: createEvents(),
+    interaction: createInteraction(),
     session: { active: false, playTime: 0 },
     mode: 'ui', frame: 0, time: 0, booted: false,
   };
   game.ui = createUi(game, canvas, uiCanvas);
+  game.ui.setHud((ctx) => game.mode === 'playing' && drawHud(ctx, game));
+  setupLevelFlow(game);
   game.debug = createDebugOverlay(game);
   return game;
 }
@@ -62,7 +70,10 @@ function setupModes(game) {
   window.addEventListener('keydown', startAudio, { once: true });
 
   canvas.addEventListener('click', () => {
-    if (game.mode === 'playing' && !document.pointerLockElement) input.lockPointer();
+    if (game.mode === 'playing' && !document.pointerLockElement) {
+      input.consume('Mouse0'); // the click that captures the mouse is not a "use"
+      input.lockPointer();
+    }
   });
   document.addEventListener('pointerlockchange', () => {
     if (!document.pointerLockElement) game.pause();
@@ -91,6 +102,10 @@ function simulate(game, dt) {
   player.update(dt, input, settings);
   if (input.wasPressed('flashlight')) world.flashlight.toggle();
   triggers.update({ ...player.state.position, y: 0.5 });
+  player.applyToCamera(world.camera, settings);
+  world.camera.updateMatrixWorld();
+  game.interaction.update(world.camera, input);
+  world.update(dt);
 }
 
 function tick(game, dt) {
@@ -111,7 +126,10 @@ function tick(game, dt) {
 // independent of frame rate. Used by tests and bot playthroughs.
 function advance(game, seconds) {
   const step = 1 / 60;
-  for (let t = 0; t < seconds - 1e-9; t += step) simulate(game, step);
+  for (let t = 0; t < seconds - 1e-9; t += step) {
+    simulate(game, step);
+    game.input.endFrame(); // a key press counts for one step, like one frame
+  }
   game.player.applyToCamera(game.world.camera, game.settings);
 }
 

@@ -43,8 +43,8 @@ function addFloorAndCeiling(bucketFor, level, col, row) {
   const s = level.cellSize;
   const h = level.wallHeight;
   const x0 = col * s, z0 = row * s;
-  addFace(bucketFor(level.floorTexture), [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
-  addFace(bucketFor(level.ceilingTexture), [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
+  addFace(bucketFor(level.textures.floor(col, row)), [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
+  addFace(bucketFor(level.textures.ceiling(col, row)), [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
 }
 
 // Wall face on the edge between open cell (col,row) and its solid neighbour.
@@ -75,11 +75,14 @@ export function buildLevelMeshes(level, textures) {
   };
   for (let row = 0; row < level.rows; row++) {
     for (let col = 0; col < level.cols; col++) {
-      if (level.isSolid(col, row)) continue;
+      if (level.isWall(col, row)) continue;
       addFloorAndCeiling(bucketFor, level, col, row);
       for (const side of SIDES) {
-        if (!level.isSolid(col + side.dc, row + side.dr)) continue;
-        addWall(bucketFor(level.kindAt(col + side.dc, row + side.dr)), level, col, row, side);
+        const wallCol = col + side.dc, wallRow = row + side.dr;
+        if (!level.isWall(wallCol, wallRow)) continue;
+        // Inside a doorway, the jambs take the texture of the wall itself.
+        const texture = level.doorAt(col, row) ? level.kindAt(wallCol, wallRow) : level.textures.wall(col, row, wallCol, wallRow);
+        addWall(bucketFor(texture), level, col, row, side);
       }
     }
   }

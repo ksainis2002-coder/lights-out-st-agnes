@@ -24,7 +24,8 @@ export const TUNING = {
   noise: { still: 0, crouch: 1.5, walk: 4, run: 10 },
 };
 
-export function createController(level) {
+export function createController(startLevel) {
+  let level = startLevel;
   const state = {
     position: { x: level.spawn.x, z: level.spawn.z },
     velocity: { x: 0, z: 0 },
@@ -135,5 +136,15 @@ export function createController(level) {
     }
   }
 
-  return { state, update, applyToCamera };
+  // Moves the player into another level at one of its spawn points.
+  function setLevel(next, spawn = next.spawn) {
+    level = next;
+    Object.assign(state.position, { x: spawn.x, z: spawn.z });
+    Object.assign(state.velocity, { x: 0, z: 0 });
+    state.yaw = spawn.yaw;
+    state.pitch = 0;
+    state.lean = 0;
+  }
+
+  return { state, update, applyToCamera, setLevel };
 }

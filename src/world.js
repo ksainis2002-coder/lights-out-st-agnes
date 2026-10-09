@@ -1,8 +1,10 @@
-// The 3D world: scene, fog, ambient light, the current level and the camera.
+// The 3D world: scene, fog, camera, flashlight, and the current level with its
+// props, lights and doors. loadLevel swaps levels while the game runs.
 import * as THREE from 'three';
 import { createTextures } from './render/textures.js';
 import { parseLevel } from './levels/loader.js';
 import { buildLevelMeshes } from './levels/build.js';
+import { createDoors } from './levels/doors.js';
 import { createFlashlight } from './player/flashlight.js';
 import { placeProps, placeLights } from './props/place.js';
 
@@ -16,12 +18,30 @@ export function createWorld(levelData) {
   const camera = new THREE.PerspectiveCamera(70, 16 / 9, 0.05, 60);
   scene.add(camera);
   const flashlight = createFlashlight(camera);
-
   const textures = createTextures();
-  const level = parseLevel(levelData);
-  const ambient = levelData.ambient ?? { color: '#ffffff', intensity: 0.45 };
-  scene.add(new THREE.AmbientLight(ambient.color, ambient.intensity));
-  scene.add(buildLevelMeshes(level, textures), placeProps(level, textures), placeLights(level));
 
-  return { scene, camera, flashlight, level, textures };
+  const world = { scene, camera, flashlight, textures, level: null, doors: null, levelGroup: null };
+
+  world.loadLevel = (data) => {
+    if (world.levelGroup) scene.remove(world.levelGroup);
+    const level = parseLevel(data);
+    const doors = createDoors(level, textures);
+    const group = new THREE.Group();
+    group.name = `level:${level.id}`;
+    group.add(
+      new THREE.AmbientLight(level.ambient.color, level.ambient.intensity),
+      buildLevelMeshes(level, textures),
+      placeProps(level, textures),
+      placeLights(level),
+      doors.group,
+    );
+    scene.add(group);
+    Object.assign(world, { level, doors, levelGroup: group });
+    return level;
+  };
+
+  world.update = (dt) => world.doors?.update(dt);
+
+  world.loadLevel(levelData);
+  return world;
 }

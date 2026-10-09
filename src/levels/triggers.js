@@ -2,7 +2,8 @@
 // triggers (scares, music, autosave) subscribe with onEnter later.
 import { insideBox } from './loader.js';
 
-export function createTriggers(level) {
+export function createTriggers(startLevel) {
+  let level = startLevel;
   const active = new Set();
   const listeners = new Set();
 
@@ -18,5 +19,10 @@ export function createTriggers(level) {
     }
   }
 
-  return { update, active, onEnter: (fn) => listeners.add(fn) };
+  function setLevel(next) {
+    level = next;
+    active.clear();
+  }
+
+  return { update, active, setLevel, onEnter: (fn) => listeners.add(fn) };
 }

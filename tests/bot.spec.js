@@ -13,6 +13,7 @@ for (const route of routes) {
     const result = await page.evaluate((r) => {
       const game = window.__stAgnes;
       game.play();
+      game.loadLevel(r.level);
       return game.runBot(r);
     }, route);
     mkdirSync('test-results/bot', { recursive: true });
@@ -28,6 +29,7 @@ test('bot reports a route that cannot be finished', async ({ page }) => {
   const result = await page.evaluate(() => {
     const game = window.__stAgnes;
     game.play();
+    game.loadLevel('test_corridor');
     return game.runBot({ id: 'blocked', points: [{ cell: [3, 0] }] }, { maxSecondsPerPoint: 2 });
   });
   expect(result.finished).toBe(false);

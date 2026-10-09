@@ -16,6 +16,14 @@ export function createInput(target, settings) {
   window.addEventListener('keyup', (event) => down.delete(event.code));
   window.addEventListener('blur', () => down.clear());
 
+  // Mouse buttons are codes too ("Mouse0" = left), so they can be bound like keys.
+  document.addEventListener('mousedown', (event) => {
+    const code = `Mouse${event.button}`;
+    if (!down.has(code)) pressedThisFrame.add(code);
+    down.add(code);
+  });
+  document.addEventListener('mouseup', (event) => down.delete(`Mouse${event.button}`));
+
   document.addEventListener('mousemove', (event) => {
     if (!enabled || document.pointerLockElement !== target) return;
     look.x += event.movementX;
@@ -36,6 +44,13 @@ export function createInput(target, settings) {
     },
     wasPressed: (action) => enabled && pressedThisFrame.has(codeFor(action)),
     wasCodePressed: (code) => pressedThisFrame.has(code),
+    consume(code) {
+      pressedThisFrame.delete(code);
+    },
+    // For tests and bots: press an action for exactly one frame.
+    tap(action) {
+      pressedThisFrame.add(codeFor(action));
+    },
     takeLook() {
       const result = { x: look.x, y: look.y };
       look.x = 0;

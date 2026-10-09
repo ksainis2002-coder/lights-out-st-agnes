@@ -83,5 +83,13 @@
   "settings.reduceEffects": "Reduce effects",
   "settings.reduceEffects.help": "Calmer grain and no flashes.",
   "settings.flickerOff": "Flicker off",
-  "settings.flickerOff.help": "No flickering lights or tape tracking jitter."
+  "settings.flickerOff.help": "No flickering lights or tape tracking jitter.",
+  "prompt.open": "Open",
+  "prompt.close": "Close",
+  "prompt.locked": "Locked",
+  "prompt.leave": "Leave the room",
+  "prompt.stairsUp": "Go upstairs",
+  "settings.action.use": "Use",
+  "settings.action.inventory": "Inventory",
+  "settings.action.combine": "Combine"
 }

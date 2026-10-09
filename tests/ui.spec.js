@@ -85,7 +85,7 @@ test('settings: rebind a key, then reset keys', async ({ page }) => {
   await page.keyboard.press('KeyI');
   let keys = await page.evaluate(() => window.__stAgnes.settings.get('keys'));
   expect(keys.forward).toBe('KeyI');
-  for (let i = 0; i < 12; i++) await page.keyboard.press('ArrowDown');
+  for (let i = 0; i < 15; i++) await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
   keys = await page.evaluate(() => window.__stAgnes.settings.get('keys'));
   expect(keys.forward).toBe('KeyW');

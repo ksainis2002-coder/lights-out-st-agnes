@@ -13,6 +13,7 @@ export function createUi(game, canvas, uiCanvas) {
   const ctx = uiCanvas.getContext('2d');
   let screen = null;
   let cleared = false;
+  let hud = null;
 
   const api = {
     t: game.i18n.t,
@@ -63,10 +64,12 @@ export function createUi(game, canvas, uiCanvas) {
   // Redraws the open screen. Returns true when the UI texture changed.
   function update() {
     if (!screen) {
-      if (cleared) return false;
+      if (cleared && !hud) return false;
       ctx.clearRect(0, 0, UI_WIDTH, UI_HEIGHT);
-      cleared = true;
-      return true;
+      const drew = hud?.(ctx) ?? false;
+      const changed = drew || !cleared;
+      cleared = !drew;
+      return changed;
     }
     ctx.clearRect(0, 0, UI_WIDTH, UI_HEIGHT);
     screen.draw(ctx);
@@ -76,6 +79,7 @@ export function createUi(game, canvas, uiCanvas) {
   return {
     open,
     close,
+    setHud: (fn) => (hud = fn),
     update,
     current: () => screen,
     look: () => screen?.look ?? 'game',
