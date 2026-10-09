@@ -12,7 +12,8 @@
 //            (a number, or one number per source), numbered id_1, id_2…
 //   loop   – starts at the first event and ends just before a later event,
 //            so the clip loops on a natural boundary (breathing, heartbeat)
-//   bed    – stereo ambience bed, up to maxLength, with its end crossfaded
+// Any entry may set "start" (seconds) to skip the beginning of its source.
+//   bed    – ambience bed (stereo unless channels: 1), up to maxLength, with its end crossfaded
 //            into its start (crossfade seconds) so it loops without a seam
 import { spawnSync } from 'node:child_process';
 import { readFileSync, mkdirSync } from 'node:fs';
@@ -127,17 +128,18 @@ function encode(file, samples, from, to, outName, fade, channels = 1) {
 // Seamless loop: [xf, L] crossfaded into [0, xf], so the output's end
 // flows straight back into its start.
 function encodeBed(file, samples, entry, outName) {
-  const length = Math.min(samples.length / RATE, entry.maxLength ?? 60);
+  const begin = entry.start ?? 0;
+  const length = Math.min(samples.length / RATE - begin, entry.maxLength ?? 60);
   const xf = entry.crossfade ?? 3;
-  const gain = PEAK_DB - samplePeakDb(samples, 0, length);
+  const gain = PEAK_DB - samplePeakDb(samples, begin, begin + length);
   const graph = [
-    `[0:a]atrim=start=${xf}:end=${length.toFixed(3)},asetpts=PTS-STARTPTS[body]`,
-    `[1:a]atrim=start=0:end=${xf},asetpts=PTS-STARTPTS[head]`,
+    `[0:a]atrim=start=${(begin + xf).toFixed(3)}:end=${(begin + length).toFixed(3)},asetpts=PTS-STARTPTS[body]`,
+    `[1:a]atrim=start=${begin.toFixed(3)}:end=${(begin + xf).toFixed(3)},asetpts=PTS-STARTPTS[head]`,
     `[body][head]acrossfade=d=${xf}:c1=tri:c2=tri,volume=${gain.toFixed(2)}dB[out]`,
   ].join(';');
   const out = join(OUT_DIR, `${outName}.ogg`);
   // The file is opened twice: one asplit feeding acrossfade stalls in ffmpeg.
-  const result = spawnSync('ffmpeg', ['-v', 'error', '-y', '-i', file, '-i', file, '-filter_complex', graph, '-map', '[out]', '-ac', '2', '-ar', String(RATE), '-c:a', 'libvorbis', '-q:a', '4', out]);
+  const result = spawnSync('ffmpeg', ['-v', 'error', '-y', '-i', file, '-i', file, '-filter_complex', graph, '-map', '[out]', '-ac', String(entry.channels ?? 2), '-ar', String(RATE), '-c:a', 'libvorbis', '-q:a', '4', out]);
   if (result.status !== 0) throw new Error(`ffmpeg could not write ${out}: ${result.stderr}`);
   return { out: `${outName}.ogg`, seconds: Number((length - xf).toFixed(2)) };
 }
@@ -146,7 +148,8 @@ function clipsFor(entry, file, samples, events, sourceIndex) {
   const duration = samples.length / RATE;
   const pre = 0.02;
   const max = entry.maxLength ?? duration;
-  const first = events[0] ?? { start: 0, end: duration };
+  const skip = entry.start ?? 0; // ignore events before this time
+  const first = events.find((e) => e.start >= skip) ?? events[0] ?? { start: skip, end: duration };
   if (entry.mode === 'whole') {
     const last = events[events.length - 1] ?? first;
     const from = Math.max(0, first.start - pre);
@@ -184,7 +187,7 @@ function processEntry(id, entry) {
     const events = findEvents(envelope(samples));
     for (const [from, to] of clipsFor(entry, file, samples, events, sourceIndex)) {
       counter += 1;
-      const numbered = entry.mode === 'split' || sources.length > 1;
+      const numbered = sources.length > 1 || (entry.mode === 'split' && entry.take !== 1);
       results.push({ source, ...encode(file, samples, from, to, numbered ? `${id}_${counter}` : id, entry.fade ?? 0.05, entry.channels) });
     }
   });

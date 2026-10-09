@@ -57,9 +57,9 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
 - github.io is blocked from the session network; the owner checks the live site.
 
 ## Next: 0.2 vertical slice
-Sounds in `docs/SOUNDS_0.2.md`: player, building/doors and ambience are done (27 clips, all
-credited and CC0-confirmed). Owner is downloading the rest (ghost children, music, sanity/tape,
-intro) and wants all sounds done before 0.2 starts. Sound routine: owner pushes files to
+All sounds in `docs/SOUNDS_0.2.md` are in (58 clips in `assets/sounds/`, all credited and
+CC0-confirmed by the owner). Next: owner says "start 0.2", then mockup stills for the intro,
+patient room hub and dorms before building them. Sound routine: owner pushes files to
 `assets/sounds/incoming/` on this branch (each under 100 MB), Claude adds a manifest entry, runs
 `node tools/process-sounds.mjs <ids>`, removes incoming, credits with the owner's links, and asks
 the owner to confirm CC0 (freesound.org is blocked from the session). The owner's clone lives in

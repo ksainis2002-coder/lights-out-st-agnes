@@ -1,5 +1,5 @@
 {
-  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d).",
+  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d, batch 4: 6417c6f).",
   "sounds": {
     "step_tile": {
       "mode": "split",
@@ -230,6 +230,71 @@
       "channels": 2,
       "maxLength": 17,
       "fade": 1
+    },
+    "vhs_rewind": {
+      "mode": "bed",
+      "from": "vhs_rewind.wav",
+      "maxLength": 22,
+      "crossfade": 2
+    },
+    "vhs_insert": {
+      "mode": "trim",
+      "from": "vhs insert.wav",
+      "maxLength": 3.5,
+      "channels": 2,
+      "fade": 0.3
+    },
+    "vhs_eject": {
+      "mode": "trim",
+      "from": "vhs_eject.wav",
+      "start": 1.3,
+      "maxLength": 4.9,
+      "channels": 2,
+      "fade": 0.4
+    },
+    "tape_hiss": {
+      "mode": "bed",
+      "from": "tape_hiss.wav",
+      "start": 0.75,
+      "maxLength": 1.5,
+      "crossfade": 0.4
+    },
+    "tinnitus": {
+      "mode": "whole",
+      "from": "tinnitus.wav",
+      "maxLength": 7,
+      "fade": 1.5
+    },
+    "radio_static": {
+      "mode": "whole",
+      "from": "radio static tuning.wav",
+      "maxLength": 12,
+      "fade": 1
+    },
+    "ui_beep": {
+      "mode": "whole",
+      "from": "ui_beep.wav",
+      "channels": 2,
+      "fade": 0.01
+    },
+    "wake_gasp": {
+      "mode": "whole",
+      "from": "wake_gasp.mp3",
+      "maxLength": 3.5,
+      "fade": 0.3
+    },
+    "hospital_drip": {
+      "mode": "whole",
+      "from": "hospital_drip.wav",
+      "maxLength": 1.5,
+      "fade": 0.3
+    },
+    "fluorescent_buzz": {
+      "mode": "bed",
+      "from": "fluorescent_buzz.flac",
+      "maxLength": 25,
+      "crossfade": 3,
+      "channels": 1
     }
   }
 }

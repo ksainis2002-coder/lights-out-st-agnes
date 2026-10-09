@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.13 — Sound batch 4: VHS rewind/insert/eject, tape hiss, tinnitus, radio static, menu blip, waking gasp, drip, fluorescent buzz (owner confirmed CC0). All 0.2 sounds are in; sound script gains a start offset.
 - 0.1.12 — Batch-3 credits complete: fixed laugh link, owner confirmed all batch-3 sounds are CC0.
 - 0.1.11 — Sound batch 3: ghost children (laughs, giggle, running, whispers), dorm toys, rocking horse, swing, music box, lullaby, drone, stingers (21 clips; music in stereo). Credits added; licences and one link to confirm.
 - 0.1.10 — Handoff note: sound progress and the sound hand-over routine.

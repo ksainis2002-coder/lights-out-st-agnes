@@ -6,7 +6,7 @@ generated in code and need no line unless a file is added.
 
 Files in `assets/sounds/` are cut and converted from the owner's downloads by
 `tools/process-sounds.mjs` (see `assets/sounds/manifest.json`). Every licence below was
-checked by the owner on its Freesound page (batches 1–3: 2026-10-08/09). A licence marked
+checked by the owner on its Freesound page (batches 1–4: 2026-10-08/09). A licence marked
 "CC0 (to confirm)" has not been checked yet and must not ship in a release.
 
 | File | Original download | Source | Author | Licence |
@@ -53,3 +53,13 @@ checked by the owner on its Freesound page (batches 1–3: 2026-10-08/09). A lic
 | sounds/mus_drone_low.ogg | mus_drone_low.mp3 | [freesound 864671](https://freesound.org/people/kkenny101/sounds/864671/) | kkenny101 | CC0 |
 | sounds/mus_stinger_1.ogg | mus_stinger_1.wav | [freesound 840810](https://freesound.org/people/OverlookHotelRecords/sounds/840810/) | OverlookHotelRecords | CC0 |
 | sounds/mus_stinger_2.ogg | mus_stinger_2.wav | [freesound 636194](https://freesound.org/people/MathewHenry/sounds/636194/) | MathewHenry | CC0 |
+| sounds/vhs_rewind.ogg | vhs_rewind.wav | [freesound 754845](https://freesound.org/people/Poulpy2.0/sounds/754845/) | Poulpy2.0 | CC0 |
+| sounds/vhs_insert.ogg | vhs insert.wav | [freesound 845461](https://freesound.org/people/LukaCafuka/sounds/845461/) | LukaCafuka | CC0 |
+| sounds/vhs_eject.ogg | vhs_eject.wav | [freesound 837697](https://freesound.org/people/telescapes/sounds/837697/) | telescapes | CC0 |
+| sounds/tape_hiss.ogg | tape_hiss.wav | [freesound 264934](https://freesound.org/people/Sassaby/sounds/264934/) | Sassaby | CC0 |
+| sounds/tinnitus.ogg | tinnitus.wav | [freesound 188201](https://freesound.org/people/SpliceSound/sounds/188201/) | SpliceSound | CC0 |
+| sounds/radio_static.ogg | radio static tuning.wav | [freesound 552160](https://freesound.org/people/quantumriver/sounds/552160/) | quantumriver | CC0 |
+| sounds/ui_beep.ogg | ui_beep.wav | [freesound 625805](https://freesound.org/people/nfrae/sounds/625805/) | nfrae | CC0 |
+| sounds/wake_gasp.ogg | wake_gasp.mp3 | [freesound 588666](https://freesound.org/people/ThePig01/sounds/588666/) | ThePig01 | CC0 |
+| sounds/hospital_drip.ogg | hospital_drip.wav | [freesound 337525](https://freesound.org/people/Ev-Dawg/sounds/337525/) | Ev-Dawg | CC0 |
+| sounds/fluorescent_buzz.ogg | fluorescent_buzz.flac | [freesound 637546](https://freesound.org/people/kyles/sounds/637546/) | kyles | CC0 |
