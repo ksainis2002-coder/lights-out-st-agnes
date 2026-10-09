@@ -19,6 +19,8 @@ Rewards: Tommy's wooden horse (toy), the first statue piece, the first page of T
 ## Tommy
 Seen only far away (corridor ends, doorways), leads with footsteps and laughter, speaks only in
 short subtitled whispers: hints, and the line after a rewind.
+Subtitles label him "(a child, whispering)" until the player learns his name (his name plate or
+the dorm register), then "(Tommy, whispering)". Same rule for every ghost child.
 
 ## Mockup stills (docs/mockups/stills-0.2/, made with the real renderer: mockup.html)
 intro_wake, hub, dorm, tommy, low_sanity, rewind. Approval status is tracked in HANDOFF.md.

@@ -70,7 +70,7 @@ const STILLS = {
       aim(world.camera, [5.85, 1.6, 12.4], 0, -2);
     },
     ui(ctx) {
-      subtitle(ctx, '(Tommy, whispering) Follow me. They put the names wrong.');
+      subtitle(ctx, '(a child, whispering) Follow me. They put the names wrong.');
     },
   },
   // Low sanity: aberration, blur, heavy vignette, tilt, fake children.
