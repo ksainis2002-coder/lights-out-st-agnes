@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.32 — Owner playtest: sanity effects start at 85 and grow steadily (sway from 70, heartbeat from 50, heavy breathing from 35), darkness drains twice as fast, and the journal says how you feel (owner pick: effects + journal line, no on-screen meter). Fix: ESC on the save screen (and journal/documents) no longer drops to the main menu.
 - 0.1.31 — Build step 5: sanity. Hidden meter drained by darkness (much faster with the flashlight off), restored by light, pills and the patient room; scaled by difficulty. As it falls: colour split, softening, dark edges, swaying view, heartbeat, ringing ears; fake children that flicker silently and vanish when looked at (never drain or block). At zero: faint, VHS rewind with ◀◀ REW, back to the checkpoint, and a child whispers why. Subtitles with the 'a child' name rule; sanity in saves and the debug overlay.
 - 0.1.30 — Main menu music (owner request): a hummed lullaby over faint tape hiss on the warning, menu and setup screens before a game starts; fades into the room sounds on PLAY.
 - 0.1.29 — Build step 4: saving at tape recorders (landing, patient room) on 3 tapes with an overwrite check, REWIND in the main menu loads a tape or the checkpoint, silent checkpoint autosave when entering a level, PLAY starts a fresh game; saves hold level, position, inventory, journal and world progress.

@@ -34,6 +34,11 @@ quiet room (horse, statue piece, file page) → back to the landing and the hub.
 **Paper map:** the found map shows a blank wall where the quiet room is. A child's scribble
 appears there once the player has found a specific note; the room is pencilled in once entered.
 
+## Showing sanity (owner decision 2026-10-10)
+No meter on screen. The effects make it plain (from 85 down, steadily stronger) and the journal's
+CLUES page opens with "How I feel: …" (calm / uneasy / shaking / falling apart). The camcorder
+HUD shows it from 0.4, as in the brief.
+
 ## Real clock
 Wall clocks (first one: Sister M.'s office) show the player's real local time, read from the
 computer only. It sets up the brief's real-clock events and the secret room that opens at 3:00.

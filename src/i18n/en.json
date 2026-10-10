@@ -167,5 +167,10 @@
   "speaker.child": "a child",
   "speaker.tommy": "Tommy",
   "speaker.whispering": "whispering",
-  "whisper.rewind.dark": "Don't stay in the dark so long. They get in."
+  "whisper.rewind.dark": "Don't stay in the dark so long. They get in.",
+  "journal.feeling": "How I feel: {feeling}",
+  "feeling.calm": "calm.",
+  "feeling.uneasy": "uneasy. Something is wrong here.",
+  "feeling.shaking": "shaking. I keep seeing things.",
+  "feeling.fallingApart": "falling apart. I need light."
 }

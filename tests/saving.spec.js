@@ -90,3 +90,13 @@ test('travelling to another level autosaves a checkpoint', async ({ page }) => {
   const auto = await page.evaluate(() => window.__stAgnes.saves.load('auto'));
   expect(auto.state.level).toBe('orphanage_wing');
 });
+
+test('ESC on the save screen goes back to the game, not the main menu', async ({ page }) => {
+  await toMenu(page);
+  await page.keyboard.press('Enter');
+  await page.evaluate(() => window.__stAgnes.openScreen('save'));
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(300);
+  expect(await page.evaluate(() => ({ mode: window.__stAgnes.mode, screen: window.__stAgnes.ui.current()?.name ?? null })))
+    .toEqual({ mode: 'playing', screen: null });
+});

@@ -6,8 +6,8 @@
 export const MAX = 100;
 const LIGHT_CAP = 60;
 const RATES = {
-  dark: 0.6, // per second in full darkness, flashlight off
-  darkWithFlashlight: 0.15,
+  dark: 1.2, // per second in full darkness, flashlight off
+  darkWithFlashlight: 0.3,
   lightRecovery: 0.3,
   safeRecovery: 3,
 };
@@ -23,6 +23,14 @@ export function lightAt(level, position) {
     light += Math.max(0, 1 - Math.hypot(dx, dz) / distance) * ((l.intensity ?? 3) / 3);
   }
   return light;
+}
+
+// How the player feels, for the journal (owner decision: effects + journal line).
+export function feeling(value) {
+  if (value >= 75) return 'calm';
+  if (value >= 50) return 'uneasy';
+  if (value >= 25) return 'shaking';
+  return 'fallingApart';
 }
 
 export function createSanity(game) {

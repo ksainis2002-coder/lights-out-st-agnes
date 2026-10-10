@@ -167,5 +167,10 @@
   "speaker.child": "ένα παιδί",
   "speaker.tommy": "Τόμι",
   "speaker.whispering": "ψιθυριστά",
-  "whisper.rewind.dark": "Μη μένεις τόση ώρα στο σκοτάδι. Μπαίνουν μέσα."
+  "whisper.rewind.dark": "Μη μένεις τόση ώρα στο σκοτάδι. Μπαίνουν μέσα.",
+  "journal.feeling": "Πώς νιώθω: {feeling}",
+  "feeling.calm": "ήρεμος.",
+  "feeling.uneasy": "ανήσυχος. Κάτι δεν πάει καλά εδώ.",
+  "feeling.shaking": "τρέμω. Συνέχεια βλέπω πράγματα.",
+  "feeling.fallingApart": "διαλύομαι. Χρειάζομαι φως."
 }

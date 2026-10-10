@@ -86,7 +86,12 @@ function createGame() {
 function setupModes(game) {
   const { input, ui, canvas } = game;
 
+  // Recapturing the mouse right after a menu closes can make the browser drop
+  // the capture once; that must not count as the player pausing.
+  let resumedAt = -Infinity;
+
   game.play = () => {
+    resumedAt = performance.now();
     game.mode = 'playing';
     game.session.active = true;
     game.events.emit('game.play');
@@ -109,6 +114,7 @@ function setupModes(game) {
   };
 
   game.resume = () => {
+    resumedAt = performance.now();
     game.mode = 'playing';
     ui.close();
     input.setEnabled(true);
@@ -134,7 +140,7 @@ function setupModes(game) {
     }
   });
   document.addEventListener('pointerlockchange', () => {
-    if (!document.pointerLockElement) game.pause();
+    if (!document.pointerLockElement && performance.now() - resumedAt > 1000) game.pause();
   });
   window.addEventListener('keydown', (event) => {
     if (event.code === 'Escape' && game.mode === 'playing' && !event.defaultPrevented) game.pause();

@@ -112,3 +112,29 @@ test('low sanity bends the picture', async ({ page }) => {
   expect(fx.vignette).toBeGreaterThan(0.3);
   expect(fx.blur).toBeGreaterThan(0);
 });
+
+test('the journal says how the player feels', async ({ page }) => {
+  const lines = await page.evaluate(() => {
+    const g = window.__stAgnes;
+    const read = (value) => {
+      g.sanity.set(value);
+      g.openScreen('journal');
+      const canvas = document.createElement('canvas');
+      canvas.width = 480;
+      canvas.height = 270;
+      const texts = [];
+      const ctx = canvas.getContext('2d');
+      const original = ctx.fillText.bind(ctx);
+      ctx.fillText = (text, ...rest) => {
+        texts.push(text);
+        original(text, ...rest);
+      };
+      g.ui.current().draw(ctx);
+      g.resume();
+      return texts.find((t) => t.startsWith('How I feel'));
+    };
+    return [read(90), read(30)];
+  });
+  expect(lines[0]).toBe('How I feel: calm.');
+  expect(lines[1]).toBe('How I feel: shaking. I keep seeing things.');
+});
