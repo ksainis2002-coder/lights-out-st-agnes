@@ -77,7 +77,17 @@ function drawRewind(ctx, game) {
   return true;
 }
 
+// The browser only gives the mouse back after a click: say so plainly.
+function drawClickToContinue(ctx, game) {
+  if (!game.needsClick()) return false;
+  ctx.fillStyle = 'rgba(0,0,0,0.45)';
+  ctx.fillRect(0, 0, W, H);
+  osdText(ctx, game.i18n.t('hud.clickToContinue'), W / 2, H / 2 - 6, 12, COLORS.text, 'center');
+  return true;
+}
+
 export function drawHud(ctx, game) {
+  if (drawClickToContinue(ctx, game)) return true;
   if (drawRewind(ctx, game)) {
     game.subtitles.draw(ctx);
     return true;

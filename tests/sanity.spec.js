@@ -135,6 +135,6 @@ test('the journal says how the player feels', async ({ page }) => {
     };
     return [read(90), read(30)];
   });
-  expect(lines[0]).toBe('How I feel: calm.');
-  expect(lines[1]).toBe('How I feel: shaking. I keep seeing things.');
+  expect(lines[0]).toMatch(/^How I feel: calm/);
+  expect(lines[1]).toMatch(/^How I feel: shaking/); // wraps inside the left page
 });

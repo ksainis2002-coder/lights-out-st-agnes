@@ -16,8 +16,7 @@ export function createJournalScreen(ui) {
 
   function drawClues(ctx) {
     paperText(ctx, t(`journal.wing.${game.world.level.wing}`), 84, 32, 12);
-    paperText(ctx, t('journal.feeling', { feeling: t(`feeling.${feeling(game.sanity.value())}`) }), 84, 48, 10, INK_SOFT);
-    let y = 66;
+    let y = paperParagraph(ctx, t('journal.feeling', { feeling: t(`feeling.${feeling(game.sanity.value())}`) }), 84, 48, 140, 10, 12, INK_SOFT) + 8;
     let x = 84;
     for (const id of game.journal.clues()) {
       if (y > 220 && x === 84) {
@@ -26,7 +25,7 @@ export function createJournalScreen(ui) {
       }
       y = paperParagraph(ctx, `– ${t(`clue.${id}`)}`, x, y, 140, 10, 12) + 8;
     }
-    if (!game.journal.clues().length) paperText(ctx, t('journal.empty'), 84, 66, 10, INK_SOFT);
+    if (!game.journal.clues().length) paperText(ctx, t('journal.empty'), 84, y, 10, INK_SOFT);
   }
 
   function drawDocuments(ctx) {

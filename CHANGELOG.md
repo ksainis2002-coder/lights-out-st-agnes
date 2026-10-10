@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.33 — Owner playtest: the journal's "How I feel" line wraps inside the left page; after leaving a menu the game clearly waits with "CLICK TO CONTINUE" until the browser gives the mouse back, instead of looking frozen.
 - 0.1.32 — Owner playtest: sanity effects start at 85 and grow steadily (sway from 70, heartbeat from 50, heavy breathing from 35), darkness drains twice as fast, and the journal says how you feel (owner pick: effects + journal line, no on-screen meter). Fix: ESC on the save screen (and journal/documents) no longer drops to the main menu.
 - 0.1.31 — Build step 5: sanity. Hidden meter drained by darkness (much faster with the flashlight off), restored by light, pills and the patient room; scaled by difficulty. As it falls: colour split, softening, dark edges, swaying view, heartbeat, ringing ears; fake children that flicker silently and vanish when looked at (never drain or block). At zero: faint, VHS rewind with ◀◀ REW, back to the checkpoint, and a child whispers why. Subtitles with the 'a child' name rule; sanity in saves and the debug overlay.
 - 0.1.30 — Main menu music (owner request): a hummed lullaby over faint tape hiss on the warning, menu and setup screens before a game starts; fades into the room sounds on PLAY.

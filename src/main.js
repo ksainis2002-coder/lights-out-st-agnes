@@ -106,6 +106,12 @@ function setupModes(game) {
   };
 
   // Modal screens during play (journal, documents): the world waits.
+  // While playing without the mouse captured (after a menu), the game waits
+  // for a click. Tests turn this off: headless browsers cannot capture.
+  game.requireMouseCapture = true;
+  game.needsClick = () =>
+    game.requireMouseCapture && game.mode === 'playing' && 'pointerLockElement' in document && !document.pointerLockElement;
+
   game.openScreen = (name, options) => {
     game.mode = 'ui';
     input.setEnabled(false);
@@ -196,7 +202,7 @@ function tick(game, dt) {
   const { player, input, world, settings } = game;
   game.frame += 1;
   game.time += dt;
-  simulate(game, dt);
+  if (!game.needsClick()) simulate(game, dt);
   player.applyToCamera(world.camera, settings);
   if (game.collapse.active()) game.collapse.applyCamera(world.camera);
   else if (game.session.active) applySanityEffects(game, game.sanity.value(), game.time);
