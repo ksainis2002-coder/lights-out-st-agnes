@@ -60,3 +60,14 @@ test('the office clock ticks from the clock on the wall, not everywhere', async 
   expect(result.played.amb_clock).toBeGreaterThanOrEqual(1);
   expect(result.beds).not.toContain('amb_clock');
 });
+
+test('the main menu plays the lullaby until a game starts', async ({ page }) => {
+  await page.goto('./');
+  await waitForBoot(page);
+  await page.keyboard.press('ArrowDown');
+  await page.waitForFunction(() => window.__stAgnes.sfx.isReady(), null, { timeout: 30000 });
+  await page.waitForFunction(() => window.__stAgnes.sfx.beds().includes('mus_lullaby_hum'));
+  await page.evaluate(() => window.__stAgnes.newGame());
+  await page.waitForFunction(() => !window.__stAgnes.sfx.beds().includes('mus_lullaby_hum'));
+  expect(await page.evaluate(() => window.__stAgnes.sfx.beds())).toContain('amb_building_hum');
+});

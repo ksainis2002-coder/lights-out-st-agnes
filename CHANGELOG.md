@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.30 — Main menu music (owner request): a hummed lullaby over faint tape hiss on the warning, menu and setup screens before a game starts; fades into the room sounds on PLAY.
 - 0.1.29 — Build step 4: saving at tape recorders (landing, patient room) on 3 tapes with an overwrite check, REWIND in the main menu loads a tape or the checkpoint, silent checkpoint autosave when entering a level, PLAY starts a fresh game; saves hold level, position, inventory, journal and world progress.
 - 0.1.28 — The office wall clock shows the player's real local time (local clock only, no network), tying in with the 3:00 secret room; minute hand now longer than the hour hand.
 - 0.1.27 — Owner playtest: a wooden wall clock in Sister's office; its ticking now comes from the clock (positional sound emitters in level data) instead of filling the whole room.

@@ -9,6 +9,8 @@ const STRIDE = { crouch: 0.55, walk: 0.75, run: 0.95 }; // metres between steps
 const STEP_VOLUME = { crouch: 0.3, walk: 0.65, run: 1 };
 const FLOOR_SOUND = { wood: 'step_wood', floor: 'step_tile', tile: 'step_tile' };
 const AMBIENCE_FADE = 1.5; // seconds
+// Before a game starts (warning, main menu, setup): a hummed lullaby over tape hiss.
+const MENU_AMBIENCE = [{ name: 'mus_lullaby_hum', volume: 0.55 }, { name: 'tape_hiss', volume: 0.12 }];
 
 export function createGameAudio(game) {
   const { mixer, events } = game;
@@ -94,13 +96,15 @@ export function createGameAudio(game) {
     return room?.ambience ?? level.ambience ?? [];
   }
 
-  // Fades beds that the new room does not use, starts the ones it does.
+  // Fades beds that the new room (or the menu) does not use, starts the ones it does.
   function updateAmbience() {
     const { level } = game.world;
-    const room = roomAt(level, game.player.state.position);
+    const inMenu = !game.session.active;
+    const room = inMenu ? 'menu' : roomAt(level, game.player.state.position);
     if (room === lastRoom) return;
     lastRoom = room;
-    const wanted = new Map(ambienceFor(level, room).map((entry) => (typeof entry === 'string' ? [entry, 0.5] : [entry.name, entry.volume])));
+    const list = inMenu ? MENU_AMBIENCE : ambienceFor(level, room);
+    const wanted = new Map(list.map((entry) => (typeof entry === 'string' ? [entry, 0.5] : [entry.name, entry.volume])));
     const ctx = mixer.context();
     for (const [name, bed] of beds) {
       if (wanted.has(name)) continue;
