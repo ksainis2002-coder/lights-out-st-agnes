@@ -57,6 +57,26 @@ export function namePlateTexture(name) {
   });
 }
 
+// White number painted on a dark headboard (bed numbers for the register).
+export function numberTexture(number) {
+  return canvasTexture(16, 16, (g, w, h) => {
+    g.fillStyle = '#1c1c1e';
+    g.fillRect(0, 0, w, h);
+    g.fillStyle = '#d8d4c8';
+    g.font = 'bold 12px monospace';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.fillText(String(number), w / 2, h / 2 + 1);
+  });
+}
+
+const plateCache = new Map();
+// Same plate texture for the same name (plates move between beds).
+export function cachedPlateTexture(name) {
+  if (!plateCache.has(name)) plateCache.set(name, namePlateTexture(name));
+  return plateCache.get(name);
+}
+
 // Crayon lines on paper. Each drawing is a list of strokes in a 0..1 space.
 const DRAWINGS = {
   house: [['#a33', [[0.2, 0.8], [0.2, 0.45], [0.5, 0.2], [0.8, 0.45], [0.8, 0.8], [0.2, 0.8]]], ['#335', [[0.42, 0.8], [0.42, 0.6], [0.56, 0.6], [0.56, 0.8]]]],

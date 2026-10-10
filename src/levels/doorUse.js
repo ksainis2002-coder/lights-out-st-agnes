@@ -2,16 +2,16 @@
 // and exits to other levels (stairs, the hub door). Hidden doors are not
 // usable until revealed. Door changes are recorded in game.progress.
 import * as THREE from 'three';
-import { ITEMS } from '../items/catalog.js';
+import { itemDef, itemText } from '../items/catalog.js';
 
 export function doorInteractables(game) {
   const { world, player, progress, i18n } = game;
   const level = world.level;
-  const itemName = (id) => i18n.t(`item.${id}.name`);
+  const itemName = (id) => itemText(i18n, id);
 
   function unlock(door) {
     const key = door.locked;
-    if (ITEMS[key]?.consumed) game.inventory.remove(key);
+    if (itemDef(key)?.consumed) game.inventory.remove(key);
     door.locked = null;
     progress.unlock(door.id);
     game.messages.show('msg.unlocked', { item: itemName(key) });

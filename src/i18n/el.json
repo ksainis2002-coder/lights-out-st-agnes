@@ -177,5 +177,22 @@
   "whisper.tommy.follow": "Έλα. Πριν ελέγξει τα κρεβάτια.",
   "whisper.tommy.washroom": "Έτριβε τα χέρια της κάθε βράδυ. Κάθε βράδυ.",
   "whisper.tommy.names": "Έλα μαζί μου. Έβαλαν λάθος τα ονόματα.",
-  "whisper.tommy.cubbies": "Ο καθένας είχε το δικό του ράφι. Ο καθένας."
+  "whisper.tommy.cubbies": "Ο καθένας είχε το δικό του ράφι. Ο καθένας.",
+  "prompt.takePlate": "Πάρε την ταμπέλα «{name}»",
+  "prompt.placePlate": "Βάλε την «{name}» σε αυτό το κρεβάτι",
+  "msg.platesSolved": "Κάθε όνομα είναι στη θέση του. Κάτι κυλάει κάτω από το κρεβάτι 2: ένα μικρό μπρούτζινο κουρδιστήρι.",
+  "item.plate.name": "Ταμπέλα: {name}",
+  "item.plate.desc": "Τενεκεδένια ταμπέλα από κρεβάτι. Κάποιος έξυνε τις βίδες.",
+  "item.toy_ball.name": "Λαστιχένια μπάλα",
+  "item.toy_ball.desc": "Κόκκινη, σκληρή από τα χρόνια.",
+  "item.toy_doll.name": "Πάνινη κούκλα",
+  "item.toy_doll.desc": "Ένα κουμπί για μάτι. Το άλλο είναι ραμμένο κλειστό.",
+  "item.toy_top.name": "Σβούρα",
+  "item.toy_top.desc": "Μπλε και κίτρινη. Ακόμα γυρίζει ίσια.",
+  "item.statue_piece.name": "Κομμάτι αγάλματος",
+  "item.statue_piece.desc": "Ένα πέτρινο χέρι, σπασμένο στον καρπό. Κρατάει κάτι.",
+  "doc.dorm_register.title": "Μητρώο κοιτώνα",
+  "doc.dorm_register.byline": "Κατανομή κρεβατιών — Αδελφή Μ.",
+  "doc.dorm_register.body": "Κοιτώνας αγοριών, ανατολικός. Κρεβάτια όπως ορίστηκαν.\n1. Walter Price\n2. Thomas Hale («Tommy»)\n3. Peter Doyle\n4. Samuel Cole\n5. Alfred Burns («Alfie»)\n6. Arthur Lowe\n7. George Finch\n8. Frank Ellery\n9. Harry Moss\n10. Ernest Dunn\nΚανένα παιδί δεν αλλάζει κρεβάτι χωρίς άδεια.",
+  "clue.read_dorm_register": "Το μητρώο γράφει ποιος κοιμόταν σε κάθε αριθμημένο κρεβάτι. Στο 2 ήταν ο Thomas Hale. Ο Tommy. Hale, όπως εγώ."
 }

@@ -4,6 +4,7 @@
 // Using a pickup puts its item in the inventory; using a document opens it.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
+import { itemText } from './catalog.js';
 
 function place(level, object, { at, y = 0, rotation = 0 }) {
   object.position.set(at[0] * level.cellSize, y, at[1] * level.cellSize);
@@ -24,12 +25,12 @@ export function createPickups(game, level, data) {
     usable.push({
       position: mesh.position.clone().setY((pickup.y ?? 0) + 0.05),
       radius: 0.25,
-      prompt: () => (progress.isTaken(pickup.id) ? null : { key: 'prompt.take', params: { item: i18n.t(`item.${pickup.item}.name`) } }),
+      prompt: () => (progress.isTaken(pickup.id) ? null : { key: 'prompt.take', params: { item: itemText(i18n, pickup.item) } }),
       use() {
         if (!inventory.add(pickup.item)) return game.messages.show('msg.inventoryFull');
         progress.take(pickup.id);
         group.remove(mesh);
-        game.messages.show('msg.taken', { item: i18n.t(`item.${pickup.item}.name`) });
+        game.messages.show('msg.taken', { item: itemText(i18n, pickup.item) });
         game.events.emit('item.taken', pickup);
       },
     });
@@ -44,6 +45,7 @@ export function createPickups(game, level, data) {
       prompt: () => ({ key: 'prompt.read' }),
       use() {
         progress.read(doc.id);
+        (doc.flags ?? []).forEach((flag) => progress.setFlag(flag));
         if (journal.addDocument(doc.id)) game.messages.show('msg.journal');
         game.events.emit('document.read', doc);
         game.openScreen('document', { id: doc.id });

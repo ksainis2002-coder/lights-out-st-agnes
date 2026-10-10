@@ -14,7 +14,11 @@ export function paperText(ctx, text, x, y, size, color = INK) {
 }
 
 // Word-wrapped paragraph; returns the y below the last line.
+// Wraps words to width; a newline in the text starts a new line.
 export function paperParagraph(ctx, text, x, y, width, size, lineHeight, color = INK) {
+  if (text.includes('\n')) {
+    return text.split('\n').reduce((top, part) => paperParagraph(ctx, part, x, top, width, size, lineHeight, color), y);
+  }
   ctx.font = `${size}px ${SERIF}`;
   let line = '';
   let row = 0;

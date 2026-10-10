@@ -177,5 +177,22 @@
   "whisper.tommy.follow": "Come on. Before she checks the beds.",
   "whisper.tommy.washroom": "She scrubbed her hands every night. Every single night.",
   "whisper.tommy.names": "Follow me. They put the names wrong.",
-  "whisper.tommy.cubbies": "Everyone had their own shelf. Everyone."
+  "whisper.tommy.cubbies": "Everyone had their own shelf. Everyone.",
+  "prompt.takePlate": "Take the plate “{name}”",
+  "prompt.placePlate": "Fix “{name}” to this bed",
+  "msg.platesSolved": "Every name is where it belongs. Something rolls out from under bed 2: a little brass crank.",
+  "item.plate.name": "Name plate: {name}",
+  "item.plate.desc": "Tin plate from a bed. Someone scratched at the screws.",
+  "item.toy_ball.name": "Rubber ball",
+  "item.toy_ball.desc": "Red, gone hard with age.",
+  "item.toy_doll.name": "Rag doll",
+  "item.toy_doll.desc": "One button eye. The other is sewn shut.",
+  "item.toy_top.name": "Spinning top",
+  "item.toy_top.desc": "Blue and yellow. Still spins true.",
+  "item.statue_piece.name": "Statue piece",
+  "item.statue_piece.desc": "A stone hand, broken at the wrist. It is holding something.",
+  "doc.dorm_register.title": "Dormitory register",
+  "doc.dorm_register.byline": "Bed allotment — Sister M.",
+  "doc.dorm_register.body": "Boys' dormitory, east. Beds as allotted.\n1. Walter Price\n2. Thomas Hale (“Tommy”)\n3. Peter Doyle\n4. Samuel Cole\n5. Alfred Burns (“Alfie”)\n6. Arthur Lowe\n7. George Finch\n8. Frank Ellery\n9. Harry Moss\n10. Ernest Dunn\nNo child to change beds without leave.",
+  "clue.read_dorm_register": "The dorm register lists who slept in each numbered bed. Bed 2 was Thomas Hale. Tommy. Hale, like me."
 }

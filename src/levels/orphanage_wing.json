@@ -309,9 +309,10 @@
    ],
    "rotation": 90,
    "options": {
-    "name": "WALTER",
-    "unmade": false
-   }
+    "unmade": false,
+    "number": 1
+   },
+   "id": "bed_1"
   },
   {
    "type": "bed",
@@ -321,9 +322,10 @@
    ],
    "rotation": -90,
    "options": {
-    "name": "TOMMY",
-    "unmade": true
-   }
+    "unmade": true,
+    "number": 2
+   },
+   "id": "bed_2"
   },
   {
    "type": "bed",
@@ -333,9 +335,10 @@
    ],
    "rotation": 90,
    "options": {
-    "name": "PETER",
-    "unmade": true
-   }
+    "unmade": true,
+    "number": 3
+   },
+   "id": "bed_3"
   },
   {
    "type": "bed",
@@ -345,9 +348,10 @@
    ],
    "rotation": -90,
    "options": {
-    "name": "SAM",
-    "unmade": true
-   }
+    "unmade": true,
+    "number": 4
+   },
+   "id": "bed_4"
   },
   {
    "type": "bed",
@@ -357,9 +361,10 @@
    ],
    "rotation": 90,
    "options": {
-    "name": "ALFIE",
-    "unmade": true
-   }
+    "unmade": true,
+    "number": 5
+   },
+   "id": "bed_5"
   },
   {
    "type": "bed",
@@ -369,9 +374,10 @@
    ],
    "rotation": -90,
    "options": {
-    "name": "ARTHUR",
-    "unmade": false
-   }
+    "unmade": false,
+    "number": 6
+   },
+   "id": "bed_6"
   },
   {
    "type": "bed",
@@ -381,9 +387,10 @@
    ],
    "rotation": 90,
    "options": {
-    "name": "GEORGE",
-    "unmade": false
-   }
+    "unmade": false,
+    "number": 7
+   },
+   "id": "bed_7"
   },
   {
    "type": "bed",
@@ -393,9 +400,10 @@
    ],
    "rotation": -90,
    "options": {
-    "name": "FRANK",
-    "unmade": true
-   }
+    "unmade": true,
+    "number": 8
+   },
+   "id": "bed_8"
   },
   {
    "type": "bed",
@@ -405,9 +413,10 @@
    ],
    "rotation": 90,
    "options": {
-    "name": "HARRY",
-    "unmade": true
-   }
+    "unmade": true,
+    "number": 9
+   },
+   "id": "bed_9"
   },
   {
    "type": "bed",
@@ -417,9 +426,10 @@
    ],
    "rotation": -90,
    "options": {
-    "name": "ERNEST",
-    "unmade": false
-   }
+    "unmade": false,
+    "number": 10
+   },
+   "id": "bed_10"
   },
   {
    "type": "bed",
@@ -873,6 +883,18 @@
    ],
    "y": 0.765,
    "rotation": 15
+  },
+  {
+   "id": "dorm_register",
+   "at": [
+    17.25,
+    14.2
+   ],
+   "y": 0.765,
+   "rotation": -8,
+   "flags": [
+    "name_tommy"
+   ]
   }
  ],
  "emitters": [
@@ -1038,5 +1060,33 @@
    "cooldownGroup": "scare",
    "comfort": "skip"
   }
- ]
+ ],
+ "puzzles": {
+  "namePlates": {
+   "answer": {
+    "bed_1": "WALTER",
+    "bed_2": "TOMMY",
+    "bed_3": "PETER",
+    "bed_4": "SAM",
+    "bed_5": "ALFIE",
+    "bed_6": "ARTHUR",
+    "bed_7": "GEORGE",
+    "bed_8": "FRANK",
+    "bed_9": "HARRY",
+    "bed_10": "ERNEST"
+   },
+   "start": {
+    "bed_1": "WALTER",
+    "bed_2": "SAM",
+    "bed_3": "PETER",
+    "bed_4": "TOMMY",
+    "bed_5": "ALFIE",
+    "bed_6": "ARTHUR",
+    "bed_7": "HARRY",
+    "bed_8": "FRANK",
+    "bed_9": "GEORGE",
+    "bed_10": "ERNEST"
+   }
+  }
+ }
 }

@@ -1,7 +1,7 @@
 // Low-poly props built in code. Each builder returns a Group with its origin
 // on the floor at the prop's centre, facing +z (its "front").
 import * as THREE from 'three';
-import { box, plane, decal, materialFor, namePlateTexture, drawingTexture } from './parts.js';
+import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture } from './parts.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -10,7 +10,7 @@ function group(...children) {
 }
 
 // Iron orphanage bed, 0.9 × 1.9 m, head at -z. Optional brass name plate.
-function bed(t, { name, unmade = false } = {}) {
+function bed(t, { name, unmade = false, number } = {}) {
   const legs = [[-0.42, -0.92], [0.42, -0.92], [-0.42, 0.92], [0.42, 0.92]].map(([x, z]) => box(t.iron, [0.05, 0.45, 0.05], [x, 0, z]));
   const parts = [
     ...legs,
@@ -22,6 +22,7 @@ function bed(t, { name, unmade = false } = {}) {
     box(t.sheet, [0.5, 0.08, 0.3], [0, 0.48, -0.72]),
   ];
   if (name) parts.push(decal(namePlateTexture(name), [0.3, 0.075], [0, 0.55, 0.97]));
+  if (number) parts.push(decal(numberTexture(number), [0.26, 0.26], [0, 0.68, -0.91]));
   return group(...parts);
 }
 

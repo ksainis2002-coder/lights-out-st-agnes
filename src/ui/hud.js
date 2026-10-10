@@ -4,7 +4,7 @@
 import { osdText, COLORS } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { drawIcon } from './icons.js';
-import { ITEMS, INVENTORY_SLOTS } from '../items/catalog.js';
+import { itemDef, itemText, INVENTORY_SLOTS } from '../items/catalog.js';
 
 const W = 480;
 const H = 270;
@@ -47,12 +47,12 @@ function drawInventory(ctx, game) {
     const x = x0 + i * (SLOT + 4);
     ctx.fillStyle = i === inventory.selectedIndex() && items[i] ? 'rgba(232,240,255,0.25)' : 'rgba(232,240,255,0.07)';
     ctx.fillRect(x, y0, SLOT, SLOT);
-    if (items[i]) drawIcon(ctx, ITEMS[items[i]].icon, x + 2, y0 + 2, 2);
+    if (items[i]) drawIcon(ctx, itemDef(items[i]).icon, x + 2, y0 + 2, 2);
   }
   const selected = inventory.selectedItem();
   if (selected) {
-    osdText(ctx, i18n.t(`item.${selected}.name`).toUpperCase(), x0, y0 + SLOT + 6, 10, COLORS.text);
-    osdText(ctx, i18n.t(`item.${selected}.desc`), x0, y0 + SLOT + 19, 9, COLORS.soft);
+    osdText(ctx, itemText(i18n, selected).toUpperCase(), x0, y0 + SLOT + 6, 10, COLORS.text);
+    osdText(ctx, itemText(i18n, selected, 'desc'), x0, y0 + SLOT + 19, 9, COLORS.soft);
   } else {
     osdText(ctx, i18n.t('inventory.empty'), x0, y0 + SLOT + 6, 9, COLORS.soft);
   }

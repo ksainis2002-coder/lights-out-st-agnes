@@ -1,6 +1,6 @@
 // What the player carries: up to 8 items in order, one selected.
 // Plain data so saves can store it (toJSON / load).
-import { ITEMS, INVENTORY_SLOTS } from './catalog.js';
+import { itemDef, INVENTORY_SLOTS } from './catalog.js';
 
 export function createInventory(events) {
   let items = [];
@@ -8,7 +8,7 @@ export function createInventory(events) {
   let open = false;
 
   function add(id) {
-    if (!ITEMS[id]) throw new Error(`Unknown item "${id}"`);
+    if (!itemDef(id)) throw new Error(`Unknown item "${id}"`);
     if (items.length >= INVENTORY_SLOTS) return false;
     items.push(id);
     events.emit('item.added', id);
@@ -41,7 +41,7 @@ export function createInventory(events) {
     },
     toJSON: () => ({ items: [...items] }),
     load(data) {
-      items = (data?.items ?? []).filter((id) => ITEMS[id]);
+      items = (data?.items ?? []).filter((id) => itemDef(id));
       selected = 0;
     },
   };
