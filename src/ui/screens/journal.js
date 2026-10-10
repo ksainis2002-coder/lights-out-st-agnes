@@ -1,6 +1,6 @@
 // Journal (J), as in the approved still ui_journal: a notebook with
-// CLUES / DOCUMENTS / MAPS tabs. TAB switches section, ▲▼ picks a document,
-// J or ESC closes.
+// CLUES / DOCUMENTS / MAPS tabs. TAB or a click switches section, ▲▼ or a
+// click picks a document, J or ESC closes.
 import { osdText, COLORS } from '../osd.js';
 import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, paperParagraph } from '../paper.js';
 import { feeling } from '../../sanity/meter.js';
@@ -64,7 +64,12 @@ export function createJournalScreen(ui) {
     osdText(ctx, t('journal.footer'), W / 2, H - 16, 8, COLORS.dim, 'center');
   }
 
-  const hits = () => TABS.map((name, i) => ({ x: 80 + i * 72, y: 8, w: 68, h: 16, click: () => (tab = i) }));
+  function hits() {
+    const tabs = TABS.map((name, i) => ({ x: 80 + i * 72, y: 8, w: 68, h: 16, click: () => (tab = i) }));
+    if (TABS[tab] !== 'documents') return tabs;
+    const rows = game.journal.documents().map((id, i) => ({ x: 80, y: 30 + i * 16, w: 150, h: 15, click: () => (doc = i) }));
+    return [...tabs, ...rows];
+  }
 
   function key(code, event) {
     const docs = game.journal.documents().length;
@@ -76,5 +81,5 @@ export function createJournalScreen(ui) {
     return true;
   }
 
-  return { name: 'journal', look: 'game', draw, hits, key, tab: () => TABS[tab] };
+  return { name: 'journal', look: 'game', draw, hits, key, tab: () => TABS[tab], selectedDocument: () => game.journal.documents()[doc] };
 }

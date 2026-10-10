@@ -180,7 +180,7 @@
   "whisper.tommy.cubbies": "Everyone had their own shelf. Everyone.",
   "prompt.takePlate": "Take the plate “{name}”",
   "prompt.placePlate": "Fix “{name}” to this bed",
-  "msg.platesSolved": "Every name is where it belongs. Something rolls out from under bed 2: a little brass crank.",
+  "msg.platesSolved": "Every name is where it belongs. Something small rolls out from under bed 2.",
   "item.plate.name": "Name plate: {name}",
   "item.plate.desc": "Tin plate from a bed. Someone scratched at the screws.",
   "item.toy_ball.name": "Rubber ball",

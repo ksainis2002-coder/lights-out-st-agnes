@@ -1,7 +1,8 @@
 // Puzzle 1 (east dorm): the name plates are on the wrong beds. The dorm
 // register (office) says who slept in which numbered bed. Take plates off and
 // put them back where they belong; when every bed is right, Tommy's crank
-// for the music box drops under his bed.
+// for the music box rolls out from under his bed (a pickup that appearsWith
+// the puzzle_plates flag).
 // Level data: "puzzles": { "namePlates": { "answer": { bedId: NAME }, "start": { bedId: NAME } } }
 import * as THREE from 'three';
 import { decal, cachedPlateTexture } from '../props/parts.js';
@@ -49,7 +50,6 @@ export function namePlatesPuzzle(game, level, data) {
   function checkSolved() {
     if (Object.entries(data.answer).some(([bed, name]) => plates[bed] !== name)) return;
     progress.setFlag(SOLVED);
-    inventory.add('music_box_crank');
     game.messages.show('msg.platesSolved', null, 5);
     game.events.emit('puzzle.solved', 'plates');
     game.events.emit('checkpoint');

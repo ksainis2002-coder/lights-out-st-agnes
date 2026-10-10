@@ -8,6 +8,7 @@ import { puzzleInteractables } from './puzzles/index.js';
 
 export function setupLevelFlow(game) {
   let usable = [];
+  let pickups = null;
   game.interaction.addSource(() => usable);
 
   game.loadLevel = (id, spawnName = 'default') => {
@@ -17,7 +18,8 @@ export function setupLevelFlow(game) {
     applyDoorProgress(level, game.progress);
     game.player.setLevel(level, level.spawns[spawnName] ?? level.spawn);
     game.triggers.setLevel(level);
-    const pickups = createPickups(game, level, data);
+    pickups?.dispose();
+    pickups = createPickups(game, level, data);
     game.world.levelGroup.add(pickups.group);
     usable = [...doorInteractables(game), ...pickups.usable, ...propInteractables(game, level), ...puzzleInteractables(game, level, data)];
     game.interaction.clear();

@@ -872,6 +872,18 @@
     13.85
    ],
    "y": 0.76
+  },
+  {
+   "id": "plates_crank",
+   "item": "music_box_crank",
+   "at": [
+    10.3,
+    2.2
+   ],
+   "y": 0.0,
+   "appearsWith": "puzzle_plates",
+   "model": "crank",
+   "rotation": 30
   }
  ],
  "documents": [

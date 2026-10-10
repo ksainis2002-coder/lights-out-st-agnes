@@ -53,6 +53,9 @@ export function createGameAudio(game) {
   events.on('collapse.started', () => play('wake_gasp', { volume: 0.7 }));
   events.on('game.saved', () => play('vhs_eject', { volume: 0.7, pitchJitter: 0 }));
   events.on('level.leaving', () => play('door_use', { volume: 0.9 }));
+  events.on('plate.taken', () => play('key_pickup', { volume: 0.6 }));
+  events.on('plate.placed', () => play('key_pickup', { volume: 0.6 }));
+  events.on('puzzle.solved', () => play('wooden_toy', { volume: 0.9 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
   function startEmitters() {

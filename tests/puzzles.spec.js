@@ -61,9 +61,24 @@ test('name plates: put every plate back on its bed and the crank drops', async (
   expect(await items(page)).toEqual([]);
   expect(await lookAtPlate(page, 'bed_2')).toEqual({ key: 'prompt.takePlate', params: { name: 'TOMMY' } });
 
+  const crankPrompt = () => page.evaluate(() => {
+    const game = window.__stAgnes;
+    const level = game.world.level;
+    const c = { x: 9.5 * level.cellSize, z: 2.2 * level.cellSize };
+    Object.assign(game.player.state.position, { x: c.x, z: c.z });
+    const target = { x: 10.3 * level.cellSize, z: 2.2 * level.cellSize };
+    game.player.state.yaw = Math.atan2(-(target.x - c.x), -(target.z - c.z));
+    game.player.state.pitch = Math.atan2(0.05 - game.player.state.eyeHeight, Math.hypot(target.x - c.x, target.z - c.z));
+    game.advance(1 / 30);
+    return game.interaction.target()?.prompt() ?? null;
+  });
+  expect(await crankPrompt()).toBeNull(); // hidden until solved
+
   await swap(page, 'bed_7', 'bed_9', 'HARRY', 'GEORGE');
-  expect(await items(page)).toEqual(['music_box_crank']);
   expect(await page.evaluate(() => window.__stAgnes.progress.hasFlag('puzzle_plates'))).toBe(true);
+  expect((await crankPrompt())?.key).toBe('prompt.take'); // rolled out from under bed 2
+  await use(page);
+  expect(await items(page)).toEqual(['music_box_crank']);
   expect(await lookAtPlate(page, 'bed_2')).toBeNull(); // solved plates stay put
 });
 
@@ -93,4 +108,19 @@ test('the dorm register teaches Tommy\'s name', async ({ page }) => {
   });
   expect(doc).toBe('document');
   expect(await known()).toBe(true);
+});
+
+test('journal: tabs and document rows answer the mouse', async ({ page }) => {
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.journal.addDocument('night_duty');
+    game.journal.addDocument('dorm_register');
+    game.openScreen('journal');
+  });
+  const box = await page.locator('canvas#game').boundingBox();
+  const at = (x, y) => [box.x + (x / 480) * box.width, box.y + (y / 270) * box.height];
+  await page.mouse.click(...at(186, 15)); // DOCUMENTS tab
+  expect(await page.evaluate(() => window.__stAgnes.ui.current().tab())).toBe('documents');
+  await page.mouse.click(...at(120, 53)); // second row
+  expect(await page.evaluate(() => window.__stAgnes.ui.current().selectedDocument())).toBe('dorm_register');
 });

@@ -132,6 +132,16 @@ function smallItem(t, { color = '#b8a060', size = [0.1, 0.02, 0.04] } = {}) {
   return group(box(t.paintedWood, size, [0, 0, 0], { color }));
 }
 
+// Music box crank lying on the floor: brass shaft, bent arm, wooden knob.
+function crank(t) {
+  const brass = { color: '#d8b860' };
+  return group(
+    box(t.sheet, [0.28, 0.035, 0.035], [0, 0, 0], brass),
+    box(t.sheet, [0.035, 0.035, 0.14], [0.125, 0, 0.07], brass),
+    box(t.paintedWood, [0.055, 0.055, 0.055], [0.125, 0, 0.14], { color: '#8a4a22' }),
+  );
+}
+
 // One sheet of paper (documents to read).
 function paperSheet(t) {
   const sheet = plane(t.sheet, [0.21, 0.29], [0, 0.004, 0]);
@@ -169,6 +179,7 @@ function wallClock(t, { height = 1.45 } = {}) {
 export const PROPS = {
   wallClock,
   smallItem,
+  crank,
   paperSheet,
   chair,
   papers,
