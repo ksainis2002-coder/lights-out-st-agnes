@@ -13,6 +13,7 @@ export function captureState(game) {
     journal: game.journal.toJSON(),
     progress: game.progress.toJSON(),
     playTime: game.session.playTime,
+    sanity: game.sanity.value(),
   };
 }
 
@@ -30,6 +31,7 @@ export function applyState(game, state) {
   game.journal.load(state.journal);
   game.progress.load(state.progress);
   game.session.playTime = state.playTime ?? 0;
+  game.sanity.set(state.sanity ?? 100);
   const levelId = LEVELS[state.level] ? state.level : START_LEVEL;
   game.loadLevel(levelId);
   if (levelId === state.level && state.position) {
@@ -44,5 +46,6 @@ export function resetState(game) {
   game.journal.load(null);
   game.progress.load(null);
   game.session.playTime = 0;
+  game.sanity.set(100);
   game.loadLevel(START_LEVEL);
 }

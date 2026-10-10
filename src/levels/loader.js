@@ -72,6 +72,7 @@ export function parseLevel(data) {
     lights: data.lights ?? [],
     ambience: data.ambience ?? [],
     emitters: data.emitters ?? [],
+    safe: data.safe === true, // safe rooms restore sanity (the patient room)
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
   };
 }

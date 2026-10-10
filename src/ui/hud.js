@@ -67,9 +67,24 @@ function drawMessage(ctx, game) {
   return true;
 }
 
+// During a sanity collapse rewind: the VCR's "◀◀ REW" and a counter running back.
+function drawRewind(ctx, game) {
+  if (!game.collapse.rewinding()) return false;
+  const s = Math.floor(game.collapse.counter());
+  const pad = (n) => String(n).padStart(2, '0');
+  osdText(ctx, '◀◀ REW', 16, 12, 14);
+  osdText(ctx, `SP  ${Math.floor(s / 3600)}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`, W - 16, 12, 12, COLORS.text, 'right');
+  return true;
+}
+
 export function drawHud(ctx, game) {
+  if (drawRewind(ctx, game)) {
+    game.subtitles.draw(ctx);
+    return true;
+  }
+  const subtitle = game.subtitles.draw(ctx);
   const prompt = drawPrompt(ctx, game);
   const inventory = drawInventory(ctx, game);
   const message = drawMessage(ctx, game);
-  return prompt || inventory || message;
+  return prompt || inventory || message || subtitle;
 }

@@ -162,5 +162,10 @@
   "room.corridor_A": "Test corridor",
   "room.stair_hall": "Test stair hall",
   "room.orphanage_wing": "Orphanage",
-  "room.test_corridor": "Test corridor"
+  "room.test_corridor": "Test corridor",
+  "msg.pills": "Your hands stop shaking.",
+  "speaker.child": "a child",
+  "speaker.tommy": "Tommy",
+  "speaker.whispering": "whispering",
+  "whisper.rewind.dark": "Don't stay in the dark so long. They get in."
 }

@@ -73,7 +73,7 @@ test('J opens the journal with clues; TAB changes section', async ({ page }) => 
 });
 
 test('TAB opens the inventory; using an item on nothing says so', async ({ page }) => {
-  await page.evaluate(() => window.__stAgnes.inventory.add('pills'));
+  await page.evaluate(() => window.__stAgnes.inventory.add('battery'));
   await tap(page, 'inventory', 0.05);
   expect(await page.evaluate(() => window.__stAgnes.inventory.isOpen())).toBe(true);
   await look(page, [15, 10], 90, 0);

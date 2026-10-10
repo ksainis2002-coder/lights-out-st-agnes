@@ -25,6 +25,11 @@ import { setupClues } from './clues.js';
 import { setupInventoryControls } from './items/controls.js';
 import { setupSaving } from './save/saving.js';
 import { resetState } from './save/gameState.js';
+import { createSanity } from './sanity/meter.js';
+import { applySanityEffects } from './sanity/effects.js';
+import { createHallucinations } from './sanity/hallucinations.js';
+import { createCollapse } from './sanity/collapse.js';
+import { createSubtitles } from './ui/subtitles.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -59,6 +64,20 @@ function createGame() {
   setupClues(game);
   setupInventoryControls(game);
   setupSaving(game);
+  game.sanity = createSanity(game);
+  game.subtitles = createSubtitles(game);
+  game.hallucinations = createHallucinations(game);
+  game.collapse = createCollapse(game);
+  game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
+  game.events.on('level.loaded', () => game.hallucinations.remove());
+  game.itemEffects = {
+    pills: () => {
+      game.sanity.restore(30);
+      game.inventory.remove('pills');
+      game.messages.show('msg.pills');
+      return true;
+    },
+  };
   game.sfx = createGameAudio(game);
   game.debug = createDebugOverlay(game);
   return game;
@@ -139,6 +158,12 @@ function simulate(game, dt) {
   if (game.mode !== 'playing') return;
   game.session.playTime += dt;
   game.updateTravel(dt);
+  game.subtitles.update(dt);
+  if (game.collapse.active()) {
+    game.collapse.update(dt);
+    world.update(dt);
+    return;
+  }
   if (game.isTravelling()) {
     world.update(dt);
     return;
@@ -154,6 +179,8 @@ function simulate(game, dt) {
   player.applyToCamera(world.camera, settings);
   world.camera.updateMatrixWorld();
   game.interaction.update(world.camera, input);
+  game.sanity.update(dt);
+  game.hallucinations.update(dt, game.sanity.value(), world.camera);
   world.update(dt);
   game.sfx.update(dt);
   game.messages.update(dt);
@@ -165,6 +192,8 @@ function tick(game, dt) {
   game.time += dt;
   simulate(game, dt);
   player.applyToCamera(world.camera, settings);
+  if (game.collapse.active()) game.collapse.applyCamera(world.camera);
+  else if (game.session.active) applySanityEffects(game, game.sanity.value(), game.time);
   world.camera.updateMatrixWorld();
   updateListener(game.mixer, world.camera);
   if (game.mode !== 'playing') game.sfx.update(dt); // ambience keeps fading in menus

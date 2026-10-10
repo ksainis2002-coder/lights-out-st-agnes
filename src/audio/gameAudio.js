@@ -49,6 +49,8 @@ export function createGameAudio(game) {
   events.on('flashlight.toggled', () => play('flashlight_click', { volume: 0.7, pitchJitter: 0.02 }));
   events.on('ui.move', () => play('ui_beep', { volume: 0.5, bus: 'effects', pitchJitter: 0 }));
   events.on('game.play', () => play('vhs_insert', { volume: 0.8, pitchJitter: 0 }));
+  events.on('collapse.rewinding', () => play('vhs_rewind', { volume: 0.9, pitchJitter: 0 }));
+  events.on('collapse.started', () => play('wake_gasp', { volume: 0.7 }));
   events.on('game.saved', () => play('vhs_eject', { volume: 0.7, pitchJitter: 0 }));
   events.on('level.leaving', () => play('door_use', { volume: 0.9 }));
   // Positional loops placed in the level (the office clock): "emitters".
@@ -139,6 +141,28 @@ export function createGameAudio(game) {
     play('thunder_far', { volume: 0.6, pitchJitter: 0.08 });
   }
 
+  // Continuous loops whose volume other systems set (heartbeat, tinnitus).
+  const layers = new Map();
+  function setLayer(name, volume) {
+    if (!ready) return;
+    const ctx = mixer.context();
+    let layer = layers.get(name);
+    if (!layer && volume <= 0.001) return;
+    if (!layer) {
+      const gain = ctx.createGain();
+      gain.gain.value = 0;
+      gain.connect(mixer.bus('effects'));
+      const source = ctx.createBufferSource();
+      source.buffer = library.pick(name);
+      source.loop = true;
+      source.connect(gain);
+      source.start();
+      layer = { gain };
+      layers.set(name, layer);
+    }
+    layer.gain.gain.setTargetAtTime(volume, ctx.currentTime, 0.3);
+  }
+
   function update(dt) {
     if (!ready) return;
     updateAmbience();
@@ -147,5 +171,5 @@ export function createGameAudio(game) {
     updateThunder(dt);
   }
 
-  return { start, update, play, isReady: () => ready, beds: () => [...beds.keys()], played: () => ({ ...played }) };
+  return { start, update, play, setLayer, layerVolume: (name) => layers.get(name)?.gain.gain.value ?? 0, isReady: () => ready, beds: () => [...beds.keys()], played: () => ({ ...played }) };
 }

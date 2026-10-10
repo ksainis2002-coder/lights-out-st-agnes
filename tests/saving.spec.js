@@ -20,6 +20,9 @@ test('PLAY starts a new game in the patient room with empty pockets', async ({ p
 });
 
 test('record at the landing tape recorder, reload, and REWIND back to the same moment', async ({ page }) => {
+  // Two page loads, each decoding every sound after the first key press: slow
+  // in the software-rendered test browser, so this test gets more time.
+  test.setTimeout(90_000);
   await toMenu(page);
   expect(await page.evaluate(() => window.__stAgnes.hasAnySave())).toBe(false);
   await page.keyboard.press('Enter'); // PLAY

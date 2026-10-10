@@ -55,7 +55,7 @@ export function createDebugOverlay(game) {
     const lines = [
       [`FPS ${fps.value}   frame ${fps.frameMs.toFixed(1)} ms   draws ${pipeline.stats.drawCalls}   tris ${(tris / 1000).toFixed(1)}k`, COLORS.perf],
       [`wing ${world.level.wing}   room ${roomAt(world.level, p) ?? '-'}   level ${world.level.id}`, COLORS.info],
-      [game.sanity ? `SANITY ${game.sanity.value} / 100` : 'SANITY -- (not built yet)', COLORS.sanity],
+      [`SANITY ${Math.round(game.sanity.value())} / 100   (${game.sanity.rate() >= 0 ? '+' : ''}${game.sanity.rate().toFixed(2)}/s)   rewinds ${game.collapse.rewinds()}`, COLORS.sanity],
       [`player (${p.x.toFixed(1)}, ${player.state.eyeHeight.toFixed(1)}, ${p.z.toFixed(1)})  stamina ${Math.round(player.state.stamina)}  noise ${player.state.noise}`, COLORS.info],
       [`TRIGGERS  ${triggers.active.size} active   [F3] toggle`, COLORS.trigger],
     ];

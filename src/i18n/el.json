@@ -162,5 +162,10 @@
   "room.corridor_A": "Δοκιμαστικός διάδρομος",
   "room.stair_hall": "Δοκιμαστικό κλιμακοστάσιο",
   "room.orphanage_wing": "Ορφανοτροφείο",
-  "room.test_corridor": "Δοκιμαστικός διάδρομος"
+  "room.test_corridor": "Δοκιμαστικός διάδρομος",
+  "msg.pills": "Τα χέρια σου σταματούν να τρέμουν.",
+  "speaker.child": "ένα παιδί",
+  "speaker.tommy": "Τόμι",
+  "speaker.whispering": "ψιθυριστά",
+  "whisper.rewind.dark": "Μη μένεις τόση ώρα στο σκοτάδι. Μπαίνουν μέσα."
 }
