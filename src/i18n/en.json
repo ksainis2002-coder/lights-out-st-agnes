@@ -133,7 +133,7 @@
   "doc.night_duty.body": "Lights out at nine. Any child found out of bed is to stand in the corridor until I say otherwise. The Hale boy again. He says the little girl in white told him to come down. There is no little girl in white.",
   "clue.locked_office": "Sister M.'s office is locked.",
   "clue.locked_linen": "The linen cupboard is locked. Sister would keep that key close.",
-  "clue.locked_west_dorm": "The girls' dorm is shut tight. There is no keyhole on this side.",
+  "clue.locked_west_dorm": "The west dorm won’t open. There’s no keyhole. It’s bolted from the inside.",
   "clue.took_office_key": "A key in the washroom drain, tagged “Office”. Someone dropped it in a hurry.",
   "clue.took_linen_key": "Sister's desk held a key tagged “Linen”.",
   "clue.read_night_duty": "Sister M. punished children found out of bed. The Hale boy talked about a little girl in white.",
@@ -194,5 +194,14 @@
   "doc.dorm_register.title": "Dormitory register",
   "doc.dorm_register.byline": "Bed allotment — Sister M.",
   "doc.dorm_register.body": "Boys' dormitory, east. Beds as allotted.\n1. Walter Price\n2. Thomas Hale (“Tommy”)\n3. Peter Doyle\n4. Samuel Cole\n5. Alfred Burns (“Alfie”)\n6. Arthur Lowe\n7. George Finch\n8. Frank Ellery\n9. Harry Moss\n10. Ernest Dunn\nNo child to change beds without leave.",
-  "clue.read_dorm_register": "The dorm register lists who slept in each numbered bed. Bed 2 was Thomas Hale. Tommy. Hale, like me."
+  "clue.read_dorm_register": "The dorm register lists who slept in each numbered bed. Bed 2 was Thomas Hale. Tommy. Hale, like me.",
+  "prompt.placeToy": "Put {item} in {name}’s cubby",
+  "msg.toysSolved": "Every toy is home. Down the corridor, a bolt slides back on its own.",
+  "clue.took_toy_ball": "A red ball in the linen cupboard. Somebody hid it there.",
+  "clue.took_toy_doll": "A rag doll by the washroom drain. One eye sewn shut.",
+  "clue.took_toy_top": "A spinning top between the beds in the east dorm.",
+  "clue.solved_toys": "I put the toys back in their cubbies. The west dorm is open now.",
+  "clue.solved_plates": "The name plates are back on the right beds. Tommy’s bed gave up a little brass crank.",
+  "prompt.cubby": "{name}’s cubby",
+  "msg.cubbyEmpty": "Empty. Something of theirs should be here."
 }

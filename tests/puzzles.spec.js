@@ -124,3 +124,67 @@ test('journal: tabs and document rows answer the mouse', async ({ page }) => {
   await page.mouse.click(...at(120, 53)); // second row
   expect(await page.evaluate(() => window.__stAgnes.ui.current().selectedDocument())).toBe('dorm_register');
 });
+
+const LABELS = ['MAGGIE', 'PETER', 'EDITH', 'SAM', 'ROSE', 'ALFIE', 'TOMMY', 'NELL', 'GEORGE', 'MARY', 'IVY', 'WALTER'];
+// Stand in front of the playroom cubbies and look into one compartment.
+const lookAtCubby = (page, name) => page.evaluate((i) => {
+  const game = window.__stAgnes;
+  let cubbies = null;
+  game.world.levelGroup.traverse((o) => {
+    if (o.userData.prop?.id === 'playroom_cubbies') cubbies = o;
+  });
+  cubbies.updateWorldMatrix(true, false);
+  const x = -0.6 + (i % 4) * 0.4, y = (2 - Math.floor(i / 4)) * 0.4 + 0.18;
+  const target = cubbies.localToWorld(cubbies.position.clone().set(x, y, 0.05));
+  const stand = cubbies.localToWorld(cubbies.position.clone().set(x, 0, 1.1));
+  Object.assign(game.player.state.position, { x: stand.x, z: stand.z });
+  game.player.state.yaw = Math.atan2(-(target.x - stand.x), -(target.z - stand.z));
+  game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, Math.hypot(target.x - stand.x, target.z - stand.z));
+  game.advance(1 / 30);
+  return game.interaction.target()?.prompt() ?? null;
+}, LABELS.indexOf(name));
+
+test('toys home: each toy in its owner\'s cubby unbolts the west dorm', async ({ page }) => {
+  const westDorm = () => page.evaluate(() => window.__stAgnes.world.level.doors.find((d) => d.id === 'west_dorm').locked);
+  expect(await westDorm()).toBe('puzzle_toys');
+  expect(await lookAtCubby(page, 'IVY')).toEqual({ key: 'prompt.cubby', params: { name: 'IVY' } }); // nothing to put in yet
+  await page.evaluate(() => ['toy_ball', 'toy_doll', 'toy_top'].forEach((id) => window.__stAgnes.inventory.add(id)));
+
+  // A wrong cubby takes the toy, and gives it back.
+  expect((await lookAtCubby(page, 'MAGGIE'))?.key).toBe('prompt.placeToy');
+  await use(page);
+  expect(await items(page)).toEqual(['toy_doll', 'toy_top']);
+  expect((await lookAtCubby(page, 'MAGGIE'))?.key).toBe('prompt.take');
+  await use(page);
+  expect(await items(page)).toEqual(['toy_doll', 'toy_top', 'toy_ball']);
+
+  for (const [toy, owner] of [['toy_ball', 'IVY'], ['toy_doll', 'ROSE'], ['toy_top', 'PETER']]) {
+    await select(page, toy);
+    expect((await lookAtCubby(page, owner))?.key).toBe('prompt.placeToy');
+    await use(page);
+  }
+  expect(await items(page)).toEqual([]);
+  expect(await westDorm()).toBeNull();
+  expect(await page.evaluate(() => window.__stAgnes.progress.isUnlocked('west_dorm'))).toBe(true);
+  expect(await page.evaluate(() => window.__stAgnes.messages.current()?.key)).toBe('msg.toysSolved');
+});
+
+test('toys home: the three toys can be picked up where they lie', async ({ page }) => {
+  for (const id of ['linen_ball', 'washroom_doll', 'dorm_top']) {
+    const prompt = await page.evaluate((id) => {
+      const game = window.__stAgnes;
+      const level = game.world.level;
+      const pickup = { linen_ball: [12.6, 15.5], washroom_doll: [5.8, 16.2], dorm_top: [9.6, 5.3] }[id];
+      const target = { x: pickup[0] * level.cellSize, z: pickup[1] * level.cellSize };
+      const stand = { x: target.x, z: target.z - 0.9 };
+      Object.assign(game.player.state.position, stand);
+      game.player.state.yaw = Math.PI; // facing +z
+      game.player.state.pitch = Math.atan2(0.05 - game.player.state.eyeHeight, 0.9);
+      game.advance(1 / 30);
+      return game.interaction.target()?.prompt() ?? null;
+    }, id);
+    expect(prompt?.key, id).toBe('prompt.take');
+    await use(page);
+  }
+  expect(await items(page)).toEqual(['toy_ball', 'toy_doll', 'toy_top']);
+});

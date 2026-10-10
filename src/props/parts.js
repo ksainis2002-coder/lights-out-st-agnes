@@ -98,3 +98,51 @@ export function drawingTexture(kind) {
     }
   });
 }
+
+// The toy a child holds in an owner drawing, in crayon (0..1 space).
+const DRAWN_TOYS = {
+  toy_ball: (g, w, h) => {
+    g.fillStyle = '#b03028';
+    g.beginPath();
+    g.arc(0.68 * w, 0.62 * h, 0.08 * w, 0, Math.PI * 2);
+    g.fill();
+  },
+  toy_doll: (g, w, h) => {
+    g.fillStyle = '#7a3a4a';
+    g.fillRect(0.62 * w, 0.52 * h, 0.12 * w, 0.16 * h);
+    g.fillStyle = '#c8a888';
+    g.fillRect(0.64 * w, 0.44 * h, 0.08 * w, 0.08 * h);
+  },
+  toy_top: (g, w, h) => {
+    g.fillStyle = '#3a5a9a';
+    g.beginPath();
+    g.moveTo(0.58 * w, 0.52 * h);
+    g.lineTo(0.8 * w, 0.52 * h);
+    g.lineTo(0.69 * w, 0.72 * h);
+    g.fill();
+  },
+};
+
+// A child's drawing of themselves holding their toy, name written under it
+// (puzzle 2: tells whose toy is whose). Names are data, not UI text.
+export function ownerDrawingTexture(name, toy) {
+  return canvasTexture(64, 64, (g, w, h) => {
+    g.fillStyle = '#d8d0b8';
+    g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#2a2a2a';
+    g.lineWidth = 2;
+    g.beginPath();
+    g.arc(0.38 * w, 0.22 * h, 0.08 * w, 0, Math.PI * 2);
+    [[0.38, 0.3, 0.38, 0.58], [0.38, 0.58, 0.28, 0.76], [0.38, 0.58, 0.48, 0.76], [0.38, 0.4, 0.22, 0.5], [0.38, 0.4, 0.6, 0.56]]
+      .forEach(([x0, y0, x1, y1]) => {
+        g.moveTo(x0 * w, y0 * h);
+        g.lineTo(x1 * w, y1 * h);
+      });
+    g.stroke();
+    DRAWN_TOYS[toy]?.(g, w, h);
+    g.fillStyle = '#9a2a20';
+    g.font = 'bold 11px monospace';
+    g.textAlign = 'center';
+    g.fillText(name.toUpperCase(), w / 2, 0.93 * h);
+  });
+}

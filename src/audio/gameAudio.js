@@ -55,7 +55,9 @@ export function createGameAudio(game) {
   events.on('level.leaving', () => play('door_use', { volume: 0.9 }));
   events.on('plate.taken', () => play('key_pickup', { volume: 0.6 }));
   events.on('plate.placed', () => play('key_pickup', { volume: 0.6 }));
-  events.on('puzzle.solved', () => play('wooden_toy', { volume: 0.9 }));
+  events.on('toy.moved', () => play('wooden_toy', { volume: 0.5 }));
+  // The plates drop the crank (a rolling clatter); the toys draw back a bolt.
+  events.on('puzzle.solved', (name) => play(name === 'toys' ? 'door_locked' : 'wooden_toy', { volume: 0.9 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
   function startEmitters() {

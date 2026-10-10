@@ -613,7 +613,8 @@
    "at": [
     15.5,
     4.14
-   ]
+   ],
+   "id": "playroom_cubbies"
   },
   {
    "type": "blocks",
@@ -752,6 +753,42 @@
     15.6
    ],
    "rotation": 90
+  },
+  {
+   "type": "drawing",
+   "at": [
+    13,
+    4.9
+   ],
+   "rotation": 90,
+   "options": {
+    "name": "IVY",
+    "toy": "toy_ball"
+   }
+  },
+  {
+   "type": "drawing",
+   "at": [
+    19,
+    7.0
+   ],
+   "rotation": -90,
+   "options": {
+    "name": "PETER",
+    "toy": "toy_top"
+   }
+  },
+  {
+   "type": "drawing",
+   "at": [
+    17.6,
+    9
+   ],
+   "rotation": 180,
+   "options": {
+    "name": "ROSE",
+    "toy": "toy_doll"
+   }
   }
  ],
  "lights": [
@@ -884,6 +921,34 @@
    "appearsWith": "puzzle_plates",
    "model": "crank",
    "rotation": 30
+  },
+  {
+   "id": "linen_ball",
+   "item": "toy_ball",
+   "at": [
+    12.6,
+    15.5
+   ],
+   "model": "toyBall"
+  },
+  {
+   "id": "washroom_doll",
+   "item": "toy_doll",
+   "at": [
+    5.8,
+    16.2
+   ],
+   "rotation": 70,
+   "model": "toyDoll"
+  },
+  {
+   "id": "dorm_top",
+   "item": "toy_top",
+   "at": [
+    9.6,
+    5.3
+   ],
+   "model": "toyTop"
   }
  ],
  "documents": [
@@ -1099,6 +1164,29 @@
     "bed_9": "GEORGE",
     "bed_10": "ERNEST"
    }
+  },
+  "cubbies": {
+   "prop": "playroom_cubbies",
+   "labels": [
+    "MAGGIE",
+    "PETER",
+    "EDITH",
+    "SAM",
+    "ROSE",
+    "ALFIE",
+    "TOMMY",
+    "NELL",
+    "GEORGE",
+    "MARY",
+    "IVY",
+    "WALTER"
+   ],
+   "answer": {
+    "toy_ball": "IVY",
+    "toy_doll": "ROSE",
+    "toy_top": "PETER"
+   },
+   "unlocks": "west_dorm"
   }
  }
 }

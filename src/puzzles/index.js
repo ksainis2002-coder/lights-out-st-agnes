@@ -1,8 +1,9 @@
 // Puzzles named in a level's data ("puzzles": { "namePlates": {...} }).
 // Each returns interactables; its state lives in progress values.
 import { namePlatesPuzzle } from './namePlates.js';
+import { cubbiesPuzzle } from './cubbies.js';
 
-const PUZZLES = { namePlates: namePlatesPuzzle };
+const PUZZLES = { namePlates: namePlatesPuzzle, cubbies: cubbiesPuzzle };
 
 export function puzzleInteractables(game, level, data) {
   return Object.entries(data.puzzles ?? {}).flatMap(([name, config]) => {

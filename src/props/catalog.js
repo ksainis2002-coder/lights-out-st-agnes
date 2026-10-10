@@ -1,7 +1,7 @@
 // Low-poly props built in code. Each builder returns a Group with its origin
 // on the floor at the prop's centre, facing +z (its "front").
 import * as THREE from 'three';
-import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture } from './parts.js';
+import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture } from './parts.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -62,7 +62,9 @@ function cubbies(t) {
 }
 
 // Child's drawing pinned flat to a wall (place with its back to the wall).
-function drawing(t, { kind = 'house' } = {}) {
+// With "name" and "toy" it is an owner drawing: that child holding their toy.
+function drawing(t, { kind = 'house', name, toy } = {}) {
+  if (name) return group(decal(ownerDrawingTexture(name, toy), [0.5, 0.5], [0, 1.15, 0.03]));
   return group(decal(drawingTexture(kind), [0.4, 0.4], [0, 1.2, 0.03]));
 }
 
@@ -142,6 +144,28 @@ function crank(t) {
   );
 }
 
+// Toys for puzzle 2, lying about or sitting in a cubby.
+function toyBall(t) {
+  const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(0.08, 0), materialFor(t.sheet, { color: '#b03028' }));
+  mesh.position.y = 0.08;
+  return group(mesh);
+}
+
+function toyDoll(t) {
+  return group(
+    box(t.sheet, [0.13, 0.16, 0.06], [0, 0, 0], { color: '#7a3a4a' }),
+    box(t.sheet, [0.08, 0.08, 0.06], [0, 0.16, 0], { color: '#d8c0a0' }),
+    box(t.sheet, [0.09, 0.025, 0.065], [0, 0.23, 0], { color: '#5a3a1a' }),
+  );
+}
+
+function toyTop(t) {
+  const mesh = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.13, 6), materialFor(t.sheet, { color: '#3a5a9a' }));
+  mesh.rotation.x = Math.PI;
+  mesh.position.y = 0.065;
+  return group(mesh, box(t.paintedWood, [0.02, 0.05, 0.02], [0, 0.13, 0], { color: '#c8a040' }));
+}
+
 // One sheet of paper (documents to read).
 function paperSheet(t) {
   const sheet = plane(t.sheet, [0.21, 0.29], [0, 0.004, 0]);
@@ -180,6 +204,9 @@ export const PROPS = {
   wallClock,
   smallItem,
   crank,
+  toyBall,
+  toyDoll,
+  toyTop,
   paperSheet,
   chair,
   papers,
