@@ -4,7 +4,14 @@ import { waitForBoot } from './helpers.js';
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
-  await page.evaluate(() => window.__stAgnes.newGame());
+  await page.evaluate(() => {
+    const g = window.__stAgnes;
+    g.newGame();
+    // These tests measure darkness and fakes alone: mark every ghost event as already seen.
+    g.loadLevel('orphanage_wing', 'landing');
+    g.world.level.ghosts.forEach((event) => g.progress.setFlag(`ghost_${event.id}`));
+    g.loadLevel('patient_room');
+  });
 });
 
 // Puts the player in a wing cell; returns sanity after `seconds` of game time.

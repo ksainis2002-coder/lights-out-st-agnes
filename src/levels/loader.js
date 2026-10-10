@@ -42,7 +42,9 @@ export function parseLevel(data) {
     wall: (openCol, openRow, wallCol, wallRow) => roomAtCell(openCol, openRow)?.wall ?? kindAt(wallCol, wallRow),
   };
 
-  const triggers = (data.triggers ?? []).map((trigger) => ({ ...trigger, box: cellBox(trigger.cells, trigger.height) }));
+  // Ghost events placed by cells get a trigger volume named ghost_<id>.
+  const ghostTriggers = (data.ghosts ?? []).filter((g) => g.cells).map((g) => ({ id: `ghost_${g.id}`, cells: g.cells }));
+  const triggers = [...(data.triggers ?? []), ...ghostTriggers].map((trigger) => ({ ...trigger, box: cellBox(trigger.cells, trigger.height) }));
 
   const toSpawn = ({ cell, yawDegrees = 0 }) => ({ ...cellCenter(...cell), yaw: (yawDegrees * Math.PI) / 180 });
   const spawns = Object.fromEntries(Object.entries(data.spawns ?? {}).map(([name, s]) => [name, toSpawn(s)]));
@@ -72,6 +74,7 @@ export function parseLevel(data) {
     lights: data.lights ?? [],
     ambience: data.ambience ?? [],
     emitters: data.emitters ?? [],
+    ghosts: data.ghosts ?? [],
     safe: data.safe === true, // safe rooms restore sanity (the patient room)
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
   };

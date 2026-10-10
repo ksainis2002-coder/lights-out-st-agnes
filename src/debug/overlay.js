@@ -59,6 +59,7 @@ export function createDebugOverlay(game) {
       [`player (${p.x.toFixed(1)}, ${player.state.eyeHeight.toFixed(1)}, ${p.z.toFixed(1)})  stamina ${Math.round(player.state.stamina)}  noise ${player.state.noise}`, COLORS.info],
       [`TRIGGERS  ${triggers.active.size} active   [F3] toggle`, COLORS.trigger],
     ];
+    if (game.ghosts) lines.push([game.ghosts.debugLine(), COLORS.enemy]);
     for (const enemy of game.enemies ?? []) lines.push([enemy.debugLine(), COLORS.enemy]);
     return lines;
   }

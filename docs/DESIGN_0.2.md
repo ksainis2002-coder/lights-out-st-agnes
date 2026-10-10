@@ -39,6 +39,11 @@ No meter on screen. The effects make it plain (from 85 down, steadily stronger) 
 CLUES page opens with "How I feel: …" (calm / uneasy / shaking / falling apart). The camcorder
 HUD shows it from 0.4, as in the brief.
 
+## Downloadable app (owner decision 2026-10-10)
+Besides the free browser release on GitHub Pages, make a downloadable Windows app near release
+(0.9 / 1.0), so sound starts at once and the mouse needs no click to be recaptured (browser rules).
+Not part of 0.2.
+
 ## Real clock
 Wall clocks (first one: Sister M.'s office) show the player's real local time, read from the
 computer only. It sets up the brief's real-clock events and the secret room that opens at 3:00.

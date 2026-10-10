@@ -173,5 +173,9 @@
   "feeling.uneasy": "ανήσυχος. Κάτι δεν πάει καλά εδώ.",
   "feeling.shaking": "τρέμω. Συνέχεια βλέπω πράγματα.",
   "feeling.fallingApart": "διαλύομαι. Χρειάζομαι φως.",
-  "hud.clickToContinue": "ΚΑΝΕ ΚΛΙΚ ΓΙΑ ΣΥΝΕΧΕΙΑ"
+  "hud.clickToContinue": "ΚΑΝΕ ΚΛΙΚ ΓΙΑ ΣΥΝΕΧΕΙΑ",
+  "whisper.tommy.follow": "Έλα. Πριν ελέγξει τα κρεβάτια.",
+  "whisper.tommy.washroom": "Έτριβε τα χέρια της κάθε βράδυ. Κάθε βράδυ.",
+  "whisper.tommy.names": "Έλα μαζί μου. Έβαλαν λάθος τα ονόματα.",
+  "whisper.tommy.cubbies": "Ο καθένας είχε το δικό του ράφι. Ο καθένας."
 }

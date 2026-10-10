@@ -886,5 +886,157 @@
    "volume": 0.9,
    "distance": 1.5
   }
+ ],
+ "ghosts": [
+  {
+   "id": "tommy_corridor",
+   "kind": "appear",
+   "room": "corridor",
+   "at": [
+    17.5,
+    10.9
+   ],
+   "rotation": -90,
+   "leadTo": [
+    21,
+    10.5
+   ],
+   "line": "whisper.tommy.follow",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "tommy_washroom",
+   "kind": "appear",
+   "cells": [
+    15,
+    10,
+    19,
+    11
+   ],
+   "requires": {
+    "clue": "locked_office"
+   },
+   "at": [
+    7.5,
+    11.4
+   ],
+   "rotation": 90,
+   "leadTo": [
+    7.5,
+    13.5
+   ],
+   "line": "whisper.tommy.washroom",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "tommy_east_dorm",
+   "kind": "appear",
+   "room": "east_dorm",
+   "at": [
+    8.5,
+    1.9
+   ],
+   "rotation": 0,
+   "leadTo": [
+    8.5,
+    1.5
+   ],
+   "line": "whisper.tommy.names",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "tommy_playroom",
+   "kind": "appear",
+   "room": "playroom",
+   "at": [
+    16.0,
+    4.9
+   ],
+   "rotation": 0,
+   "leadTo": [
+    16.0,
+    4.6
+   ],
+   "line": "whisper.tommy.cubbies",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "scare_washroom",
+   "kind": "scare",
+   "room": "washroom",
+   "setup": {
+    "sound": "whisper",
+    "at": [
+     5.6,
+     16.4
+    ],
+    "delay": 1.8
+   },
+   "sound": {
+    "name": "giggle_close"
+   },
+   "drain": 6,
+   "cooldownGroup": "scare",
+   "comfort": "skip"
+  },
+  {
+   "id": "scare_east_dorm",
+   "kind": "scare",
+   "cells": [
+    6,
+    6,
+    10,
+    8
+   ],
+   "requires": {
+    "flag": "ghost_tommy_east_dorm"
+   },
+   "setup": {
+    "sound": "whisper",
+    "at": [
+     6,
+     3
+    ],
+    "delay": 1.6
+   },
+   "sound": {
+    "name": "giggle_close"
+   },
+   "drain": 5,
+   "cooldownGroup": "scare",
+   "comfort": "skip"
+  },
+  {
+   "id": "scare_corridor_run",
+   "kind": "scare",
+   "cells": [
+    19,
+    10,
+    22,
+    11
+   ],
+   "requires": {
+    "item": "linen_key"
+   },
+   "setup": {
+    "sound": "child_laugh_far",
+    "at": [
+     25,
+     10.5
+    ],
+    "delay": 1.5
+   },
+   "sound": {
+    "name": "child_footsteps_run"
+   },
+   "glimpse": false,
+   "drain": 4,
+   "cooldownGroup": "scare",
+   "comfort": "skip"
+  }
  ]
 }

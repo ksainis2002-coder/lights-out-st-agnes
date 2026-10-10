@@ -77,7 +77,8 @@ function fluorescent(t, { height = 2.4 } = {}) {
 // Ghost child: faceless, pale, half-transparent, in a long nightgown.
 // No features and no injuries (scare rules: victims, not monsters).
 function ghostChild(t, { opacity = 0.55 } = {}) {
-  const ghost = { unlit: true, color: 0xd8e4ec, transparent: true, opacity, depthWrite: false };
+  // fog: false — a pale figure shows at the end of a dark corridor (approved still: tommy).
+  const ghost = { unlit: true, color: 0xd8e4ec, transparent: true, opacity, depthWrite: false, fog: false };
   const gown = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.26, 0.95, 7), materialFor(t.sheet, ghost));
   gown.position.y = 0.48;
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.11, 7, 5), materialFor(t.sheet, ghost));

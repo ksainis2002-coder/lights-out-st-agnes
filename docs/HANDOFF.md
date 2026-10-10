@@ -59,7 +59,7 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
 ## Next: 0.2 vertical slice
 **0.2 stills approved (2026-10-09):** intro_wake, hub, dorm (revised: smaller + messier), tommy,
 low_sanity, rewind — see `docs/DESIGN_0.2.md` for the design picks. UI stills (prompt, inventory,
-journal, document, save) approved too. Building 0.2 in the order listed in DESIGN_0.2.md. Step 1 (use, doors, levels, wing layout) done in 0.1.21; step 2 (sounds) in 0.1.23; step 3 (inventory, keys, journal, documents) in 0.1.24; step 4 (tape saves, REWIND, checkpoints) in 0.1.29; step 5 (sanity) in 0.1.31.
+journal, document, save) approved too. Building 0.2 in the order listed in DESIGN_0.2.md. Step 1 (use, doors, levels, wing layout) done in 0.1.21; step 2 (sounds) in 0.1.23; step 3 (inventory, keys, journal, documents) in 0.1.24; step 4 (tape saves, REWIND, checkpoints) in 0.1.29; step 5 (sanity) in 0.1.31; step 6 (ghost children, Tommy) in 0.1.34. Scare cooldown is 90 s (proposal, still to confirm with the owner when balancing). Owner wants a downloadable Windows app near release (DESIGN_0.2.md).
 
 All sounds in `docs/SOUNDS_0.2.md` are in (58 clips in `assets/sounds/`, all credited and
 CC0-confirmed by the owner). Next: owner says "start 0.2", then mockup stills for the intro,

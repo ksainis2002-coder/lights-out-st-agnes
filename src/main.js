@@ -30,6 +30,7 @@ import { applySanityEffects } from './sanity/effects.js';
 import { createHallucinations } from './sanity/hallucinations.js';
 import { createCollapse } from './sanity/collapse.js';
 import { createSubtitles } from './ui/subtitles.js';
+import { createGhostDirector } from './ghosts/director.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -68,8 +69,12 @@ function createGame() {
   game.subtitles = createSubtitles(game);
   game.hallucinations = createHallucinations(game);
   game.collapse = createCollapse(game);
+  game.ghosts = createGhostDirector(game);
   game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
-  game.events.on('level.loaded', () => game.hallucinations.remove());
+  game.events.on('level.loaded', () => {
+    game.hallucinations.remove();
+    game.ghosts.reset();
+  });
   game.itemEffects = {
     pills: () => {
       game.sanity.restore(30);
@@ -192,6 +197,7 @@ function simulate(game, dt) {
   world.camera.updateMatrixWorld();
   game.interaction.update(world.camera, input);
   game.sanity.update(dt);
+  game.ghosts.update(dt);
   game.hallucinations.update(dt, game.sanity.value(), world.camera);
   world.update(dt);
   game.sfx.update(dt);
