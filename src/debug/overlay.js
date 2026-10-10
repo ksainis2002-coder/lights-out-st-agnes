@@ -1,11 +1,11 @@
 // Debug overlay (F3): fps, frame time, draw calls, triangles, location,
-// sanity, player state, triggers, and per-enemy senses. Drawn on its own
-// full-resolution canvas so it stays sharp over the PS1 image.
+// sanity, player state, triggers, furniture collision (pink) and per-enemy
+// senses. Drawn on its own full-resolution canvas so it stays sharp over the PS1 image.
 // Developer-only text: not player-facing, so not routed through i18n.
 import * as THREE from 'three';
 import { roomAt } from '../levels/loader.js';
 
-const COLORS = { perf: '#7dff8a', info: '#d8e2ec', sanity: '#ffd84a', trigger: '#7fd7ff', enemy: '#ff8a7d' };
+const COLORS = { perf: '#7dff8a', info: '#d8e2ec', sanity: '#ffd84a', trigger: '#7fd7ff', obstacle: '#ff7fe0', enemy: '#ff8a7d' };
 const LINE_HEIGHT = 22;
 
 export function createDebugOverlay(game) {
@@ -82,21 +82,33 @@ export function createDebugOverlay(game) {
     return { x: ((v.x + 1) / 2) * canvas.width, y: ((1 - v.y) / 2) * canvas.height };
   }
 
+  // Floor outline of a world-space box (x/z); false if partly off screen.
+  function outline(minX, minZ, maxX, maxZ) {
+    const points = [[minX, minZ], [maxX, minZ], [maxX, maxZ], [minX, maxZ]].map(([x, z]) => project(x, 0.02, z));
+    if (points.some((point) => !point)) return false;
+    ctx.beginPath();
+    points.forEach((point, i) => (i ? ctx.lineTo(point.x, point.y) : ctx.moveTo(point.x, point.y)));
+    ctx.closePath();
+    ctx.stroke();
+    return true;
+  }
+
+  function drawObstacles() {
+    ctx.strokeStyle = COLORS.obstacle;
+    ctx.lineWidth = 2;
+    for (const box of game.world.level.obstacles) outline(box.minX, box.minZ, box.maxX, box.maxZ);
+  }
+
   function drawTriggers() {
     ctx.strokeStyle = COLORS.trigger;
     ctx.fillStyle = COLORS.trigger;
     ctx.lineWidth = 2;
     for (const trigger of game.world.level.triggers) {
       const { min, max } = trigger.box;
-      const floor = [[min.x, min.z], [max.x, min.z], [max.x, max.z], [min.x, max.z]];
-      const points = floor.map(([x, z]) => project(x, 0.02, z));
-      if (points.some((point) => !point)) continue;
       ctx.setLineDash(game.triggers.active.has(trigger.id) ? [] : [8, 6]);
-      ctx.beginPath();
-      points.forEach((point, i) => (i ? ctx.lineTo(point.x, point.y) : ctx.moveTo(point.x, point.y)));
-      ctx.closePath();
-      ctx.stroke();
+      const shown = outline(min.x, min.z, max.x, max.z);
       ctx.setLineDash([]);
+      if (!shown) continue;
       const label = project((min.x + max.x) / 2, 0.02, (min.z + max.z) / 2);
       if (label) ctx.fillText(`trig: ${trigger.id}`, label.x - 60, label.y + 6);
     }
@@ -107,7 +119,10 @@ export function createDebugOverlay(game) {
     if (!visible) return;
     fit();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (game.mode === 'playing') drawTriggers();
+    if (game.mode === 'playing') {
+      drawObstacles();
+      drawTriggers();
+    }
     drawPanel(textLines());
     for (const enemy of game.enemies ?? []) enemy.drawDebug?.(ctx, project);
   }

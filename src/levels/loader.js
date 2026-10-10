@@ -6,6 +6,7 @@
 //   "hidden": true, "exit": { "level": "patient_room", "spawn": "door" } }]
 // A door cell blocks movement while closed. A door with "exit" never opens;
 // using it moves the player to another level.
+import { propObstacles } from '../props/footprints.js';
 
 export function parseLevel(data) {
   const { cellSize, wallHeight, map, legend } = data;
@@ -71,6 +72,7 @@ export function parseLevel(data) {
     spawn,
     spawns: { default: spawn, ...spawns },
     props: data.props ?? [],
+    obstacles: propObstacles(data.props ?? [], cellSize),
     lights: data.lights ?? [],
     ambience: data.ambience ?? [],
     emitters: data.emitters ?? [],
