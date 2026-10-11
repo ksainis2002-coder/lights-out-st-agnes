@@ -263,5 +263,13 @@
   "heldNote.putAway": "{key}  put away",
   "intro.skip": "ENTER  skip",
   "intro.whisper1": "…you came back.",
-  "intro.whisper2": "Find our things. Then we can all go to sleep."
+  "intro.whisper2": "Find our things. Then we can all go to sleep.",
+  "item.flashlight.name": "Flashlight",
+  "item.flashlight.desc": "Heavy, rubber-cased. The batteries rattle.",
+  "tutorial.flashlight.toggle": "{key} turns the flashlight on and off.",
+  "tutorial.flashlight.dark": "The dark wears on your mind. Light keeps it steady.",
+  "look.drawing.house": "A house with a red roof and one door. Someone drew it over and over.",
+  "look.drawing.horse": "A wooden horse, drawn very carefully. A name underneath has been rubbed out.",
+  "look.drawing.children": "Children holding hands in a row. One at the end is only an outline.",
+  "look.drawing.sun": "A yellow sun over green grass. Outside."
 }

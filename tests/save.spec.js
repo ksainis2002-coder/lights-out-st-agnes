@@ -75,3 +75,9 @@ test('saves persist across a page reload in the browser', async ({ page }) => {
   const state = await page.evaluate(() => window.__stAgnes.saves.load('slot2').state);
   expect(state).toEqual({ wing: 'dorms', n: 7 });
 });
+
+test('saves from before the flashlight pickup keep their flashlight', async () => {
+  const { MIGRATIONS } = await import('../src/save/saves.js');
+  const old = { version: 1, savedAt: 'x', meta: {}, state: { progress: { flags: ['intro_seen'] } } };
+  expect(MIGRATIONS[1](old).state.progress.flags).toEqual(['intro_seen', 'tool_flashlight']);
+});

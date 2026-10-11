@@ -1,7 +1,7 @@
 // Low-poly props built in code. Each builder returns a Group with its origin
 // on the floor at the prop's centre, facing +z (its "front").
 import * as THREE from 'three';
-import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture, chalkSongTexture, keySymbolTexture, TUNE_SYMBOLS } from './parts.js';
+import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture, chalkSongTexture, paperTexture, keySymbolTexture, TUNE_SYMBOLS } from './parts.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -166,6 +166,17 @@ function toyTop(t) {
   return group(mesh, box(t.paintedWood, [0.02, 0.05, 0.02], [0, 0.13, 0], { color: '#c8a040' }));
 }
 
+// Hand torch lying on its side (the flashlight pickup in the patient room).
+function torch(t) {
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.16, 6), materialFor(t.iron, { color: '#3a3a3e' }));
+  const head = new THREE.Mesh(new THREE.CylinderGeometry(0.034, 0.024, 0.05, 6), materialFor(t.iron, { color: '#8a8a84' }));
+  body.rotation.z = Math.PI / 2;
+  head.rotation.z = -Math.PI / 2;
+  body.position.set(0, 0.024, 0);
+  head.position.set(0.1, 0.034, 0);
+  return group(body, head);
+}
+
 // Music box (puzzle 3), meant for a table top (y = 0.76): a wooden case
 // with five symbol keys along the front. Keys are 8 cm apart, x = -0.16..0.16.
 export const MUSIC_BOX_KEYS = [-0.16, -0.08, 0, 0.08, 0.16];
@@ -200,9 +211,12 @@ function statuePiece(t) {
 
 // One sheet of paper (documents to read).
 function paperSheet(t) {
-  const sheet = plane(t.sheet, [0.21, 0.29], [0, 0.004, 0]);
+  const sheet = decal(paperTexture(), [0.21, 0.29], [0, 0.004, 0]);
   sheet.rotation.x = -Math.PI / 2;
-  return group(sheet);
+  // A soft dark edge under it, so it reads as lying on the surface.
+  const shadow = decal(t.sheet, [0.24, 0.32], [0.01, 0.001, 0.01], { color: '#000000', transparent: true, opacity: 0.45 });
+  shadow.rotation.x = -Math.PI / 2;
+  return group(shadow, sheet);
 }
 
 // Wooden wall clock with a pendulum case; hangs with its back on the wall
@@ -236,6 +250,7 @@ export const PROPS = {
   wallClock,
   smallItem,
   crank,
+  torch,
   toyBall,
   toyDoll,
   toyTop,

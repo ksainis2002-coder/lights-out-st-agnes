@@ -225,3 +225,15 @@ export function keySymbolTexture(name) {
   }
   return keyCache.get(name);
 }
+
+// A sheet of written paper: off-white, faint ruled lines of handwriting.
+let paperCache = null;
+export function paperTexture() {
+  paperCache ??= canvasTexture(16, 24, (g, w, h) => {
+    g.fillStyle = '#d8d0bc';
+    g.fillRect(0, 0, w, h);
+    g.fillStyle = '#7a7060';
+    for (let y = 4; y < h - 3; y += 3) g.fillRect(2, y, w - 4 - ((y * 7) % 5), 1);
+  });
+  return paperCache;
+}

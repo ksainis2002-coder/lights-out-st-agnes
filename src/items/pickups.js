@@ -10,7 +10,7 @@
 // taking a map adds it to the journal's MAPS page.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
-import { itemText } from './catalog.js';
+import { itemDef, itemText } from './catalog.js';
 
 function place(level, object, { at, y = 0, rotation = 0 }) {
   object.position.set(at[0] * level.cellSize, y, at[1] * level.cellSize);
@@ -37,7 +37,8 @@ export function createPickups(game, level, data) {
       radius: 0.25,
       prompt: () => (progress.isTaken(pickup.id) || !mesh.visible ? null : { key: 'prompt.take', params: { item: itemText(i18n, pickup.item) } }),
       use() {
-        if (!inventory.add(pickup.item)) return game.messages.show('msg.inventoryFull');
+        if (itemDef(pickup.item).tool) progress.setFlag(`tool_${pickup.item}`);
+        else if (!inventory.add(pickup.item)) return game.messages.show('msg.inventoryFull');
         progress.take(pickup.id);
         group.remove(mesh);
         game.messages.show('msg.taken', { item: itemText(i18n, pickup.item) });

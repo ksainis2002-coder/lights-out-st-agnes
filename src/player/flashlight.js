@@ -1,4 +1,5 @@
-// Flashlight: a spot light carried by the camera. F toggles it.
+// Flashlight: a spot light carried by the camera. F toggles it once the
+// player has picked it up (progress flag tool_flashlight).
 // Close to a wall or the floor a fixed-power light washes everything to
 // white, so the beam dims as the nearest surface in front gets close.
 import * as THREE from 'three';
@@ -45,6 +46,10 @@ export function createFlashlight(camera) {
     isOn: () => on,
     toggle() {
       on = !on;
+      light.visible = on;
+    },
+    setOn(value) {
+      on = value;
       light.visible = on;
     },
   };

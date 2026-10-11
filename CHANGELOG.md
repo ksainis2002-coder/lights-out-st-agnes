@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.48 — Owner playtest: the flashlight is no longer on from the start. It lies on the patient-room table; taking it (no inventory slot) shows a short tutorial ("F turns the flashlight on and off." / "The dark wears on your mind. Light keeps it steady."), and only then does F work. Save format 2: older saves keep their flashlight (migration). Every drawing can now be looked at, each with its own line. Papers on the floor sit flat with a soft shadow and written lines instead of floating. Sanity effects test waits for rendered frames instead of a fixed 300 ms.
 - 0.1.47 — Build step 8: the intro (approved still intro_wake, about 36 s). A new game opens on black; the eyes flutter open on the patient-room bed with a gasp, a child whispers "…you came back." and later "Find our things. Then we can all go to sleep.", the blurred view drifts round the room, then he sits up and stands where control begins. ENTER or SPACE skips. Brief check: the register now names Sam Pike (the brief's Sam), and the riddle no longer calls the music box Tommy's (in the brief it is Edith's object).
 - 0.1.46 — Held note (approved still ui_heldNote): in the journal's DOCUMENTS tab, H pulls the chosen document out to your side; it stays readable in the lower left while you play (hidden while the inventory is open), and H puts it away. Rebindable "Hold note" key; the held note is kept in saves.
 - 0.1.45 — Fix (owner playtest): ▲▼ in the journal no longer change the chosen document while on the CLUES or MAPS tab.

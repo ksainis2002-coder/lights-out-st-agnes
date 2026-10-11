@@ -8,6 +8,8 @@ test.beforeEach(async ({ page }) => {
     const g = window.__stAgnes;
     g.newGame();
     g.intro.finish(); // tested in intro.spec.js
+    g.progress.setFlag('tool_flashlight'); // these tests start with the flashlight on
+    g.world.flashlight.setOn(true);
     // These tests measure darkness and fakes alone: mark every ghost event as already seen.
     g.loadLevel('orphanage_wing', 'landing');
     g.world.level.ghosts.forEach((event) => g.progress.setFlag(`ghost_${event.id}`));
@@ -111,11 +113,10 @@ test('fake children appear at low sanity but never drain it or touch the player 
 });
 
 test('low sanity bends the picture', async ({ page }) => {
-  const fx = await page.evaluate(() => {
-    const g = window.__stAgnes;
-    g.sanity.set(20);
-    return new Promise((resolve) => setTimeout(() => resolve({ ...g.pipeline.fx }), 300));
-  });
+  await page.evaluate(() => window.__stAgnes.sanity.set(20));
+  // Effects are applied by rendered frames, which can be slow in the software renderer.
+  await page.waitForFunction(() => window.__stAgnes.pipeline.fx.aberration > 1, null, { timeout: 10000 });
+  const fx = await page.evaluate(() => ({ ...window.__stAgnes.pipeline.fx }));
   expect(fx.aberration).toBeGreaterThan(1);
   expect(fx.vignette).toBeGreaterThan(0.3);
   expect(fx.blur).toBeGreaterThan(0);

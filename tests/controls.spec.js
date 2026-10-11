@@ -80,7 +80,11 @@ test.describe('in the browser', () => {
 
   test('mouse look turns the view and the flashlight toggles with F', async ({ page }) => {
     const before = await playerState(page);
-    await page.evaluate(() => window.__stAgnes.input.addLook(200, 0));
+    await page.evaluate(() => {
+      window.__stAgnes.progress.setFlag('tool_flashlight');
+      window.__stAgnes.world.flashlight.setOn(true);
+      window.__stAgnes.input.addLook(200, 0);
+    });
     await advance(page, 1 / 60);
     expect((await playerState(page)).yaw).toBeLessThan(before.yaw);
     await page.keyboard.press('KeyF');

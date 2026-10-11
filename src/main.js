@@ -22,6 +22,7 @@ import { createProgress } from './progress.js';
 import { createJournal } from './journal.js';
 import { createMessages } from './ui/messages.js';
 import { setupVisits } from './levels/visits.js';
+import { setupTutorial } from './tutorial.js';
 import { setupClues } from './clues.js';
 import { setupInventoryControls } from './items/controls.js';
 import { setupSaving } from './save/saving.js';
@@ -66,6 +67,7 @@ function createGame() {
   setupLevelFlow(game);
   setupClues(game);
   setupVisits(game);
+  setupTutorial(game);
   setupInventoryControls(game);
   setupSaving(game);
   game.sanity = createSanity(game);
@@ -199,7 +201,7 @@ function simulate(game, dt) {
   game.updateItems();
   if (game.mode !== 'playing') return;
   player.update(dt, input, settings);
-  if (input.wasPressed('flashlight')) {
+  if (input.wasPressed('flashlight') && game.progress.hasFlag('tool_flashlight')) {
     world.flashlight.toggle();
     game.events.emit('flashlight.toggled', world.flashlight.isOn());
   }

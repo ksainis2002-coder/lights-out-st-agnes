@@ -3,7 +3,10 @@
 // Families of items share one definition: "plate_TOMMY" is a name plate
 // (item.plate.name with {name}).
 
+// Tools ("tool": true) are carried without taking a slot: picking one up
+// sets the progress flag tool_<id>.
 export const ITEMS = {
+  flashlight: { icon: 'battery', tool: true },
   office_key: { icon: 'key', consumed: true },
   linen_key: { icon: 'key', consumed: true },
   music_box_crank: { icon: 'crank' },

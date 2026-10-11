@@ -131,5 +131,18 @@
       "volume": 0.45
     }
   ],
-  "safe": true
+  "safe": true,
+  "pickups": [
+    {
+      "id": "room_flashlight",
+      "item": "flashlight",
+      "at": [
+        4.55,
+        2.85
+      ],
+      "y": 0.76,
+      "rotation": 30,
+      "model": "torch"
+    }
+  ]
 }

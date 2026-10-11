@@ -36,6 +36,7 @@ test('doors and the flashlight make sounds; rooms have ambience', async ({ page 
     game.advance(0.1);
     game.input.tap('use');
     game.advance(0.5);
+    game.progress.setFlag('tool_flashlight');
     game.input.tap('flashlight');
     game.advance(0.1);
     return { played: game.sfx.played(), beds: game.sfx.beds() };

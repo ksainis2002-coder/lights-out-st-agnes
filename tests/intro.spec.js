@@ -43,3 +43,57 @@ test('ENTER skips the intro', async ({ page }) => {
   expect(s.active).toBe(false);
   expect(s.fade).toBe(0);
 });
+
+test('the flashlight lies on the patient room table; F does nothing until it is taken', async ({ page }) => {
+  await page.evaluate(() => window.__stAgnes.intro.finish());
+  const on = () => page.evaluate(() => window.__stAgnes.world.flashlight.isOn());
+  expect(await on()).toBe(false);
+  await page.evaluate(() => {
+    window.__stAgnes.input.tap('flashlight');
+    window.__stAgnes.advance(0.1);
+  });
+  expect(await on()).toBe(false);
+  const prompt = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    Object.assign(game.player.state.position, { x: 3.6, z: 2.85 });
+    game.player.state.yaw = -Math.PI / 2; // facing +x
+    game.player.state.pitch = Math.atan2(0.8 - game.player.state.eyeHeight, 0.95);
+    game.advance(1 / 30);
+    return game.interaction.target()?.prompt() ?? null;
+  });
+  expect(prompt?.key).toBe('prompt.take');
+  const seen = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.input.tap('use');
+    const keys = new Set();
+    for (let i = 0; i < 200; i++) {
+      game.advance(0.1);
+      keys.add(game.messages.current()?.key);
+    }
+    return [...keys];
+  });
+  expect(seen).toEqual(expect.arrayContaining(['msg.taken', 'tutorial.flashlight.toggle', 'tutorial.flashlight.dark']));
+  expect(await page.evaluate(() => window.__stAgnes.inventory.items())).toEqual([]); // a tool takes no slot
+  await page.evaluate(() => {
+    window.__stAgnes.input.tap('flashlight');
+    window.__stAgnes.advance(0.1);
+  });
+  expect(await on()).toBe(true);
+});
+
+test('every drawing can be looked at', async ({ page }) => {
+  await page.evaluate(() => window.__stAgnes.intro.finish());
+  const result = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    const target = { x: 3.4, y: 1.2, z: 1.0 }; // the horse drawing in the patient room
+    Object.assign(game.player.state.position, { x: 3.4, z: 2.1 });
+    game.player.state.yaw = 0; // facing -z
+    game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, 1.1);
+    game.advance(1 / 30);
+    const prompt = game.interaction.target()?.prompt()?.key ?? null;
+    game.input.tap('use');
+    game.advance(0.1);
+    return { prompt, message: game.messages.current()?.key };
+  });
+  expect(result).toEqual({ prompt: 'prompt.look', message: 'look.drawing.horse' });
+});
