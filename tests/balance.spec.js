@@ -26,12 +26,14 @@ test('orphanage wing at human pace: time and collapses per hour', async ({ page 
     let batteriesUsed = 0;
     let darkSeconds = 0;
     let pillsTaken = 0;
-    game.events.on('battery.dead', () => {
-      if (!game.inventory.has('battery')) return;
+    const swap = () => {
+      if (game.battery.canLight() || !game.inventory.has('battery')) return;
       game.itemEffects.battery();
       game.world.flashlight.setOn(true);
       batteriesUsed += 1;
-    });
+    };
+    game.events.on('battery.dead', swap);
+    game.events.on('item.taken', swap); // a battery found in the dark goes straight in
     game.collapse.start = () => {
       collapseMinutes.push(t / 60);
       game.sanity.set(60);

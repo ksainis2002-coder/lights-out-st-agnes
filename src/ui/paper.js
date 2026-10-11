@@ -5,10 +5,33 @@ export const INK = '#2a2418';
 export const INK_SOFT = '#5a4c34';
 const SERIF = 'Georgia, "Times New Roman", serif';
 
+// "[[blot]]" in a document's text is an ink blot on the paper: drawn as a
+// smudge here, and read as "[unreadable]" in transcripts and the journal.
+export const BLOT = '[[blot]]';
+
+function drawBlot(ctx, x, y, size) {
+  ctx.fillStyle = 'rgba(30,24,16,0.85)';
+  ctx.beginPath();
+  ctx.ellipse(x + size * 2.4, y + size * 0.55, size * 1.7, size * 0.6, -0.1, 0, Math.PI * 2);
+  ctx.ellipse(x + size * 3.2, y + size * 0.35, size * 0.8, size * 0.45, 0.4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(30,24,16,0.35)';
+  ctx.beginPath();
+  ctx.ellipse(x + size * 2.4, y + size * 0.6, size * 2.2, size * 0.9, 0, 0, Math.PI * 2);
+  ctx.fill();
+}
+
 export function paperText(ctx, text, x, y, size, color = INK) {
   ctx.font = `${size}px ${SERIF}`;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'top';
+  if (text.includes(BLOT)) {
+    const [before, after] = text.split(BLOT);
+    paperText(ctx, before, x, y, size, color);
+    const at = x + ctx.measureText(before).width;
+    drawBlot(ctx, at, y, size);
+    return paperText(ctx, after, at + size * 5, y, size, color);
+  }
   ctx.fillStyle = color;
   ctx.fillText(text, x, y);
 }

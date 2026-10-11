@@ -150,3 +150,22 @@ test('the camcorder is not listed in Controls until it is found', async ({ page 
   expect(labels).toContain('Journal');
   expect(labels).not.toContain('Camcorder');
 });
+
+test('an ink blot reads as [unreadable] in the transcript, never as raw markup', async ({ page }) => {
+  const texts = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.journal.addDocument('hale_file_1');
+    game.openScreen('document', { id: 'hale_file_1' });
+    const drawn = [];
+    const real = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, ...rest) {
+      drawn.push(String(text));
+      return real.call(this, text, ...rest);
+    };
+    game.ui.current().draw(document.createElement('canvas').getContext('2d'));
+    CanvasRenderingContext2D.prototype.fillText = real;
+    return drawn;
+  });
+  expect(texts.join(' ')).toContain('[unreadable]');
+  expect(texts.join(' ')).not.toContain('[[blot]]');
+});

@@ -230,7 +230,7 @@
   "clue.read_lullaby_chalk": "Someone chalked a tune as pictures: star, star, moon, bird, moon, heart.",
   "doc.hale_file_1.title": "St. Agnes Home for Children",
   "doc.hale_file_1.byline": "Admission record — page 1",
-  "doc.hale_file_1.body": "Name: T. Hale. Age: (blotted).\nBrought by: the parish. Parents: none living.\nNotes: Quiet. Talks to children who are not there. Sister M. recommends the quiet room until he stops.",
+  "doc.hale_file_1.body": "Name: T. Hale. Age: [[blot]]\nBrought by: the parish. Parents: none living.\nNotes: Quiet. Talks to children who are not there. Sister M. recommends the quiet room until he stops.",
   "clue.read_hale_file_1": "Page one of a file on T. Hale. The same name as on my file. They kept him in the quiet room.",
   "clue.took_toy_horse": "Tommy’s wooden horse. It was in the quiet room, where they kept him.",
   "clue.took_statue_piece": "A stone hand, broken off a statue. It is holding something I can’t make out.",
@@ -311,5 +311,6 @@
   "msg.batteryIn": "Fresh battery in. The beam steadies.",
   "msg.batteryDead": "The flashlight dies.",
   "msg.batteryFull": "The battery is still good.",
-  "hud.batteryLow": "LOW"
+  "hud.batteryLow": "LOW",
+  "document.unreadable": "[unreadable]"
 }

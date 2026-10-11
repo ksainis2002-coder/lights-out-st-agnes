@@ -3,7 +3,7 @@
 // (TAB strip at the bottom), a held note (ui_heldNote), the battery cell
 // (ui_battery). Plus short message
 // lines. Nothing else.
-import { osdText, COLORS } from './osd.js';
+import { osdText, wrapText, COLORS } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { drawIcon } from './icons.js';
 import { drawHeldNote } from './heldNote.js';
@@ -63,11 +63,19 @@ function drawInventory(ctx, game) {
   return true;
 }
 
+// Long lines wrap to the middle of the screen, over a faint panel, so the
+// dark screen edges never swallow them.
+const MESSAGE_WIDTH = 300;
 function drawMessage(ctx, game) {
   const message = game.messages.current();
   if (!message) return false;
-  const y = game.inventory.isOpen() ? H - 112 : H - 34;
-  osdText(ctx, game.i18n.t(message.key, message.params), W / 2, y, 10, COLORS.soft, 'center');
+  const lines = wrapText(ctx, game.i18n.t(message.key, message.params), 10, MESSAGE_WIDTH);
+  const bottom = game.inventory.isOpen() ? H - 112 : H - 34;
+  const top = bottom - (lines.length - 1) * 13;
+  const width = Math.max(...lines.map((line) => ctx.measureText(line).width)) + 16;
+  ctx.fillStyle = 'rgba(5,7,10,0.45)';
+  ctx.fillRect(W / 2 - width / 2, top - 3, width, lines.length * 13 + 4);
+  lines.forEach((line, i) => osdText(ctx, line, W / 2, top + i * 13, 10, COLORS.soft, 'center'));
   return true;
 }
 

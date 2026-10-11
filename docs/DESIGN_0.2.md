@@ -85,5 +85,6 @@ After the owner's 10-minute playtest the wing was lengthened:
   pills are behind its glass until the fuses are fixed.
 - Spinning top moved to the dining hall (Peter's letter says so). Five new documents.
 - Darker west dorm and quiet room (their lights removed); dining-hall scare after the toys.
-- Flashlight batteries: 10 minutes each; 3 in the wing (washroom, playroom, dining hall).
-Balance (bot at human pace): 41 min, 2 collapses (2.9/hour), 3 batteries used, 1 pill.
+- Flashlight batteries: 8 minutes each (owner: 10 never ran out); 4 in the wing (washroom, east dorm,
+  playroom, dining hall).
+Balance (bot at human pace): 42 min, 3 collapses (4.3/hour), 4 batteries used, 1 pill; the light runs out in the last minutes at this slow pace.

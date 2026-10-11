@@ -1,7 +1,7 @@
 // Flashlight battery (brief: batteries are scarce). The charge runs down
 // while the light is on; at zero the light dies and will not come back on
 // until a new battery is swapped in from the inventory.
-const LIFE = 600; // seconds of light per battery
+const LIFE = 480; // seconds of light per battery (owner: 10 minutes never ran out)
 const SHOW_AFTER_TOGGLE = 3; // seconds the HUD cell shows after F
 export const LOW = 0.25;
 

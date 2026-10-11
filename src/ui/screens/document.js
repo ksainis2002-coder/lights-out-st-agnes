@@ -2,7 +2,7 @@
 // the view with a typed transcript beside it. T hides the transcript; click,
 // ENTER or ESC puts the paper back.
 import { osdText, wrapText, COLORS } from '../osd.js';
-import { PAPER, INK_SOFT, paperText, paperParagraph } from '../paper.js';
+import { PAPER, INK_SOFT, BLOT, paperText, paperParagraph } from '../paper.js';
 
 const W = 480;
 const H = 270;
@@ -30,7 +30,7 @@ export function createDocumentScreen(ui, { id }) {
       ctx.fillStyle = 'rgba(5,7,10,0.6)';
       ctx.fillRect(268, 30, 190, 196);
       osdText(ctx, t('document.transcript'), 278, 38, 9, COLORS.dim);
-      wrapText(ctx, body(), 9, 170).forEach((line, i) => osdText(ctx, line, 278, 54 + i * 12, 9, COLORS.soft));
+      wrapText(ctx, body().replaceAll(BLOT, t('document.unreadable')), 9, 170).forEach((line, i) => osdText(ctx, line, 278, 54 + i * 12, 9, COLORS.soft));
     }
     osdText(ctx, t(transcript ? 'document.footer' : 'document.footerHidden'), W / 2, H - 16, 8, COLORS.dim, 'center');
   }

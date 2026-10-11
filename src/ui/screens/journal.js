@@ -3,7 +3,7 @@
 // section, ▲▼ or a click picks a document, ◀▶ turn pages, H holds it at your
 // side (see heldNote.js), J, M or ESC closes.
 import { osdText, COLORS } from '../osd.js';
-import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, fitPaperText } from '../paper.js';
+import { PAPER, PAPER_DARK, INK, INK_SOFT, BLOT, paperText, fitPaperText } from '../paper.js';
 import { layoutPages } from './journalPages.js';
 import { feeling } from '../../sanity/meter.js';
 import { drawMapPage } from './journalMap.js';
@@ -39,7 +39,7 @@ export function createJournalScreen(ui, options = {}) {
   function docPages(ctx, id) {
     const blocks = [
       { text: t(`doc.${id}.title`), size: 11, lineHeight: 13, gap: 7, color: INK },
-      { text: t(`doc.${id}.body`), size: 9, lineHeight: 11, color: INK },
+      { text: t(`doc.${id}.body`).replaceAll(BLOT, t('document.unreadable')), size: 9, lineHeight: 11, color: INK },
     ];
     return layoutPages(ctx, [SPREAD[1]], blocks, 146);
   }
@@ -49,7 +49,7 @@ export function createJournalScreen(ui, options = {}) {
     pageCount = pages.length;
     for (const line of pages[page]) paperText(ctx, line.text, line.x, line.y, line.size, line.color);
     if (pageCount < 2) return;
-    osdText(ctx, `◀ ${page + 1}/${pageCount} ▶`, 400, 232, 8, INK_SOFT, 'right');
+    osdText(ctx, `◀ ${page + 1}/${pageCount} ▶`, 392, 230, 8, INK_SOFT, 'right');
   }
 
   function drawClues(ctx) {
