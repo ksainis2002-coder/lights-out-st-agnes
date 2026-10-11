@@ -88,8 +88,17 @@ function drawClickToContinue(ctx, game) {
   return true;
 }
 
+// During the intro: only subtitles and a quiet "ENTER skip" in the corner.
+function drawIntro(ctx, game) {
+  if (!game.intro.active()) return false;
+  game.subtitles.draw(ctx);
+  osdText(ctx, game.i18n.t('intro.skip'), W - 12, H - 16, 8, COLORS.dim, 'right');
+  return true;
+}
+
 export function drawHud(ctx, game) {
   if (drawClickToContinue(ctx, game)) return true;
+  if (drawIntro(ctx, game)) return true;
   if (drawRewind(ctx, game)) {
     game.subtitles.draw(ctx);
     return true;

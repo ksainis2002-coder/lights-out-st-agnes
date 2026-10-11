@@ -32,6 +32,7 @@ import { createHallucinations } from './sanity/hallucinations.js';
 import { createCollapse } from './sanity/collapse.js';
 import { createSubtitles } from './ui/subtitles.js';
 import { createGhostDirector } from './ghosts/director.js';
+import { createIntro } from './cutscenes/intro.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -71,6 +72,7 @@ function createGame() {
   game.subtitles = createSubtitles(game);
   game.hallucinations = createHallucinations(game);
   game.collapse = createCollapse(game);
+  game.intro = createIntro(game);
   game.ghosts = createGhostDirector(game);
   game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
   game.events.on('level.loaded', () => {
@@ -110,6 +112,7 @@ function setupModes(game) {
   game.newGame = () => {
     resetState(game);
     game.play();
+    game.intro.start();
   };
 
   // Modal screens during play (journal, documents): the world waits.
@@ -187,6 +190,12 @@ function simulate(game, dt) {
     world.update(dt);
     return;
   }
+  if (game.intro.active()) {
+    game.intro.update(dt, input);
+    world.update(dt);
+    game.sfx.update(dt);
+    return;
+  }
   game.updateItems();
   if (game.mode !== 'playing') return;
   player.update(dt, input, settings);
@@ -214,6 +223,7 @@ function tick(game, dt) {
   if (!game.needsClick()) simulate(game, dt);
   player.applyToCamera(world.camera, settings);
   if (game.collapse.active()) game.collapse.applyCamera(world.camera);
+  else if (game.intro.active()) game.intro.applyCamera(world.camera);
   else if (game.session.active) applySanityEffects(game, game.sanity.value(), game.time);
   world.camera.updateMatrixWorld();
   updateListener(game.mixer, world.camera);

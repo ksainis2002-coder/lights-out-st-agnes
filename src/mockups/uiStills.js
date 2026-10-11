@@ -152,7 +152,7 @@ export function heldNote(ctx) {
   ctx.fillStyle = PAPER;
   ctx.fillRect(0, 0, 120, 146);
   paperText(ctx, 'Dormitory register', 8, 7, 9);
-  const lines = ['1. Walter Price', '2. Thomas Hale (“Tommy”)', '3. Peter Doyle', '4. Samuel Cole', '5. Alfred Burns (“Alfie”)', '6. Arthur Lowe', '7. George Finch', '8. Frank Ellery', '9. Harry Moss', '10. Ernest Dunn'];
+  const lines = ['1. Walter Price', '2. Thomas Hale (“Tommy”)', '3. Peter Doyle', '4. Sam Pike', '5. Alfred Burns (“Alfie”)', '6. Arthur Lowe', '7. George Finch', '8. Frank Ellery', '9. Harry Moss', '10. Ernest Dunn'];
   lines.forEach((line, i) => paperText(ctx, line, 7, 22 + i * 12, 8));
   ctx.restore();
   osdText(ctx, 'H  put away', 12, 102, 8, COLORS.soft);

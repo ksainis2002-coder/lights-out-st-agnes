@@ -196,7 +196,7 @@
   "item.statue_piece.desc": "A stone hand, broken at the wrist. It is holding something.",
   "doc.dorm_register.title": "Dormitory register",
   "doc.dorm_register.byline": "Bed allotment — Sister M.",
-  "doc.dorm_register.body": "Boys' dormitory, east. Beds as allotted.\n1. Walter Price\n2. Thomas Hale (“Tommy”)\n3. Peter Doyle\n4. Samuel Cole\n5. Alfred Burns (“Alfie”)\n6. Arthur Lowe\n7. George Finch\n8. Frank Ellery\n9. Harry Moss\n10. Ernest Dunn\nNo child to change beds without leave.",
+  "doc.dorm_register.body": "Boys' dormitory, east. Beds as allotted.\n1. Walter Price\n2. Thomas Hale (“Tommy”)\n3. Peter Doyle\n4. Sam Pike\n5. Alfred Burns (“Alfie”)\n6. Arthur Lowe\n7. George Finch\n8. Frank Ellery\n9. Harry Moss\n10. Ernest Dunn\nNo child to change beds without leave.",
   "clue.read_dorm_register": "The dorm register lists who slept in each numbered bed. Bed 2 was Thomas Hale. Tommy. Hale, like me.",
   "prompt.placeToy": "Put {item} in {name}’s cubby",
   "msg.toysSolved": "Every toy is home. Down the corridor, a bolt slides back on its own.",
@@ -258,7 +258,10 @@
   "msg.clockDrop": "Something slips out from behind the clock.",
   "doc.clock_riddle.title": "Folded small, tucked behind the clock",
   "doc.clock_riddle.byline": "Pencil, a careful hand",
-  "doc.clock_riddle.body": "Tommy’s box sleeps where the girls sleep.\nWake it with what his bed gives up.\nSing it the song the slate remembers,\nand the wall that is not a wall will let you in.",
-  "clue.read_clock_riddle": "A riddle from behind the clock: wake Tommy’s music box, play the slate’s song, and a wall in the girls’ dorm will open.",
-  "heldNote.putAway": "{key}  put away"
+  "doc.clock_riddle.body": "The box sleeps where the girls sleep.\nWake it with what Tommy’s bed gives up.\nSing it the song the slate remembers,\nand the wall that is not a wall will let you in.",
+  "clue.read_clock_riddle": "A riddle from behind the clock: wake the music box in the girls’ dorm with Tommy’s crank, play the slate’s song, and a wall there will open.",
+  "heldNote.putAway": "{key}  put away",
+  "intro.skip": "ENTER  skip",
+  "intro.whisper1": "…you came back.",
+  "intro.whisper2": "Find our things. Then we can all go to sleep."
 }

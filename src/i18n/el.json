@@ -196,7 +196,7 @@
   "item.statue_piece.desc": "Ένα πέτρινο χέρι, σπασμένο στον καρπό. Κρατάει κάτι.",
   "doc.dorm_register.title": "Μητρώο κοιτώνα",
   "doc.dorm_register.byline": "Κατανομή κρεβατιών — Αδελφή Μ.",
-  "doc.dorm_register.body": "Κοιτώνας αγοριών, ανατολικός. Κρεβάτια όπως ορίστηκαν.\n1. Walter Price\n2. Thomas Hale («Tommy»)\n3. Peter Doyle\n4. Samuel Cole\n5. Alfred Burns («Alfie»)\n6. Arthur Lowe\n7. George Finch\n8. Frank Ellery\n9. Harry Moss\n10. Ernest Dunn\nΚανένα παιδί δεν αλλάζει κρεβάτι χωρίς άδεια.",
+  "doc.dorm_register.body": "Κοιτώνας αγοριών, ανατολικός. Κρεβάτια όπως ορίστηκαν.\n1. Walter Price\n2. Thomas Hale («Tommy»)\n3. Peter Doyle\n4. Sam Pike\n5. Alfred Burns («Alfie»)\n6. Arthur Lowe\n7. George Finch\n8. Frank Ellery\n9. Harry Moss\n10. Ernest Dunn\nΚανένα παιδί δεν αλλάζει κρεβάτι χωρίς άδεια.",
   "clue.read_dorm_register": "Το μητρώο γράφει ποιος κοιμόταν σε κάθε αριθμημένο κρεβάτι. Στο 2 ήταν ο Thomas Hale. Ο Tommy. Hale, όπως εγώ.",
   "prompt.placeToy": "Βάλε: {item} στο ντουλαπάκι του/της {name}",
   "msg.toysSolved": "Κάθε παιχνίδι γύρισε στη θέση του. Στον διάδρομο, ένας σύρτης τραβιέται μόνος του.",
@@ -258,7 +258,10 @@
   "msg.clockDrop": "Κάτι γλιστράει από πίσω από το ρολόι.",
   "doc.clock_riddle.title": "Διπλωμένο μικρό, χωμένο πίσω από το ρολόι",
   "doc.clock_riddle.byline": "Μολύβι, προσεκτικό χέρι",
-  "doc.clock_riddle.body": "Το κουτί του Tommy κοιμάται εκεί που κοιμούνται τα κορίτσια.\nΞύπνα το με ό,τι δίνει το κρεβάτι του.\nΤραγούδησέ του το τραγούδι που θυμάται η πλάκα,\nκαι ο τοίχος που δεν είναι τοίχος θα σε αφήσει να μπεις.",
-  "clue.read_clock_riddle": "Ένας γρίφος από πίσω από το ρολόι: ξύπνα το μουσικό κουτί του Tommy, παίξε το τραγούδι της πλάκας, και ένας τοίχος στον κοιτώνα των κοριτσιών θα ανοίξει.",
-  "heldNote.putAway": "{key}  βάλ’ το μέσα"
+  "doc.clock_riddle.body": "Το κουτί κοιμάται εκεί που κοιμούνται τα κορίτσια.\nΞύπνα το με ό,τι δίνει το κρεβάτι του Tommy.\nΤραγούδησέ του το τραγούδι που θυμάται η πλάκα,\nκαι ο τοίχος που δεν είναι τοίχος θα σε αφήσει να μπεις.",
+  "clue.read_clock_riddle": "Ένας γρίφος από πίσω από το ρολόι: ξύπνα το μουσικό κουτί στον κοιτώνα των κοριτσιών με το κουρδιστήρι του Tommy, παίξε το τραγούδι της πλάκας, και ένας τοίχος εκεί θα ανοίξει.",
+  "heldNote.putAway": "{key}  βάλ’ το μέσα",
+  "intro.skip": "ENTER  παράλειψη",
+  "intro.whisper1": "…γύρισες.",
+  "intro.whisper2": "Βρες τα πράγματά μας. Μετά θα κοιμηθούμε όλοι."
 }

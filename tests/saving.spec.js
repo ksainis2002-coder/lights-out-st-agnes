@@ -26,6 +26,7 @@ test('record at the landing tape recorder, reload, and REWIND back to the same m
   await toMenu(page);
   expect(await page.evaluate(() => window.__stAgnes.hasAnySave())).toBe(false);
   await page.keyboard.press('Enter'); // PLAY
+  await page.keyboard.press('Enter'); // skip the intro
   await page.evaluate(() => {
     const g = window.__stAgnes;
     g.loadLevel('orphanage_wing', 'landing');

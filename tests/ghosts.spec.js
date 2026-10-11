@@ -7,6 +7,7 @@ test.beforeEach(async ({ page }) => {
   await page.evaluate(() => {
     const g = window.__stAgnes;
     g.newGame();
+    g.intro.finish(); // tested in intro.spec.js
     g.loadLevel('orphanage_wing', 'landing');
   });
 });

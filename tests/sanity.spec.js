@@ -7,6 +7,7 @@ test.beforeEach(async ({ page }) => {
   await page.evaluate(() => {
     const g = window.__stAgnes;
     g.newGame();
+    g.intro.finish(); // tested in intro.spec.js
     // These tests measure darkness and fakes alone: mark every ghost event as already seen.
     g.loadLevel('orphanage_wing', 'landing');
     g.world.level.ghosts.forEach((event) => g.progress.setFlag(`ghost_${event.id}`));
