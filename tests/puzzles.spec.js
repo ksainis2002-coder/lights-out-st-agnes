@@ -391,3 +391,17 @@ test('M opens the journal on the MAPS page, and M closes it', async ({ page }) =
   await page.keyboard.press('KeyM');
   expect(await page.evaluate(() => window.__stAgnes.mode)).toBe('playing');
 });
+
+test('journal: ▲▼ only change the document on the DOCUMENTS tab', async ({ page }) => {
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    ['night_duty', 'dorm_register'].forEach((id) => game.journal.addDocument(id));
+    game.openScreen('journal');
+  });
+  const selected = () => page.evaluate(() => window.__stAgnes.ui.current().selectedDocument());
+  await page.keyboard.press('ArrowDown'); // on CLUES: nothing
+  await page.keyboard.press('Tab');
+  expect(await selected()).toBe('night_duty');
+  await page.keyboard.press('ArrowDown');
+  expect(await selected()).toBe('dorm_register');
+});

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.45 — Fix (owner playtest): ▲▼ in the journal no longer change the chosen document while on the CLUES or MAPS tab.
 - 0.1.44 — Owner playtest: long document titles no longer spill onto the right page of the journal (the list shortens them with …, the open page wraps them). Mockup still ui_heldNote for the proposed "hold a note at your side" control.
 - 0.1.43 — Fix: the settings test that walks down to "Reset keys" counts the new Map row.
 - 0.1.42 — M opens the journal straight on the MAPS page (M, J or ESC closes it). New rebindable "Map" key in Setup → Controls; older settings files get M automatically.

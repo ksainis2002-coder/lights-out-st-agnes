@@ -77,7 +77,7 @@ export function createJournalScreen(ui, options = {}) {
 
   function key(code, event) {
     const keys = game.settings.get('keys');
-    const docs = game.journal.documents().length;
+    const docs = TABS[tab] === 'documents' ? game.journal.documents().length : 0; // ▲▼ only pick documents on their tab
     if (code === 'Tab') tab = (tab + (event?.shiftKey ? 2 : 1)) % 3;
     else if (code === 'ArrowDown' && docs) doc = (doc + 1) % docs;
     else if (code === 'ArrowUp' && docs) doc = (doc + docs - 1) % docs;
