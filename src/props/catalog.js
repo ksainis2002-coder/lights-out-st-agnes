@@ -178,6 +178,22 @@ function torch(t) {
   return group(body, head);
 }
 
+// Big torch battery lying on its side: dark body, brass cap that catches a
+// dim glint even in the dark (so a battery can be spotted), bright terminal.
+function batteryCell(t) {
+  const part = (radius, length, x, options) => {
+    const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, length, 8), materialFor(t.sheet, options));
+    mesh.rotation.z = Math.PI / 2;
+    mesh.position.set(x, 0.05, 0);
+    return mesh;
+  };
+  return group(
+    part(0.05, 0.15, 0, { color: '#30303a' }),
+    part(0.051, 0.06, 0.03, { color: '#9a7a30', unlit: true }),
+    part(0.016, 0.016, 0.083, { color: '#e8e0c0' }),
+  );
+}
+
 // Music box (puzzle 3), meant for a table top (y = 0.76): a wooden case
 // with five symbol keys along the front. Keys are 8 cm apart, x = -0.16..0.16.
 export const MUSIC_BOX_KEYS = [-0.16, -0.08, 0, 0.08, 0.16];
@@ -252,6 +268,7 @@ export const PROPS = {
   smallItem,
   crank,
   torch,
+  batteryCell,
   toyBall,
   toyDoll,
   toyTop,

@@ -312,5 +312,6 @@
   "msg.batteryDead": "The flashlight dies.",
   "msg.batteryFull": "The battery is still good.",
   "hud.batteryLow": "LOW",
-  "document.unreadable": "[unreadable]"
+  "document.unreadable": "[unreadable]",
+  "tutorial.inventory": "{open} shows what you carry. Pick an item, then {use} to use it."
 }

@@ -84,3 +84,15 @@ Follow `st-agnes-release` for every commit: one commit, a version bump, a CHANGE
 **0.2 owner playtest (2026-10-11):** whole wing in 10 minutes, 0 collapses, 60 fps (Intel UHD).
 **Settings defaults locked (2026-10-11):** as in `src/save/settings.js`. Changing one needs a
 SETTINGS_VERSION bump and a migration.
+
+**Owner decisions (2026-10-11, late):** the 3:00 secret room stays in 0.6 as the brief plans (the quiet
+room is only the lullaby puzzle's reward room). The first-draft ink blot (spilling over "Age") is kept.
+
+**Next session plan (after the owner approves the latest fixes):**
+1. Owner replays wing 1 on a new game: time, collapses, fps; any last fixes.
+2. Open the pull request `claude/hopeful-keller-xpdeeg` → `main` for 0.2.0; owner merges it.
+3. Version 0.2.0 + CHANGELOG; owner publishes release `v0.2.0` in GitHub Releases (Pages deploys);
+   check the Pages build boots in a fresh browser (content warning first).
+4. Write `docs/SOUNDS_0.3.md`: the CC0 sound list for 0.3 (school wing: watcher statue, Maggie's
+   rhymes, courtyard, cemetery) for the owner to download.
+5. Start 0.3 with mockup stills: classrooms, the watcher, Maggie, courtyard/cemetery.

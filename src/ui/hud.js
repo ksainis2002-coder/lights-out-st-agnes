@@ -72,10 +72,12 @@ function drawMessage(ctx, game) {
   const lines = wrapText(ctx, game.i18n.t(message.key, message.params), 10, MESSAGE_WIDTH);
   const bottom = game.inventory.isOpen() ? H - 112 : H - 34;
   const top = bottom - (lines.length - 1) * 13;
-  const width = Math.max(...lines.map((line) => ctx.measureText(line).width)) + 16;
+  const iconSpace = message.icon ? 20 : 0;
+  const width = Math.max(...lines.map((line) => ctx.measureText(line).width)) + 16 + iconSpace;
   ctx.fillStyle = 'rgba(5,7,10,0.45)';
-  ctx.fillRect(W / 2 - width / 2, top - 3, width, lines.length * 13 + 4);
-  lines.forEach((line, i) => osdText(ctx, line, W / 2, top + i * 13, 10, COLORS.soft, 'center'));
+  ctx.fillRect(W / 2 - width / 2, top - 3, width, Math.max(lines.length * 13 + 4, iconSpace));
+  if (message.icon) drawIcon(ctx, message.icon, W / 2 - width / 2 + 4, top - 2);
+  lines.forEach((line, i) => osdText(ctx, line, W / 2 + iconSpace / 2, top + i * 13, 10, COLORS.soft, 'center'));
   return true;
 }
 

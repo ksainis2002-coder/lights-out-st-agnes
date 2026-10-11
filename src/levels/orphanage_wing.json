@@ -1186,7 +1186,8 @@
     5.6,
     13.6
    ],
-   "color": "#7a8a6a"
+   "model": "batteryCell",
+   "rotation": 35
   },
   {
    "id": "playroom_battery",
@@ -1195,7 +1196,8 @@
     18.3,
     7.7
    ],
-   "color": "#7a8a6a"
+   "model": "batteryCell",
+   "rotation": 35
   },
   {
    "id": "dining_battery",
@@ -1204,7 +1206,8 @@
     31.3,
     9.6
    ],
-   "color": "#7a8a6a"
+   "model": "batteryCell",
+   "rotation": 35
   },
   {
    "id": "dorm_battery",
@@ -1213,7 +1216,8 @@
     10.2,
     3.4
    ],
-   "color": "#7a8a6a"
+   "model": "batteryCell",
+   "rotation": 35
   }
  ],
  "documents": [

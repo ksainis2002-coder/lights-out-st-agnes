@@ -47,7 +47,7 @@ export function createPickups(game, level, data) {
         else if (!inventory.add(pickup.item)) return game.messages.show('msg.inventoryFull');
         progress.take(pickup.id);
         group.remove(mesh);
-        game.messages.show('msg.taken', { item: itemText(i18n, pickup.item) });
+        game.messages.show('msg.taken', { item: itemText(i18n, pickup.item) }, 2.8, itemDef(pickup.item).icon);
         game.events.emit('item.taken', pickup);
       },
     });

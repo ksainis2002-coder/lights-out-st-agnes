@@ -312,5 +312,6 @@
   "msg.batteryDead": "Ο φακός σβήνει.",
   "msg.batteryFull": "Η μπαταρία είναι ακόμα καλή.",
   "hud.batteryLow": "ΧΑΜΗΛΗ",
-  "document.unreadable": "[δυσανάγνωστο]"
+  "document.unreadable": "[δυσανάγνωστο]",
+  "tutorial.inventory": "Το {open} δείχνει τι κουβαλάς. Διάλεξε κάτι και μετά {use} για να το χρησιμοποιήσεις."
 }

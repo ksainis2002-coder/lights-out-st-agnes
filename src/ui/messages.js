@@ -7,8 +7,9 @@ export function createMessages() {
   let current = null;
   const waiting = [];
   return {
-    show(key, params, seconds = 2.8) {
-      current = { key, params, left: seconds };
+    // icon: an inventory icon name shown beside the line ("Taken: Battery").
+    show(key, params, seconds = 2.8, icon = null) {
+      current = { key, params, left: seconds, icon };
     },
     notice(key, params, seconds = 2.8) {
       const line = { key, params, left: seconds };
