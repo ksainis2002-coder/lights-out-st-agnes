@@ -7,7 +7,7 @@ export const MAX = 100;
 const LIGHT_CAP = 60;
 const RATES = {
   dark: 1.2, // per second in full darkness, flashlight off
-  darkWithFlashlight: 0.3,
+  darkWithFlashlight: 0.2,
   lightRecovery: 0.3,
   safeRecovery: 3,
 };
