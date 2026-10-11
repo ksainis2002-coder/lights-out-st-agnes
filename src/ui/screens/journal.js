@@ -1,9 +1,10 @@
 // Journal (J), as in the approved still ui_journal: a notebook with
 // CLUES / DOCUMENTS / MAPS tabs; M opens it on MAPS. TAB or a click switches
-// section, ▲▼ or a click picks a document, H holds it at your side (see
-// heldNote.js), J, M or ESC closes.
+// section, ▲▼ or a click picks a document, ◀▶ turn pages, H holds it at your
+// side (see heldNote.js), J, M or ESC closes.
 import { osdText, COLORS } from '../osd.js';
-import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, paperParagraph, fitPaperText } from '../paper.js';
+import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, fitPaperText } from '../paper.js';
+import { layoutPages } from './journalPages.js';
 import { feeling } from '../../sanity/meter.js';
 import { drawMapPage } from './journalMap.js';
 import { keyName } from '../settingsRows.js';
@@ -11,24 +12,48 @@ import { keyName } from '../settingsRows.js';
 const W = 480;
 const H = 270;
 const TABS = ['clues', 'documents', 'maps'];
+// Text columns: left page, right page (paper is 22..248 high).
+const SPREAD = [{ x: 84, top: 32, bottom: 226 }, { x: 252, top: 32, bottom: 226 }];
 
 export function createJournalScreen(ui, options = {}) {
   const { t, game } = ui;
   let tab = Math.max(0, TABS.indexOf(options.tab));
   let doc = 0;
+  let page = 0; // of the clues, or of the open document
+  let pageCount = 1;
+  const turn = (step) => (page = Math.max(0, Math.min(pageCount - 1, page + step)));
+
+  // Clues run down the left page, then the right, then onto the next spread.
+  function cluePages(ctx) {
+    const clues = game.journal.clues();
+    const blocks = [
+      { text: t(`journal.wing.${game.world.level.wing}`), size: 12, lineHeight: 16, color: INK },
+      { text: t('journal.feeling', { feeling: t(`feeling.${feeling(game.sanity.value())}`) }), size: 10, lineHeight: 12, gap: 8, color: INK_SOFT },
+      ...clues.map((id) => ({ text: `– ${t(`clue.${id}`)}`, size: 10, lineHeight: 12, gap: 8, color: INK })),
+    ];
+    if (!clues.length) blocks.push({ text: t('journal.empty'), size: 10, lineHeight: 12, color: INK_SOFT });
+    return layoutPages(ctx, SPREAD, blocks, 140);
+  }
+
+  // Long document texts continue on further pages of the right-hand side.
+  function docPages(ctx, id) {
+    const blocks = [
+      { text: t(`doc.${id}.title`), size: 11, lineHeight: 13, gap: 7, color: INK },
+      { text: t(`doc.${id}.body`), size: 9, lineHeight: 11, color: INK },
+    ];
+    return layoutPages(ctx, [SPREAD[1]], blocks, 146);
+  }
+
+  function drawPage(ctx, pages) {
+    page = Math.min(page, pages.length - 1);
+    pageCount = pages.length;
+    for (const line of pages[page]) paperText(ctx, line.text, line.x, line.y, line.size, line.color);
+    if (pageCount < 2) return;
+    osdText(ctx, `◀ ${page + 1}/${pageCount} ▶`, 400, 232, 8, INK_SOFT, 'right');
+  }
 
   function drawClues(ctx) {
-    paperText(ctx, t(`journal.wing.${game.world.level.wing}`), 84, 32, 12);
-    let y = paperParagraph(ctx, t('journal.feeling', { feeling: t(`feeling.${feeling(game.sanity.value())}`) }), 84, 48, 140, 10, 12, INK_SOFT) + 8;
-    let x = 84;
-    for (const id of game.journal.clues()) {
-      if (y > 220 && x === 84) {
-        x = 252;
-        y = 32;
-      }
-      y = paperParagraph(ctx, `– ${t(`clue.${id}`)}`, x, y, 140, 10, 12) + 8;
-    }
-    if (!game.journal.clues().length) paperText(ctx, t('journal.empty'), 84, y, 10, INK_SOFT);
+    drawPage(ctx, cluePages(ctx));
   }
 
   function drawDocuments(ctx) {
@@ -41,9 +66,7 @@ export function createJournalScreen(ui, options = {}) {
       }
       paperText(ctx, fitPaperText(ctx, t(`doc.${id}.title`), 142, 10), 84, 32 + i * 16, 10);
     });
-    const id = docs[doc];
-    const bodyTop = paperParagraph(ctx, t(`doc.${id}.title`), 252, 32, 146, 11, 13) + 7; // long titles wrap
-    paperParagraph(ctx, t(`doc.${id}.body`), 252, bodyTop, 146, 9, 11);
+    drawPage(ctx, docPages(ctx, docs[doc]));
   }
 
   // The map of the wing you are in if you have it, else the first one found.
@@ -71,11 +94,22 @@ export function createJournalScreen(ui, options = {}) {
     osdText(ctx, t(footer, { hold: keyName(game.settings.get('keys').hold) }), W / 2, H - 16, 8, COLORS.dim, 'center');
   }
 
+  const showTab = (i) => {
+    tab = i;
+    page = 0;
+  };
+  const showDoc = (i) => {
+    doc = i;
+    page = 0;
+  };
+
   function hits() {
-    const tabs = TABS.map((name, i) => ({ x: 80 + i * 72, y: 8, w: 68, h: 16, click: () => (tab = i) }));
-    if (TABS[tab] !== 'documents') return tabs;
-    const rows = game.journal.documents().map((id, i) => ({ x: 80, y: 30 + i * 16, w: 150, h: 15, click: () => (doc = i) }));
-    return [...tabs, ...rows];
+    const tabs = TABS.map((name, i) => ({ x: 80 + i * 72, y: 8, w: 68, h: 16, click: () => showTab(i) }));
+    // The "◀ 1/3 ▶" corner: left half turns back, right half forward.
+    const turns = [{ x: 350, y: 226, w: 25, h: 18, click: () => turn(-1) }, { x: 375, y: 226, w: 30, h: 18, click: () => turn(1) }];
+    if (TABS[tab] !== 'documents') return [...tabs, ...turns];
+    const rows = game.journal.documents().map((id, i) => ({ x: 80, y: 30 + i * 16, w: 150, h: 15, click: () => showDoc(i) }));
+    return [...tabs, ...rows, ...turns];
   }
 
   // Pull the chosen document out to the player's side and go back to the game.
@@ -87,14 +121,16 @@ export function createJournalScreen(ui, options = {}) {
   function key(code, event) {
     const keys = game.settings.get('keys');
     const docs = TABS[tab] === 'documents' ? game.journal.documents().length : 0; // ▲▼ only pick documents on their tab
-    if (code === 'Tab') tab = (tab + (event?.shiftKey ? 2 : 1)) % 3;
-    else if (code === 'ArrowDown' && docs) doc = (doc + 1) % docs;
-    else if (code === 'ArrowUp' && docs) doc = (doc + docs - 1) % docs;
+    if (code === 'Tab') showTab((tab + (event?.shiftKey ? 2 : 1)) % 3);
+    else if (code === 'ArrowDown' && docs) showDoc((doc + 1) % docs);
+    else if (code === 'ArrowUp' && docs) showDoc((doc + docs - 1) % docs);
+    else if (code === 'ArrowRight') turn(1);
+    else if (code === 'ArrowLeft') turn(-1);
     else if (code === keys.hold && docs) holdSelected();
     else if (['Escape', keys.journal, keys.map].includes(code)) ui.resume();
     else return false;
     return true;
   }
 
-  return { name: 'journal', look: 'game', draw, hits, key, tab: () => TABS[tab], selectedDocument: () => game.journal.documents()[doc] };
+  return { name: 'journal', look: 'game', draw, hits, key, tab: () => TABS[tab], page: () => page, pageCount: () => pageCount, selectedDocument: () => game.journal.documents()[doc] };
 }

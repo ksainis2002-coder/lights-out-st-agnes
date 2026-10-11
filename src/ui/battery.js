@@ -1,23 +1,37 @@
-// Flashlight battery cell (approved still ui_battery): lower right, four bars,
-// "LOW" beside it when nearly empty. Shown for a moment after F, and always
-// while low. Steady, never blinking (flicker rules).
-import { osdText, COLORS } from './osd.js';
+// Flashlight battery (approved still ui_battery, owner revision): a small
+// torch beside a four-cell battery in the lower right. It stays on screen the
+// whole time the flashlight is on. Cells turn amber at half and red when low,
+// with "LOW" beside it. Steady, never blinking (flicker rules).
+import { osdText } from './osd.js';
 import { LOW } from '../player/battery.js';
 
-const INK = 'rgba(232,240,255,0.85)';
+const INK = 'rgba(232,240,255,0.9)';
+const CELL = { full: '#e8f0ff', half: '#ffc860', low: '#ff6a5a' };
+
+// Side-on torch: body, wider head, and the beam glass.
+function drawTorch(ctx, x, y) {
+  ctx.fillStyle = INK;
+  ctx.fillRect(x, y + 4, 10, 6);
+  ctx.fillRect(x + 10, y + 2, 4, 10);
+  ctx.fillStyle = '#ffe9a0';
+  ctx.fillRect(x + 14, y + 3, 1, 8);
+}
 
 export function drawBattery(ctx, game, W, H) {
   if (!game.progress.hasFlag('tool_flashlight') || !game.battery.visible()) return false;
   const charge = game.battery.charge();
-  const x = W - 52;
+  const x = W - 50;
   const y = H - 30;
+  drawTorch(ctx, x - 22, y);
   ctx.strokeStyle = INK;
   ctx.lineWidth = 1;
-  ctx.strokeRect(x + 0.5, y + 0.5, 30, 12);
+  ctx.strokeRect(x + 0.5, y + 0.5, 34, 14);
   ctx.fillStyle = INK;
-  ctx.fillRect(x + 31, y + 4, 2, 5);
-  const bars = Math.ceil(charge * 4);
-  for (let i = 0; i < bars; i++) ctx.fillRect(x + 3 + i * 7, y + 3, 6, 7);
-  if (charge < LOW) osdText(ctx, game.i18n.t('hud.batteryLow'), x - 6, y + 2, 9, '#ff6a5a', 'right');
+  ctx.fillRect(x + 35, y + 4, 3, 7);
+  const color = charge < LOW ? CELL.low : charge < 0.5 ? CELL.half : CELL.full;
+  ctx.fillStyle = color;
+  const cells = Math.ceil(charge * 4);
+  for (let i = 0; i < cells; i++) ctx.fillRect(x + 3 + i * 8, y + 3, 6, 9);
+  if (charge < LOW) osdText(ctx, game.i18n.t('hud.batteryLow'), x - 28, y + 3, 9, CELL.low, 'right');
   return true;
 }

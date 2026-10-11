@@ -212,10 +212,10 @@ function statuePiece(t) {
 
 // One sheet of paper (documents to read).
 function paperSheet(t) {
-  const sheet = decal(paperTexture(), [0.21, 0.29], [0, 0.004, 0]);
+  const sheet = decal(paperTexture(), [0.21, 0.29], [0, 0.002, 0]);
   sheet.rotation.x = -Math.PI / 2;
-  // A soft dark edge under it, so it reads as lying on the surface.
-  const shadow = decal(t.sheet, [0.24, 0.32], [0.01, 0.001, 0.01], { color: '#000000', transparent: true, opacity: 0.45 });
+  // A faint dark rim all round, so it reads as lying flat on the surface.
+  const shadow = decal(t.sheet, [0.23, 0.31], [0, 0.001, 0], { color: '#000000', transparent: true, opacity: 0.3 });
   shadow.rotation.x = -Math.PI / 2;
   return group(shadow, sheet);
 }

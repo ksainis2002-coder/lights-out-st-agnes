@@ -13,13 +13,15 @@ export function createBattery(game) {
   return {
     charge: () => charge,
     canLight: () => charge > 0,
-    visible: () => shownFor > 0 || charge < LOW,
+    // On screen the whole time the flashlight is on, and briefly after it goes off.
+    visible: () => game.world.flashlight.isOn() || shownFor > 0,
     update(dt) {
       shownFor = Math.max(0, shownFor - dt);
       if (!game.world.flashlight.isOn() || charge <= 0) return;
       charge = Math.max(0, charge - dt / LIFE);
       if (charge > 0) return;
       game.world.flashlight.setOn(false);
+      shownFor = SHOW_AFTER_TOGGLE; // the empty cell, briefly
       game.messages.show('msg.batteryDead', null, 4);
       game.events.emit('battery.dead');
     },

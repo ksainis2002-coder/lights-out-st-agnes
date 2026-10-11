@@ -110,7 +110,7 @@ test('the flashlight battery runs down, the light dies, and a new battery brings
   let s = await state();
   expect(s.on).toBe(false);
   expect(s.charge).toBe(0);
-  expect(s.shown).toBe(true); // the empty cell stays on screen
+  expect(s.shown).toBe(false); // the cell goes away with the light
   await page.evaluate(() => {
     window.__stAgnes.input.tap('flashlight');
     window.__stAgnes.advance(0.1);

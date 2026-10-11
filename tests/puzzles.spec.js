@@ -108,7 +108,7 @@ test('the dorm register teaches Tommy\'s name', async ({ page }) => {
     const level = game.world.level;
     const c = level.cellCenter(17, 15);
     Object.assign(game.player.state.position, { x: c.x, z: c.z });
-    const target = { x: 17.25 * level.cellSize, y: 0.78, z: 14.2 * level.cellSize };
+    const target = { x: 17.35 * level.cellSize, y: 0.78, z: 14.1 * level.cellSize };
     game.player.state.yaw = Math.atan2(-(target.x - c.x), -(target.z - c.z));
     const flat = Math.hypot(target.x - c.x, target.z - c.z);
     game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, flat);
@@ -307,7 +307,7 @@ test('paper map: taken at the landing, quiet room blank, then scribbled, then pe
   const prompt = await page.evaluate(() => {
     const game = window.__stAgnes;
     const level = game.world.level;
-    const target = { x: 2.45 * level.cellSize, z: 9.85 * level.cellSize };
+    const target = { x: 2.3 * level.cellSize, z: 9.65 * level.cellSize };
     Object.assign(game.player.state.position, { x: target.x + 0.9, z: target.z });
     game.player.state.yaw = Math.PI / 2; // facing -x
     game.player.state.pitch = Math.atan2(0.78 - game.player.state.eyeHeight, 0.9);
@@ -421,4 +421,21 @@ test('held note: H in DOCUMENTS holds the chosen note at your side, H in game pu
     window.__stAgnes.advance(0.1);
   });
   expect((await state()).held).toBeNull();
+});
+
+test('journal: many clues spread over pages turned with ◀▶', async ({ page }) => {
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    ['read_dorm_register', 'read_night_duty', 'read_night_rota', 'saw_hymn_board', 'read_letter_peter', 'read_letter_rose', 'read_nurse_log',
+      'read_punishment_book', 'took_toy_top', 'took_battery', 'solved_plates', 'solved_fuses', 'read_scribble_note', 'read_clock_riddle']
+      .forEach((id) => game.journal.addClue(id));
+    game.openScreen('journal');
+  });
+  await page.waitForTimeout(200); // let it draw once
+  const pages = () => page.evaluate(() => ({ page: window.__stAgnes.ui.current().page(), count: window.__stAgnes.ui.current().pageCount() }));
+  expect((await pages()).count).toBeGreaterThan(1);
+  await page.keyboard.press('ArrowRight');
+  expect((await pages()).page).toBe(1);
+  await page.keyboard.press('ArrowLeft');
+  expect((await pages()).page).toBe(0);
 });
