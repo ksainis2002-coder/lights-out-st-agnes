@@ -80,3 +80,7 @@ intro, patient room hub and dorms (ghost children, Tommy) before building them.
 - `docs/SOUNDS_0.2.md`: the CC0 sound list for the owner (0.2 hand-over item).
 
 Follow `st-agnes-release` for every commit: one commit, a version bump, a CHANGELOG line.
+
+**0.2 owner playtest (2026-10-11):** whole wing in 10 minutes, 0 collapses, 60 fps (Intel UHD).
+**Settings defaults locked (2026-10-11):** as in `src/save/settings.js`. Changing one needs a
+SETTINGS_VERSION bump and a migration.

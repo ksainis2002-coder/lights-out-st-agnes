@@ -1,6 +1,6 @@
 // Player settings, stored as versioned JSON separate from game saves.
-// DEFAULTS are proposals until the owner locks them at 0.2. After that,
-// changing a default needs a SETTINGS_VERSION bump and a migration.
+// DEFAULTS were locked by the owner on 2026-10-11 (0.2). Changing one now
+// needs a SETTINGS_VERSION bump and a migration.
 
 import { migrate } from './migrate.js';
 
