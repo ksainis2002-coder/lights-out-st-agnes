@@ -1,6 +1,6 @@
 // Journal (J), as in the approved still ui_journal: a notebook with
-// CLUES / DOCUMENTS / MAPS tabs. TAB or a click switches section, ▲▼ or a
-// click picks a document, J or ESC closes.
+// CLUES / DOCUMENTS / MAPS tabs; M opens it on MAPS. TAB or a click switches
+// section, ▲▼ or a click picks a document, J, M or ESC closes.
 import { osdText, COLORS } from '../osd.js';
 import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, paperParagraph } from '../paper.js';
 import { feeling } from '../../sanity/meter.js';
@@ -10,9 +10,9 @@ const W = 480;
 const H = 270;
 const TABS = ['clues', 'documents', 'maps'];
 
-export function createJournalScreen(ui) {
+export function createJournalScreen(ui, options = {}) {
   const { t, game } = ui;
-  let tab = 0;
+  let tab = Math.max(0, TABS.indexOf(options.tab));
   let doc = 0;
 
   function drawClues(ctx) {
@@ -76,11 +76,12 @@ export function createJournalScreen(ui) {
   }
 
   function key(code, event) {
+    const keys = game.settings.get('keys');
     const docs = game.journal.documents().length;
     if (code === 'Tab') tab = (tab + (event?.shiftKey ? 2 : 1)) % 3;
     else if (code === 'ArrowDown' && docs) doc = (doc + 1) % docs;
     else if (code === 'ArrowUp' && docs) doc = (doc + docs - 1) % docs;
-    else if (code === 'Escape' || code === game.settings.get('keys').journal) ui.resume();
+    else if (['Escape', keys.journal, keys.map].includes(code)) ui.resume();
     else return false;
     return true;
   }

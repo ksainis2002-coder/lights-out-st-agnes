@@ -381,3 +381,13 @@ test('office clock: tells the time every time, and the third look drops two note
   // A fourth look just tells the time again.
   expect((await useClock()).message.key).toBe('msg.clockTime');
 });
+
+test('M opens the journal on the MAPS page, and M closes it', async ({ page }) => {
+  await page.evaluate(() => {
+    window.__stAgnes.input.tap('map');
+    window.__stAgnes.advance(0.1);
+  });
+  expect(await page.evaluate(() => window.__stAgnes.ui.current()?.tab())).toBe('maps');
+  await page.keyboard.press('KeyM');
+  expect(await page.evaluate(() => window.__stAgnes.mode)).toBe('playing');
+});
