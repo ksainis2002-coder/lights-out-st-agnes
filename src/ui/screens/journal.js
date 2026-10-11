@@ -2,7 +2,7 @@
 // CLUES / DOCUMENTS / MAPS tabs; M opens it on MAPS. TAB or a click switches
 // section, ▲▼ or a click picks a document, J, M or ESC closes.
 import { osdText, COLORS } from '../osd.js';
-import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, paperParagraph } from '../paper.js';
+import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, paperParagraph, fitPaperText } from '../paper.js';
 import { feeling } from '../../sanity/meter.js';
 import { drawMapPage } from './journalMap.js';
 
@@ -37,11 +37,11 @@ export function createJournalScreen(ui, options = {}) {
         ctx.fillStyle = 'rgba(42,36,24,0.12)';
         ctx.fillRect(80, 30 + i * 16, 150, 15);
       }
-      paperText(ctx, t(`doc.${id}.title`), 84, 32 + i * 16, 10);
+      paperText(ctx, fitPaperText(ctx, t(`doc.${id}.title`), 142, 10), 84, 32 + i * 16, 10);
     });
     const id = docs[doc];
-    paperText(ctx, t(`doc.${id}.title`), 252, 32, 11);
-    paperParagraph(ctx, t(`doc.${id}.body`), 252, 52, 146, 9, 11);
+    const bodyTop = paperParagraph(ctx, t(`doc.${id}.title`), 252, 32, 146, 11, 13) + 7; // long titles wrap
+    paperParagraph(ctx, t(`doc.${id}.body`), 252, bodyTop, 146, 9, 11);
   }
 
   // The map of the wing you are in if you have it, else the first one found.

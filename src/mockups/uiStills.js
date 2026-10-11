@@ -139,3 +139,21 @@ export function save(ctx) {
   osdText(ctx, note, W / 2, 214, fittedSize(ctx, note, 9, 300), COLORS.soft, 'center');
   osdText(ctx, '▲▼ choose   ENTER record   ESC cancel', W / 2, H - 18, 8, COLORS.dim, 'center');
 }
+
+// Held note (proposal): a document pulled out to the player's side, readable
+// while walking and using things. Lower left, slightly tilted, game runs on.
+export function heldNote(ctx) {
+  prompt(ctx);
+  ctx.save();
+  ctx.translate(10, 116);
+  ctx.rotate(-0.03);
+  ctx.fillStyle = 'rgba(0,0,0,0.35)';
+  ctx.fillRect(3, 3, 120, 146);
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, 120, 146);
+  paperText(ctx, 'Dormitory register', 8, 7, 9);
+  const lines = ['1. Walter Price', '2. Thomas Hale (“Tommy”)', '3. Peter Doyle', '4. Samuel Cole', '5. Alfred Burns (“Alfie”)', '6. Arthur Lowe', '7. George Finch', '8. Frank Ellery', '9. Harry Moss', '10. Ernest Dunn'];
+  lines.forEach((line, i) => paperText(ctx, line, 7, 22 + i * 12, 8));
+  ctx.restore();
+  osdText(ctx, 'H  put away', 12, 102, 8, COLORS.soft);
+}

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.44 — Owner playtest: long document titles no longer spill onto the right page of the journal (the list shortens them with …, the open page wraps them). Mockup still ui_heldNote for the proposed "hold a note at your side" control.
 - 0.1.43 — Fix: the settings test that walks down to "Reset keys" counts the new Map row.
 - 0.1.42 — M opens the journal straight on the MAPS page (M, J or ESC closes it). New rebindable "Map" key in Setup → Controls; older settings files get M automatically.
 - 0.1.41 — Owner pick (c): the office wall clock can be used. Each time it reads out the real local time ("The clock says 3:07."); the third time, two notes slip out from behind it: the child's scribble (moved from the playroom floor) and a riddle hinting at the music box and the hidden wall (a hint only, not required). The game never says how many tries it takes.

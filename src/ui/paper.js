@@ -14,6 +14,15 @@ export function paperText(ctx, text, x, y, size, color = INK) {
 }
 
 // Word-wrapped paragraph; returns the y below the last line.
+// Shortens text with "…" until it fits in width (one line, e.g. a list row).
+export function fitPaperText(ctx, text, width, size) {
+  ctx.font = `${size}px ${SERIF}`;
+  if (ctx.measureText(text).width <= width) return text;
+  let cut = text;
+  while (cut.length > 1 && ctx.measureText(`${cut}…`).width > width) cut = cut.slice(0, -1);
+  return `${cut.trimEnd()}…`;
+}
+
 // Wraps words to width; a newline in the text starts a new line.
 export function paperParagraph(ctx, text, x, y, width, size, lineHeight, color = INK) {
   if (text.includes('\n')) {
