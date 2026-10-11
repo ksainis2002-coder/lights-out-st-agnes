@@ -5,7 +5,7 @@
 
 import { migrate, NewerVersionError } from './migrate.js';
 
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
 export const MANUAL_SLOTS = ['slot1', 'slot2', 'slot3'];
 export const AUTO_SLOT = 'auto';
 export const ALL_SLOTS = [...MANUAL_SLOTS, AUTO_SLOT];
@@ -19,6 +19,8 @@ export const MIGRATIONS = {
     if (!flags.includes('tool_flashlight')) flags.push('tool_flashlight');
     return { ...save, state: { ...save.state, progress: { ...progress, flags } } };
   },
+  // 0.1.54: flashlight batteries. Older runs start with a full one.
+  2: (save) => ({ ...save, state: { ...save.state, battery: save.state.battery ?? 1 } }),
 };
 
 const slotKey = (slot) => `save.${slot}`;

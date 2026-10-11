@@ -74,6 +74,7 @@ export function parseLevel(data) {
     props: data.props ?? [],
     obstacles: propObstacles(data.props ?? [], cellSize),
     lights: data.lights ?? [],
+    power: data.power ?? null,
     ambience: data.ambience ?? [],
     emitters: data.emitters ?? [],
     ghosts: data.ghosts ?? [],

@@ -17,6 +17,7 @@ const DIFFICULTY = { story: 0.5, normal: 1, hard: 1.3 };
 export function lightAt(level, position) {
   let light = 0;
   for (const l of level.lights) {
+    if (l.off) continue;
     const dx = l.at[0] * level.cellSize - position.x;
     const dz = l.at[1] * level.cellSize - position.z;
     const distance = l.distance ?? 8;

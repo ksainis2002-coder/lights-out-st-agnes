@@ -23,6 +23,8 @@ import { createJournal } from './journal.js';
 import { createMessages } from './ui/messages.js';
 import { setupVisits } from './levels/visits.js';
 import { setupTutorial } from './tutorial.js';
+import { setupPower } from './levels/power.js';
+import { createBattery } from './player/battery.js';
 import { setupClues } from './clues.js';
 import { setupInventoryControls } from './items/controls.js';
 import { setupSaving } from './save/saving.js';
@@ -68,6 +70,7 @@ function createGame() {
   setupClues(game);
   setupVisits(game);
   setupTutorial(game);
+  setupPower(game);
   setupInventoryControls(game);
   setupSaving(game);
   game.sanity = createSanity(game);
@@ -81,7 +84,12 @@ function createGame() {
     game.hallucinations.remove();
     game.ghosts.reset();
   });
+  game.battery = createBattery(game);
   game.itemEffects = {
+    battery: () => {
+      if (game.battery.replace()) game.inventory.remove('battery');
+      return true;
+    },
     pills: () => {
       game.sanity.restore(30);
       game.inventory.remove('pills');
@@ -201,7 +209,8 @@ function simulate(game, dt) {
   game.updateItems();
   if (game.mode !== 'playing') return;
   player.update(dt, input, settings);
-  if (input.wasPressed('flashlight') && game.progress.hasFlag('tool_flashlight')) {
+  const canSwitch = game.progress.hasFlag('tool_flashlight') && (world.flashlight.isOn() || game.battery.canLight());
+  if (input.wasPressed('flashlight') && canSwitch) {
     world.flashlight.toggle();
     game.events.emit('flashlight.toggled', world.flashlight.isOn());
   }
@@ -210,6 +219,7 @@ function simulate(game, dt) {
   player.applyToCamera(world.camera, settings);
   world.camera.updateMatrixWorld();
   game.interaction.update(world.camera, input);
+  game.battery.update(dt);
   game.sanity.update(dt);
   game.ghosts.update(dt);
   game.hallucinations.update(dt, game.sanity.value(), world.camera);

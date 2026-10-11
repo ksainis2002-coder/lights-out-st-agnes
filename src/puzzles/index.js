@@ -3,8 +3,9 @@
 import { namePlatesPuzzle } from './namePlates.js';
 import { cubbiesPuzzle } from './cubbies.js';
 import { musicBoxPuzzle } from './musicBox.js';
+import { fusesPuzzle } from './fuses.js';
 
-const PUZZLES = { namePlates: namePlatesPuzzle, cubbies: cubbiesPuzzle, musicBox: musicBoxPuzzle };
+const PUZZLES = { namePlates: namePlatesPuzzle, cubbies: cubbiesPuzzle, musicBox: musicBoxPuzzle, fuses: fusesPuzzle };
 
 export function puzzleInteractables(game, level, data) {
   return Object.entries(data.puzzles ?? {}).flatMap(([name, config]) => {

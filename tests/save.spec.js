@@ -81,3 +81,9 @@ test('saves from before the flashlight pickup keep their flashlight', async () =
   const old = { version: 1, savedAt: 'x', meta: {}, state: { progress: { flags: ['intro_seen'] } } };
   expect(MIGRATIONS[1](old).state.progress.flags).toEqual(['intro_seen', 'tool_flashlight']);
 });
+
+test('saves from before batteries start with a full one', async () => {
+  const { MIGRATIONS } = await import('../src/save/saves.js');
+  const old = { version: 2, savedAt: 'x', meta: {}, state: { progress: { flags: [] } } };
+  expect(MIGRATIONS[2](old).state.battery).toBe(1);
+});

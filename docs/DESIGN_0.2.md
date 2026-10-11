@@ -73,3 +73,17 @@ computer only. It sets up the brief's real-clock events and the secret room that
 ## Tommy and T. Hale (owner decision 2026-10-11)
 Keep it a hint, never confirmed (brief). Shared surname only: the register lists Thomas Hale, the
 quiet-room file page names "T. Hale" with the age blotted and no belongings listed.
+
+## Wing 1 extension (owner decision 2026-10-11: "all")
+After the owner's 10-minute playtest the wing was lengthened:
+- New rooms: sick bay (off the corridor at 24,12) and dining hall (east end, 27,11).
+- Lights out: solving the plates cuts the "mains" lights (corridor, playroom, office, sick bay,
+  dining hall). Moonlit dorms and the landing stay lit.
+- Puzzle 4 (fuses): the night rota (office desk) says to pull the sick-bay levers in the order of
+  tonight's hymns; the dining-hall hymn board reads 3, 1, 4, 2. Both must be seen first.
+- The medicine cabinet is on the lighting circuit: the linen key (moved from the office desk) and
+  pills are behind its glass until the fuses are fixed.
+- Spinning top moved to the dining hall (Peter's letter says so). Five new documents.
+- Darker west dorm and quiet room (their lights removed); dining-hall scare after the toys.
+- Flashlight batteries: 10 minutes each; 3 in the wing (washroom, playroom, dining hall).
+Balance (bot at human pace): 41 min, 2 collapses (2.9/hour), 3 batteries used, 1 pill.

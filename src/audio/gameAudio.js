@@ -58,8 +58,11 @@ export function createGameAudio(game) {
   events.on('toy.moved', () => play('wooden_toy', { volume: 0.5 }));
   // The plates drop the crank (a rolling clatter); the toys draw back a bolt;
   // the lullaby lets a hidden door creak loose.
-  const SOLVED_SOUND = { plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow' };
+  const SOLVED_SOUND = { plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz' };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
+  events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
+  events.on('fuses.reset', () => play('door_locked', { volume: 0.7 }));
+  events.on('power.cut', () => play('thunder_far', { volume: 1 }));
   events.on('reveal', () => play('paper_pickup', { volume: 0.8 }));
   events.on('musicBox.wound', () => play('drawer', { volume: 0.6 }));
   // Positional loops placed in the level (the office clock): "emitters".

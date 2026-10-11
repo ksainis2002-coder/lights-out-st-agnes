@@ -182,11 +182,11 @@ test('toys home: each toy in its owner\'s cubby unbolts the west dorm', async ({
 });
 
 test('toys home: the three toys can be picked up where they lie', async ({ page }) => {
-  for (const id of ['linen_ball', 'washroom_doll', 'dorm_top']) {
+  for (const id of ['linen_ball', 'washroom_doll', 'dining_top']) {
     const prompt = await page.evaluate((id) => {
       const game = window.__stAgnes;
       const level = game.world.level;
-      const pickup = { linen_ball: [12.6, 15.5], washroom_doll: [5.8, 16.2], dorm_top: [9.6, 5.3] }[id];
+      const pickup = { linen_ball: [12.6, 15.5], washroom_doll: [5.8, 16.2], dining_top: [28.6, 16.5] }[id];
       const target = { x: pickup[0] * level.cellSize, z: pickup[1] * level.cellSize };
       const stand = { x: target.x, z: target.z - 0.9 };
       Object.assign(game.player.state.position, stand);

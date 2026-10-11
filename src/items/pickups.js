@@ -2,6 +2,7 @@
 //   "pickups":   [{ "id": "washroom_key", "item": "office_key", "at": [c, r], "y": 0, "color": "#b8a060" }]
 //                 "model": "crank" uses that prop instead of a plain coloured box.
 //                 "appearsWith": "puzzle_plates" keeps a pickup hidden until that flag is set.
+//                 "lockedUntil": "puzzle_fuses" shows it (behind glass) but it can't be taken yet.
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
 //                 "model": "chalkSlate", "height": 1.3 for something read on a wall;
 //                 "appearsWith" works as for pickups.
@@ -35,8 +36,13 @@ export function createPickups(game, level, data) {
     usable.push({
       position: mesh.position.clone().setY((pickup.y ?? 0) + 0.05),
       radius: 0.25,
-      prompt: () => (progress.isTaken(pickup.id) || !mesh.visible ? null : { key: 'prompt.take', params: { item: itemText(i18n, pickup.item) } }),
+      prompt() {
+        if (progress.isTaken(pickup.id) || !mesh.visible) return null;
+        if (pickup.lockedUntil && !progress.hasFlag(pickup.lockedUntil)) return { key: 'prompt.lockedAway' };
+        return { key: 'prompt.take', params: { item: itemText(i18n, pickup.item) } };
+      },
       use() {
+        if (pickup.lockedUntil && !progress.hasFlag(pickup.lockedUntil)) return game.messages.show('msg.lockedAway', null, 4);
         if (itemDef(pickup.item).tool) progress.setFlag(`tool_${pickup.item}`);
         else if (!inventory.add(pickup.item)) return game.messages.show('msg.inventoryFull');
         progress.take(pickup.id);

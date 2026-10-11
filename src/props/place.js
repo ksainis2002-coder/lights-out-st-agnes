@@ -33,6 +33,7 @@ export function placeLights(level) {
     const { x, z } = cellToWorld(level, light.at);
     const point = new THREE.PointLight(light.color ?? '#ffffff', light.intensity ?? 3, light.distance ?? 8, light.decay ?? 1.2);
     point.position.set(x, light.height ?? 2.3, z);
+    point.userData.light = light; // so power cuts can switch it (levels/power.js)
     group.add(point);
   }
   return group;

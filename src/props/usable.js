@@ -43,14 +43,14 @@ const USES = {
   },
 };
 
-const DEFAULT_USE = { drawing: 'look' };
+const DEFAULT_USE = { drawing: 'look', hymnBoard: 'look' };
 const useOf = (prop) => prop.use ?? DEFAULT_USE[prop.type];
 
 export function propInteractables(game, level) {
   return level.props.filter((prop) => USES[useOf(prop)]).map((prop) => {
     const action = USES[useOf(prop)];
     return {
-      position: new THREE.Vector3(prop.at[0] * level.cellSize, (prop.y ?? 0) + action.height, prop.at[1] * level.cellSize),
+      position: new THREE.Vector3(prop.at[0] * level.cellSize, (prop.y ?? 0) + (prop.useHeight ?? action.height), prop.at[1] * level.cellSize),
       radius: 0.3,
       prompt: () => ({ key: action.prompt }),
       use: () => action.run(game, prop),

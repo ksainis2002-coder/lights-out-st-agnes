@@ -1,6 +1,6 @@
 // What a save holds for a run in progress, and how it is put back.
-// Shape (inside the save envelope's "state", SAVE_VERSION 2):
-//   { level, position: { x, z, yaw }, inventory, journal, progress, playTime }
+// Shape (inside the save envelope's "state", SAVE_VERSION 3):
+//   { level, position: { x, z, yaw }, inventory, journal, progress, playTime, sanity, battery }
 import { LEVELS, START_LEVEL } from '../levels/index.js';
 import { roomAt } from '../levels/loader.js';
 
@@ -14,6 +14,7 @@ export function captureState(game) {
     progress: game.progress.toJSON(),
     playTime: game.session.playTime,
     sanity: game.sanity.value(),
+    battery: game.battery.charge(),
   };
 }
 
@@ -32,7 +33,8 @@ export function applyState(game, state) {
   game.progress.load(state.progress);
   game.session.playTime = state.playTime ?? 0;
   game.sanity.set(state.sanity ?? 100);
-  game.world.flashlight.setOn(game.progress.hasFlag('tool_flashlight'));
+  game.battery.set(state.battery ?? 1);
+  game.world.flashlight.setOn(game.progress.hasFlag('tool_flashlight') && game.battery.canLight());
   const levelId = LEVELS[state.level] ? state.level : START_LEVEL;
   game.loadLevel(levelId);
   if (levelId === state.level && state.position) {
@@ -49,5 +51,6 @@ export function resetState(game) {
   game.session.playTime = 0;
   game.sanity.set(100);
   game.world.flashlight.setOn(false); // it lies on the table in the patient room
+  game.battery.set(1);
   game.loadLevel(START_LEVEL);
 }
