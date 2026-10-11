@@ -21,6 +21,7 @@ import { createInventory } from './items/inventory.js';
 import { createProgress } from './progress.js';
 import { createJournal } from './journal.js';
 import { createMessages } from './ui/messages.js';
+import { setupVisits } from './levels/visits.js';
 import { setupClues } from './clues.js';
 import { setupInventoryControls } from './items/controls.js';
 import { setupSaving } from './save/saving.js';
@@ -63,6 +64,7 @@ function createGame() {
   game.ui.setHud((ctx) => game.mode === 'playing' && drawHud(ctx, game));
   setupLevelFlow(game);
   setupClues(game);
+  setupVisits(game);
   setupInventoryControls(game);
   setupSaving(game);
   game.sanity = createSanity(game);
@@ -193,6 +195,7 @@ function simulate(game, dt) {
     game.events.emit('flashlight.toggled', world.flashlight.isOn());
   }
   triggers.update({ ...player.state.position, y: 0.5 });
+  game.updateVisits();
   player.applyToCamera(world.camera, settings);
   world.camera.updateMatrixWorld();
   game.interaction.update(world.camera, input);

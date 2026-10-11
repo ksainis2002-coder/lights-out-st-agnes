@@ -1013,6 +1013,14 @@
     3.8
    ],
    "rotation": -25
+  },
+  {
+   "id": "scribble_note",
+   "at": [
+    17.8,
+    5.0
+   ],
+   "rotation": 30
   }
  ],
  "emitters": [
@@ -1248,5 +1256,19 @@
    ],
    "reveals": "quiet_room"
   }
- }
+ },
+ "maps": [
+  {
+   "id": "orphanage_wing",
+   "at": [
+    2.45,
+    9.85
+   ],
+   "y": 0.765,
+   "rotation": 12,
+   "hidden": {
+    "quiet_room": "scribble_note"
+   }
+  }
+ ]
 }

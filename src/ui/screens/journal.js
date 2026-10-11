@@ -4,6 +4,7 @@
 import { osdText, COLORS } from '../osd.js';
 import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, paperParagraph } from '../paper.js';
 import { feeling } from '../../sanity/meter.js';
+import { drawMapPage } from './journalMap.js';
 
 const W = 480;
 const H = 270;
@@ -43,8 +44,11 @@ export function createJournalScreen(ui) {
     paperParagraph(ctx, t(`doc.${id}.body`), 252, 52, 146, 9, 11);
   }
 
+  // The map of the wing you are in if you have it, else the first one found.
   function drawMaps(ctx) {
-    if (!game.journal.maps().length) paperText(ctx, t('journal.noMaps'), 84, 32, 10, INK_SOFT);
+    const maps = game.journal.maps();
+    if (!maps.length) return paperText(ctx, t('journal.noMaps'), 84, 32, 10, INK_SOFT);
+    drawMapPage(ctx, ui, maps.includes(game.world.level.id) ? game.world.level.id : maps[0]);
   }
 
   function draw(ctx) {
@@ -54,7 +58,7 @@ export function createJournalScreen(ui) {
     ctx.fillStyle = PAPER;
     ctx.fillRect(70, 22, 340, 226);
     ctx.fillStyle = '#b8ae94';
-    ctx.fillRect(238, 22, 2, 226);
+    if (TABS[tab] !== 'maps') ctx.fillRect(238, 22, 2, 226); // a map is pasted across both pages
     TABS.forEach((name, i) => {
       ctx.fillStyle = i === tab ? PAPER : PAPER_DARK;
       ctx.fillRect(80 + i * 72, 8, 68, 16);

@@ -302,3 +302,47 @@ test('quiet room: the horse, the statue piece and page one of the file', async (
   expect(await items(page)).toEqual(['toy_horse', 'statue_piece']);
   expect(await page.evaluate(() => window.__stAgnes.journal.documents())).toContain('hale_file_1');
 });
+
+test('paper map: taken at the landing, quiet room blank, then scribbled, then pencilled in', async ({ page }) => {
+  const prompt = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    const level = game.world.level;
+    const target = { x: 2.45 * level.cellSize, z: 9.85 * level.cellSize };
+    Object.assign(game.player.state.position, { x: target.x + 0.9, z: target.z });
+    game.player.state.yaw = Math.PI / 2; // facing -x
+    game.player.state.pitch = Math.atan2(0.78 - game.player.state.eyeHeight, 0.9);
+    game.advance(1 / 30);
+    return game.interaction.target()?.prompt() ?? null;
+  });
+  expect(prompt?.key).toBe('prompt.takeMap');
+  await use(page);
+  expect(await page.evaluate(() => window.__stAgnes.journal.maps())).toEqual(['orphanage_wing']);
+
+  // Walking into the quiet room pencils it in and says so.
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    const c = game.world.level.cellCenter(29, 5);
+    Object.assign(game.player.state.position, { x: c.x, z: c.z });
+    game.advance(0.1);
+    const seen = new Set();
+    for (let i = 0; i < 100; i++) {
+      game.advance(0.1);
+      seen.add(game.messages.current()?.key);
+    }
+    window.__seenMessages = [...seen];
+  });
+  expect(await page.evaluate(() => window.__seenMessages)).toEqual(expect.arrayContaining(['msg.journal', 'msg.mapPencilled']));
+  const state = await page.evaluate(() => ({
+    visited: window.__stAgnes.progress.hasFlag('visited_quiet_room'),
+    message: window.__stAgnes.messages.current()?.key,
+  }));
+  expect(state.visited).toBe(true);
+
+  // The MAPS page draws without errors in every state.
+  await page.evaluate(() => {
+    window.__stAgnes.openScreen('journal');
+  });
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  expect(await page.evaluate(() => window.__stAgnes.ui.current().tab())).toBe('maps');
+});

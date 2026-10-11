@@ -12,4 +12,5 @@ export function setupClues(game) {
   events.on('document.read', (doc) => note(`read_${doc.id}`));
   events.on('puzzle.solved', (name) => note(`solved_${name}`));
   events.on('prop.looked', (prop) => note(`saw_${prop.id}`));
+  events.on('room.visited', (room) => note(`visited_${room}`));
 }

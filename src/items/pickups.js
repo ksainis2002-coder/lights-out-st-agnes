@@ -4,7 +4,9 @@
 //                 "appearsWith": "puzzle_plates" keeps a pickup hidden until that flag is set.
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
 //                 "model": "chalkSlate", "height": 1.3 for something read on a wall.
-// Using a pickup puts its item in the inventory; using a document opens it.
+//   "maps":      [{ "id": "orphanage_wing", "at": [c, r], "y": 0.77, "hidden": {...} }] (see journalMap.js)
+// Using a pickup puts its item in the inventory; using a document opens it;
+// taking a map adds it to the journal's MAPS page.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { itemText } from './catalog.js';
@@ -56,6 +58,23 @@ export function createPickups(game, level, data) {
         if (journal.addDocument(doc.id)) game.messages.show('msg.journal');
         game.events.emit('document.read', doc);
         game.openScreen('document', { id: doc.id });
+      },
+    });
+  }
+
+  for (const map of data.maps ?? []) {
+    if (journal.maps().includes(map.id)) continue;
+    const mesh = place(level, PROPS.paperSheet(game.world.textures), map);
+    group.add(mesh);
+    usable.push({
+      position: mesh.position.clone().setY((map.y ?? 0) + 0.02),
+      radius: 0.25,
+      prompt: () => (journal.maps().includes(map.id) ? null : { key: 'prompt.takeMap' }),
+      use() {
+        journal.addMap(map.id);
+        group.remove(mesh);
+        game.messages.show('msg.mapTaken', null, 4);
+        game.events.emit('map.taken', map);
       },
     });
   }

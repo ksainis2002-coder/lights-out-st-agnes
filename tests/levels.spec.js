@@ -65,7 +65,7 @@ for (const [file, data] of playable) {
         if (!collides(open, a * step, b * step, RADIUS)) queue.push([a, b]);
       }
     }
-    for (const thing of [...(data.pickups ?? []), ...(data.documents ?? [])]) {
+    for (const thing of [...(data.pickups ?? []), ...(data.documents ?? []), ...(data.maps ?? [])]) {
       const x = thing.at[0] * level.cellSize, z = thing.at[1] * level.cellSize;
       const near = walkable.some(([wx, wz]) => Math.hypot(wx - x, wz - z) < ARM);
       expect(near, `${thing.id} can't be reached`).toBe(true);
