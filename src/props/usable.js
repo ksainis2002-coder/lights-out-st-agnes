@@ -3,10 +3,29 @@
 //   { "type": "drawing", "id": "drawing_ivy", "at": [...], "use": "look" }
 // Looking at a prop sets the flag seen_<id> (puzzles check it) and notes the
 // clue saw_<id> in the journal, if that text exists.
+//   { "type": "wallClock", "at": [...], "use": "clock" }
+// Using a clock reads out the real local time. The third time, it drops what
+// is hidden behind it (documents that "appearsWith": "clock_notes").
 import * as THREE from 'three';
+import { clockFaceTime } from './clocks.js';
+
+const CLOCK_USES = 'clock_uses';
+const CLOCK_DROP_AT = 3;
+
+function useClock(game) {
+  const { progress, messages } = game;
+  messages.show('msg.clockTime', { time: clockFaceTime(game.world.now()) }, 3);
+  const uses = progress.getValue(CLOCK_USES, 0) + 1;
+  progress.setValue(CLOCK_USES, uses);
+  if (uses !== CLOCK_DROP_AT) return;
+  progress.setFlag('clock_notes');
+  messages.notice('msg.clockDrop', null, 4);
+  game.events.emit('reveal', 'clock_notes');
+}
 
 const USES = {
   save: { prompt: 'prompt.save', height: 0.1, run: (game) => game.openScreen('save') },
+  clock: { prompt: 'prompt.clock', height: 1.45, run: useClock },
   look: {
     prompt: 'prompt.look',
     height: 1.15,

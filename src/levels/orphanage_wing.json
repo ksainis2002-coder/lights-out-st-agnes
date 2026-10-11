@@ -732,7 +732,8 @@
     15.0,
     15.6
    ],
-   "rotation": 90
+   "rotation": 90,
+   "use": "clock"
   },
   {
    "type": "drawing",
@@ -1017,10 +1018,20 @@
   {
    "id": "scribble_note",
    "at": [
-    17.8,
-    5.0
+    15.45,
+    15.3
    ],
-   "rotation": 30
+   "rotation": 60,
+   "appearsWith": "clock_notes"
+  },
+  {
+   "id": "clock_riddle",
+   "at": [
+    15.5,
+    16.0
+   ],
+   "rotation": -20,
+   "appearsWith": "clock_notes"
   }
  ],
  "emitters": [

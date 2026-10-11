@@ -249,5 +249,12 @@
   "doc.scribble_note.byline": "Crayon, big letters",
   "doc.scribble_note.body": "THERE IS A ROOM BEHIND THE GIRLS WALL. THEY PUT TOMMY IN THERE WHEN HE CRYS. IT IS NOT ON SISTERS MAP. I DREW IT ON.",
   "clue.read_scribble_note": "A child wrote that there is a room behind the girls’ dorm wall, missing from Sister’s map. They put Tommy in there.",
-  "clue.visited_quiet_room": "The quiet room. Small, bare, a drawing of a horse on the wall. It’s on my map now."
+  "clue.visited_quiet_room": "The quiet room. Small, bare, a drawing of a horse on the wall. It’s on my map now.",
+  "prompt.clock": "Check the time",
+  "msg.clockTime": "The clock says {time}.",
+  "msg.clockDrop": "Something slips out from behind the clock.",
+  "doc.clock_riddle.title": "Folded small, tucked behind the clock",
+  "doc.clock_riddle.byline": "Pencil, a careful hand",
+  "doc.clock_riddle.body": "Tommy’s box sleeps where the girls sleep.\nWake it with what his bed gives up.\nSing it the song the slate remembers,\nand the wall that is not a wall will let you in.",
+  "clue.read_clock_riddle": "A riddle from behind the clock: wake Tommy’s music box, play the slate’s song, and a wall in the girls’ dorm will open."
 }

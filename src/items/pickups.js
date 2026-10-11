@@ -3,7 +3,8 @@
 //                 "model": "crank" uses that prop instead of a plain coloured box.
 //                 "appearsWith": "puzzle_plates" keeps a pickup hidden until that flag is set.
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
-//                 "model": "chalkSlate", "height": 1.3 for something read on a wall.
+//                 "model": "chalkSlate", "height": 1.3 for something read on a wall;
+//                 "appearsWith" works as for pickups.
 //   "maps":      [{ "id": "orphanage_wing", "at": [c, r], "y": 0.77, "hidden": {...} }] (see journalMap.js)
 // Using a pickup puts its item in the inventory; using a document opens it;
 // taking a map adds it to the journal's MAPS page.
@@ -47,11 +48,14 @@ export function createPickups(game, level, data) {
 
   for (const doc of data.documents ?? []) {
     const mesh = place(level, PROPS[doc.model ?? 'paperSheet'](game.world.textures), doc);
+    const shown = () => !doc.appearsWith || progress.hasFlag(doc.appearsWith);
+    mesh.visible = shown();
+    if (!mesh.visible) hidden.push({ mesh, shown });
     group.add(mesh);
     usable.push({
       position: mesh.position.clone().setY((doc.y ?? 0) + (doc.height ?? 0.02)),
       radius: 0.25,
-      prompt: () => ({ key: 'prompt.read' }),
+      prompt: () => (mesh.visible ? { key: 'prompt.read' } : null),
       use() {
         progress.read(doc.id);
         (doc.flags ?? []).forEach((flag) => progress.setFlag(flag));
@@ -79,7 +83,8 @@ export function createPickups(game, level, data) {
     });
   }
 
-  // A solved puzzle may reveal hidden pickups.
-  const stopListening = game.events.on('puzzle.solved', () => hidden.forEach(({ mesh, shown }) => (mesh.visible = shown())));
-  return { group, usable, dispose: stopListening };
+  // A solved puzzle (or a 'reveal' event) may show hidden pickups and documents.
+  const refresh = () => hidden.forEach(({ mesh, shown }) => (mesh.visible = shown()));
+  const stops = [game.events.on('puzzle.solved', refresh), game.events.on('reveal', refresh)];
+  return { group, usable, dispose: () => stops.forEach((stop) => stop()) };
 }

@@ -60,6 +60,7 @@ export function createGameAudio(game) {
   // the lullaby lets a hidden door creak loose.
   const SOLVED_SOUND = { plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow' };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
+  events.on('reveal', () => play('paper_pickup', { volume: 0.8 }));
   events.on('musicBox.wound', () => play('drawer', { volume: 0.6 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];

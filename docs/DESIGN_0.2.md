@@ -33,6 +33,9 @@ office (register, linen key) → east dorm (names to beds → music box crank) �
 quiet room (horse, statue piece, file page) → back to the landing and the hub.
 **Paper map:** the found map shows a blank wall where the quiet room is. A child's scribble
 appears there once the player has found a specific note; the room is pencilled in once entered.
+**Office clock (owner decision 2026-10-11):** using the wall clock reads out the real local time.
+The third use drops the scribble note and a riddle note (hint only, not required) from behind it.
+The player is never told how many uses it takes.
 
 ## Showing sanity (owner decision 2026-10-10)
 No meter on screen. The effects make it plain (from 85 down, steadily stronger) and the journal's

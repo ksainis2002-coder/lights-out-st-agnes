@@ -346,3 +346,38 @@ test('paper map: taken at the landing, quiet room blank, then scribbled, then pe
   await page.keyboard.press('Tab');
   expect(await page.evaluate(() => window.__stAgnes.ui.current().tab())).toBe('maps');
 });
+
+test('office clock: tells the time every time, and the third look drops two notes', async ({ page }) => {
+  const useClock = () => page.evaluate(() => {
+    const game = window.__stAgnes;
+    const level = game.world.level;
+    game.world.now = () => new Date(2026, 9, 11, 15, 7);
+    const target = { x: 15.0 * level.cellSize, y: 1.45, z: 15.6 * level.cellSize };
+    Object.assign(game.player.state.position, { x: target.x + 1.1, z: target.z });
+    game.player.state.yaw = Math.PI / 2; // facing -x
+    game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, 1.1);
+    game.advance(1 / 30);
+    const prompt = game.interaction.target()?.prompt()?.key ?? null;
+    game.input.tap('use');
+    game.advance(0.2);
+    return { prompt, message: game.messages.current() };
+  });
+  const notesShown = () => page.evaluate(() => {
+    let shown = 0;
+    window.__stAgnes.world.levelGroup.getObjectByName('pickups').children.forEach((mesh) => {
+      const near = Math.abs(mesh.position.x / 1.3 - 15.5) < 0.2 && Math.abs(mesh.position.z / 1.3 - 15.65) < 0.5;
+      if (near && mesh.visible) shown += 1;
+    });
+    return shown;
+  });
+  for (let i = 1; i <= 3; i++) {
+    const { prompt, message } = await useClock();
+    expect(prompt).toBe('prompt.clock');
+    expect(message).toMatchObject({ key: 'msg.clockTime', params: { time: '3:07' } });
+    expect(await notesShown()).toBe(i < 3 ? 0 : 2);
+  }
+  await page.evaluate(() => window.__stAgnes.advance(3.5));
+  expect(await page.evaluate(() => window.__stAgnes.messages.current()?.key)).toBe('msg.clockDrop');
+  // A fourth look just tells the time again.
+  expect((await useClock()).message.key).toBe('msg.clockTime');
+});

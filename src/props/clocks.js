@@ -18,3 +18,9 @@ export function updateClocks(root, date = new Date()) {
     hands.minutes.rotation.z = -angles.minutes;
   });
 }
+
+// The time as a clock face shows it, "3:07" (twelve-hour, no AM/PM).
+export function clockFaceTime(date) {
+  const hours = date.getHours() % 12 || 12;
+  return `${hours}:${String(date.getMinutes()).padStart(2, '0')}`;
+}
