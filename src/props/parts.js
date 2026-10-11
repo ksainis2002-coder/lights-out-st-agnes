@@ -146,3 +146,82 @@ export function ownerDrawingTexture(name, toy) {
     g.fillText(name.toUpperCase(), w / 2, 0.93 * h);
   });
 }
+
+// Little pictures for the music box keys and the chalked tune, drawn in a
+// cell of size s at (x, y). Order matches the box's keys left to right.
+export const TUNE_SYMBOLS = ['sun', 'moon', 'star', 'bird', 'heart'];
+const SYMBOL_PATHS = {
+  sun: (g, x, y, s) => {
+    g.arc(x + s / 2, y + s / 2, s * 0.22, 0, Math.PI * 2);
+    for (let i = 0; i < 8; i++) {
+      const a = (i * Math.PI) / 4;
+      g.moveTo(x + s / 2 + Math.cos(a) * s * 0.3, y + s / 2 + Math.sin(a) * s * 0.3);
+      g.lineTo(x + s / 2 + Math.cos(a) * s * 0.45, y + s / 2 + Math.sin(a) * s * 0.45);
+    }
+  },
+  moon: (g, x, y, s) => {
+    g.arc(x + s / 2, y + s / 2, s * 0.38, Math.PI * 0.35, Math.PI * 1.65);
+    g.arc(x + s * 0.68, y + s / 2, s * 0.3, Math.PI * 1.45, Math.PI * 0.55, true);
+  },
+  star: (g, x, y, s) => {
+    for (let i = 0; i <= 5; i++) {
+      const a = -Math.PI / 2 + (i * 4 * Math.PI) / 5;
+      const px = x + s / 2 + Math.cos(a) * s * 0.42, py = y + s / 2 + Math.sin(a) * s * 0.42;
+      if (i) g.lineTo(px, py);
+      else g.moveTo(px, py);
+    }
+  },
+  bird: (g, x, y, s) => {
+    g.moveTo(x + s * 0.1, y + s * 0.45);
+    g.quadraticCurveTo(x + s * 0.3, y + s * 0.2, x + s * 0.5, y + s * 0.5);
+    g.quadraticCurveTo(x + s * 0.7, y + s * 0.2, x + s * 0.9, y + s * 0.45);
+  },
+  heart: (g, x, y, s) => {
+    g.moveTo(x + s / 2, y + s * 0.85);
+    g.bezierCurveTo(x - s * 0.1, y + s * 0.4, x + s * 0.25, y + s * 0.05, x + s / 2, y + s * 0.35);
+    g.bezierCurveTo(x + s * 0.75, y + s * 0.05, x + s * 1.1, y + s * 0.4, x + s / 2, y + s * 0.85);
+  },
+};
+
+export function drawSymbol(g, name, x, y, s) {
+  g.beginPath();
+  SYMBOL_PATHS[name](g, x, y, s);
+  g.stroke();
+}
+
+// The tune chalked on a slate: star star moon bird moon heart, over a wavy
+// stave line, with a crooked note at the end.
+export const CHALKED_TUNE = ['star', 'star', 'moon', 'bird', 'moon', 'heart'];
+export function chalkSongTexture() {
+  return canvasTexture(96, 56, (g, w, h) => {
+    g.fillStyle = '#26302a';
+    g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#d8dcd0';
+    g.lineWidth = 1.5;
+    g.beginPath();
+    g.moveTo(4, 40);
+    for (let x = 4; x <= 92; x += 8) g.lineTo(x, 40 + Math.sin(x / 6) * 1.5);
+    g.stroke();
+    CHALKED_TUNE.forEach((name, i) => drawSymbol(g, name, 4 + i * 13, 14, 12));
+    g.beginPath();
+    g.ellipse(85, 30, 3, 2, -0.4, 0, Math.PI * 2);
+    g.moveTo(88, 29);
+    g.lineTo(88, 14);
+    g.stroke();
+  });
+}
+
+// Symbol painted on a music box key.
+const keyCache = new Map();
+export function keySymbolTexture(name) {
+  if (!keyCache.has(name)) {
+    keyCache.set(name, canvasTexture(16, 16, (g, w) => {
+      g.fillStyle = '#d8d0b8';
+      g.fillRect(0, 0, w, w);
+      g.strokeStyle = '#3a2214';
+      g.lineWidth = 1.5;
+      drawSymbol(g, name, 1, 1, 14);
+    }));
+  }
+  return keyCache.get(name);
+}

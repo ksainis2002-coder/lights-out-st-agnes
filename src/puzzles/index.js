@@ -2,8 +2,9 @@
 // Each returns interactables; its state lives in progress values.
 import { namePlatesPuzzle } from './namePlates.js';
 import { cubbiesPuzzle } from './cubbies.js';
+import { musicBoxPuzzle } from './musicBox.js';
 
-const PUZZLES = { namePlates: namePlatesPuzzle, cubbies: cubbiesPuzzle };
+const PUZZLES = { namePlates: namePlatesPuzzle, cubbies: cubbiesPuzzle, musicBox: musicBoxPuzzle };
 
 export function puzzleInteractables(game, level, data) {
   return Object.entries(data.puzzles ?? {}).flatMap(([name, config]) => {

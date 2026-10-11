@@ -56,6 +56,7 @@ export function doorInteractables(game) {
 export function applyDoorProgress(level, progress) {
   for (const door of level.doors) {
     if (progress.isUnlocked(door.id)) door.locked = null;
+    if (progress.hasFlag(`revealed_${door.id}`)) door.revealed = true;
     door.open = progress.isOpen(door.id);
     door.angle = door.open ? -Math.PI / 2 : 0;
   }

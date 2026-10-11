@@ -1,7 +1,7 @@
 // Low-poly props built in code. Each builder returns a Group with its origin
 // on the floor at the prop's centre, facing +z (its "front").
 import * as THREE from 'three';
-import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture } from './parts.js';
+import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture, chalkSongTexture, keySymbolTexture, TUNE_SYMBOLS } from './parts.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -166,6 +166,38 @@ function toyTop(t) {
   return group(mesh, box(t.paintedWood, [0.02, 0.05, 0.02], [0, 0.13, 0], { color: '#c8a040' }));
 }
 
+// Music box (puzzle 3), meant for a table top (y = 0.76): a wooden case
+// with five symbol keys along the front. Keys are 8 cm apart, x = -0.16..0.16.
+export const MUSIC_BOX_KEYS = [-0.16, -0.08, 0, 0.08, 0.16];
+function musicBox(t) {
+  const keys = MUSIC_BOX_KEYS.map((x, i) => {
+    const key = plane(keySymbolTexture(TUNE_SYMBOLS[i]), [0.06, 0.06], [x, 0.142, 0.09]);
+    key.rotation.x = -Math.PI / 2;
+    return key;
+  });
+  return group(
+    box(t.paintedWood, [0.46, 0.14, 0.3], [0, 0, 0], { color: '#5a2c1a' }),
+    box(t.paintedWood, [0.48, 0.03, 0.18], [0, 0.14, -0.06], { color: '#4a2214' }),
+    ...keys,
+  );
+}
+
+// A child's slate hung on the wall with a tune chalked as pictures (puzzle 3).
+function chalkSlate(t) {
+  return group(
+    box(t.paintedWood, [0.8, 0.5, 0.02], [0, 1.05, 0.01], { color: '#4a3220' }),
+    decal(chalkSongTexture(), [0.74, 0.44], [0, 1.3, 0.025]),
+  );
+}
+
+// First statue piece: a stone hand, broken at the wrist.
+function statuePiece(t) {
+  return group(
+    box(t.sheet, [0.08, 0.04, 0.12], [0, 0, 0], { color: '#a8a8a0' }),
+    box(t.sheet, [0.07, 0.03, 0.06], [0, 0.04, 0.05], { color: '#a8a8a0' }),
+  );
+}
+
 // One sheet of paper (documents to read).
 function paperSheet(t) {
   const sheet = plane(t.sheet, [0.21, 0.29], [0, 0.004, 0]);
@@ -207,6 +239,9 @@ export const PROPS = {
   toyBall,
   toyDoll,
   toyTop,
+  musicBox,
+  chalkSlate,
+  statuePiece,
   paperSheet,
   chair,
   papers,

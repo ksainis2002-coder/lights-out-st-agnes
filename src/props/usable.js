@@ -1,19 +1,32 @@
 // Props that do something when used, named by a "use" field in level data:
 //   { "type": "tapeRecorder", "at": [...], "use": "save" }
+//   { "type": "drawing", "id": "drawing_ivy", "at": [...], "use": "look" }
+// Looking at a prop sets the flag seen_<id> (puzzles check it) and notes the
+// clue saw_<id> in the journal, if that text exists.
 import * as THREE from 'three';
 
 const USES = {
-  save: { prompt: 'prompt.save', run: (game) => game.openScreen('save') },
+  save: { prompt: 'prompt.save', height: 0.1, run: (game) => game.openScreen('save') },
+  look: {
+    prompt: 'prompt.look',
+    height: 1.15,
+    run(game, prop) {
+      const first = !game.progress.hasFlag(`seen_${prop.id}`);
+      game.progress.setFlag(`seen_${prop.id}`);
+      if (game.i18n.has(`clue.saw_${prop.id}`)) game.messages.show(`clue.saw_${prop.id}`, null, 5);
+      if (first) game.events.emit('prop.looked', prop);
+    },
+  },
 };
 
 export function propInteractables(game, level) {
   return level.props.filter((prop) => USES[prop.use]).map((prop) => {
     const action = USES[prop.use];
     return {
-      position: new THREE.Vector3(prop.at[0] * level.cellSize, (prop.y ?? 0) + 0.1, prop.at[1] * level.cellSize),
+      position: new THREE.Vector3(prop.at[0] * level.cellSize, (prop.y ?? 0) + action.height, prop.at[1] * level.cellSize),
       radius: 0.3,
       prompt: () => ({ key: action.prompt }),
-      use: () => action.run(game),
+      use: () => action.run(game, prop),
     };
   });
 }

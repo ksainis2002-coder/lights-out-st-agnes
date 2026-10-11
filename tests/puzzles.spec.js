@@ -54,7 +54,17 @@ async function swap(page, bedA, bedB, nameA, nameB) {
   await use(page);
 }
 
+const message = (page) => page.evaluate(() => window.__stAgnes.messages.current()?.key ?? null);
+
+test('name plates: nothing moves until the dorm register is read', async ({ page }) => {
+  await lookAtPlate(page, 'bed_2');
+  await use(page);
+  expect(await items(page)).toEqual([]);
+  expect(await message(page)).toBe('msg.platesNeedClue');
+});
+
 test('name plates: put every plate back on its bed and the crank drops', async ({ page }) => {
+  await page.evaluate(() => window.__stAgnes.progress.read('dorm_register'));
   // Bed 2 is Tommy's but carries Sam's plate; bed 4 has Tommy's.
   expect(await lookAtPlate(page, 'bed_2')).toEqual({ key: 'prompt.takePlate', params: { name: 'SAM' } });
   await swap(page, 'bed_2', 'bed_4', 'SAM', 'TOMMY');
@@ -83,6 +93,7 @@ test('name plates: put every plate back on its bed and the crank drops', async (
 });
 
 test('name plates: moved plates stay moved after the level reloads', async ({ page }) => {
+  await page.evaluate(() => window.__stAgnes.progress.read('dorm_register'));
   await lookAtPlate(page, 'bed_2');
   await use(page);
   await page.evaluate(() => window.__stAgnes.loadLevel('orphanage_wing', 'landing'));
@@ -149,6 +160,7 @@ test('toys home: each toy in its owner\'s cubby unbolts the west dorm', async ({
   expect(await westDorm()).toBe('puzzle_toys');
   expect(await lookAtCubby(page, 'IVY')).toEqual({ key: 'prompt.cubby', params: { name: 'IVY' } }); // nothing to put in yet
   await page.evaluate(() => ['toy_ball', 'toy_doll', 'toy_top'].forEach((id) => window.__stAgnes.inventory.add(id)));
+  await page.evaluate(() => ['ivy', 'rose', 'peter'].forEach((name) => window.__stAgnes.progress.setFlag(`seen_drawing_${name}`)));
 
   // A wrong cubby takes the toy, and gives it back.
   expect((await lookAtCubby(page, 'MAGGIE'))?.key).toBe('prompt.placeToy');
@@ -187,4 +199,106 @@ test('toys home: the three toys can be picked up where they lie', async ({ page 
     await use(page);
   }
   expect(await items(page)).toEqual(['toy_ball', 'toy_doll', 'toy_top']);
+});
+
+test('toys home: a toy only goes in a cubby once its owner\'s drawing was seen', async ({ page }) => {
+  await page.evaluate(() => window.__stAgnes.inventory.add('toy_ball'));
+  await lookAtCubby(page, 'IVY');
+  await use(page);
+  expect(await items(page)).toEqual(['toy_ball']);
+  expect(await message(page)).toBe('msg.toyNeedsClue');
+
+  // Look at Ivy's drawing on the playroom wall.
+  const prompt = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    const level = game.world.level;
+    const target = { x: 13 * level.cellSize, y: 1.15, z: 4.9 * level.cellSize };
+    const stand = { x: target.x + 1.2, z: target.z };
+    Object.assign(game.player.state.position, stand);
+    game.player.state.yaw = Math.PI / 2; // facing -x
+    game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, 1.2);
+    game.advance(1 / 30);
+    return game.interaction.target()?.prompt() ?? null;
+  });
+  expect(prompt?.key).toBe('prompt.look');
+  await use(page);
+  expect(await page.evaluate(() => window.__stAgnes.journal.clues())).toContain('saw_drawing_ivy');
+
+  await lookAtCubby(page, 'IVY');
+  await use(page);
+  expect(await items(page)).toEqual([]);
+});
+
+// Stand in front of the music box on the west dorm table and aim at a key
+// (0..4, left to right) or the crank slot ('slot').
+const lookAtMusicBox = (page, part) => page.evaluate((part) => {
+  const game = window.__stAgnes;
+  let box = null;
+  game.world.levelGroup.traverse((o) => {
+    if (o.userData.prop?.id === 'music_box') box = o;
+  });
+  box.updateWorldMatrix(true, false);
+  const local = part === 'slot' ? [0.23, 0.08, 0] : [-0.16 + part * 0.08, 0.15, 0.09];
+  const target = box.localToWorld(box.position.clone().set(...local));
+  const stand = box.localToWorld(box.position.clone().set(local[0], 0, 0.9));
+  Object.assign(game.player.state.position, { x: stand.x, z: stand.z });
+  game.player.state.yaw = Math.atan2(-(target.x - stand.x), -(target.z - stand.z));
+  game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, Math.hypot(target.x - stand.x, target.z - stand.z));
+  game.advance(1 / 30);
+  return game.interaction.target()?.prompt() ?? null;
+}, part);
+const KEY = { sun: 0, moon: 1, star: 2, bird: 3, heart: 4 };
+const TUNE = ['star', 'star', 'moon', 'bird', 'moon', 'heart'];
+async function playTune(page) {
+  for (const symbol of TUNE) {
+    expect((await lookAtMusicBox(page, KEY[symbol]))?.params.symbol).toBe(symbol);
+    await use(page);
+  }
+}
+const quietDoor = (page) => page.evaluate(() => window.__stAgnes.world.level.doors.find((d) => d.id === 'quiet_room').revealed ?? false);
+
+test('lullaby: wind the box with the crank, play the chalked tune, the quiet room opens', async ({ page }) => {
+  expect((await lookAtMusicBox(page, 'slot'))?.key).toBe('prompt.musicBox');
+  await use(page);
+  expect(await message(page)).toBe('msg.musicBoxNoCrank');
+  await page.evaluate(() => window.__stAgnes.inventory.add('music_box_crank'));
+  expect((await lookAtMusicBox(page, 'slot'))?.key).toBe('prompt.fitCrank');
+  await use(page);
+  expect(await items(page)).toEqual([]);
+
+  // Without the slate read, the right tune does nothing.
+  await playTune(page);
+  expect(await quietDoor(page)).toBe(false);
+
+  await page.evaluate(() => window.__stAgnes.progress.read('lullaby_chalk'));
+  await lookAtMusicBox(page, KEY.sun);
+  await use(page); // a wrong note first: only the last six count
+  await playTune(page);
+  expect(await quietDoor(page)).toBe(true);
+  expect(await message(page)).toBe('msg.lullabySolved');
+
+  // The door stays found after a reload.
+  await page.evaluate(() => window.__stAgnes.loadLevel('orphanage_wing', 'landing'));
+  expect(await quietDoor(page)).toBe(true);
+});
+
+test('quiet room: the horse, the statue piece and page one of the file', async ({ page }) => {
+  const take = (id, at, height) => page.evaluate(({ at, height }) => {
+    const game = window.__stAgnes;
+    const level = game.world.level;
+    const target = { x: at[0] * level.cellSize, z: at[1] * level.cellSize };
+    Object.assign(game.player.state.position, { x: target.x - 0.9, z: target.z });
+    game.player.state.yaw = -Math.PI / 2; // facing +x
+    game.player.state.pitch = Math.atan2(height - game.player.state.eyeHeight, 0.9);
+    game.advance(1 / 30);
+    const prompt = game.interaction.target()?.prompt() ?? null;
+    game.input.tap('use');
+    game.advance(0.3);
+    return prompt?.key ?? null;
+  }, { at, height });
+  expect(await take('horse', [29.8, 5.0], 0.1)).toBe('prompt.take');
+  expect(await take('statue', [30.6, 6.4], 0.05)).toBe('prompt.take');
+  expect(await take('file', [30.8, 3.8], 0.02)).toBe('prompt.read');
+  expect(await items(page)).toEqual(['toy_horse', 'statue_piece']);
+  expect(await page.evaluate(() => window.__stAgnes.journal.documents())).toContain('hale_file_1');
 });

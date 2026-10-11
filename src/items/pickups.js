@@ -3,6 +3,7 @@
 //                 "model": "crank" uses that prop instead of a plain coloured box.
 //                 "appearsWith": "puzzle_plates" keeps a pickup hidden until that flag is set.
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
+//                 "model": "chalkSlate", "height": 1.3 for something read on a wall.
 // Using a pickup puts its item in the inventory; using a document opens it.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
@@ -43,10 +44,10 @@ export function createPickups(game, level, data) {
   }
 
   for (const doc of data.documents ?? []) {
-    const mesh = place(level, PROPS.paperSheet(game.world.textures), doc);
+    const mesh = place(level, PROPS[doc.model ?? 'paperSheet'](game.world.textures), doc);
     group.add(mesh);
     usable.push({
-      position: mesh.position.clone().setY((doc.y ?? 0) + 0.02),
+      position: mesh.position.clone().setY((doc.y ?? 0) + (doc.height ?? 0.02)),
       radius: 0.25,
       prompt: () => ({ key: 'prompt.read' }),
       use() {

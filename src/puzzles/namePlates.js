@@ -3,7 +3,9 @@
 // put them back where they belong; when every bed is right, Tommy's crank
 // for the music box rolls out from under his bed (a pickup that appearsWith
 // the puzzle_plates flag).
-// Level data: "puzzles": { "namePlates": { "answer": { bedId: NAME }, "start": { bedId: NAME } } }
+// The plates won't move until the register (data.clue, a document id) is read.
+// Level data: "puzzles": { "namePlates": { "clue": "dorm_register",
+//   "answer": { bedId: NAME }, "start": { bedId: NAME } } }
 import * as THREE from 'three';
 import { decal, cachedPlateTexture } from '../props/parts.js';
 
@@ -65,6 +67,7 @@ export function namePlatesPuzzle(game, level, data) {
       return plate ? { key: 'prompt.placePlate', params: { name: plate.slice(6) } } : null;
     },
     use() {
+      if (!progress.isRead(data.clue)) return game.messages.show('msg.platesNeedClue', null, 4);
       if (plates[bedId]) {
         if (!inventory.add(`plate_${plates[bedId]}`)) return game.messages.show('msg.inventoryFull');
         plates[bedId] = null;

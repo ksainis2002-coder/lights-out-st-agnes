@@ -518,18 +518,6 @@
   {
    "type": "bed",
    "at": [
-    26.23,
-    5.199999999999999
-   ],
-   "rotation": -90,
-   "options": {
-    "name": "ADA",
-    "unmade": false
-   }
-  },
-  {
-   "type": "bed",
-   "at": [
     20.77,
     6.4
    ],
@@ -671,14 +659,6 @@
    }
   },
   {
-   "type": "toyHorse",
-   "at": [
-    29.8,
-    5.0
-   ],
-   "rotation": 200
-  },
-  {
    "type": "drawing",
    "at": [
     29.8,
@@ -764,7 +744,9 @@
    "options": {
     "name": "IVY",
     "toy": "toy_ball"
-   }
+   },
+   "id": "drawing_ivy",
+   "use": "look"
   },
   {
    "type": "drawing",
@@ -776,7 +758,9 @@
    "options": {
     "name": "PETER",
     "toy": "toy_top"
-   }
+   },
+   "id": "drawing_peter",
+   "use": "look"
   },
   {
    "type": "drawing",
@@ -788,7 +772,26 @@
    "options": {
     "name": "ROSE",
     "toy": "toy_doll"
-   }
+   },
+   "id": "drawing_rose",
+   "use": "look"
+  },
+  {
+   "type": "musicBox",
+   "id": "music_box",
+   "at": [
+    23.0,
+    6.4
+   ],
+   "y": 0.76
+  },
+  {
+   "type": "sheetPile",
+   "at": [
+    25.9,
+    4.6
+   ],
+   "rotation": 70
   }
  ],
  "lights": [
@@ -949,6 +952,26 @@
     5.3
    ],
    "model": "toyTop"
+  },
+  {
+   "id": "quiet_horse",
+   "item": "toy_horse",
+   "at": [
+    29.8,
+    5.0
+   ],
+   "rotation": 200,
+   "model": "toyHorse"
+  },
+  {
+   "id": "quiet_statue",
+   "item": "statue_piece",
+   "at": [
+    30.6,
+    6.4
+   ],
+   "rotation": 40,
+   "model": "statuePiece"
   }
  ],
  "documents": [
@@ -972,6 +995,24 @@
    "flags": [
     "name_tommy"
    ]
+  },
+  {
+   "id": "lullaby_chalk",
+   "at": [
+    14.0,
+    9
+   ],
+   "rotation": 180,
+   "model": "chalkSlate",
+   "height": 1.3
+  },
+  {
+   "id": "hale_file_1",
+   "at": [
+    30.8,
+    3.8
+   ],
+   "rotation": -25
   }
  ],
  "emitters": [
@@ -1140,6 +1181,7 @@
  ],
  "puzzles": {
   "namePlates": {
+   "clue": "dorm_register",
    "answer": {
     "bed_1": "WALTER",
     "bed_2": "TOMMY",
@@ -1186,7 +1228,25 @@
     "toy_doll": "ROSE",
     "toy_top": "PETER"
    },
-   "unlocks": "west_dorm"
+   "unlocks": "west_dorm",
+   "clues": {
+    "toy_ball": "seen_drawing_ivy",
+    "toy_doll": "seen_drawing_rose",
+    "toy_top": "seen_drawing_peter"
+   }
+  },
+  "musicBox": {
+   "prop": "music_box",
+   "clue": "lullaby_chalk",
+   "tune": [
+    "star",
+    "star",
+    "moon",
+    "bird",
+    "moon",
+    "heart"
+   ],
+   "reveals": "quiet_room"
   }
  }
 }

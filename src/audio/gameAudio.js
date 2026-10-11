@@ -56,8 +56,11 @@ export function createGameAudio(game) {
   events.on('plate.taken', () => play('key_pickup', { volume: 0.6 }));
   events.on('plate.placed', () => play('key_pickup', { volume: 0.6 }));
   events.on('toy.moved', () => play('wooden_toy', { volume: 0.5 }));
-  // The plates drop the crank (a rolling clatter); the toys draw back a bolt.
-  events.on('puzzle.solved', (name) => play(name === 'toys' ? 'door_locked' : 'wooden_toy', { volume: 0.9 }));
+  // The plates drop the crank (a rolling clatter); the toys draw back a bolt;
+  // the lullaby lets a hidden door creak loose.
+  const SOLVED_SOUND = { plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow' };
+  events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
+  events.on('musicBox.wound', () => play('drawer', { volume: 0.6 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
   function startEmitters() {

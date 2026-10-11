@@ -3,7 +3,9 @@
 // owner's cubby. When all are home, the west dorm's bolt slides back.
 // Level data: "puzzles": { "cubbies": { "prop": "<cubbies prop id>",
 //   "labels": [12 names, left to right, top row first],
-//   "answer": { toyItem: NAME }, "unlocks": "<door id>" } }
+//   "answer": { toyItem: NAME }, "clues": { toyItem: "<flag>" }, "unlocks": "<door id>" } }
+// A toy only goes in a cubby once its owner's drawing has been looked at
+// (its clue flag is set).
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { decal, cachedPlateTexture } from '../props/parts.js';
@@ -84,6 +86,7 @@ export function cubbiesPuzzle(game, level, data) {
         } else {
           const toy = toyToPlace();
           if (!toy) return game.messages.show('msg.cubbyEmpty');
+          if (!progress.hasFlag(data.clues[toy])) return game.messages.show('msg.toyNeedsClue', { item: itemText(i18n, toy) }, 4);
           inventory.remove(toy);
           contents[i] = toy;
         }
