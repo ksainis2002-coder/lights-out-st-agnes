@@ -20,12 +20,12 @@ test('orphanage wing at human pace: time and collapses per hour', async ({ page 
     game.newGame();
     game.intro.finish();
     const samples = [];
-    let collapses = 0;
+    const collapseMinutes = [];
+    let t = 0;
     game.collapse.start = () => {
-      collapses += 1;
+      collapseMinutes.push(t / 60);
       game.sanity.set(60);
     };
-    let t = 0;
     const advance = game.advance;
     game.advance = (seconds) => {
       advance(seconds);
@@ -34,7 +34,8 @@ test('orphanage wing at human pace: time and collapses per hour', async ({ page 
     };
     const bot = game.runBot(r, { lingerSeconds: linger });
     game.advance = advance;
-    return { finished: bot.finished, failedStep: bot.failedStep, minutes: t / 60, collapses, perHour: collapses / (t / 3600), samples };
+    const collapses = collapseMinutes.length;
+    return { finished: bot.finished, failedStep: bot.failedStep, minutes: t / 60, collapses, perHour: collapses / (t / 3600), collapseMinutes, samples };
   }, { r: route, linger: LINGER });
   mkdirSync('test-results/bot', { recursive: true });
   writeFileSync('test-results/bot/balance.json', JSON.stringify(result, null, 2));

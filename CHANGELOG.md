@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.51 — Balance chart for wing 1 (docs/balance/balance_0.2.html): sanity over a 43.6-minute human-pace run, 2 collapses (2.8/hour); the balance run now records when each collapse happens.
 - 0.1.50 — Build step 9 (part 1): bot playthrough of the whole orphanage wing (new game → flashlight → map → washroom → office, register, clock → linen → plates → toys → music box → quiet room → back to the hub), aiming and clicking like a player; it finishes in 2.6 min of game time. Balance run at human pace (BALANCE=1, about 44 min): 4 collapses (5.5/hour) even with the flashlight always on, so darkness with the flashlight on now drains 0.2/s instead of 0.3/s: 2 collapses (2.8/hour), inside the 2–4 target. Darkness without the flashlight is unchanged.
 - 0.1.49 — Owner pick (b): Tommy stays only hinted as T. Hale. The quiet-room file page names "T. Hale" with the age blotted and no belongings; journal lines say "the same name as on my file".
 - 0.1.48 — Owner playtest: the flashlight is no longer on from the start. It lies on the patient-room table; taking it (no inventory slot) shows a short tutorial ("F turns the flashlight on and off." / "The dark wears on your mind. Light keeps it steady."), and only then does F work. Save format 2: older saves keep their flashlight (migration). Every drawing can now be looked at, each with its own line. Papers on the floor sit flat with a soft shadow and written lines instead of floating. Sanity effects test waits for rendered frames instead of a fixed 300 ms.
