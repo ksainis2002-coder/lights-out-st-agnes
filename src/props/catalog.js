@@ -2,6 +2,7 @@
 // on the floor at the prop's centre, facing +z (its "front").
 import * as THREE from 'three';
 import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture, chalkSongTexture, paperTexture, keySymbolTexture, TUNE_SYMBOLS } from './parts.js';
+import { HALL_PROPS } from './hall.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -261,4 +262,6 @@ export const PROPS = {
   chair,
   papers,
   blocks,
-  sheetPile, bed, table, tapeRecorder, toyHorse, cubbies, drawing, windowFrame, fluorescent, ghostChild };
+  sheetPile, bed, table, tapeRecorder, toyHorse, cubbies, drawing, windowFrame, fluorescent, ghostChild,
+  ...HALL_PROPS,
+};

@@ -6,6 +6,9 @@ const FOOTPRINTS = {
   bed: () => ({ size: [0.9, 1.9] }),
   table: () => ({ size: [1.1, 0.7] }),
   cubbies: () => ({ size: [1.6, 0.35] }),
+  cabinet: () => ({ size: [0.7, 0.35] }),
+  longTable: () => ({ size: [3.0, 0.8] }),
+  bench: () => ({ size: [3.0, 0.3] }),
   // A toppled chair lies on its back, reaching behind where it stood.
   chair: (options) => (options?.toppled ? { size: [0.42, 0.94], offset: [0, -0.22] } : { size: [0.42, 0.42] }),
 };

@@ -157,3 +157,17 @@ export function heldNote(ctx) {
   ctx.restore();
   osdText(ctx, 'H  put away', 12, 102, 8, COLORS.soft);
 }
+
+// Flashlight battery (proposal): VHS-style cell in the lower right, shown for
+// a few seconds when the flashlight is switched, and always when low.
+export function battery(ctx) {
+  const x = W - 52;
+  const y = H - 30;
+  ctx.strokeStyle = 'rgba(232,240,255,0.85)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(x + 0.5, y + 0.5, 30, 12);
+  ctx.fillStyle = 'rgba(232,240,255,0.85)';
+  ctx.fillRect(x + 31, y + 4, 2, 5);
+  ctx.fillRect(x + 3, y + 3, 6, 7); // one bar of four left
+  osdText(ctx, 'LOW', x - 6, y + 2, 9, '#ff6a5a', 'right');
+}

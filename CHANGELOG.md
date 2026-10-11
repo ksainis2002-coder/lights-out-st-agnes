@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.53 — Wing 1 extension, part 1 (for owner approval): two new rooms built into the map, a sick bay (three iron beds, glass medicine cabinet, wall fuse box with four numbered levers) and a dining hall (long tables, benches, hymn board), both with doors off the corridor. Mockup still for the flashlight battery display (ui_battery). No new gameplay yet.
 - 0.1.52 — Settings defaults locked by the owner (any change now needs a settings migration). Owner playtest on real hardware: whole wing in 10 minutes, 0 collapses, 60 fps.
 - 0.1.51 — Balance chart for wing 1 (docs/balance/balance_0.2.html): sanity over a 43.6-minute human-pace run, 2 collapses (2.8/hour); the balance run now records when each collapse happens.
 - 0.1.50 — Build step 9 (part 1): bot playthrough of the whole orphanage wing (new game → flashlight → map → washroom → office, register, clock → linen → plates → toys → music box → quiet room → back to the hub), aiming and clicking like a player; it finishes in 2.6 min of game time. Balance run at human pace (BALANCE=1, about 44 min): 4 collapses (5.5/hour) even with the flashlight always on, so darkness with the flashlight on now drains 0.2/s instead of 0.3/s: 2 collapses (2.8/hour), inside the 2–4 target. Darkness without the flashlight is unchanged.

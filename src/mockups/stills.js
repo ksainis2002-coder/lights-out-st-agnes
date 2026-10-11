@@ -99,7 +99,7 @@ const STILLS = {
     },
   },
   // In-game screens (second set), all over the same dorm view.
-  ...Object.fromEntries(['prompt', 'inventory', 'journal', 'documentView', 'save', 'heldNote'].map((name) => [`ui_${name}`, {
+  ...Object.fromEntries(['prompt', 'inventory', 'journal', 'documentView', 'save', 'heldNote', 'battery'].map((name) => [`ui_${name}`, {
     level: dorms,
     setup({ world }) {
       aim(world.camera, ['prompt', 'heldNote'].includes(name) ? [6.8, 1.5, 8.6] : [5.0, 1.6, 12.6], ['prompt', 'heldNote'].includes(name) ? -55 : -12, ['prompt', 'heldNote'].includes(name) ? -32 : -6);
