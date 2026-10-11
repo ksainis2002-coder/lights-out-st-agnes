@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.43 — Fix: the settings test that walks down to "Reset keys" counts the new Map row.
 - 0.1.42 — M opens the journal straight on the MAPS page (M, J or ESC closes it). New rebindable "Map" key in Setup → Controls; older settings files get M automatically.
 - 0.1.41 — Owner pick (c): the office wall clock can be used. Each time it reads out the real local time ("The clock says 3:07."); the third time, two notes slip out from behind it: the child's scribble (moved from the playroom floor) and a riddle hinting at the music box and the hidden wall (a hint only, not required). The game never says how many tries it takes.
 - 0.1.40 — Build step 7d: paper map. Sister's plan of the wing lies on the landing table; taking it adds it to the journal's MAPS page (pencilled rooms, doorways, a red X where you stand). The quiet room is missing from it; reading a child's crayon note on the playroom floor adds a red scribble with a question mark there, and entering the room pencils it in. Visited rooms are remembered. Journal notices now queue instead of overwriting each other.
