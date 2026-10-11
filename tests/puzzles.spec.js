@@ -405,3 +405,20 @@ test('journal: ▲▼ only change the document on the DOCUMENTS tab', async ({ p
   await page.keyboard.press('ArrowDown');
   expect(await selected()).toBe('dorm_register');
 });
+
+test('held note: H in DOCUMENTS holds the chosen note at your side, H in game puts it away', async ({ page }) => {
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    ['night_duty', 'dorm_register'].forEach((id) => game.journal.addDocument(id));
+    game.openScreen('journal', { tab: 'documents' });
+  });
+  await page.keyboard.press('ArrowDown');
+  await page.keyboard.press('KeyH');
+  const state = () => page.evaluate(() => ({ held: window.__stAgnes.journal.held(), mode: window.__stAgnes.mode }));
+  expect(await state()).toEqual({ held: 'dorm_register', mode: 'playing' });
+  await page.evaluate(() => {
+    window.__stAgnes.input.tap('hold');
+    window.__stAgnes.advance(0.1);
+  });
+  expect((await state()).held).toBeNull();
+});

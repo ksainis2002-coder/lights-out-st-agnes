@@ -75,6 +75,7 @@
   "settings.action.camcorder": "Βιντεοκάμερα",
   "settings.action.journal": "Ημερολόγιο",
   "settings.action.map": "Χάρτης",
+  "settings.action.hold": "Κράτα σημείωμα",
   "settings.volume.music": "Μουσική",
   "settings.volume.effects": "Εφέ",
   "settings.volume.voices": "Φωνές",
@@ -109,6 +110,7 @@
   "journal.tab.documents": "ΕΓΓΡΑΦΑ",
   "journal.tab.maps": "ΧΑΡΤΕΣ",
   "journal.footer": "J κλείσιμο   TAB ενότητα   ▲▼ έγγραφο",
+  "journal.footerDocuments": "J κλείσιμο   TAB ενότητα   ▲▼ έγγραφο   {hold} κράτα το δίπλα σου",
   "journal.empty": "Δεν έχει γραφτεί τίποτα ακόμα.",
   "journal.noMaps": "Δεν βρέθηκαν χάρτες.",
   "journal.wing.orphanage": "Πτέρυγα ορφανοτροφείου",
@@ -257,5 +259,6 @@
   "doc.clock_riddle.title": "Διπλωμένο μικρό, χωμένο πίσω από το ρολόι",
   "doc.clock_riddle.byline": "Μολύβι, προσεκτικό χέρι",
   "doc.clock_riddle.body": "Το κουτί του Tommy κοιμάται εκεί που κοιμούνται τα κορίτσια.\nΞύπνα το με ό,τι δίνει το κρεβάτι του.\nΤραγούδησέ του το τραγούδι που θυμάται η πλάκα,\nκαι ο τοίχος που δεν είναι τοίχος θα σε αφήσει να μπεις.",
-  "clue.read_clock_riddle": "Ένας γρίφος από πίσω από το ρολόι: ξύπνα το μουσικό κουτί του Tommy, παίξε το τραγούδι της πλάκας, και ένας τοίχος στον κοιτώνα των κοριτσιών θα ανοίξει."
+  "clue.read_clock_riddle": "Ένας γρίφος από πίσω από το ρολόι: ξύπνα το μουσικό κουτί του Tommy, παίξε το τραγούδι της πλάκας, και ένας τοίχος στον κοιτώνα των κοριτσιών θα ανοίξει.",
+  "heldNote.putAway": "{key}  βάλ’ το μέσα"
 }

@@ -1,9 +1,11 @@
 // In-game HUD on the 480×270 UI layer. Approved stills: ui_prompt (centre dot
 // and one prompt line when something usable is in view) and ui_inventory
-// (TAB strip at the bottom). Plus short message lines. Nothing else.
+// (TAB strip at the bottom), a held note (ui_heldNote). Plus short message
+// lines. Nothing else.
 import { osdText, COLORS } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { drawIcon } from './icons.js';
+import { drawHeldNote } from './heldNote.js';
 import { itemDef, itemText, INVENTORY_SLOTS } from '../items/catalog.js';
 
 const W = 480;
@@ -92,9 +94,10 @@ export function drawHud(ctx, game) {
     game.subtitles.draw(ctx);
     return true;
   }
+  const held = drawHeldNote(ctx, game);
   const subtitle = game.subtitles.draw(ctx);
   const prompt = drawPrompt(ctx, game);
   const inventory = drawInventory(ctx, game);
   const message = drawMessage(ctx, game);
-  return prompt || inventory || message || subtitle;
+  return prompt || inventory || message || subtitle || held;
 }

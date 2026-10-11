@@ -24,6 +24,7 @@ export function setupInventoryControls(game) {
   game.updateItems = () => {
     if (input.wasPressed('journal')) return game.openScreen('journal');
     if (input.wasPressed('map')) return game.openScreen('journal', { tab: 'maps' });
+    if (input.wasPressed('hold') && game.journal.held()) game.journal.hold(null);
     if (input.wasPressed('inventory')) inventory.setOpen(!inventory.isOpen());
     if (!inventory.isOpen()) return;
     for (let n = 1; n <= 8; n++) if (input.wasCodePressed(`Digit${n}`)) inventory.select(n - 1);

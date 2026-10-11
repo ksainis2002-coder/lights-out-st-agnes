@@ -1,10 +1,12 @@
 // Journal (J), as in the approved still ui_journal: a notebook with
 // CLUES / DOCUMENTS / MAPS tabs; M opens it on MAPS. TAB or a click switches
-// section, ▲▼ or a click picks a document, J, M or ESC closes.
+// section, ▲▼ or a click picks a document, H holds it at your side (see
+// heldNote.js), J, M or ESC closes.
 import { osdText, COLORS } from '../osd.js';
 import { PAPER, PAPER_DARK, INK, INK_SOFT, paperText, paperParagraph, fitPaperText } from '../paper.js';
 import { feeling } from '../../sanity/meter.js';
 import { drawMapPage } from './journalMap.js';
+import { keyName } from '../settingsRows.js';
 
 const W = 480;
 const H = 270;
@@ -65,7 +67,8 @@ export function createJournalScreen(ui, options = {}) {
       osdText(ctx, t(`journal.tab.${name}`), 114 + i * 72, 11, 8, i === tab ? INK : '#4a4434', 'center');
     });
     [drawClues, drawDocuments, drawMaps][tab](ctx);
-    osdText(ctx, t('journal.footer'), W / 2, H - 16, 8, COLORS.dim, 'center');
+    const footer = TABS[tab] === 'documents' ? 'journal.footerDocuments' : 'journal.footer';
+    osdText(ctx, t(footer, { hold: keyName(game.settings.get('keys').hold) }), W / 2, H - 16, 8, COLORS.dim, 'center');
   }
 
   function hits() {
@@ -75,12 +78,19 @@ export function createJournalScreen(ui, options = {}) {
     return [...tabs, ...rows];
   }
 
+  // Pull the chosen document out to the player's side and go back to the game.
+  function holdSelected() {
+    game.journal.hold(game.journal.documents()[doc]);
+    ui.resume();
+  }
+
   function key(code, event) {
     const keys = game.settings.get('keys');
     const docs = TABS[tab] === 'documents' ? game.journal.documents().length : 0; // ▲▼ only pick documents on their tab
     if (code === 'Tab') tab = (tab + (event?.shiftKey ? 2 : 1)) % 3;
     else if (code === 'ArrowDown' && docs) doc = (doc + 1) % docs;
     else if (code === 'ArrowUp' && docs) doc = (doc + docs - 1) % docs;
+    else if (code === keys.hold && docs) holdSelected();
     else if (['Escape', keys.journal, keys.map].includes(code)) ui.resume();
     else return false;
     return true;

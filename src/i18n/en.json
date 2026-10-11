@@ -75,6 +75,7 @@
   "settings.action.camcorder": "Camcorder",
   "settings.action.journal": "Journal",
   "settings.action.map": "Map",
+  "settings.action.hold": "Hold note",
   "settings.volume.music": "Music",
   "settings.volume.effects": "Effects",
   "settings.volume.voices": "Voices",
@@ -109,6 +110,7 @@
   "journal.tab.documents": "DOCUMENTS",
   "journal.tab.maps": "MAPS",
   "journal.footer": "J close   TAB section   ▲▼ document",
+  "journal.footerDocuments": "J close   TAB section   ▲▼ document   {hold} hold at your side",
   "journal.empty": "Nothing written yet.",
   "journal.noMaps": "No maps found.",
   "journal.wing.orphanage": "Orphanage wing",
@@ -257,5 +259,6 @@
   "doc.clock_riddle.title": "Folded small, tucked behind the clock",
   "doc.clock_riddle.byline": "Pencil, a careful hand",
   "doc.clock_riddle.body": "Tommy’s box sleeps where the girls sleep.\nWake it with what his bed gives up.\nSing it the song the slate remembers,\nand the wall that is not a wall will let you in.",
-  "clue.read_clock_riddle": "A riddle from behind the clock: wake Tommy’s music box, play the slate’s song, and a wall in the girls’ dorm will open."
+  "clue.read_clock_riddle": "A riddle from behind the clock: wake Tommy’s music box, play the slate’s song, and a wall in the girls’ dorm will open.",
+  "heldNote.putAway": "{key}  put away"
 }

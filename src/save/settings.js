@@ -21,6 +21,7 @@ export const DEFAULT_KEYS = {
   camcorder: 'KeyC',
   journal: 'KeyJ',
   map: 'KeyM',
+  hold: 'KeyH',
   use: 'Mouse0',
   inventory: 'Tab',
   combine: 'KeyR',
