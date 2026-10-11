@@ -69,3 +69,7 @@ computer only. It sets up the brief's real-clock events and the secret room that
 7. The three puzzles and their rewards
 8. Intro
 9. Bot route, balance (≈45 min, 2–4 rewinds/hour), tests, release 0.2.0
+
+## Tommy and T. Hale (owner decision 2026-10-11)
+Keep it a hint, never confirmed (brief). Shared surname only: the register lists Thomas Hale, the
+quiet-room file page names "T. Hale" with the age blotted and no belongings listed.
