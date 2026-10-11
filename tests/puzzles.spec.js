@@ -258,6 +258,7 @@ async function playTune(page) {
 const quietDoor = (page) => page.evaluate(() => window.__stAgnes.world.level.doors.find((d) => d.id === 'quiet_room').revealed ?? false);
 
 test('lullaby: wind the box with the crank, play the chalked tune, the quiet room opens', async ({ page }) => {
+  test.setTimeout(60_000); // many aimed steps: slow when every test runs at once
   expect((await lookAtMusicBox(page, 'slot'))?.key).toBe('prompt.musicBox');
   await use(page);
   expect(await message(page)).toBe('msg.musicBoxNoCrank');
@@ -347,7 +348,7 @@ test('paper map: taken at the landing, quiet room blank, then scribbled, then pe
   expect(await page.evaluate(() => window.__stAgnes.ui.current().tab())).toBe('maps');
 });
 
-test('office clock: tells the time every time, and the third look drops two notes', async ({ page }) => {
+test('office clock: tells the real time every time, and nothing more', async ({ page }) => {
   const useClock = () => page.evaluate(() => {
     const game = window.__stAgnes;
     const level = game.world.level;
@@ -362,24 +363,39 @@ test('office clock: tells the time every time, and the third look drops two note
     game.advance(0.2);
     return { prompt, message: game.messages.current() };
   });
-  const notesShown = () => page.evaluate(() => {
-    let shown = 0;
-    window.__stAgnes.world.levelGroup.getObjectByName('pickups').children.forEach((mesh) => {
-      const near = Math.abs(mesh.position.x / 1.3 - 15.5) < 0.2 && Math.abs(mesh.position.z / 1.3 - 15.65) < 0.5;
-      if (near && mesh.visible) shown += 1;
-    });
-    return shown;
-  });
-  for (let i = 1; i <= 3; i++) {
+  for (let i = 0; i < 4; i++) {
     const { prompt, message } = await useClock();
     expect(prompt).toBe('prompt.clock');
     expect(message).toMatchObject({ key: 'msg.clockTime', params: { time: '3:07' } });
-    expect(await notesShown()).toBe(i < 3 ? 0 : 2);
   }
-  await page.evaluate(() => window.__stAgnes.advance(3.5));
-  expect(await page.evaluate(() => window.__stAgnes.messages.current()?.key)).toBe('msg.clockDrop');
-  // A fourth look just tells the time again.
-  expect((await useClock()).message.key).toBe('msg.clockTime');
+});
+
+test('quiet-room notes: Tommy leads to Rose\'s bed once the toys are home, and the notes lie there', async ({ page }) => {
+  const notesShown = () => page.evaluate(() => {
+    const game = window.__stAgnes;
+    const size = game.world.level.cellSize;
+    return game.world.levelGroup.getObjectByName('pickups').children.filter((mesh) =>
+      mesh.visible && Math.abs(mesh.position.x / size - 20.8) < 0.4 && Math.abs(mesh.position.z / size - 2.85) < 0.3).length;
+  });
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.progress.setFlag('ghost_tommy_corridor'); // only the new event can fire
+  });
+  expect(await notesShown()).toBe(0);
+  const whisper = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.progress.setFlag('puzzle_toys');
+    game.events.emit('puzzle.solved', 'toys');
+    const c = game.world.level.cellCenter(22, 10.5);
+    Object.assign(game.player.state.position, { x: c.x, z: c.z });
+    let line = null;
+    const stop = game.events.on('subtitle.shown', (s) => (line = s.key));
+    game.advance(2);
+    stop();
+    return line;
+  });
+  expect(whisper).toBe('whisper.tommy.wall');
+  expect(await notesShown()).toBe(2);
 });
 
 test('M opens the journal on the MAPS page, and M closes it', async ({ page }) => {

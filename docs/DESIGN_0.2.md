@@ -88,3 +88,9 @@ After the owner's 10-minute playtest the wing was lengthened:
 - Flashlight batteries: 8 minutes each (owner: 10 never ran out); 4 in the wing (washroom, east dorm,
   playroom, dining hall).
 Balance (bot at human pace): 42 min, 3 collapses (4.3/hour), 4 batteries used, 1 pill; the light runs out in the last minutes at this slow pace.
+
+## Quiet-room notes (owner decision 2026-10-11: "a")
+The office clock only tells the real time now (the owner read it as the 3:00 secret room, which
+stays in 0.6). When the toys puzzle unbolts the west dorm, Tommy appears in the corridor by its
+door, whispers "She puts him behind the wall when he cries. Rose knows." and leads the player in;
+the scribble note (map "?") and the riddle lie on Rose's bed.

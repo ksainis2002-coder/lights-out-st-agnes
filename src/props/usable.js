@@ -6,23 +6,12 @@
 // clue shows a line about its kind (look.<type>.<kind>). Every drawing can be
 // looked at, with or without a "use" in the data.
 //   { "type": "wallClock", "at": [...], "use": "clock" }
-// Using a clock reads out the real local time. The third time, it drops what
-// is hidden behind it (documents that "appearsWith": "clock_notes").
+// Using a clock reads out the real local time (a quiet hint for the 3:00 room).
 import * as THREE from 'three';
 import { clockFaceTime } from './clocks.js';
 
-const CLOCK_USES = 'clock_uses';
-const CLOCK_DROP_AT = 3;
-
 function useClock(game) {
-  const { progress, messages } = game;
-  messages.show('msg.clockTime', { time: clockFaceTime(game.world.now()) }, 3);
-  const uses = progress.getValue(CLOCK_USES, 0) + 1;
-  progress.setValue(CLOCK_USES, uses);
-  if (uses !== CLOCK_DROP_AT) return;
-  progress.setFlag('clock_notes');
-  messages.notice('msg.clockDrop', null, 4);
-  game.events.emit('reveal', 'clock_notes');
+  game.messages.show('msg.clockTime', { time: clockFaceTime(game.world.now()) }, 3);
 }
 
 const USES = {

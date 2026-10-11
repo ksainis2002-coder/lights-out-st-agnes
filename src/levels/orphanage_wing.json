@@ -1263,20 +1263,22 @@
   {
    "id": "scribble_note",
    "at": [
-    15.45,
-    15.3
+    20.6,
+    2.75
    ],
-   "rotation": 60,
-   "appearsWith": "clock_notes"
+   "rotation": 75,
+   "appearsWith": "puzzle_toys",
+   "y": 0.535
   },
   {
    "id": "clock_riddle",
    "at": [
-    15.5,
-    16.0
+    21.0,
+    2.92
    ],
-   "rotation": -20,
-   "appearsWith": "clock_notes"
+   "rotation": -15,
+   "appearsWith": "puzzle_toys",
+   "y": 0.54
   },
   {
    "id": "night_rota",
@@ -1519,6 +1521,31 @@
    "drain": 6,
    "cooldownGroup": "scare",
    "comfort": "skip"
+  },
+  {
+   "id": "tommy_west_dorm",
+   "kind": "appear",
+   "cells": [
+    20,
+    10,
+    26,
+    11
+   ],
+   "requires": {
+    "flag": "puzzle_toys"
+   },
+   "at": [
+    24.6,
+    10.6
+   ],
+   "rotation": 90,
+   "leadTo": [
+    23.5,
+    9.4
+   ],
+   "line": "whisper.tommy.wall",
+   "speaker": "tommy",
+   "comfort": "keep"
   }
  ],
  "puzzles": {

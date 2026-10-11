@@ -89,7 +89,8 @@ SETTINGS_VERSION bump and a migration.
 room is only the lullaby puzzle's reward room). The first-draft ink blot (spilling over "Age") is kept.
 
 **Next session plan (after the owner approves the latest fixes):**
-1. Owner replays wing 1 on a new game: time, collapses, fps; any last fixes.
+1. Owner replays wing 1 on a new game (incl. Tommy leading to Rose's bed for the quiet-room notes):
+   time, collapses, fps; any last fixes.
 2. Open the pull request `claude/hopeful-keller-xpdeeg` → `main` for 0.2.0; owner merges it.
 3. Version 0.2.0 + CHANGELOG; owner publishes release `v0.2.0` in GitHub Releases (Pages deploys);
    check the Pages build boots in a fresh browser (content warning first).
