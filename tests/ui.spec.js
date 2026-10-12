@@ -104,3 +104,26 @@ test('every screen draws in both languages without errors', async ({ page }) => 
   }
   expect(errors).toEqual([]);
 });
+
+test('a long use prompt fits inside its box', async ({ page }) => {
+  const fits = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.play();
+    const target = { position: null, prompt: () => ({ key: 'prompt.placeToy', params: { item: 'Spinning top', name: 'PETER' } }) };
+    game.interaction.target = () => target;
+    const ctx = document.createElement('canvas').getContext('2d');
+    const rects = [];
+    const texts = [];
+    const fillRect = ctx.fillRect.bind(ctx);
+    ctx.fillRect = (x, y, w, h) => { rects.push({ x, w }); fillRect(x, y, w, h); };
+    const fillText = ctx.fillText.bind(ctx);
+    ctx.fillText = (text, x, y) => { texts.push({ text, x, width: ctx.measureText(text).width, align: ctx.textAlign }); fillText(text, x, y); };
+    game.ui.drawHud(ctx);
+    const line = texts.find((t) => t.text.includes('PETER'));
+    const box = rects.find((r) => r.w > 100);
+    if (!line || !box) return null;
+    const left = line.x - line.width / 2;
+    return left >= box.x && left + line.width <= box.x + box.w;
+  });
+  expect(fits).toBe(true);
+});

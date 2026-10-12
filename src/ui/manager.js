@@ -98,6 +98,7 @@ export function createUi(game, canvas, uiCanvas) {
     open,
     close,
     setHud: (fn) => (hud = fn),
+    drawHud: (target) => hud?.(target) ?? false, // tests: the HUD into any canvas
     update,
     current: () => screen,
     look: () => screen?.look ?? 'game',
