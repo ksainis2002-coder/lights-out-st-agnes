@@ -4,8 +4,11 @@
 
 import { migrate } from './migrate.js';
 
-export const SETTINGS_VERSION = 1;
-export const SETTINGS_MIGRATIONS = {};
+export const SETTINGS_VERSION = 2;
+export const SETTINGS_MIGRATIONS = {
+  // 0.1.59: crouch toggle (owner request), off for existing players.
+  1: (data) => ({ ...data, crouchToggle: false }),
+};
 
 export const DEFAULT_KEYS = {
   forward: 'KeyW',
@@ -34,6 +37,7 @@ export const DEFAULT_SETTINGS = {
   fov: 70,
   mouseSensitivity: 1,
   invertY: false,
+  crouchToggle: false,
   keys: DEFAULT_KEYS,
   volume: { music: 0.8, effects: 0.8, voices: 0.8 },
   subtitles: true,
@@ -48,6 +52,7 @@ const RULES = {
   fov: (v) => Number.isFinite(v) && v >= 50 && v <= 110,
   mouseSensitivity: (v) => Number.isFinite(v) && v >= 0.1 && v <= 5,
   invertY: (v) => typeof v === 'boolean',
+  crouchToggle: (v) => typeof v === 'boolean',
   subtitles: (v) => typeof v === 'boolean',
   reduceEffects: (v) => typeof v === 'boolean',
   flickerOff: (v) => typeof v === 'boolean',

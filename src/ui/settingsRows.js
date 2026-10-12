@@ -114,6 +114,7 @@ export function buildTabs(settings, t, screen) {
       rows: [
         numberRow(s, t, 'mouseSensitivity', { min: 0.1, max: 5, size: 0.1, format: (v) => v.toFixed(1) }),
         toggleRow(s, t, 'invertY'),
+        toggleRow(s, t, 'crouchToggle'),
         ...Object.keys(DEFAULT_KEYS).filter((action) => !HIDDEN_ACTIONS.includes(action)).map((action) => keyRow(s, t, action, screen)),
         {
           label: () => t('settings.keysReset'),

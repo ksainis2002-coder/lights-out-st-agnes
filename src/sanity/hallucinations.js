@@ -40,7 +40,7 @@ export function createHallucinations(game) {
   function spawn(camera) {
     let spot = null;
     for (let tries = 0; tries < 8 && !spot; tries++) spot = openSpotAhead(game, camera);
-    if (!spot) return;
+    if (!spot) return false;
     ghost = PROPS.ghostChild(game.world.textures, { opacity: 0.35 });
     ghost.position.set(spot.x, 0, spot.z);
     ghost.rotation.y = Math.atan2(camera.position.x - spot.x, camera.position.z - spot.z);
@@ -73,8 +73,8 @@ export function createHallucinations(game) {
     nextIn -= dt;
     if (nextIn > 0) return;
     const comfort = game.settings.get('comfortMode') ? 2 : 1;
-    nextIn = (10 + Math.random() * 15) * comfort * (0.5 + sanity / START_BELOW);
-    spawn(camera);
+    // No open spot in view (facing a wall): look again in a second.
+    nextIn = spawn(camera) === false ? 1 : (10 + Math.random() * 15) * comfort * (0.5 + sanity / START_BELOW);
   }
 
   return { update, remove, active: () => ghost, shown: () => shown };

@@ -57,6 +57,8 @@
   "settings.mouseSensitivity.help": "How fast the view turns with the mouse.",
   "settings.invertY": "Invert Y",
   "settings.invertY.help": "Moving the mouse up looks down.",
+  "settings.crouchToggle": "Crouch toggle",
+  "settings.crouchToggle.help": "On: press crouch once to crouch, again to stand. Off: hold it.",
   "settings.key.help": "Press ENTER, then the new key. ESC cancels.",
   "settings.key.waiting": "Press a key…",
   "settings.keysReset": "Reset keys",

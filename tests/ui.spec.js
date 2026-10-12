@@ -79,8 +79,7 @@ test('settings: rebind a key, then reset keys', async ({ page }) => {
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
   await page.keyboard.press('Tab');
-  await page.keyboard.press('ArrowDown');
-  await page.keyboard.press('ArrowDown');
+  for (let i = 0; i < 3; i++) await page.keyboard.press('ArrowDown'); // past sensitivity, invert Y, crouch toggle
   await page.keyboard.press('Enter');
   await page.keyboard.press('KeyI');
   let keys = await page.evaluate(() => window.__stAgnes.settings.get('keys'));

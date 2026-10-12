@@ -57,6 +57,8 @@
   "settings.mouseSensitivity.help": "Πόσο γρήγορα γυρίζει η ματιά με το ποντίκι.",
   "settings.invertY": "Αντιστροφή Y",
   "settings.invertY.help": "Το ποντίκι προς τα πάνω κοιτάζει κάτω.",
+  "settings.crouchToggle": "Σκύψιμο με εναλλαγή",
+  "settings.crouchToggle.help": "Ναι: πάτα μία φορά για να σκύψεις, ξανά για να σηκωθείς. Όχι: κράτα το πατημένο.",
   "settings.key.help": "Πάτα ENTER και μετά το νέο πλήκτρο. Το ESC ακυρώνει.",
   "settings.key.waiting": "Πάτα ένα πλήκτρο…",
   "settings.keysReset": "Επαναφορά πλήκτρων",

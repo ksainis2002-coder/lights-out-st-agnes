@@ -78,9 +78,18 @@ export function createController(startLevel) {
     }
   }
 
-  function move(dt, input) {
+  // Crouch is held by default; with the "crouch toggle" setting one press
+  // crouches and the next stands (Ctrl+W closes browser tabs, owner request).
+  let crouchLatched = false;
+  function isCrouching(input, settings) {
+    if (!settings?.get('crouchToggle')) return input.isDown('crouch');
+    if (input.wasPressed('crouch')) crouchLatched = !crouchLatched;
+    return crouchLatched;
+  }
+
+  function move(dt, input, settings) {
     const wish = wishDirection(input);
-    const crouching = input.isDown('crouch');
+    const crouching = isCrouching(input, settings);
     updateStamina(dt, wish.moving && input.isDown('run') && !crouching);
     const speed = crouching ? TUNING.crouchSpeed : state.running ? TUNING.runSpeed : TUNING.walkSpeed;
     const blend = 1 - Math.exp(-TUNING.acceleration * dt);
@@ -119,7 +128,7 @@ export function createController(startLevel) {
 
   function update(dt, input, settings) {
     look(input, settings);
-    move(dt, input);
+    move(dt, input, settings);
     updateLean(dt, input);
     const bob = Math.sin(state.bobPhase * Math.PI) * 0.035 * (state.bobAmount ?? 0) * (state.running ? 1.6 : 1);
     state.eyeHeight = TUNING.eyeStand + (TUNING.eyeCrouch - TUNING.eyeStand) * state.crouch + bob;
