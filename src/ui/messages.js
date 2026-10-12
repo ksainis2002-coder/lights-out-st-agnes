@@ -31,6 +31,10 @@ export function createMessages() {
     },
     // Whether lines with this tag are still showing or queued.
     pending: (tag) => current?.tag === tag || waiting.some((line) => line.tag === tag),
+    clear() {
+      current = null;
+      waiting.length = 0;
+    },
     current: () => current,
   };
 }

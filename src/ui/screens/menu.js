@@ -1,13 +1,16 @@
-// Main menu as a VHS player (approved still: menu). PLAY starts or resumes,
-// SETUP opens settings. REWIND (load) and EJECT (extras) come later.
+// Main menu as a VHS player (approved still: menu), also the pause screen.
+// PLAY starts or resumes, REWIND loads a tape, SETUP opens settings, EJECT
+// (extras) comes later. While paused, STOP (asked twice) ends the run and
+// goes back to the title screen.
 import { osdText, fittedSize, COLORS } from '../osd.js';
 
 const W = 480;
 const H = 270;
-const ITEMS = [
+const ALL_ITEMS = [
   { id: 'play', icon: '▶', label: 'menu.play', hint: 'menu.play.hint', ready: true },
   { id: 'rewind', icon: '◀◀', label: 'menu.rewind', hint: 'menu.rewind.hint', ready: (ui) => ui.game.hasAnySave() },
-  { id: 'setup', icon: '■', label: 'menu.setup', hint: 'menu.setup.hint', ready: true },
+  { id: 'stop', icon: '■', label: 'menu.stop', hint: 'menu.stop.hint', ready: true, pausedOnly: true },
+  { id: 'setup', icon: '≡', label: 'menu.setup', hint: 'menu.setup.hint', ready: true },
   { id: 'eject', icon: '⏏', label: 'menu.eject', hint: 'menu.eject.hint', ready: false },
 ];
 
@@ -20,12 +23,26 @@ function tapeCounter(seconds) {
 export function createMenuScreen(ui) {
   const { t } = ui;
   let focus = 0;
+  let confirmStop = false;
+  const items = () => ALL_ITEMS.filter((item) => !item.pausedOnly || ui.hasSession());
+  // Five rows (paused) sit a little tighter than four.
+  const rowY = (i) => (items().length > 4 ? 128 + i * 19 : 136 + i * 22);
+  const setFocus = (i) => {
+    if (i !== focus) confirmStop = false;
+    focus = i;
+  };
 
   const isReady = (item) => (typeof item.ready === 'function' ? item.ready(ui) : item.ready);
 
   function activate(index) {
-    const item = ITEMS[index];
+    const item = items()[index];
     if (!isReady(item)) return;
+    if (item.id === 'stop') {
+      if (!confirmStop) return (confirmStop = true);
+      confirmStop = false;
+      focus = 0;
+      return ui.game.stop();
+    }
     if (item.id === 'play') ui.hasSession() ? ui.play() : ui.newGame();
     if (item.id === 'rewind') ui.open('load', { returnTo: 'menu' });
     if (item.id === 'setup') ui.open('settings', { returnTo: 'menu' });
@@ -34,6 +51,7 @@ export function createMenuScreen(ui) {
   function hintFor(item) {
     if (!isReady(item)) return `${t(item.hint)}: ${t(item.id === 'rewind' ? 'menu.noTapes' : 'menu.notYet')}`;
     if (item.id === 'play' && ui.hasSession()) return t('menu.play.resume');
+    if (item.id === 'stop' && confirmStop) return t('menu.stop.confirm');
     return t(item.hint);
   }
 
@@ -45,14 +63,15 @@ export function createMenuScreen(ui) {
     osdText(ctx, tapeCounter(ui.playTime()), W - 16, 12, 12, COLORS.text, 'right');
     osdText(ctx, t('menu.title1'), W / 2, 60, 26, '#f2efe6', 'center');
     osdText(ctx, t('menu.title2'), W / 2, 90, 14, '#c9c2b2', 'center');
-    ITEMS.forEach((item, i) => drawItem(ctx, item, i));
-    const hint = hintFor(ITEMS[focus]);
+    focus = Math.min(focus, items().length - 1);
+    items().forEach((item, i) => drawItem(ctx, item, i));
+    const hint = hintFor(items()[focus]);
     osdText(ctx, hint, W / 2, 228, fittedSize(ctx, hint, 9, 440), COLORS.soft, 'center');
     osdText(ctx, `${t('menu.tracking')} ◀ ▮▮▮▮▮▯▯▯ ▶`, W / 2, H - 18, 8, COLORS.dim, 'center');
   }
 
   function drawItem(ctx, item, i) {
-    const y = 136 + i * 22;
+    const y = rowY(i);
     const on = i === focus;
     if (on) {
       ctx.fillStyle = 'rgba(232,240,255,0.9)';
@@ -65,20 +84,21 @@ export function createMenuScreen(ui) {
   }
 
   const hits = () =>
-    ITEMS.map((item, i) => ({
-      x: 150, y: 133 + i * 22, w: 180, h: 18,
-      hover: () => (focus = i),
+    items().map((item, i) => ({
+      x: 150, y: rowY(i) - 3, w: 180, h: 18,
+      hover: () => setFocus(i),
       click: () => activate(i),
     }));
 
   function key(code) {
-    if (code === 'ArrowDown' || code === 'KeyS') focus = (focus + 1) % ITEMS.length;
-    else if (code === 'ArrowUp' || code === 'KeyW') focus = (focus + ITEMS.length - 1) % ITEMS.length;
+    const count = items().length;
+    if (code === 'ArrowDown' || code === 'KeyS') setFocus((focus + 1) % count);
+    else if (code === 'ArrowUp' || code === 'KeyW') setFocus((focus + count - 1) % count);
     else if (code === 'Enter' || code === 'Space') activate(focus);
     else if (code === 'Escape' && ui.hasSession()) ui.play();
     else return false;
     return true;
   }
 
-  return { name: 'menu', look: 'menu', draw, hits, key, focusedItem: () => ITEMS[focus].id };
+  return { name: 'menu', look: 'menu', draw, hits, key, focusedItem: () => items()[focus].id };
 }

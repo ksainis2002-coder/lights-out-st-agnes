@@ -57,6 +57,8 @@ export function createIntro(game) {
     active = true;
     t = 0;
     cue = 0;
+    // Black from the very first frame, before the first update runs.
+    Object.assign(game.pipeline.fx, { eyelid: sample(EYELID, 0), blur: sample(BLUR, 0), fade: sample(FADE, 0) });
     game.progress.setFlag('intro_seen');
     game.events.emit('intro.started');
   }
@@ -84,5 +86,10 @@ export function createIntro(game) {
     camera.rotation.set(sample(PITCH, t) * DEG * (1 - k), yaw, sample(ROLL, t) * DEG, 'YXZ');
   }
 
-  return { start, update, applyCamera, finish, active: () => active, time: () => t };
+  // Stopped from the menu: end quietly, without starting the tutorial.
+  function cancel() {
+    active = false;
+  }
+
+  return { start, update, applyCamera, finish, cancel, active: () => active, time: () => t };
 }

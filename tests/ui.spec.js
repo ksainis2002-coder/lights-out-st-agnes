@@ -127,3 +127,27 @@ test('a long use prompt fits inside its box', async ({ page }) => {
   });
   expect(fits).toBe(true);
 });
+
+test('menu: STOP (pressed twice) ends the run and goes back to the title screen', async ({ page }) => {
+  const state = () => page.evaluate(() => {
+    const game = window.__stAgnes;
+    return { session: game.session.active, mode: game.mode, screen: game.ui.current()?.name ?? null, item: game.ui.current()?.focusedItem?.() };
+  });
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.newGame();
+    game.intro.finish();
+    game.inventory.add('pills');
+    game.pause();
+  });
+  for (let i = 0; i < 2; i++) await page.keyboard.press('ArrowDown');
+  expect((await state()).item).toBe('stop');
+  await page.keyboard.press('Enter'); // asks first
+  expect((await state()).session).toBe(true);
+  await page.keyboard.press('Enter'); // confirmed
+  expect(await state()).toMatchObject({ session: false, mode: 'ui', screen: 'menu', item: 'play' });
+  expect(await page.evaluate(() => window.__stAgnes.inventory.items())).toEqual([]);
+  // On the title screen STOP is gone and PLAY starts a new game with the intro.
+  await page.keyboard.press('Enter');
+  expect(await page.evaluate(() => window.__stAgnes.intro.active())).toBe(true);
+});

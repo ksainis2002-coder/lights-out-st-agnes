@@ -122,6 +122,21 @@ function setupModes(game) {
     input.lockPointer();
   };
 
+  // STOP on the pause menu: end the run and go back to the title screen.
+  // Nothing is saved here; tapes and the checkpoint autosave stay as they are.
+  game.stop = () => {
+    game.intro.cancel();
+    game.messages.clear();
+    resetState(game);
+    Object.assign(game.pipeline.fx, { eyelid: 0, blur: 0, aberration: 0, vignette: 0, fade: 0 });
+    game.session.active = false;
+    game.mode = 'ui';
+    input.setEnabled(false);
+    ui.open('menu');
+    if (document.pointerLockElement) document.exitPointerLock();
+    game.events.emit('game.stopped');
+  };
+
   game.newGame = () => {
     resetState(game);
     game.play();

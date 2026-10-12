@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.68 — Pause menu: ■ STOP (only while paused, asks once, press again to confirm) ends the run and goes back to the title screen, where PLAY starts a new game and REWIND loads a tape; SETUP's icon is now ≡. The statue piece's text no longer hints it can be used now: it says the rest of the statue is somewhere in the building (it is for the chapel, later wings). Fix: a new game is black from its very first frame (a flaky intro test).
 - 0.1.67 — Owner pick (b): the scribble note, the riddle and the map's "?" stage are replaced by one note on Rose's bed (Tommy leads to it once the toys are home) that links the music box to the playroom slate; the map leaves the quiet room blank until it is entered. Peter's letter to his mum is now a page from his diary (it is an orphanage). Save format 4: old saves drop the two removed notes from the journal.
 - 0.1.66 — Owner playtest: the use-prompt box is measured in the font it is drawn in, so long prompts ("Put Spinning top in PETER's cubby") stay inside it. Peter's letter reworded: Tommy did give the top back; Sister hid it. Owner run: wooden horse in 20 min, no collapses (batteries swapped, a pill taken), 45–60 fps.
 - 0.1.65 — The bird picture redrawn after the owner's sketch: plump body rising to a round head, triangle beak, eye, three-loop tail, leaf wing (music box keys, slate, box).
