@@ -100,9 +100,12 @@ function ghostLunge(t, { opacity = 0.85 } = {}) {
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 6), materialFor(t.sheet, ghost));
   head.position.y = 1.1;
   const face = plane(smudgeFaceTexture(), [0.2, 0.2], [0, 1.1, 0.11], { ...ghost, opacity: Math.min(1, opacity + 0.1) });
-  const arms = [-0.15, 0.15].map((x) => {
-    const arm = box(t.sheet, [0.05, 0.45, 0.05], [x, 0.85, 0.05], ghost);
-    arm.rotation.x = -1.3; // reaching out
+  // Short arms low at the sides, hands coming up at the lower edges of view
+  // (long ones read as beams from the eyes).
+  const arms = [-0.2, 0.2].map((x) => {
+    const arm = box(t.sheet, [0.05, 0.26, 0.05], [x, 0.66, 0.06], ghost);
+    arm.rotation.x = -0.9;
+    arm.rotation.z = x > 0 ? -0.35 : 0.35;
     return arm;
   });
   return group(gown, head, face, ...arms);

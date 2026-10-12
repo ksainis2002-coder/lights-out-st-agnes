@@ -58,6 +58,11 @@ reduces health.
   few seconds, and respect reduce-effects.
 
 ## 7. Death is short and teaches
+Collapse with a presence near (owner decision 2026-10-12, still collapse_scare): if a sanity vision
+(later: any enemy registered in `game.presences`) is on screen or within 4 m when sanity hits zero,
+it lunges into the face for 0.45 s with a stinger before the faint. It never causes the collapse;
+comfort mode skips it. Real ghost children (Tommy included) never do this.
+
 Kill animation (1–2 s) → VHS rewind to the checkpoint → a ghost child whispers what killed you
 (subtitled). The player should know which rule they broke.
 

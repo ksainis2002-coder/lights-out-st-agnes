@@ -76,10 +76,13 @@ function createGame() {
   game.sanity = createSanity(game);
   game.subtitles = createSubtitles(game);
   game.hallucinations = createHallucinations(game);
+  // Things that make a collapse a jump scare when near (enemies add theirs).
+  game.presences = [() => game.hallucinations.active()?.position ?? null];
   game.collapse = createCollapse(game);
   game.intro = createIntro(game);
   game.ghosts = createGhostDirector(game);
   game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
+  game.events.on('collapse.scare', () => game.hallucinations.remove());
   game.events.on('level.loaded', () => {
     game.hallucinations.remove();
     game.ghosts.reset();

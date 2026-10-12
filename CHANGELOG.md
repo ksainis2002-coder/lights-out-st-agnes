@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.61 — Collapse jump scare (approved still collapse_scare, owner pick c): when sanity hits zero with a vision on screen or within 4 m, the smudge-faced child lunges into the face for 0.45 s with a stinger, then the usual faint and rewind. Alone, or in comfort mode, the plain collapse. Later enemies plug into the same check (game.presences). Shorter, lower arms on the lunging child (they read as beams from the eyes). Scare rules updated.
 - 0.1.60 — Mockup still collapse_scare (for owner approval): when sanity hits zero with a presence near, a ghost child with a smudged, featureless face lunges into view before the faint and rewind. Not in the game yet.
 - 0.1.59 — Owner request: "Crouch toggle" in Setup → Controls (press once to crouch, again to stand), because Ctrl+W closes browser tabs. Settings format 2: older settings get it off. Fake children that find no open spot look again after a second instead of waiting 10–25 s (fixes a flaky test).
 - 0.1.58 — Owner pick (a): the quiet-room notes no longer come from the office clock (it read as the 3:00 secret room). When the toys unbolt the west dorm, Tommy appears by its door, whispers "She puts him behind the wall when he cries. Rose knows." and leads the player in; the scribble note and the riddle lie on Rose's bed. The clock now only tells the real time. Bot route updated.

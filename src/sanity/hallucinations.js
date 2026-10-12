@@ -77,5 +77,15 @@ export function createHallucinations(game) {
     nextIn = spawn(camera) === false ? 1 : (10 + Math.random() * 15) * comfort * (0.5 + sanity / START_BELOW);
   }
 
-  return { update, remove, active: () => ghost, shown: () => shown };
+  // Tests and scripted beats: put a vision at a spot now.
+  function forceAt(spot) {
+    remove();
+    ghost = PROPS.ghostChild(game.world.textures, { opacity: 0.35 });
+    ghost.position.set(spot.x, 0, spot.z);
+    ghost.userData = { age: 0, life: 4, fake: true };
+    game.world.levelGroup.add(ghost);
+    return ghost;
+  }
+
+  return { update, remove, forceAt, active: () => ghost, shown: () => shown };
 }

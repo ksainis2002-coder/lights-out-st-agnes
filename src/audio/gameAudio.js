@@ -51,6 +51,7 @@ export function createGameAudio(game) {
   events.on('game.play', () => play('vhs_insert', { volume: 0.8, pitchJitter: 0 }));
   events.on('collapse.rewinding', () => play('vhs_rewind', { volume: 0.9, pitchJitter: 0 }));
   events.on('collapse.started', () => play('wake_gasp', { volume: 0.7 }));
+  events.on('collapse.scare', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
   events.on('game.saved', () => play('vhs_eject', { volume: 0.7, pitchJitter: 0 }));
   events.on('level.leaving', () => play('door_use', { volume: 0.9 }));
   events.on('plate.taken', () => play('key_pickup', { volume: 0.6 }));

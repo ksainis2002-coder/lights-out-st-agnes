@@ -147,3 +147,41 @@ test('the journal says how the player feels', async ({ page }) => {
   expect(lines[0]).toMatch(/^How I feel: calm/);
   expect(lines[1]).toMatch(/^How I feel: shaking/); // wraps inside the left page
 });
+
+// Collapse with a vision in view: the lunge first, then the usual faint.
+const collapseWith = (page, { vision, comfort = false }) => page.evaluate(({ vision, comfort }) => {
+  const g = window.__stAgnes;
+  g.settings.set('comfortMode', comfort);
+  g.loadLevel('orphanage_wing', 'landing');
+  const c = g.world.level.cellCenter(12, 10.5);
+  Object.assign(g.player.state.position, { x: c.x, z: c.z });
+  g.player.state.yaw = -Math.PI / 2; // down the corridor (+x)
+  g.player.state.pitch = 0;
+  g.advance(1 / 30);
+  g.world.camera.updateMatrixWorld();
+  if (vision) {
+    // A vision 6 m ahead, a little to the side (they vanish when stared at).
+    g.hallucinations.forceAt({ x: c.x + 6, z: c.z + 1.2 });
+  }
+  const events = [];
+  const stops = ['collapse.scare', 'collapse.started'].map((name) => g.events.on(name, () => events.push(name)));
+  g.sanity.set(0.01);
+  g.advance(0.2);
+  const scaring = g.collapse.scaring();
+  g.advance(0.6);
+  stops.forEach((stop) => stop());
+  g.advance(6); // let the faint and rewind finish
+  g.settings.set('comfortMode', false);
+  return { events, scaring };
+}, { vision, comfort });
+
+test('collapse with a vision in view: it lunges first (scare rules: only with a collapse already happening)', async ({ page }) => {
+  const result = await collapseWith(page, { vision: true });
+  expect(result.scaring).toBe(true);
+  expect(result.events).toEqual(['collapse.scare', 'collapse.started']);
+});
+
+test('collapse alone, or in comfort mode, is the plain faint', async ({ page }) => {
+  expect((await collapseWith(page, { vision: false })).events).toEqual(['collapse.started']);
+  expect((await collapseWith(page, { vision: true, comfort: true })).events).toEqual(['collapse.started']);
+});
