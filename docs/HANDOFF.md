@@ -47,9 +47,28 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
 5. ~~PS1 pipeline, controller, debug overlay, warning, menu, settings~~ done in 0.0.8–0.0.11.
    Choices made without asking (owner may change): REWIND/EJECT greyed as "not on this tape yet";
    VCR words stay English in Greek; settings footer adds "TAB PAGE".
-6. **Release 0.1:** owner playtested on 2026-10-08 (Intel UHD, 60 fps, nothing broken, asked for
-   a little darker: done in 0.0.19) and said release. Version 0.1.0 goes to `main` by PR; after the
-   merge, tag `v0.1.0` on `main` and check the Pages URL boots.
+6. **0.1.0 shipped** on 2026-10-08: PR #1 merged, tag `v0.1.0`, live at
+   https://ksainis2002-coder.github.io/lights-out-st-agnes/ (owner confirmed it boots).
+
+## Release notes for next time
+- Cloud sessions cannot push tags (the push hangs up). The owner creates the tag by publishing a
+  GitHub release (Releases → Draft a new release → tag `vX.Y.Z` on `main`).
+- The `github-pages` environment now allows tags `v*` (owner added the rule on 2026-10-08).
+- github.io is blocked from the session network; the owner checks the live site.
+
+## Next: 0.2 vertical slice
+**0.2 stills approved (2026-10-09):** intro_wake, hub, dorm (revised: smaller + messier), tommy,
+low_sanity, rewind — see `docs/DESIGN_0.2.md` for the design picks. UI stills (prompt, inventory,
+journal, document, save) approved too. Building 0.2 in the order listed in DESIGN_0.2.md. Step 1 (use, doors, levels, wing layout) done in 0.1.21; step 2 (sounds) in 0.1.23; step 3 (inventory, keys, journal, documents) in 0.1.24; step 4 (tape saves, REWIND, checkpoints) in 0.1.29; step 5 (sanity) in 0.1.31; step 6 (ghost children, Tommy) in 0.1.34. Scare cooldown is 90 s (proposal, still to confirm with the owner when balancing). Owner wants a downloadable Windows app near release (DESIGN_0.2.md).
+
+All sounds in `docs/SOUNDS_0.2.md` are in (58 clips in `assets/sounds/`, all credited and
+CC0-confirmed by the owner). Next: owner says "start 0.2", then mockup stills for the intro,
+patient room hub and dorms before building them. Sound routine: owner pushes files to
+`assets/sounds/incoming/` on this branch (each under 100 MB), Claude adds a manifest entry, runs
+`node tools/process-sounds.mjs <ids>`, removes incoming, credits with the owner's links, and asks
+the owner to confirm CC0 (freesound.org is blocked from the session). The owner's clone lives in
+`C:\Windows\System32\lights-out-st-agnes`; long pasted lines get split, so keep commands short. Start with mockup stills for the
+intro, patient room hub and dorms (ghost children, Tommy) before building them.
 
 ## Extra plumbing done while waiting (0.0.13–0.0.17, no approval needed)
 - CI: `.github/workflows/test.yml` runs `npm test` on every push and PR.
@@ -61,3 +80,24 @@ npm). Read this first, then CLAUDE.md and the brief, then continue 0.1.
 - `docs/SOUNDS_0.2.md`: the CC0 sound list for the owner (0.2 hand-over item).
 
 Follow `st-agnes-release` for every commit: one commit, a version bump, a CHANGELOG line.
+
+**0.2 owner playtest (2026-10-11):** whole wing in 10 minutes, 0 collapses, 60 fps (Intel UHD).
+**Settings defaults locked (2026-10-11):** as in `src/save/settings.js`. Changing one needs a
+SETTINGS_VERSION bump and a migration.
+
+**Owner decisions (2026-10-11, late):** the 3:00 secret room stays in 0.6 as the brief plans (the quiet
+room is only the lullaby puzzle's reward room). The first-draft ink blot (spilling over "Age") is kept.
+
+**Next session plan (after the owner approves the latest fixes):**
+1. Owner replays wing 1 on a new game (incl. Tommy leading to Rose's bed for the quiet-room notes):
+   time, collapses, fps; any last fixes.
+2. Open the pull request `claude/hopeful-keller-xpdeeg` → `main` for 0.2.0; owner merges it.
+3. Version 0.2.0 + CHANGELOG; owner publishes release `v0.2.0` in GitHub Releases (Pages deploys);
+   check the Pages build boots in a fresh browser (content warning first).
+4. Write `docs/SOUNDS_0.3.md`: the CC0 sound list for 0.3 (school wing: watcher statue, Maggie's
+   rhymes, courtyard, cemetery) for the owner to download.
+5. Start 0.3 with mockup stills: classrooms, the watcher, Maggie, courtyard/cemetery.
+
+**0.2.0 ready (2026-10-12):** pull request from `claude/hopeful-keller-xpdeeg` to `main`. Owner merges it,
+then publishes release `v0.2.0` in GitHub Releases (target `main`), which deploys Pages. Next: the 0.3
+CC0 sound list (`docs/SOUNDS_0.3.md`) and the 0.3 mockup stills (school wing).

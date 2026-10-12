@@ -1,0 +1,149 @@
+{
+  "id": "patient_room",
+  "wing": "hub",
+  "cellSize": 1.0,
+  "wallHeight": 2.6,
+  "floorTexture": "floor",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "tile",
+    "2": "tile"
+  },
+  "map": [
+    "111111",
+    "100001",
+    "100001",
+    "100001",
+    "100001",
+    "100001",
+    "112111"
+  ],
+  "rooms": [
+    {
+      "id": "patient_room",
+      "cells": [
+        1,
+        1,
+        4,
+        5
+      ]
+    }
+  ],
+  "triggers": [],
+  "props": [
+    {
+      "type": "bed",
+      "at": [
+        1.6,
+        2.0
+      ]
+    },
+    {
+      "type": "table",
+      "at": [
+        4.6,
+        3.2
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "tapeRecorder",
+      "at": [
+        4.65,
+        3.2
+      ],
+      "y": 0.76,
+      "rotation": -90,
+      "use": "save"
+    },
+    {
+      "type": "drawing",
+      "at": [
+        3.4,
+        1.0
+      ],
+      "options": {
+        "kind": "horse"
+      }
+    },
+    {
+      "type": "fluorescent",
+      "at": [
+        3.0,
+        3.2
+      ],
+      "options": {
+        "height": 2.6
+      }
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        3.0,
+        3.2
+      ],
+      "height": 2.4,
+      "color": "#e6fff0",
+      "intensity": 3.2,
+      "distance": 7
+    }
+  ],
+  "spawns": {
+    "default": {
+      "cell": [
+        2.45,
+        2.3
+      ],
+      "yawDegrees": 180
+    },
+    "door": {
+      "cell": [
+        2,
+        5.2
+      ],
+      "yawDegrees": 0
+    }
+  },
+  "doors": [
+    {
+      "id": "hub_door",
+      "cell": [
+        2,
+        6
+      ],
+      "exit": {
+        "level": "orphanage_wing",
+        "spawn": "landing",
+        "prompt": "prompt.leave",
+        "afterBasics": true
+      }
+    }
+  ],
+  "ambience": [
+    {
+      "name": "fluorescent_buzz",
+      "volume": 0.3
+    },
+    {
+      "name": "amb_building_hum",
+      "volume": 0.45
+    }
+  ],
+  "safe": true,
+  "pickups": [
+    {
+      "id": "room_flashlight",
+      "item": "flashlight",
+      "at": [
+        4.55,
+        2.85
+      ],
+      "y": 0.76,
+      "rotation": 30,
+      "model": "torch"
+    }
+  ]
+}

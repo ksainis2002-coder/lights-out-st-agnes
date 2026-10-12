@@ -1,11 +1,16 @@
 // Player settings, stored as versioned JSON separate from game saves.
-// DEFAULTS are proposals until the owner locks them at 0.2. After that,
-// changing a default needs a SETTINGS_VERSION bump and a migration.
+// DEFAULTS were locked by the owner on 2026-10-11 (0.2). Changing one now
+// needs a SETTINGS_VERSION bump and a migration.
 
 import { migrate } from './migrate.js';
 
-export const SETTINGS_VERSION = 1;
-export const SETTINGS_MIGRATIONS = {};
+export const SETTINGS_VERSION = 3;
+export const SETTINGS_MIGRATIONS = {
+  // 0.1.59: crouch toggle (owner request), off for existing players.
+  1: (data) => ({ ...data, crouchToggle: false }),
+  // 0.1.63: B swaps the flashlight battery (owner request).
+  2: (data) => ({ ...data, keys: { ...data.keys, battery: data.keys?.battery ?? 'KeyB' } }),
+};
 
 export const DEFAULT_KEYS = {
   forward: 'KeyW',
@@ -20,6 +25,12 @@ export const DEFAULT_KEYS = {
   flashlight: 'KeyF',
   camcorder: 'KeyC',
   journal: 'KeyJ',
+  map: 'KeyM',
+  hold: 'KeyH',
+  battery: 'KeyB',
+  use: 'Mouse0',
+  inventory: 'Tab',
+  combine: 'KeyR',
 };
 
 export const DEFAULT_SETTINGS = {
@@ -29,6 +40,7 @@ export const DEFAULT_SETTINGS = {
   fov: 70,
   mouseSensitivity: 1,
   invertY: false,
+  crouchToggle: false,
   keys: DEFAULT_KEYS,
   volume: { music: 0.8, effects: 0.8, voices: 0.8 },
   subtitles: true,
@@ -43,6 +55,7 @@ const RULES = {
   fov: (v) => Number.isFinite(v) && v >= 50 && v <= 110,
   mouseSensitivity: (v) => Number.isFinite(v) && v >= 0.1 && v <= 5,
   invertY: (v) => typeof v === 'boolean',
+  crouchToggle: (v) => typeof v === 'boolean',
   subtitles: (v) => typeof v === 'boolean',
   reduceEffects: (v) => typeof v === 'boolean',
   flickerOff: (v) => typeof v === 'boolean',

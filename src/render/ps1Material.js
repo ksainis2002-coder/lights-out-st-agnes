@@ -43,8 +43,11 @@ const FRAGMENT_MAP = /* glsl */ `
 #endif
 `;
 
-export function createPs1Material(map) {
-  const material = new THREE.MeshLambertMaterial({ map });
+// options.unlit: no lighting (glowing lamps, ghosts); other options pass
+// straight to the Three.js material (color, transparent, opacity…).
+export function createPs1Material(map, { unlit = false, ...options } = {}) {
+  const Material = unlit ? THREE.MeshBasicMaterial : THREE.MeshLambertMaterial;
+  const material = new Material({ map, ...options });
   material.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, ps1Uniforms);
     shader.vertexShader = VERTEX_HEADER + shader.vertexShader.replace(
@@ -53,6 +56,6 @@ export function createPs1Material(map) {
     );
     shader.fragmentShader = FRAGMENT_HEADER + shader.fragmentShader.replace('#include <map_fragment>', FRAGMENT_MAP);
   };
-  material.customProgramCacheKey = () => 'ps1';
+  material.customProgramCacheKey = () => (unlit ? 'ps1-unlit' : 'ps1');
   return material;
 }

@@ -1,0 +1,301 @@
+{
+  "id": "dorms",
+  "wing": "orphanage",
+  "cellSize": 1.3,
+  "wallHeight": 2.8,
+  "floorTexture": "wood",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "wallpaper",
+    "2": "door"
+  },
+  "map": [
+    "111111111",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "111121111"
+  ],
+  "spawn": {
+    "cell": [
+      4.5,
+      9.5
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "dorm_east",
+      "cells": [
+        1,
+        1,
+        7,
+        9
+      ]
+    }
+  ],
+  "triggers": [],
+  "props": [
+    {
+      "type": "bed",
+      "at": [
+        1.77,
+        2.0
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "TOMMY",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        7.23,
+        2.0
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "MAGGIE",
+        "unmade": true
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.77,
+        3.55
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "EDITH",
+        "unmade": true
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        7.23,
+        3.55
+      ],
+      "rotation": -104,
+      "options": {
+        "name": "SAM",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.77,
+        5.1
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "LOUISA",
+        "unmade": true
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        7.23,
+        5.1
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "PETER",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.77,
+        6.65
+      ],
+      "rotation": 76,
+      "options": {
+        "name": "ROSE",
+        "unmade": false
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        7.23,
+        6.65
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "ALFIE",
+        "unmade": true
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        1.77,
+        8.2
+      ],
+      "rotation": 90,
+      "options": {
+        "name": "IVY",
+        "unmade": true
+      }
+    },
+    {
+      "type": "bed",
+      "at": [
+        7.23,
+        8.2
+      ],
+      "rotation": -90,
+      "options": {
+        "name": "WALTER",
+        "unmade": false
+      }
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        2.6,
+        1.0
+      ]
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        6.4,
+        1.0
+      ]
+    },
+    {
+      "type": "cubbies",
+      "at": [
+        4.5,
+        1.14
+      ]
+    },
+    {
+      "type": "toyHorse",
+      "at": [
+        2.0,
+        5.2
+      ],
+      "y": 0.5,
+      "rotation": 30
+    },
+    {
+      "type": "chair",
+      "at": [
+        4.1,
+        6.2
+      ],
+      "rotation": 40,
+      "options": {
+        "toppled": true
+      }
+    },
+    {
+      "type": "chair",
+      "at": [
+        5.6,
+        2.0
+      ],
+      "rotation": -20
+    },
+    {
+      "type": "papers",
+      "at": [
+        4.6,
+        8.1
+      ],
+      "options": {
+        "count": 5
+      }
+    },
+    {
+      "type": "papers",
+      "at": [
+        3.3,
+        3.6
+      ],
+      "options": {
+        "count": 3
+      }
+    },
+    {
+      "type": "blocks",
+      "at": [
+        5.3,
+        4.6
+      ]
+    },
+    {
+      "type": "sheetPile",
+      "at": [
+        3.2,
+        7.1
+      ],
+      "rotation": 20
+    },
+    {
+      "type": "drawing",
+      "at": [
+        1,
+        7.4
+      ],
+      "rotation": 90,
+      "options": {
+        "kind": "children"
+      }
+    },
+    {
+      "type": "drawing",
+      "at": [
+        8,
+        5.1
+      ],
+      "rotation": -90,
+      "options": {
+        "kind": "sun"
+      }
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        2.6,
+        1.6
+      ],
+      "height": 1.8,
+      "color": "#5a6c9c",
+      "intensity": 4,
+      "distance": 11
+    },
+    {
+      "type": "point",
+      "at": [
+        6.4,
+        1.6
+      ],
+      "height": 1.8,
+      "color": "#5a6c9c",
+      "intensity": 4,
+      "distance": 11
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 1.7
+  }
+}

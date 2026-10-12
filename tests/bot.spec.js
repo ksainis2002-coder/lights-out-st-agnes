@@ -12,12 +12,19 @@ for (const route of routes) {
     await waitForBoot(page);
     const result = await page.evaluate((r) => {
       const game = window.__stAgnes;
-      game.play();
-      return game.runBot(r);
+      if (r.start === 'newGame') {
+        game.newGame();
+        game.intro.finish();
+      } else {
+        game.play();
+        game.loadLevel(r.level);
+      }
+      const result = game.runBot(r);
+      return { ...result, level: game.world.level.id, items: game.inventory.items(), flags: game.progress.toJSON().flags };
     }, route);
     mkdirSync('test-results/bot', { recursive: true });
     writeFileSync(`test-results/bot/${route.id}.json`, JSON.stringify(result, null, 2));
-    expect(result.stuckAt).toBeNull();
+    expect(result.failedStep).toBeNull();
     expect(result.finished).toBe(true);
   });
 }
@@ -28,6 +35,7 @@ test('bot reports a route that cannot be finished', async ({ page }) => {
   const result = await page.evaluate(() => {
     const game = window.__stAgnes;
     game.play();
+    game.loadLevel('test_corridor');
     return game.runBot({ id: 'blocked', points: [{ cell: [3, 0] }] }, { maxSecondsPerPoint: 2 });
   });
   expect(result.finished).toBe(false);

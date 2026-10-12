@@ -27,7 +27,10 @@ test.describe('in the browser', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('./');
     await waitForBoot(page);
-    await page.evaluate(() => window.__stAgnes.play());
+    await page.evaluate(() => {
+      window.__stAgnes.play();
+      window.__stAgnes.loadLevel('test_corridor');
+    });
   });
 
   test('W walks forward along the facing direction', async ({ page }) => {
@@ -77,7 +80,11 @@ test.describe('in the browser', () => {
 
   test('mouse look turns the view and the flashlight toggles with F', async ({ page }) => {
     const before = await playerState(page);
-    await page.evaluate(() => window.__stAgnes.input.addLook(200, 0));
+    await page.evaluate(() => {
+      window.__stAgnes.progress.setFlag('tool_flashlight');
+      window.__stAgnes.world.flashlight.setOn(true);
+      window.__stAgnes.input.addLook(200, 0);
+    });
     await advance(page, 1 / 60);
     expect((await playerState(page)).yaw).toBeLessThan(before.yaw);
     await page.keyboard.press('KeyF');
@@ -110,7 +117,10 @@ test('F3 toggles the debug overlay, off by default', async ({ page }) => {
 test('walking into a trigger volume activates it', async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
-  await page.evaluate(() => window.__stAgnes.play());
+  await page.evaluate(() => {
+      window.__stAgnes.play();
+      window.__stAgnes.loadLevel('test_corridor');
+    });
   await page.keyboard.down('KeyW');
   const entered = await page.evaluate(() => {
     const game = window.__stAgnes;
@@ -119,4 +129,29 @@ test('walking into a trigger volume activates it', async ({ page }) => {
   });
   await page.keyboard.up('KeyW');
   expect(entered).toBe(true);
+});
+
+test('crouch toggle: one press crouches, the next stands', async ({ page }) => {
+  await page.goto('./');
+  await waitForBoot(page);
+  const crouch = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.play();
+    game.settings.set('crouchToggle', true);
+    const out = [];
+    for (let i = 0; i < 2; i++) {
+      game.input.tap('crouch');
+      game.advance(1);
+      out.push(game.player.state.crouch);
+    }
+    game.settings.set('crouchToggle', false);
+    return out;
+  });
+  expect(crouch[0]).toBeGreaterThan(0.9);
+  expect(crouch[1]).toBeLessThan(0.1);
+});
+
+test('settings saved before the crouch toggle load with it off', async () => {
+  const { SETTINGS_MIGRATIONS } = await import('../src/save/settings.js');
+  expect(SETTINGS_MIGRATIONS[1]({ version: 1, fov: 80 })).toEqual({ version: 1, fov: 80, crouchToggle: false });
 });

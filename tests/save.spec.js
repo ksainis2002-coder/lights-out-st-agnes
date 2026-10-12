@@ -75,3 +75,27 @@ test('saves persist across a page reload in the browser', async ({ page }) => {
   const state = await page.evaluate(() => window.__stAgnes.saves.load('slot2').state);
   expect(state).toEqual({ wing: 'dorms', n: 7 });
 });
+
+test('saves from before the flashlight pickup keep their flashlight', async () => {
+  const { MIGRATIONS } = await import('../src/save/saves.js');
+  const old = { version: 1, savedAt: 'x', meta: {}, state: { progress: { flags: ['intro_seen'] } } };
+  expect(MIGRATIONS[1](old).state.progress.flags).toEqual(['intro_seen', 'tool_flashlight']);
+});
+
+test('saves from before batteries start with a full one', async () => {
+  const { MIGRATIONS } = await import('../src/save/saves.js');
+  const old = { version: 2, savedAt: 'x', meta: {}, state: { progress: { flags: [] } } };
+  expect(MIGRATIONS[2](old).state.battery).toBe(1);
+});
+
+test('saves holding the old scribble and riddle notes drop them cleanly', async () => {
+  const { MIGRATIONS } = await import('../src/save/saves.js');
+  const old = {
+    version: 3,
+    savedAt: 'x',
+    meta: {},
+    state: { journal: { documents: ['night_duty', 'scribble_note', 'clock_riddle'], clues: ['read_night_duty', 'read_scribble_note', 'read_clock_riddle'], held: 'clock_riddle' } },
+  };
+  const { journal } = MIGRATIONS[3](old).state;
+  expect(journal).toMatchObject({ documents: ['night_duty'], clues: ['read_night_duty'], held: null });
+});

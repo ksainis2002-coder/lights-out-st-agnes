@@ -36,7 +36,9 @@ export function fittedSize(ctx, text, size, maxWidth) {
 }
 
 // Splits text into lines that fit maxWidth at the given size.
+// Wraps words to maxWidth; a newline in the text starts a new line.
 export function wrapText(ctx, text, size, maxWidth) {
+  if (text.includes('\n')) return text.split('\n').flatMap((part) => wrapText(ctx, part, size, maxWidth));
   ctx.font = `bold ${size}px ${UI_FONT}`;
   const lines = [];
   let line = '';

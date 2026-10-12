@@ -5,13 +5,35 @@
 
 import { migrate, NewerVersionError } from './migrate.js';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 4;
 export const MANUAL_SLOTS = ['slot1', 'slot2', 'slot3'];
 export const AUTO_SLOT = 'auto';
 export const ALL_SLOTS = [...MANUAL_SLOTS, AUTO_SLOT];
 
 // MIGRATIONS[n]: version n -> n + 1. Version 1 is the first format.
-export const MIGRATIONS = {};
+export const MIGRATIONS = {
+  // 0.1.48: the flashlight became a pickup. Runs saved before then had it.
+  1: (save) => {
+    const progress = save.state.progress ?? {};
+    const flags = progress.flags ?? [];
+    if (!flags.includes('tool_flashlight')) flags.push('tool_flashlight');
+    return { ...save, state: { ...save.state, progress: { ...progress, flags } } };
+  },
+  // 0.1.54: flashlight batteries. Older runs start with a full one.
+  2: (save) => ({ ...save, state: { ...save.state, battery: save.state.battery ?? 1 } }),
+  // 0.1.67: the scribble and riddle notes became one note on Rose's bed.
+  3: (save) => {
+    const journal = save.state.journal ?? {};
+    const gone = ['scribble_note', 'clock_riddle'];
+    const clean = {
+      ...journal,
+      documents: (journal.documents ?? []).filter((id) => !gone.includes(id)),
+      clues: (journal.clues ?? []).filter((id) => !gone.some((doc) => id === `read_${doc}`)),
+      held: gone.includes(journal.held) ? null : journal.held ?? null,
+    };
+    return { ...save, state: { ...save.state, journal: clean } };
+  },
+};
 
 const slotKey = (slot) => `save.${slot}`;
 

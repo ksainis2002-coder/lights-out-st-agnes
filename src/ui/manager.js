@@ -3,22 +3,39 @@
 import { createWarningScreen } from './screens/warning.js';
 import { createMenuScreen } from './screens/menu.js';
 import { createSettingsScreen } from './screens/settings.js';
+import { createJournalScreen } from './screens/journal.js';
+import { createDocumentScreen } from './screens/document.js';
+import { createTapeScreen } from './screens/tapes.js';
+import { createMusicBoxScreen } from './screens/musicBox.js';
 
 export const UI_WIDTH = 480;
 export const UI_HEIGHT = 270;
 
-const SCREENS = { warning: createWarningScreen, menu: createMenuScreen, settings: createSettingsScreen };
+const SCREENS = {
+  warning: createWarningScreen,
+  menu: createMenuScreen,
+  settings: createSettingsScreen,
+  journal: createJournalScreen,
+  document: createDocumentScreen,
+  musicBox: createMusicBoxScreen,
+  save: (api, options) => createTapeScreen(api, { ...options, mode: 'save' }),
+  load: (api, options) => createTapeScreen(api, { ...options, mode: 'load' }),
+};
 
 export function createUi(game, canvas, uiCanvas) {
   const ctx = uiCanvas.getContext('2d');
   let screen = null;
   let cleared = false;
+  let hud = null;
 
   const api = {
     t: game.i18n.t,
     settings: game.settings,
     open,
     play: () => game.play(),
+    resume: () => game.resume(),
+    newGame: () => game.newGame(),
+    game,
     hasSession: () => game.session.active,
     playTime: () => game.session.playTime,
     finishWarning(next) {
@@ -50,7 +67,9 @@ export function createUi(game, canvas, uiCanvas) {
 
   window.addEventListener('keydown', (event) => {
     if (!screen || event.code === 'F3') return;
-    if (screen.key(event.code, event)) event.preventDefault();
+    if (!screen.key(event.code, event)) return;
+    event.preventDefault();
+    if (event.code.startsWith('Arrow') || event.code === 'Tab') game.events.emit('ui.move');
   });
   canvas.addEventListener('mousemove', (event) => hitAt(toUi(event))?.hover?.());
   canvas.addEventListener('click', (event) => {
@@ -63,10 +82,12 @@ export function createUi(game, canvas, uiCanvas) {
   // Redraws the open screen. Returns true when the UI texture changed.
   function update() {
     if (!screen) {
-      if (cleared) return false;
+      if (cleared && !hud) return false;
       ctx.clearRect(0, 0, UI_WIDTH, UI_HEIGHT);
-      cleared = true;
-      return true;
+      const drew = hud?.(ctx) ?? false;
+      const changed = drew || !cleared;
+      cleared = !drew;
+      return changed;
     }
     ctx.clearRect(0, 0, UI_WIDTH, UI_HEIGHT);
     screen.draw(ctx);
@@ -76,6 +97,8 @@ export function createUi(game, canvas, uiCanvas) {
   return {
     open,
     close,
+    setHud: (fn) => (hud = fn),
+    drawHud: (target) => hud?.(target) ?? false, // tests: the HUD into any canvas
     update,
     current: () => screen,
     look: () => screen?.look ?? 'game',

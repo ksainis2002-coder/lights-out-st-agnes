@@ -2,10 +2,14 @@
 // text, how ◀▶ changes it, what ENTER does, and its help line.
 import { DEFAULT_KEYS } from '../save/settings.js';
 
+// Keys for things not in the game yet stay bound but unlisted (owner: the
+// camcorder is found in the asylum wards, 0.4).
+const HIDDEN_ACTIONS = ['camcorder'];
+
 const KEY_NAMES = {
   ShiftLeft: 'L-SHIFT', ShiftRight: 'R-SHIFT', ControlLeft: 'L-CTRL', ControlRight: 'R-CTRL',
   AltLeft: 'L-ALT', AltRight: 'R-ALT', Space: 'SPACE', Tab: 'TAB', Enter: 'ENTER', Backspace: 'BKSP',
-  ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', CapsLock: 'CAPS',
+  ArrowUp: '↑', Mouse0: 'CLICK', Mouse1: 'M-CLICK', Mouse2: 'R-CLICK', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', CapsLock: 'CAPS',
 };
 
 export function keyName(code) {
@@ -110,7 +114,8 @@ export function buildTabs(settings, t, screen) {
       rows: [
         numberRow(s, t, 'mouseSensitivity', { min: 0.1, max: 5, size: 0.1, format: (v) => v.toFixed(1) }),
         toggleRow(s, t, 'invertY'),
-        ...Object.keys(DEFAULT_KEYS).map((action) => keyRow(s, t, action, screen)),
+        toggleRow(s, t, 'crouchToggle'),
+        ...Object.keys(DEFAULT_KEYS).filter((action) => !HIDDEN_ACTIONS.includes(action)).map((action) => keyRow(s, t, action, screen)),
         {
           label: () => t('settings.keysReset'),
           value: () => t('settings.keysReset.value'),

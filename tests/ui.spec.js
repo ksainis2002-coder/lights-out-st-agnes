@@ -79,13 +79,12 @@ test('settings: rebind a key, then reset keys', async ({ page }) => {
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
   await page.keyboard.press('Tab');
-  await page.keyboard.press('ArrowDown');
-  await page.keyboard.press('ArrowDown');
+  for (let i = 0; i < 3; i++) await page.keyboard.press('ArrowDown'); // past sensitivity, invert Y, crouch toggle
   await page.keyboard.press('Enter');
   await page.keyboard.press('KeyI');
   let keys = await page.evaluate(() => window.__stAgnes.settings.get('keys'));
   expect(keys.forward).toBe('KeyI');
-  for (let i = 0; i < 12; i++) await page.keyboard.press('ArrowDown');
+  for (let i = 0; i < 17; i++) await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
   keys = await page.evaluate(() => window.__stAgnes.settings.get('keys'));
   expect(keys.forward).toBe('KeyW');
@@ -104,4 +103,51 @@ test('every screen draws in both languages without errors', async ({ page }) => 
     }, lang);
   }
   expect(errors).toEqual([]);
+});
+
+test('a long use prompt fits inside its box', async ({ page }) => {
+  const fits = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.play();
+    const target = { position: null, prompt: () => ({ key: 'prompt.placeToy', params: { item: 'Spinning top', name: 'PETER' } }) };
+    game.interaction.target = () => target;
+    const ctx = document.createElement('canvas').getContext('2d');
+    const rects = [];
+    const texts = [];
+    const fillRect = ctx.fillRect.bind(ctx);
+    ctx.fillRect = (x, y, w, h) => { rects.push({ x, w }); fillRect(x, y, w, h); };
+    const fillText = ctx.fillText.bind(ctx);
+    ctx.fillText = (text, x, y) => { texts.push({ text, x, width: ctx.measureText(text).width, align: ctx.textAlign }); fillText(text, x, y); };
+    game.ui.drawHud(ctx);
+    const line = texts.find((t) => t.text.includes('PETER'));
+    const box = rects.find((r) => r.w > 100);
+    if (!line || !box) return null;
+    const left = line.x - line.width / 2;
+    return left >= box.x && left + line.width <= box.x + box.w;
+  });
+  expect(fits).toBe(true);
+});
+
+test('menu: STOP (pressed twice) ends the run and goes back to the title screen', async ({ page }) => {
+  const state = () => page.evaluate(() => {
+    const game = window.__stAgnes;
+    return { session: game.session.active, mode: game.mode, screen: game.ui.current()?.name ?? null, item: game.ui.current()?.focusedItem?.() };
+  });
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.newGame();
+    game.intro.finish();
+    game.inventory.add('pills');
+    game.pause();
+  });
+  for (let i = 0; i < 2; i++) await page.keyboard.press('ArrowDown');
+  expect((await state()).item).toBe('stop');
+  await page.keyboard.press('Enter'); // asks first
+  expect((await state()).session).toBe(true);
+  await page.keyboard.press('Enter'); // confirmed
+  expect(await state()).toMatchObject({ session: false, mode: 'ui', screen: 'menu', item: 'play' });
+  expect(await page.evaluate(() => window.__stAgnes.inventory.items())).toEqual([]);
+  // On the title screen STOP is gone and PLAY starts a new game with the intro.
+  await page.keyboard.press('Enter');
+  expect(await page.evaluate(() => window.__stAgnes.intro.active())).toBe(true);
 });

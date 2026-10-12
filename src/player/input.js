@@ -8,13 +8,23 @@ export function createInput(target, settings) {
   const virtual = new Set(); // actions held by a bot, not the keyboard
   let enabled = false;
 
+  // Presses only count while the game has input; a key that closes a menu
+  // (J for the journal) must not also act in the game on the next frame.
   window.addEventListener('keydown', (event) => {
-    if (!down.has(event.code)) pressedThisFrame.add(event.code);
+    if (enabled && !down.has(event.code)) pressedThisFrame.add(event.code);
     down.add(event.code);
     if (enabled && isGameKey(event.code)) event.preventDefault();
   });
   window.addEventListener('keyup', (event) => down.delete(event.code));
   window.addEventListener('blur', () => down.clear());
+
+  // Mouse buttons are codes too ("Mouse0" = left), so they can be bound like keys.
+  document.addEventListener('mousedown', (event) => {
+    const code = `Mouse${event.button}`;
+    if (enabled && !down.has(code)) pressedThisFrame.add(code);
+    down.add(code);
+  });
+  document.addEventListener('mouseup', (event) => down.delete(`Mouse${event.button}`));
 
   document.addEventListener('mousemove', (event) => {
     if (!enabled || document.pointerLockElement !== target) return;
@@ -36,6 +46,13 @@ export function createInput(target, settings) {
     },
     wasPressed: (action) => enabled && pressedThisFrame.has(codeFor(action)),
     wasCodePressed: (code) => pressedThisFrame.has(code),
+    consume(code) {
+      pressedThisFrame.delete(code);
+    },
+    // For tests and bots: press an action for exactly one frame.
+    tap(action) {
+      pressedThisFrame.add(codeFor(action));
+    },
     takeLook() {
       const result = { x: look.x, y: look.y };
       look.x = 0;
@@ -48,6 +65,7 @@ export function createInput(target, settings) {
     },
     setEnabled(value) {
       enabled = value;
+      pressedThisFrame.clear();
       if (!value) {
         down.clear();
         virtual.clear();

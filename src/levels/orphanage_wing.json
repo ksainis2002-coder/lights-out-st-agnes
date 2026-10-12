@@ -1,0 +1,1661 @@
+{
+ "id": "orphanage_wing",
+ "wing": "orphanage",
+ "cellSize": 1.3,
+ "wallHeight": 2.8,
+ "floorTexture": "wood",
+ "ceilingTexture": "ceiling",
+ "ambient": {
+  "color": "#8090c0",
+  "intensity": 0.7
+ },
+ "legend": {
+  ".": "floor",
+  "#": "plaster"
+ },
+ "map": [
+  "#################################",
+  "#####.......########.......######",
+  "#####.......########.......######",
+  "#####.......########.......#....#",
+  "#####.......#......#.......#....#",
+  "#####.......#......#.......#....#",
+  "#####.......#......#.......#....#",
+  "#####.......#......#.......#....#",
+  "#####.......#......#.......######",
+  "#....#######################....#",
+  "#..........................#....#",
+  "#..........................#....#",
+  "#....#######################....#",
+  "#####.....#...#......#.....#....#",
+  "#####.....#...#......#.....#....#",
+  "#####.....#...#......#.....#....#",
+  "#####.....#####......#.....#....#",
+  "#####.....#####......#.....#....#",
+  "###############......############",
+  "#################################"
+ ],
+ "spawns": {
+  "default": {
+   "cell": [
+    2.5,
+    11
+   ],
+   "yawDegrees": -90
+  },
+  "landing": {
+   "cell": [
+    2.5,
+    11
+   ],
+   "yawDegrees": -90
+  }
+ },
+ "rooms": [
+  {
+   "id": "landing",
+   "cells": [
+    1,
+    9,
+    4,
+    12
+   ],
+   "wall": "plaster",
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_wind_corridor",
+     "volume": 0.2
+    }
+   ]
+  },
+  {
+   "id": "corridor",
+   "cells": [
+    5,
+    10,
+    26,
+    11
+   ],
+   "wall": "plaster",
+   "floor": "floor",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_wind_corridor",
+     "volume": 0.3
+    }
+   ]
+  },
+  {
+   "id": "east_dorm",
+   "cells": [
+    5,
+    1,
+    11,
+    8
+   ],
+   "wall": "wallpaper",
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "mus_drone_low",
+     "volume": 0.35
+    }
+   ]
+  },
+  {
+   "id": "playroom",
+   "cells": [
+    13,
+    4,
+    18,
+    8
+   ],
+   "wall": "wallpaper",
+   "floor": "wood"
+  },
+  {
+   "id": "west_dorm",
+   "cells": [
+    20,
+    1,
+    26,
+    8
+   ],
+   "wall": "wallpaper",
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "mus_drone_low",
+     "volume": 0.35
+    }
+   ]
+  },
+  {
+   "id": "quiet_room",
+   "cells": [
+    28,
+    3,
+    31,
+    7
+   ],
+   "wall": "wallpaper",
+   "floor": "wood"
+  },
+  {
+   "id": "washroom",
+   "cells": [
+    5,
+    13,
+    9,
+    17
+   ],
+   "wall": "tile",
+   "floor": "floor",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_pipes",
+     "volume": 0.55
+    }
+   ]
+  },
+  {
+   "id": "linen",
+   "cells": [
+    11,
+    13,
+    13,
+    15
+   ],
+   "wall": "plaster",
+   "floor": "wood"
+  },
+  {
+   "id": "office",
+   "cells": [
+    15,
+    13,
+    20,
+    18
+   ],
+   "wall": "wallpaper",
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.4
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.3
+    }
+   ]
+  },
+  {
+   "id": "sick_bay",
+   "cells": [
+    22,
+    13,
+    26,
+    17
+   ],
+   "wall": "tile",
+   "floor": "floor",
+   "ambience": [
+    {
+     "name": "amb_building_hum",
+     "volume": 0.35
+    }
+   ]
+  },
+  {
+   "id": "dining_hall",
+   "cells": [
+    28,
+    9,
+    31,
+    17
+   ],
+   "wall": "plaster",
+   "floor": "wood",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.45
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    },
+    {
+     "name": "mus_drone_low",
+     "volume": 0.25
+    }
+   ]
+  }
+ ],
+ "doors": [
+  {
+   "id": "stairs_up",
+   "cell": [
+    0,
+    11
+   ],
+   "exit": {
+    "level": "patient_room",
+    "spawn": "door",
+    "prompt": "prompt.stairsUp"
+   }
+  },
+  {
+   "id": "east_dorm",
+   "cell": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "playroom",
+   "cell": [
+    15,
+    9
+   ]
+  },
+  {
+   "id": "west_dorm",
+   "cell": [
+    23,
+    9
+   ],
+   "locked": "puzzle_toys"
+  },
+  {
+   "id": "quiet_room",
+   "cell": [
+    27,
+    5
+   ],
+   "hidden": true
+  },
+  {
+   "id": "washroom",
+   "cell": [
+    7,
+    12
+   ]
+  },
+  {
+   "id": "linen",
+   "cell": [
+    12,
+    12
+   ],
+   "locked": "linen_key"
+  },
+  {
+   "id": "office",
+   "cell": [
+    17,
+    12
+   ],
+   "locked": "office_key"
+  },
+  {
+   "id": "sick_bay",
+   "cell": [
+    24,
+    12
+   ]
+  },
+  {
+   "id": "dining_hall",
+   "cell": [
+    27,
+    11
+   ]
+  }
+ ],
+ "triggers": [],
+ "props": [
+  {
+   "type": "bed",
+   "at": [
+    5.77,
+    1.6
+   ],
+   "rotation": 90,
+   "options": {
+    "unmade": false,
+    "number": 1
+   },
+   "id": "bed_1"
+  },
+  {
+   "type": "bed",
+   "at": [
+    11.23,
+    1.6
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": true,
+    "number": 2
+   },
+   "id": "bed_2"
+  },
+  {
+   "type": "bed",
+   "at": [
+    5.77,
+    2.8
+   ],
+   "rotation": 90,
+   "options": {
+    "unmade": true,
+    "number": 3
+   },
+   "id": "bed_3"
+  },
+  {
+   "type": "bed",
+   "at": [
+    11.23,
+    2.8
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": true,
+    "number": 4
+   },
+   "id": "bed_4"
+  },
+  {
+   "type": "bed",
+   "at": [
+    5.77,
+    4.0
+   ],
+   "rotation": 90,
+   "options": {
+    "unmade": true,
+    "number": 5
+   },
+   "id": "bed_5"
+  },
+  {
+   "type": "bed",
+   "at": [
+    11.23,
+    4.0
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": false,
+    "number": 6
+   },
+   "id": "bed_6"
+  },
+  {
+   "type": "bed",
+   "at": [
+    5.77,
+    5.199999999999999
+   ],
+   "rotation": 90,
+   "options": {
+    "unmade": false,
+    "number": 7
+   },
+   "id": "bed_7"
+  },
+  {
+   "type": "bed",
+   "at": [
+    11.23,
+    5.199999999999999
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": true,
+    "number": 8
+   },
+   "id": "bed_8"
+  },
+  {
+   "type": "bed",
+   "at": [
+    5.77,
+    6.4
+   ],
+   "rotation": 90,
+   "options": {
+    "unmade": true,
+    "number": 9
+   },
+   "id": "bed_9"
+  },
+  {
+   "type": "bed",
+   "at": [
+    11.23,
+    6.4
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": false,
+    "number": 10
+   },
+   "id": "bed_10"
+  },
+  {
+   "type": "bed",
+   "at": [
+    20.77,
+    1.6
+   ],
+   "rotation": 90,
+   "options": {
+    "name": "MAGGIE",
+    "unmade": true
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    26.23,
+    1.6
+   ],
+   "rotation": -90,
+   "options": {
+    "name": "EDITH",
+    "unmade": false
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    20.77,
+    2.8
+   ],
+   "rotation": 90,
+   "options": {
+    "name": "ROSE",
+    "unmade": false
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    26.23,
+    2.8
+   ],
+   "rotation": -90,
+   "options": {
+    "name": "IVY",
+    "unmade": false
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    20.77,
+    4.0
+   ],
+   "rotation": 90,
+   "options": {
+    "name": "NELL",
+    "unmade": false
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    26.23,
+    4.0
+   ],
+   "rotation": -90,
+   "options": {
+    "name": "LOUISA",
+    "unmade": true
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    20.77,
+    5.199999999999999
+   ],
+   "rotation": 90,
+   "options": {
+    "name": "MARY",
+    "unmade": true
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    20.77,
+    6.4
+   ],
+   "rotation": 90,
+   "options": {
+    "name": "FLORA",
+    "unmade": false
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    26.23,
+    6.4
+   ],
+   "rotation": -90,
+   "options": {
+    "name": "ELSIE",
+    "unmade": false
+   }
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    6.8,
+    1.0
+   ]
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    10.2,
+    1.0
+   ]
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    21.8,
+    1.0
+   ]
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    25.2,
+    1.0
+   ]
+  },
+  {
+   "type": "chair",
+   "at": [
+    8.4,
+    6.6
+   ],
+   "rotation": 40,
+   "options": {
+    "toppled": true
+   }
+  },
+  {
+   "type": "papers",
+   "at": [
+    8.0,
+    4.4
+   ],
+   "options": {
+    "count": 4
+   }
+  },
+  {
+   "type": "sheetPile",
+   "at": [
+    7.2,
+    7.6
+   ],
+   "rotation": 20
+  },
+  {
+   "type": "cubbies",
+   "at": [
+    15.5,
+    4.14
+   ],
+   "id": "playroom_cubbies"
+  },
+  {
+   "type": "blocks",
+   "at": [
+    16.8,
+    6.2
+   ]
+  },
+  {
+   "type": "chair",
+   "at": [
+    13.8,
+    7.2
+   ],
+   "rotation": -30
+  },
+  {
+   "type": "drawing",
+   "at": [
+    13,
+    6
+   ],
+   "rotation": 90,
+   "options": {
+    "kind": "children"
+   }
+  },
+  {
+   "type": "drawing",
+   "at": [
+    19,
+    5.4
+   ],
+   "rotation": -90,
+   "options": {
+    "kind": "sun"
+   }
+  },
+  {
+   "type": "table",
+   "at": [
+    23.0,
+    6.4
+   ]
+  },
+  {
+   "type": "papers",
+   "at": [
+    24.6,
+    7.4
+   ],
+   "options": {
+    "count": 3
+   }
+  },
+  {
+   "type": "drawing",
+   "at": [
+    29.8,
+    3
+   ],
+   "options": {
+    "kind": "horse"
+   }
+  },
+  {
+   "type": "sheetPile",
+   "at": [
+    12.0,
+    14.4
+   ]
+  },
+  {
+   "type": "table",
+   "at": [
+    17.6,
+    14.0
+   ]
+  },
+  {
+   "type": "chair",
+   "at": [
+    17.6,
+    14.9
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "papers",
+   "at": [
+    16.2,
+    17.0
+   ],
+   "options": {
+    "count": 5
+   }
+  },
+  {
+   "type": "table",
+   "at": [
+    2.0,
+    9.6
+   ]
+  },
+  {
+   "type": "tapeRecorder",
+   "at": [
+    2.0,
+    9.6
+   ],
+   "y": 0.76,
+   "use": "save"
+  },
+  {
+   "type": "drawing",
+   "at": [
+    3.6,
+    9
+   ],
+   "options": {
+    "kind": "house"
+   }
+  },
+  {
+   "type": "wallClock",
+   "at": [
+    15.0,
+    15.6
+   ],
+   "rotation": 90,
+   "use": "clock"
+  },
+  {
+   "type": "drawing",
+   "at": [
+    13,
+    4.9
+   ],
+   "rotation": 90,
+   "options": {
+    "name": "IVY",
+    "toy": "toy_ball"
+   },
+   "id": "drawing_ivy",
+   "use": "look"
+  },
+  {
+   "type": "drawing",
+   "at": [
+    19,
+    7.0
+   ],
+   "rotation": -90,
+   "options": {
+    "name": "PETER",
+    "toy": "toy_top"
+   },
+   "id": "drawing_peter",
+   "use": "look"
+  },
+  {
+   "type": "drawing",
+   "at": [
+    17.6,
+    9
+   ],
+   "rotation": 180,
+   "options": {
+    "name": "ROSE",
+    "toy": "toy_doll"
+   },
+   "id": "drawing_rose",
+   "use": "look"
+  },
+  {
+   "type": "musicBox",
+   "id": "music_box",
+   "at": [
+    23.0,
+    6.4
+   ],
+   "y": 0.76
+  },
+  {
+   "type": "sheetPile",
+   "at": [
+    25.9,
+    4.6
+   ],
+   "rotation": 70
+  },
+  {
+   "type": "bed",
+   "at": [
+    25.23,
+    14.4
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": false
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    25.23,
+    15.6
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": true
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    25.23,
+    16.8
+   ],
+   "rotation": -90,
+   "options": {
+    "unmade": false
+   }
+  },
+  {
+   "type": "cabinet",
+   "id": "medicine_cabinet",
+   "at": [
+    22.14,
+    16.4
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "fuseBox",
+   "id": "fuse_box",
+   "at": [
+    22.0,
+    14.3
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "table",
+   "at": [
+    23.6,
+    16.9
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "longTable",
+   "at": [
+    30.0,
+    12.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "longTable",
+   "at": [
+    30.0,
+    15.3
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "bench",
+   "at": [
+    29.35,
+    12.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "bench",
+   "at": [
+    30.65,
+    12.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "bench",
+   "at": [
+    29.35,
+    15.3
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "bench",
+   "at": [
+    30.65,
+    15.3
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "hymnBoard",
+   "id": "hymn_board",
+   "at": [
+    30.0,
+    9.0
+   ],
+   "useHeight": 1.6
+  },
+  {
+   "type": "chair",
+   "at": [
+    28.7,
+    17.2
+   ],
+   "rotation": 200,
+   "options": {
+    "toppled": true
+   }
+  },
+  {
+   "type": "sink",
+   "at": [
+    23.2,
+    13.0
+   ],
+   "rotation": 0
+  }
+ ],
+ "lights": [
+  {
+   "at": [
+    8.5,
+    1.6
+   ],
+   "height": 1.8,
+   "color": "#5a6c9c",
+   "intensity": 4,
+   "distance": 11,
+   "type": "point"
+  },
+  {
+   "at": [
+    16.0,
+    4.8
+   ],
+   "height": 1.8,
+   "color": "#4a5c8c",
+   "intensity": 2.5,
+   "distance": 7,
+   "type": "point",
+   "group": "mains"
+  },
+  {
+   "at": [
+    2.6,
+    10.8
+   ],
+   "height": 2.4,
+   "color": "#ffd9a0",
+   "intensity": 2.2,
+   "distance": 7,
+   "type": "point"
+  },
+  {
+   "at": [
+    12.0,
+    11.0
+   ],
+   "height": 2.5,
+   "color": "#ffcf90",
+   "intensity": 1.4,
+   "distance": 6,
+   "type": "point",
+   "group": "mains"
+  },
+  {
+   "at": [
+    21.0,
+    11.0
+   ],
+   "height": 2.5,
+   "color": "#ffcf90",
+   "intensity": 1.4,
+   "distance": 6,
+   "type": "point",
+   "group": "mains"
+  },
+  {
+   "at": [
+    17.6,
+    14.0
+   ],
+   "height": 1.2,
+   "color": "#ffc880",
+   "intensity": 1.6,
+   "distance": 5,
+   "type": "point",
+   "group": "mains"
+  },
+  {
+   "at": [
+    24.0,
+    15.0
+   ],
+   "height": 2.3,
+   "color": "#b8d0c0",
+   "intensity": 2.5,
+   "distance": 7,
+   "type": "point",
+   "group": "mains"
+  },
+  {
+   "at": [
+    30.0,
+    13.5
+   ],
+   "height": 2.3,
+   "color": "#c8a878",
+   "intensity": 2.5,
+   "distance": 9,
+   "type": "point",
+   "group": "mains"
+  }
+ ],
+ "ambience": [
+  {
+   "name": "amb_rain_inside",
+   "volume": 0.4
+  },
+  {
+   "name": "amb_building_hum",
+   "volume": 0.3
+  }
+ ],
+ "pickups": [
+  {
+   "id": "washroom_drain_key",
+   "item": "office_key",
+   "at": [
+    8.4,
+    16.6
+   ],
+   "y": 0.0
+  },
+  {
+   "id": "cabinet_linen_key",
+   "item": "linen_key",
+   "at": [
+    22.2,
+    16.3
+   ],
+   "y": 0.97,
+   "lockedUntil": "puzzle_fuses"
+  },
+  {
+   "id": "plates_crank",
+   "item": "music_box_crank",
+   "at": [
+    10.3,
+    2.2
+   ],
+   "y": 0.0,
+   "appearsWith": "puzzle_plates",
+   "model": "crank",
+   "rotation": 30
+  },
+  {
+   "id": "linen_ball",
+   "item": "toy_ball",
+   "at": [
+    12.6,
+    15.5
+   ],
+   "model": "toyBall"
+  },
+  {
+   "id": "washroom_doll",
+   "item": "toy_doll",
+   "at": [
+    5.8,
+    16.2
+   ],
+   "rotation": 70,
+   "model": "toyDoll"
+  },
+  {
+   "id": "dining_top",
+   "item": "toy_top",
+   "at": [
+    28.6,
+    16.5
+   ],
+   "model": "toyTop"
+  },
+  {
+   "id": "quiet_horse",
+   "item": "toy_horse",
+   "at": [
+    29.8,
+    5.0
+   ],
+   "rotation": 200,
+   "model": "toyHorse"
+  },
+  {
+   "id": "quiet_statue",
+   "item": "statue_piece",
+   "at": [
+    30.6,
+    6.4
+   ],
+   "rotation": 40,
+   "model": "statuePiece"
+  },
+  {
+   "id": "cabinet_pills",
+   "item": "pills",
+   "at": [
+    22.2,
+    16.55
+   ],
+   "y": 0.57,
+   "color": "#e0e0d8",
+   "lockedUntil": "puzzle_fuses"
+  },
+  {
+   "id": "washroom_battery",
+   "item": "battery",
+   "at": [
+    5.6,
+    13.6
+   ],
+   "model": "batteryCell",
+   "rotation": 35
+  },
+  {
+   "id": "playroom_battery",
+   "item": "battery",
+   "at": [
+    18.3,
+    7.7
+   ],
+   "model": "batteryCell",
+   "rotation": 35
+  },
+  {
+   "id": "dining_battery",
+   "item": "battery",
+   "at": [
+    31.3,
+    9.6
+   ],
+   "model": "batteryCell",
+   "rotation": 35
+  },
+  {
+   "id": "dorm_battery",
+   "item": "battery",
+   "at": [
+    10.2,
+    3.4
+   ],
+   "model": "batteryCell",
+   "rotation": 35
+  }
+ ],
+ "documents": [
+  {
+   "id": "night_duty",
+   "at": [
+    17.9,
+    14.12
+   ],
+   "y": 0.763,
+   "rotation": 15
+  },
+  {
+   "id": "dorm_register",
+   "at": [
+    17.35,
+    14.1
+   ],
+   "y": 0.761,
+   "rotation": -8,
+   "flags": [
+    "name_tommy"
+   ]
+  },
+  {
+   "id": "lullaby_chalk",
+   "at": [
+    14.0,
+    9
+   ],
+   "rotation": 180,
+   "model": "chalkSlate",
+   "height": 1.3
+  },
+  {
+   "id": "hale_file_1",
+   "at": [
+    30.8,
+    3.8
+   ],
+   "rotation": -25
+  },
+  {
+   "id": "night_rota",
+   "at": [
+    17.75,
+    13.95
+   ],
+   "y": 0.762,
+   "rotation": -10
+  },
+  {
+   "id": "punishment_book",
+   "at": [
+    16.2,
+    16.4
+   ],
+   "rotation": 35
+  },
+  {
+   "id": "letter_peter",
+   "at": [
+    9.4,
+    7.6
+   ],
+   "rotation": 20
+  },
+  {
+   "id": "letter_rose",
+   "at": [
+    21.6,
+    7.4
+   ],
+   "rotation": -30
+  },
+  {
+   "id": "nurse_log",
+   "at": [
+    23.6,
+    16.7
+   ],
+   "y": 0.761,
+   "rotation": 80
+  },
+  {
+   "id": "menu_card",
+   "at": [
+    30.0,
+    11.8
+   ],
+   "y": 0.771,
+   "rotation": 90
+  },
+  {
+   "id": "rose_bed_note",
+   "at": [
+    20.8,
+    2.85
+   ],
+   "y": 0.54,
+   "rotation": 70,
+   "appearsWith": "puzzle_toys"
+  }
+ ],
+ "emitters": [
+  {
+   "sound": "amb_clock",
+   "at": [
+    15.15,
+    15.6
+   ],
+   "height": 1.85,
+   "volume": 0.9,
+   "distance": 1.5
+  },
+  {
+   "sound": "hospital_drip",
+   "at": [
+    23.2,
+    13.1
+   ],
+   "height": 0.9,
+   "volume": 0.6,
+   "distance": 1.2,
+   "every": [
+    2.5,
+    6
+   ]
+  }
+ ],
+ "ghosts": [
+  {
+   "id": "tommy_corridor",
+   "kind": "appear",
+   "room": "corridor",
+   "at": [
+    17.5,
+    10.9
+   ],
+   "rotation": -90,
+   "leadTo": [
+    21,
+    10.5
+   ],
+   "line": "whisper.tommy.follow",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "tommy_washroom",
+   "kind": "appear",
+   "cells": [
+    15,
+    10,
+    19,
+    11
+   ],
+   "requires": {
+    "clue": "locked_office"
+   },
+   "at": [
+    7.5,
+    11.4
+   ],
+   "rotation": 90,
+   "leadTo": [
+    7.5,
+    13.5
+   ],
+   "line": "whisper.tommy.washroom",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "tommy_east_dorm",
+   "kind": "appear",
+   "room": "east_dorm",
+   "at": [
+    8.5,
+    1.9
+   ],
+   "rotation": 0,
+   "leadTo": [
+    8.5,
+    1.5
+   ],
+   "line": "whisper.tommy.names",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "tommy_playroom",
+   "kind": "appear",
+   "room": "playroom",
+   "at": [
+    16.0,
+    4.9
+   ],
+   "rotation": 0,
+   "leadTo": [
+    16.0,
+    4.6
+   ],
+   "line": "whisper.tommy.cubbies",
+   "speaker": "tommy",
+   "comfort": "keep"
+  },
+  {
+   "id": "scare_washroom",
+   "kind": "scare",
+   "room": "washroom",
+   "setup": {
+    "sound": "whisper",
+    "at": [
+     5.6,
+     16.4
+    ],
+    "delay": 1.8
+   },
+   "sound": {
+    "name": "giggle_close"
+   },
+   "drain": 6,
+   "cooldownGroup": "scare",
+   "comfort": "skip"
+  },
+  {
+   "id": "scare_east_dorm",
+   "kind": "scare",
+   "cells": [
+    6,
+    6,
+    10,
+    8
+   ],
+   "requires": {
+    "flag": "ghost_tommy_east_dorm"
+   },
+   "setup": {
+    "sound": "whisper",
+    "at": [
+     6,
+     3
+    ],
+    "delay": 1.6
+   },
+   "sound": {
+    "name": "giggle_close"
+   },
+   "drain": 5,
+   "cooldownGroup": "scare",
+   "comfort": "skip"
+  },
+  {
+   "id": "scare_corridor_run",
+   "kind": "scare",
+   "cells": [
+    19,
+    10,
+    22,
+    11
+   ],
+   "requires": {
+    "item": "linen_key"
+   },
+   "setup": {
+    "sound": "child_laugh_far",
+    "at": [
+     25,
+     10.5
+    ],
+    "delay": 1.5
+   },
+   "sound": {
+    "name": "child_footsteps_run"
+   },
+   "glimpse": false,
+   "drain": 4,
+   "cooldownGroup": "scare",
+   "comfort": "skip"
+  },
+  {
+   "id": "scare_dining",
+   "kind": "scare",
+   "cells": [
+    28,
+    13,
+    31,
+    16
+   ],
+   "requires": {
+    "flag": "puzzle_toys"
+   },
+   "setup": {
+    "sound": "rocking_horse",
+    "at": [
+     29,
+     10
+    ],
+    "delay": 1.8
+   },
+   "sound": {
+    "name": "giggle_close"
+   },
+   "drain": 6,
+   "cooldownGroup": "scare",
+   "comfort": "skip"
+  },
+  {
+   "id": "tommy_west_dorm",
+   "kind": "appear",
+   "cells": [
+    20,
+    10,
+    26,
+    11
+   ],
+   "requires": {
+    "flag": "puzzle_toys"
+   },
+   "at": [
+    24.6,
+    10.6
+   ],
+   "rotation": 90,
+   "leadTo": [
+    23.5,
+    9.4
+   ],
+   "line": "whisper.tommy.wall",
+   "speaker": "tommy",
+   "comfort": "keep"
+  }
+ ],
+ "puzzles": {
+  "namePlates": {
+   "clue": "dorm_register",
+   "answer": {
+    "bed_1": "WALTER",
+    "bed_2": "TOMMY",
+    "bed_3": "PETER",
+    "bed_4": "SAM",
+    "bed_5": "ALFIE",
+    "bed_6": "ARTHUR",
+    "bed_7": "GEORGE",
+    "bed_8": "FRANK",
+    "bed_9": "HARRY",
+    "bed_10": "ERNEST"
+   },
+   "start": {
+    "bed_1": "WALTER",
+    "bed_2": "SAM",
+    "bed_3": "PETER",
+    "bed_4": "TOMMY",
+    "bed_5": "ALFIE",
+    "bed_6": "ARTHUR",
+    "bed_7": "HARRY",
+    "bed_8": "FRANK",
+    "bed_9": "GEORGE",
+    "bed_10": "ERNEST"
+   }
+  },
+  "cubbies": {
+   "prop": "playroom_cubbies",
+   "labels": [
+    "MAGGIE",
+    "PETER",
+    "EDITH",
+    "SAM",
+    "ROSE",
+    "ALFIE",
+    "TOMMY",
+    "NELL",
+    "GEORGE",
+    "MARY",
+    "IVY",
+    "WALTER"
+   ],
+   "answer": {
+    "toy_ball": "IVY",
+    "toy_doll": "ROSE",
+    "toy_top": "PETER"
+   },
+   "unlocks": "west_dorm",
+   "clues": {
+    "toy_ball": "seen_drawing_ivy",
+    "toy_doll": "seen_drawing_rose",
+    "toy_top": "seen_drawing_peter"
+   }
+  },
+  "musicBox": {
+   "prop": "music_box",
+   "clue": "lullaby_chalk",
+   "tune": [
+    "star",
+    "star",
+    "moon",
+    "bird",
+    "moon",
+    "heart"
+   ],
+   "reveals": "quiet_room"
+  },
+  "fuses": {
+   "prop": "fuse_box",
+   "order": [
+    3,
+    1,
+    4,
+    2
+   ],
+   "clues": {
+    "read": "night_rota",
+    "seen": "seen_hymn_board"
+   },
+   "cutWhen": "puzzle_plates"
+  }
+ },
+ "maps": [
+  {
+   "id": "orphanage_wing",
+   "at": [
+    2.3,
+    9.65
+   ],
+   "y": 0.761,
+   "rotation": 12,
+   "hidden": [
+    "quiet_room"
+   ]
+  }
+ ],
+ "power": {
+  "cutWhen": "puzzle_plates",
+  "restoredWhen": "puzzle_fuses"
+ }
+}

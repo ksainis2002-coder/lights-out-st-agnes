@@ -1,4 +1,5 @@
-// Circle-vs-grid collision on the level's solid cells (top-down, x/z).
+// Circle collision (top-down, x/z) against the level's solid cells and the
+// footprints of solid props (beds, tables...).
 
 export function collides(level, x, z, radius) {
   const s = level.cellSize;
@@ -12,11 +13,17 @@ export function collides(level, x, z, radius) {
       if ((x - nearestX) ** 2 + (z - nearestZ) ** 2 < radius * radius) return true;
     }
   }
-  return false;
+  return (level.obstacles ?? []).some((box) => {
+    const nearestX = Math.max(box.minX, Math.min(x, box.maxX));
+    const nearestZ = Math.max(box.minZ, Math.min(z, box.maxZ));
+    return (x - nearestX) ** 2 + (z - nearestZ) ** 2 < radius * radius;
+  });
 }
 
-// Moves one axis at a time so the player slides along walls.
+// Moves one axis at a time so the player slides along walls. Someone already
+// overlapping (spawned or loaded against a bed) may still move, to step out.
 export function moveWithCollision(level, position, dx, dz, radius) {
-  if (!collides(level, position.x + dx, position.z, radius)) position.x += dx;
-  if (!collides(level, position.x, position.z + dz, radius)) position.z += dz;
+  const stuck = collides(level, position.x, position.z, radius);
+  if (stuck || !collides(level, position.x + dx, position.z, radius)) position.x += dx;
+  if (stuck || !collides(level, position.x, position.z + dz, radius)) position.z += dz;
 }

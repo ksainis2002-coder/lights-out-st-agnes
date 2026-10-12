@@ -1,0 +1,300 @@
+{
+  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d, batch 4: 6417c6f).",
+  "sounds": {
+    "step_tile": {
+      "mode": "split",
+      "from": [
+        "step_tile (×1).wav",
+        "step_tile (×2).wav",
+        "step_tile (×3).wav"
+      ],
+      "take": [
+        0,
+        5,
+        1
+      ],
+      "maxLength": 0.45
+    },
+    "step_wood": {
+      "mode": "split",
+      "from": [
+        "step_wood (×1).wav",
+        "step_wood (×2).wav"
+      ],
+      "take": 3,
+      "maxLength": 0.5
+    },
+    "breath_run": {
+      "mode": "loop",
+      "from": "breath_run.mp3",
+      "maxLength": 12,
+      "minLength": 4
+    },
+    "breath_hold": {
+      "mode": "whole",
+      "from": "breath_hold.wav",
+      "maxLength": 4
+    },
+    "heartbeat": {
+      "mode": "loop",
+      "from": "heartbeat.wav",
+      "maxLength": 8,
+      "minLength": 2
+    },
+    "flashlight_click": {
+      "mode": "whole",
+      "from": "flashlight_click.wav",
+      "fade": 0.01
+    },
+    "cloth_crouch": {
+      "mode": "split",
+      "from": "cloth_crouch.wav",
+      "take": 3,
+      "maxLength": 0.8,
+      "fade": 0.2
+    },
+    "door_open_slow": {
+      "mode": "whole",
+      "from": "door_open_slow.flac",
+      "maxLength": 8,
+      "fade": 0.4
+    },
+    "door_use": {
+      "mode": "whole",
+      "from": [
+        "door_open_close (×1).wav",
+        "door_open_close (×2).wav",
+        "door_open_close (×3).wav"
+      ],
+      "maxLength": 4
+    },
+    "door_locked": {
+      "mode": "trim",
+      "from": "door_locked.wav",
+      "maxLength": 2,
+      "fade": 0.15
+    },
+    "bed_creak": {
+      "mode": "split",
+      "from": "bed_creak.wav",
+      "take": 3,
+      "maxLength": 2,
+      "fade": 0.2
+    },
+    "locker_open": {
+      "mode": "whole",
+      "from": "locker_open.flac",
+      "maxLength": 4
+    },
+    "drawer": {
+      "mode": "whole",
+      "from": "drawer.wav",
+      "maxLength": 3
+    },
+    "key_pickup": {
+      "mode": "whole",
+      "from": "key_pickup.wav",
+      "maxLength": 2
+    },
+    "paper_pickup": {
+      "mode": "whole",
+      "from": "paper_pickup.wav",
+      "maxLength": 2
+    },
+    "amb_rain_inside": {
+      "mode": "bed",
+      "from": "amb_rain_inside.wav",
+      "maxLength": 56,
+      "crossfade": 4
+    },
+    "amb_wind_corridor": {
+      "mode": "bed",
+      "from": "amb_wind_corridor.wav",
+      "maxLength": 59,
+      "crossfade": 4
+    },
+    "amb_pipes": {
+      "mode": "bed",
+      "from": "amb_pipes.aiff",
+      "maxLength": 31,
+      "crossfade": 3
+    },
+    "amb_clock": {
+      "mode": "loop",
+      "from": "amb_clock.wav",
+      "maxLength": 12,
+      "minLength": 4
+    },
+    "thunder_far": {
+      "mode": "whole",
+      "from": [
+        "thunder_far (×1).wav",
+        "thunder_far (×2).wav",
+        "thunder_far (×3).wav"
+      ],
+      "maxLength": 14,
+      "fade": 2
+    },
+    "amb_building_hum": {
+      "mode": "bed",
+      "from": "amb_building_hum.wav",
+      "maxLength": 60,
+      "crossfade": 4
+    },
+    "child_laugh_far": {
+      "mode": "split",
+      "from": [
+        "child_laugh_far (×1).wav",
+        "child_laugh_far (×2).mp3"
+      ],
+      "take": [
+        2,
+        1
+      ],
+      "maxLength": 3.5,
+      "minGap": 2.5,
+      "fade": 0.4
+    },
+    "giggle_close": {
+      "mode": "whole",
+      "from": "child giggle.wav",
+      "maxLength": 3
+    },
+    "child_footsteps_run": {
+      "mode": "whole",
+      "from": "child_footsteps_run.wav",
+      "maxLength": 8,
+      "fade": 1
+    },
+    "whisper": {
+      "mode": "split",
+      "from": [
+        "whisper (×1).wav",
+        "whisper (×2).wav",
+        "whisper (×3).wav"
+      ],
+      "take": [
+        3,
+        2,
+        1
+      ],
+      "maxLength": 4,
+      "minGap": 1.5,
+      "fade": 0.4
+    },
+    "wooden_toy": {
+      "mode": "split",
+      "from": "wooden_toy.wav",
+      "take": 3,
+      "maxLength": 2,
+      "minGap": 1,
+      "fade": 0.3
+    },
+    "rocking_horse": {
+      "mode": "loop",
+      "from": "rocking_horse.wav",
+      "maxLength": 12,
+      "minLength": 4
+    },
+    "swing_chain": {
+      "mode": "loop",
+      "from": "swing_chain.wav",
+      "maxLength": 10,
+      "minLength": 3
+    },
+    "mus_music_box": {
+      "mode": "whole",
+      "from": "mus_music_box.mp3",
+      "channels": 2,
+      "fade": 1.5
+    },
+    "mus_lullaby_hum": {
+      "mode": "whole",
+      "from": "mus_lullaby_hum.wav",
+      "channels": 2,
+      "maxLength": 57,
+      "fade": 2
+    },
+    "mus_drone_low": {
+      "mode": "bed",
+      "from": "mus_drone_low.mp3",
+      "maxLength": 120,
+      "crossfade": 6
+    },
+    "mus_stinger": {
+      "mode": "whole",
+      "from": [
+        "mus_stinger_1.wav",
+        "mus_stinger_2.wav"
+      ],
+      "channels": 2,
+      "maxLength": 17,
+      "fade": 1
+    },
+    "vhs_rewind": {
+      "mode": "bed",
+      "from": "vhs_rewind.wav",
+      "maxLength": 22,
+      "crossfade": 2
+    },
+    "vhs_insert": {
+      "mode": "trim",
+      "from": "vhs insert.wav",
+      "maxLength": 3.5,
+      "channels": 2,
+      "fade": 0.3
+    },
+    "vhs_eject": {
+      "mode": "trim",
+      "from": "vhs_eject.wav",
+      "start": 1.3,
+      "maxLength": 4.9,
+      "channels": 2,
+      "fade": 0.4
+    },
+    "tape_hiss": {
+      "mode": "bed",
+      "from": "tape_hiss.wav",
+      "start": 0.75,
+      "maxLength": 1.5,
+      "crossfade": 0.4
+    },
+    "tinnitus": {
+      "mode": "whole",
+      "from": "tinnitus.wav",
+      "maxLength": 7,
+      "fade": 1.5
+    },
+    "radio_static": {
+      "mode": "whole",
+      "from": "radio static tuning.wav",
+      "maxLength": 12,
+      "fade": 1
+    },
+    "ui_beep": {
+      "mode": "whole",
+      "from": "ui_beep.wav",
+      "channels": 2,
+      "fade": 0.01
+    },
+    "wake_gasp": {
+      "mode": "whole",
+      "from": "wake_gasp.mp3",
+      "maxLength": 3.5,
+      "fade": 0.3
+    },
+    "hospital_drip": {
+      "mode": "whole",
+      "from": "hospital_drip.wav",
+      "maxLength": 1.5,
+      "fade": 0.3
+    },
+    "fluorescent_buzz": {
+      "mode": "bed",
+      "from": "fluorescent_buzz.flac",
+      "maxLength": 25,
+      "crossfade": 3,
+      "channels": 1
+    }
+  }
+}

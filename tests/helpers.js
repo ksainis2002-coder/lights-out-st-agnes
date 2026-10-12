@@ -13,4 +13,8 @@ export function trackErrors(page) {
 /** Waits until main.js has booted and drawn at least a few frames. */
 export async function waitForBoot(page) {
   await page.waitForFunction(() => window.__stAgnes?.booted && window.__stAgnes.frame > 3);
+  // Headless browsers cannot capture the mouse, so do not wait for a click.
+  await page.evaluate(() => {
+    window.__stAgnes.requireMouseCapture = false;
+  });
 }

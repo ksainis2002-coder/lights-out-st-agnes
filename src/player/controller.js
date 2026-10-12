@@ -24,7 +24,8 @@ export const TUNING = {
   noise: { still: 0, crouch: 1.5, walk: 4, run: 10 },
 };
 
-export function createController(level) {
+export function createController(startLevel) {
+  let level = startLevel;
   const state = {
     position: { x: level.spawn.x, z: level.spawn.z },
     velocity: { x: 0, z: 0 },
@@ -77,9 +78,18 @@ export function createController(level) {
     }
   }
 
-  function move(dt, input) {
+  // Crouch is held by default; with the "crouch toggle" setting one press
+  // crouches and the next stands (Ctrl+W closes browser tabs, owner request).
+  let crouchLatched = false;
+  function isCrouching(input, settings) {
+    if (!settings?.get('crouchToggle')) return input.isDown('crouch');
+    if (input.wasPressed('crouch')) crouchLatched = !crouchLatched;
+    return crouchLatched;
+  }
+
+  function move(dt, input, settings) {
     const wish = wishDirection(input);
-    const crouching = input.isDown('crouch');
+    const crouching = isCrouching(input, settings);
     updateStamina(dt, wish.moving && input.isDown('run') && !crouching);
     const speed = crouching ? TUNING.crouchSpeed : state.running ? TUNING.runSpeed : TUNING.walkSpeed;
     const blend = 1 - Math.exp(-TUNING.acceleration * dt);
@@ -118,7 +128,7 @@ export function createController(level) {
 
   function update(dt, input, settings) {
     look(input, settings);
-    move(dt, input);
+    move(dt, input, settings);
     updateLean(dt, input);
     const bob = Math.sin(state.bobPhase * Math.PI) * 0.035 * (state.bobAmount ?? 0) * (state.running ? 1.6 : 1);
     state.eyeHeight = TUNING.eyeStand + (TUNING.eyeCrouch - TUNING.eyeStand) * state.crouch + bob;
@@ -135,5 +145,15 @@ export function createController(level) {
     }
   }
 
-  return { state, update, applyToCamera };
+  // Moves the player into another level at one of its spawn points.
+  function setLevel(next, spawn = next.spawn) {
+    level = next;
+    Object.assign(state.position, { x: spawn.x, z: spawn.z });
+    Object.assign(state.velocity, { x: 0, z: 0 });
+    state.yaw = spawn.yaw;
+    state.pitch = 0;
+    state.lean = 0;
+  }
+
+  return { state, update, applyToCamera, setLevel };
 }
