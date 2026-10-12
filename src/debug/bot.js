@@ -10,6 +10,8 @@
 //   { "select": "plate_TOMMY" }   pick an inventory item
 //   { "tap": "flashlight" }   press an action once
 //   { "skipTutorial": true }   skip every tutorial line showing or queued (ENTER)
+//   { "use": ..., "keepOpen": true }   leave the screen the use opened (music box)
+//   { "screenKey": "Digit3" }   press a key on the open screen
 // A "use" that opens a screen (a document) is closed again; one that starts
 // travel waits for the new level. Old routes (a "points" list) still work.
 import * as THREE from 'three';
@@ -66,7 +68,7 @@ function aimAndUse(game, step) {
   game.input.tap('use');
   let seconds = 1 / 30 + 0.3;
   game.advance(0.3);
-  if (game.mode === 'ui') game.resume(); // a document opened: put it back
+  if (game.mode === 'ui' && !step.keepOpen) game.resume(); // a document opened: put it back
   while (game.isTravelling()) {
     game.advance(STEP);
     seconds += STEP;
@@ -90,6 +92,11 @@ function runStep(game, step, maxSeconds) {
     const items = game.inventory.items();
     game.inventory.select(items.indexOf(step.select));
     return { seconds: 0, ok: items.includes(step.select) };
+  }
+  if (step.screenKey) {
+    const handled = game.ui.current()?.key(step.screenKey) ?? false;
+    game.advance(0.25);
+    return { seconds: 0.25, ok: handled };
   }
   if (step.skipTutorial) {
     while (game.messages.current()?.tag) game.messages.skip();

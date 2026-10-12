@@ -213,12 +213,6 @@
   "prompt.look": "Κοίτα",
   "prompt.fitCrank": "Βάλε το κουρδιστήρι",
   "prompt.musicBox": "Μουσικό κουτί",
-  "prompt.pressKey": "Πάτα το πλήκτρο: {symbol}",
-  "symbol.sun": "ήλιος",
-  "symbol.moon": "φεγγάρι",
-  "symbol.star": "αστέρι",
-  "symbol.bird": "πουλί",
-  "symbol.heart": "καρδιά",
   "msg.platesNeedClue": "Δεν ξέρω ποιανού ήταν αυτά τα κρεβάτια. Κάπου θα υπάρχει μητρώο.",
   "msg.toyNeedsClue": "Ποιανού ήταν αυτό ({item}); Κάποιο από τα παιδιά θα το ζωγράφισε.",
   "msg.musicBoxNoCrank": "Λείπει το κουρδιστήρι. Χωρίς αυτό δεν παίζει.",
@@ -330,5 +324,7 @@
   "hud.batterySwap": "{key}  νέα μπαταρία",
   "tutorial.battery": "Το {key} βάζει καινούργια μπαταρία όταν το φως αδυνατίζει.",
   "hud.skipLine": "ENTER  παράλειψη",
-  "prompt.notYet": "Όχι ακόμα"
+  "prompt.notYet": "Όχι ακόμα",
+  "prompt.playMusicBox": "Παίξε το μουσικό κουτί",
+  "musicBox.footer": "CLICK σε πλήκτρο  ·  1–5  ·  ESC πίσω"
 }

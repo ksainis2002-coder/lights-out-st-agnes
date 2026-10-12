@@ -213,12 +213,6 @@
   "prompt.look": "Look",
   "prompt.fitCrank": "Fit the crank",
   "prompt.musicBox": "Music box",
-  "prompt.pressKey": "Press the {symbol} key",
-  "symbol.sun": "sun",
-  "symbol.moon": "moon",
-  "symbol.star": "star",
-  "symbol.bird": "bird",
-  "symbol.heart": "heart",
   "msg.platesNeedClue": "I don’t know whose beds these were. There must be a record somewhere.",
   "msg.toyNeedsClue": "Whose was this ({item})? One of the children must have drawn it.",
   "msg.musicBoxNoCrank": "The winding key is missing. It won’t play without it.",
@@ -330,5 +324,7 @@
   "hud.batterySwap": "{key}  new battery",
   "tutorial.battery": "{key} swaps in a fresh battery when the light runs low.",
   "hud.skipLine": "ENTER  skip",
-  "prompt.notYet": "Not yet"
+  "prompt.notYet": "Not yet",
+  "prompt.playMusicBox": "Play the music box",
+  "musicBox.footer": "CLICK a key  ·  1–5  ·  ESC step back"
 }

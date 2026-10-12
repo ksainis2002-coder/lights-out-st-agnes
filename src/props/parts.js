@@ -171,10 +171,24 @@ const SYMBOL_PATHS = {
       else g.moveTo(px, py);
     }
   },
+  // A small perched bird, side on: round body, head, beak, tail, wing, legs.
   bird: (g, x, y, s) => {
-    g.moveTo(x + s * 0.1, y + s * 0.45);
-    g.quadraticCurveTo(x + s * 0.3, y + s * 0.2, x + s * 0.5, y + s * 0.5);
-    g.quadraticCurveTo(x + s * 0.7, y + s * 0.2, x + s * 0.9, y + s * 0.45);
+    g.ellipse(x + s * 0.45, y + s * 0.55, s * 0.24, s * 0.16, -0.15, 0, Math.PI * 2);
+    g.moveTo(x + s * 0.78, y + s * 0.34);
+    g.arc(x + s * 0.68, y + s * 0.34, s * 0.1, 0, Math.PI * 2);
+    g.moveTo(x + s * 0.78, y + s * 0.31);
+    g.lineTo(x + s * 0.92, y + s * 0.35);
+    g.lineTo(x + s * 0.78, y + s * 0.39);
+    g.moveTo(x + s * 0.23, y + s * 0.5);
+    g.lineTo(x + s * 0.05, y + s * 0.38);
+    g.lineTo(x + s * 0.1, y + s * 0.56);
+    g.lineTo(x + s * 0.23, y + s * 0.6);
+    g.moveTo(x + s * 0.3, y + s * 0.52);
+    g.quadraticCurveTo(x + s * 0.45, y + s * 0.42, x + s * 0.58, y + s * 0.55);
+    g.moveTo(x + s * 0.42, y + s * 0.7);
+    g.lineTo(x + s * 0.4, y + s * 0.86);
+    g.moveTo(x + s * 0.52, y + s * 0.69);
+    g.lineTo(x + s * 0.54, y + s * 0.86);
   },
   heart: (g, x, y, s) => {
     g.moveTo(x + s / 2, y + s * 0.85);

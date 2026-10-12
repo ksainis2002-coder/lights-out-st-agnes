@@ -6,6 +6,7 @@ import { createSettingsScreen } from './screens/settings.js';
 import { createJournalScreen } from './screens/journal.js';
 import { createDocumentScreen } from './screens/document.js';
 import { createTapeScreen } from './screens/tapes.js';
+import { createMusicBoxScreen } from './screens/musicBox.js';
 
 export const UI_WIDTH = 480;
 export const UI_HEIGHT = 270;
@@ -16,6 +17,7 @@ const SCREENS = {
   settings: createSettingsScreen,
   journal: createJournalScreen,
   document: createDocumentScreen,
+  musicBox: createMusicBoxScreen,
   save: (api, options) => createTapeScreen(api, { ...options, mode: 'save' }),
   load: (api, options) => createTapeScreen(api, { ...options, mode: 'load' }),
 };

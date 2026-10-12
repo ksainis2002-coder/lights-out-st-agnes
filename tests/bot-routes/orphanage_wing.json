@@ -907,9 +907,9 @@
    "use": {
     "prop": "music_box",
     "local": [
-     0.23,
-     0.08,
-     0
+     0,
+     0.12,
+     0.02
     ]
    },
    "expect": "prompt.fitCrank"
@@ -918,67 +918,31 @@
    "use": {
     "prop": "music_box",
     "local": [
-     0.0,
-     0.15,
-     0.09
+     0,
+     0.12,
+     0.02
     ]
    },
-   "expect": "prompt.pressKey"
+   "expect": "prompt.playMusicBox",
+   "keepOpen": true
   },
   {
-   "use": {
-    "prop": "music_box",
-    "local": [
-     0.0,
-     0.15,
-     0.09
-    ]
-   },
-   "expect": "prompt.pressKey"
+   "screenKey": "Digit3"
   },
   {
-   "use": {
-    "prop": "music_box",
-    "local": [
-     -0.08,
-     0.15,
-     0.09
-    ]
-   },
-   "expect": "prompt.pressKey"
+   "screenKey": "Digit3"
   },
   {
-   "use": {
-    "prop": "music_box",
-    "local": [
-     0.08,
-     0.15,
-     0.09
-    ]
-   },
-   "expect": "prompt.pressKey"
+   "screenKey": "Digit2"
   },
   {
-   "use": {
-    "prop": "music_box",
-    "local": [
-     -0.08,
-     0.15,
-     0.09
-    ]
-   },
-   "expect": "prompt.pressKey"
+   "screenKey": "Digit4"
   },
   {
-   "use": {
-    "prop": "music_box",
-    "local": [
-     0.16,
-     0.15,
-     0.09
-    ]
-   },
-   "expect": "prompt.pressKey"
+   "screenKey": "Digit2"
+  },
+  {
+   "screenKey": "Digit5"
   },
   {
    "cell": [

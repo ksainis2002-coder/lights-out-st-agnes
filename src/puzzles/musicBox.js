@@ -1,4 +1,5 @@
-// Puzzle 3 (west dorm): Tommy's crank winds the music box; its five picture
+// Puzzle 3 (west dorm): Tommy's crank winds the music box; using the wound
+// box brings it up close (ui/screens/musicBox.js), where its five picture
 // keys each play a note. Playing the tune chalked on the playroom slate
 // opens the hidden door to the quiet room. Notes play any time, but the tune
 // only counts once the slate (data.clue, a document id) has been read.
@@ -15,7 +16,7 @@ const SOLVED = 'puzzle_lullaby';
 const FREQUENCIES = [523.25, 587.33, 659.25, 783.99, 880];
 
 export function musicBoxPuzzle(game, level, data) {
-  const { progress, inventory, i18n } = game;
+  const { progress, inventory } = game;
   let box = null;
   game.world.levelGroup.traverse((object) => {
     if (object.userData.prop?.id === data.prop) box = object;
@@ -39,17 +40,22 @@ export function musicBoxPuzzle(game, level, data) {
     game.events.emit('musicBox.note', TUNE_SYMBOLS[i]);
     played = [...played, TUNE_SYMBOLS[i]].slice(-data.tune.length);
     const right = played.join() === data.tune.join();
-    if (right && progress.isRead(data.clue)) solve();
+    if (!right || !progress.isRead(data.clue)) return;
+    if (game.mode === 'ui') game.resume(); // step back to see the wall give
+    solve();
   }
 
-  const crankSlot = {
-    position: at(0.23, 0.08, 0),
-    radius: 0.15,
+  // One target on the box: fit the crank first, then open it up close.
+  const box3d = {
+    position: at(0, 0.12, 0.02),
+    radius: 0.25,
     prompt() {
-      if (progress.hasFlag(WOUND)) return null;
+      if (progress.hasFlag(SOLVED)) return null;
+      if (progress.hasFlag(WOUND)) return { key: 'prompt.playMusicBox' };
       return inventory.has('music_box_crank') ? { key: 'prompt.fitCrank' } : { key: 'prompt.musicBox' };
     },
     use() {
+      if (progress.hasFlag(WOUND)) return game.openScreen('musicBox', { press, played: () => [...played] });
       if (!inventory.has('music_box_crank')) return game.messages.show('msg.musicBoxNoCrank', null, 4);
       inventory.remove('music_box_crank');
       progress.setFlag(WOUND);
@@ -58,15 +64,5 @@ export function musicBoxPuzzle(game, level, data) {
     },
   };
 
-  const keys = MUSIC_BOX_KEYS.map((x, i) => ({
-    position: at(x, 0.15, 0.09),
-    radius: 0.035,
-    prompt() {
-      if (!progress.hasFlag(WOUND) || progress.hasFlag(SOLVED)) return null;
-      return { key: 'prompt.pressKey', params: { symbol: i18n.t(`symbol.${TUNE_SYMBOLS[i]}`) } };
-    },
-    use: () => press(i),
-  }));
-
-  return [crankSlot, ...keys];
+  return [box3d];
 }

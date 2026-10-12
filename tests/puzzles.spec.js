@@ -229,53 +229,53 @@ test('toys home: a toy only goes in a cubby once its owner\'s drawing was seen',
   expect(await items(page)).toEqual([]);
 });
 
-// Stand in front of the music box on the west dorm table and aim at a key
-// (0..4, left to right) or the crank slot ('slot').
-const lookAtMusicBox = (page, part) => page.evaluate((part) => {
+// Stand in front of the music box on the west dorm table and aim at it.
+const lookAtMusicBox = (page) => page.evaluate(() => {
   const game = window.__stAgnes;
   let box = null;
   game.world.levelGroup.traverse((o) => {
     if (o.userData.prop?.id === 'music_box') box = o;
   });
   box.updateWorldMatrix(true, false);
-  const local = part === 'slot' ? [0.23, 0.08, 0] : [-0.16 + part * 0.08, 0.15, 0.09];
-  const target = box.localToWorld(box.position.clone().set(...local));
-  const stand = box.localToWorld(box.position.clone().set(local[0], 0, 0.9));
+  const target = box.localToWorld(box.position.clone().set(0, 0.12, 0.02));
+  const stand = box.localToWorld(box.position.clone().set(0, 0, 0.9));
   Object.assign(game.player.state.position, { x: stand.x, z: stand.z });
   game.player.state.yaw = Math.atan2(-(target.x - stand.x), -(target.z - stand.z));
   game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, Math.hypot(target.x - stand.x, target.z - stand.z));
   game.advance(1 / 30);
   return game.interaction.target()?.prompt() ?? null;
-}, part);
-const KEY = { sun: 0, moon: 1, star: 2, bird: 3, heart: 4 };
+});
+const KEY = { sun: 1, moon: 2, star: 3, bird: 4, heart: 5 };
 const TUNE = ['star', 'star', 'moon', 'bird', 'moon', 'heart'];
+// Open the box up close and play the tune on its keys (1–5).
 async function playTune(page) {
-  for (const symbol of TUNE) {
-    expect((await lookAtMusicBox(page, KEY[symbol]))?.params.symbol).toBe(symbol);
-    await use(page);
-  }
+  expect((await lookAtMusicBox(page))?.key).toBe('prompt.playMusicBox');
+  await use(page);
+  expect(await page.evaluate(() => window.__stAgnes.ui.current()?.name)).toBe('musicBox');
+  for (const symbol of TUNE) await page.keyboard.press(`Digit${KEY[symbol]}`);
 }
 const quietDoor = (page) => page.evaluate(() => window.__stAgnes.world.level.doors.find((d) => d.id === 'quiet_room').revealed ?? false);
 
-test('lullaby: wind the box with the crank, play the chalked tune, the quiet room opens', async ({ page }) => {
+test('lullaby: wind the box with the crank, play the chalked tune up close, the quiet room opens', async ({ page }) => {
   test.setTimeout(60_000); // many aimed steps: slow when every test runs at once
-  expect((await lookAtMusicBox(page, 'slot'))?.key).toBe('prompt.musicBox');
+  expect((await lookAtMusicBox(page))?.key).toBe('prompt.musicBox');
   await use(page);
   expect(await message(page)).toBe('msg.musicBoxNoCrank');
   await page.evaluate(() => window.__stAgnes.inventory.add('music_box_crank'));
-  expect((await lookAtMusicBox(page, 'slot'))?.key).toBe('prompt.fitCrank');
+  expect((await lookAtMusicBox(page))?.key).toBe('prompt.fitCrank');
   await use(page);
   expect(await items(page)).toEqual([]);
 
   // Without the slate read, the right tune does nothing.
   await playTune(page);
   expect(await quietDoor(page)).toBe(false);
+  await page.keyboard.press('Escape');
+  expect(await page.evaluate(() => window.__stAgnes.mode)).toBe('playing');
 
   await page.evaluate(() => window.__stAgnes.progress.read('lullaby_chalk'));
-  await lookAtMusicBox(page, KEY.sun);
-  await use(page); // a wrong note first: only the last six count
   await playTune(page);
   expect(await quietDoor(page)).toBe(true);
+  expect(await page.evaluate(() => window.__stAgnes.mode)).toBe('playing'); // stepped back to see it
   expect(await message(page)).toBe('msg.lullabySolved');
 
   // The door stays found after a reload.
