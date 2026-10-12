@@ -169,3 +169,36 @@ test('an ink blot reads as [unreadable] in the transcript, never as raw markup',
   expect(texts.join(' ')).toContain('[unreadable]');
   expect(texts.join(' ')).not.toContain('[[blot]]');
 });
+
+test('inventory: ◀▶ pick a slot while the strip is open', async ({ page }) => {
+  const selected = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    ['office_key', 'battery', 'pills'].forEach((id) => game.inventory.add(id));
+    game.inventory.setOpen(true);
+    const out = [];
+    for (const code of ['ArrowRight', 'ArrowRight', 'ArrowLeft']) {
+      window.dispatchEvent(new KeyboardEvent('keydown', { code }));
+      game.advance(1 / 30);
+      window.dispatchEvent(new KeyboardEvent('keyup', { code }));
+      out.push(game.inventory.selectedItem());
+    }
+    return out;
+  });
+  expect(selected).toEqual(['battery', 'pills', 'battery']);
+});
+
+test('B swaps in a spare battery and a dead light comes back on', async ({ page }) => {
+  const result = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.progress.setFlag('tool_flashlight');
+    game.battery.set(0);
+    game.world.flashlight.setOn(false);
+    game.inventory.add('battery');
+    game.input.tap('battery');
+    game.advance(0.1);
+    return { on: game.world.flashlight.isOn(), charge: game.battery.charge(), items: game.inventory.items() };
+  });
+  expect(result.on).toBe(true);
+  expect(result.charge).toBeGreaterThan(0.99);
+  expect(result.items).toEqual([]);
+});

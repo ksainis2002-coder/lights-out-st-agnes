@@ -13,8 +13,9 @@ export function createBattery(game) {
   return {
     charge: () => charge,
     canLight: () => charge > 0,
-    // On screen the whole time the flashlight is on, and briefly after it goes off.
-    visible: () => game.world.flashlight.isOn() || shownFor > 0,
+    // On screen the whole time the flashlight is on, briefly after it goes off,
+    // and while it is dead with a spare battery in the pockets.
+    visible: () => game.world.flashlight.isOn() || shownFor > 0 || (charge <= 0 && game.inventory.has('battery')),
     update(dt) {
       shownFor = Math.max(0, shownFor - dt);
       if (!game.world.flashlight.isOn() || charge <= 0) return;

@@ -68,10 +68,28 @@ export function createGameAudio(game) {
   events.on('musicBox.wound', () => play('drawer', { volume: 0.6 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
+  // Emitters loop, or with "every": [min, max] play once at random gaps
+  // (a drip, not a machine-gun loop).
+  let timedEmitters = [];
+  const gap = ([min, max]) => min + Math.random() * (max - min);
+
+  function updateTimedEmitters(dt) {
+    const { level } = game.world;
+    for (const emitter of timedEmitters) {
+      emitter.wait -= dt;
+      if (emitter.wait > 0) continue;
+      emitter.wait = gap(emitter.every);
+      const { sound, at, height = 1.5, volume = 1, distance = 1 } = emitter;
+      play(sound, { position: { x: at[0] * level.cellSize, y: height, z: at[1] * level.cellSize }, volume, refDistance: distance, pitchJitter: 0.06 });
+    }
+  }
+
   function startEmitters() {
     emitterSources.forEach((source) => source.stop());
     const { level } = game.world;
+    timedEmitters = level.emitters.filter((e) => e.every).map((e) => ({ ...e, wait: gap(e.every) }));
     emitterSources = level.emitters
+      .filter((e) => !e.every)
       .map(({ sound, at, height = 1.5, volume = 1, distance = 1 }) => play(sound, {
         position: { x: at[0] * level.cellSize, y: height, z: at[1] * level.cellSize },
         volume,
@@ -182,6 +200,7 @@ export function createGameAudio(game) {
     if (game.mode !== 'playing') return;
     updateFootsteps();
     updateThunder(dt);
+    updateTimedEmitters(dt);
   }
 
   return { start, update, play, setLayer, layerVolume: (name) => layers.get(name)?.gain.gain.value ?? 0, isReady: () => ready, beds: () => [...beds.keys()], played: () => ({ ...played }) };

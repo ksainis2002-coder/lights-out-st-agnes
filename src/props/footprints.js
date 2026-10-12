@@ -9,6 +9,7 @@ const FOOTPRINTS = {
   cabinet: () => ({ size: [0.7, 0.35] }),
   longTable: () => ({ size: [3.0, 0.8] }),
   bench: () => ({ size: [3.0, 0.3] }),
+  sink: () => ({ size: [0.56, 0.4], offset: [0, 0.2] }),
   // A toppled chair lies on its back, reaching behind where it stood.
   chair: (options) => (options?.toppled ? { size: [0.42, 0.94], offset: [0, -0.22] } : { size: [0.42, 0.42] }),
 };

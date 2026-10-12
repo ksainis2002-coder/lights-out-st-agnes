@@ -9,6 +9,7 @@
 //   { "use": { "prop": "bed_2", "local": [x, y, z] } }   aim at a point on a prop
 //   { "select": "plate_TOMMY" }   pick an inventory item
 //   { "tap": "flashlight" }   press an action once
+//   { "skipTutorial": true }   skip every tutorial line showing or queued (ENTER)
 // A "use" that opens a screen (a document) is closed again; one that starts
 // travel waits for the new level. Old routes (a "points" list) still work.
 import * as THREE from 'three';
@@ -89,6 +90,10 @@ function runStep(game, step, maxSeconds) {
     const items = game.inventory.items();
     game.inventory.select(items.indexOf(step.select));
     return { seconds: 0, ok: items.includes(step.select) };
+  }
+  if (step.skipTutorial) {
+    while (game.messages.current()?.tag) game.messages.skip();
+    return { seconds: 0, ok: true };
   }
   if (step.tap) {
     game.input.tap(step.tap);

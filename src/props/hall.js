@@ -59,4 +59,16 @@ function hymnBoard(t, { numbers = [3, 1, 4, 2] } = {}) {
   return group(box(t.paintedWood, [0.32, 0.9, 0.04], [0, 1.15, 0.01], { color: '#3a2618' }), ...slots);
 }
 
-export const HALL_PROPS = { cabinet, fuseBox, longTable, bench, hymnBoard };
+// Enamel washbasin on the wall with a brass tap that never quite stops.
+function sink(t) {
+  const enamel = { color: '#d8dcd4' };
+  return group(
+    box(t.sheet, [0.56, 0.16, 0.4], [0, 0.76, 0.2], enamel),
+    box(t.sheet, [0.46, 0.02, 0.3], [0, 0.9, 0.2], { color: '#9aa4a0' }),
+    box(t.iron, [0.08, 0.76, 0.08], [0, 0, 0.2], enamel),
+    box(t.sheet, [0.03, 0.03, 0.14], [0, 1.02, 0.07], { color: '#b8984a' }),
+    box(t.sheet, [0.03, 0.06, 0.03], [0, 0.97, 0.13], { color: '#b8984a' }),
+  );
+}
+
+export const HALL_PROPS = { cabinet, fuseBox, longTable, bench, hymnBoard, sink };

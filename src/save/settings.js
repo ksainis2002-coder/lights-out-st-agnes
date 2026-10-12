@@ -4,10 +4,12 @@
 
 import { migrate } from './migrate.js';
 
-export const SETTINGS_VERSION = 2;
+export const SETTINGS_VERSION = 3;
 export const SETTINGS_MIGRATIONS = {
   // 0.1.59: crouch toggle (owner request), off for existing players.
   1: (data) => ({ ...data, crouchToggle: false }),
+  // 0.1.63: B swaps the flashlight battery (owner request).
+  2: (data) => ({ ...data, keys: { ...data.keys, battery: data.keys?.battery ?? 'KeyB' } }),
 };
 
 export const DEFAULT_KEYS = {
@@ -25,6 +27,7 @@ export const DEFAULT_KEYS = {
   journal: 'KeyJ',
   map: 'KeyM',
   hold: 'KeyH',
+  battery: 'KeyB',
   use: 'Mouse0',
   inventory: 'Tab',
   combine: 'KeyR',

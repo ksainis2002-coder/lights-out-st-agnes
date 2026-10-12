@@ -245,10 +245,6 @@
     {
      "name": "amb_building_hum",
      "volume": 0.35
-    },
-    {
-     "name": "hospital_drip",
-     "volume": 0.3
     }
    ]
   },
@@ -980,6 +976,14 @@
    "options": {
     "toppled": true
    }
+  },
+  {
+   "type": "sink",
+   "at": [
+    23.2,
+    13.0
+   ],
+   "rotation": 0
   }
  ],
  "lights": [
@@ -1342,6 +1346,20 @@
    "height": 1.85,
    "volume": 0.9,
    "distance": 1.5
+  },
+  {
+   "sound": "hospital_drip",
+   "at": [
+    23.2,
+    13.1
+   ],
+   "height": 0.9,
+   "volume": 0.6,
+   "distance": 1.2,
+   "every": [
+    2.5,
+    6
+   ]
   }
  ],
  "ghosts": [

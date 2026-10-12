@@ -2,6 +2,7 @@
 // over a real dorm render. Copy here is mockup text, not game text.
 import { osdText, wrapText, fittedSize, COLORS } from '../ui/osd.js';
 import { drawIcon } from '../ui/icons.js';
+import { drawSymbol, TUNE_SYMBOLS } from '../props/parts.js';
 
 const W = 480;
 const H = 270;
@@ -170,4 +171,35 @@ export function battery(ctx) {
   ctx.fillRect(x + 31, y + 4, 2, 5);
   ctx.fillRect(x + 3, y + 3, 6, 7); // one bar of four left
   osdText(ctx, 'LOW', x - 6, y + 2, 9, '#ff6a5a', 'right');
+}
+
+// Music box close-up (proposal): using the box brings it up in front of you;
+// click a picture key (or 1–5) to play its note. The last notes played show
+// as small pictures. ESC or a click outside steps back.
+export function musicBoxClose(ctx) {
+  ctx.fillStyle = 'rgba(0,0,0,0.72)';
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#3a1c10';
+  ctx.fillRect(110, 70, 260, 140);
+  ctx.fillStyle = '#5a2c1a';
+  ctx.fillRect(116, 76, 248, 128);
+  ctx.fillStyle = '#4a2214';
+  ctx.fillRect(116, 76, 248, 46); // the lid, propped open
+  ctx.fillStyle = '#b8a060';
+  ctx.fillRect(232, 92, 16, 16); // the crank, fitted
+  TUNE_SYMBOLS.forEach((name, i) => {
+    const x = 130 + i * 46;
+    ctx.fillStyle = i === 2 ? '#f4ecd8' : '#d8d0b8';
+    ctx.fillRect(x, 140, 38, 46);
+    ctx.strokeStyle = '#3a2214';
+    ctx.lineWidth = 2;
+    drawSymbol(ctx, name, x + 5, 147, 28);
+    osdText(ctx, String(i + 1), x + 19, 190, 8, COLORS.dim, 'center');
+  });
+  ['star', 'star', 'moon'].forEach((name, i) => {
+    ctx.strokeStyle = '#c9d2e0';
+    ctx.lineWidth = 1.5;
+    drawSymbol(ctx, name, 205 + i * 24, 40, 18);
+  });
+  osdText(ctx, 'CLICK a key  ·  1–5  ·  ESC step back', W / 2, H - 22, 8, COLORS.dim, 'center');
 }

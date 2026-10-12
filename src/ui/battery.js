@@ -4,6 +4,7 @@
 // with "LOW" beside it. Steady, never blinking (flicker rules).
 import { osdText } from './osd.js';
 import { LOW } from '../player/battery.js';
+import { keyName } from './settingsRows.js';
 
 const INK = 'rgba(232,240,255,0.9)';
 const CELL = { full: '#e8f0ff', half: '#ffc860', low: '#ff6a5a' };
@@ -33,5 +34,10 @@ export function drawBattery(ctx, game, W, H) {
   const cells = Math.ceil(charge * 4);
   for (let i = 0; i < cells; i++) ctx.fillRect(x + 3 + i * 8, y + 3, 6, 9);
   if (charge < LOW) osdText(ctx, game.i18n.t('hud.batteryLow'), x - 28, y + 3, 9, CELL.low, 'right');
+  // With a spare in the pockets and the cell half gone: which key swaps it.
+  if (charge < 0.5 && game.inventory.has('battery')) {
+    const key = keyName(game.settings.get('keys').battery);
+    osdText(ctx, game.i18n.t('hud.batterySwap', { key }), x + 38, y - 12, 8, INK, 'right');
+  }
   return true;
 }

@@ -128,3 +128,30 @@ test('tutorial: every control is explained once, when it first matters', async (
     'tutorial.move', 'tutorial.pause', 'tutorial.run', 'tutorial.crouch', 'tutorial.lean', 'tutorial.use',
   ]));
 });
+
+test('tutorial: ENTER skips a line, and the room door waits for the basics', async ({ page }) => {
+  const result = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.intro.finish();
+    game.advance(0.1);
+    const first = game.messages.current()?.key;
+    window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
+    game.advance(1 / 30);
+    window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Enter' }));
+    const second = game.messages.current()?.key;
+    // Look at the door while the basics are still being told.
+    Object.assign(game.player.state.position, { x: 2.5, z: 5.5 });
+    game.player.state.yaw = Math.PI; // facing +z, the door
+    game.player.state.pitch = Math.atan2(1.2 - game.player.state.eyeHeight, 1.0);
+    game.advance(1 / 30);
+    const early = game.interaction.target()?.prompt()?.key;
+    while (game.messages.current()?.tag === 'basics') game.messages.skip();
+    game.advance(1 / 30);
+    const after = game.interaction.target()?.prompt()?.key;
+    return { first, second, early, after };
+  });
+  expect(result.first).toBe('tutorial.move');
+  expect(result.second).toBe('tutorial.pause');
+  expect(result.early).toBe('prompt.notYet');
+  expect(result.after).toBe('prompt.leave');
+});

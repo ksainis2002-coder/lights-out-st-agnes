@@ -78,6 +78,7 @@ function drawMessage(ctx, game) {
   ctx.fillRect(W / 2 - width / 2, top - 3, width, Math.max(lines.length * 13 + 4, iconSpace));
   if (message.icon) drawIcon(ctx, message.icon, W / 2 - width / 2 + 4, top - 2);
   lines.forEach((line, i) => osdText(ctx, line, W / 2 + iconSpace / 2, top + i * 13, 10, COLORS.soft, 'center'));
+  if (message.tag) osdText(ctx, game.i18n.t('hud.skipLine'), W / 2 + width / 2 - 4, top + lines.length * 13 + 3, 7, COLORS.dim, 'right');
   return true;
 }
 

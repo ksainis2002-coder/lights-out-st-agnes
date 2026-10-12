@@ -86,13 +86,16 @@ void main() {
   noise += uRewind * (tear * 70.0 + 12.0) * hash(cell + uTime * 3.1);
   color += noise / 255.0;
   color *= mod(row, 2.0) > 0.5 ? 0.86 : 1.0;
+  // Dark edges and eyelids shade the scene, never the HUD drawn over it
+  // (the battery cell sits in a corner; owner playtest).
+  float uiA = texture2D(tUi, (floor(vUv * uUiRes) + 0.5) / uUiRes).a;
   vec2 v = vUv - 0.5;
-  color *= 1.0 - min(1.0, dot(v, v) * (1.6 + uVignette * 4.0));
+  float shade = 1.0 - min(1.0, dot(v, v) * (1.6 + uVignette * 4.0));
   if (uEyelid > 0.0) {
     float open = 1.0 - uEyelid;
-    float lid = smoothstep(open * 0.55, open * 0.55 + 0.12, abs(v.y) + v.x * v.x * 0.6);
-    color *= 1.0 - lid;
+    shade *= 1.0 - smoothstep(open * 0.55, open * 0.55 + 0.12, abs(v.y) + v.x * v.x * 0.6);
   }
+  color *= mix(shade, 1.0, uiA);
   gl_FragColor = vec4(color * (1.0 - uFade), 1.0);
 }
 `;

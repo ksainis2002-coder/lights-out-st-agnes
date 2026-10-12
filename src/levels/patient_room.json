@@ -117,7 +117,8 @@
       "exit": {
         "level": "orphanage_wing",
         "spawn": "landing",
-        "prompt": "prompt.leave"
+        "prompt": "prompt.leave",
+        "afterBasics": true
       }
     }
   ],

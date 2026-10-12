@@ -35,6 +35,7 @@ export function doorInteractables(game) {
       radius: 0.75, // a door is big: anywhere on its face counts
       prompt() {
         if (door.hidden && !door.revealed) return null;
+        if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return { key: 'prompt.notYet' };
         if (door.exit) return { key: door.exit.prompt ?? 'prompt.leave' };
         if (door.locked) {
           return game.hasItem(door.locked) ? { key: 'prompt.unlock', params: { item: itemName(door.locked) } } : { key: 'prompt.locked' };
@@ -43,6 +44,7 @@ export function doorInteractables(game) {
         return { key: 'prompt.open' };
       },
       use() {
+        if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return null;
         if (door.exit) return game.travel(door.exit.level, door.exit.spawn);
         if (door.locked && !game.hasItem(door.locked)) return game.events.emit('door.locked', door);
         if (door.locked) unlock(door);
