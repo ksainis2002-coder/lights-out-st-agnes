@@ -326,7 +326,7 @@ test('paper map: taken at the landing, quiet room blank, then scribbled, then pe
     Object.assign(game.player.state.position, { x: c.x, z: c.z });
     game.advance(0.1);
     const seen = new Set();
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 300; i++) {
       game.advance(0.1);
       seen.add(game.messages.current()?.key);
     }

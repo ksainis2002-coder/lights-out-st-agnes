@@ -66,7 +66,7 @@ test('the flashlight lies on the patient room table; F does nothing until it is 
     const game = window.__stAgnes;
     game.input.tap('use');
     const keys = new Set();
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 600; i++) {
       game.advance(0.1);
       keys.add(game.messages.current()?.key);
     }
@@ -96,4 +96,35 @@ test('every drawing can be looked at', async ({ page }) => {
     return { prompt, message: game.messages.current()?.key };
   });
   expect(result).toEqual({ prompt: 'prompt.look', message: 'look.drawing.horse' });
+});
+
+test('tutorial: every control is explained once, when it first matters', async ({ page }) => {
+  const seen = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    const keys = new Set();
+    const watch = (seconds) => {
+      for (let i = 0; i < seconds * 10; i++) {
+        game.advance(0.1);
+        keys.add(game.messages.current()?.key);
+      }
+    };
+    game.intro.finish();
+    watch(14);
+    // Walk a few metres towards the table: run, crouch and lean come next,
+    // and looking at the flashlight explains "use".
+    game.input.setVirtual('forward', true);
+    game.player.state.yaw = -Math.PI / 2;
+    watch(1.2);
+    game.player.state.yaw = Math.PI; // turn before the table, along the room
+    watch(1.5);
+    game.input.setVirtual('forward', false);
+    Object.assign(game.player.state.position, { x: 3.6, z: 2.85 });
+    game.player.state.yaw = -Math.PI / 2; // facing the flashlight on the table
+    game.player.state.pitch = Math.atan2(0.8 - game.player.state.eyeHeight, 0.95);
+    watch(40);
+    return [...keys];
+  });
+  expect(seen).toEqual(expect.arrayContaining([
+    'tutorial.move', 'tutorial.pause', 'tutorial.run', 'tutorial.crouch', 'tutorial.lean', 'tutorial.use',
+  ]));
 });

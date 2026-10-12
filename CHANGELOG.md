@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.62 — Owner request: a tutorial for every control, each line shown once per run when it first matters: walk and look plus ESC/SETUP after the intro; run, crouch (and its toggle) and lean after the first few steps; use at the first usable thing; saving at the first tape recorder; flashlight, inventory, journal (and holding a note) and the map when first found. Keys are named from the player's bindings; English and Greek.
 - 0.1.61 — Collapse jump scare (approved still collapse_scare, owner pick c): when sanity hits zero with a vision on screen or within 4 m, the smudge-faced child lunges into the face for 0.45 s with a stinger, then the usual faint and rewind. Alone, or in comfort mode, the plain collapse. Later enemies plug into the same check (game.presences). Shorter, lower arms on the lunging child (they read as beams from the eyes). Scare rules updated.
 - 0.1.60 — Mockup still collapse_scare (for owner approval): when sanity hits zero with a presence near, a ghost child with a smudged, featureless face lunges into view before the faint and rewind. Not in the game yet.
 - 0.1.59 — Owner request: "Crouch toggle" in Setup → Controls (press once to crouch, again to stand), because Ctrl+W closes browser tabs. Settings format 2: older settings get it off. Fake children that find no open spot look again after a second instead of waiting 10–25 s (fixes a flaky test).

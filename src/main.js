@@ -69,7 +69,7 @@ function createGame() {
   setupLevelFlow(game);
   setupClues(game);
   setupVisits(game);
-  setupTutorial(game);
+  game.tutorial = setupTutorial(game);
   setupPower(game);
   setupInventoryControls(game);
   setupSaving(game);
@@ -222,6 +222,7 @@ function simulate(game, dt) {
   player.applyToCamera(world.camera, settings);
   world.camera.updateMatrixWorld();
   game.interaction.update(world.camera, input);
+  game.tutorial.update();
   game.battery.update(dt);
   game.sanity.update(dt);
   game.ghosts.update(dt);

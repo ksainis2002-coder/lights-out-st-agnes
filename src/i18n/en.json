@@ -315,5 +315,14 @@
   "hud.batteryLow": "LOW",
   "document.unreadable": "[unreadable]",
   "tutorial.inventory": "{open} shows what you carry. Pick an item, then {use} to use it.",
-  "whisper.tommy.wall": "She puts him behind the wall when he cries. Rose knows."
+  "whisper.tommy.wall": "She puts him behind the wall when he cries. Rose knows.",
+  "tutorial.move": "{keys} to walk, the mouse to look around.",
+  "tutorial.pause": "ESC pauses the tape. Controls and settings are under SETUP.",
+  "tutorial.run": "Hold {key} to run. It is loud, and it tires you.",
+  "tutorial.crouch": "{key} to crouch: slow and quiet. In SETUP it can be a toggle instead of a hold.",
+  "tutorial.lean": "{left} and {right} lean to peek round corners.",
+  "tutorial.use": "{key} uses what is in front of you: doors, notes, things to take.",
+  "tutorial.save": "Recording on a tape recorder saves your game. REWIND on the main menu plays it back.",
+  "tutorial.journal": "{journal} opens your journal: clues, documents, maps. In DOCUMENTS, {hold} keeps one at your side.",
+  "tutorial.map": "{key} opens the map."
 }
