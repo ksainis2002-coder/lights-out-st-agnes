@@ -203,3 +203,32 @@ export function musicBoxClose(ctx) {
   });
   osdText(ctx, 'CLICK a key  ·  1–5  ·  ESC step back', W / 2, H - 22, 8, COLORS.dim, 'center');
 }
+
+// Proposal: looking at an item shows a short line under the use prompt.
+export function itemHover(ctx) {
+  ctx.fillStyle = 'rgba(232,240,255,0.8)';
+  ctx.fillRect(W / 2 - 1, H / 2 - 1, 2, 2);
+  const text = 'CLICK  Take Battery';
+  ctx.font = 'bold 10px monospace';
+  const w = ctx.measureText(text).width + 16;
+  panel(ctx, W / 2 - w / 2, H / 2 + 22, w, 16, 0.55);
+  osdText(ctx, text, W / 2, H / 2 + 25, 10, COLORS.text, 'center');
+  osdText(ctx, 'Spare power for the flashlight.', W / 2, H / 2 + 42, 9, COLORS.soft, 'center');
+}
+
+// Proposal: the first time an item is picked up, a card shows what it is
+// and how to use it. The world waits; ENTER or a click puts it away.
+export function itemCard(ctx) {
+  ctx.fillStyle = 'rgba(0,0,0,0.6)';
+  ctx.fillRect(0, 0, W, H);
+  panel(ctx, 120, 56, 240, 168, 0.9);
+  osdText(ctx, 'NEW ITEM', W / 2, 64, 8, COLORS.dim, 'center');
+  ctx.fillStyle = 'rgba(232,240,255,0.07)';
+  ctx.fillRect(W / 2 - 26, 84, 52, 52);
+  drawIcon(ctx, 'battery', W / 2 - 24, 110 - 4 * 3, 3);
+  osdText(ctx, 'BATTERY', W / 2, 144, 12, COLORS.text, 'center');
+  osdText(ctx, 'For the flashlight. Each one lasts', W / 2, 162, 9, COLORS.soft, 'center');
+  osdText(ctx, 'about eight minutes of light.', W / 2, 174, 9, COLORS.soft, 'center');
+  osdText(ctx, 'B  swap it in when the light runs low', W / 2, 190, 9, '#ffe27a', 'center');
+  osdText(ctx, 'ENTER / CLICK  continue', W / 2, 208, 8, COLORS.dim, 'center');
+}
