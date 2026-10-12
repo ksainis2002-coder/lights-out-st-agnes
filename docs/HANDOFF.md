@@ -97,3 +97,7 @@ room is only the lullaby puzzle's reward room). The first-draft ink blot (spilli
 4. Write `docs/SOUNDS_0.3.md`: the CC0 sound list for 0.3 (school wing: watcher statue, Maggie's
    rhymes, courtyard, cemetery) for the owner to download.
 5. Start 0.3 with mockup stills: classrooms, the watcher, Maggie, courtyard/cemetery.
+
+**0.2.0 ready (2026-10-12):** pull request from `claude/hopeful-keller-xpdeeg` to `main`. Owner merges it,
+then publishes release `v0.2.0` in GitHub Releases (target `main`), which deploys Pages. Next: the 0.3
+CC0 sound list (`docs/SOUNDS_0.3.md`) and the 0.3 mockup stills (school wing).
