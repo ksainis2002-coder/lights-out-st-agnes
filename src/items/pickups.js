@@ -11,7 +11,7 @@
 // taking a map adds it to the journal's MAPS page.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
-import { itemDef, itemText } from './catalog.js';
+import { itemDef, itemText, itemShortKey } from './catalog.js';
 
 function place(level, object, { at, y = 0, rotation = 0 }) {
   object.position.set(at[0] * level.cellSize, y, at[1] * level.cellSize);
@@ -39,7 +39,7 @@ export function createPickups(game, level, data) {
       prompt() {
         if (progress.isTaken(pickup.id) || !mesh.visible) return null;
         if (pickup.lockedUntil && !progress.hasFlag(pickup.lockedUntil)) return { key: 'prompt.lockedAway' };
-        return { key: 'prompt.take', params: { item: itemText(i18n, pickup.item) } };
+        return { key: 'prompt.take', params: { item: itemText(i18n, pickup.item) }, detail: itemShortKey(pickup.item) };
       },
       use() {
         if (pickup.lockedUntil && !progress.hasFlag(pickup.lockedUntil)) return game.messages.show('msg.lockedAway', null, 4);
@@ -80,7 +80,7 @@ export function createPickups(game, level, data) {
     usable.push({
       position: mesh.position.clone().setY((map.y ?? 0) + 0.02),
       radius: 0.25,
-      prompt: () => (journal.maps().includes(map.id) ? null : { key: 'prompt.takeMap' }),
+      prompt: () => (journal.maps().includes(map.id) ? null : { key: 'prompt.takeMap', detail: 'item.map.short' }),
       use() {
         journal.addMap(map.id);
         group.remove(mesh);

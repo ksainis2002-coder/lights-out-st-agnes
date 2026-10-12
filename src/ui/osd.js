@@ -61,3 +61,8 @@ export function button(ctx, label, x, y, w, active) {
   const size = fittedSize(ctx, label, 10, w - 6);
   osdText(ctx, label, x + w / 2, y + 2, size, active ? COLORS.ink : COLORS.text, 'center');
 }
+
+// Capitals for labels. Greek capitals drop their accents (Χάπια → ΧΑΠΙΑ).
+export function capitals(text) {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().normalize('NFC');
+}

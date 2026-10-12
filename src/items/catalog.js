@@ -6,12 +6,13 @@
 // Tools ("tool": true) are carried without taking a slot: picking one up
 // sets the progress flag tool_<id>.
 export const ITEMS = {
-  flashlight: { icon: 'battery', tool: true },
+  // card: a "new item" card the first time it is picked up (usable items only).
+  flashlight: { icon: 'torch', tool: true, card: true },
   office_key: { icon: 'key', consumed: true },
   linen_key: { icon: 'key', consumed: true },
   music_box_crank: { icon: 'crank' },
-  pills: { icon: 'pills', consumed: true },
-  battery: { icon: 'battery', consumed: true },
+  pills: { icon: 'pills', consumed: true, card: true },
+  battery: { icon: 'battery', consumed: true, card: true },
   toy_horse: { icon: 'horse' },
   toy_ball: { icon: 'ball' },
   toy_doll: { icon: 'doll' },
@@ -31,6 +32,12 @@ export function itemDef(id) {
 }
 
 // Player-facing name and description of an item, through i18n.
+// The i18n key of an item's short line (shown while looking at it).
+export function itemShortKey(id) {
+  const family = Object.keys(FAMILIES).find((name) => id.startsWith(`${name}_`));
+  return family ? `item.${family}.short` : `item.${id}.short`;
+}
+
 export function itemText(i18n, id, part = 'name') {
   if (ITEMS[id]) return i18n.t(`item.${id}.${part}`);
   const [family, ...rest] = id.split('_');

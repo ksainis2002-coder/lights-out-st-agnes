@@ -9,7 +9,7 @@
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { decal, cachedPlateTexture } from '../props/parts.js';
-import { itemText } from '../items/catalog.js';
+import { itemText, itemShortKey } from '../items/catalog.js';
 
 const STATE_KEY = 'cubbies';
 const SOLVED = 'puzzle_toys';
@@ -74,7 +74,7 @@ export function cubbiesPuzzle(game, level, data) {
       radius: 0.18,
       prompt() {
         if (progress.hasFlag(SOLVED)) return null;
-        if (contents[i]) return { key: 'prompt.take', params: { item: itemText(i18n, contents[i]) } };
+        if (contents[i]) return { key: 'prompt.take', params: { item: itemText(i18n, contents[i]) }, detail: itemShortKey(contents[i]) };
         const toy = toyToPlace();
         // The label is too small to read on screen: the prompt names the owner.
         return toy ? { key: 'prompt.placeToy', params: { item: itemText(i18n, toy), name } } : { key: 'prompt.cubby', params: { name } };

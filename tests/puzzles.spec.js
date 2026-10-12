@@ -66,10 +66,10 @@ test('name plates: nothing moves until the dorm register is read', async ({ page
 test('name plates: put every plate back on its bed and the crank drops', async ({ page }) => {
   await page.evaluate(() => window.__stAgnes.progress.read('dorm_register'));
   // Bed 2 is Tommy's but carries Sam's plate; bed 4 has Tommy's.
-  expect(await lookAtPlate(page, 'bed_2')).toEqual({ key: 'prompt.takePlate', params: { name: 'SAM' } });
+  expect(await lookAtPlate(page, 'bed_2')).toMatchObject({ key: 'prompt.takePlate', params: { name: 'SAM' } });
   await swap(page, 'bed_2', 'bed_4', 'SAM', 'TOMMY');
   expect(await items(page)).toEqual([]);
-  expect(await lookAtPlate(page, 'bed_2')).toEqual({ key: 'prompt.takePlate', params: { name: 'TOMMY' } });
+  expect(await lookAtPlate(page, 'bed_2')).toMatchObject({ key: 'prompt.takePlate', params: { name: 'TOMMY' } });
 
   const crankPrompt = () => page.evaluate(() => {
     const game = window.__stAgnes;

@@ -61,18 +61,16 @@ test('the flashlight lies on the patient room table; F does nothing until it is 
     game.advance(1 / 30);
     return game.interaction.target()?.prompt() ?? null;
   });
-  expect(prompt?.key).toBe('prompt.take');
-  const seen = await page.evaluate(() => {
+  expect(prompt).toMatchObject({ key: 'prompt.take', detail: 'item.flashlight.short' });
+  const card = await page.evaluate(() => {
     const game = window.__stAgnes;
     game.input.tap('use');
-    const keys = new Set();
-    for (let i = 0; i < 600; i++) {
-      game.advance(0.1);
-      keys.add(game.messages.current()?.key);
-    }
-    return [...keys];
+    game.advance(0.1);
+    return { screen: game.ui.current()?.name, item: game.ui.current()?.item?.() };
   });
-  expect(seen).toEqual(expect.arrayContaining(['msg.taken', 'tutorial.flashlight.toggle', 'tutorial.flashlight.dark']));
+  expect(card).toEqual({ screen: 'itemCard', item: 'flashlight' }); // the new-item card says how to use it
+  await page.keyboard.press('Enter');
+  expect(await page.evaluate(() => window.__stAgnes.mode)).toBe('playing');
   expect(await page.evaluate(() => window.__stAgnes.inventory.items())).toEqual([]); // a tool takes no slot
   await page.evaluate(() => {
     window.__stAgnes.input.tap('flashlight');

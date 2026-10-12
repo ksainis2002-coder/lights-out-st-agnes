@@ -202,3 +202,18 @@ test('B swaps in a spare battery and a dead light comes back on', async ({ page 
   expect(result.charge).toBeGreaterThan(0.99);
   expect(result.items).toEqual([]);
 });
+
+test('new-item cards: once per usable item, never for keys or puzzle items', async ({ page }) => {
+  const take = (item) => page.evaluate((item) => {
+    const game = window.__stAgnes;
+    if (game.mode === 'ui') game.resume();
+    game.inventory.add(item);
+    game.events.emit('item.taken', { id: `test_${item}_${Math.random()}`, item });
+    return game.ui.current()?.name ?? null;
+  }, item);
+  expect(await take('battery')).toBe('itemCard');
+  expect(await take('battery')).toBeNull(); // only the first time
+  expect(await take('pills')).toBe('itemCard');
+  expect(await take('office_key')).toBeNull();
+  expect(await take('toy_ball')).toBeNull();
+});

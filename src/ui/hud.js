@@ -1,9 +1,10 @@
 // In-game HUD on the 480×270 UI layer. Approved stills: ui_prompt (centre dot
 // and one prompt line when something usable is in view) and ui_inventory
-// (TAB strip at the bottom), a held note (ui_heldNote), the battery cell
+// (TAB strip at the bottom) with an item line under the prompt (ui_itemHover),
+// a held note (ui_heldNote), the battery cell
 // (ui_battery). Plus short message
 // lines. Nothing else.
-import { osdText, wrapText, COLORS, UI_FONT } from './osd.js';
+import { osdText, wrapText, capitals, COLORS, UI_FONT } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { drawIcon } from './icons.js';
 import { drawHeldNote } from './heldNote.js';
@@ -33,6 +34,8 @@ function drawPrompt(ctx, game) {
   const width = ctx.measureText(text).width + 16;
   panel(ctx, W / 2 - width / 2, H / 2 + 22, width, 16, 0.55);
   osdText(ctx, text, W / 2, H / 2 + 25, 10, COLORS.text, 'center');
+  // A short line about the item in view (approved still ui_itemHover).
+  if (prompt.detail) osdText(ctx, game.i18n.t(prompt.detail), W / 2, H / 2 + 42, 9, COLORS.soft, 'center');
   return true;
 }
 
@@ -55,7 +58,7 @@ function drawInventory(ctx, game) {
   }
   const selected = inventory.selectedItem();
   if (selected) {
-    osdText(ctx, itemText(i18n, selected).toUpperCase(), x0, y0 + SLOT + 6, 10, COLORS.text);
+    osdText(ctx, capitals(itemText(i18n, selected)), x0, y0 + SLOT + 6, 10, COLORS.text);
     osdText(ctx, itemText(i18n, selected, 'desc'), x0, y0 + SLOT + 19, 9, COLORS.soft);
   } else {
     osdText(ctx, i18n.t('inventory.empty'), x0, y0 + SLOT + 6, 9, COLORS.soft);

@@ -62,7 +62,7 @@ export function namePlatesPuzzle(game, level, data) {
     radius: 0.4,
     prompt() {
       if (progress.hasFlag(SOLVED)) return null;
-      if (plates[bedId]) return { key: 'prompt.takePlate', params: { name: plates[bedId] } };
+      if (plates[bedId]) return { key: 'prompt.takePlate', params: { name: plates[bedId] }, detail: 'item.plate.short' };
       const plate = plateToPlace();
       return plate ? { key: 'prompt.placePlate', params: { name: plate.slice(6) } } : null;
     },

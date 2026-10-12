@@ -4,6 +4,7 @@
 // play right after the intro, and the patient room door waits for them.
 // Keys are named from the player's settings, so rebinding stays right.
 import { keyName } from './ui/settingsRows.js';
+import { itemDef } from './items/catalog.js';
 
 const LINE_SECONDS = 5;
 
@@ -20,14 +21,9 @@ const LESSONS = {
   ],
   use: [{ key: 'tutorial.use', params: (k) => ({ key: keyName(k.use) }) }],
   save: [{ key: 'tutorial.save' }],
-  flashlight: [
-    { key: 'tutorial.flashlight.toggle', params: (k) => ({ key: keyName(k.flashlight) }) },
-    { key: 'tutorial.flashlight.dark' },
-  ],
   inventory: [{ key: 'tutorial.inventory', params: (k) => ({ open: keyName(k.inventory), use: keyName(k.use) }) }],
   journal: [{ key: 'tutorial.journal', params: (k) => ({ journal: keyName(k.journal), hold: keyName(k.hold) }) }],
   map: [{ key: 'tutorial.map', params: (k) => ({ key: keyName(k.map) }) }],
-  battery: [{ key: 'tutorial.battery', params: (k) => ({ key: keyName(k.battery) }) }],
 };
 
 export function setupTutorial(game) {
@@ -47,9 +43,13 @@ export function setupTutorial(game) {
   });
   events.on('document.read', () => teach('journal'));
   events.on('map.taken', () => teach('map'));
+  // Usable items get a "new item" card the first time (ui/screens/itemCard.js),
+  // which says how to use them; the first item in the pockets explains TAB.
   events.on('item.taken', (pickup) => {
-    if (pickup.item === 'flashlight') teach('flashlight');
-    if (pickup.item === 'battery') teach('battery');
+    if (itemDef(pickup.item).card && !progress.hasFlag(`card_${pickup.item}`)) {
+      progress.setFlag(`card_${pickup.item}`);
+      game.openScreen('itemCard', { item: pickup.item });
+    }
     if (game.inventory.has(pickup.item)) teach('inventory');
   });
 
