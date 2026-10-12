@@ -171,24 +171,28 @@ const SYMBOL_PATHS = {
       else g.moveTo(px, py);
     }
   },
-  // A small perched bird, side on: round body, head, beak, tail, wing, legs.
+  // A plump little bird, side on (owner's drawing): body rising to a round
+  // head, triangle beak, eye, three-loop tail, leaf-shaped wing.
   bird: (g, x, y, s) => {
-    g.ellipse(x + s * 0.45, y + s * 0.55, s * 0.24, s * 0.16, -0.15, 0, Math.PI * 2);
-    g.moveTo(x + s * 0.78, y + s * 0.34);
-    g.arc(x + s * 0.68, y + s * 0.34, s * 0.1, 0, Math.PI * 2);
-    g.moveTo(x + s * 0.78, y + s * 0.31);
-    g.lineTo(x + s * 0.92, y + s * 0.35);
-    g.lineTo(x + s * 0.78, y + s * 0.39);
-    g.moveTo(x + s * 0.23, y + s * 0.5);
-    g.lineTo(x + s * 0.05, y + s * 0.38);
-    g.lineTo(x + s * 0.1, y + s * 0.56);
-    g.lineTo(x + s * 0.23, y + s * 0.6);
-    g.moveTo(x + s * 0.3, y + s * 0.52);
-    g.quadraticCurveTo(x + s * 0.45, y + s * 0.42, x + s * 0.58, y + s * 0.55);
-    g.moveTo(x + s * 0.42, y + s * 0.7);
-    g.lineTo(x + s * 0.4, y + s * 0.86);
-    g.moveTo(x + s * 0.52, y + s * 0.69);
-    g.lineTo(x + s * 0.54, y + s * 0.86);
+    const p = (px, py) => [x + px * s, y + py * s];
+    g.moveTo(...p(0.22, 0.56));
+    g.bezierCurveTo(...p(0.42, 0.52), ...p(0.48, 0.12), ...p(0.68, 0.12));
+    g.bezierCurveTo(...p(0.84, 0.12), ...p(0.88, 0.3), ...p(0.86, 0.45));
+    g.bezierCurveTo(...p(0.84, 0.8), ...p(0.6, 0.9), ...p(0.45, 0.88));
+    g.bezierCurveTo(...p(0.3, 0.86), ...p(0.22, 0.72), ...p(0.22, 0.56));
+    g.moveTo(...p(0.85, 0.24));
+    g.lineTo(...p(0.98, 0.29));
+    g.lineTo(...p(0.86, 0.35));
+    g.moveTo(...p(0.73, 0.25));
+    g.arc(x + 0.71 * s, y + 0.25 * s, 0.025 * s, 0, Math.PI * 2);
+    for (const [tx, ty] of [[0.06, 0.38], [0.02, 0.52], [0.06, 0.66]]) {
+      g.moveTo(...p(0.22, 0.56));
+      g.quadraticCurveTo(...p(tx + 0.02, ty - 0.08), ...p(tx, ty));
+      g.quadraticCurveTo(...p(tx + 0.06, ty + 0.08), ...p(0.22, 0.56));
+    }
+    g.moveTo(...p(0.36, 0.7));
+    g.bezierCurveTo(...p(0.44, 0.52), ...p(0.62, 0.42), ...p(0.66, 0.55));
+    g.bezierCurveTo(...p(0.68, 0.68), ...p(0.5, 0.74), ...p(0.36, 0.7));
   },
   heart: (g, x, y, s) => {
     g.moveTo(x + s / 2, y + s * 0.85);
