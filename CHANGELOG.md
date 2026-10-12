@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.67 — Owner pick (b): the scribble note, the riddle and the map's "?" stage are replaced by one note on Rose's bed (Tommy leads to it once the toys are home) that links the music box to the playroom slate; the map leaves the quiet room blank until it is entered. Peter's letter to his mum is now a page from his diary (it is an orphanage). Save format 4: old saves drop the two removed notes from the journal.
 - 0.1.66 — Owner playtest: the use-prompt box is measured in the font it is drawn in, so long prompts ("Put Spinning top in PETER's cubby") stay inside it. Peter's letter reworded: Tommy did give the top back; Sister hid it. Owner run: wooden horse in 20 min, no collapses (batteries swapped, a pill taken), 45–60 fps.
 - 0.1.65 — The bird picture redrawn after the owner's sketch: plump body rising to a round head, triangle beak, eye, three-loop tail, leaf wing (music box keys, slate, box).
 - 0.1.64 — Music box close-up (approved still ui_musicBoxClose): fitting the crank and playing are one target on the box; playing brings the box up in front of you with five big picture keys (click or 1–5), the notes played shown above, ESC or a click outside steps back, and the solved tune steps you back to see the wall give. The bird picture is a perched bird (owner request) on the keys, the slate and the box. Bot route updated.

@@ -1265,26 +1265,6 @@
    "rotation": -25
   },
   {
-   "id": "scribble_note",
-   "at": [
-    20.6,
-    2.75
-   ],
-   "rotation": 75,
-   "appearsWith": "puzzle_toys",
-   "y": 0.535
-  },
-  {
-   "id": "clock_riddle",
-   "at": [
-    21.0,
-    2.92
-   ],
-   "rotation": -15,
-   "appearsWith": "puzzle_toys",
-   "y": 0.54
-  },
-  {
    "id": "night_rota",
    "at": [
     17.75,
@@ -1334,6 +1314,16 @@
    ],
    "y": 0.771,
    "rotation": 90
+  },
+  {
+   "id": "rose_bed_note",
+   "at": [
+    20.8,
+    2.85
+   ],
+   "y": 0.54,
+   "rotation": 70,
+   "appearsWith": "puzzle_toys"
   }
  ],
  "emitters": [
@@ -1659,9 +1649,9 @@
    ],
    "y": 0.761,
    "rotation": 12,
-   "hidden": {
-    "quiet_room": "scribble_note"
-   }
+   "hidden": [
+    "quiet_room"
+   ]
   }
  ],
  "power": {

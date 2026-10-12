@@ -1,5 +1,5 @@
 // What a save holds for a run in progress, and how it is put back.
-// Shape (inside the save envelope's "state", SAVE_VERSION 3):
+// Shape (inside the save envelope's "state", SAVE_VERSION 4):
 //   { level, position: { x, z, yaw }, inventory, journal, progress, playTime, sanity, battery }
 import { LEVELS, START_LEVEL } from '../levels/index.js';
 import { roomAt } from '../levels/loader.js';

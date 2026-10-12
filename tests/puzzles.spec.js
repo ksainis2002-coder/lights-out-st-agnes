@@ -304,7 +304,7 @@ test('quiet room: the horse, the statue piece and page one of the file', async (
   expect(await page.evaluate(() => window.__stAgnes.journal.documents())).toContain('hale_file_1');
 });
 
-test('paper map: taken at the landing, quiet room blank, then scribbled, then pencilled in', async ({ page }) => {
+test('paper map: taken at the landing, quiet room blank until it is entered, then pencilled in', async ({ page }) => {
   const prompt = await page.evaluate(() => {
     const game = window.__stAgnes;
     const level = game.world.level;
@@ -370,7 +370,7 @@ test('office clock: tells the real time every time, and nothing more', async ({ 
   }
 });
 
-test('quiet-room notes: Tommy leads to Rose\'s bed once the toys are home, and the notes lie there', async ({ page }) => {
+test('Rose\'s note: Tommy leads to Rose\'s bed once the toys are home, and the note lies there', async ({ page }) => {
   const notesShown = () => page.evaluate(() => {
     const game = window.__stAgnes;
     const size = game.world.level.cellSize;
@@ -395,7 +395,7 @@ test('quiet-room notes: Tommy leads to Rose\'s bed once the toys are home, and t
     return line;
   });
   expect(whisper).toBe('whisper.tommy.wall');
-  expect(await notesShown()).toBe(2);
+  expect(await notesShown()).toBe(1);
 });
 
 test('M opens the journal on the MAPS page, and M closes it', async ({ page }) => {
@@ -443,7 +443,7 @@ test('journal: many clues spread over pages turned with ◀▶', async ({ page }
   await page.evaluate(() => {
     const game = window.__stAgnes;
     ['read_dorm_register', 'read_night_duty', 'read_night_rota', 'saw_hymn_board', 'read_letter_peter', 'read_letter_rose', 'read_nurse_log',
-      'read_punishment_book', 'took_toy_top', 'took_battery', 'solved_plates', 'solved_fuses', 'read_scribble_note', 'read_clock_riddle']
+      'read_punishment_book', 'took_toy_top', 'took_battery', 'solved_plates', 'solved_fuses', 'read_rose_bed_note', 'read_lullaby_chalk']
       .forEach((id) => game.journal.addClue(id));
     game.openScreen('journal');
   });

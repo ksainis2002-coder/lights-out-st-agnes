@@ -5,7 +5,7 @@
 
 import { migrate, NewerVersionError } from './migrate.js';
 
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 export const MANUAL_SLOTS = ['slot1', 'slot2', 'slot3'];
 export const AUTO_SLOT = 'auto';
 export const ALL_SLOTS = [...MANUAL_SLOTS, AUTO_SLOT];
@@ -21,6 +21,18 @@ export const MIGRATIONS = {
   },
   // 0.1.54: flashlight batteries. Older runs start with a full one.
   2: (save) => ({ ...save, state: { ...save.state, battery: save.state.battery ?? 1 } }),
+  // 0.1.67: the scribble and riddle notes became one note on Rose's bed.
+  3: (save) => {
+    const journal = save.state.journal ?? {};
+    const gone = ['scribble_note', 'clock_riddle'];
+    const clean = {
+      ...journal,
+      documents: (journal.documents ?? []).filter((id) => !gone.includes(id)),
+      clues: (journal.clues ?? []).filter((id) => !gone.some((doc) => id === `read_${doc}`)),
+      held: gone.includes(journal.held) ? null : journal.held ?? null,
+    };
+    return { ...save, state: { ...save.state, journal: clean } };
+  },
 };
 
 const slotKey = (slot) => `save.${slot}`;

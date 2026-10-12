@@ -94,3 +94,8 @@ The office clock only tells the real time now (the owner read it as the 3:00 sec
 stays in 0.6). When the toys puzzle unbolts the west dorm, Tommy appears in the corridor by its
 door, whispers "She puts him behind the wall when he cries. Rose knows." and leads the player in;
 the scribble note (map "?") and the riddle lie on Rose's bed.
+
+## Rose's note (owner decision 2026-10-12: "b")
+The scribble note, the riddle and the map's "?" stage are gone. One note on Rose's bed (shown
+once the toys are home; Tommy leads to it) links the music box to the playroom slate. The map
+leaves the quiet room blank until it is entered. Peter's letter became a page from his diary (owner: it is an orphanage).

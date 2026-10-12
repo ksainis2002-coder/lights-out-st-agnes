@@ -6,7 +6,7 @@ import { LEVELS } from './index.js';
 // True when a map the player carries leaves this room out.
 function hiddenOnMap(game, room) {
   const level = LEVELS[game.world.level.id];
-  return (level.maps ?? []).some((map) => map.hidden?.[room] && game.journal.maps().includes(map.id));
+  return (level.maps ?? []).some((map) => map.hidden?.includes(room) && game.journal.maps().includes(map.id));
 }
 
 export function setupVisits(game) {
