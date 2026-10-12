@@ -1,7 +1,7 @@
 // Low-poly props built in code. Each builder returns a Group with its origin
 // on the floor at the prop's centre, facing +z (its "front").
 import * as THREE from 'three';
-import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture, chalkSongTexture, paperTexture, keySymbolTexture, TUNE_SYMBOLS } from './parts.js';
+import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture, chalkSongTexture, paperTexture, smudgeFaceTexture, keySymbolTexture, TUNE_SYMBOLS } from './parts.js';
 import { HALL_PROPS } from './hall.js';
 
 function group(...children) {
@@ -89,6 +89,23 @@ function ghostChild(t, { opacity = 0.55 } = {}) {
   head.position.y = 1.08;
   const arms = [-0.17, 0.17].map((x) => box(t.sheet, [0.05, 0.42, 0.05], [x, 0.5, 0], ghost));
   return group(gown, head, ...arms);
+}
+
+// The same child lunging at the camera (sanity collapse with a presence
+// near): smudged face, arms reaching forward.
+function ghostLunge(t, { opacity = 0.85 } = {}) {
+  const ghost = { unlit: true, color: 0xd8e4ec, transparent: true, opacity, depthWrite: false, fog: false };
+  const gown = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.26, 0.95, 7), materialFor(t.sheet, ghost));
+  gown.position.y = 0.48;
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 6), materialFor(t.sheet, ghost));
+  head.position.y = 1.1;
+  const face = plane(smudgeFaceTexture(), [0.2, 0.2], [0, 1.1, 0.11], { ...ghost, opacity: Math.min(1, opacity + 0.1) });
+  const arms = [-0.15, 0.15].map((x) => {
+    const arm = box(t.sheet, [0.05, 0.45, 0.05], [x, 0.85, 0.05], ghost);
+    arm.rotation.x = -1.3; // reaching out
+    return arm;
+  });
+  return group(gown, head, face, ...arms);
 }
 
 // Wooden chair; toppled lies on its back.
@@ -279,6 +296,6 @@ export const PROPS = {
   chair,
   papers,
   blocks,
-  sheetPile, bed, table, tapeRecorder, toyHorse, cubbies, drawing, windowFrame, fluorescent, ghostChild,
+  sheetPile, bed, table, tapeRecorder, toyHorse, cubbies, drawing, windowFrame, fluorescent, ghostChild, ghostLunge,
   ...HALL_PROPS,
 };

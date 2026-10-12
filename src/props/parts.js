@@ -237,3 +237,28 @@ export function paperTexture() {
   });
   return paperCache;
 }
+
+// A ghost child's face at arm's length: no features, only grey smudged
+// hollows where eyes and a mouth should be (the brief: faceless children).
+let smudgeFace = null;
+export function smudgeFaceTexture() {
+  smudgeFace ??= canvasTexture(32, 32, (g, w, h) => {
+    g.clearRect(0, 0, w, h);
+    g.fillStyle = '#d8e4ec';
+    g.beginPath();
+    g.ellipse(16, 16, 14, 15, 0, 0, Math.PI * 2);
+    g.fill();
+    const smear = (x, y, rx, ry, angle, alpha) => {
+      g.fillStyle = `rgba(36,42,50,${alpha})`;
+      g.beginPath();
+      g.ellipse(x, y, rx, ry, angle, 0, Math.PI * 2);
+      g.fill();
+    };
+    smear(16, 15, 11, 9, 0, 0.12); // a grey shadow where a face should be
+    smear(10.5, 13, 3.5, 2.2, 0.25, 0.5);
+    smear(21.5, 12.5, 3.2, 2.4, -0.3, 0.45);
+    smear(16, 22, 2.2, 4.5, 0.1, 0.4);
+    smear(15, 25, 1.5, 3, -0.2, 0.25); // dragged down, as if wiped
+  });
+  return smudgeFace;
+}

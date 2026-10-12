@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.1.60 — Mockup still collapse_scare (for owner approval): when sanity hits zero with a presence near, a ghost child with a smudged, featureless face lunges into view before the faint and rewind. Not in the game yet.
 - 0.1.59 — Owner request: "Crouch toggle" in Setup → Controls (press once to crouch, again to stand), because Ctrl+W closes browser tabs. Settings format 2: older settings get it off. Fake children that find no open spot look again after a second instead of waiting 10–25 s (fixes a flaky test).
 - 0.1.58 — Owner pick (a): the quiet-room notes no longer come from the office clock (it read as the 3:00 secret room). When the toys unbolt the west dorm, Tommy appears by its door, whispers "She puts him behind the wall when he cries. Rose knows." and leads the player in; the scribble note and the riddle lie on Rose's bed. The clock now only tells the real time. Bot route updated.
 - 0.1.57 — Owner playtest: batteries on the floor are proper torch batteries (bigger, with a dim brass glint so they can be spotted in the dark); "Taken:" messages show the item's icon; the first item you pick up explains that TAB shows what you carry. The first-draft ink blot is back (owner liked it). Owner decision: the 3:00 secret room stays in 0.6. Next-session plan written in HANDOFF.

@@ -22,9 +22,9 @@ function subtitle(ctx, text, { whisper = true } = {}) {
   lines.forEach((line, i) => osdText(ctx, line, W / 2, top + i * 13, 10, whisper ? '#c9d2e0' : COLORS.text, 'center'));
 }
 
-function addGhost(world, [x, z], { opacity, rotation = 0 } = {}) {
+function addGhost(world, [x, z], { opacity, rotation = 0, y = 0 } = {}) {
   const ghost = PROPS.ghostChild(world.textures, { opacity });
-  ghost.position.set(x, 0, z);
+  ghost.position.set(x, y, z);
   ghost.rotation.y = rotation;
   world.scene.add(ghost);
 }
@@ -83,6 +83,18 @@ const STILLS = {
       addGhost(world, [6.2, 3.8], { opacity: 0.4 });
       aim(world.camera, [5.8, 1.55, 11.8], -6, -3, 6);
       Object.assign(fx, { aberration: 2, blur: 0.5, vignette: 0.6 });
+    },
+  },
+  // Proposal: collapse with a presence near. The child lunges into the face
+  // (0.4 s, stinger), then the usual faint and rewind.
+  collapse_scare: {
+    level: dorms,
+    setup({ world, fx }) {
+      const lunge = PROPS.ghostLunge(world.textures);
+      lunge.position.set(5.8, 0.5, 11.42);
+      world.scene.add(lunge);
+      aim(world.camera, [5.8, 1.6, 11.8], 0, -2, -5);
+      Object.assign(fx, { aberration: 3, blur: 0.4, vignette: 0.7, eyelid: 0.15 });
     },
   },
   // Sanity collapse: the tape rewinds to the last checkpoint.
