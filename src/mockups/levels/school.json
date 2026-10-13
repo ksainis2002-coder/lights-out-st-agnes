@@ -1,0 +1,369 @@
+{
+  "id": "school_mockup",
+  "wing": "school",
+  "cellSize": 1.2,
+  "wallHeight": 3.2,
+  "floorTexture": "floor",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "schoolWall",
+    "2": "door"
+  },
+  "map": [
+    "1111111111111111",
+    "1000000001111111",
+    "1000000001111111",
+    "1000000001111111",
+    "1000000001111111",
+    "1000000001111111",
+    "1000000001111111",
+    "1000000001111111",
+    "1111211112111121",
+    "1000000000000001",
+    "1000000000000001",
+    "1111111111111111"
+  ],
+  "spawn": {
+    "cell": [
+      7.5,
+      6.5
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "classroom",
+      "cells": [
+        1,
+        1,
+        8,
+        7
+      ],
+      "floor": "parquet"
+    },
+    {
+      "id": "corridor",
+      "cells": [
+        1,
+        9,
+        14,
+        10
+      ]
+    }
+  ],
+  "props": [
+    {
+      "type": "blackboard",
+      "at": [
+        4.6,
+        1.0
+      ],
+      "options": {
+        "lines": [
+          "I must not talk after lights out.",
+          "I must not talk after lights out.",
+          "I must not talk after lights out.",
+          "I must not tell.",
+          "I must not tell.  I must not tell."
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "at": [
+        6.6,
+        2.2
+      ],
+      "rotation": 10
+    },
+    {
+      "type": "chair",
+      "at": [
+        6.9,
+        1.6
+      ],
+      "rotation": 160
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        2.4,
+        3.2
+      ],
+      "rotation": 0,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        4.4,
+        3.2
+      ],
+      "rotation": 4,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        6.4,
+        3.2
+      ],
+      "rotation": -3,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        2.4,
+        4.3
+      ],
+      "rotation": 2,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        4.4,
+        4.3
+      ],
+      "rotation": 0,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        6.4,
+        4.3
+      ],
+      "rotation": -6,
+      "options": {
+        "lidOpen": true
+      }
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        2.4,
+        5.4
+      ],
+      "rotation": 3,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        4.4,
+        5.4
+      ],
+      "rotation": 0,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        6.4,
+        5.4
+      ],
+      "rotation": 8,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        2.4,
+        6.5
+      ],
+      "rotation": -2,
+      "options": {
+        "lidOpen": true
+      }
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        4.4,
+        6.5
+      ],
+      "rotation": 0,
+      "options": {}
+    },
+    {
+      "type": "schoolDesk",
+      "at": [
+        6.4,
+        6.5
+      ],
+      "rotation": 5,
+      "options": {}
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        1,
+        2.4
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        1,
+        5.4
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "papers",
+      "at": [
+        5.2,
+        5.0
+      ],
+      "options": {
+        "count": 4
+      }
+    },
+    {
+      "type": "chair",
+      "at": [
+        3.3,
+        6.9
+      ],
+      "rotation": 70,
+      "options": {
+        "toppled": true
+      }
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        2.5,
+        11
+      ],
+      "rotation": 180
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        5.5,
+        11
+      ],
+      "rotation": 180
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        8.5,
+        11
+      ],
+      "rotation": 180
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        11.5,
+        11
+      ],
+      "rotation": 180
+    },
+    {
+      "type": "statue",
+      "at": [
+        5.6,
+        10.0
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "bench",
+      "at": [
+        8.0,
+        10.75
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "drawing",
+      "at": [
+        9,
+        5.2
+      ],
+      "rotation": -90,
+      "options": {
+        "kind": "children"
+      }
+    },
+    {
+      "type": "drawing",
+      "at": [
+        9,
+        6.1
+      ],
+      "rotation": -90,
+      "options": {
+        "kind": "sun"
+      }
+    },
+    {
+      "type": "papers",
+      "at": [
+        6.6,
+        2.2
+      ],
+      "y": 0.74,
+      "options": {
+        "count": 3
+      }
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        1.6,
+        2.5
+      ],
+      "height": 2.0,
+      "color": "#5a6c9c",
+      "intensity": 4,
+      "distance": 9
+    },
+    {
+      "type": "point",
+      "at": [
+        1.6,
+        5.5
+      ],
+      "height": 2.0,
+      "color": "#5a6c9c",
+      "intensity": 4,
+      "distance": 9
+    },
+    {
+      "type": "point",
+      "at": [
+        9.0,
+        10.6
+      ],
+      "height": 2.0,
+      "color": "#5a6c9c",
+      "intensity": 3,
+      "distance": 8
+    },
+    {
+      "type": "point",
+      "at": [
+        3.0,
+        10.6
+      ],
+      "height": 2.0,
+      "color": "#5a6c9c",
+      "intensity": 3,
+      "distance": 8
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 1.4
+  }
+}

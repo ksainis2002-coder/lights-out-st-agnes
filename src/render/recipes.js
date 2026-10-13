@@ -94,3 +94,62 @@ export function recorder(x, y, random) {
   if (y < 12) return [150 + n, 150 + n, 146 + n];
   return [62 + n, 46 + n, 34 + n];
 }
+
+// School classroom (0.3): institutional green paint below a dark rail, cream above.
+export function schoolWall(x, y, random) {
+  const n = random() * 12;
+  if (y === 19) return [40, 46, 36];
+  if (y > 19) return [62 + n, 92 + n, 70 + n];
+  const scuff = (x * 5 + y * 7) % 29 < 2 ? -20 : 0;
+  return [176 + n + scuff, 168 + n + scuff, 138 + n + scuff];
+}
+
+// School parquet: small herringbone blocks.
+export function parquet(x, y, random) {
+  const n = random() * 14;
+  const block = ((x >> 2) + (y >> 3)) % 2 === 0 ? (x + y) % 8 : (x - y + 64) % 8;
+  if (block === 0) return [40, 28, 18];
+  return [118 + n, 82 + n, 50 + n * 0.6];
+}
+
+// Outdoors (0.3): rain-dark grass, gravel path, wet brick facade.
+export function grass(x, y, random) {
+  const n = random() * 22;
+  const blade = (x * 3 + y * 5) % 7 === 0 ? 14 : 0;
+  return [34 + n * 0.4, 52 + n + blade, 30 + n * 0.4];
+}
+
+export function gravel(x, y, random) {
+  const n = random() * 40;
+  return [86 + n, 82 + n, 76 + n];
+}
+
+export function brick(x, y, random) {
+  const n = random() * 14;
+  const row = y >> 2;
+  const offset = row % 2 ? 4 : 0;
+  if (y % 4 === 0 || (x + offset) % 8 === 0) return [58, 54, 50];
+  return [104 + n, 54 + n * 0.5, 42 + n * 0.4];
+}
+
+// Weathered grave stone.
+export function stone(x, y, random) {
+  const n = random() * 24;
+  const moss = (x * 7 + y * 3) % 17 < 2 ? [-20, 6, -20] : [0, 0, 0];
+  return [118 + n + moss[0], 118 + n + moss[1], 112 + n + moss[2]];
+}
+
+// Overgrown hedge / tree line at the edge of the grounds (outdoors, far away in fog).
+export function hedge(x, y, random) {
+  const n = random() * 26;
+  const leaf = (x * 11 + y * 7) % 5 === 0 ? 12 : 0;
+  return [18 + n * 0.3, 30 + n + leaf, 22 + n * 0.4];
+}
+
+// Low cemetery wall: dark rough stone blocks with deep mortar.
+export function wallStone(x, y, random) {
+  const n = random() * 20;
+  const row = y >> 3;
+  if (y % 8 === 0 || (x + (row % 2) * 6) % 12 === 0) return [34, 34, 32];
+  return [70 + n, 70 + n, 64 + n];
+}

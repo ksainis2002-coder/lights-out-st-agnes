@@ -1,0 +1,508 @@
+{
+  "id": "courtyard_mockup",
+  "wing": "school",
+  "cellSize": 1.5,
+  "wallHeight": 9,
+  "wallRepeat": 6,
+  "wallHeights": {
+    "wallStone": 2.2
+  },
+  "floorTexture": "gravel",
+  "ceilingTexture": "none",
+  "legend": {
+    "0": "floor",
+    "1": "brick",
+    "4": "wallStone"
+  },
+  "map": [
+    "4444444444444444",
+    "4000000000000004",
+    "4000000000000004",
+    "4000000000000004",
+    "4000000000000004",
+    "4000000000000004",
+    "4000000000000004",
+    "4000000000000004",
+    "4000000000000004",
+    "4000000000000004",
+    "1000000000000001",
+    "1000000000000001",
+    "1000000000000001",
+    "1000000000000001",
+    "1000000000000001",
+    "1000000000000001",
+    "1000000000000001",
+    "1111111111111111"
+  ],
+  "spawn": {
+    "cell": [
+      4.5,
+      13.5
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "cemetery",
+      "cells": [
+        1,
+        1,
+        14,
+        9
+      ],
+      "floor": "grass"
+    },
+    {
+      "id": "courtyard",
+      "cells": [
+        1,
+        10,
+        14,
+        16
+      ],
+      "floor": "gravel"
+    }
+  ],
+  "props": [
+    {
+      "type": "deadTree",
+      "at": [
+        11.8,
+        5.2
+      ],
+      "options": {
+        "height": 5.5
+      }
+    },
+    {
+      "type": "deadTree",
+      "at": [
+        3.5,
+        -0.6
+      ],
+      "rotation": 70.0,
+      "options": {
+        "height": 7
+      }
+    },
+    {
+      "type": "deadTree",
+      "at": [
+        8.5,
+        -0.6
+      ],
+      "rotation": 170.0,
+      "options": {
+        "height": 8
+      }
+    },
+    {
+      "type": "deadTree",
+      "at": [
+        14.5,
+        -0.6
+      ],
+      "rotation": 290.0,
+      "options": {
+        "height": 6.5
+      }
+    },
+    {
+      "type": "facadeDoor",
+      "at": [
+        1,
+        11.6
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        1,
+        13.6
+      ],
+      "rotation": 90,
+      "options": {
+        "lit": true
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        1,
+        15.4
+      ],
+      "rotation": 90,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "rain",
+      "at": [
+        7.5,
+        10
+      ],
+      "options": {
+        "width": 18,
+        "depth": 16,
+        "height": 7,
+        "count": 260
+      }
+    },
+    {
+      "type": "ironFence",
+      "at": [
+        3.775,
+        10
+      ],
+      "options": {
+        "length": 8.02
+      }
+    },
+    {
+      "type": "ironFence",
+      "at": [
+        11.325,
+        10
+      ],
+      "options": {
+        "length": 10.72
+      }
+    },
+    {
+      "type": "gatePillar",
+      "at": [
+        6.45,
+        10
+      ]
+    },
+    {
+      "type": "gatePillar",
+      "at": [
+        7.75,
+        10
+      ]
+    },
+    {
+      "type": "ironFence",
+      "at": [
+        7.25,
+        9.6
+      ],
+      "rotation": -65,
+      "options": {
+        "length": 1.4
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        5.3,
+        7.1
+      ],
+      "rotation": 168,
+      "options": {
+        "name": "MARGARET ROWE",
+        "years": "AGED 8",
+        "lean": 0.05
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        6.25,
+        7.35
+      ],
+      "rotation": 175,
+      "options": {
+        "name": "THOMAS HALE",
+        "years": "AGED 9",
+        "lean": -0.04
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        7.199999999999999,
+        7.6
+      ],
+      "rotation": 180,
+      "options": {
+        "name": "EDITH CARR",
+        "years": "AGED 7",
+        "lean": 0.1
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        8.149999999999999,
+        7.35
+      ],
+      "rotation": 186,
+      "options": {
+        "name": "SAMUEL PIKE",
+        "years": "AGED 10",
+        "lean": 0.02
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        9.1,
+        7.1
+      ],
+      "rotation": 192,
+      "options": {
+        "name": "AGNES",
+        "years": "",
+        "lean": 0.16
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        2.4,
+        4.0
+      ],
+      "rotation": -10,
+      "options": {
+        "lean": 0.1
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        12.8,
+        3.4
+      ],
+      "rotation": -3,
+      "options": {
+        "lean": 0.15000000000000002
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        13.2,
+        7.4
+      ],
+      "rotation": 4,
+      "options": {
+        "lean": 0.2
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        2.2,
+        7.6
+      ],
+      "rotation": 11,
+      "options": {
+        "lean": 0.1
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        5.0,
+        3.0
+      ],
+      "rotation": 18,
+      "options": {
+        "lean": 0.15000000000000002
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        9.8,
+        3.6
+      ],
+      "rotation": 25,
+      "options": {
+        "lean": 0.2
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        10.6,
+        6.4
+      ],
+      "rotation": 32,
+      "options": {
+        "lean": 0.1
+      }
+    },
+    {
+      "type": "gravestone",
+      "at": [
+        3.6,
+        5.8
+      ],
+      "rotation": 39,
+      "options": {
+        "lean": 0.15000000000000002
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        2.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 0,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        2.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 3.4,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        4.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 0,
+      "options": {
+        "lit": true
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        4.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 3.4,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        9.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 0,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        9.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 3.4,
+      "options": {
+        "lit": true
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        11.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 0,
+      "options": {
+        "lit": true
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        11.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 3.4,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        13.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 0,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "litWindow",
+      "at": [
+        13.5,
+        17
+      ],
+      "rotation": 180,
+      "y": 3.4,
+      "options": {
+        "lit": false
+      }
+    },
+    {
+      "type": "facadeDoor",
+      "at": [
+        7.1,
+        17
+      ],
+      "rotation": 180
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        1.5,
+        11.6
+      ],
+      "height": 2.7,
+      "color": "#d8a050",
+      "intensity": 4,
+      "distance": 8
+    },
+    {
+      "type": "point",
+      "at": [
+        7.1,
+        16.6
+      ],
+      "height": 2.7,
+      "color": "#d8a050",
+      "intensity": 4,
+      "distance": 8
+    }
+  ],
+  "ambient": {
+    "color": "#7080a0",
+    "intensity": 1.6
+  }
+}

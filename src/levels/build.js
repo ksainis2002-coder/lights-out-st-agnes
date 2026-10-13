@@ -1,5 +1,6 @@
 // Builds Three.js meshes for a parsed level: one merged mesh per material.
-// Floors and ceilings per open cell; a wall face wherever an open cell
+// Floors and ceilings per open cell (a room with "ceiling": "none" is open
+// to the sky); a wall face wherever an open cell
 // touches a solid one. Faces are split into a small grid so the affine
 // warp stays PS1-like instead of tearing whole faces.
 import * as THREE from 'three';
@@ -27,14 +28,15 @@ function addQuad(bucket, corners, normal, uvs) {
 }
 
 // Adds a face spanned by origin + u*edgeU + v*edgeV, split SPLIT×SPLIT.
-// Texture coordinates run 0..1 across the whole face.
-function addFace(bucket, origin, edgeU, edgeV, normal) {
+// Texture coordinates run 0..1 across the face (0..vRepeat upwards on walls).
+function addFace(bucket, origin, edgeU, edgeV, normal, vRepeat = 1) {
   const point = (u, v) => origin.map((o, i) => o + edgeU[i] * u + edgeV[i] * v);
   for (let j = 0; j < SPLIT; j++) {
     for (let i = 0; i < SPLIT; i++) {
       const u0 = i / SPLIT, u1 = (i + 1) / SPLIT, v0 = j / SPLIT, v1 = (j + 1) / SPLIT;
       const corners = [point(u0, v0), point(u1, v0), point(u1, v1), point(u0, v1)];
-      addQuad(bucket, corners, normal, [[u0, v0], [u1, v0], [u1, v1], [u0, v1]]);
+      const t0 = v0 * vRepeat, t1 = v1 * vRepeat;
+      addQuad(bucket, corners, normal, [[u0, t0], [u1, t0], [u1, t1], [u0, t1]]);
     }
   }
 }
@@ -44,7 +46,9 @@ function addFloorAndCeiling(bucketFor, level, col, row) {
   const h = level.wallHeight;
   const x0 = col * s, z0 = row * s;
   addFace(bucketFor(level.textures.floor(col, row)), [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
-  addFace(bucketFor(level.textures.ceiling(col, row)), [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
+  const ceiling = level.textures.ceiling(col, row);
+  if (ceiling === 'none') return; // outdoors: open to the night sky
+  addFace(bucketFor(ceiling), [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
 }
 
 // Wall face on the edge between open cell (col,row) and its solid neighbour.
@@ -55,7 +59,8 @@ function addWall(bucket, level, col, row, side) {
   const ez = (row + 0.5) * s - nz * s * 0.5;
   const tx = nz, tz = -nx; // tangent: u runs left to right when facing the wall
   const origin = [ex - tx * s * 0.5, 0, ez - tz * s * 0.5];
-  addFace(bucket, origin, [tx * s, 0, tz * s], [0, level.wallHeight, 0], side.normal);
+  const height = level.wallHeightAt(col + side.dc, row + side.dr);
+  addFace(bucket, origin, [tx * s, 0, tz * s], [0, height, 0], side.normal, (level.wallRepeat * height) / level.wallHeight);
 }
 
 function toMesh(bucket, texture) {

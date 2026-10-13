@@ -32,7 +32,7 @@ export function plane(texture, [w, h], [x, y, z] = [0, 0, 0], options) {
   return mesh;
 }
 
-function canvasTexture(width, height, draw) {
+export function canvasTexture(width, height, draw) {
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;

@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { box, plane, decal, materialFor, namePlateTexture, numberTexture, drawingTexture, ownerDrawingTexture, chalkSongTexture, paperTexture, smudgeFaceTexture, keySymbolTexture, TUNE_SYMBOLS } from './parts.js';
 import { HALL_PROPS } from './hall.js';
+import { SCHOOL_PROPS } from './school.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -301,4 +302,5 @@ export const PROPS = {
   blocks,
   sheetPile, bed, table, tapeRecorder, toyHorse, cubbies, drawing, windowFrame, fluorescent, ghostChild, ghostLunge,
   ...HALL_PROPS,
+  ...SCHOOL_PROPS,
 };

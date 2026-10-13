@@ -56,6 +56,9 @@ export function parseLevel(data) {
     wing: data.wing,
     cellSize,
     wallHeight,
+    wallRepeat: data.wallRepeat ?? 1, // tall outdoor facades tile their texture upwards
+    // Outdoors, some wall kinds are lower (a cemetery wall): "wallHeights": { "stone": 2.2 }
+    wallHeightAt: (col, row) => data.wallHeights?.[kindAt(col, row)] ?? wallHeight,
     rows,
     cols,
     kindAt,

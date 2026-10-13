@@ -101,3 +101,9 @@ room is only the lullaby puzzle's reward room). The first-draft ink blot (spilli
 **0.2.0 ready (2026-10-12):** pull request from `claude/hopeful-keller-xpdeeg` to `main`. Owner merges it,
 then publishes release `v0.2.0` in GitHub Releases (target `main`), which deploys Pages. Next: the 0.3
 CC0 sound list (`docs/SOUNDS_0.3.md`) and the 0.3 mockup stills (school wing).
+
+**0.3 started (2026-10-13):** mockup stills in `docs/mockups/stills-0.3/` (classroom, blackboard,
+watcher, watcher_close, maggie, courtyard, cemetery), shot with `node tools/shoot-stills.mjs`. Mockup
+levels live in `src/mockups/levels/` (not loaded by the game or the level tests). Next: owner approves
+the looks and picks the 0.3 choices, then the school wing is built level by level.
+
