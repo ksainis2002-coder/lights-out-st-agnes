@@ -107,3 +107,9 @@ watcher, watcher_close, maggie, courtyard, cemetery), shot with `node tools/shoo
 levels live in `src/mockups/levels/` (not loaded by the game or the level tests). Next: owner approves
 the looks and picks the 0.3 choices, then the school wing is built level by level.
 
+**0.3 plan proposed (2026-10-13):** owner approved the first seven 0.3 stills and picked (c) Tommy's grave
+worn unreadable and (a) the watcher's catch: a short grab, then the rewind. The wing plan, the watcher's
+rules, the four puzzles and the build order are in `docs/DESIGN_0.3.md` with the plan
+`docs/mockups/stills-0.3/wing_map.png` and five more stills (watcher_grab, storm, ui_codeLock, library,
+gym), all waiting for the owner. Build nothing of 0.3 until they are approved.
+

@@ -1,0 +1,288 @@
+{
+  "id": "library_mockup",
+  "wing": "school",
+  "cellSize": 1.2,
+  "wallHeight": 3.6,
+  "floorTexture": "parquet",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "schoolWall",
+    "2": "door"
+  },
+  "map": [
+    "111111111111",
+    "100000000001",
+    "100000000001",
+    "100000000001",
+    "100000000001",
+    "100000000001",
+    "100000000001",
+    "100000000001",
+    "100000000001",
+    "100000000001",
+    "111112111111"
+  ],
+  "spawn": {
+    "cell": [
+      5.5,
+      8.5
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "library",
+      "cells": [
+        1,
+        1,
+        10,
+        9
+      ]
+    }
+  ],
+  "props": [
+    {
+      "type": "bookshelf",
+      "at": [
+        1.16,
+        2.0
+      ],
+      "rotation": 90,
+      "options": {
+        "mark": "000\u2013099",
+        "seed": 1
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        1.16,
+        3.67
+      ],
+      "rotation": 90,
+      "options": {
+        "mark": "100\u2013199",
+        "seed": 2
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        3.68,
+        2.0
+      ],
+      "rotation": -90,
+      "options": {
+        "mark": "200\u2013299",
+        "seed": 3
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        4.0,
+        2.0
+      ],
+      "rotation": 90,
+      "options": {
+        "mark": "300\u2013389",
+        "seed": 4
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        3.68,
+        3.67
+      ],
+      "rotation": -90,
+      "options": {
+        "mark": "390\u2013399",
+        "seed": 5
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        4.0,
+        3.67
+      ],
+      "rotation": 90,
+      "options": {
+        "mark": "400\u2013499",
+        "seed": 6
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        6.68,
+        2.0
+      ],
+      "rotation": -90,
+      "options": {
+        "mark": "500\u2013599",
+        "seed": 7
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        7.0,
+        2.0
+      ],
+      "rotation": 90,
+      "options": {
+        "mark": "600\u2013699",
+        "seed": 8
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        6.68,
+        3.67
+      ],
+      "rotation": -90,
+      "options": {
+        "mark": "700\u2013799",
+        "seed": 9
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        7.0,
+        3.67
+      ],
+      "rotation": 90,
+      "options": {
+        "mark": "800\u2013899",
+        "seed": 10
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        10.84,
+        2.0
+      ],
+      "rotation": -90,
+      "options": {
+        "mark": "900\u2013999",
+        "seed": 11
+      }
+    },
+    {
+      "type": "bookshelf",
+      "at": [
+        10.84,
+        3.67
+      ],
+      "rotation": -90,
+      "options": {
+        "mark": "R",
+        "seed": 12
+      }
+    },
+    {
+      "type": "indexCabinet",
+      "at": [
+        3.5,
+        5.2
+      ],
+      "rotation": 30
+    },
+    {
+      "type": "longTable",
+      "at": [
+        8.2,
+        7.2
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "chair",
+      "at": [
+        7.6,
+        6.4
+      ],
+      "rotation": 80
+    },
+    {
+      "type": "chair",
+      "at": [
+        8.9,
+        7.9
+      ],
+      "rotation": -100,
+      "options": {
+        "toppled": true
+      }
+    },
+    {
+      "type": "papers",
+      "at": [
+        8.2,
+        7.0
+      ],
+      "y": 0.75,
+      "options": {
+        "count": 3
+      }
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        1,
+        6.5
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        1,
+        8.5
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "statue",
+      "at": [
+        5.35,
+        1.5
+      ],
+      "rotation": 0
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        1.6,
+        7.0
+      ],
+      "height": 2.2,
+      "color": "#5a6c9c",
+      "intensity": 3,
+      "distance": 8
+    },
+    {
+      "type": "point",
+      "at": [
+        5.0,
+        1.4
+      ],
+      "height": 2.6,
+      "color": "#5a6c9c",
+      "intensity": 2.5,
+      "distance": 7
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 1.1
+  }
+}

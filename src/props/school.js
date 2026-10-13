@@ -1,7 +1,7 @@
-// Props for the school wing and the courtyard/cemetery (0.3).
-// Same conventions as catalog.js: origin on the floor, front facing +z.
+// Props for the school wing (0.3): classroom furniture, the watcher statue
+// and Maggie. Same conventions as catalog.js: origin on the floor, front facing +z.
 import * as THREE from 'three';
-import { box, decal, plane, materialFor, canvasTexture } from './parts.js';
+import { box, decal, materialFor, canvasTexture } from './parts.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -115,65 +115,6 @@ function statueFaceTexture() {
   });
 }
 
-// Grave stone with a rounded top; the name is a carved decal texture.
-const GRAVE = { color: '#8c8a82' };
-function gravestone(t, { lean = 0.05, name = '', years = '' } = {}) {
-  const top = mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.1, 10, 1, false, 0, Math.PI), t.stone, GRAVE);
-  top.rotation.set(Math.PI / 2, 0, Math.PI / 2, 'ZYX'); // half disc standing up, thickness along z
-  top.position.y = 0.7;
-  const parts = [box(t.stone, [0.5, 0.7, 0.1], [0, 0, 0], GRAVE), top];
-  if (name) parts.push(decal(carvedTexture(name, years), [0.4, 0.3], [0, 0.5, 0.052], { transparent: true }));
-  const stone = group(...parts);
-  stone.rotation.x = lean;
-  return group(stone, box(t.grass, [0.6, 0.06, 1.1], [0, 0, 0.55], { color: '#5a4a3a' }));
-}
-
-function carvedTexture(name, years) {
-  return canvasTexture(64, 48, (g, w) => {
-    g.clearRect(0, 0, 64, 48);
-    g.fillStyle = 'rgba(40,40,36,0.9)';
-    g.textAlign = 'center';
-    g.font = 'bold 10px serif';
-    g.fillText(name, w / 2, 20);
-    g.font = '8px serif';
-    g.fillText(years, w / 2, 34);
-  });
-}
-
-// Iron railing along +x: bars every 0.15 m with spear tips, two rails.
-function ironFence(t, { length = 3 } = {}) {
-  const parts = [box(t.iron, [length, 0.04, 0.04], [0, 0.12, 0]), box(t.iron, [length, 0.04, 0.04], [0, 1.1, 0])];
-  for (let x = -length / 2; x <= length / 2 + 1e-6; x += 0.15) {
-    parts.push(box(t.iron, [0.025, 1.3, 0.025], [x, 0, 0]));
-    const tip = mesh(new THREE.ConeGeometry(0.03, 0.1, 4), t.iron);
-    tip.position.set(x, 1.35, 0);
-    parts.push(tip);
-  }
-  return group(...parts);
-}
-
-// Bare dead tree: trunk and crooked branches.
-function deadTree(t, { height = 4.5 } = {}) {
-  const bark = { color: '#3a3028' };
-  const trunk = mesh(new THREE.CylinderGeometry(0.1, 0.2, height * 0.65, 6), t.wood, bark);
-  trunk.position.y = height * 0.325;
-  const branch = ([x, y, z], length, tiltZ, tiltX = 0) => {
-    const b = mesh(new THREE.CylinderGeometry(0.02, 0.06, length, 5), t.wood, bark);
-    b.geometry.translate(0, length / 2, 0);
-    b.position.set(x, y, z);
-    b.rotation.set(tiltX, 0, tiltZ);
-    return b;
-  };
-  return group(
-    trunk,
-    branch([0, height * 0.5, 0], 1.6, -0.9),
-    branch([0, height * 0.58, 0], 1.4, 1.0, 0.3),
-    branch([0, height * 0.64, 0], 1.2, 0.2, -0.8),
-    branch([0.5, height * 0.62, 0], 0.7, -0.4),
-    branch([-0.6, height * 0.7, 0.1], 0.6, 0.6),
-  );
-}
-
 // Maggie: a ghost girl mid-skip, plaits, the rope a pale arc over her head.
 function ghostGirl(t, { opacity = 0.6 } = {}) {
   const ghost = { unlit: true, color: 0xd8e4ec, transparent: true, opacity, depthWrite: false, fog: false };
@@ -195,47 +136,4 @@ function ghostGirl(t, { opacity = 0.6 } = {}) {
   return group(girl);
 }
 
-// Lit window seen from outside (decal on a facade).
-function litWindow(t, { lit = true } = {}) {
-  const glow = lit ? { unlit: true, color: '#9a7438', fog: false } : { color: '#1a1e22' };
-  return group(
-    box(t.paintedWood, [1.0, 1.5, 0.04], [0, 1.0, 0], { color: '#3a3230' }),
-    plane(lit ? t.sheet : t.windowPane, [0.84, 1.34], [0, 1.75, 0.03], { ...glow, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 }),
-  );
-}
-
-// Square stone gate pillar with a cap.
-function gatePillar(t) {
-  return group(
-    box(t.wallStone, [0.42, 1.9, 0.42], [0, 0, 0]),
-    box(t.wallStone, [0.52, 0.12, 0.52], [0, 1.9, 0]),
-    box(t.stone, [0.2, 0.18, 0.2], [0, 2.02, 0], { color: '#7a7870' }),
-  );
-}
-
-// Outside door into the school, with a lantern over it.
-function facadeDoor(t) {
-  return group(
-    box(t.stone, [1.5, 2.7, 0.06], [0, 0, 0], { color: '#6a6a64' }),
-    box(t.door, [1.1, 2.3, 0.06], [0, 0, 0.03]),
-    box(t.iron, [0.16, 0.24, 0.16], [0, 2.85, 0.14]),
-    box(t.sheet, [0.1, 0.16, 0.1], [0, 2.89, 0.14], { unlit: true, color: '#f0c070' }),
-  );
-}
-
-// Rain: thin pale streaks filling a box (width × depth), animated later.
-function rain(t, { width = 10, depth = 10, height = 6, count = 500 } = {}) {
-  const positions = [];
-  let seed = 7;
-  const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  for (let i = 0; i < count; i++) {
-    const x = (random() - 0.5) * width, z = (random() - 0.5) * depth, y = random() * height;
-    positions.push(x, y, z, x + 0.02, y - 0.3, z);
-  }
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  const material = new THREE.LineBasicMaterial({ color: 0x9aa8b8, transparent: true, opacity: 0.22, fog: true });
-  return group(new THREE.LineSegments(geometry, material));
-}
-
-export const SCHOOL_PROPS = { schoolDesk, blackboard, statue, gravestone, ironFence, deadTree, ghostGirl, litWindow, facadeDoor, gatePillar, rain };
+export const SCHOOL_PROPS = { schoolDesk, blackboard, statue, ghostGirl };

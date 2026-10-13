@@ -218,7 +218,8 @@
       "options": {
         "name": "THOMAS HALE",
         "years": "AGED 9",
-        "lean": -0.04
+        "lean": -0.04,
+        "worn": true
       }
     },
     {
