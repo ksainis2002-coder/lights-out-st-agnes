@@ -984,6 +984,295 @@
     13.0
    ],
    "rotation": 0
+  },
+  {
+   "type": "sink",
+   "at": [
+    10.0,
+    13.75
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "sink",
+   "at": [
+    10.0,
+    14.65
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "sink",
+   "at": [
+    10.0,
+    15.55
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "mirror",
+   "at": [
+    10.0,
+    13.75
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "mirror",
+   "at": [
+    10.0,
+    14.65
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "mirror",
+   "at": [
+    10.0,
+    15.55
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "duckboard",
+   "at": [
+    9.55,
+    14.65
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 3.0
+   }
+  },
+  {
+   "type": "bathtub",
+   "at": [
+    5.31,
+    14.92
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "toiletStalls",
+   "at": [
+    6.04,
+    18.0
+   ],
+   "rotation": 180,
+   "options": {
+    "count": 3
+   }
+  },
+  {
+   "type": "floorDrain",
+   "at": [
+    8.4,
+    16.6
+   ]
+  },
+  {
+   "type": "towelRail",
+   "at": [
+    5.85,
+    13.0
+   ],
+   "options": {
+    "count": 3
+   }
+  },
+  {
+   "type": "towelRail",
+   "at": [
+    9.08,
+    13.0
+   ],
+   "options": {
+    "count": 3
+   }
+  },
+  {
+   "type": "bucketMop",
+   "at": [
+    9.69,
+    17.69
+   ],
+   "rotation": 30
+  },
+  {
+   "type": "hangingBulb",
+   "at": [
+    7.5,
+    15.5
+   ],
+   "options": {
+    "ceiling": 2.8
+   }
+  },
+  {
+   "type": "linenShelves",
+   "at": [
+    11.0,
+    14.5
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 2.2,
+    "seed": 2
+   }
+  },
+  {
+   "type": "linenShelves",
+   "at": [
+    14.0,
+    14.5
+   ],
+   "rotation": -90,
+   "options": {
+    "length": 2.2,
+    "seed": 5
+   }
+  },
+  {
+   "type": "mangle",
+   "at": [
+    11.62,
+    15.65
+   ],
+   "rotation": 0
+  },
+  {
+   "type": "laundryBasket",
+   "at": [
+    13.42,
+    15.65
+   ],
+   "rotation": -8
+  },
+  {
+   "type": "ironingBoard",
+   "at": [
+    13.54,
+    13.0
+   ]
+  },
+  {
+   "type": "hangingBulb",
+   "at": [
+    12.5,
+    14.5
+   ],
+   "options": {
+    "ceiling": 2.8
+   }
+  },
+  {
+   "type": "wallScratches",
+   "at": [
+    28.0,
+    4.75
+   ],
+   "rotation": 90,
+   "options": {
+    "seed": 3
+   }
+  },
+  {
+   "type": "wallScratches",
+   "at": [
+    28.0,
+    6.3
+   ],
+   "rotation": 90,
+   "options": {
+    "seed": 7
+   }
+  },
+  {
+   "type": "handprints",
+   "at": [
+    28.0,
+    6.75
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "tallyMarks",
+   "at": [
+    29.6,
+    8.0
+   ],
+   "rotation": 180,
+   "options": {
+    "count": 38
+   }
+  },
+  {
+   "type": "tallyMarks",
+   "at": [
+    32.0,
+    6.6
+   ],
+   "rotation": -90,
+   "options": {
+    "count": 12
+   }
+  },
+  {
+   "type": "peeledPaper",
+   "at": [
+    32.0,
+    5.4
+   ],
+   "rotation": -90,
+   "options": {
+    "seed": 5
+   }
+  },
+  {
+   "type": "peeledPaper",
+   "at": [
+    28.6,
+    3.0
+   ],
+   "options": {
+    "seed": 8
+   }
+  },
+  {
+   "type": "scratchedDrawing",
+   "at": [
+    30.7,
+    3.0
+   ],
+   "options": {
+    "kind": "door"
+   }
+  },
+  {
+   "type": "scratchedDrawing",
+   "at": [
+    32.0,
+    4.3
+   ],
+   "rotation": -90,
+   "options": {
+    "kind": "figure"
+   }
+  },
+  {
+   "type": "wornPatch",
+   "at": [
+    31.35,
+    3.65
+   ]
+  },
+  {
+   "type": "tinPlate",
+   "at": [
+    28.3,
+    6.45
+   ],
+   "rotation": 20
   }
  ],
  "lights": [

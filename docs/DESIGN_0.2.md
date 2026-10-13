@@ -105,3 +105,16 @@ A pulse in the lower left (approved still ui_sanityPulse), always on while playi
 trace, four pips and the state in words (calm / uneasy / shaking / falling apart). The camcorder's
 own display takes over when it is found (0.4). A "your mind" card (ui_sanityCard) explains sanity the
 first time it drops below 85, and once more after the first blackout. The journal line stays.
+
+## Room dressing (owner requests 2026-10-13)
+The washroom and linen cupboard were empty rooms holding only their items. The washroom now has
+three sinks with cracked mirrors, a duckboard, a bath, three toilet cubicles (the whisper scare
+comes from them), towel rails by the door, a bucket and mop, and a drain under the office key.
+The linen cupboard has slatted shelves of folded linen on both walls, a mangle, a laundry basket
+and an ironing board. The quiet room gets no furniture, only what a child shut in there left:
+fingernail scratches either side of the door, small grimy handprints, 38 days counted on the wall
+(12 more on another), wallpaper picked off, charcoal drawings (a door with the sun outside, a
+veiled figure scribbled out), a worn patch where he sat, and a tin plate and cup by the door.
+Aftermath only, no blood (scare rules). Stills room_washroom, room_washroom_sinks, room_linen,
+room_quiet and room_quiet_tally in `docs/mockups/stills-0.2/`.
+

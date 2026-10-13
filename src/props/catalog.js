@@ -6,6 +6,8 @@ import { HALL_PROPS } from './hall.js';
 import { SCHOOL_PROPS } from './school.js';
 import { OUTDOOR_PROPS } from './outdoors.js';
 import { SCHOOL_ROOM_PROPS } from './schoolRooms.js';
+import { UTILITY_PROPS } from './utility.js';
+import { MARK_PROPS } from './marks.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -307,4 +309,6 @@ export const PROPS = {
   ...SCHOOL_PROPS,
   ...OUTDOOR_PROPS,
   ...SCHOOL_ROOM_PROPS,
+  ...UTILITY_PROPS,
+  ...MARK_PROPS,
 };

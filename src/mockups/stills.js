@@ -11,6 +11,7 @@ import { W, H, aim, addGhost, subtitle } from './helpers.js';
 import { SCHOOL_STILLS } from './schoolStills.js';
 import patientRoom from '../levels/patient_room.json';
 import dorms from '../levels/dorms.json';
+import orphanageWing from '../levels/orphanage_wing.json';
 import * as screens from './uiStills.js';
 
 const STILLS = {
@@ -97,6 +98,13 @@ const STILLS = {
     ui: screens[name],
   }])),
   ...SCHOOL_STILLS,
+  // Owner requests (wing 1): the washroom and linen cupboard furnished, and the
+  // quiet room marked by the child kept in it. Real level, flashlight on.
+  room_washroom: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [11.9, 1.6, 17.4], 129, -10) },
+  room_washroom_sinks: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [8.0, 1.6, 21.2], -60, -8) },
+  room_linen: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [17.0, 1.6, 17.3], 154, -16) },
+  room_quiet: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [38.4, 1.2, 7.6], 92, -12) },
+  room_quiet_tally: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [38.5, 1.0, 9.3], 180, -18) },
 };
 
 async function render() {
@@ -110,6 +118,8 @@ async function render() {
   const world = createWorld(still.level);
   still.setup({ world, fx: pipeline.fx });
   world.camera.updateProjectionMatrix();
+  world.camera.updateMatrixWorld();
+  if (!still.fixedBeam) world.flashlight.update(world.level, 1); // dim near walls, as in the game
   const ctx = ui.getContext('2d');
   still.ui?.(ctx);
   for (let i = 0; i < 4; i++) {

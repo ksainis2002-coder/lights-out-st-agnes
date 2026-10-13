@@ -10,6 +10,12 @@ const FOOTPRINTS = {
   longTable: () => ({ size: [3.0, 0.8] }),
   bench: () => ({ size: [3.0, 0.3] }),
   sink: () => ({ size: [0.56, 0.4], offset: [0, 0.2] }),
+  bathtub: () => ({ size: [1.72, 0.76] }),
+  toiletStalls: (options) => ({ size: [(options?.count ?? 3) * 0.9, 1.3], offset: [0, 0.65] }),
+  bucketMop: () => ({ size: [0.34, 0.34] }),
+  linenShelves: (options) => ({ size: [options?.length ?? 1.6, 0.5], offset: [0, 0.25] }),
+  laundryBasket: () => ({ size: [0.6, 0.42] }),
+  mangle: () => ({ size: [0.72, 0.5] }),
   // A toppled chair lies on its back, reaching behind where it stood.
   chair: (options) => (options?.toppled ? { size: [0.42, 0.94], offset: [0, -0.22] } : { size: [0.42, 0.42] }),
 };
