@@ -2,13 +2,14 @@
 // and one prompt line when something usable is in view) and ui_inventory
 // (TAB strip at the bottom) with an item line under the prompt (ui_itemHover),
 // a held note (ui_heldNote), the battery cell
-// (ui_battery). Plus short message
+// (ui_battery), the sanity pulse (ui_sanityPulse). Plus short message
 // lines. Nothing else.
 import { osdText, wrapText, capitals, COLORS, UI_FONT } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { drawIcon } from './icons.js';
 import { drawHeldNote } from './heldNote.js';
 import { drawBattery } from './battery.js';
+import { drawPulse } from './pulse.js';
 import { itemDef, itemText, INVENTORY_SLOTS } from '../items/catalog.js';
 
 const W = 480;
@@ -121,9 +122,10 @@ export function drawHud(ctx, game) {
   }
   const held = drawHeldNote(ctx, game);
   const battery = drawBattery(ctx, game, W, H);
+  const pulse = drawPulse(ctx, game, H);
   const subtitle = game.subtitles.draw(ctx);
   const prompt = drawPrompt(ctx, game);
   const inventory = drawInventory(ctx, game);
   const message = drawMessage(ctx, game);
-  return prompt || inventory || message || subtitle || held || battery;
+  return prompt || inventory || message || subtitle || held || battery || pulse;
 }

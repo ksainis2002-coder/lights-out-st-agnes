@@ -343,5 +343,12 @@
   "item.toy_top.short": "A blue and yellow spinning top.",
   "item.statue_piece.short": "A stone hand from a statue.",
   "item.plate.short": "A tin name plate from a bed.",
-  "item.map.short": "Sister’s plan of the wing."
+  "item.map.short": "Sister’s plan of the wing.",
+  "pulse.calm": "calm",
+  "pulse.uneasy": "uneasy",
+  "pulse.shaking": "shaking",
+  "pulse.fallingApart": "falling apart",
+  "card.sanity.title": "YOUR MIND",
+  "card.sanity.body": "The dark, the children and what you see here wear on your mind. Light, your room and pills steady it.\n\nYour pulse (lower left) shows how much is left. If your mind gives way, you black out and the tape rewinds to your last checkpoint.",
+  "card.sanity.after": "Your mind gave way, so the tape rewound to your last checkpoint.\n\nKeep the flashlight on, stay near lights, rest in your room or take pills before the pulse runs out."
 }

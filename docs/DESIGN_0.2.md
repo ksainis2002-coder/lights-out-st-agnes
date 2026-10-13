@@ -99,3 +99,9 @@ the scribble note (map "?") and the riddle lie on Rose's bed.
 The scribble note, the riddle and the map's "?" stage are gone. One note on Rose's bed (shown
 once the toys are home; Tommy leads to it) links the music box to the playroom slate. The map
 leaves the quiet room blank until it is entered. Peter's letter became a page from his diary (owner: it is an orphanage).
+
+## Sanity on screen (owner decision 2026-10-13, replaces 2026-10-10)
+A pulse in the lower left (approved still ui_sanityPulse), always on while playing: heart, scrolling
+trace, four pips and the state in words (calm / uneasy / shaking / falling apart). The camcorder's
+own display takes over when it is found (0.4). A "your mind" card (ui_sanityCard) explains sanity the
+first time it drops below 85, and once more after the first blackout. The journal line stays.

@@ -8,6 +8,7 @@ import { createDocumentScreen } from './screens/document.js';
 import { createTapeScreen } from './screens/tapes.js';
 import { createMusicBoxScreen } from './screens/musicBox.js';
 import { createItemCardScreen } from './screens/itemCard.js';
+import { createSanityCardScreen } from './screens/sanityCard.js';
 
 export const UI_WIDTH = 480;
 export const UI_HEIGHT = 270;
@@ -20,6 +21,7 @@ const SCREENS = {
   document: createDocumentScreen,
   musicBox: createMusicBoxScreen,
   itemCard: createItemCardScreen,
+  sanityCard: createSanityCardScreen,
   save: (api, options) => createTapeScreen(api, { ...options, mode: 'save' }),
   load: (api, options) => createTapeScreen(api, { ...options, mode: 'load' }),
 };

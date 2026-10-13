@@ -185,3 +185,36 @@ test('collapse alone, or in comfort mode, is the plain faint', async ({ page }) 
   expect((await collapseWith(page, { vision: false })).events).toEqual(['collapse.started']);
   expect((await collapseWith(page, { vision: true, comfort: true })).events).toEqual(['collapse.started']);
 });
+
+test('the pulse shows how much of the mind is left, and a card explains it the first time it slips', async ({ page }) => {
+  const result = await page.evaluate(() => {
+    const g = window.__stAgnes;
+    g.showSanityCards = true;
+    const drawn = (value) => {
+      g.sanity.set(value);
+      const texts = [];
+      const ctx = document.createElement('canvas').getContext('2d');
+      const real = ctx.fillText.bind(ctx);
+      ctx.fillText = (text, ...rest) => {
+        texts.push(String(text));
+        real(text, ...rest);
+      };
+      g.ui.drawHud(ctx);
+      return texts;
+    };
+    const calm = drawn(100);
+    const shaking = drawn(40);
+    g.sanity.set(80);
+    g.advance(1 / 30);
+    const card = g.ui.current()?.name ?? null;
+    g.resume();
+    g.sanity.set(70);
+    g.advance(1 / 30);
+    const again = g.ui.current()?.name ?? null;
+    return { calm, shaking, card, again };
+  });
+  expect(result.calm).toContain('calm');
+  expect(result.shaking).toContain('shaking');
+  expect(result.card).toBe('sanityCard');
+  expect(result.again).toBeNull(); // only once
+});

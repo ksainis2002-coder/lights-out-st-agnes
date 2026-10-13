@@ -16,5 +16,6 @@ export async function waitForBoot(page) {
   // Headless browsers cannot capture the mouse, so do not wait for a click.
   await page.evaluate(() => {
     window.__stAgnes.requireMouseCapture = false;
+    window.__stAgnes.showSanityCards = false; // its own test turns it on
   });
 }

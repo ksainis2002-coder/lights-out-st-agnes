@@ -7,7 +7,7 @@ import { keyName } from './settingsRows.js';
 import { PAPER, paperText, paperParagraph } from './paper.js';
 
 const X = 10;
-const Y = 108;
+const Y = 78; // clear of the sanity pulse below
 const W = 120;
 const H = 154;
 

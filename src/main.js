@@ -69,6 +69,7 @@ function createGame() {
   setupLevelFlow(game);
   setupClues(game);
   setupVisits(game);
+  game.showSanityCards = true; // tests turn this off
   game.tutorial = setupTutorial(game);
   setupPower(game);
   setupInventoryControls(game);

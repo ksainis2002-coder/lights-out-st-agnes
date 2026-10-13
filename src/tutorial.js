@@ -7,6 +7,7 @@ import { keyName } from './ui/settingsRows.js';
 import { itemDef } from './items/catalog.js';
 
 const LINE_SECONDS = 5;
+const SLIPPING = 85; // sanity where its effects begin (sanity/effects.js)
 
 // id → lines; params(keys) names the keys in each line.
 const LESSONS = {
@@ -53,10 +54,25 @@ export function setupTutorial(game) {
     if (game.inventory.has(pickup.item)) teach('inventory');
   });
 
+  // The "your mind" card: the first time sanity slips (when its effects
+  // begin), and once after the first blackout. Remembered for the run even
+  // across checkpoint reloads (a blackout reloads the checkpoint).
+  const shown = new Set();
+  const showCard = (id, options) => {
+    if (shown.has(id) || progress.hasFlag(`card_${id}`) || !game.showSanityCards) return;
+    shown.add(id);
+    progress.setFlag(`card_${id}`);
+    game.openScreen('sanityCard', options);
+  };
+  events.on('intro.started', () => shown.clear());
+  events.on('game.stopped', () => shown.clear());
+  events.on('collapse.ended', () => showCard('sanity_after', { after: true }));
+
   // Called every playing frame: ENTER skips a line; the first usable thing
-  // in view explains "use".
+  // in view explains "use"; the mind slipping explains sanity.
   function update() {
     if (game.input.wasCodePressed('Enter')) game.messages.skip();
+    if (game.sanity.value() < SLIPPING) showCard('sanity');
     const prompt = game.interaction.target()?.prompt();
     if (!prompt) return;
     teach('use');
