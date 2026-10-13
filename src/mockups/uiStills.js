@@ -232,3 +232,48 @@ export function itemCard(ctx) {
   osdText(ctx, 'B  swap it in when the light runs low', W / 2, 190, 9, '#ffe27a', 'center');
   osdText(ctx, 'ENTER / CLICK  continue', W / 2, 208, 8, COLORS.dim, 'center');
 }
+
+// Proposal: a pulse in the lower left, until the camcorder takes over. A
+// heart and a trace: steady and pale when calm, faster and redder as the
+// mind goes; four pips for calm / uneasy / shaking / falling apart.
+function pulse(ctx, x, y, level) {
+  const colors = ['#c9d2e0', '#e8d9a0', '#ffb860', '#ff6a5a'];
+  const color = colors[3 - level + 1] ?? colors[0];
+  ctx.fillStyle = color;
+  [[1, 0], [2, 0], [4, 0], [5, 0], [0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [2, 4], [3, 4], [4, 4], [3, 5]]
+    .forEach(([px, py]) => ctx.fillRect(x + px * 2, y + py * 2, 2, 2));
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  const base = y + 6;
+  ctx.moveTo(x + 18, base);
+  [[24, 0], [27, -6], [30, 6], [33, -2], [36, 0], [44, 0], [47, -6], [50, 6], [53, -2], [56, 0], [64, 0]].forEach(([dx, dy]) => ctx.lineTo(x + dx, base + dy));
+  ctx.stroke();
+  for (let i = 0; i < 4; i++) {
+    ctx.fillStyle = i < level ? color : 'rgba(232,240,255,0.18)';
+    ctx.fillRect(x + 18 + i * 12, y + 14, 9, 3);
+  }
+}
+
+export function sanityPulse(ctx) {
+  pulse(ctx, 14, H - 32, 2);
+  osdText(ctx, 'shaking', 84, H - 30, 8, COLORS.soft);
+}
+
+// Proposal: the first time the mind starts to slip, a card explains sanity
+// (same look as the new-item card). Shown again after the first blackout.
+export function sanityCard(ctx) {
+  ctx.fillStyle = 'rgba(0,0,0,0.6)';
+  ctx.fillRect(0, 0, W, H);
+  panel(ctx, 110, 50, 260, 178, 0.9);
+  osdText(ctx, 'YOUR MIND', W / 2, 58, 8, COLORS.dim, 'center');
+  pulse(ctx, W / 2 - 34, 76, 3);
+  const lines = [
+    'The dark, the children and what you', 'see here wear on your mind.',
+    'Light, your room and pills steady it.', '',
+    'Your pulse (lower left) shows how', 'much is left. If your mind gives way,',
+    'you black out and the tape rewinds', 'to your last checkpoint.',
+  ];
+  lines.forEach((line, i) => osdText(ctx, line, W / 2, 104 + i * 12, 9, COLORS.soft, 'center'));
+  osdText(ctx, 'ENTER / CLICK  continue', W / 2, 212, 8, COLORS.dim, 'center');
+}
