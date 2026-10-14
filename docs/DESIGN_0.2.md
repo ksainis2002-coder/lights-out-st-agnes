@@ -118,3 +118,15 @@ veiled figure scribbled out), a worn patch where he sat, and a tin plate and cup
 Aftermath only, no blood (scare rules). Stills room_washroom, room_washroom_sinks, room_linen,
 room_quiet and room_quiet_tally in `docs/mockups/stills-0.2/`.
 
+## Furniture pass (owner Q&A 2026-10-14)
+Washroom: grey water in the sinks, a puddle by the bath, a second dripping tap. Linen cupboard:
+sheets on a washing line above head height, a laundry chute in the wall. Corridor: a runner rug,
+radiators, benches, coat pegs, a notice board. Landing: a rug, a bench under coat pegs, a radiator,
+a picture of St. Agnes with her lamb. Office: a crucifix, two filing cabinets, a typewriter on a
+side table, a bookcase. Sick bay: folding screens, a trolley. Dorms: chairs with clothes between
+the beds, shoes, teddies on pillows, a toy train, a drum, a washstand. Playroom: a rocking horse,
+a toy box, a little table and chairs, a teddy on the chair. No new toy looks like a puzzle toy.
+The quiet room stays as it is. Furniture that never changes is merged into one mesh per material
+when a level loads: the furnished landing and corridor draw fewer calls (about 300–340) than the
+bare 0.2.3 wing did (about 390–430). Stills furnished_* in `docs/mockups/stills-0.2/`.
+

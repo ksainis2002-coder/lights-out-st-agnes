@@ -5,6 +5,7 @@
 // Cell coordinates may be fractional; [2.5, 3] is the middle of a cell edge.
 import * as THREE from 'three';
 import { PROPS } from './catalog.js';
+import { mergeStaticProps } from './merge.js';
 
 function cellToWorld(level, [col, row]) {
   return { x: col * level.cellSize, z: row * level.cellSize };
@@ -23,7 +24,7 @@ export function placeProps(level, textures) {
     object.userData.prop = prop;
     group.add(object);
   }
-  return group;
+  return mergeStaticProps(group);
 }
 
 export function placeLights(level) {

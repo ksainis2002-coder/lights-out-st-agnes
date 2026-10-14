@@ -48,9 +48,9 @@ function longTable(t) {
   return group(...legs, box(t.wood, [3.0, 0.05, 0.8], [0, 0.72, 0]));
 }
 
-function bench(t) {
-  const legs = [-1.35, 1.35].map((x) => box(t.paintedWood, [0.05, 0.42, 0.26], [x, 0, 0]));
-  return group(...legs, box(t.wood, [3.0, 0.04, 0.3], [0, 0.42, 0]));
+function bench(t, { length = 3.0 } = {}) {
+  const legs = [-length / 2 + 0.15, length / 2 - 0.15].map((x) => box(t.paintedWood, [0.05, 0.42, 0.26], [x, 0, 0]));
+  return group(...legs, box(t.wood, [length, 0.04, 0.3], [0, 0.42, 0]));
 }
 
 // Hymn board on the wall: dark board with the numbers of tonight's hymns.
@@ -59,12 +59,13 @@ function hymnBoard(t, { numbers = [3, 1, 4, 2] } = {}) {
   return group(box(t.paintedWood, [0.32, 0.9, 0.04], [0, 1.15, 0.01], { color: '#3a2618' }), ...slots);
 }
 
-// Enamel washbasin on the wall with a brass tap that never quite stops.
-function sink(t) {
+// Enamel washbasin on the wall with a brass tap that never quite stops;
+// water: true leaves grey water standing in it (the washroom).
+function sink(t, { water = false } = {}) {
   const enamel = { color: '#d8dcd4' };
   return group(
     box(t.sheet, [0.56, 0.16, 0.4], [0, 0.76, 0.2], enamel),
-    box(t.sheet, [0.46, 0.02, 0.3], [0, 0.9, 0.2], { color: '#9aa4a0' }),
+    box(t.sheet, [0.46, 0.02, 0.3], [0, 0.9, 0.2], { color: water ? '#4a544c' : '#9aa4a0' }),
     box(t.iron, [0.08, 0.76, 0.08], [0, 0, 0.2], enamel),
     box(t.sheet, [0.03, 0.03, 0.14], [0, 1.02, 0.07], { color: '#b8984a' }),
     box(t.sheet, [0.03, 0.06, 0.03], [0, 0.97, 0.13], { color: '#b8984a' }),

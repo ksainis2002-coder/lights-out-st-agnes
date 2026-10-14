@@ -4,7 +4,7 @@
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
-const ALL = ['intro_wake', 'hub', 'dorm', 'tommy', 'low_sanity', 'rewind', 'ui_prompt', 'ui_inventory', 'ui_journal', 'ui_documentView', 'ui_save', 'ui_heldNote', 'ui_battery', 'collapse_scare', 'ui_musicBoxClose', 'ui_itemHover', 'ui_itemCard', 'ui_sanityPulse', 'ui_sanityCard', 'room_washroom', 'room_washroom_sinks', 'room_linen', 'room_quiet', 'room_quiet_tally'];
+const ALL = ['intro_wake', 'hub', 'dorm', 'tommy', 'low_sanity', 'rewind', 'ui_prompt', 'ui_inventory', 'ui_journal', 'ui_documentView', 'ui_save', 'ui_heldNote', 'ui_battery', 'collapse_scare', 'ui_musicBoxClose', 'ui_itemHover', 'ui_itemCard', 'ui_sanityPulse', 'ui_sanityCard', 'room_washroom', 'room_washroom_sinks', 'room_linen', 'room_quiet', 'room_quiet_tally', 'furnished_corridor', 'furnished_landing', 'furnished_office', 'furnished_sickbay', 'furnished_eastdorm', 'furnished_westdorm', 'furnished_playroom'];
 const SCHOOL = ['classroom', 'blackboard', 'watcher', 'watcher_close', 'maggie', 'courtyard', 'cemetery', 'watcher_grab', 'storm', 'ui_codeLock', 'library', 'gym'];
 const names = process.argv.slice(2).length ? process.argv.slice(2) : [...ALL, ...SCHOOL];
 const folder = (name) => new URL(`../docs/mockups/stills-${SCHOOL.includes(name) ? '0.3' : '0.2'}/`, import.meta.url).pathname;

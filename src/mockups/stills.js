@@ -105,6 +105,14 @@ const STILLS = {
   room_linen: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [17.0, 1.6, 17.3], 154, -16) },
   room_quiet: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [38.4, 1.2, 7.6], 92, -12) },
   room_quiet_tally: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [38.5, 1.0, 9.3], 180, -18) },
+  // Owner Q&A 2026-10-14: the rest of wing 1 furnished.
+  furnished_corridor: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [7.6, 1.6, 14.3], -90, -6) },
+  furnished_landing: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [6.2, 1.6, 14.0], 100, -10) },
+  furnished_office: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [26.6, 1.6, 23.9], 43, -8) },
+  furnished_sickbay: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [29.3, 1.6, 17.6], -137, -8) },
+  furnished_eastdorm: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [11.05, 1.6, 11.0], 0, -9) },
+  furnished_westdorm: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [30.5, 1.6, 10.9], 6, -9) },
+  furnished_playroom: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [18.6, 1.6, 10.9], -36, -14) },
 };
 
 async function render() {
@@ -120,6 +128,15 @@ async function render() {
   world.camera.updateProjectionMatrix();
   world.camera.updateMatrixWorld();
   if (!still.fixedBeam) world.flashlight.update(world.level, 1); // dim near walls, as in the game
+  // Dev checks, not for the owner's stills: ?bright=1 floods the scene with
+  // light; ?cam=x,y,z,yaw,pitch moves the camera (world metres, degrees).
+  const query = new URLSearchParams(location.search);
+  if (query.has('bright')) world.scene.add(new THREE.AmbientLight(0xffffff, 3));
+  if (query.has('cam')) {
+    const [x, y, z, yaw, pitch] = query.get('cam').split(',').map(Number);
+    aim(world.camera, [x, y, z], yaw, pitch);
+    world.camera.updateMatrixWorld();
+  }
   const ctx = ui.getContext('2d');
   still.ui?.(ctx);
   for (let i = 0; i < 4; i++) {

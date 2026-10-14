@@ -991,7 +991,10 @@
     10.0,
     13.75
    ],
-   "rotation": -90
+   "rotation": -90,
+   "options": {
+    "water": true
+   }
   },
   {
    "type": "sink",
@@ -999,7 +1002,10 @@
     10.0,
     14.65
    ],
-   "rotation": -90
+   "rotation": -90,
+   "options": {
+    "water": true
+   }
   },
   {
    "type": "sink",
@@ -1007,7 +1013,10 @@
     10.0,
     15.55
    ],
-   "rotation": -90
+   "rotation": -90,
+   "options": {
+    "water": true
+   }
   },
   {
    "type": "mirror",
@@ -1273,6 +1282,539 @@
     6.45
    ],
    "rotation": 20
+  },
+  {
+   "type": "puddle",
+   "at": [
+    5.85,
+    14.6
+   ],
+   "rotation": 80
+  },
+  {
+   "type": "dryingLine",
+   "at": [
+    12.5,
+    14.35
+   ],
+   "options": {
+    "length": 2.9,
+    "height": 2.55
+   }
+  },
+  {
+   "type": "laundryChute",
+   "at": [
+    12.6,
+    16.0
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "runner",
+   "at": [
+    16.0,
+    11.0
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 27
+   }
+  },
+  {
+   "type": "radiator",
+   "at": [
+    6.46,
+    10.0
+   ]
+  },
+  {
+   "type": "radiator",
+   "at": [
+    19.46,
+    10.0
+   ]
+  },
+  {
+   "type": "radiator",
+   "at": [
+    10.0,
+    12.0
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "radiator",
+   "at": [
+    15.0,
+    12.0
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "bench",
+   "at": [
+    12.0,
+    10.115
+   ],
+   "options": {
+    "length": 2.4
+   }
+  },
+  {
+   "type": "bench",
+   "at": [
+    21.0,
+    11.885
+   ],
+   "options": {
+    "length": 2.4
+   }
+  },
+  {
+   "type": "coatPegs",
+   "at": [
+    25.38,
+    10.0
+   ],
+   "options": {
+    "count": 5,
+    "coats": 3
+   }
+  },
+  {
+   "type": "coatPegs",
+   "at": [
+    6.0,
+    12.0
+   ],
+   "rotation": 180,
+   "options": {
+    "count": 3,
+    "coats": 2
+   }
+  },
+  {
+   "type": "noticeBoard",
+   "at": [
+    19.46,
+    10.0
+   ]
+  },
+  {
+   "type": "rug",
+   "at": [
+    3.0,
+    11.0
+   ],
+   "options": {
+    "width": 2.4,
+    "depth": 2.0
+   }
+  },
+  {
+   "type": "bench",
+   "at": [
+    3.0,
+    12.885
+   ],
+   "options": {
+    "length": 1.6
+   }
+  },
+  {
+   "type": "coatPegs",
+   "at": [
+    3.0,
+    13.0
+   ],
+   "rotation": 180,
+   "options": {
+    "count": 5,
+    "coats": 3
+   }
+  },
+  {
+   "type": "radiator",
+   "at": [
+    4.31,
+    9.0
+   ]
+  },
+  {
+   "type": "saintPicture",
+   "at": [
+    1.0,
+    9.7
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "crucifix",
+   "at": [
+    16.0,
+    13.0
+   ]
+  },
+  {
+   "type": "recordsCabinet",
+   "at": [
+    20.77,
+    14.0
+   ],
+   "rotation": -90,
+   "options": {
+    "lock": false
+   }
+  },
+  {
+   "type": "recordsCabinet",
+   "at": [
+    20.77,
+    14.42
+   ],
+   "rotation": -90,
+   "options": {
+    "lock": false
+   }
+  },
+  {
+   "type": "table",
+   "at": [
+    15.6,
+    17.5
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "typewriter",
+   "at": [
+    15.62,
+    17.4
+   ],
+   "y": 0.74,
+   "rotation": 90
+  },
+  {
+   "type": "bookshelf",
+   "at": [
+    19.0,
+    18.85
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 1.6,
+    "height": 1.9,
+    "seed": 21
+   }
+  },
+  {
+   "type": "foldingScreen",
+   "at": [
+    25.23,
+    16.2
+   ],
+   "options": {
+    "panels": 3
+   }
+  },
+  {
+   "type": "foldingScreen",
+   "at": [
+    24.15,
+    14.54
+   ],
+   "rotation": 90,
+   "options": {
+    "panels": 2
+   }
+  },
+  {
+   "type": "trolley",
+   "at": [
+    22.62,
+    17.62
+   ],
+   "rotation": 10
+  },
+  {
+   "type": "chair",
+   "at": [
+    5.23,
+    2.2
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "clothes",
+   "at": [
+    5.23,
+    2.2
+   ],
+   "rotation": 90,
+   "options": {
+    "hung": true,
+    "colour": "#4a5a7a"
+   }
+  },
+  {
+   "type": "chair",
+   "at": [
+    5.23,
+    4.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "clothes",
+   "at": [
+    5.23,
+    4.6
+   ],
+   "y": 0.47,
+   "rotation": 90,
+   "options": {
+    "colour": "#6a5a4a"
+   }
+  },
+  {
+   "type": "chair",
+   "at": [
+    11.77,
+    3.4
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "clothes",
+   "at": [
+    11.77,
+    3.4
+   ],
+   "rotation": -90,
+   "options": {
+    "hung": true,
+    "colour": "#5a3a3a"
+   }
+  },
+  {
+   "type": "shoes",
+   "at": [
+    6.62,
+    1.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "shoes",
+   "at": [
+    6.62,
+    4.0
+   ],
+   "rotation": 90,
+   "options": {
+    "colour": "#3a2a1a"
+   }
+  },
+  {
+   "type": "shoes",
+   "at": [
+    6.62,
+    6.4
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "shoes",
+   "at": [
+    10.38,
+    4.0
+   ],
+   "rotation": -90,
+   "options": {
+    "colour": "#2a2a2a"
+   }
+  },
+  {
+   "type": "shoes",
+   "at": [
+    10.38,
+    6.4
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "teddy",
+   "at": [
+    5.38,
+    2.8
+   ],
+   "y": 0.56,
+   "rotation": 90
+  },
+  {
+   "type": "toyTrain",
+   "at": [
+    7.7,
+    1.7
+   ],
+   "rotation": 15
+  },
+  {
+   "type": "tinDrum",
+   "at": [
+    10.92,
+    5.2
+   ],
+   "rotation": 30
+  },
+  {
+   "type": "washstand",
+   "at": [
+    23.5,
+    1.0
+   ]
+  },
+  {
+   "type": "chair",
+   "at": [
+    20.23,
+    3.4
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "clothes",
+   "at": [
+    20.23,
+    3.4
+   ],
+   "rotation": 90,
+   "options": {
+    "hung": true,
+    "colour": "#7a4a5a"
+   }
+  },
+  {
+   "type": "chair",
+   "at": [
+    20.23,
+    5.8
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "clothes",
+   "at": [
+    20.23,
+    5.8
+   ],
+   "y": 0.47,
+   "rotation": 90,
+   "options": {
+    "colour": "#5a6a7a"
+   }
+  },
+  {
+   "type": "shoes",
+   "at": [
+    25.38,
+    1.6
+   ],
+   "rotation": -90,
+   "options": {
+    "colour": "#5a2a22"
+   }
+  },
+  {
+   "type": "shoes",
+   "at": [
+    25.38,
+    2.8
+   ],
+   "rotation": -90,
+   "options": {
+    "colour": "#3a2a1a"
+   }
+  },
+  {
+   "type": "teddy",
+   "at": [
+    26.77,
+    2.8
+   ],
+   "y": 0.56,
+   "rotation": -90,
+   "options": {
+    "colour": "#a08060"
+   }
+  },
+  {
+   "type": "rockingHorse",
+   "at": [
+    18.0,
+    4.92
+   ],
+   "rotation": -30
+  },
+  {
+   "type": "toyBox",
+   "at": [
+    13.16,
+    8.08
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "childTable",
+   "at": [
+    17.31,
+    5.62
+   ]
+  },
+  {
+   "type": "childChair",
+   "at": [
+    16.92,
+    5.27
+   ],
+   "rotation": 160
+  },
+  {
+   "type": "childChair",
+   "at": [
+    17.7,
+    5.96
+   ],
+   "rotation": -20
+  },
+  {
+   "type": "teddy",
+   "at": [
+    13.8,
+    7.2
+   ],
+   "y": 0.47,
+   "rotation": 150,
+   "options": {
+    "colour": "#6a5040"
+   }
+  },
+  {
+   "type": "toyTrain",
+   "at": [
+    13.85,
+    4.6
+   ],
+   "rotation": -70
+  },
+  {
+   "type": "tinDrum",
+   "at": [
+    14.0,
+    7.85
+   ],
+   "rotation": 0
   }
  ],
  "lights": [
@@ -1638,6 +2180,20 @@
    "every": [
     2.5,
     6
+   ]
+  },
+  {
+   "sound": "hospital_drip",
+   "at": [
+    9.85,
+    14.65
+   ],
+   "height": 0.95,
+   "volume": 0.5,
+   "distance": 1.2,
+   "every": [
+    3,
+    7
    ]
   }
  ],

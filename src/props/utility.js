@@ -209,4 +209,40 @@ function hangingBulb(t, { ceiling = 2.8 } = {}) {
   return group(flex, bulb);
 }
 
-export const UTILITY_PROPS = { bathtub, toiletStalls, mirror, towelRail, bucketMop, floorDrain, duckboard, linenShelves, laundryBasket, mangle, ironingBoard, hangingBulb };
+// A dark puddle on the floor (walkable), a little shine on it.
+function puddle(t, { width = 0.9, depth = 0.6 } = {}) {
+  const shape = canvasTexture(32, 24, (g) => {
+    g.clearRect(0, 0, 32, 24);
+    g.fillStyle = 'rgba(30,38,40,0.75)';
+    g.beginPath();
+    g.ellipse(16, 12, 14, 9, 0.2, 0, Math.PI * 2);
+    g.ellipse(24, 16, 6, 5, 0, 0, Math.PI * 2);
+    g.fill();
+    g.fillStyle = 'rgba(180,200,210,0.25)'; // the shine
+    g.fillRect(10, 8, 6, 1);
+  });
+  const water = decal(shape, [width, depth], [0, 0.005, 0], { transparent: true });
+  water.rotation.x = -Math.PI / 2;
+  return group(water);
+}
+
+// Washing line across the room high up, with sheets and a pillowcase
+// hanging above head height (length along x).
+function dryingLine(t, { length = 2.9, height = 2.45 } = {}) {
+  const line = box(t.iron, [length, 0.012, 0.012], [0, height, 0], { color: '#b0a890' });
+  const hang = (x, w, drop, shade) => box(t.sheet, [w, drop, 0.01], [x, height - drop, 0], { color: shade, side: THREE.DoubleSide });
+  const pegs = [-0.9, -0.2, 0.5, 1.0].map((x) => box(t.paintedWood, [0.02, 0.05, 0.03], [x, height - 0.03, 0], { color: '#8a7050' }));
+  return group(line, hang(-0.55, 0.75, 0.7, '#d8d8d0'), hang(0.15, 0.6, 0.62, '#c8ccc4'), hang(0.75, 0.4, 0.4, '#b8b8ae'), ...pegs);
+}
+
+// Laundry chute hatch in the wall (back to the wall), its flap a little open.
+function laundryChute(t) {
+  const steel = { color: '#6a6e68' };
+  const flap = box(t.iron, [0.44, 0.38, 0.02], [0, -0.38, 0], steel);
+  const hinge = group(flap);
+  hinge.position.set(0, 1.45, 0.05);
+  hinge.rotation.x = -0.35;
+  return group(box(t.iron, [0.52, 0.46, 0.04], [0, 1.03, 0.02], { color: '#3a3c3a' }), box(t.iron, [0.44, 0.38, 0.01], [0, 1.07, 0.041], { color: '#0e0e0e' }), hinge);
+}
+
+export const UTILITY_PROPS = { bathtub, toiletStalls, mirror, towelRail, bucketMop, floorDrain, duckboard, linenShelves, laundryBasket, mangle, ironingBoard, hangingBulb, puddle, dryingLine, laundryChute };
