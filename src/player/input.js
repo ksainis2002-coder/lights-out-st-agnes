@@ -71,8 +71,10 @@ export function createInput(target, settings) {
         virtual.clear();
       }
     },
+    // Returns a promise that settles when the browser has answered (or
+    // nothing in browsers without one).
     lockPointer() {
-      target.requestPointerLock?.()?.catch?.(() => {});
+      return target.requestPointerLock?.()?.catch?.(() => {});
     },
     endFrame() {
       pressedThisFrame.clear();

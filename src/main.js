@@ -112,6 +112,16 @@ function setupModes(game) {
   // Recapturing the mouse right after a menu closes can make the browser drop
   // the capture once; that must not count as the player pausing.
   let resumedAt = -Infinity;
+  // The browser reports our own captures and releases later, sometimes after
+  // a slow frame when the player is already back in the game. A release that
+  // arrives while one of our captures is still pending is ours, not a pause.
+  let capturesPending = 0;
+  const captureMouse = () => {
+    const request = input.lockPointer();
+    if (!request) return;
+    capturesPending += 1;
+    request.finally(() => (capturesPending -= 1));
+  };
 
   game.play = () => {
     resumedAt = performance.now();
@@ -120,7 +130,7 @@ function setupModes(game) {
     game.events.emit('game.play');
     ui.close();
     input.setEnabled(true);
-    input.lockPointer();
+    captureMouse();
   };
 
   // STOP on the pause menu: end the run and go back to the title screen.
@@ -163,7 +173,7 @@ function setupModes(game) {
     game.mode = 'playing';
     ui.close();
     input.setEnabled(true);
-    input.lockPointer();
+    captureMouse();
   };
 
   game.pause = () => {
@@ -181,11 +191,12 @@ function setupModes(game) {
   canvas.addEventListener('click', () => {
     if (game.mode === 'playing' && !document.pointerLockElement) {
       input.consume('Mouse0'); // the click that captures the mouse is not a "use"
-      input.lockPointer();
+      captureMouse();
     }
   });
   document.addEventListener('pointerlockchange', () => {
-    if (!document.pointerLockElement && performance.now() - resumedAt > 1000) game.pause();
+    if (document.pointerLockElement || capturesPending > 0) return;
+    if (performance.now() - resumedAt > 1000) game.pause();
   });
   window.addEventListener('keydown', (event) => {
     if (event.code === 'Escape' && game.mode === 'playing' && !event.defaultPrevented) game.pause();

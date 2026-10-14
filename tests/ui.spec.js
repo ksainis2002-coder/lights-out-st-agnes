@@ -151,3 +151,30 @@ test('menu: STOP (pressed twice) ends the run and goes back to the title screen'
   await page.keyboard.press('Enter');
   expect(await page.evaluate(() => window.__stAgnes.intro.active())).toBe(true);
 });
+
+// Opening a screen lets the mouse go; the browser reports that later, and on
+// a slow frame only after the player is already back in the game. That late
+// report must not pop up the pause menu (flaky "ESC on the save screen" test).
+test('a late mouse release from opening a screen does not pause the game', async ({ page }) => {
+  await page.evaluate(() => window.__stAgnes.newGame());
+  await page.waitForFunction(() => !!document.pointerLockElement);
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.openScreen('save');
+    game.resume();
+    const start = performance.now();
+    while (performance.now() - start < 1100); // a slow frame before the browser's report is handled
+  });
+  await page.waitForTimeout(400);
+  expect(await page.evaluate(() => ({ mode: window.__stAgnes.mode, screen: window.__stAgnes.ui.current()?.name ?? null })))
+    .toEqual({ mode: 'playing', screen: null });
+});
+
+test('losing the mouse while playing (browser ESC) still pauses', async ({ page }) => {
+  await page.evaluate(() => window.__stAgnes.newGame());
+  await page.waitForFunction(() => !!document.pointerLockElement);
+  await page.waitForTimeout(1100); // past the grace time after capturing
+  await page.evaluate(() => document.exitPointerLock()); // what the browser does on ESC
+  await page.waitForFunction(() => window.__stAgnes.mode === 'ui');
+  expect(await screenName(page)).toBe('menu');
+});
