@@ -8,23 +8,30 @@ const use = (page) => page.evaluate(() => {
   window.__stAgnes.advance(0.3);
 });
 const message = (page) => page.evaluate(() => window.__stAgnes.messages.current()?.key ?? null);
-// Stand a metre in front of the fuse box and aim at lever n (1..4).
-const lookAtLever = (page, n) => page.evaluate((n) => {
+// Stand a metre in front of the fuse box and aim at it.
+const lookAtFuseBox = (page) => page.evaluate(() => {
   const game = window.__stAgnes;
   let box = null;
   game.world.levelGroup.traverse((o) => {
     if (o.userData.prop?.id === 'fuse_box') box = o;
   });
   box.updateWorldMatrix(true, false);
-  const x = [-0.15, -0.05, 0.05, 0.15][n - 1];
-  const target = box.localToWorld(box.position.clone().set(x, 1.24, 0.08));
-  const stand = box.localToWorld(box.position.clone().set(x, 0, 1.0));
+  const target = box.localToWorld(box.position.clone().set(0, 1.3, 0.1));
+  const stand = box.localToWorld(box.position.clone().set(0, 0, 1.0));
   Object.assign(game.player.state.position, { x: stand.x, z: stand.z });
   game.player.state.yaw = Math.atan2(-(target.x - stand.x), -(target.z - stand.z));
-  game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, 1.0);
+  game.player.state.pitch = Math.atan2(target.y - game.player.state.eyeHeight, 0.9);
   game.advance(1 / 30);
   return game.interaction.target()?.prompt() ?? null;
-}, n);
+});
+// The open close-up: its name, the levers pulled down and the line under the box.
+const closeUp = (page) => page.evaluate(() => {
+  const screen = window.__stAgnes.ui.current();
+  return screen ? { name: screen.name, pulled: screen.pulled?.(), note: screen.note?.() } : null;
+});
+const pressLevers = async (page, numbers) => {
+  for (const n of numbers) await page.keyboard.press(`Digit${n}`);
+};
 const mainsOn = (page) => page.evaluate(() => !window.__stAgnes.powerIsCut());
 
 test.beforeEach(async ({ page }) => {
@@ -40,6 +47,11 @@ test.beforeEach(async ({ page }) => {
 
 test('the lights die when the plates are solved, and the fuses bring them back', async ({ page }) => {
   expect(await mainsOn(page)).toBe(true);
+  // While the lights are on, the box stays shut.
+  expect((await lookAtFuseBox(page))?.key).toBe('prompt.openFuseBox');
+  await use(page);
+  expect(await message(page)).toBe('msg.fusesPowerOn');
+  expect(await closeUp(page)).toBeNull();
   await page.evaluate(() => {
     const game = window.__stAgnes;
     game.progress.setFlag('puzzle_plates');
@@ -48,26 +60,29 @@ test('the lights die when the plates are solved, and the fuses bring them back',
   });
   expect(await mainsOn(page)).toBe(false);
 
-  // Without the rota and the hymn board, the levers are not touched.
-  expect((await lookAtLever(page, 3))?.key).toBe('prompt.pullLever');
+  // The box opens up close; without the rota and the hymn board, the levers are not touched.
+  expect((await lookAtFuseBox(page))?.key).toBe('prompt.openFuseBox');
   await use(page);
-  expect(await message(page)).toBe('msg.fusesNeedClue');
+  await pressLevers(page, [3]);
+  expect(await closeUp(page)).toEqual({ name: 'fuseBox', pulled: [], note: 'msg.fusesNeedClue' });
 
   await page.evaluate(() => {
     window.__stAgnes.progress.read('night_rota');
     window.__stAgnes.progress.setFlag('seen_hymn_board');
   });
   // A wrong lever snaps them all back.
-  await lookAtLever(page, 3);
-  await use(page);
-  await lookAtLever(page, 2);
-  await use(page);
-  expect(await message(page)).toBe('msg.fusesWrong');
-  for (const n of [3, 1, 4, 2]) {
-    expect((await lookAtLever(page, n))?.params.number).toBe(n);
-    await use(page);
-  }
+  await pressLevers(page, [3]);
+  expect(await closeUp(page)).toEqual({ name: 'fuseBox', pulled: [3], note: null });
+  await pressLevers(page, [2]);
+  expect(await closeUp(page)).toEqual({ name: 'fuseBox', pulled: [], note: 'msg.fusesWrong' });
+  // The right order puts the lights back on and steps back from the box.
+  await pressLevers(page, [3, 1, 4]);
+  expect(await mainsOn(page)).toBe(false);
+  await pressLevers(page, [2]);
+  expect(await closeUp(page)).toBeNull();
+  expect(await message(page)).toBe('msg.fusesSolved');
   expect(await mainsOn(page)).toBe(true);
+  expect(await lookAtFuseBox(page)).toBeNull();
   expect(await page.evaluate(() => window.__stAgnes.progress.hasFlag('puzzle_fuses'))).toBe(true);
 
   // The power state survives a reload.

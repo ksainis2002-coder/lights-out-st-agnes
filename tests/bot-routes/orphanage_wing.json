@@ -555,45 +555,25 @@
    "use": {
     "prop": "fuse_box",
     "local": [
-     0.05,
-     1.24,
-     0.08
+     0,
+     1.3,
+     0.1
     ]
    },
-   "expect": "prompt.pullLever"
+   "expect": "prompt.openFuseBox",
+   "keepOpen": true
   },
   {
-   "use": {
-    "prop": "fuse_box",
-    "local": [
-     -0.15,
-     1.24,
-     0.08
-    ]
-   },
-   "expect": "prompt.pullLever"
+   "screenKey": "Digit3"
   },
   {
-   "use": {
-    "prop": "fuse_box",
-    "local": [
-     0.15,
-     1.24,
-     0.08
-    ]
-   },
-   "expect": "prompt.pullLever"
+   "screenKey": "Digit1"
   },
   {
-   "use": {
-    "prop": "fuse_box",
-    "local": [
-     -0.05,
-     1.24,
-     0.08
-    ]
-   },
-   "expect": "prompt.pullLever"
+   "screenKey": "Digit4"
+  },
+  {
+   "screenKey": "Digit2"
   },
   {
    "cell": [

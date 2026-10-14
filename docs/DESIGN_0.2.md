@@ -81,6 +81,9 @@ After the owner's 10-minute playtest the wing was lengthened:
   dining hall). Moonlit dorms and the landing stay lit.
 - Puzzle 4 (fuses): the night rota (office desk) says to pull the sick-bay levers in the order of
   tonight's hymns; the dining-hall hymn board reads 3, 1, 4, 2. Both must be seen first.
+  The fuse box opens up close like the music box (owner request 2026-10-14, still ui_fuseBox):
+  click a lever or press 1–4; a line under the box says why a lever won't move or that they all
+  snapped back.
 - The medicine cabinet is on the lighting circuit: the linen key (moved from the office desk) and
   pills are behind its glass until the fuses are fixed.
 - Spinning top moved to the dining hall (Peter's letter says so). Five new documents.

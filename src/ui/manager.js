@@ -7,6 +7,7 @@ import { createJournalScreen } from './screens/journal.js';
 import { createDocumentScreen } from './screens/document.js';
 import { createTapeScreen } from './screens/tapes.js';
 import { createMusicBoxScreen } from './screens/musicBox.js';
+import { createFuseBoxScreen } from './screens/fuseBox.js';
 import { createItemCardScreen } from './screens/itemCard.js';
 import { createSanityCardScreen } from './screens/sanityCard.js';
 
@@ -20,6 +21,7 @@ const SCREENS = {
   journal: createJournalScreen,
   document: createDocumentScreen,
   musicBox: createMusicBoxScreen,
+  fuseBox: createFuseBoxScreen,
   itemCard: createItemCardScreen,
   sanityCard: createSanityCardScreen,
   save: (api, options) => createTapeScreen(api, { ...options, mode: 'save' }),
