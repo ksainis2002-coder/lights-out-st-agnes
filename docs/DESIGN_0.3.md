@@ -127,6 +127,15 @@ matching clues; Normal and Story stay fixed (brief).
   says the name has worn away.
 - **Maps:** ground floor and grounds on the hall noticeboard; upstairs in the staff room.
 
+## Close-ups (owner request 2026-10-14)
+"Any puzzle that could be seen better up close should be up close, just like the music box."
+Proposal stills in 0.2.14, waiting for approval: ui_cardIndex (click the title's first letter;
+24 drawers, A–XYZ in English, Α–Ω in Greek), ui_shelf (the 700–799 bookcase, click 784),
+ui_countingBoard (read the board), ui_gravestone and ui_gravestone_worn (read a stone; its line
+below), ui_painting (the five names readable), ui_hopscotch (from above, click or 1–9, instead of
+hopping on the floor) and ui_fuseBox (wing 1, would change a built puzzle). The piano and the
+records lock already have close-ups.
+
 ## How it is built
 1. **Wing 1 furniture pass** (first job, below). Done in 0.2.7.
 2. **Content sheet** for approval: every name, document and rhyme in English and Greek. Written

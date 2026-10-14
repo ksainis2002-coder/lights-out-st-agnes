@@ -10,6 +10,7 @@ import { osdText, COLORS } from '../ui/osd.js';
 import { W, H, aim, addGhost, subtitle } from './helpers.js';
 import { SCHOOL_STILLS } from './schoolStills.js';
 import { PART_A_STILLS } from './partAStills.js';
+import { CLOSE_UP_STILLS } from './closeUpStills.js';
 import { mapMarks } from './mapUi.js';
 import patientRoom from '../levels/patient_room.json';
 import dorms from '../levels/dorms.json';
@@ -101,6 +102,7 @@ const STILLS = {
   }])),
   ...SCHOOL_STILLS,
   ...PART_A_STILLS,
+  ...CLOSE_UP_STILLS,
   // Owner requests (wing 1): the washroom and linen cupboard furnished, and the
   // quiet room marked by the child kept in it. Real level, flashlight on.
   room_washroom: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [11.9, 1.6, 17.4], 129, -10) },

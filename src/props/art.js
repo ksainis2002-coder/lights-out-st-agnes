@@ -165,11 +165,7 @@ function paintDetails(g, x, headY, child) {
   if (child.name === 'AGNES') {
     g.fillStyle = '#e8e4d8';
     g.fillRect(x - 4, headY - 5, 8, 2);
-    disc(g, x - 12, FEET - 3, 3);
-    g.fillRect(x - 15, FEET - 2, 1, 2);
-    g.fillRect(x - 10, FEET - 2, 1, 2);
-    g.fillStyle = '#2a2420';
-    g.fillRect(x - 16, FEET - 5, 2, 2);
+    paintLamb(g, x - 13, FEET - 4);
   } else if (child.name === 'MAGGIE') {
     g.fillStyle = child.hair;
     g.fillRect(x - 6, headY, 2, 7);
@@ -190,6 +186,23 @@ function paintDetails(g, x, headY, child) {
   }
 }
 
+// A woolly white lamb, side on, facing left: Agnes's (St. Agnes has one too).
+function paintLamb(g, x, y) {
+  g.globalAlpha = 0.85;
+  g.fillStyle = '#f4f2ea';
+  g.beginPath();
+  g.ellipse(x, y, 5, 3.5, 0, 0, Math.PI * 2);
+  g.fill();
+  disc(g, x - 2, y - 2.5, 2.5);
+  disc(g, x + 2, y - 2.5, 2.5);
+  g.fillStyle = '#2a2420';
+  g.fillRect(x - 8, y - 4, 3, 3); // the head
+  g.fillRect(x - 3, y + 3, 1, 3); // legs
+  g.fillRect(x - 1, y + 3, 1, 3);
+  g.fillRect(x + 2, y + 3, 1, 3);
+  g.fillRect(x + 4, y + 3, 1, 3);
+}
+
 // Drawn at twice the size (320 × 168) so the names stay readable close up.
 export function classPaintingTexture() {
   return canvasTexture(320, 168, (g) => {
@@ -201,7 +214,7 @@ export function classPaintingTexture() {
     g.fillStyle = '#9ab4d4'; // sky, brushed on unevenly
     for (let x = 0; x < w; x += 4) g.fillRect(x, 0, 4, 30 + ((x * 7) % 6));
     g.fillStyle = '#f0f0ec';
-    [[30, 10], [96, 7]].forEach(([x, y]) => disc(g, x, y, 5));
+    [[30, 10], [96, 7]].forEach(([x, y]) => [-6, 0, 6].forEach((dx, i) => disc(g, x + dx, y + (i === 1 ? -2 : 0), 4))); // clouds
     g.fillStyle = '#e8c030';
     disc(g, 144, 11, 6);
     g.fillStyle = '#5a8a44';

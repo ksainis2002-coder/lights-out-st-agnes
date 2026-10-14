@@ -13,6 +13,17 @@ export function subtitle(ctx, text, { whisper = true } = {}) {
   lines.forEach((line, i) => osdText(ctx, line, W / 2, top + i * 13, 10, whisper ? '#c9d2e0' : COLORS.text, 'center'));
 }
 
+// A look-at message as the HUD draws it (ui/hud.js): wrapped to the middle
+// of the screen over a faint panel.
+export function message(ctx, text) {
+  const lines = wrapText(ctx, text, 10, 300);
+  const top = H - 34 - (lines.length - 1) * 13;
+  const width = Math.max(...lines.map((line) => ctx.measureText(line).width)) + 16;
+  ctx.fillStyle = 'rgba(5,7,10,0.45)';
+  ctx.fillRect(W / 2 - width / 2, top - 3, width, lines.length * 13 + 4);
+  lines.forEach((line, i) => osdText(ctx, line, W / 2, top + i * 13, 10, COLORS.soft, 'center'));
+}
+
 export function addGhost(world, [x, z], { opacity, rotation = 0, y = 0 } = {}) {
   const ghost = PROPS.ghostChild(world.textures, { opacity });
   ghost.position.set(x, y, z);
