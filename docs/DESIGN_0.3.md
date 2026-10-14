@@ -10,8 +10,16 @@ the first set on 2026-10-13, the rest in a question-and-answer session on 2026-1
   to read. The hint stays a hint.
 - **The watcher's catch:** a short grab (her face fills the view, a stone hand), then the VHS
   rewind to the last checkpoint, with a ghost child's whisper about what happened.
-- **Plan:** the map `wing_map.png` was approved as drawn, then extended on 2026-10-14 (below) and
-  redrawn with the new rooms in 0.2.12 (waiting for the owner's OK before part A is built).
+- **Plan:** the map `wing_map.png` was approved as drawn, then extended on 2026-10-14 (below),
+  redrawn with the new rooms in 0.2.12 and approved again.
+- **Part A stills approved (2026-10-14):** music_room, ui_piano_shapes, nurse_room, art_room,
+  entrance_hall, entrance_stairs, cloakroom, and every close-up (below). Kept as drawn: a child's
+  painting of the grey lady on an art room easel, a lamb at Agnes's feet in the class painting, the
+  nurse's room in the same pale green tiles as the asylum room, a black doorway at the top of the
+  main stairs.
+- **Piano stickers:** every colour also has its own shape, always on (owner pick): red circle,
+  orange square, yellow triangle, green diamond, blue star, purple cross. The song page shows the
+  same shapes, so colour-blind players can play it.
 
 ## Structure
 - A garden door on the orphanage landing opens once wing 1 is done and leads to the
@@ -55,14 +63,15 @@ the first set on 2026-10-13, the rest in a question-and-answer session on 2026-1
 
 ## Puzzles (five; each needs its clue first, numbers and pictures only so Greek works the same)
 1. **Library index:** ticket → index card → shelf number → book.
-2. **Piano:** coloured key stickers; the song page is coloured dots → the headmaster's key.
+2. **Piano:** key stickers, each colour with its own shape; the song page shows the same coloured
+   shapes → the headmaster's key.
 3. **Counting board → records lock:** count the windows, the lids left up and the names on the
    board; three number wheels.
-4. **Hopscotch rhyme:** Maggie's rhyme names the squares; a wrong square → the rope slaps, she
-   giggles, start again from 1.
+4. **Hopscotch rhyme:** Maggie's rhyme names the squares; you play it up close, from above; a
+   wrong square → the rope slaps, she giggles, start again from 1.
 5. **Grave lanterns:** the order the children were struck off the roll (the art room painting
    backs it up); Tommy's worn stone by elimination.
-On **Hard**, answers shuffle each new game (lids up, piano dots, hopscotch rhyme, roll order) with
+On **Hard**, answers shuffle each new game (lids up, piano shapes, hopscotch rhyme, roll order) with
 matching clues; Normal and Story stay fixed (brief).
 
 ## The watcher
@@ -123,33 +132,33 @@ matching clues; Normal and Story stay fixed (brief).
   turns it, ◀▶ picks a wheel, number keys 0–9 set it, CLICK the drawer to try, ESC steps back.
 - **Piano:** the keys come up close like the music box; click a key or press 1–8; the notes
   played show above; ESC steps back.
-- **Gravestones:** look and click: the name and age as a message, added to the journal; Tommy's
-  says the name has worn away.
+- **Gravestones:** look and click: the stone up close, the name and age as a message, added to the
+  journal; Tommy's is worn smooth and says the name has worn away.
 - **Maps:** ground floor and grounds on the hall noticeboard; upstairs in the staff room.
 
-## Close-ups (owner request 2026-10-14)
+## Close-ups (owner request 2026-10-14, stills approved the same day)
 "Any puzzle that could be seen better up close should be up close, just like the music box."
-Proposal stills in 0.2.14, waiting for approval: ui_cardIndex (click the title's first letter;
-24 drawers, A–XYZ in English, Α–Ω in Greek), ui_shelf (the 700–799 bookcase, click 784),
-ui_countingBoard (read the board), ui_gravestone and ui_gravestone_worn (read a stone; its line
-below), ui_painting (the five names readable), ui_hopscotch (from above, click or 1–9, instead of
-hopping on the floor) and ui_fuseBox (wing 1, would change a built puzzle). The piano and the
-records lock already have close-ups.
+All approved: ui_cardIndex (click the title's first letter; 24 drawers, A–W and XYZ in English,
+Α–Ω in Greek; the card comes up), ui_shelf (the 700–799 bookcase, click 784), ui_countingBoard
+(read the board), ui_gravestone and ui_gravestone_worn (read a stone; its line below),
+ui_painting (the five names readable), ui_hopscotch (from above, click or 1–9; replaces hopping on
+the floor squares) and ui_fuseBox (wing 1's sick-bay fuse box, built in 0.2.x before the owner's
+wing 1 playtest). The piano and the records lock already have close-ups. The prompts and controls
+lines are in the content sheet.
 
 ## How it is built
 1. **Wing 1 furniture pass** (first job, below). Done in 0.2.7.
 2. **Content sheet** for approval: every name, document and rhyme in English and Greek. Written
    2026-10-14 as a Claude Doc, "Wing 2 Content Sheet (0.3)":
    https://claude.ai/code/artifact/9cc99d43-ea28-458a-b2bb-2ade5c73785c (puzzle answers on Normal:
-   records lock 354; piano blue, blue, yellow, purple, blue, yellow; hopscotch 2, 7, 5, 9, 1;
+   records lock 354; piano blue star, blue star, yellow triangle, purple cross, blue star, yellow
+   triangle; hopscotch 2, 7, 5, 9, 1;
    lanterns Agnes, Thomas Hale, Margaret Rowe, Samuel Pike, Edith Carr). Its checklist holds the
    owner's open points. Once approved, the text goes into en.json and el.json; the doc is not read
    by the game.
 3. **Part A, courtyard and ground floor:** stills first, then the garden door, courtyard, the
    ground floor rooms, the watcher, Maggie, the library, piano and hopscotch puzzles. Owner
-   playtest. Stills of the new rooms in 0.2.13, waiting for approval: music_room, ui_piano and
-   ui_piano_shapes (stickers with or without shapes), nurse_room, art_room, entrance_hall,
-   entrance_stairs, cloakroom.
+   playtest. Stills of the new rooms (0.2.13) and the close-ups (0.2.14) approved.
 4. **Part B, upstairs:** stills, stairs both ways, Classes 3–4 and the set pieces, the office and
    flat, the records lock, the storm. Owner playtest.
 5. **Part C, the cemetery:** stills, graves, lanterns, the lamb and file page, the watcher at the
