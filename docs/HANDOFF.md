@@ -120,3 +120,8 @@ wing 1 furniture pass → content sheet (names, documents, rhymes in EN + EL) fo
 (courtyard + ground floor) → part B (upstairs) → part C (cemetery), each with stills first and an
 owner playtest after. The wing map gets redrawn with the new rooms before part A.
 
+**Content sheet (2026-10-14):** the wing 2 content sheet is the Claude Doc "Wing 2 Content Sheet (0.3)",
+https://claude.ai/code/artifact/9cc99d43-ea28-458a-b2bb-2ade5c73785c . The owner reviews it (edits inline,
+comments, ticks its checklist). Next: carry the approved text into en.json / el.json, redraw the wing map
+with the new rooms, then part A stills.
+

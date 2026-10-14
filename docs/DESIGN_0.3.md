@@ -128,8 +128,14 @@ matching clues; Normal and Story stay fixed (brief).
 - **Maps:** ground floor and grounds on the hall noticeboard; upstairs in the staff room.
 
 ## How it is built
-1. **Wing 1 furniture pass** (first job, below).
-2. **Content sheet** for approval: every name, document and rhyme in English and Greek.
+1. **Wing 1 furniture pass** (first job, below). Done in 0.2.7.
+2. **Content sheet** for approval: every name, document and rhyme in English and Greek. Written
+   2026-10-14 as a Claude Doc, "Wing 2 Content Sheet (0.3)":
+   https://claude.ai/code/artifact/9cc99d43-ea28-458a-b2bb-2ade5c73785c (puzzle answers on Normal:
+   records lock 354; piano blue, blue, yellow, purple, blue, yellow; hopscotch 2, 7, 5, 9, 1;
+   lanterns Agnes, Thomas Hale, Margaret Rowe, Samuel Pike, Edith Carr). Its checklist holds the
+   owner's open points. Once approved, the text goes into en.json and el.json; the doc is not read
+   by the game.
 3. **Part A, courtyard and ground floor:** stills first, then the garden door, courtyard, the
    ground floor rooms, the watcher, Maggie, the library, piano and hopscotch puzzles. Owner
    playtest.
