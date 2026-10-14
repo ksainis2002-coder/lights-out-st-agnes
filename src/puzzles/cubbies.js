@@ -12,7 +12,7 @@ import { decal, cachedPlateTexture } from '../props/parts.js';
 import { itemText, itemShortKey } from '../items/catalog.js';
 
 const STATE_KEY = 'cubbies';
-const SOLVED = 'puzzle_toys';
+export const SOLVED = 'puzzle_toys';
 const TOY_MODELS = { toy_ball: 'toyBall', toy_doll: 'toyDoll', toy_top: 'toyTop' };
 
 // Compartment i (0..11): 4 across, 3 high, top row first; cubby-local metres.

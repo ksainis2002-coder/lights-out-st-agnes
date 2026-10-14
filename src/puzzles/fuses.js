@@ -7,7 +7,7 @@
 import * as THREE from 'three';
 import { FUSE_LEVERS } from '../props/hall.js';
 
-const SOLVED = 'puzzle_fuses';
+export const SOLVED = 'puzzle_fuses';
 const DOWN = 0.9; // radians a pulled lever tips forward
 
 export function fusesPuzzle(game, level, data) {

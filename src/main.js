@@ -22,6 +22,7 @@ import { createProgress } from './progress.js';
 import { createJournal } from './journal.js';
 import { createMessages } from './ui/messages.js';
 import { setupVisits } from './levels/visits.js';
+import { mapMarks } from './ui/mapMarks.js';
 import { setupTutorial } from './tutorial.js';
 import { setupPower } from './levels/power.js';
 import { createBattery } from './player/battery.js';
@@ -103,6 +104,7 @@ function createGame() {
   };
   game.sfx = createGameAudio(game);
   game.debug = createDebugOverlay(game);
+  game.mapMarks = (mapId) => mapMarks(game, mapId); // what the paper map marks now (tests)
   return game;
 }
 

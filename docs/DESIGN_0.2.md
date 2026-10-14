@@ -130,3 +130,13 @@ The quiet room stays as it is. Furniture that never changes is merged into one m
 when a level loads: the furnished landing and corridor draw fewer calls (about 300–340) than the
 bare 0.2.3 wing did (about 390–430). Stills furnished_* in `docs/mockups/stills-0.2/`.
 
+## Map marks (owner decisions 2026-10-14, approved still ui_mapMarks)
+The paper map now shows, over the pencilled plan: you (red crayon X); each tape recorder once you
+have been within about 3 m of it (ink cassette); safe places (green crayon house): the way up to
+your room, and from wing 2 the rooms the watcher cannot enter, once you have been in them; and each
+puzzle from the first time you try it until it is solved (a blue crayon ring with a sign of what it
+is; it is gone once solved). A key in an empty corner of each map explains the marks (English and
+Greek). Room names on the map now shrink to stay inside small rooms (long Greek names).
+Level data: recorders need an "id"; "safe": true on a level or a room; "key": [c, r] on the map
+entry; "mapAt" places a mark by hand.
+

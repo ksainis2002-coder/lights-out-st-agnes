@@ -770,7 +770,12 @@
     9.6
    ],
    "y": 0.76,
-   "use": "save"
+   "use": "save",
+   "id": "recorder_landing",
+   "mapAt": [
+    2.3,
+    10.6
+   ]
   },
   {
    "type": "drawing",
@@ -2496,6 +2501,10 @@
    "rotation": 12,
    "hidden": [
     "quiet_room"
+   ],
+   "key": [
+    0.2,
+    18.25
    ]
   }
  ],

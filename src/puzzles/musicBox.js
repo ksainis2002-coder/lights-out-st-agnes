@@ -11,7 +11,7 @@ import { TUNE_SYMBOLS } from '../props/parts.js';
 import { playNote } from '../audio/notes.js';
 
 const WOUND = 'music_box_wound';
-const SOLVED = 'puzzle_lullaby';
+export const SOLVED = 'puzzle_lullaby';
 // Pentatonic notes, keys left to right: C5 D5 E5 G5 A5.
 const FREQUENCIES = [523.25, 587.33, 659.25, 783.99, 880];
 

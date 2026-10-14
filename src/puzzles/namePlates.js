@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import { decal, cachedPlateTexture } from '../props/parts.js';
 
 const STATE_KEY = 'plates';
-const SOLVED = 'puzzle_plates';
+export const SOLVED = 'puzzle_plates';
 const PLATE_POS = [0, 0.55, 0.97]; // on the footboard, bed-local
 
 function platePosition(bed) {

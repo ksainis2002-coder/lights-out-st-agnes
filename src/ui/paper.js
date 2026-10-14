@@ -3,7 +3,7 @@ export const PAPER = '#d9cfb4';
 export const PAPER_DARK = '#a89e84';
 export const INK = '#2a2418';
 export const INK_SOFT = '#5a4c34';
-const SERIF = 'Georgia, "Times New Roman", serif';
+export const SERIF = 'Georgia, "Times New Roman", serif';
 
 // "[[blot]]" in a document's text is an ink blot on the paper: drawn as a
 // smudge spilling over the word before it (owner liked it that way), and read as "[unreadable]" in transcripts and the journal.

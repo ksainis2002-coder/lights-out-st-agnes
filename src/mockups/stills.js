@@ -9,6 +9,7 @@ import { PROPS } from '../props/catalog.js';
 import { osdText, COLORS } from '../ui/osd.js';
 import { W, H, aim, addGhost, subtitle } from './helpers.js';
 import { SCHOOL_STILLS } from './schoolStills.js';
+import { mapMarks } from './mapUi.js';
 import patientRoom from '../levels/patient_room.json';
 import dorms from '../levels/dorms.json';
 import orphanageWing from '../levels/orphanage_wing.json';
@@ -105,6 +106,8 @@ const STILLS = {
   room_linen: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [17.0, 1.6, 17.3], 154, -16) },
   room_quiet: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [38.4, 1.2, 7.6], 92, -12) },
   room_quiet_tally: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [38.5, 1.0, 9.3], 180, -18) },
+  // Owner request 2026-10-14: marks on the journal map (proposal).
+  ui_mapMarks: { level: dorms, setup: ({ world }) => aim(world.camera, [5.0, 1.6, 12.6], -12, -6), ui: mapMarks },
   // Owner Q&A 2026-10-14: the rest of wing 1 furnished.
   furnished_corridor: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [7.6, 1.6, 14.3], -90, -6) },
   furnished_landing: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [6.2, 1.6, 14.0], 100, -10) },

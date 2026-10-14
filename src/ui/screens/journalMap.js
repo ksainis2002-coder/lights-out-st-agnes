@@ -1,13 +1,26 @@
 // The MAPS page of the journal: a found staff plan of the wing, drawn in
 // pencil from the level's rooms. A room the plan leaves out ("hidden" in the
-// level's map entry) is blank until visited, then pencilled in.
-// Level data: "maps": [{ "id": "<level id>", "at": [c, r], "hidden": ["<room id>"] }]
+// level's map entry) is blank until visited, then pencilled in. Crayon and
+// ink marks on top show you, recorders, safe places and puzzles in hand
+// (mapMarks.js), with a key in the corner the map entry names.
+// Level data: "maps": [{ "id": "<level id>", "at": [c, r], "hidden": ["<room id>"], "key": [c, r] }]
 import { LEVELS } from '../../levels/index.js';
-import { INK, paperText } from '../paper.js';
+import { INK, SERIF, paperText } from '../paper.js';
+import { mapMarks, drawMark, drawKey } from '../mapMarks.js';
 
 const AREA = { x: 82, y: 34, w: 316, h: 196 };
 const PENCIL = '#4a4a50';
-const CRAYON = '#a8302a'; // the "you are here" cross
+
+// Room names shrink (down to 6 px) to stay inside small rooms (long Greek names).
+function labelSize(ctx, text, width) {
+  let size = 8;
+  ctx.font = `${size}px ${SERIF}`;
+  while (size > 6 && ctx.measureText(text).width > width) {
+    size -= 0.5;
+    ctx.font = `${size}px ${SERIF}`;
+  }
+  return size;
+}
 
 function roomBox(room, scale) {
   const [c0, r0, c1, r1] = room.cells;
@@ -31,7 +44,7 @@ export function drawMapPage(ctx, ui, mapId) {
     ctx.lineWidth = 1;
     ctx.strokeRect(box.x + 0.5, box.y + 0.5, box.w - 1, box.h - 1);
     const label = `map.room.${room.id}`;
-    if (game.i18n.has(label)) paperText(ctx, t(label), box.x + 3, box.y + 3, 8, INK);
+    if (game.i18n.has(label)) paperText(ctx, t(label), box.x + 3, box.y + 3, labelSize(ctx, t(label), box.w - 6), INK);
   }
 
   // Doorways: a small pencilled frame in the wall cell between two rooms.
@@ -43,17 +56,12 @@ export function drawMapPage(ctx, ui, mapId) {
     ctx.strokeRect(AREA.x + col * scale + 2.5, AREA.y + row * scale + 2.5, scale - 5, scale - 5);
   }
 
+  const toPage = ([col, row]) => [AREA.x + col * scale, AREA.y + row * scale];
+  for (const mark of mapMarks(game, mapId)) drawMark(ctx, mark.kind, ...toPage(mark.at), mark.symbol && { symbol: mark.symbol });
   if (game.world.level.id === mapId) {
     const { x, z } = game.player.state.position;
-    const px = AREA.x + (x / data.cellSize) * scale, py = AREA.y + (z / data.cellSize) * scale;
-    ctx.strokeStyle = CRAYON;
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(px - 3, py - 3);
-    ctx.lineTo(px + 3, py + 3);
-    ctx.moveTo(px + 3, py - 3);
-    ctx.lineTo(px - 3, py + 3);
-    ctx.stroke();
+    drawMark(ctx, 'you', ...toPage([x / data.cellSize, z / data.cellSize]));
   }
+  if (entry.key) drawKey(ctx, t, ...toPage(entry.key));
   paperText(ctx, t(`map.title.${mapId}`), AREA.x, AREA.y + AREA.h + 2, 9, INK);
 }
