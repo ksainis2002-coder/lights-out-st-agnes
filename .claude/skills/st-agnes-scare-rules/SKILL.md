@@ -26,7 +26,7 @@ built, then update this table.
 | --- | --- | --- |
 | Surgeon (blind hunter) | sound | tool clinking / breathing, positional, audible through one wall |
 | Burned nun | light | crackle + warm flicker at the edge of view when she locks on the flashlight |
-| Watcher statue | gaze | stone grind each time it moves; first kill only after it has moved in view of the camera once |
+| Watcher statue | gaze (lit + on screen) | **Owner-confirmed 2026-10-14:** stone grind each time she moves (positional); at arm's reach a dusty breath, then 1.5 s to turn and look before the grab (comfort: 3 s, half speed); no catch before her library introduction (she is seen to have moved once) |
 | Ghost children | scripted | never kill; they drain sanity, block, or hint |
 
 - A kill needs: warning played → player had time to react (≥ 1.5 s on Normal) → contact.

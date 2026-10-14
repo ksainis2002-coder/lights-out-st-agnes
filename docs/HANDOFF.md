@@ -113,3 +113,10 @@ rules, the four puzzles and the build order are in `docs/DESIGN_0.3.md` with the
 `docs/mockups/stills-0.3/wing_map.png` and five more stills (watcher_grab, storm, ui_codeLock, library,
 gym), all waiting for the owner. Build nothing of 0.3 until they are approved.
 
+**0.3 decided (2026-10-14):** owner answered every open question in a Q&A session; all of it is in
+`docs/DESIGN_0.3.md` (bigger wing: about 60 min, an upstairs, music room with a piano puzzle, nurse's
+and art rooms, three set pieces, Maggie as guide and trickster, the watcher's full rules). Order:
+wing 1 furniture pass → content sheet (names, documents, rhymes in EN + EL) for approval → part A
+(courtyard + ground floor) → part B (upstairs) → part C (cemetery), each with stills first and an
+owner playtest after. The wing map gets redrawn with the new rooms before part A.
+
