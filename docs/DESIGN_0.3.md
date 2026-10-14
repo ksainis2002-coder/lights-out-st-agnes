@@ -10,8 +10,8 @@ the first set on 2026-10-13, the rest in a question-and-answer session on 2026-1
   to read. The hint stays a hint.
 - **The watcher's catch:** a short grab (her face fills the view, a stone hand), then the VHS
   rewind to the last checkpoint, with a ghost child's whisper about what happened.
-- **Plan:** the map `wing_map.png` was approved as drawn, then extended on 2026-10-14 (below). The
-  map is redrawn with the new rooms before the first part is built.
+- **Plan:** the map `wing_map.png` was approved as drawn, then extended on 2026-10-14 (below) and
+  redrawn with the new rooms in 0.2.12 (waiting for the owner's OK before part A is built).
 
 ## Structure
 - A garden door on the orphanage landing opens once wing 1 is done and leads to the
