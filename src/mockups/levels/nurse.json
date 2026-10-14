@@ -1,0 +1,189 @@
+{
+  "id": "nurse_mockup",
+  "wing": "school",
+  "cellSize": 1.2,
+  "wallHeight": 3.2,
+  "floorTexture": "floor",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "tile",
+    "2": "door"
+  },
+  "map": [
+    "1111111",
+    "1000001",
+    "1000001",
+    "1000001",
+    "1000001",
+    "1112111"
+  ],
+  "spawn": {
+    "cell": [
+      3.5,
+      4.5
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "nurse_room",
+      "cells": [
+        1,
+        1,
+        5,
+        4
+      ]
+    }
+  ],
+  "props": [
+    {
+      "type": "eyeChart",
+      "at": [
+        3.4,
+        1.0
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "notice",
+      "at": [
+        4.45,
+        1.0
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "sink",
+      "at": [
+        5.4,
+        1.0
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "scales",
+      "at": [
+        2.2,
+        1.3
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "examCouch",
+      "at": [
+        1.3,
+        3.0
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "foldingScreen",
+      "at": [
+        2.15,
+        4.55
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "cabinet",
+      "at": [
+        5.84,
+        2.2
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "smallItem",
+      "at": [
+        5.84,
+        2.35
+      ],
+      "rotation": -90,
+      "y": 0.97,
+      "options": {
+        "color": "#e0e0d8",
+        "size": [
+          0.05,
+          0.08,
+          0.05
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "at": [
+        5.6,
+        3.9
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "deskLamp",
+      "at": [
+        5.65,
+        3.65
+      ],
+      "rotation": -90,
+      "y": 0.76
+    },
+    {
+      "type": "paperSheet",
+      "at": [
+        5.6,
+        4.15
+      ],
+      "rotation": 100,
+      "y": 0.765
+    },
+    {
+      "type": "chair",
+      "at": [
+        5.0,
+        3.9
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "trolley",
+      "at": [
+        5.1,
+        3.0
+      ],
+      "rotation": -20
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        1,
+        2.0
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        1,
+        4.1
+      ],
+      "rotation": 90
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        1.6,
+        3.0
+      ],
+      "height": 2.2,
+      "color": "#5a6c9c",
+      "intensity": 2.5,
+      "distance": 6
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 1.0
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "id": "art_mockup",
+  "wing": "school",
+  "cellSize": 1.2,
+  "wallHeight": 3.4,
+  "floorTexture": "wood",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "schoolWall",
+    "2": "door"
+  },
+  "map": [
+    "111111111",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "100000001",
+    "111121111"
+  ],
+  "spawn": {
+    "cell": [
+      6.5,
+      5.5
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "art_room",
+      "cells": [
+        1,
+        1,
+        7,
+        5
+      ]
+    }
+  ],
+  "props": [
+    {
+      "type": "classPainting",
+      "at": [
+        4.5,
+        1.0
+      ],
+      "rotation": 0,
+      "options": {
+        "caption": "Those who have left us"
+      }
+    },
+    {
+      "type": "drawing",
+      "at": [
+        2.2,
+        1.0
+      ],
+      "rotation": 0,
+      "options": {
+        "kind": "house"
+      }
+    },
+    {
+      "type": "drawing",
+      "at": [
+        6.9,
+        1.0
+      ],
+      "rotation": 0,
+      "options": {
+        "kind": "sun"
+      }
+    },
+    {
+      "type": "drawing",
+      "at": [
+        7.6,
+        1.0
+      ],
+      "rotation": 0,
+      "options": {
+        "kind": "children"
+      }
+    },
+    {
+      "type": "easel",
+      "at": [
+        2.9,
+        3.3
+      ],
+      "rotation": 20,
+      "options": {
+        "painting": "house"
+      }
+    },
+    {
+      "type": "easel",
+      "at": [
+        6.4,
+        3.5
+      ],
+      "rotation": -25,
+      "options": {
+        "painting": "lady"
+      }
+    },
+    {
+      "type": "easel",
+      "at": [
+        4.0,
+        5.2
+      ],
+      "rotation": 165,
+      "options": {
+        "painting": "flowers"
+      }
+    },
+    {
+      "type": "longTable",
+      "at": [
+        1.6,
+        4.4
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "paintPots",
+      "at": [
+        1.6,
+        3.7
+      ],
+      "rotation": 90,
+      "y": 0.77
+    },
+    {
+      "type": "paintPots",
+      "at": [
+        1.6,
+        5.3
+      ],
+      "rotation": 80,
+      "y": 0.77
+    },
+    {
+      "type": "paperSheet",
+      "at": [
+        1.7,
+        4.5
+      ],
+      "rotation": 30,
+      "y": 0.775
+    },
+    {
+      "type": "chair",
+      "at": [
+        2.45,
+        3.6
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "chair",
+      "at": [
+        2.45,
+        4.6
+      ],
+      "rotation": -80
+    },
+    {
+      "type": "chair",
+      "at": [
+        2.45,
+        5.5
+      ],
+      "rotation": -95
+    },
+    {
+      "type": "paintingLine",
+      "at": [
+        4.5,
+        2.4
+      ],
+      "rotation": 0,
+      "options": {
+        "length": 6.5,
+        "height": 2.5,
+        "paintings": [
+          "house",
+          "flowers",
+          "house",
+          "lady",
+          "flowers"
+        ]
+      }
+    },
+    {
+      "type": "sink",
+      "at": [
+        8.0,
+        5.6
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        8,
+        2.5
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        8,
+        4.2
+      ],
+      "rotation": -90
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        8.4,
+        3.0
+      ],
+      "height": 2.4,
+      "color": "#5a6c9c",
+      "intensity": 3,
+      "distance": 8
+    },
+    {
+      "type": "point",
+      "at": [
+        4.5,
+        4.0
+      ],
+      "height": 2.8,
+      "color": "#5a6c9c",
+      "intensity": 1.5,
+      "distance": 7
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 1.1
+  }
+}

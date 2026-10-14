@@ -153,3 +153,12 @@ export function wallStone(x, y, random) {
   if (y % 8 === 0 || (x + (row % 2) * 6) % 12 === 0) return [34, 34, 32];
   return [70 + n, 70 + n, 64 + n];
 }
+
+// School entrance hall: worn black and cream floor tiles, about 30 cm square.
+export function hallTile(x, y, random) {
+  const n = random() * 12;
+  if (x % 8 === 0 || y % 8 === 0) return [70 + n, 66 + n, 58 + n];
+  const dark = ((x >> 3) + (y >> 3)) % 2 === 1;
+  const wear = (x * 3 + y * 5) % 11 === 0 ? 18 : 0;
+  return dark ? [34 + n + wear, 32 + n + wear, 30 + n + wear] : [178 + n - wear, 168 + n - wear, 142 + n - wear];
+}

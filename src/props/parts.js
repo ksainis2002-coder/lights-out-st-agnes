@@ -32,6 +32,17 @@ export function plane(texture, [w, h], [x, y, z] = [0, 0, 0], options) {
   return mesh;
 }
 
+// A bar of cross-section [w, h] from one point to another (easel legs,
+// banister rails); it keeps its top face as level as it can.
+export function strut(texture, from, to, [w, h], options) {
+  const a = new THREE.Vector3(...from);
+  const b = new THREE.Vector3(...to);
+  const bar = new THREE.Mesh(new THREE.BoxGeometry(w, h, a.distanceTo(b)), materialFor(texture, options));
+  bar.position.copy(a).add(b).multiplyScalar(0.5);
+  bar.lookAt(b);
+  return bar;
+}
+
 export function canvasTexture(width, height, draw) {
   const canvas = document.createElement('canvas');
   canvas.width = width;

@@ -138,7 +138,9 @@ matching clues; Normal and Story stay fixed (brief).
    by the game.
 3. **Part A, courtyard and ground floor:** stills first, then the garden door, courtyard, the
    ground floor rooms, the watcher, Maggie, the library, piano and hopscotch puzzles. Owner
-   playtest.
+   playtest. Stills of the new rooms in 0.2.13, waiting for approval: music_room, ui_piano and
+   ui_piano_shapes (stickers with or without shapes), nurse_room, art_room, entrance_hall,
+   entrance_stairs, cloakroom.
 4. **Part B, upstairs:** stills, stairs both ways, Classes 3–4 and the set pieces, the office and
    flat, the records lock, the storm. Owner playtest.
 5. **Part C, the cemetery:** stills, graves, lanterns, the lamb and file page, the watcher at the

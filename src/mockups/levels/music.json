@@ -1,0 +1,185 @@
+{
+  "id": "music_mockup",
+  "wing": "school",
+  "cellSize": 1.2,
+  "wallHeight": 3.4,
+  "floorTexture": "parquet",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "schoolWall",
+    "2": "door"
+  },
+  "map": [
+    "11111111",
+    "10000001",
+    "10000001",
+    "10000001",
+    "10000001",
+    "10000001",
+    "11121111"
+  ],
+  "spawn": {
+    "cell": [
+      4.5,
+      5.0
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "music_room",
+      "cells": [
+        1,
+        1,
+        6,
+        5
+      ]
+    }
+  ],
+  "props": [
+    {
+      "type": "piano",
+      "at": [
+        2.6,
+        1.0
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "pianoStool",
+      "at": [
+        2.6,
+        1.78
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "crucifix",
+      "at": [
+        2.6,
+        1.0
+      ],
+      "rotation": 0,
+      "options": {
+        "height": 2.35
+      }
+    },
+    {
+      "type": "staveChart",
+      "at": [
+        5.0,
+        1.0
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        7,
+        2.4
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "windowFrame",
+      "at": [
+        7,
+        4.6
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "radiator",
+      "at": [
+        7,
+        2.4
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "radiator",
+      "at": [
+        7,
+        4.6
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "percussion",
+      "at": [
+        1.19,
+        3.8
+      ],
+      "rotation": 90
+    },
+    {
+      "type": "chair",
+      "at": [
+        4.226,
+        3.226
+      ],
+      "rotation": -135.0
+    },
+    {
+      "type": "chair",
+      "at": [
+        3.387,
+        3.761
+      ],
+      "rotation": -160.0
+    },
+    {
+      "type": "chair",
+      "at": [
+        2.4,
+        3.891
+      ],
+      "rotation": 175.0
+    },
+    {
+      "type": "chair",
+      "at": [
+        1.45,
+        3.592
+      ],
+      "rotation": 150.0
+    },
+    {
+      "type": "musicStand",
+      "at": [
+        1.75,
+        3.072
+      ],
+      "rotation": -30.0
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        7.4,
+        3.5
+      ],
+      "height": 2.2,
+      "color": "#5a6c9c",
+      "intensity": 3,
+      "distance": 7
+    },
+    {
+      "type": "point",
+      "at": [
+        3.0,
+        4.5
+      ],
+      "height": 2.6,
+      "color": "#5a6c9c",
+      "intensity": 2,
+      "distance": 7
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 1.1
+  }
+}

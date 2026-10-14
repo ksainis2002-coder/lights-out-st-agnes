@@ -10,6 +10,11 @@ import { UTILITY_PROPS } from './utility.js';
 import { MARK_PROPS } from './marks.js';
 import { FURNISH_PROPS } from './furnish.js';
 import { TOY_PROPS } from './toys.js';
+import { MUSIC_PROPS } from './music.js';
+import { NURSE_PROPS } from './nurse.js';
+import { ART_PROPS } from './art.js';
+import { ENTRANCE_PROPS } from './entrance.js';
+import { CLOAKROOM_PROPS } from './cloakroom.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -315,4 +320,9 @@ export const PROPS = {
   ...MARK_PROPS,
   ...FURNISH_PROPS,
   ...TOY_PROPS,
+  ...MUSIC_PROPS,
+  ...NURSE_PROPS,
+  ...ART_PROPS,
+  ...ENTRANCE_PROPS,
+  ...CLOAKROOM_PROPS,
 };
