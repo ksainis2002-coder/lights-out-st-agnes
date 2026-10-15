@@ -254,3 +254,13 @@ lines are in the content sheet.
   shuts the door on her, as Maggie's fourth catch line teaches), then the piano. About 205 s of game
   time at bot pace, no catches; the human-pace balance run comes with the owner's playtest.
 
+## Waiting for the owner (0.2.21)
+- Stills `chalk_hint`, `chalk_taunt` (a small corridor board, fresh chalk in scrawled capitals: the
+  content sheet's hints when stuck, about one board in four a taunt) and `class1_turned` (Maggie's
+  trick: back in Classroom 1, every desk turned to face you). Built only once approved.
+- Performance, part A, highest of four directions per room at 320×180 (software renderer, so no fps):
+  outdoors 25–52 draw calls; school library 99, hall 171, music 172, cloakroom 193, nurse 213,
+  corridor 219, gym 222, Classes 1–2 243, art room 285, staff room 314; at most 45k triangles; 19
+  point lights in the school. The owner measures fps on the playtest laptop; if it falls short, the
+  first fixes are merging the boards' and paintings' canvas textures and fewer lamps per room.
+
