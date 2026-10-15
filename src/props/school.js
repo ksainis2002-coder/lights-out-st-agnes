@@ -114,6 +114,40 @@ function statue(t, { headTurn = 0 } = {}) {
   );
 }
 
+// An open stone hand, palm out (+z), fingers spread and a little curled.
+function stoneHand(material) {
+  const hand = new THREE.Group();
+  const part = (size, position, tilt = 0) => {
+    const piece = new THREE.Mesh(new THREE.BoxGeometry(...size), material);
+    piece.position.set(...position);
+    piece.rotation.z = tilt;
+    hand.add(piece);
+  };
+  part([0.025, 0.09, 0.085], [0, 0, 0]);
+  [-0.03, -0.01, 0.01, 0.03].forEach((z, i) => part([0.018, 0.07 - Math.abs(i - 1.5) * 0.01, 0.016], [0.012, 0.075, z], 0.35));
+  part([0.018, 0.05, 0.016], [0.01, 0, -0.055], 0.9); // the thumb
+  hand.rotation.y = -Math.PI / 2 + 0.2; // the palm, built facing +x, turned to face you
+  return hand;
+}
+
+// The watcher's grab (approved still watcher_grab): she leans in over you and
+// one stone arm reaches out with an open hand. The collapse sets it 1.25 m in
+// front of the eyes, facing them (its +z towards you).
+function watcherGrab(t) {
+  const her = statue(t);
+  her.children.slice(4).forEach((part) => (part.visible = false)); // her own arms; one is posed below
+  her.rotation.x = 0.3; // leaning in
+  const material = materialFor(t.stone, { color: '#74716a', flatShading: true });
+  const shoulder = new THREE.Vector3(-0.27, 1.6, 0.4);
+  const reach = new THREE.Vector3(-0.25, 1.7, 0.78); // half a metre from your eyes, low on the left
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(0.075, 0.075, shoulder.distanceTo(reach)), material);
+  arm.position.copy(shoulder).add(reach).multiplyScalar(0.5);
+  arm.lookAt(reach);
+  const hand = stoneHand(material);
+  hand.position.copy(reach);
+  return group(her, arm, hand);
+}
+
 // Hollow eyes with rain streaks under them, a nose shadow and a closed mouth.
 function statueFaceTexture() {
   return canvasTexture(16, 20, (g) => {
@@ -194,4 +228,4 @@ function ledger(t, { color = '#5a2a24' } = {}) {
   );
 }
 
-export const SCHOOL_PROPS = { schoolDesk, blackboard, statue, ghostGirl, skippingRope, brassKey, ledger };
+export const SCHOOL_PROPS = { schoolDesk, blackboard, statue, watcherGrab, ghostGirl, skippingRope, brassKey, ledger };

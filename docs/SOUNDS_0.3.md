@@ -109,6 +109,11 @@ its own file when it comes in (one line each in `src/audio/gameAudio.js`).
 | The key falling out of the piano | key_pickup | key_drop_wood |
 | A hop on the hopscotch | step_wood | step_wood (fine as it is) |
 | Maggie humming under her rhymes | mus_lullaby_hum | girl_hum |
+| The watcher moving (each grind) | drawer, pitched down | stone_grind |
+| Her breath at arm's reach (the warning) | breath_hold, pitched down | stone_near_breath |
+| The drone while she is close and unseen | mus_drone_low | mus_drone_school |
+| The grab | mus_stinger, drawer pitched down | mus_stinger_low, stone_grind |
+| The library light dying | fluorescent_buzz | fluorescent_buzz (fine as it is) |
 | A wrong square | giggle_close (quiet) | rope_slap, then the giggle |
 | Footsteps on the gravel and the grass outside | step_tile, step_wood | step_gravel, step_grass |
 

@@ -12,6 +12,9 @@
 //   { "skipTutorial": true }   skip every tutorial line showing or queued (ENTER)
 //   { "use": ..., "keepOpen": true }   leave the screen the use opened (music box)
 //   { "screenKey": "Digit3" }   press a key on the open screen
+//   { "screenClick": 18 }   click the n-th clickable spot of the open screen (a drawer, a book)
+//   { "resume": true }   put back whatever screen is open (a page found in a book)
+//   { "wait": 15 }   stand still that long (a rhyme to hear out)
 // A "use" that opens a screen (a document) is closed again; one that starts
 // travel waits for the new level. Old routes (a "points" list) still work.
 import * as THREE from 'three';
@@ -97,6 +100,20 @@ function runStep(game, step, maxSeconds) {
     const handled = game.ui.current()?.key(step.screenKey) ?? false;
     game.advance(0.25);
     return { seconds: 0.25, ok: handled };
+  }
+  if (step.screenClick !== undefined) {
+    const spot = game.ui.current()?.hits().filter((hit) => hit.click)[step.screenClick];
+    spot?.click();
+    game.advance(0.25);
+    return { seconds: 0.25, ok: Boolean(spot) };
+  }
+  if (step.resume) {
+    if (game.mode === 'ui') game.resume();
+    return { seconds: 0, ok: true };
+  }
+  if (step.wait) {
+    game.advance(step.wait);
+    return { seconds: step.wait, ok: true };
   }
   if (step.skipTutorial) {
     while (game.messages.current()?.tag) game.messages.skip();

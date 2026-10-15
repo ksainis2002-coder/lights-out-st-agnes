@@ -38,6 +38,9 @@ import { createHallucinations } from './sanity/hallucinations.js';
 import { createCollapse } from './sanity/collapse.js';
 import { createSubtitles } from './ui/subtitles.js';
 import { createGhostDirector } from './ghosts/director.js';
+import { createWatcher } from './ai/watcher.js';
+import { createWatcherIntro } from './ai/watcherIntro.js';
+import { createBlink } from './sanity/blink.js';
 import { createIntro } from './cutscenes/intro.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
@@ -86,6 +89,10 @@ function createGame() {
   game.collapse = createCollapse(game);
   game.intro = createIntro(game);
   game.ghosts = createGhostDirector(game);
+  game.blink = createBlink(game);
+  game.watcher = createWatcher(game);
+  game.watcherIntro = createWatcherIntro(game, game.watcher);
+  game.enemies = [game.watcher]; // the debug overlay shows their senses and state
   game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
   game.events.on('collapse.scare', () => game.hallucinations.remove());
   game.events.on('level.loaded', () => {
@@ -259,6 +266,9 @@ function simulate(game, dt) {
   game.battery.update(dt);
   game.sanity.update(dt);
   game.ghosts.update(dt);
+  game.blink.update(dt);
+  game.watcher.update(dt);
+  game.watcherIntro.update(dt);
   game.hallucinations.update(dt, game.sanity.value(), world.camera);
   world.update(dt);
   game.sfx.update(dt);

@@ -494,5 +494,11 @@
   "maggie.library.leaving": "The dark counts as not looking. Keep a light on her.",
   "maggie.music": "I put the colours on the piano, so the little ones could play.",
   "maggie.corridor": "I told Miss about the quiet room. After that I wasn't allowed to talk.",
-  "maggie.courtyard": "Tommy used to wait for me by the gate. Then he stopped coming."
+  "maggie.courtyard": "Tommy used to wait for me by the gate. Then he stopped coming.",
+  "watcher.catch.1": "You looked away. She only moves when nobody's looking.",
+  "watcher.catch.2": "Didn't you hear her breathe? She only breathes when she's close.",
+  "watcher.catch.3": "The dark is hers. Keep her in the light.",
+  "watcher.catch.4": "Shut a door on her. She can't open doors.",
+  "watcher.catch.5": "You blinked. Don't let your eyes close near her.",
+  "maggie.blackout": "Too long in the dark. It gets inside you."
 }

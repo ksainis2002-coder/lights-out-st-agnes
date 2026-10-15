@@ -190,6 +190,8 @@ def grounds():
         "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.8}, {"name": "amb_wind_corridor", "volume": 0.5}],
         "pickups": [], "documents": [], "maps": [], "ghosts": L.ghosts,
+        # St. Agnes on the path, facing the school; gone once you have been inside.
+        "watcher": {"still": {"at": [12.5, 15.0], "rotation": 90, "until": "visited_entrance_hall"}},
     }
 
 
@@ -475,6 +477,16 @@ def school():
                           "rhyme": rhyme('gym'), "speaker": "maggie"},
         },
         "ghosts": L.ghosts,
+        # The watcher: asleep at the end of a library aisle (approved still) until
+        # the library puzzle is done; then she hunts the corridor, library, gym,
+        # hall and back stairs. The other rooms are safe.
+        "watcher": {
+            "asleep": {"at": lib.at(5.5, 0.8), "rotation": 0},
+            "intro": {"room": "library", "after": "puzzle_library", "closer": 3, "setup": "the light dies",
+                      "comfort": "keep"},
+            "territory": ["main_corridor", "library", "gym", "entrance_hall", "back_stairs"],
+            "spawns": [lib.at(5.5, 0.8), gym.at(9.5, 1.5), cor.at(43.0, 0.6), cor.at(1.0, 0.6), hall.at(3.5, hz + 2.5)],
+        },
     }
 
 

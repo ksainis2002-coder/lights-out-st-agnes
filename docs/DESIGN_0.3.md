@@ -164,8 +164,8 @@ lines are in the content sheet.
    - **A2 (0.2.18):** the library, piano and hopscotch puzzles with their close-ups, the
      Classroom 2 board, the class painting, Maggie's desk, the coat pockets and the staff-room
      drawer.
-   - **A3:** Maggie's rhymes and lines (0.2.19), the watcher, the chalk on the boards, the part A
-     bot route.
+   - **A3:** Maggie's rhymes and lines (0.2.19), the watcher (0.2.20), the chalk on the boards,
+     the part A bot route.
 4. **Part B, upstairs:** stills, stairs both ways, Classes 3–4 and the set pieces, the office and
    flat, the records lock, the storm. Owner playtest.
 5. **Part C, the cemetery:** stills, graves, lanterns, the lamb and file page, the watcher at the
@@ -229,4 +229,28 @@ lines are in the content sheet.
 - The hopscotch close-up shows her rhyme along the bottom once she has sung it, whatever the
   subtitles setting (it is the clue); "Wrong one! Start again!" moved to the top.
 - Her humming is the 0.2 hummed lullaby until `girl_hum` arrives.
+
+## The watcher as built (0.2.20)
+- `src/ai/gaze.js`: seen = on screen, a clear line on the cell grid (walls and closed doors block
+  it), and lit: within 2 m, in the flashlight's beam (14 m), or by a lamp (lightAt ≥ 0.35). Beyond
+  what the fog shows (1.4 / fog density: about 15 m in the school) she counts as unseen. A blink
+  counts as unseen.
+- `src/ai/path.js`: she keeps to her rooms (level data "territory") and the doorways between two
+  of them; furniture-filled cells and closed doors block her. Everything else is a safe room.
+- `src/ai/watcher.js`: 2.6 m/s unseen (Story ×0.75, Hard ×1.2, comfort ×0.5), a grind event every
+  0.9 s while she moves, the breath at 1.2 m (arm's reach) and the grab after 1.5 s unseen (comfort
+  3 s). Staring drains 0.625 sanity a second (a pip per 40 s). After 15 s with you out of her reach
+  she drifts to her farthest spawn. On each load she starts at the spawn farthest from you.
+- `src/ai/watcherIntro.js`: the library beat (two flickers, or a fade with flicker off; dark for a
+  moment; she moves to about 3 m from you on her way; light back; Maggie's line; her rhyme). Once,
+  leaving the library: "The dark counts as not looking."
+- `src/sanity/blink.js`: below 50 sanity the eyes shut for 0.22 s every 3.5–7 s.
+- The grab (`src/sanity/collapse.js`, prop `watcherGrab`): 0.9 s, her face and a stone hand as in
+  the still, then the faint and the rewind; Maggie's catch lines in turn. Comfort mode goes straight
+  to the faint. STOP or a new game mid-collapse now clears it (it could linger before).
+- Not yet: following you upstairs (part B) and outside in the storm (part C).
+- Bot route `tests/bot-routes/school_ground.json` plays part A: Classroom 1, the gym, Classroom 2,
+  the art room, the staff room and the coat, then the library (the watcher wakes; the bot runs out and
+  shuts the door on her, as Maggie's fourth catch line teaches), then the piano. About 205 s of game
+  time at bot pace, no catches; the human-pace balance run comes with the owner's playtest.
 

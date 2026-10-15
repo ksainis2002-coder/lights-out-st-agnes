@@ -141,3 +141,8 @@ part A playtest.
 the counting board, the class painting, the coat and the staff-room drawer, six documents and three items
 (0.2.18). Next: A3 (Maggie's rhymes and lines, the watcher, the part A bot route).
 
+**Part A3 so far (2026-10-15):** Maggie sings her rhymes (0.2.19) and the watcher hunts the ground floor
+(0.2.20), with placeholder sounds until the priority 1 files arrive. Next: chalk on the boards (hints,
+taunts), Maggie's Class 1 trick, the part A bot route and a performance check; then the owner's part A
+playtest.
+

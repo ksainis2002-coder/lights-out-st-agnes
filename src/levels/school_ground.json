@@ -2560,5 +2560,50 @@
     10.6
    ]
   }
- ]
+ ],
+ "watcher": {
+  "asleep": {
+   "at": [
+    6.5,
+    1.8
+   ],
+   "rotation": 0
+  },
+  "intro": {
+   "room": "library",
+   "after": "puzzle_library",
+   "closer": 3,
+   "setup": "the light dies",
+   "comfort": "keep"
+  },
+  "territory": [
+   "main_corridor",
+   "library",
+   "gym",
+   "entrance_hall",
+   "back_stairs"
+  ],
+  "spawns": [
+   [
+    6.5,
+    1.8
+   ],
+   [
+    22.5,
+    2.5
+   ],
+   [
+    44.0,
+    10.6
+   ],
+   [
+    2.0,
+    10.6
+   ],
+   [
+    30.5,
+    15.5
+   ]
+  ]
+ }
 }

@@ -24,11 +24,11 @@ export function createGameAudio(game) {
   let thunderIn = 30;
   const played = {}; // name → count, for the debug overlay and tests
 
-  function play(name, { position = null, volume = 1, bus = 'effects', loop = false, pitchJitter, refDistance } = {}) {
+  function play(name, { position = null, volume = 1, bus = 'effects', loop = false, pitchJitter, refDistance, rate } = {}) {
     if (!ready) return null;
     played[name] = (played[name] ?? 0) + 1;
     const buffer = library.pick(name);
-    return buffer ? playSound(mixer, buffer, { position, volume, bus, loop, pitchJitter, refDistance }) : null;
+    return buffer ? playSound(mixer, buffer, { position, volume, bus, loop, pitchJitter, refDistance, rate }) : null;
   }
 
   async function start() {
@@ -84,6 +84,14 @@ export function createGameAudio(game) {
   events.on('library.book', () => play('paper_pickup', { volume: 0.7 }));
   events.on('hopscotch.hop', () => play('step_wood', { volume: 0.6 }));
   events.on('hopscotch.wrong', () => play('giggle_close', { volume: 0.4 }));
+  // The watcher: her grind each time she moves and her breath at arm's reach
+  // (stone_grind, stone_near_breath) are pitched-down 0.2 sounds for now.
+  const at = (point, y) => ({ x: point.x, y, z: point.z });
+  events.on('watcher.moved', ({ position }) => play('drawer', { position: at(position, 0.4), rate: 0.5, volume: 1, refDistance: 2 }));
+  events.on('watcher.breath', ({ position }) => play('breath_hold', { position: at(position, 1.9), rate: 0.7, volume: 1 }));
+  events.on('watcher.grab', ({ position }) => play('drawer', { position: at(position, 0.4), rate: 0.4, volume: 1 }));
+  events.on('collapse.grab', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
+  events.on('watcher.introStarted', () => play('fluorescent_buzz', { volume: 0.5, rate: 0.8 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
   // Emitters loop, or with "every": [min, max] play once at random gaps

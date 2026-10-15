@@ -93,3 +93,21 @@ test('the matches rhyme comes once the staff-room drawer is empty, unless the co
   await goTo(page, [42.5, 15.5]);
   expect(await singing(page)).toMatchObject({ id: 'maggie_staff', line: 'rhyme.staff.1', speaker: 'Maggie' });
 });
+
+test('glimpsed in the corridor, she does not hold up her rhyme in the next room', async ({ page }) => {
+  await game(page, () => window.__stAgnes.progress.setFlag('name_maggie'));
+  await game(page, () => {
+    const g = window.__stAgnes;
+    const size = g.world.level.cellSize;
+    Object.assign(g.player.state.position, { x: 20.5 * size, z: 10.5 * size });
+    g.player.state.yaw = -Math.PI / 2; // looking east, along the corridor: she is there
+    g.player.state.pitch = 0;
+    g.advance(0.3); // a glimpse, not a stare
+  });
+  expect((await singing(page)).id).toBe('maggie_corridor');
+  await goTo(page, [18.5, 9.5]);
+  await goTo(page, [18.5, 7.5]); // into the gym
+  await game(page, () => window.__stAgnes.advance(0.2));
+  expect(await singing(page)).toMatchObject({ id: 'maggie_gym', line: 'rhyme.gym.1' });
+});
+

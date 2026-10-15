@@ -26,13 +26,14 @@ function createPanner(ctx, position, refDistance = 1) {
 }
 
 // Plays a decoded buffer into a mixer bus. Returns the source node.
-export function playSound(mixer, buffer, { bus = 'effects', position = null, volume = 1, pitchJitter = 0.05, volumeJitter = 0.1, loop = false, refDistance } = {}) {
+// rate < 1 plays lower and slower (a stand-in pitched down, say).
+export function playSound(mixer, buffer, { bus = 'effects', position = null, volume = 1, pitchJitter = 0.05, volumeJitter = 0.1, loop = false, refDistance, rate = 1 } = {}) {
   const ctx = mixer.context();
   if (!ctx || !buffer) return null;
   const source = ctx.createBufferSource();
   source.buffer = buffer;
   source.loop = loop;
-  source.playbackRate.value = 1 + (Math.random() * 2 - 1) * pitchJitter;
+  source.playbackRate.value = rate * (1 + (Math.random() * 2 - 1) * pitchJitter);
   const gain = ctx.createGain();
   gain.gain.value = volume * (1 - Math.random() * volumeJitter);
   let node = source.connect(gain);

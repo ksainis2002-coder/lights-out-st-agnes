@@ -2,8 +2,9 @@
 // Owner decision (0.2): no meter on screen; the effects make it obvious.
 // From 85 the colours split and the edges darken, growing steadily; from 70
 // the view sways; from 50 a heartbeat; from 45 the picture softens; from 35
-// heavy breathing; below 15 ringing ears. Reduce effects and flicker off
-// soften them (the pipeline weakens the colour split; sway is reduced here).
+// heavy breathing; below 15 ringing ears; below 50 the eyes blink now and
+// then (sanity/blink.js). Reduce effects and flicker off soften them (the
+// pipeline weakens the colour split; sway is reduced here).
 
 export function sanityAmount(value) {
   return Math.max(0, Math.min(1, (85 - value) / 85));
@@ -17,6 +18,7 @@ export function applySanityEffects(game, value, time) {
   fx.aberration = 2.4 * k;
   fx.vignette = 0.7 * k;
   fx.blur = 0.6 * below(value, 45);
+  fx.eyelid = game.blink?.closed() ? 1 : 0;
   const sway = game.settings.get('reduceEffects') ? 0.4 : 1;
   game.world.camera.rotation.z += Math.sin(time * 0.7) * 0.08 * below(value, 70) * sway;
   game.sfx.setLayer('heartbeat', 0.9 * below(value, 50));

@@ -73,7 +73,7 @@ export function createGhostDirector(game) {
 
   function start(event) {
     const level = game.world.level;
-    active = { event, phase: 'setup', t: 0, seenFor: 0, ghost: null };
+    active = { event, phase: 'setup', t: 0, seenFor: 0, ghost: null, room: roomAt(level, game.player.state.position) };
     if (event.kind === 'appear') {
       active.ghost = spawnGhost(event, level);
       active.phase = 'watch';
@@ -122,8 +122,10 @@ export function createGhostDirector(game) {
 
   function updateAppear(dt) {
     const { event, ghost } = active;
-    // Never noticed: slip away quietly and try again next time.
-    if (active.t > 25 && active.seenFor === 0) {
+    // Off into another room, or never noticed for 25 s: slip away quietly and
+    // try again next time. Half noticed for 25 s: run off as if seen.
+    const away = roomAt(game.world.level, game.player.state.position) !== active.room;
+    if (away || (active.t > 25 && active.seenFor === 0)) {
       ghost.parent?.remove(ghost);
       active = null;
       return;
@@ -135,7 +137,7 @@ export function createGhostDirector(game) {
     }
     const p = game.player.state.position;
     const near = Math.hypot(ghost.position.x - p.x, ghost.position.z - p.z) < VANISH_DISTANCE;
-    if (!near && active.seenFor < STARE_SECONDS) return;
+    if (!near && active.seenFor < STARE_SECONDS && active.t <= 25) return;
     const lead = event.leadTo ? world(game.world.level, event.leadTo, 0.3) : ghost.position;
     game.sfx.play('child_footsteps_run', { position: lead, volume: 0.8 });
     finish(event);
@@ -195,7 +197,9 @@ export function createGhostDirector(game) {
     lastRoom = room;
     for (const event of level.ghosts) {
       if (!allowed(event)) continue;
-      const inRoom = event.room ? entered && room === event.room : false;
+      // A rhyme waits for you to be in its room (another song may still be
+      // going as you come in); the others start as you enter.
+      const inRoom = event.room ? room === event.room && (entered || event.kind === 'sing') : false;
       const inCells = event.cells ? game.triggers.active.has(`ghost_${event.id}`) : false;
       if (inRoom || inCells) return start(event);
     }

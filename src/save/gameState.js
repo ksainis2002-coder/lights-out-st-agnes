@@ -45,6 +45,7 @@ export function applyState(game, state) {
 
 // A brand-new run: empty pockets, nothing done, start level.
 export function resetState(game) {
+  game.collapse?.cancel();
   game.inventory.load(null);
   game.journal.load(null);
   game.progress.load(null);
