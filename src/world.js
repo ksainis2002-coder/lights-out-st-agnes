@@ -29,6 +29,14 @@ export function createWorld(levelData) {
     const doors = createDoors(level, textures);
     const group = new THREE.Group();
     group.name = `level:${level.id}`;
+    const fog = level.fog ?? { color: FOG_COLOR, density: 0.09 };
+    scene.background = new THREE.Color(fog.color);
+    scene.fog = new THREE.FogExp2(fog.color, fog.density);
+    if (level.moon) {
+      const moon = new THREE.DirectionalLight(level.moon.color, level.moon.intensity);
+      moon.position.set(8, 12, -6);
+      group.add(moon);
+    }
     group.add(
       new THREE.AmbientLight(level.ambient.color, level.ambient.intensity),
       buildLevelMeshes(level, textures),

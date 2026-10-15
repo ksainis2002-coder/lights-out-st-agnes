@@ -32,15 +32,19 @@ export function parseLevel(data) {
     return door ? !door.open : isWall(col, row);
   };
 
-  const rooms = (data.rooms ?? []).map((room) => ({ ...room, box: cellBox(room.cells) }));
+  const rooms = (data.rooms ?? []).map((room) => ({ ...room, box: cellBox(room.cells, room.height) }));
   const roomAtCell = (col, row) =>
     rooms.find(({ cells: [c0, r0, c1, r1] }) => col >= c0 && col <= c1 && row >= r0 && row <= r1) ?? null;
+  // A room may be taller than the level ("height": 6 for the school's entrance hall).
+  const roomHeightAt = (col, row) => roomAtCell(col, row)?.height ?? null;
 
   const textures = {
     floor: (col, row) => roomAtCell(col, row)?.floor ?? data.floorTexture ?? 'floor',
     ceiling: (col, row) => roomAtCell(col, row)?.ceiling ?? data.ceilingTexture ?? 'ceiling',
     // A wall face takes the texture of the room it faces, else the wall cell's own.
     wall: (openCol, openRow, wallCol, wallRow) => roomAtCell(openCol, openRow)?.wall ?? kindAt(wallCol, wallRow),
+    // The strip of wall a tall room shows above a lower doorway or corridor.
+    step: (col, row) => roomAtCell(col, row)?.wall ?? Object.values(legend).find((kind) => kind !== 'floor'),
   };
 
   // Ghost events placed by cells get a trigger volume named ghost_<id>.
@@ -59,6 +63,8 @@ export function parseLevel(data) {
     wallRepeat: data.wallRepeat ?? 1, // tall outdoor facades tile their texture upwards
     // Outdoors, some wall kinds are lower (a cemetery wall): "wallHeights": { "stone": 2.2 }
     wallHeightAt: (col, row) => data.wallHeights?.[kindAt(col, row)] ?? wallHeight,
+    roomHeightAt,
+    heightAt: (col, row) => roomHeightAt(col, row) ?? wallHeight, // ceiling height over an open cell
     rows,
     cols,
     kindAt,
@@ -83,6 +89,9 @@ export function parseLevel(data) {
     ghosts: data.ghosts ?? [],
     safe: data.safe === true, // safe rooms restore sanity (the patient room)
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
+    // Outdoors: a night sky the colour of the fog, and a moon behind the clouds.
+    fog: data.fog ?? null,
+    moon: data.moon ?? null,
   };
 }
 

@@ -2,6 +2,7 @@
 // and Maggie. Same conventions as catalog.js: origin on the floor, front facing +z.
 import * as THREE from 'three';
 import { box, decal, materialFor, canvasTexture } from './parts.js';
+import { i18n } from '../i18n/index.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -25,8 +26,15 @@ export function blackboardTexture(lines = []) {
       g.fill();
     }
     g.fillStyle = '#d8d8cc';
-    g.font = 'bold 15px serif';
-    lines.forEach((line, i) => g.fillText(line, 10, 22 + i * 19));
+    // Smaller chalk when the board is full or a line is long (Greek runs longer).
+    let size = Math.min(15, Math.floor((h - 8) / Math.max(1, lines.length) / 1.25));
+    g.font = `bold ${size}px serif`;
+    const widest = () => Math.max(0, ...lines.map((line) => g.measureText(line).width));
+    while (size > 8 && widest() > w - 16) {
+      size -= 0.5;
+      g.font = `bold ${size}px serif`;
+    }
+    lines.forEach((line, i) => g.fillText(line, 10, size + 7 + i * size * 1.27));
   });
 }
 
@@ -48,11 +56,13 @@ function schoolDesk(t, { lidOpen = false } = {}) {
   );
 }
 
-// Blackboard on a wall (back to the wall), with a chalk ledge.
-function blackboard(t, { lines = [] } = {}) {
+// Blackboard on a wall (back to the wall), with a chalk ledge. In the game
+// its chalk comes from i18n ("lineKeys"); mockups pass "lines" as text.
+function blackboard(t, { lines = [], lineKeys } = {}) {
+  const chalk = lineKeys ? lineKeys.map((key) => i18n.t(key)) : lines;
   return group(
     box(t.paintedWood, [2.5, 1.3, 0.04], [0, 0.85, 0], { color: '#5a3e28' }),
-    decal(blackboardTexture(lines), [2.36, 1.16], [0, 1.5, 0.045]),
+    decal(blackboardTexture(chalk), [2.36, 1.16], [0, 1.5, 0.045]),
     box(t.paintedWood, [2.5, 0.04, 0.09], [0, 0.85, 0.05], { color: '#5a3e28' }),
     box(t.sheet, [0.08, 0.02, 0.02], [0.7, 0.89, 0.06]),
   );

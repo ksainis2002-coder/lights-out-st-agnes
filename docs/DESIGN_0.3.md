@@ -159,6 +159,11 @@ lines are in the content sheet.
 3. **Part A, courtyard and ground floor:** stills first, then the garden door, courtyard, the
    ground floor rooms, the watcher, Maggie, the library, piano and hopscotch puzzles. Owner
    playtest. Stills of the new rooms (0.2.13) and the close-ups (0.2.14) approved.
+   - **A1 (0.2.17):** the garden door, the grounds and the ground floor, every room furnished;
+     the stairs say "Not yet". Built from `tools/levels/school_part_a.py` (see below).
+   - **A2:** the library, piano and hopscotch puzzles with their close-ups, the Class 1 and 2
+     boards, the class painting, Maggie's desk, the coat pockets and the staff-room drawer.
+   - **A3:** Maggie's rhymes and chalk, the watcher, sounds as placeholders, the part A bot route.
 4. **Part B, upstairs:** stills, stairs both ways, Classes 3–4 and the set pieces, the office and
    flat, the records lock, the storm. Owner playtest.
 5. **Part C, the cemetery:** stills, graves, lanterns, the lamb and file page, the watcher at the
@@ -172,3 +177,20 @@ lines are in the content sheet.
 - Office and sick bay: filing, a typewriter, a crucifix; beds with screens, a trolley.
 - Dorms and playroom: clothes on chairs, shoes under beds, more toys, a rocking horse.
 - The quiet room stays as it is (signs only, no words).
+
+## Part A1 as built (0.2.17)
+- Levels: `grounds.json` (courtyard, cemetery behind its locked gate, chained front gate, the
+  chapel's keyhole, the chained west wing) and `school_ground.json` (the ground floor). Both are
+  written by `tools/levels/school_part_a.py`; furniture sits in room-local cells. A rerun
+  overwrites hand edits, so either edit the script or stop using it for that level.
+- Wing 1's garden door on the landing stays locked until the statue and the horse are taken and
+  T. Hale's file page is read (`src/levels/wings.js` sets `wing_orphanage_done`).
+- Engine: rooms can be taller than the level's walls (`height`: gym 5.2 m, hall 6 m) with step
+  faces where a tall room meets a low one; doors can need a flag (`requires`, with a locked line)
+  or be iron gates (`look: "gate"`); props can take you to another level (`travel`) or just say a
+  line (`message`); a level can set its own fog and a moon light. A way out to a level that is not
+  built yet prompts "Not yet" and does nothing (the stairs, until part B).
+- Draw calls: library 48, hall about 170 (desks share materials; only Maggie's desk keeps an id).
+  About 19 point lights in the school: measure fps at the end of part A.
+- The plan on the hall notice board adds two maps (the ground floor and the grounds), each with its
+  own title. The content sheet has one combined title: owner to confirm the two names.

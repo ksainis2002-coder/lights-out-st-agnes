@@ -7,7 +7,8 @@ import { roomAt } from '../levels/loader.js';
 
 const STRIDE = { crouch: 0.55, walk: 0.75, run: 0.95 }; // metres between steps
 const STEP_VOLUME = { crouch: 0.3, walk: 0.65, run: 1 };
-const FLOOR_SOUND = { wood: 'step_wood', floor: 'step_tile', tile: 'step_tile' };
+// School floors use the nearest sound until the outdoor steps arrive (sound list 0.3).
+const FLOOR_SOUND = { wood: 'step_wood', parquet: 'step_wood', floor: 'step_tile', tile: 'step_tile', hallTile: 'step_tile', gravel: 'step_tile', grass: 'step_wood' };
 const AMBIENCE_FADE = 1.5; // seconds
 // Before a game starts (warning, main menu, setup): a hummed lullaby over tape hiss.
 const MENU_AMBIENCE = [{ name: 'mus_lullaby_hum', volume: 0.55 }, { name: 'tape_hiss', volume: 0.12 }];
@@ -46,6 +47,10 @@ export function createGameAudio(game) {
   events.on('door.opened', (door) => play('door_use', { position: doorPosition(door) }));
   events.on('door.closed', (door) => play('door_use', { position: doorPosition(door), volume: 0.8 }));
   events.on('door.locked', (door) => play('door_locked', { position: doorPosition(door) }));
+  events.on('prop.refused', (prop) => {
+    const size = game.world.level.cellSize;
+    play('door_locked', { position: { x: prop.at[0] * size, y: 1.2, z: prop.at[1] * size } });
+  });
   events.on('flashlight.toggled', () => play('flashlight_click', { volume: 0.7, pitchJitter: 0.02 }));
   events.on('ui.move', () => play('ui_beep', { volume: 0.5, bus: 'effects', pitchJitter: 0 }));
   events.on('game.play', () => play('vhs_insert', { volume: 0.8, pitchJitter: 0 }));

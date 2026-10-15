@@ -2,6 +2,7 @@
 // trees, the school facade, rain. Same conventions as catalog.js.
 import * as THREE from 'three';
 import { box, decal, plane, materialFor, canvasTexture } from './parts.js';
+import { i18n } from '../i18n/index.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -15,7 +16,9 @@ function mesh(geometry, texture, options) {
 
 // Grave stone with a rounded top; the name is a carved decal texture.
 const GRAVE = { color: '#8c8a82' };
-function gravestone(t, { lean = 0.05, name = '', years = '', worn = false } = {}) {
+// "age" carves the age line from i18n ("AGED 8" / "8 ΕΤΩΝ"); mockups pass "years".
+function gravestone(t, { lean = 0.05, name = '', years = '', age, worn = false } = {}) {
+  if (age) years = i18n.t('grave.aged', { n: age });
   const top = mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.1, 10, 1, false, 0, Math.PI), t.stone, GRAVE);
   top.rotation.set(Math.PI / 2, 0, Math.PI / 2, 'ZYX'); // half disc standing up, thickness along z
   top.position.y = 0.7;

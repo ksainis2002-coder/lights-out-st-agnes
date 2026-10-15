@@ -15,7 +15,17 @@ function seeded(seed) {
 }
 
 // A row of book spines: faded cloth colours, a few gaps and leaning books.
+// Six rows are drawn and shared, so a library of shelves merges into a few
+// draw calls (integrated graphics).
+const SPINE_ROWS = 6;
+const spineCache = new Map();
 function spinesTexture(seed) {
+  const row = seed % SPINE_ROWS;
+  if (!spineCache.has(row)) spineCache.set(row, drawSpines(row + 1));
+  return spineCache.get(row);
+}
+
+function drawSpines(seed) {
   return canvasTexture(64, 16, (g, w, h) => {
     const random = seeded(seed);
     const colours = ['#5a2a22', '#2e3a4a', '#3a4a2e', '#6a5a3a', '#4a2e3a', '#2a2a28', '#7a6a50'];

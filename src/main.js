@@ -27,6 +27,7 @@ import { setupTutorial } from './tutorial.js';
 import { setupPower } from './levels/power.js';
 import { createBattery } from './player/battery.js';
 import { setupClues } from './clues.js';
+import { watchWings } from './levels/wings.js';
 import { setupInventoryControls } from './items/controls.js';
 import { setupSaving } from './save/saving.js';
 import { resetState } from './save/gameState.js';
@@ -67,6 +68,7 @@ function createGame() {
   };
   game.ui = createUi(game, canvas, uiCanvas);
   game.ui.setHud((ctx) => game.mode === 'playing' && drawHud(ctx, game));
+  watchWings(game); // before the first level loads, so it is checked on load
   setupLevelFlow(game);
   setupClues(game);
   setupVisits(game);

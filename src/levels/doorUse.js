@@ -1,8 +1,12 @@
 // Makes a level's doors usable: open/close, unlocking with a carried key,
 // and exits to other levels (stairs, the hub door). Hidden doors are not
 // usable until revealed. Door changes are recorded in game.progress.
+//   "requires": "<flag>"      stays locked until the flag is set; using it
+//                             shows "lockedMessage" (the garden door: wing 1 done)
+//   an exit to a level that is not built yet says "Not yet"
 import * as THREE from 'three';
 import { itemDef, itemText } from '../items/catalog.js';
+import { LEVELS } from './index.js';
 
 export function doorInteractables(game) {
   const { world, player, progress, i18n } = game;
@@ -17,6 +21,15 @@ export function doorInteractables(game) {
     game.messages.show('msg.unlocked', { item: itemName(key) });
     game.events.emit('door.unlocked', door);
   }
+
+  // A door that won't open: its line, and the rattle of a locked door.
+  function refuse(door, message) {
+    if (message) game.messages.show(message, null, 5);
+    game.events.emit('door.locked', door);
+  }
+
+  const waiting = (door) => door.requires && !progress.hasFlag(door.requires);
+  const notBuilt = (door) => door.exit && !LEVELS[door.exit.level];
 
   function toggle(door) {
     door.open = !door.open;
@@ -35,6 +48,8 @@ export function doorInteractables(game) {
       radius: 0.75, // a door is big: anywhere on its face counts
       prompt() {
         if (door.hidden && !door.revealed) return null;
+        if (waiting(door)) return { key: 'prompt.locked' };
+        if (notBuilt(door)) return { key: 'prompt.notYet' };
         if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return { key: 'prompt.notYet' };
         if (door.exit) return { key: door.exit.prompt ?? 'prompt.leave' };
         if (door.locked) {
@@ -44,6 +59,8 @@ export function doorInteractables(game) {
         return { key: 'prompt.open' };
       },
       use() {
+        if (waiting(door)) return refuse(door, door.lockedMessage);
+        if (notBuilt(door)) return null;
         if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return null;
         if (door.exit) return game.travel(door.exit.level, door.exit.spawn);
         if (door.locked && !game.hasItem(door.locked)) return game.events.emit('door.locked', door);

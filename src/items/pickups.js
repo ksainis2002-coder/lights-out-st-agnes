@@ -7,6 +7,8 @@
 //                 "model": "chalkSlate", "height": 1.3 for something read on a wall;
 //                 "appearsWith" works as for pickups.
 //   "maps":      [{ "id": "orphanage_wing", "at": [c, r], "y": 0.77, "hidden": {...} }] (see journalMap.js)
+//                 "with": ["grounds"] adds more maps with it (one plan of two places);
+//                 "upright": true pins it to a wall or board, facing the way "rotation" turns it.
 // Using a pickup puts its item in the inventory; using a document opens it;
 // taking a map adds it to the journal's MAPS page.
 import * as THREE from 'three';
@@ -75,7 +77,9 @@ export function createPickups(game, level, data) {
 
   for (const map of data.maps ?? []) {
     if (journal.maps().includes(map.id)) continue;
-    const mesh = place(level, PROPS.paperSheet(game.world.textures), map);
+    const sheet = PROPS.paperSheet(game.world.textures);
+    if (map.upright) sheet.rotation.x = Math.PI / 2; // lying flat → facing +z
+    const mesh = place(level, new THREE.Group().add(sheet), map);
     group.add(mesh);
     usable.push({
       position: mesh.position.clone().setY((map.y ?? 0) + 0.02),
@@ -83,6 +87,7 @@ export function createPickups(game, level, data) {
       prompt: () => (journal.maps().includes(map.id) ? null : { key: 'prompt.takeMap', detail: 'item.map.short' }),
       use() {
         journal.addMap(map.id);
+        (map.with ?? []).forEach((id) => journal.addMap(id));
         group.remove(mesh);
         game.messages.show('msg.mapTaken', null, 4);
         game.events.emit('map.taken', map);

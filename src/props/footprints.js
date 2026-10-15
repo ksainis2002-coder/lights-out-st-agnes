@@ -28,6 +28,29 @@ const FOOTPRINTS = {
   washstand: () => ({ size: [0.6, 0.4], offset: [0, 0.2] }),
   // A toppled chair lies on its back, reaching behind where it stood.
   chair: (options) => (options?.toppled ? { size: [0.42, 0.94], offset: [0, -0.22] } : { size: [0.42, 0.42] }),
+  // School (0.3): classrooms, library, gym, music, nurse, art, hall, cloakroom, grounds.
+  schoolDesk: () => ({ size: [0.6, 0.72], offset: [0, 0.08] }),
+  indexCabinet: () => ({ size: [0.7, 0.42] }),
+  vaultingHorse: () => ({ size: [1.3, 0.4] }),
+  piano: () => ({ size: [1.5, 0.6], offset: [0, 0.3] }),
+  pianoStool: () => ({ size: [0.34, 0.34] }),
+  musicStand: () => ({ size: [0.3, 0.3] }),
+  percussion: () => ({ size: [1.1, 0.45] }),
+  scales: () => ({ size: [0.42, 0.56], offset: [0, 0.06] }),
+  examCouch: () => ({ size: [1.7, 0.6] }),
+  easel: () => ({ size: [0.66, 0.7], offset: [0, -0.2] }),
+  // The flight and its landing run back from the bottom step (prop origin).
+  stairs: (options) => {
+    const length = (options?.steps ?? 14) * (options?.run ?? 0.28) + (options?.landing ?? 1.4);
+    return { size: [options?.width ?? 1.6, length], offset: [0, -length / 2] };
+  },
+  umbrellaStand: () => ({ size: [0.26, 0.26] }),
+  cloakPegs: (options) => ({ size: [(options?.count ?? 8) * 0.34, 0.22], offset: [0, 0.11] }),
+  bootRack: (options) => ({ size: [options?.length ?? 2.4, 0.3] }),
+  lostProperty: () => ({ size: [0.5, 0.36] }),
+  gravestone: () => ({ size: [0.6, 0.3] }),
+  gatePillar: () => ({ size: [0.42, 0.42] }),
+  deadTree: () => ({ size: [0.4, 0.4] }),
 };
 
 // Axis-aligned boxes in world x/z: { minX, maxX, minZ, maxZ }.

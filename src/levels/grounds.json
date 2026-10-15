@@ -1,0 +1,785 @@
+{
+ "id": "grounds",
+ "wing": "school",
+ "cellSize": 1.5,
+ "wallHeight": 9,
+ "wallRepeat": 6,
+ "wallHeights": {
+  "wallStone": 2.2,
+  "iron": 0.06,
+  "hedge": 3.0
+ },
+ "floorTexture": "gravel",
+ "ceilingTexture": "none",
+ "ambient": {
+  "color": "#7080a0",
+  "intensity": 1.5
+ },
+ "fog": {
+  "color": "#1c232e",
+  "density": 0.045
+ },
+ "moon": {
+  "color": "#8090b8",
+  "intensity": 0.9
+ },
+ "legend": {
+  ".": "floor",
+  "B": "brick",
+  "S": "stone",
+  "w": "wallStone",
+  "f": "iron",
+  "h": "hedge"
+ },
+ "map": [
+  "wwwwwwwwwwwwwwwwwwwwww",
+  "wwww..............wwww",
+  "wwww..............wwww",
+  "wwww..............wwww",
+  "wwww..............wwww",
+  "wwww..............wwww",
+  "wwww..............wwww",
+  "wwww..............wwww",
+  "wwww..............wwww",
+  "wwwwffffff.fffffffwwww",
+  "B....................B",
+  "B....................B",
+  "B....................B",
+  "B....................B",
+  "B....................B",
+  "B....................B",
+  "S....................B",
+  "S....................B",
+  "S....................B",
+  "S....................B",
+  "S....................B",
+  "SSSSSSSSSSSSSfff.ffffB",
+  "SSSSSSSSSSSSS........B",
+  "SSSSSSSSSSSSS........B",
+  "hhhhhhhhhhhhhhhhhhhhhh"
+ ],
+ "spawns": {
+  "default": {
+   "cell": [
+    1,
+    12
+   ],
+   "yawDegrees": -90
+  },
+  "garden_door": {
+   "cell": [
+    1,
+    12
+   ],
+   "yawDegrees": -90
+  },
+  "school_door": {
+   "cell": [
+    20,
+    15
+   ],
+   "yawDegrees": 90
+  }
+ },
+ "rooms": [
+  {
+   "id": "cemetery",
+   "cells": [
+    4,
+    1,
+    17,
+    8
+   ],
+   "floor": "grass"
+  },
+  {
+   "id": "courtyard",
+   "cells": [
+    1,
+    10,
+    20,
+    20
+   ],
+   "floor": "gravel"
+  },
+  {
+   "id": "road",
+   "cells": [
+    13,
+    22,
+    20,
+    23
+   ],
+   "floor": "gravel"
+  }
+ ],
+ "doors": [
+  {
+   "id": "cemetery_gate",
+   "cell": [
+    10,
+    9
+   ],
+   "look": "gate",
+   "locked": "gate_key"
+  },
+  {
+   "id": "front_gate",
+   "cell": [
+    16,
+    21
+   ],
+   "look": "gate",
+   "requires": "front_gate_open",
+   "lockedMessage": "msg.frontGateChained"
+  }
+ ],
+ "triggers": [],
+ "props": [
+  {
+   "type": "facadeDoor",
+   "at": [
+    1,
+    12.5
+   ],
+   "rotation": 90,
+   "use": "travel",
+   "to": {
+    "level": "orphanage_wing",
+    "spawn": "garden_door"
+   },
+   "prompt": "prompt.goInside",
+   "useHeight": 1.2,
+   "useRadius": 0.8
+  },
+  {
+   "type": "facadeDoor",
+   "at": [
+    1,
+    18.5
+   ],
+   "rotation": 90,
+   "use": "message",
+   "message": "msg.westWingChained",
+   "useHeight": 1.2,
+   "useRadius": 0.8
+  },
+  {
+   "type": "facadeDoor",
+   "at": [
+    21,
+    15.5
+   ],
+   "rotation": -90,
+   "use": "travel",
+   "to": {
+    "level": "school_ground",
+    "spawn": "front_door"
+   },
+   "prompt": "prompt.toSchool",
+   "useHeight": 1.2,
+   "useRadius": 0.8
+  },
+  {
+   "type": "facadeDoor",
+   "at": [
+    6.5,
+    21
+   ],
+   "rotation": 180,
+   "use": "message",
+   "message": "msg.chapelKeyhole",
+   "prompt": "prompt.keyhole",
+   "useHeight": 1.2,
+   "useRadius": 0.8
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    1,
+    11.0
+   ],
+   "rotation": 90,
+   "options": {
+    "lit": true
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    1,
+    11.0
+   ],
+   "rotation": 90,
+   "y": 3.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    1,
+    14.2
+   ],
+   "rotation": 90,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    1,
+    14.2
+   ],
+   "rotation": 90,
+   "y": 3.4,
+   "options": {
+    "lit": true
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    1,
+    16.8
+   ],
+   "rotation": 90,
+   "y": 3.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    1,
+    20.0
+   ],
+   "rotation": 90,
+   "y": 3.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    11.2
+   ],
+   "rotation": -90,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    11.2
+   ],
+   "rotation": -90,
+   "y": 3.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    13.4
+   ],
+   "rotation": -90,
+   "options": {
+    "lit": true
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    13.4
+   ],
+   "rotation": -90,
+   "y": 3.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    17.6
+   ],
+   "rotation": -90,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    17.6
+   ],
+   "rotation": -90,
+   "y": 3.4,
+   "options": {
+    "lit": true
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    19.6
+   ],
+   "rotation": -90,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    21,
+    19.6
+   ],
+   "rotation": -90,
+   "y": 3.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    3.0,
+    21
+   ],
+   "rotation": 180,
+   "y": 1.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "litWindow",
+   "at": [
+    10.0,
+    21
+   ],
+   "rotation": 180,
+   "y": 1.4,
+   "options": {
+    "lit": false
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    5,
+    9.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    7,
+    9.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    9,
+    9.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    12,
+    9.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    14,
+    9.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    16,
+    9.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    14,
+    21.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    19,
+    21.5
+   ],
+   "options": {
+    "length": 3
+   }
+  },
+  {
+   "type": "ironFence",
+   "at": [
+    20.0,
+    21.5
+   ],
+   "options": {
+    "length": 1.5
+   }
+  },
+  {
+   "type": "gatePillar",
+   "at": [
+    10,
+    9.5
+   ]
+  },
+  {
+   "type": "gatePillar",
+   "at": [
+    11,
+    9.5
+   ]
+  },
+  {
+   "type": "gatePillar",
+   "at": [
+    16,
+    21.5
+   ]
+  },
+  {
+   "type": "gatePillar",
+   "at": [
+    17,
+    21.5
+   ]
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    8.3,
+    6.1
+   ],
+   "rotation": 168,
+   "options": {
+    "name": "MARGARET ROWE",
+    "lean": 0.05,
+    "age": 8
+   },
+   "id": "grave_margaret"
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    9.25,
+    6.35
+   ],
+   "rotation": 174,
+   "options": {
+    "name": "THOMAS HALE",
+    "lean": -0.04,
+    "age": 9,
+    "worn": true
+   },
+   "id": "grave_thomas"
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    10.2,
+    6.6
+   ],
+   "rotation": 180,
+   "options": {
+    "name": "EDITH CARR",
+    "lean": 0.1,
+    "age": 7
+   },
+   "id": "grave_edith"
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    11.15,
+    6.35
+   ],
+   "rotation": 186,
+   "options": {
+    "name": "SAMUEL PIKE",
+    "lean": 0.02,
+    "age": 10
+   },
+   "id": "grave_samuel"
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    12.1,
+    6.1
+   ],
+   "rotation": 192,
+   "options": {
+    "name": "AGNES",
+    "lean": 0.16
+   },
+   "id": "grave_agnes"
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    5.4,
+    3.0
+   ],
+   "rotation": -10,
+   "options": {
+    "lean": 0.1
+   }
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    15.8,
+    2.4
+   ],
+   "rotation": -3,
+   "options": {
+    "lean": 0.15
+   }
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    16.2,
+    6.4
+   ],
+   "rotation": 4,
+   "options": {
+    "lean": 0.2
+   }
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    5.2,
+    6.6
+   ],
+   "rotation": 11,
+   "options": {
+    "lean": 0.1
+   }
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    8.0,
+    2.0
+   ],
+   "rotation": 18,
+   "options": {
+    "lean": 0.15
+   }
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    12.8,
+    2.6
+   ],
+   "rotation": 25,
+   "options": {
+    "lean": 0.2
+   }
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    13.6,
+    5.4
+   ],
+   "rotation": 32,
+   "options": {
+    "lean": 0.1
+   }
+  },
+  {
+   "type": "gravestone",
+   "at": [
+    6.6,
+    4.8
+   ],
+   "rotation": 39,
+   "options": {
+    "lean": 0.15
+   }
+  },
+  {
+   "type": "deadTree",
+   "at": [
+    14.8,
+    4.2
+   ],
+   "options": {
+    "height": 5.5
+   }
+  },
+  {
+   "type": "deadTree",
+   "at": [
+    6.5,
+    -0.6
+   ],
+   "rotation": 70,
+   "options": {
+    "height": 7
+   }
+  },
+  {
+   "type": "deadTree",
+   "at": [
+    11.5,
+    -0.6
+   ],
+   "rotation": 170,
+   "options": {
+    "height": 8
+   }
+  },
+  {
+   "type": "deadTree",
+   "at": [
+    17.5,
+    -0.6
+   ],
+   "rotation": 290,
+   "options": {
+    "height": 6.5
+   }
+  },
+  {
+   "type": "deadTree",
+   "at": [
+    2.0,
+    -0.6
+   ],
+   "rotation": 20,
+   "options": {
+    "height": 7.5
+   }
+  },
+  {
+   "type": "rain",
+   "at": [
+    11,
+    12
+   ],
+   "options": {
+    "width": 34,
+    "depth": 38,
+    "height": 9,
+    "count": 1400
+   }
+  }
+ ],
+ "lights": [
+  {
+   "type": "point",
+   "at": [
+    1.6,
+    12.5
+   ],
+   "height": 2.9,
+   "color": "#d8a050",
+   "intensity": 7,
+   "distance": 12
+  },
+  {
+   "type": "point",
+   "at": [
+    20.4,
+    15.5
+   ],
+   "height": 2.9,
+   "color": "#d8a050",
+   "intensity": 7,
+   "distance": 12
+  },
+  {
+   "type": "point",
+   "at": [
+    6.5,
+    20.4
+   ],
+   "height": 2.9,
+   "color": "#d8a050",
+   "intensity": 4,
+   "distance": 9
+  },
+  {
+   "type": "point",
+   "at": [
+    10.5,
+    10.2
+   ],
+   "height": 3.5,
+   "color": "#5a6c9c",
+   "intensity": 3,
+   "distance": 10
+  }
+ ],
+ "ambience": [
+  {
+   "name": "amb_rain_inside",
+   "volume": 0.8
+  },
+  {
+   "name": "amb_wind_corridor",
+   "volume": 0.5
+  }
+ ],
+ "pickups": [],
+ "documents": [],
+ "maps": []
+}

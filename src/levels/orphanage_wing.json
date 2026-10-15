@@ -49,6 +49,13 @@
     11
    ],
    "yawDegrees": -90
+  },
+  "garden_door": {
+   "cell": [
+    1,
+    12
+   ],
+   "yawDegrees": 0
   }
  },
  "rooms": [
@@ -353,6 +360,20 @@
     27,
     11
    ]
+  },
+  {
+   "id": "garden_door",
+   "cell": [
+    1,
+    13
+   ],
+   "requires": "wing_orphanage_done",
+   "lockedMessage": "msg.gardenDoorLocked",
+   "exit": {
+    "level": "grounds",
+    "spawn": "garden_door",
+    "prompt": "prompt.toCourtyard"
+   }
   }
  ],
  "triggers": [],

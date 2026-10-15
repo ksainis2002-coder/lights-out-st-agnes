@@ -76,18 +76,21 @@ const PLAN_ROOMS = [[10, 5, 6, 8], [16, 5, 6, 8], [22, 5, 3, 8], [25, 5, 6, 8], 
 const SMALL_NOTICES = [[2, 4, 6, 9], [40, 6, 6, 8], [3, 20, 5, 7], [41, 22, 5, 9]];
 
 // The hall notice board: the school plan pinned in the middle with a red
-// "you are here" dot (the ground-floor map pickup), small notices round it.
-function mapBoard(t) {
+// "you are here" dot, small notices round it. plan: false leaves the middle
+// bare, for the game, where the plan is a pickup pinned over it.
+function mapBoard(t, { plan = true } = {}) {
   const cork = canvasTexture(48, 36, (g) => {
     g.fillStyle = '#8a6a44';
     g.fillRect(0, 0, 48, 36);
-    g.fillStyle = '#e0d8c0';
-    g.fillRect(9, 4, 30, 24);
-    g.strokeStyle = '#3a4a6a';
-    g.lineWidth = 1;
-    PLAN_ROOMS.forEach(([x, y, w, h]) => g.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1));
-    g.fillStyle = '#c02020';
-    g.fillRect(27, 24, 2, 2);
+    if (plan) {
+      g.fillStyle = '#e0d8c0';
+      g.fillRect(9, 4, 30, 24);
+      g.strokeStyle = '#3a4a6a';
+      g.lineWidth = 1;
+      PLAN_ROOMS.forEach(([x, y, w, h]) => g.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1));
+      g.fillStyle = '#c02020';
+      g.fillRect(27, 24, 2, 2);
+    }
     SMALL_NOTICES.forEach(([x, y, w, h]) => {
       g.fillStyle = '#d8d0bc';
       g.fillRect(x, y, w, h);

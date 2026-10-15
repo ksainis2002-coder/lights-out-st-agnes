@@ -4,6 +4,7 @@
 // on the floor, front facing +z; wall things have their back on the wall.
 import * as THREE from 'three';
 import { box, decal, plane, materialFor, canvasTexture, strut } from './parts.js';
+import { i18n } from '../i18n/index.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -235,8 +236,9 @@ function captionTexture(text) {
 }
 
 // The class painting in its frame, a card under it with the caption (in the
-// game the caption comes from i18n).
-function classPainting(t, { caption = '' } = {}) {
+// game from i18n, "captionKey"; mockups pass "caption" as text).
+function classPainting(t, { caption = '', captionKey } = {}) {
+  if (captionKey) caption = i18n.t(captionKey);
   const parts = [
     box(t.paintedWood, [1.72, 0.96, 0.04], [0, 1.0, 0.02], { color: '#5a3a20' }),
     decal(classPaintingTexture(), [1.6, 0.84], [0, 1.48, 0.042]),

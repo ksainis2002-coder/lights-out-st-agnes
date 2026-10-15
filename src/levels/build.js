@@ -28,14 +28,15 @@ function addQuad(bucket, corners, normal, uvs) {
 }
 
 // Adds a face spanned by origin + u*edgeU + v*edgeV, split SPLIT×SPLIT.
-// Texture coordinates run 0..1 across the face (0..vRepeat upwards on walls).
-function addFace(bucket, origin, edgeU, edgeV, normal, vRepeat = 1) {
+// Texture coordinates run 0..1 across the face (vOffset..vOffset+vRepeat
+// upwards on walls, so a wall built in pieces still lines up).
+function addFace(bucket, origin, edgeU, edgeV, normal, vRepeat = 1, vOffset = 0) {
   const point = (u, v) => origin.map((o, i) => o + edgeU[i] * u + edgeV[i] * v);
   for (let j = 0; j < SPLIT; j++) {
     for (let i = 0; i < SPLIT; i++) {
       const u0 = i / SPLIT, u1 = (i + 1) / SPLIT, v0 = j / SPLIT, v1 = (j + 1) / SPLIT;
       const corners = [point(u0, v0), point(u1, v0), point(u1, v1), point(u0, v1)];
-      const t0 = v0 * vRepeat, t1 = v1 * vRepeat;
+      const t0 = vOffset + v0 * vRepeat, t1 = vOffset + v1 * vRepeat;
       addQuad(bucket, corners, normal, [[u0, t0], [u1, t0], [u1, t1], [u0, t1]]);
     }
   }
@@ -43,7 +44,7 @@ function addFace(bucket, origin, edgeU, edgeV, normal, vRepeat = 1) {
 
 function addFloorAndCeiling(bucketFor, level, col, row) {
   const s = level.cellSize;
-  const h = level.wallHeight;
+  const h = level.heightAt(col, row);
   const x0 = col * s, z0 = row * s;
   addFace(bucketFor(level.textures.floor(col, row)), [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
   const ceiling = level.textures.ceiling(col, row);
@@ -51,16 +52,20 @@ function addFloorAndCeiling(bucketFor, level, col, row) {
   addFace(bucketFor(ceiling), [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);
 }
 
-// Wall face on the edge between open cell (col,row) and its solid neighbour.
-function addWall(bucket, level, col, row, side) {
+// Wall face on the edge between open cell (col,row) and its neighbour, from
+// y = bottom up to y = top (a solid neighbour: the floor up to the wall's
+// height, or a tall room's ceiling; a lower open neighbour, like a doorway
+// or a corridor off a tall hall: only the strip above its ceiling).
+function addWall(bucket, level, col, row, side, bottom = 0, top = null) {
   const s = level.cellSize;
   const [nx, , nz] = side.normal;
   const ex = (col + 0.5) * s - nx * s * 0.5; // edge centre
   const ez = (row + 0.5) * s - nz * s * 0.5;
   const tx = nz, tz = -nx; // tangent: u runs left to right when facing the wall
-  const origin = [ex - tx * s * 0.5, 0, ez - tz * s * 0.5];
-  const height = level.wallHeightAt(col + side.dc, row + side.dr);
-  addFace(bucket, origin, [tx * s, 0, tz * s], [0, height, 0], side.normal, (level.wallRepeat * height) / level.wallHeight);
+  const origin = [ex - tx * s * 0.5, bottom, ez - tz * s * 0.5];
+  const height = (top ?? level.roomHeightAt(col, row) ?? level.wallHeightAt(col + side.dc, row + side.dr)) - bottom;
+  const perMetre = level.wallRepeat / level.wallHeight;
+  addFace(bucket, origin, [tx * s, 0, tz * s], [0, height, 0], side.normal, perMetre * height, perMetre * bottom);
 }
 
 function toMesh(bucket, texture) {
@@ -84,6 +89,10 @@ export function buildLevelMeshes(level, textures) {
       addFloorAndCeiling(bucketFor, level, col, row);
       for (const side of SIDES) {
         const wallCol = col + side.dc, wallRow = row + side.dr;
+        const step = level.heightAt(wallCol, wallRow);
+        if (!level.isWall(wallCol, wallRow) && step < level.heightAt(col, row)) {
+          addWall(bucketFor(level.textures.step(col, row)), level, col, row, side, step, level.heightAt(col, row));
+        }
         if (!level.isWall(wallCol, wallRow)) continue;
         // Inside a doorway, the jambs take the texture of the wall itself.
         const texture = level.doorAt(col, row) ? level.kindAt(wallCol, wallRow) : level.textures.wall(col, row, wallCol, wallRow);

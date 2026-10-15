@@ -131,3 +131,8 @@ puzzle close-ups (0.2.14) are approved; piano stickers carry a shape per colour;
 better up close gets a close-up (owner request), wing 1's fuse box included (0.2.16). Waiting on the
 owner: the content sheet checklist, the wing 1 playtest (then the pull request that puts 0.2.x on
 Pages) and the priority 1 sounds. Next: build part A (courtyard + ground floor).
+
+**Part A1 built (2026-10-15):** the garden door, the grounds and the school's ground floor are in the game
+(0.2.17), all furnished, no puzzles yet. Next: A2 (library, piano, hopscotch, the boards, painting, desk,
+coat and drawer), then A3 (Maggie, the watcher, sounds as placeholders, bot route), then the owner's
+part A playtest.
