@@ -1,7 +1,8 @@
 // Subtitles for whispers and voices, as in the approved stills: a dark box at
 // the bottom with "(speaker, whispering) line". Ghost children are labelled
 // "a child" until the player has learned their name (progress flag
-// "name_<id>"). Respects the subtitles setting.
+// "name_<id>"), or by their own label if they have one ("a girl" for Maggie:
+// speaker.<id>.unknown). Respects the subtitles setting.
 import { osdText, wrapText } from './osd.js';
 
 const W = 480;
@@ -12,8 +13,9 @@ export function createSubtitles(game) {
 
   function speakerLabel(speaker) {
     if (!speaker) return null;
-    const known = game.progress.hasFlag(`name_${speaker}`);
-    return game.i18n.t(known ? `speaker.${speaker}` : 'speaker.child');
+    if (game.progress.hasFlag(`name_${speaker}`)) return game.i18n.t(`speaker.${speaker}`);
+    const own = `speaker.${speaker}.unknown`;
+    return game.i18n.t(game.i18n.has(own) ? own : 'speaker.child');
   }
 
   return {
@@ -26,6 +28,7 @@ export function createSubtitles(game) {
       if (current && (current.left -= dt) <= 0) current = null;
     },
     current: () => current,
+    speaker: () => (current ? speakerLabel(current.speaker) : null), // the label shown now (tests)
     draw(ctx) {
       if (!current || !game.settings.get('subtitles')) return false;
       const { t } = game.i18n;

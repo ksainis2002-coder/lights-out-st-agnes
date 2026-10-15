@@ -13,4 +13,5 @@ export function setupClues(game) {
   events.on('puzzle.solved', (name) => note(`solved_${name}`));
   events.on('prop.looked', (prop) => note(`saw_${prop.id}`));
   events.on('room.visited', (room) => note(`visited_${room}`));
+  events.on('clue', (id) => note(id)); // anything else a puzzle finds out
 }

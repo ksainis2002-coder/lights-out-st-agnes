@@ -64,13 +64,26 @@ export function createGameAudio(game) {
   events.on('toy.moved', () => play('wooden_toy', { volume: 0.5 }));
   // The plates drop the crank (a rolling clatter); the toys draw back a bolt;
   // the lullaby lets a hidden door creak loose.
-  const SOLVED_SOUND = { plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz' };
+  const SOLVED_SOUND = { plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz', piano: 'key_pickup', library: 'paper_pickup' };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
   events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
   events.on('fuses.reset', () => play('door_locked', { volume: 0.7 }));
   events.on('power.cut', () => play('thunder_far', { volume: 1 }));
   events.on('reveal', () => play('paper_pickup', { volume: 0.8 }));
   events.on('musicBox.wound', () => play('drawer', { volume: 0.6 }));
+  // School wing: 0.2 sounds stand in until the 0.3 files arrive (desk_lid,
+  // cloth_rustle, book_slide, rope_slap, key_drop_wood in docs/SOUNDS_0.3.md).
+  const propPosition = (prop, y) => {
+    const size = game.world.level.cellSize;
+    const [col, row] = prop.useAt ?? prop.at;
+    return { x: col * size, y, z: row * size };
+  };
+  events.on('prop.opened', (prop) => play('drawer', { position: propPosition(prop, 0.8), volume: 0.7 }));
+  events.on('prop.searched', (prop) => play('cloth_crouch', { position: propPosition(prop, 1.1) }));
+  events.on('library.drawer', () => play('drawer', { volume: 0.5 }));
+  events.on('library.book', () => play('paper_pickup', { volume: 0.7 }));
+  events.on('hopscotch.hop', () => play('step_wood', { volume: 0.6 }));
+  events.on('hopscotch.wrong', () => play('giggle_close', { volume: 0.4 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
   // Emitters loop, or with "every": [min, max] play once at random gaps

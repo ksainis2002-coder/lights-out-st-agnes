@@ -52,12 +52,27 @@ class Level:
         self.lights.append({"type": "point", "at": room.at(x, z) if room else [x, z], "height": height,
                             "color": color, "intensity": intensity, "distance": distance})
 
-    def pickup(self, room, pid, item, x, z, y=0.0, **extra):
-        self.pickups.append({"id": pid, "item": item, "at": room.at(x, z), "y": y, **extra})
+    def pickup(self, room, pid, item, x, z, rotation=0, y=0.0, **extra):
+        pickup = {"id": pid, "item": item, "at": room.at(x, z), "y": y, **extra}
+        if rotation:
+            pickup["rotation"] = rotation
+        self.pickups.append(pickup)
+
+    def document(self, room, did, x, z, y, rotation=0, **extra):
+        doc = {"id": did, "at": room.at(x, z), "y": y, **extra}
+        if rotation:
+            doc["rotation"] = rotation
+        self.documents.append(doc)
 
 
 def facing(frm, to):
     return math.degrees(math.atan2(to[0] - frm[0], to[1] - frm[1]))
+
+
+def local_cells(at, rotation, lx, lz, cell):
+    """A point given in a prop's own metres (x right, z out of its front), in level cells."""
+    t = math.radians(rotation)
+    return [r3(at[0] + (lx * math.cos(t) + lz * math.sin(t)) / cell), r3(at[1] + (-lx * math.sin(t) + lz * math.cos(t)) / cell)]
 
 
 # ---------------------------------------------------------------- grounds
@@ -242,6 +257,8 @@ def school():
     L.prop(gym, 'rug', 2.0, 3.0, width=1.8, depth=1.0)
     L.prop(gym, 'hopscotch', 4.2, 6.0, extra={"id": "hopscotch"})
     L.prop(gym, 'noticeBoard', 3.2, 8, 180)
+    L.document(gym, 'fire_drill_log', 3.05, 8 - 0.035 / 1.2, 1.5, 180, upright=True)
+    L.pickup(gym, 'gym_rope', 'skipping_rope', 4.2, 5.2, 20, model='skippingRope', appearsWith='puzzle_hopscotch')
     L.light(gym, 4.0, 0.8, 4.0, 5, 13)
     L.light(gym, 9.5, 0.8, 4.0, 5, 13)
 
@@ -252,6 +269,7 @@ def school():
     # Music room: the piano with Maggie's stickers, chairs round it.
     L.prop(mus, 'piano', 1.5, 0, extra={"id": "piano"}, stickers=True)
     L.prop(mus, 'pianoStool', 1.5, 0.82)
+    L.pickup(mus, 'piano_key', 'headmaster_key', 2.05, 0.95, 25, model='brassKey', appearsWith='puzzle_piano')
     L.prop(mus, 'crucifix', 1.5, 0, height=2.4)
     L.prop(mus, 'staveChart', 4.0, 0)
     L.prop(mus, 'windowFrame', 6.0, 0)
@@ -298,7 +316,9 @@ def school():
         L.light(cor, x, 1.0, 2.2, 1.6, 7)
 
     # Art room: the class painting, easels, the painting table, a drying line.
-    L.prop(art, 'classPainting', 3.5, 6, 180, extra={"id": "class_painting"}, captionKey='art.paintingCaption')
+    L.prop(art, 'classPainting', 3.5, 6, 180, extra={"id": "class_painting", "use": "view", "view": "painting",
+                                                     "prompt": "prompt.lookPainting", "useHeight": 1.45, "useRadius": 0.7},
+           captionKey='art.paintingCaption')
     for x in (1.3, 5.7):
         L.prop(art, 'windowFrame', x, 6, 180)
     L.prop(art, 'easel', 2.4, 3.2, 200, painting='house')
@@ -318,16 +338,21 @@ def school():
 
     # Classrooms: the board on the west wall, desks in rows facing it, three
     # windows on the south wall. Class 2 has exactly five lids left up.
-    def classroom(room, board_keys, lids_up=(), maggie=None):
-        L.prop(room, 'blackboard', 0, 3.0, 90, lineKeys=board_keys)
+    def classroom(room, board_keys, lids_up=(), maggie=None, board=None):
+        L.prop(room, 'blackboard', 0, 3.0, 90, extra=board, lineKeys=board_keys)
         L.prop(room, 'table', 1.3, 1.6, 90)
         L.prop(room, 'chair', 0.8, 1.6, 90)
         n = 0
         for x in (3.2, 4.8, 6.4):
             for z in (1.2, 2.4, 3.6, 4.8):
                 opts = {"lidOpen": True} if n in lids_up else {}
-                extra = {"id": "maggie_desk"} if n == maggie else None  # her ticket is under the lid
-                L.prop(room, 'schoolDesk', x, z, 90 + (n * 7 % 5 - 2), extra=extra, **opts)
+                rotation = 90 + (n * 7 % 5 - 2)
+                extra = None
+                if n == maggie:  # her name is carved under the lid, her library ticket inside
+                    extra = {"id": "maggie_desk", "use": "lid", "message": "msg.maggieDesk", "flags": ["name_maggie"]}
+                    L.documents.append({"id": "library_ticket", "at": local_cells(room.at(x, z), rotation, 0.08, -0.08, 1.2),
+                                        "y": 0.722, "rotation": rotation + 180, "appearsWith": "opened_maggie_desk"})
+                L.prop(room, 'schoolDesk', x, z, rotation, extra=extra, **opts)
                 n += 1
         for x in (2.0, 4.5, 7.0):
             L.prop(room, 'windowFrame', x, 6, 180)
@@ -336,8 +361,11 @@ def school():
 
     classroom(c1, ["chalk.class1.talk", "chalk.class1.talk", "chalk.class1.talk", "chalk.class1.tell", "chalk.class1.tellTwice"], maggie=5)
     L.prop(c1, 'wallClock', 8, 3.0, -90, height=1.9)
+    L.document(c1, 'detention_book', 1.25, 1.85, 0.76, 75, model='ledger', height=0.05)
     classroom(c2, ["chalk.class2.title", "chalk.class2.count", "chalk.class2.q1", "chalk.class2.q2", "chalk.class2.q3",
-                   "chalk.class2.talkers"], lids_up=(1, 3, 6, 8, 11))
+                   "chalk.class2.talkers"], lids_up=(1, 3, 6, 8, 11),
+              board={"id": "counting_board", "use": "view", "view": "board", "prompt": "prompt.readBoard",
+                     "useHeight": 1.45, "useRadius": 0.9})
 
     # Entrance hall (6 m tall): the main stairs up into the dark, the front
     # doors, the notice board with the school plan to take.
@@ -360,7 +388,11 @@ def school():
 
     # Cloakroom: coat rails both sides, one coat with a red ribbon bow.
     L.prop(clk, 'cloakPegs', 0, 3.3, 90, count=8, empty=[3], satchels=[1, 6])
-    L.prop(clk, 'cloakPegs', 4, 3.3, -90, extra={"id": "cloak_pegs_east"}, count=8, ribbon=2, empty=[6], satchels=[4])
+    pegs_at = clk.at(4, 3.3)
+    ribbon_coat = local_cells(pegs_at, -90, (2 - 3.5) * 0.34, 0.15, 1.2)  # peg 2 of 8, 0.34 m apart
+    L.prop(clk, 'cloakPegs', 4, 3.3, -90, extra={"id": "cloak_pegs_east", "use": "search", "gives": "matches",
+                                                  "document": "maggie_note", "useAt": ribbon_coat, "useHeight": 1.2},
+           count=8, ribbon=2, empty=[6], satchels=[4])
     L.prop(clk, 'bootRack', 0.27, 3.3, 90, length=2.6, pairs=6)
     L.prop(clk, 'bootRack', 3.73, 3.3, -90, length=2.6, pairs=5)
     L.prop(clk, 'bench', 0.62, 3.3, 90, length=2.6)
@@ -378,12 +410,17 @@ def school():
     L.prop(stf, 'longTable', 2.6, 3.4)
     for x, z, rot in [(1.6, 2.85, 0), (2.6, 2.85, 0), (3.6, 2.85, 0), (2.0, 3.95, 180), (3.2, 3.95, 180)]:
         L.prop(stf, 'chair', x, z, rot)
-    L.prop(stf, 'cabinet', 0.2, 1.5, 90, extra={"id": "staff_cabinet"})
+    cabinet_at = stf.at(0.26, 1.5)
+    L.prop(stf, 'recordsCabinet', 0.26, 1.5, 90, extra={"id": "staff_cabinet", "use": "note", "message": "msg.staffDrawerEmpty",
+                                                       "flags": ["matches_missing"], "prompt": "prompt.open",
+                                                       "useAt": local_cells(cabinet_at, 90, 0, 0.32, 1.2), "useHeight": 0.9,
+                                                       "useRadius": 0.35}, lock=False)
     for x in (1.5, 4.5):
         L.prop(stf, 'windowFrame', x, 6, 180)
     L.prop(stf, 'radiator', 3.0, 6, 180)
     L.prop(stf, 'noticeBoard', 4.0, 0)
     L.prop(stf, 'typewriter', 2.0, 3.4, y=0.77)
+    L.document(stf, 'unsent_letter', 2.75, 3.55, 0.77, 15)
     L.pickup(stf, 'staff_battery', 'battery', 3.4, 3.35, y=0.77)
     L.light(stf, 5.2, 1.6, 1.2, 2.2, 6, WARM)
     L.light(stf, 3.0, 5.4, 2.2, 1.6, 6)
@@ -406,7 +443,13 @@ def school():
         "spawns": {"default": {"cell": [30, 16], "yawDegrees": 0}, "front_door": {"cell": [30, 16], "yawDegrees": 0}},
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],
-        "pickups": L.pickups, "documents": [], "maps": maps,
+        "pickups": L.pickups, "documents": L.documents, "maps": maps,
+        "puzzles": {
+            "libraryIndex": {"prop": "card_index", "shelf": "shelf_700", "ticket": "library_ticket", "drawer": 18,
+                             "book": 784, "song": "my_song"},
+            "piano": {"prop": "piano", "clue": "my_song", "tune": [5, 5, 3, 6, 5, 3]},
+            "hopscotch": {"prop": "hopscotch", "clue": "heard_rhyme_gym", "order": [2, 7, 5, 9, 1]},
+        },
     }
 
 

@@ -1186,7 +1186,12 @@
    "options": {
     "captionKey": "art.paintingCaption"
    },
-   "id": "class_painting"
+   "id": "class_painting",
+   "use": "view",
+   "view": "painting",
+   "prompt": "prompt.lookPainting",
+   "useHeight": 1.45,
+   "useRadius": 0.7
   },
   {
    "type": "windowFrame",
@@ -1425,7 +1430,12 @@
     15.4
    ],
    "rotation": 88,
-   "id": "maggie_desk"
+   "id": "maggie_desk",
+   "use": "lid",
+   "message": "msg.maggieDesk",
+   "flags": [
+    "name_maggie"
+   ]
   },
   {
    "type": "schoolDesk",
@@ -1534,7 +1544,13 @@
      "chalk.class2.q3",
      "chalk.class2.talkers"
     ]
-   }
+   },
+   "id": "counting_board",
+   "use": "view",
+   "view": "board",
+   "prompt": "prompt.readBoard",
+   "useHeight": 1.45,
+   "useRadius": 0.9
   },
   {
    "type": "table",
@@ -1843,7 +1859,15 @@
      4
     ]
    },
-   "id": "cloak_pegs_east"
+   "id": "cloak_pegs_east",
+   "use": "search",
+   "gives": "matches",
+   "document": "maggie_note",
+   "useAt": [
+    38.875,
+    15.875
+   ],
+   "useHeight": 1.2
   },
   {
    "type": "bootRack",
@@ -2006,13 +2030,28 @@
    "rotation": 180
   },
   {
-   "type": "cabinet",
+   "type": "recordsCabinet",
    "at": [
-    40.2,
+    40.26,
     14.5
    ],
    "rotation": 90,
-   "id": "staff_cabinet"
+   "options": {
+    "lock": false
+   },
+   "id": "staff_cabinet",
+   "use": "note",
+   "message": "msg.staffDrawerEmpty",
+   "flags": [
+    "matches_missing"
+   ],
+   "prompt": "prompt.open",
+   "useAt": [
+    40.527,
+    14.5
+   ],
+   "useHeight": 0.9,
+   "useRadius": 0.35
   },
   {
    "type": "windowFrame",
@@ -2260,6 +2299,30 @@
    "y": 0.76
   },
   {
+   "id": "gym_rope",
+   "item": "skipping_rope",
+   "at": [
+    17.2,
+    6.2
+   ],
+   "y": 0.0,
+   "model": "skippingRope",
+   "appearsWith": "puzzle_hopscotch",
+   "rotation": 20
+  },
+  {
+   "id": "piano_key",
+   "item": "headmaster_key",
+   "at": [
+    31.05,
+    3.95
+   ],
+   "y": 0.0,
+   "model": "brassKey",
+   "appearsWith": "puzzle_piano",
+   "rotation": 25
+  },
+  {
    "id": "nurse_pills",
    "item": "pills",
    "at": [
@@ -2279,7 +2342,48 @@
    "y": 0.77
   }
  ],
- "documents": [],
+ "documents": [
+  {
+   "id": "fire_drill_log",
+   "at": [
+    16.05,
+    8.971
+   ],
+   "y": 1.5,
+   "upright": true,
+   "rotation": 180
+  },
+  {
+   "id": "library_ticket",
+   "at": [
+    13.736,
+    15.331
+   ],
+   "y": 0.722,
+   "rotation": 268,
+   "appearsWith": "opened_maggie_desk"
+  },
+  {
+   "id": "detention_book",
+   "at": [
+    10.25,
+    14.85
+   ],
+   "y": 0.76,
+   "model": "ledger",
+   "height": 0.05,
+   "rotation": 75
+  },
+  {
+   "id": "unsent_letter",
+   "at": [
+    42.75,
+    16.55
+   ],
+   "y": 0.77,
+   "rotation": 15
+  }
+ ],
  "maps": [
   {
    "id": "school_ground",
@@ -2298,5 +2402,38 @@
     0.15
    ]
   }
- ]
+ ],
+ "puzzles": {
+  "libraryIndex": {
+   "prop": "card_index",
+   "shelf": "shelf_700",
+   "ticket": "library_ticket",
+   "drawer": 18,
+   "book": 784,
+   "song": "my_song"
+  },
+  "piano": {
+   "prop": "piano",
+   "clue": "my_song",
+   "tune": [
+    5,
+    5,
+    3,
+    6,
+    5,
+    3
+   ]
+  },
+  "hopscotch": {
+   "prop": "hopscotch",
+   "clue": "heard_rhyme_gym",
+   "order": [
+    2,
+    7,
+    5,
+    9,
+    1
+   ]
+  }
+ }
 }

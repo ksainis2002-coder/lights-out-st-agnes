@@ -89,6 +89,19 @@ const SYMBOLS = {
     ctx.lineTo(x + 2, y);
     ctx.lineTo(x - 1, y + 4);
   },
+  book(ctx, x, y) {
+    ctx.moveTo(x, y - 2);
+    ctx.lineTo(x - 4, y - 3);
+    ctx.lineTo(x - 4, y + 2.5);
+    ctx.lineTo(x, y + 3.5);
+    ctx.lineTo(x + 4, y + 2.5);
+    ctx.lineTo(x + 4, y - 3);
+    ctx.lineTo(x, y - 2);
+    ctx.lineTo(x, y + 3.5);
+  },
+  hop(ctx, x, y) {
+    [[-1.3, 1.2], [-2.6, -1.4], [0, -1.4], [-1.3, -4]].forEach(([dx, dy]) => ctx.rect(x + dx, y + dy, 2.6, 2.6));
+  },
 };
 
 const DRAW = {

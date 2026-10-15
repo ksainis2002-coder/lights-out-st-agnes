@@ -8,6 +8,11 @@ import { createDocumentScreen } from './screens/document.js';
 import { createTapeScreen } from './screens/tapes.js';
 import { createMusicBoxScreen } from './screens/musicBox.js';
 import { createFuseBoxScreen } from './screens/fuseBox.js';
+import { createPianoScreen } from './screens/piano.js';
+import { createCardIndexScreen } from './screens/cardIndex.js';
+import { createShelfScreen } from './screens/shelf.js';
+import { createHopscotchScreen } from './screens/hopscotch.js';
+import { createCloseViewScreen } from './screens/closeView.js';
 import { createItemCardScreen } from './screens/itemCard.js';
 import { createSanityCardScreen } from './screens/sanityCard.js';
 
@@ -22,6 +27,11 @@ const SCREENS = {
   document: createDocumentScreen,
   musicBox: createMusicBoxScreen,
   fuseBox: createFuseBoxScreen,
+  piano: createPianoScreen,
+  cardIndex: createCardIndexScreen,
+  shelf: createShelfScreen,
+  hopscotch: createHopscotchScreen,
+  closeView: createCloseViewScreen,
   itemCard: createItemCardScreen,
   sanityCard: createSanityCardScreen,
   save: (api, options) => createTapeScreen(api, { ...options, mode: 'save' }),

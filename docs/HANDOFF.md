@@ -136,3 +136,8 @@ Pages) and the priority 1 sounds. Next: build part A (courtyard + ground floor).
 (0.2.17), all furnished, no puzzles yet. Next: A2 (library, piano, hopscotch, the boards, painting, desk,
 coat and drawer), then A3 (Maggie, the watcher, sounds as placeholders, bot route), then the owner's
 part A playtest.
+
+**Part A2 built (2026-10-15):** the library, piano and hopscotch puzzles with their close-ups, Maggie's desk,
+the counting board, the class painting, the coat and the staff-room drawer, six documents and three items
+(0.2.18). Next: A3 (Maggie's rhymes and lines, the watcher, the part A bot route).
+

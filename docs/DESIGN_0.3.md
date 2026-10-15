@@ -161,8 +161,9 @@ lines are in the content sheet.
    playtest. Stills of the new rooms (0.2.13) and the close-ups (0.2.14) approved.
    - **A1 (0.2.17):** the garden door, the grounds and the ground floor, every room furnished;
      the stairs say "Not yet". Built from `tools/levels/school_part_a.py` (see below).
-   - **A2:** the library, piano and hopscotch puzzles with their close-ups, the Class 1 and 2
-     boards, the class painting, Maggie's desk, the coat pockets and the staff-room drawer.
+   - **A2 (0.2.18):** the library, piano and hopscotch puzzles with their close-ups, the
+     Classroom 2 board, the class painting, Maggie's desk, the coat pockets and the staff-room
+     drawer.
    - **A3:** Maggie's rhymes and chalk, the watcher, sounds as placeholders, the part A bot route.
 4. **Part B, upstairs:** stills, stairs both ways, Classes 3–4 and the set pieces, the office and
    flat, the records lock, the storm. Owner playtest.
@@ -194,3 +195,22 @@ lines are in the content sheet.
   About 19 point lights in the school: measure fps at the end of part A.
 - The plan on the hall notice board adds two maps (the ground floor and the grounds), each with its
   own title. The content sheet has one combined title: owner to confirm the two names.
+
+## Part A2 as built (0.2.18)
+- Puzzles (`src/puzzles/libraryIndex.js`, `piano.js`, `hopscotch.js`) with their answers in the
+  level data, so Hard can shuffle them later. Each close-up is its own screen (`src/ui/screens/`).
+- The order a player meets it: Maggie's desk (Classroom 1) → library ticket → card index (drawer S /
+  Τ) → shelf 784 → her song → piano → headmaster's key (for the office upstairs, part B). The
+  hopscotch waits for her gym rhyme (part A3): until then the squares are only chalk. The staff-room
+  drawer and the ribbon coat work in any order (the matches are for the lanterns, part C).
+- New prop uses in level data: `lid` (once; sets `opened_<id>` and its flags), `note` (a line and
+  flags, every time), `search` (once: an item and a note), `view` (a close-up, counts as looking).
+  Documents can be pinned up (`upright`), and `game.readDocument(id)` reads a page found in a book
+  or a pocket.
+- Pickup models: a brass key with a paper tag drawn half as big again as a real one (it has to read at
+  320×180), Maggie's skipping rope, a ledger for the detention book. The staff room's medicine
+  cabinet became a steel filing cabinet, so it has a drawer.
+- Strings not in the content sheet yet (added while building, owner to check): "Look along the
+  shelves", "Cards for other titles.", "Not this one.", the hopscotch line before the rhyme, the two
+  map titles (ground floor; grounds) and "Go back inside" / "Go into the school".
+

@@ -97,6 +97,20 @@ gibberish only), so no sung words are needed. Her giggle reuses the 0.2 giggle.
 | mus_stinger_low (×2) | 2 | Short low horror hit, 1–3 s | horror stinger low, dark impact hit | |
 | mus_music_box_broken | 3 | Music box winding down, slowing | music box slowing down, wind down | |
 
+## Stand-ins in the game now
+Until the files above arrive, the game plays a 0.2 sound in their place. Each one is swapped for
+its own file when it comes in (one line each in `src/audio/gameAudio.js`).
+| Happens | Plays now | Will play |
+| --- | --- | --- |
+| Lifting Maggie's desk lid; the staff-room drawer | drawer | desk_lid; drawer_metal |
+| Searching the coat pockets | cloth_crouch | cloth_rustle |
+| A card-index drawer | drawer | drawer (fine as it is) |
+| Taking a book off the shelf | paper_pickup | book_slide |
+| The key falling out of the piano | key_pickup | key_drop_wood |
+| A hop on the hopscotch | step_wood | step_wood (fine as it is) |
+| A wrong square | giggle_close (quiet) | rope_slap, then the giggle |
+| Footsteps on the gravel and the grass outside | step_tile, step_wood | step_gravel, step_grass |
+
 ## Counts
 - **Priority 1:** 23 sounds (49 files with the extra takes). Enough to build the wing.
 - **Priority 2:** 20 sounds (35 files).

@@ -18,6 +18,7 @@ import { setupLevelFlow } from './levelFlow.js';
 import { drawHud } from './ui/hud.js';
 import { createGameAudio } from './audio/gameAudio.js';
 import { createInventory } from './items/inventory.js';
+import { readDocument } from './items/pickups.js';
 import { createProgress } from './progress.js';
 import { createJournal } from './journal.js';
 import { createMessages } from './ui/messages.js';
@@ -107,6 +108,7 @@ function createGame() {
   game.sfx = createGameAudio(game);
   game.debug = createDebugOverlay(game);
   game.mapMarks = (mapId) => mapMarks(game, mapId); // what the paper map marks now (tests)
+  game.readDocument = (id) => readDocument(game, { id }); // a page found in a book or a pocket
   return game;
 }
 

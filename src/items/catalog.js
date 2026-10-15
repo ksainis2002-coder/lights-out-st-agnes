@@ -18,6 +18,9 @@ export const ITEMS = {
   toy_doll: { icon: 'doll' },
   toy_top: { icon: 'top' },
   statue_piece: { icon: 'statue' },
+  headmaster_key: { icon: 'key', consumed: true },
+  matches: { icon: 'matches' },
+  skipping_rope: { icon: 'rope' },
 };
 
 const FAMILIES = { plate: { icon: 'plate' } };

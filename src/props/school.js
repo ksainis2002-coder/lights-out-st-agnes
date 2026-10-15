@@ -38,15 +38,20 @@ export function blackboardTexture(lines = []) {
   });
 }
 
+// Lifts a desk's lid on its hinge along the back edge. In the game, lifting
+// Maggie's lid calls this on her desk's "lid" mesh.
+export function liftLid(lid) {
+  lid.geometry.translate(0, 0, 0.21);
+  lid.position.set(0, 0.74, -0.26);
+  lid.rotation.x = -1.2;
+}
+
 // Pupil's desk with a lift-up lid and a bench seat, 0.6 m wide.
 function schoolDesk(t, { lidOpen = false } = {}) {
   const lid = box(t.paintedWood, [0.6, 0.03, 0.42], [0, 0, 0], { color: '#8a6a48' });
+  lid.name = 'lid';
   lid.position.set(0, 0.74, -0.05);
-  if (lidOpen) {
-    lid.geometry.translate(0, 0, 0.21); // hinge on the back edge
-    lid.position.set(0, 0.74, -0.26);
-    lid.rotation.x = -1.2;
-  }
+  if (lidOpen) liftLid(lid);
   const legs = [[-0.27, -0.23], [0.27, -0.23], [-0.27, 0.4], [0.27, 0.4]].map(([x, z]) => box(t.iron, [0.03, 0.72, 0.03], [x, 0, z]));
   return group(
     ...legs,
@@ -146,4 +151,47 @@ function ghostGirl(t, { opacity = 0.6 } = {}) {
   return group(girl);
 }
 
-export const SCHOOL_PROPS = { schoolDesk, blackboard, statue, ghostGirl };
+// Maggie's skipping rope lying on the floor (the wing's toy): a loose loop
+// between two red wooden handles.
+function skippingRope(t) {
+  const rope = mesh(new THREE.TorusGeometry(0.2, 0.013, 4, 16), t.sheet, { color: '#e0d4b0' });
+  rope.rotation.x = Math.PI / 2;
+  rope.scale.set(1, 0.7, 1);
+  rope.position.y = 0.013;
+  const handle = (x, z, turn) => {
+    const h = box(t.paintedWood, [0.034, 0.034, 0.13], [0, 0, 0], { color: '#c03a2c' });
+    h.position.set(x, 0, z);
+    h.rotation.y = turn;
+    return h;
+  };
+  return group(rope, handle(-0.22, 0.08, 0.5), handle(0.21, 0.1, -0.4));
+}
+
+// A brass key with a paper tag tied to its bow (the headmaster's key), lying
+// flat. Drawn half as big again as a real one, so it reads at 320×180.
+function brassKey(t, { color = '#e0c068' } = {}) {
+  const brass = { color };
+  const bow = mesh(new THREE.TorusGeometry(0.025, 0.008, 4, 10), t.sheet, brass);
+  bow.rotation.x = Math.PI / 2;
+  bow.position.set(-0.07, 0.008, 0);
+  const key = group(
+    bow,
+    box(t.sheet, [0.1, 0.012, 0.012], [0, 0.002, 0], brass), // the shaft
+    box(t.sheet, [0.012, 0.012, 0.03], [0.044, 0.002, 0.012], brass), // the bit
+    box(t.sheet, [0.012, 0.012, 0.02], [0.026, 0.002, 0.008], brass),
+    box(t.sheet, [0.05, 0.004, 0.035], [-0.12, 0.001, 0.02], { color: '#f0e8d0' }), // the tag
+  );
+  key.scale.setScalar(1.5);
+  return group(key);
+}
+
+// A closed ledger (the detention book): cloth cover, cream page edges.
+function ledger(t, { color = '#5a2a24' } = {}) {
+  return group(
+    box(t.paintedWood, [0.2, 0.012, 0.28], [0, 0, 0], { color }),
+    box(t.sheet, [0.19, 0.022, 0.27], [0.004, 0.012, 0], { color: '#d8ccb0' }),
+    box(t.paintedWood, [0.2, 0.012, 0.28], [0, 0.034, 0], { color }),
+  );
+}
+
+export const SCHOOL_PROPS = { schoolDesk, blackboard, statue, ghostGirl, skippingRope, brassKey, ledger };

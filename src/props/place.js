@@ -27,6 +27,16 @@ export function placeProps(level, textures) {
   return mergeStaticProps(group);
 }
 
+// The placed object of the prop with this id (props with an id are never
+// merged), or null.
+export function findProp(root, id) {
+  let found = null;
+  root.traverse((object) => {
+    if (object.userData.prop?.id === id) found = object;
+  });
+  return found;
+}
+
 export function placeLights(level) {
   const group = new THREE.Group();
   group.name = 'lights';

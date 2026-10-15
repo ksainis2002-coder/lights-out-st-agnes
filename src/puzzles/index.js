@@ -6,12 +6,18 @@ import { namePlatesPuzzle, SOLVED as PLATES_SOLVED } from './namePlates.js';
 import { cubbiesPuzzle, SOLVED as TOYS_SOLVED } from './cubbies.js';
 import { musicBoxPuzzle, SOLVED as LULLABY_SOLVED } from './musicBox.js';
 import { fusesPuzzle, SOLVED as FUSES_SOLVED } from './fuses.js';
+import { libraryIndexPuzzle, SOLVED as LIBRARY_SOLVED } from './libraryIndex.js';
+import { pianoPuzzle, SOLVED as PIANO_SOLVED } from './piano.js';
+import { hopscotchPuzzle, SOLVED as HOPSCOTCH_SOLVED } from './hopscotch.js';
 
 const PUZZLES = {
   namePlates: { create: namePlatesPuzzle, solved: PLATES_SOLVED, symbol: 'plates' },
   cubbies: { create: cubbiesPuzzle, solved: TOYS_SOLVED, symbol: 'toys' },
   musicBox: { create: musicBoxPuzzle, solved: LULLABY_SOLVED, symbol: 'music' },
   fuses: { create: fusesPuzzle, solved: FUSES_SOLVED, symbol: 'fuses' },
+  libraryIndex: { create: libraryIndexPuzzle, solved: LIBRARY_SOLVED, symbol: 'book' },
+  piano: { create: pianoPuzzle, solved: PIANO_SOLVED, symbol: 'music' },
+  hopscotch: { create: hopscotchPuzzle, solved: HOPSCOTCH_SOLVED, symbol: 'hop' },
 };
 
 // For the paper map: each puzzle's solved flag and the symbol in its ring.

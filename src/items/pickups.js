@@ -5,6 +5,7 @@
 //                 "lockedUntil": "puzzle_fuses" shows it (behind glass) but it can't be taken yet.
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
 //                 "model": "chalkSlate", "height": 1.3 for something read on a wall;
+//                 "upright": true pins a sheet to a wall or board (as for maps);
 //                 "appearsWith" works as for pickups.
 //   "maps":      [{ "id": "orphanage_wing", "at": [c, r], "y": 0.77, "hidden": {...} }] (see journalMap.js)
 //                 "with": ["grounds"] adds more maps with it (one plan of two places);
@@ -14,6 +15,24 @@
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { itemDef, itemText, itemShortKey } from './catalog.js';
+
+// Reading a document, wherever it was found (a sheet in the level, a page in
+// a book, a note in a pocket): it goes in the journal and opens.
+export function readDocument(game, doc) {
+  game.progress.read(doc.id);
+  (doc.flags ?? []).forEach((flag) => game.progress.setFlag(flag));
+  if (game.journal.addDocument(doc.id)) game.messages.show('msg.journal');
+  game.events.emit('document.read', doc);
+  game.openScreen('document', { id: doc.id });
+}
+
+// A sheet of paper lying flat, or pinned up facing the way "rotation" turns it.
+function paperSheet(game, upright) {
+  const sheet = PROPS.paperSheet(game.world.textures);
+  if (!upright) return sheet;
+  sheet.rotation.x = Math.PI / 2; // lying flat → facing +z
+  return new THREE.Group().add(sheet);
+}
 
 function place(level, object, { at, y = 0, rotation = 0 }) {
   object.position.set(at[0] * level.cellSize, y, at[1] * level.cellSize);
@@ -56,7 +75,8 @@ export function createPickups(game, level, data) {
   }
 
   for (const doc of data.documents ?? []) {
-    const mesh = place(level, PROPS[doc.model ?? 'paperSheet'](game.world.textures), doc);
+    const model = doc.model ? PROPS[doc.model](game.world.textures) : paperSheet(game, doc.upright);
+    const mesh = place(level, model, doc);
     const shown = () => !doc.appearsWith || progress.hasFlag(doc.appearsWith);
     mesh.visible = shown();
     if (!mesh.visible) hidden.push({ mesh, shown });
@@ -65,21 +85,13 @@ export function createPickups(game, level, data) {
       position: mesh.position.clone().setY((doc.y ?? 0) + (doc.height ?? 0.02)),
       radius: 0.25,
       prompt: () => (mesh.visible ? { key: 'prompt.read' } : null),
-      use() {
-        progress.read(doc.id);
-        (doc.flags ?? []).forEach((flag) => progress.setFlag(flag));
-        if (journal.addDocument(doc.id)) game.messages.show('msg.journal');
-        game.events.emit('document.read', doc);
-        game.openScreen('document', { id: doc.id });
-      },
+      use: () => readDocument(game, doc),
     });
   }
 
   for (const map of data.maps ?? []) {
     if (journal.maps().includes(map.id)) continue;
-    const sheet = PROPS.paperSheet(game.world.textures);
-    if (map.upright) sheet.rotation.x = Math.PI / 2; // lying flat → facing +z
-    const mesh = place(level, new THREE.Group().add(sheet), map);
+    const mesh = place(level, paperSheet(game, map.upright), map);
     group.add(mesh);
     usable.push({
       position: mesh.position.clone().setY((map.y ?? 0) + 0.02),

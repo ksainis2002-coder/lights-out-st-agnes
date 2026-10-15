@@ -1,36 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import * as THREE from 'three';
-import { waitForBoot, trackErrors } from './helpers.js';
+import { waitForBoot, trackErrors, lookAt, use, arrive, message, load } from './helpers.js';
 import { parseLevel } from '../src/levels/loader.js';
 import { buildLevelMeshes } from '../src/levels/build.js';
 
 // Wing 2, part A: the garden door out of wing 1, the courtyard and the
 // school's ground floor (approved stills and plan, owner 2026-10-14).
-
-// Stand on a spot (cells) and look at a point (cells for x/z, metres for y).
-const lookAt = (page, stand, target) => page.evaluate(({ stand, target }) => {
-  const game = window.__stAgnes;
-  const size = game.world.level.cellSize;
-  const s = { x: stand[0] * size, z: stand[1] * size };
-  const t = { x: target[0] * size, y: target[2], z: target[1] * size };
-  Object.assign(game.player.state.position, s);
-  game.player.state.yaw = Math.atan2(-(t.x - s.x), -(t.z - s.z));
-  game.player.state.pitch = Math.atan2(t.y - game.player.state.eyeHeight, Math.hypot(t.x - s.x, t.z - s.z));
-  game.advance(1 / 30);
-  return game.interaction.target()?.prompt()?.key ?? null;
-}, { stand, target });
-const use = (page) => page.evaluate(() => {
-  window.__stAgnes.input.tap('use');
-  window.__stAgnes.advance(0.3);
-});
-const arrive = (page) => page.evaluate(() => {
-  const game = window.__stAgnes;
-  for (let i = 0; i < 60 && game.isTravelling(); i++) game.advance(0.05);
-  return game.world.level.id;
-});
-const message = (page) => page.evaluate(() => window.__stAgnes.messages.current()?.key ?? null);
-const load = (page, level, spawn) => page.evaluate(({ level, spawn }) => window.__stAgnes.loadLevel(level, spawn) && null, { level, spawn });
 
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
