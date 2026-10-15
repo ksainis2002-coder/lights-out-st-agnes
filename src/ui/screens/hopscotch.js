@@ -1,10 +1,11 @@
 // Hopscotch close-up (approved still ui_hopscotch): the gym's chalked grid
 // seen from above, 1 to 9 and home. Click a square or press 1–9 to hop;
-// the squares hopped so far are shaded and listed at the top. A line under
-// the grid says what just happened (the rope slaps on a wrong square). ESC
-// or a click outside steps back. The puzzle (puzzles/hopscotch.js) passes
-// hop/hopped/note.
-import { osdText, fittedSize, COLORS } from '../osd.js';
+// the squares hopped so far are shaded and listed at the top, with a line
+// under them saying what just happened (the rope slaps on a wrong square); once
+// Maggie has sung it, her rhyme runs along the bottom like a subtitle (always
+// shown here: it is the clue). ESC or a click outside steps back. The puzzle
+// (puzzles/hopscotch.js) passes hop/hopped/note/rhyme.
+import { osdText, wrapText, fittedSize, COLORS } from '../osd.js';
 
 const W = 480;
 const H = 270;
@@ -26,7 +27,16 @@ function squares() {
 }
 const GRID = squares();
 
-export function createHopscotchScreen(ui, { hop, hopped, note }) {
+// Her rhyme in a subtitle box above the footer.
+function drawRhyme(ctx, text) {
+  const lines = wrapText(ctx, text, 10, 380);
+  const top = H - 32 - lines.length * 13;
+  ctx.fillStyle = 'rgba(0,0,0,0.55)';
+  ctx.fillRect(W / 2 - 200, top - 4, 400, lines.length * 13 + 8);
+  lines.forEach((line, i) => osdText(ctx, line, W / 2, top + i * 13, 10, '#c9d2e0', 'center'));
+}
+
+export function createHopscotchScreen(ui, { hop, hopped, note, rhyme = () => null }) {
   const { t } = ui;
   const openedAt = performance.now();
 
@@ -60,7 +70,9 @@ export function createHopscotchScreen(ui, { hop, hopped, note }) {
     ctx.fillText('10', GRID.home + 15, MIDDLE + 6);
     if (done.length) osdText(ctx, done.join('  ·  '), W / 2, 14, 12, '#e8e8dc', 'center');
     const line = note();
-    if (line) osdText(ctx, t(line), W / 2, 214, fittedSize(ctx, t(line), 9, 440), COLORS.soft, 'center');
+    if (line) osdText(ctx, t(line), W / 2, 26, fittedSize(ctx, t(line), 9, 440), COLORS.soft, 'center');
+    const sung = rhyme();
+    if (sung) drawRhyme(ctx, sung);
     osdText(ctx, t('hopscotch.footer'), W / 2, H - 22, 8, COLORS.dim, 'center');
   }
 
@@ -78,5 +90,5 @@ export function createHopscotchScreen(ui, { hop, hopped, note }) {
     return true;
   }
 
-  return { name: 'hopscotch', look: 'game', draw, hits, key, hopped, note };
+  return { name: 'hopscotch', look: 'game', draw, hits, key, hopped, note, rhyme };
 }

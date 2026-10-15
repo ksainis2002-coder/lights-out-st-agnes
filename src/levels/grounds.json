@@ -781,5 +781,33 @@
  ],
  "pickups": [],
  "documents": [],
- "maps": []
+ "maps": [],
+ "ghosts": [
+  {
+   "id": "maggie_courtyard",
+   "kind": "appear",
+   "model": "ghostGirl",
+   "speaker": "maggie",
+   "comfort": "keep",
+   "at": [
+    10.5,
+    7.6
+   ],
+   "rotation": 0,
+   "cells": [
+    7,
+    11,
+    14,
+    13
+   ],
+   "requires": {
+    "flag": "name_maggie"
+   },
+   "line": "maggie.courtyard",
+   "leadTo": [
+    10.5,
+    5.5
+   ]
+  }
+ ]
 }

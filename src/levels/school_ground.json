@@ -2433,7 +2433,132 @@
     5,
     9,
     1
+   ],
+   "rhyme": [
+    "rhyme.gym.1",
+    "rhyme.gym.2",
+    "rhyme.gym.3",
+    "rhyme.gym.4"
+   ],
+   "speaker": "maggie"
+  }
+ },
+ "ghosts": [
+  {
+   "id": "maggie_class1",
+   "kind": "sing",
+   "model": "ghostGirl",
+   "speaker": "maggie",
+   "comfort": "keep",
+   "at": [
+    14.5,
+    15.6
+   ],
+   "rotation": -148.782,
+   "room": "class_1",
+   "song": [
+    "rhyme.class1.1",
+    "rhyme.class1.2",
+    "rhyme.class1.3",
+    "rhyme.class1.4"
+   ],
+   "vanishAt": 2.2
+  },
+  {
+   "id": "maggie_gym",
+   "kind": "sing",
+   "model": "ghostGirl",
+   "speaker": "maggie",
+   "comfort": "keep",
+   "at": [
+    17.2,
+    4.3
+   ],
+   "rotation": 14.036,
+   "room": "gym",
+   "song": [
+    "rhyme.gym.1",
+    "rhyme.gym.2",
+    "rhyme.gym.3",
+    "rhyme.gym.4"
+   ],
+   "sets": [
+    "heard_rhyme_gym"
+   ],
+   "vanishAt": 2.2
+  },
+  {
+   "id": "maggie_staff",
+   "kind": "sing",
+   "model": "ghostGirl",
+   "speaker": "maggie",
+   "comfort": "keep",
+   "at": [
+    40.0,
+    10.5
+   ],
+   "rotation": -90,
+   "cells": [
+    40,
+    13,
+    45,
+    18
+   ],
+   "song": [
+    "rhyme.staff.1",
+    "rhyme.staff.2",
+    "rhyme.staff.3",
+    "rhyme.staff.4"
+   ],
+   "requires": {
+    "flag": "matches_missing"
+   },
+   "unless": "searched_cloak_pegs_east",
+   "leadTo": [
+    36.5,
+    11.6
+   ],
+   "vanishAt": 2.2
+  },
+  {
+   "id": "maggie_music",
+   "kind": "appear",
+   "model": "ghostGirl",
+   "speaker": "maggie",
+   "comfort": "keep",
+   "at": [
+    31.9,
+    4.1
+   ],
+   "rotation": 6.34,
+   "room": "music_room",
+   "line": "maggie.music"
+  },
+  {
+   "id": "maggie_corridor",
+   "kind": "appear",
+   "model": "ghostGirl",
+   "speaker": "maggie",
+   "comfort": "keep",
+   "at": [
+    30.5,
+    10.6
+   ],
+   "rotation": -90,
+   "cells": [
+    17,
+    10,
+    25,
+    11
+   ],
+   "requires": {
+    "flag": "name_maggie"
+   },
+   "line": "maggie.corridor",
+   "leadTo": [
+    33.5,
+    10.6
    ]
   }
- }
+ ]
 }

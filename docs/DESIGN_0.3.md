@@ -164,7 +164,8 @@ lines are in the content sheet.
    - **A2 (0.2.18):** the library, piano and hopscotch puzzles with their close-ups, the
      Classroom 2 board, the class painting, Maggie's desk, the coat pockets and the staff-room
      drawer.
-   - **A3:** Maggie's rhymes and chalk, the watcher, sounds as placeholders, the part A bot route.
+   - **A3:** Maggie's rhymes and lines (0.2.19), the watcher, the chalk on the boards, the part A
+     bot route.
 4. **Part B, upstairs:** stills, stairs both ways, Classes 3–4 and the set pieces, the office and
    flat, the records lock, the storm. Owner playtest.
 5. **Part C, the cemetery:** stills, graves, lanterns, the lamb and file page, the watcher at the
@@ -213,4 +214,19 @@ lines are in the content sheet.
 - Strings not in the content sheet yet (added while building, owner to check): "Look along the
   shelves", "Cards for other titles.", "Not this one.", the hopscotch line before the rhyme, the two
   map titles (ground floor; grounds) and "Go back inside" / "Go into the school".
+
+## Maggie as built (0.2.19)
+- Ghost events of a new kind, `sing` (`src/ghosts/director.js`): she stands at a distance (the
+  ghost-girl model from the approved stills) and sings, one subtitled line every 3.6 s, labelled
+  "(a girl, singing)" until her name is read. Walk within 2.2 m and she is gone; the song goes on.
+  A rhyme's flags (`sets`) count only once the last line is sung, so leaving early means she sings
+  it again on the next visit.
+- Where: Classroom 1 (rhyme 1, by her desk), the gym (rhyme 3: the hopscotch), the corridor
+  outside the staff room once its drawer is found empty (rhyme 4; not if the ribbon coat has been
+  searched). Rhyme 2 comes with the watcher in the library (next).
+- Lines (`appear` events, as Tommy's): the music room on the first visit; the corridor and the
+  courtyard by the cemetery gate once her name is known.
+- The hopscotch close-up shows her rhyme along the bottom once she has sung it, whatever the
+  subtitles setting (it is the clue); "Wrong one! Start again!" moved to the top.
+- Her humming is the 0.2 hummed lullaby until `girl_hum` arrives.
 

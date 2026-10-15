@@ -2,40 +2,48 @@
 // the bottom with "(speaker, whispering) line". Ghost children are labelled
 // "a child" until the player has learned their name (progress flag
 // "name_<id>"), or by their own label if they have one ("a girl" for Maggie:
-// speaker.<id>.unknown). Respects the subtitles setting.
+// speaker.<id>.unknown). A line can be sung instead of whispered ("manner":
+// "singing" → "(Maggie, singing)"). Respects the subtitles setting.
 import { osdText, wrapText } from './osd.js';
 
 const W = 480;
 const H = 270;
 
+function speakerLabel(game, speaker) {
+  if (!speaker) return null;
+  if (game.progress.hasFlag(`name_${speaker}`)) return game.i18n.t(`speaker.${speaker}`);
+  const own = `speaker.${speaker}.unknown`;
+  return game.i18n.t(game.i18n.has(own) ? own : 'speaker.child');
+}
+
+// "(Maggie, singing)", "(a child, whispering)", or '' for a plain line.
+export function subtitleTag(game, { speaker = null, whisper = true, manner = null } = {}) {
+  const { t } = game.i18n;
+  const how = manner ? t(`speaker.${manner}`) : whisper ? t('speaker.whispering') : null;
+  const tag = [speakerLabel(game, speaker), how].filter(Boolean).join(', ');
+  return tag ? `(${tag})` : '';
+}
+
 export function createSubtitles(game) {
   let current = null;
 
-  function speakerLabel(speaker) {
-    if (!speaker) return null;
-    if (game.progress.hasFlag(`name_${speaker}`)) return game.i18n.t(`speaker.${speaker}`);
-    const own = `speaker.${speaker}.unknown`;
-    return game.i18n.t(game.i18n.has(own) ? own : 'speaker.child');
-  }
-
   return {
-    // speaker: child id ("tommy") or null; key: i18n line; whisper: adds "whispering".
-    show(key, { speaker = null, whisper = true, seconds = 4 } = {}) {
-      current = { key, speaker, whisper, left: seconds };
+    // speaker: child id ("tommy") or null; key: i18n line; whisper: adds
+    // "whispering"; manner: "singing" instead.
+    show(key, { speaker = null, whisper = true, manner = null, seconds = 4 } = {}) {
+      current = { key, speaker, whisper: whisper || Boolean(manner), manner, left: seconds };
       game.events.emit('subtitle.shown', current);
     },
     update(dt) {
       if (current && (current.left -= dt) <= 0) current = null;
     },
     current: () => current,
-    speaker: () => (current ? speakerLabel(current.speaker) : null), // the label shown now (tests)
+    speaker: () => (current ? speakerLabel(game, current.speaker) : null), // the label shown now (tests)
     draw(ctx) {
       if (!current || !game.settings.get('subtitles')) return false;
       const { t } = game.i18n;
-      const who = speakerLabel(current.speaker);
-      const manner = current.whisper ? t('speaker.whispering') : null;
-      const tag = [who, manner].filter(Boolean).join(', ');
-      const text = tag ? `(${tag}) ${t(current.key)}` : t(current.key);
+      const tag = subtitleTag(game, current);
+      const text = tag ? `${tag} ${t(current.key)}` : t(current.key);
       const lines = wrapText(ctx, text, 10, 380);
       const top = H - 30 - lines.length * 13;
       ctx.fillStyle = 'rgba(0,0,0,0.55)';

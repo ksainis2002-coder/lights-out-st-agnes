@@ -7,13 +7,19 @@
 //   scare  — the children close in: the room sound dips (setup tell), then a
 //            sound right behind you and a glimpse of a child; costs sanity.
 //            One global cooldown; comfort mode skips them (scare rules §1, §5).
+//   sing   — Maggie skips at a distance and sings a rhyme over her humming,
+//            one subtitled line at a time ("singing"). Walk close and she is
+//            gone, but the song goes on; its "sets" flags are set once the
+//            last line is sung (a rhyme that holds a clue). Story beats.
 //
 // Ghost children never kill or block (scare rules §2, §4); seeing a real
 // one costs a little sanity per second (the brief's sanity drains).
 //
-// Event fields: id, kind, room | cells, requires (flag/clue/item), at,
-// rotation, sitting, line, speaker, drain, setup {sound, delay},
-// sound {name, at}, leadTo, cooldownGroup, comfort ("keep" | "skip").
+// Event fields: id, kind, room | cells, requires (flag/clue/item), unless
+// (a flag that cancels it), at, rotation, sitting, model ("ghostGirl" for
+// Maggie), line, speaker, drain, setup {sound, delay}, sound {name, at},
+// leadTo, cooldownGroup, comfort ("keep" | "skip"), song [line keys], sets
+// [flags], vanishAt (metres, default 4), hum (her humming, a looped sound).
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { roomAt } from '../levels/loader.js';
@@ -22,6 +28,10 @@ const SCARE_COOLDOWN = 90; // seconds between scares (owner to confirm; scare ru
 const VANISH_DISTANCE = 4;
 const STARE_SECONDS = 1.2;
 const SEEN_DRAIN = 0.5; // sanity per second while a ghost child is in view
+const LINE_SECONDS = 3.6; // each sung line of a rhyme
+// Maggie's humming under her rhymes: the 0.2 hummed lullaby stands in until
+// girl_hum arrives (sound list 0.3).
+const HUM = 'mus_lullaby_hum';
 
 export function createGhostDirector(game) {
   const cooldowns = {};
@@ -34,6 +44,7 @@ export function createGhostDirector(game) {
   const world = (level, [c, r], y = 0) => new THREE.Vector3(c * level.cellSize, y, r * level.cellSize);
 
   function requirementsMet(event) {
+    if (event.unless && game.progress.hasFlag(event.unless)) return false;
     const need = event.requires;
     if (!need) return true;
     if (need.flag && !game.progress.hasFlag(need.flag)) return false;
@@ -52,7 +63,7 @@ export function createGhostDirector(game) {
   }
 
   function spawnGhost(event, level) {
-    const ghost = PROPS.ghostChild(game.world.textures, { opacity: 0.5 });
+    const ghost = PROPS[event.model ?? 'ghostChild'](game.world.textures, { opacity: 0.5 });
     ghost.position.copy(world(level, event.at));
     if (event.sitting) ghost.position.y = 0.35;
     ghost.rotation.y = ((event.rotation ?? 0) * Math.PI) / 180;
@@ -67,6 +78,11 @@ export function createGhostDirector(game) {
       active.ghost = spawnGhost(event, level);
       active.phase = 'watch';
       game.sfx.play(event.setup?.sound ?? 'child_laugh_far', { position: active.ghost.position, volume: 0.8 });
+    } else if (event.kind === 'sing') {
+      active.ghost = spawnGhost(event, level);
+      active.phase = 'sing';
+      active.line = -1;
+      active.hum = game.sfx.play(event.hum ?? HUM, { position: active.ghost.position, volume: 0.5, loop: true, pitchJitter: 0 });
     } else {
       game.mixer.duck('effects', -14, { attack: 0.3, hold: 2.5, release: 1.5 }); // the tell: the room goes quiet
       if (event.setup?.sound) game.sfx.play(event.setup.sound, { position: world(level, event.setup.at ?? event.at, 1.2), volume: 0.6 });
@@ -75,9 +91,16 @@ export function createGhostDirector(game) {
     game.events.emit('ghost.started', event);
   }
 
+  function stopHum() {
+    active?.hum?.stop();
+    if (active) active.hum = null;
+  }
+
   function finish(event) {
     if (active?.ghost) active.ghost.parent?.remove(active.ghost);
+    stopHum();
     if (event.line) game.subtitles.show(event.line, { speaker: event.speaker ?? null, seconds: 5 });
+    (event.sets ?? []).forEach((flag) => game.progress.setFlag(flag));
     markDone(event);
     game.events.emit('ghost.finished', event);
     active = null;
@@ -118,6 +141,29 @@ export function createGhostDirector(game) {
     finish(event);
   }
 
+  // One line at a time; walking up to her makes her vanish, the song goes on.
+  function updateSing(dt) {
+    const { event } = active;
+    const line = Math.floor(active.t / LINE_SECONDS);
+    if (line !== active.line && line < event.song.length) {
+      active.line = line;
+      game.subtitles.show(event.song[line], { speaker: event.speaker ?? null, manner: 'singing', seconds: LINE_SECONDS + 0.3 });
+    }
+    const { ghost } = active;
+    if (ghost) {
+      if (inView(ghost.position) !== null) game.sanity.drain(SEEN_DRAIN * dt, 'ghost');
+      const p = game.player.state.position;
+      if (Math.hypot(ghost.position.x - p.x, ghost.position.z - p.z) < (event.vanishAt ?? VANISH_DISTANCE)) {
+        ghost.parent?.remove(ghost);
+        active.ghost = null;
+        game.events.emit('ghost.vanished', event);
+      }
+    }
+    if (active.t < event.song.length * LINE_SECONDS) return;
+    if (event.leadTo) game.sfx.play('child_footsteps_run', { position: world(game.world.level, event.leadTo, 0.3), volume: 0.8 });
+    finish(event);
+  }
+
   function updateScare() {
     const { event } = active;
     if (active.phase === 'setup' && active.t >= (event.setup?.delay ?? 1.5)) {
@@ -141,6 +187,7 @@ export function createGhostDirector(game) {
     const level = game.world.level;
     if (active) {
       active.t += dt;
+      if (active.event.kind === 'sing') return updateSing(dt);
       return active.event.kind === 'appear' ? updateAppear(dt) : updateScare();
     }
     const room = roomAt(level, game.player.state.position);
@@ -156,6 +203,7 @@ export function createGhostDirector(game) {
 
   function reset() {
     if (active?.ghost) active.ghost.parent?.remove(active.ghost);
+    stopHum();
     active = null;
     lastRoom = null;
   }

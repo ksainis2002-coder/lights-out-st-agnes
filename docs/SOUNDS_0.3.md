@@ -108,6 +108,7 @@ its own file when it comes in (one line each in `src/audio/gameAudio.js`).
 | Taking a book off the shelf | paper_pickup | book_slide |
 | The key falling out of the piano | key_pickup | key_drop_wood |
 | A hop on the hopscotch | step_wood | step_wood (fine as it is) |
+| Maggie humming under her rhymes | mus_lullaby_hum | girl_hum |
 | A wrong square | giggle_close (quiet) | rope_slap, then the giggle |
 | Footsteps on the gravel and the grass outside | step_tile, step_wood | step_gravel, step_grass |
 

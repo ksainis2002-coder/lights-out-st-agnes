@@ -2,10 +2,12 @@
 // 5, 9, 1 on Normal). Played up close from above (owner pick). A wrong
 // square: the rope slaps, she giggles, start again from the first. Solved,
 // she gives you her skipping rope (the wing's toy). Until she has sung the
-// rhyme, the squares are only chalk.
-// Level data: "hopscotch": { "prop": "hopscotch", "clue": "heard_rhyme_gym", "order": [2, 7, 5, 9, 1] }
+// rhyme, the squares are only chalk; after, the close-up shows her rhyme.
+// Level data: "hopscotch": { "prop": "hopscotch", "clue": "heard_rhyme_gym", "order": [2, 7, 5, 9, 1],
+//   "rhyme": ["rhyme.gym.1", …], "speaker": "maggie" }
 import * as THREE from 'three';
 import { findProp } from '../props/place.js';
+import { subtitleTag } from '../ui/subtitles.js';
 
 export const SOLVED = 'puzzle_hopscotch';
 
@@ -42,6 +44,13 @@ export function hopscotchPuzzle(game, level, data) {
     if (hopped.length === data.order.length) solve();
   }
 
+  // "(Maggie, singing) Two for the chalk…", once she has sung it.
+  function rhyme() {
+    if (!progress.hasFlag(data.clue) || !data.rhyme) return null;
+    const tag = subtitleTag(game, { speaker: data.speaker ?? null, manner: 'singing' });
+    return [tag, ...data.rhyme.map((key) => game.i18n.t(key))].filter(Boolean).join(' ');
+  }
+
   const target = {
     position: grid.localToWorld(new THREE.Vector3(0, 0.05, 0)),
     radius: 0.9,
@@ -49,7 +58,7 @@ export function hopscotchPuzzle(game, level, data) {
     use() {
       hopped = [];
       note = progress.hasFlag(data.clue) ? null : 'hopscotch.noRhyme';
-      game.openScreen('hopscotch', { hop, hopped: () => [...hopped], note: () => note });
+      game.openScreen('hopscotch', { hop, hopped: () => [...hopped], note: () => note, rhyme });
     },
   };
   return [target];

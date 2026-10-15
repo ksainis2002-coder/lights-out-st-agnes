@@ -33,7 +33,7 @@ class Room:
 
 class Level:
     def __init__(self):
-        self.props, self.lights, self.pickups, self.documents = [], [], [], []
+        self.props, self.lights, self.pickups, self.documents, self.ghosts = [], [], [], [], []
 
     def prop(self, room, type_, x, z, rotation=0, y=None, extra=None, **options):
         p = {"type": type_, "at": room.at(x, z) if room else [r3(x), r3(z)]}
@@ -57,6 +57,14 @@ class Level:
         if rotation:
             pickup["rotation"] = rotation
         self.pickups.append(pickup)
+
+    def maggie(self, gid, kind, at, facing_to=None, rotation=0, **extra):
+        """Maggie (the ghost girl with the skipping rope): a rhyme sung or a line whispered."""
+        event = {"id": gid, "kind": kind, "model": "ghostGirl", "speaker": "maggie", "comfort": "keep",
+                 "at": [r3(at[0]), r3(at[1])], "rotation": r3(facing(at, facing_to)) if facing_to else rotation, **extra}
+        if kind == 'sing':
+            event.setdefault("vanishAt", 2.2)
+        self.ghosts.append(event)
 
     def document(self, room, did, x, z, y, rotation=0, **extra):
         doc = {"id": did, "at": room.at(x, z), "y": y, **extra}
@@ -161,6 +169,9 @@ def grounds():
     L.light(whole, 6.5, 20.4, 2.9, 4, 9, '#d8a050')  # over the chapel door
     L.light(whole, 10.5, 10.2, 3.5, 3, 10)  # moonlight on the cemetery gate
 
+    L.maggie('maggie_courtyard', 'appear', (10.5, 7.6), rotation=0, cells=[7, 11, 14, 13],
+             requires={"flag": "name_maggie"}, line="maggie.courtyard", leadTo=[10.5, 5.5])
+
     doors = [
         {"id": "cemetery_gate", "cell": [10, 9], "look": "gate", "locked": "gate_key"},
         {"id": "front_gate", "cell": [16, 21], "look": "gate", "requires": "front_gate_open", "lockedMessage": "msg.frontGateChained"},
@@ -178,7 +189,7 @@ def grounds():
         "rooms": [cemetery.data(), court.data(), road.data()],
         "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.8}, {"name": "amb_wind_corridor", "volume": 0.5}],
-        "pickups": [], "documents": [], "maps": [],
+        "pickups": [], "documents": [], "maps": [], "ghosts": L.ghosts,
     }
 
 
@@ -425,6 +436,18 @@ def school():
     L.light(stf, 5.2, 1.6, 1.2, 2.2, 6, WARM)
     L.light(stf, 3.0, 5.4, 2.2, 1.6, 6)
 
+    # Maggie: her first rhyme by her desk, the hopscotch rhyme in the gym, the
+    # matches rhyme once the staff-room drawer is found empty; two lines.
+    rhyme = lambda name: [f"rhyme.{name}.{i}" for i in range(1, 5)]
+    L.maggie('maggie_class1', 'sing', c1.at(5.5, 2.6), facing_to=(12.5, 12.3), room='class_1', song=rhyme('class1'))
+    L.maggie('maggie_gym', 'sing', gym.at(4.2, 3.3), facing_to=(18.5, 9.5), room='gym', song=rhyme('gym'),
+             sets=['heard_rhyme_gym'])
+    L.maggie('maggie_staff', 'sing', cor.at(39.0, 0.5), rotation=-90, cells=[40, 13, 45, 18], song=rhyme('staff'),
+             requires={"flag": "matches_missing"}, unless='searched_cloak_pegs_east', leadTo=[36.5, 11.6])
+    L.maggie('maggie_music', 'appear', mus.at(2.9, 1.1), facing_to=(32.5, 9.5), room='music_room', line='maggie.music')
+    L.maggie('maggie_corridor', 'appear', cor.at(29.5, 0.6), rotation=-90, cells=[17, 10, 25, 11],
+             requires={"flag": "name_maggie"}, line='maggie.corridor', leadTo=[33.5, 10.6])
+
     room_ambience = [{"name": "amb_rain_inside", "volume": 0.35}, {"name": "amb_building_hum", "volume": 0.25}]
     out_rooms = []
     for room in rooms.values():
@@ -448,8 +471,10 @@ def school():
             "libraryIndex": {"prop": "card_index", "shelf": "shelf_700", "ticket": "library_ticket", "drawer": 18,
                              "book": 784, "song": "my_song"},
             "piano": {"prop": "piano", "clue": "my_song", "tune": [5, 5, 3, 6, 5, 3]},
-            "hopscotch": {"prop": "hopscotch", "clue": "heard_rhyme_gym", "order": [2, 7, 5, 9, 1]},
+            "hopscotch": {"prop": "hopscotch", "clue": "heard_rhyme_gym", "order": [2, 7, 5, 9, 1],
+                          "rhyme": rhyme('gym'), "speaker": "maggie"},
         },
+        "ghosts": L.ghosts,
     }
 
 
