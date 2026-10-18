@@ -8,12 +8,13 @@ only in opt-in scripts and go only to the service each skill names (listed below
 | --- | --- | --- | --- |
 | threejs-game-director, threejs-gameplay-systems, threejs-aaa-graphics-builder, threejs-game-ui-designer, threejs-debug-profiler, threejs-qa-release | github.com/majidmanzarpour/threejs-game-skills | 8286774 | MIT |
 | game-ai, ai-behavior-trees-utility-ai, camera-systems, audio-design, shader-programming, performance-optimization, save-systems, level-design | github.com/gamedev-skills/awesome-gamedev-agent-skills (skills/disciplines) | d4b0e35 | Apache-2.0 (NOTICE kept) |
-| 292 of the 311 folders in ECC `skills/` (accessibility … workspace-surface-audit; 19 removed, below) | github.com/affaan-m/ECC (skills/) | 76aaa77 | MIT (`ECC-LICENSE`), exceptions below |
+| All 311 folders from ECC `skills/` (accessibility … x-api) | github.com/affaan-m/ECC (skills/) | 76aaa77 | MIT (`ECC-LICENSE`), exceptions below |
 
-ECC licence exceptions (per-skill `license:` field wins over the root MIT):
+ECC licence exceptions (per-skill `license:` field or file wins over the root MIT):
 - Apache-2.0 (author "evos"): carrier-relationship-management, customs-trade-compliance,
   energy-procurement, inventory-demand-planning, logistics-exception-management,
   production-scheduling, quality-nonconformance, returns-reverse-logistics.
+- CC-BY-SA-4.0: osint-investigation (adapted from shoyann/RZK-The-Hunter; `LICENSE.txt` kept).
 - Credited upstreams under MIT: react-performance (Vercel Labs), postgres-patterns (Supabase).
   ck comes from sreedhargs89/context-keeper with no upstream licence stated; ECC ships it under MIT.
 
@@ -22,18 +23,6 @@ Copied unchanged; no names collide with the skills above.
 
 Not installed on purpose: threejs-3d-generator, threejs-image-generator, threejs-audio-generator
 (paid Tripo / Gemini / ElevenLabs). Models and textures are built in code; sounds are CC0.
-
-Removed from ECC after vetting (no use here):
-- Paid or cloud services (CLAUDE.md: no paid generators, sounds CC0, models in code): fal-ai-media,
-  exa-search, taste, taste-application, taste-distillation, tasteforge-video (fal.ai), videodb
-  (uploads to VideoDB cloud, can record screen + mic), nutrient-document-processing, ui-to-vue
-  (DashScope), codehealth-mcp (CodeScene token).
-- Personal data or outward posting: messages-ops, lead-intelligence, connections-optimizer,
-  social-graph-ranker, osint-investigation (CC-BY-SA-4.0), visa-doc-translate, x-api, crosspost,
-  social-publisher.
-
-Some remaining skills still name these (brand-voice, content-engine, email-ops, ito-baskets,
-marketing-campaign, research-ops, video-editing); those pointers now lead nowhere.
 
 ## Where these skills clash with CLAUDE.md (CLAUDE.md and the brief win)
 - threejs-* assume TypeScript, desktop + mobile, and a "premium/AAA" visual bar. This project is
@@ -53,12 +42,20 @@ Name clashes:
   anthropic-skills versions CLAUDE.md means. Use `anthropic-skills:deep-research` and
   `anthropic-skills:remotion-video-creation`.
 
-Partly paid or personal; use only the safe part:
-- video-editing: its FFmpeg/Remotion parts are fine; never its ElevenLabs/fal.ai layer.
-- email-ops and google-workspace-ops: only on an explicit owner request (draft first).
+Paid or cloud services; do not use (CLAUDE.md: no paid generators, sounds CC0, models in code):
+- fal-ai-media, exa-search, taste / taste-application / taste-distillation / tasteforge-video (fal.ai),
+  video-editing's ElevenLabs/fal layer (its FFmpeg/Remotion parts are fine), videodb (uploads to
+  VideoDB cloud; its capture mode records screen + mic), nutrient-document-processing, ui-to-vue
+  (DashScope), codehealth-mcp (CodeScene token).
 
-Allowed-tools pre-approval while the skill is active:
+Personal data or outward posting; do not use:
+- messages-ops, lead-intelligence, connections-optimizer, social-graph-ranker, osint-investigation,
+  visa-doc-translate (says to run without asking), x-api, crosspost, social-publisher. email-ops and
+  google-workspace-ops only on an explicit owner request (draft first).
+
+Allowed-tools pre-approvals while the skill is active:
 - inherit-legacy-style: Read, Glob, Grep, Bash, Edit, Write, AskUserQuestion.
+- videodb: `Bash(python:*)`.
 
 Hooks and background agents. None is registered; never wire these into settings.json:
 - delivery-gate (Stop hook blocks finishing when disk < 15 GB; deadlocks small containers),
@@ -75,7 +72,7 @@ ralphinho-rfc-pipeline, gan-style-harness, claude-devfleet, rules-distill, skill
 search-first, opensource-pipeline.
 
 Global installs or downloads (owner OK first): configure-ecc, security-scan (`npx ecc-agentshield`;
-`init` writes CLAUDE.md/settings.json), unified-memory, token-card, repo-scan,
+`init` writes CLAUDE.md/settings.json), unified-memory, social-publisher, token-card, repo-scan,
 nasiko-control-plane, flox-environments, frontend-slides' export-pdf.sh (`npx playwright install`).
 
 May edit CLAUDE.md or settings; ask the owner first: codebase-onboarding, inherit-legacy-style,
