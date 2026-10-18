@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.4 — Dev tooling only, no game change: `.claude/skills` keeps only the 11 ECC skills that fit this game (accessibility, benchmark-optimization-loop, browser-qa, canary-watch, click-path-audit, e2e-testing, i18n-sync, ui-demo, verification-loop, video-editing, vite-patterns) next to the 14 game-dev and 2 project skills. The full vetted set of 311 moves to a separate skills library repo for other projects.
 - 0.2.3 — Dev tooling only, no game change: the 19 ECC skills removed in 0.2.2 are back (the owner keeps them for future projects); all 311 ECC skills are installed again. THIRD_PARTY.md still marks which ones not to use on this game and why.
 - 0.2.2 — Dev tooling only, no game change: removed 19 ECC skills with no use here (paid or cloud generators such as fal.ai and VideoDB, and personal-data or social-posting skills); 292 ECC skills remain. THIRD_PARTY.md lists what was removed and why.
 - 0.2.1 — Dev tooling only, no game change: the 311 ECC agent skills (github.com/affaan-m/ECC, commit 76aaa77) added to `.claude/skills` after reading every skill, script and reference doc. `.claude/skills/THIRD_PARTY.md` lists their licences and where they clash with CLAUDE.md (paid generators, unwired hooks, multi-agent and personal-data skills not to use; security-review shares the built-in command's name).
