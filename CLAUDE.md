@@ -80,6 +80,7 @@ Installed in `.claude/skills/` (read each before installing; third-party):
   debug-profiler, qa-release. Do NOT use its paid generators (Tripo, Gemini image, ElevenLabs).
 - awesome-gamedev-agent-skills (Apache-2.0): game-ai, ai-behavior-trees-utility-ai, camera-systems,
   audio-design, shader-programming, performance-optimization, save-systems, level-design.
+- ECC via the owner's claude-skills library (MIT): i18n-sync, benchmark-optimization-loop.
 - Project skills (make with skill-creator): st-agnes-scare-rules, st-agnes-release.
 Use deep-research for period detail, humanizer/stop-slop for in-game documents, dataviz for bot-run
 balance charts, remotion-video-creation for the release trailer.
