@@ -17,6 +17,8 @@ the first set on 2026-10-13, the rest in a question-and-answer session on 2026-1
   painting of the grey lady on an art room easel, a lamb at Agnes's feet in the class painting, the
   nurse's room in the same pale green tiles as the asylum room, a black doorway at the top of the
   main stairs.
+- **Part A3 stills approved (2026-10-19):** chalk_hint, chalk_taunt and class1_turned, built as
+  drawn (0.2.23, see "Maggie's tricks as built").
 - **Piano stickers:** every colour also has its own shape, always on (owner pick): red circle,
   orange square, yellow triangle, green diamond, blue star, purple cross. The song page shows the
   same shapes, so colour-blind players can play it.
@@ -164,8 +166,8 @@ lines are in the content sheet.
    - **A2 (0.2.18):** the library, piano and hopscotch puzzles with their close-ups, the
      Classroom 2 board, the class painting, Maggie's desk, the coat pockets and the staff-room
      drawer.
-   - **A3:** Maggie's rhymes and lines (0.2.19), the watcher (0.2.20), the chalk on the boards,
-     the part A bot route.
+   - **A3:** Maggie's rhymes and lines (0.2.19), the watcher (0.2.20), the part A bot route
+     (0.2.20), the chalk on the boards and the Classroom 1 trick (0.2.23).
 4. **Part B, upstairs:** stills, stairs both ways, Classes 3–4 and the set pieces, the office and
    flat, the records lock, the storm. Owner playtest.
 5. **Part C, the cemetery:** stills, graves, lanterns, the lamb and file page, the watcher at the
@@ -254,13 +256,39 @@ lines are in the content sheet.
   shuts the door on her, as Maggie's fourth catch line teaches), then the piano. About 205 s of game
   time at bot pace, no catches; the human-pace balance run comes with the owner's playtest.
 
-## Waiting for the owner (0.2.21)
-- Stills `chalk_hint`, `chalk_taunt` (a small corridor board, fresh chalk in scrawled capitals: the
-  content sheet's hints when stuck, about one board in four a taunt) and `class1_turned` (Maggie's
-  trick: back in Classroom 1, every desk turned to face you). Built only once approved.
-- Performance, part A, highest of four directions per room at 320×180 (software renderer, so no fps):
-  outdoors 25–52 draw calls; school library 99, hall 171, music 172, cloakroom 193, nurse 213,
-  corridor 219, gym 222, Classes 1–2 243, art room 285, staff room 314; at most 45k triangles; 19
-  point lights in the school. The owner measures fps on the playtest laptop; if it falls short, the
-  first fixes are merging the boards' and paintings' canvas textures and fewer lamps per room.
+## Maggie's tricks as built (0.2.23)
+- Chalk (`src/props/chalkBoard.js`, `src/ghosts/chalk.js`): four small boards along the corridor
+  (chalk_west between the library and gym doors, chalk_middle between Classes 1 and 2, chalk_hall
+  across from the hall, chalk_east between the cloakroom and staff room), wiped clean at first.
+- A hint is due once its puzzle has been tried (`tried_<puzzle>`; the matches: the empty drawer) and
+  is still unsolved, and nothing new has been found, read or done for 180 s; the watcher's hint after
+  her second catch. Part A has the library, piano, hopscotch, matches and watcher hints; the lock and
+  lantern lines wait for parts B and C (already in en.json and el.json).
+- Taunts once she is awake: at most one per three hints (about one board in four), 240 s after the
+  last board or her waking, never while she is within 10 m (so "SHE'S BEHIND YOU" is always a lie).
+  The five lines in the content sheet's order, each once.
+- Maggie writes only on a board in your room, within 6 m, that you can't see (on screen with a clear
+  line counts as seen); a clean board first, else the one written longest ago; at most one board a
+  minute; never during a grab, a blackout or the library beat. The words are saved (progress value
+  `chalk`) and drawn in the language you play in. You hear the chalk: a 0.2 sound pitched up until
+  `chalk_write` arrives. Comfort mode keeps it (nothing moves at you, no sting).
+- Classroom 1 (`src/ghosts/tricks.js`, `src/props/moves.js`): 90 s after the library puzzle, while you
+  are out of the room, within 14 m of it and can't see any of its desks, the flag `class1_turned` is
+  set and every desk turns to face the door; you hear them dragged round (a 0.2 sound pitched down
+  until `chair_scrape` arrives). Level data gives each desk its "moved" rotation; the plain desks are
+  merged twice and one set shows at a time; Maggie's desk turns in place, her library ticket with it;
+  the floor footprints swap.
+- The debug overlay (F3) shows a CHALK line (time with no progress, the next words due, boards
+  written) and a TRICKS line (what the trick still waits for).
+
+## Part A performance (0.2.23)
+- Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
+  written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,
+  cloakroom 200, Class 2 209, nurse 220, corridor 223, gym 226, Class 1 252, library 285, art room
+  293, staff room 322; at most 45k triangles; 19 point lights in the school. The 0.2.21 figures were
+  read too soon after each turn and came out low in some rooms (the library at 99).
+- The chalk boards and the turned desks add 4–9 draw calls to a view: each board's slate is its own
+  mesh (its words change), its frame merges with the furniture; Class 1's desks merge in two sets.
+- The owner measures fps on the playtest laptop; if it falls short, the first fixes are merging the
+  boards' and paintings' canvas textures and fewer lamps per room.
 

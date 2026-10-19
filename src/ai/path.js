@@ -12,7 +12,7 @@ export function createPathing(level, territory) {
   const furnished = (col, row) => {
     const s = level.cellSize;
     const [minX, maxX, minZ, maxZ] = [(col + 0.25) * s, (col + 0.75) * s, (row + 0.25) * s, (row + 0.75) * s];
-    return level.obstacles.some((box) => !box.mover && box.minX < maxX && box.maxX > minX && box.minZ < maxZ && box.maxZ > minZ);
+    return level.obstacles.some((box) => !box.mover && !box.off && box.minX < maxX && box.maxX > minX && box.minZ < maxZ && box.maxZ > minZ);
   };
   const doorway = (col, row) => {
     if (!level.doorAt(col, row)) return false;

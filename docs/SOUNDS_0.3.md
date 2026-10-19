@@ -116,6 +116,8 @@ its own file when it comes in (one line each in `src/audio/gameAudio.js`).
 | The library light dying | fluorescent_buzz | fluorescent_buzz (fine as it is) |
 | A wrong square | giggle_close (quiet) | rope_slap, then the giggle |
 | Footsteps on the gravel and the grass outside | step_tile, step_wood | step_gravel, step_grass |
+| Chalk written on a corridor board (Maggie's hints and taunts) | cloth_crouch, pitched up | chalk_write |
+| Classroom 1's desks dragged round (Maggie's trick) | bed_creak, pitched down | chair_scrape |
 
 ## Counts
 - **Priority 1:** 23 sounds (49 files with the extra takes). Enough to build the wing.

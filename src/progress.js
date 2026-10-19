@@ -22,6 +22,9 @@ export function createProgress() {
     setOpen: (id, open) => (open ? add('open', id) : drop('open', id)),
     hasFlag: (id) => has('flags', id),
     setFlag: (id) => add('flags', id),
+    // How much has been done so far (flags, pages, items, unlocks): it grows
+    // with every step forward (ghosts/chalk.js: no growth for a while = stuck).
+    steps: () => data.flags.length + data.read.length + data.taken.length + data.unlocked.length,
     // Puzzle state and other small values (plates on beds, toys in cubbies).
     getValue: (key, fallback = null) => (key in data.values ? structuredClone(data.values[key]) : fallback),
     setValue: (key, value) => {

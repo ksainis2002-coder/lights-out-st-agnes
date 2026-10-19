@@ -60,6 +60,9 @@ export function createDebugOverlay(game) {
       [`TRIGGERS  ${triggers.active.size} active   [F3] toggle`, COLORS.trigger],
     ];
     if (game.ghosts) lines.push([game.ghosts.debugLine(), COLORS.enemy]);
+    if (game.chalk) lines.push([game.chalk.debugLine(), COLORS.enemy]);
+    const tricks = game.tricks?.debugLine();
+    if (tricks) lines.push([tricks, COLORS.enemy]);
     for (const enemy of game.enemies ?? []) lines.push([enemy.debugLine(), COLORS.enemy]);
     return lines;
   }
@@ -96,7 +99,7 @@ export function createDebugOverlay(game) {
   function drawObstacles() {
     ctx.strokeStyle = COLORS.obstacle;
     ctx.lineWidth = 2;
-    for (const box of game.world.level.obstacles) outline(box.minX, box.minZ, box.maxX, box.maxZ);
+    for (const box of game.world.level.obstacles) if (!box.off) outline(box.minX, box.minZ, box.maxX, box.maxZ);
   }
 
   function drawTriggers() {

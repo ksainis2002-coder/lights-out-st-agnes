@@ -6,7 +6,8 @@
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
 //                 "model": "chalkSlate", "height": 1.3 for something read on a wall;
 //                 "upright": true pins a sheet to a wall or board (as for maps);
-//                 "appearsWith" works as for pickups.
+//                 "appearsWith" works as for pickups; "moved" turns it with the desk it
+//                 lies in (props/moves.js).
 //   "maps":      [{ "id": "orphanage_wing", "at": [c, r], "y": 0.77, "hidden": {...} }] (see journalMap.js)
 //                 "with": ["grounds"] adds more maps with it (one plan of two places);
 //                 "upright": true pins it to a wall or board, facing the way "rotation" turns it.
@@ -15,6 +16,7 @@
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { itemDef, itemText, itemShortKey } from './catalog.js';
+import { movesOf } from '../props/moves.js';
 
 // Reading a document, wherever it was found (a sheet in the level, a page in
 // a book, a note in a pocket): it goes in the journal and opens.
@@ -81,8 +83,10 @@ export function createPickups(game, level, data) {
     mesh.visible = shown();
     if (!mesh.visible) hidden.push({ mesh, shown });
     group.add(mesh);
+    const position = mesh.position.clone().setY((doc.y ?? 0) + (doc.height ?? 0.02));
+    if (doc.moved) Object.assign(mesh.userData, { moves: movesOf(doc), usePosition: position });
     usable.push({
-      position: mesh.position.clone().setY((doc.y ?? 0) + (doc.height ?? 0.02)),
+      position,
       radius: 0.25,
       prompt: () => (mesh.visible ? { key: 'prompt.read' } : null),
       use: () => readDocument(game, doc),

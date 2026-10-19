@@ -47,6 +47,16 @@ function lampLight(level, at) {
   return light;
 }
 
+// Could the player see any of these points now: on screen, with nothing
+// solid in between (light and fog aside)? Maggie writes and moves things
+// only where you are not looking (ghosts/chalk.js, ghosts/tricks.js).
+export function inView(game, points) {
+  const camera = game.world.camera;
+  matrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+  frustum.setFromProjectionMatrix(matrix);
+  return points.some((point) => frustum.containsPoint(point) && clearLine(game.world.level, camera.position, point));
+}
+
 // Is the flashlight's beam on this point? The beam points a little below the view.
 function inBeam(game, point) {
   const { flashlight } = game.world;

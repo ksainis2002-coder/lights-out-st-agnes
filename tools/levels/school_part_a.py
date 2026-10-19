@@ -327,6 +327,12 @@ def school():
     L.prop(cor, 'windowFrame', 45, 1.0, -90)
     for x in (1.0, 23.0, 44.0):
         L.light(cor, x, 1.0, 2.2, 1.6, 7)
+    # Maggie's chalk (approved stills chalk_hint, chalk_taunt): four small
+    # boards along the corridor, wiped clean until she writes on one.
+    for bid, x, z, rotation in [('chalk_west', 11.0, 0.017, 0), ('chalk_middle', 15.0, 1.983, 180),
+                                ('chalk_hall', 29.0, 0.017, 0), ('chalk_east', 38.0, 1.983, 180)]:
+        L.prop(cor, 'chalkBoardFrame', x, z, rotation)
+        L.prop(cor, 'chalkBoard', x, z, rotation, extra={"id": bid})
 
     # Art room: the class painting, easels, the painting table, a drying line.
     L.prop(art, 'classPainting', 3.5, 6, 180, extra={"id": "class_painting", "use": "view", "view": "painting",
@@ -351,7 +357,9 @@ def school():
 
     # Classrooms: the board on the west wall, desks in rows facing it, three
     # windows on the south wall. Class 2 has exactly five lids left up.
-    def classroom(room, board_keys, lids_up=(), maggie=None, board=None):
+    # turned: Maggie's trick (approved still class1_turned): once the flag is
+    # set, every desk faces this point, the door (ghosts/tricks.js).
+    def classroom(room, board_keys, lids_up=(), maggie=None, board=None, turned=None):
         L.prop(room, 'blackboard', 0, 3.0, 90, extra=board, lineKeys=board_keys)
         L.prop(room, 'table', 1.3, 1.6, 90)
         L.prop(room, 'chair', 0.8, 1.6, 90)
@@ -360,19 +368,29 @@ def school():
             for z in (1.2, 2.4, 3.6, 4.8):
                 opts = {"lidOpen": True} if n in lids_up else {}
                 rotation = 90 + (n * 7 % 5 - 2)
-                extra = None
+                at = room.at(x, z)
+                extra = {}
+                if turned:
+                    flag, door = turned
+                    to_door = round(math.degrees(math.atan2(at[0] - door[0], at[1] - door[1])))
+                    extra["moved"] = {"flag": flag, "rotation": to_door}
                 if n == maggie:  # her name is carved under the lid, her library ticket inside
-                    extra = {"id": "maggie_desk", "use": "lid", "message": "msg.maggieDesk", "flags": ["name_maggie"]}
-                    L.documents.append({"id": "library_ticket", "at": local_cells(room.at(x, z), rotation, 0.08, -0.08, 1.2),
-                                        "y": 0.722, "rotation": rotation + 180, "appearsWith": "opened_maggie_desk"})
-                L.prop(room, 'schoolDesk', x, z, rotation, extra=extra, **opts)
+                    extra.update({"id": "maggie_desk", "use": "lid", "message": "msg.maggieDesk", "flags": ["name_maggie"]})
+                    ticket = {"id": "library_ticket", "at": local_cells(at, rotation, 0.08, -0.08, 1.2),
+                              "y": 0.722, "rotation": rotation + 180, "appearsWith": "opened_maggie_desk"}
+                    if turned:  # it turns with her desk
+                        ticket["moved"] = {"flag": flag, "at": local_cells(at, to_door, 0.08, -0.08, 1.2),
+                                           "rotation": to_door + 180}
+                    L.documents.append(ticket)
+                L.prop(room, 'schoolDesk', x, z, rotation, extra=extra or None, **opts)
                 n += 1
         for x in (2.0, 4.5, 7.0):
             L.prop(room, 'windowFrame', x, 6, 180)
         L.prop(room, 'radiator', 4.5, 6, 180)
         L.light(room, 4.5, 5.4, 2.2, 2.4, 8)
 
-    classroom(c1, ["chalk.class1.talk", "chalk.class1.talk", "chalk.class1.talk", "chalk.class1.tell", "chalk.class1.tellTwice"], maggie=5)
+    classroom(c1, ["chalk.class1.talk", "chalk.class1.talk", "chalk.class1.talk", "chalk.class1.tell", "chalk.class1.tellTwice"], maggie=5,
+              turned=("class1_turned", (12.5, 12.4)))
     L.prop(c1, 'wallClock', 8, 3.0, -90, height=1.9)
     L.document(c1, 'detention_book', 1.25, 1.85, 0.76, 75, model='ledger', height=0.05)
     classroom(c2, ["chalk.class2.title", "chalk.class2.count", "chalk.class2.q1", "chalk.class2.q2", "chalk.class2.q3",
@@ -487,6 +505,24 @@ def school():
             "territory": ["main_corridor", "library", "gym", "entrance_hall", "back_stairs"],
             "spawns": [lib.at(5.5, 0.8), gym.at(9.5, 1.5), cor.at(43.0, 0.6), cor.at(1.0, 0.6), hall.at(3.5, hz + 2.5)],
         },
+        # Maggie's chalk (ghosts/chalk.js): a hint when you are stuck on a puzzle
+        # you have tried (the content sheet's lines), now and then a taunt.
+        "chalk": {
+            "boards": ["chalk_west", "chalk_middle", "chalk_hall", "chalk_east"],
+            "hints": [
+                {"id": "library", "stuck": "tried_libraryIndex", "solved": "puzzle_library", "text": "chalk.hint.library"},
+                {"id": "piano", "stuck": "tried_piano", "solved": "puzzle_piano", "text": "chalk.hint.piano"},
+                {"id": "hopscotch", "stuck": "tried_hopscotch", "solved": "puzzle_hopscotch", "text": "chalk.hint.hopscotch"},
+                {"id": "matches", "stuck": "matches_missing", "solved": "searched_cloak_pegs_east", "text": "chalk.hint.matches"},
+                {"id": "watcher", "catches": 2, "text": "chalk.hint.watcher"},
+            ],
+            "taunts": {"after": "watcher_awake", "lines": ["chalk.taunt.behind", "chalk.taunt.lookedAway", "chalk.taunt.sawYou",
+                                                         "chalk.taunt.notAllowed", "chalk.taunt.comeBack"]},
+        },
+        # Maggie's trick (ghosts/tricks.js): a while after the library, out of
+        # your sight, she turns Classroom 1's desks to face the door.
+        "tricks": [{"flag": "class1_turned", "after": "puzzle_library", "delay": 90, "room": "class_1",
+                    "at": c1.at(4.0, 3.0), "hear": 14}],
     }
 
 

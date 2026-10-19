@@ -6,6 +6,8 @@
 // data, and props holding lights, lines, points or clock hands.
 // Transparent parts (wall marks, glass, cloth) are not merged: each stays its
 // own mesh at its own place, so it still sorts correctly against ghosts.
+// Props built twice for a move (props/moves.js) merge into a group per pose,
+// so the pose not in use can be hidden as one; the "before" pose shows first.
 import * as THREE from 'three';
 
 function staysLive(object) {
@@ -64,12 +66,31 @@ function standalone(mesh) {
   return copy;
 }
 
+// Where one pose of the moved props merges: a group of its own, shown or hidden as one.
+function poseGroup(group, set) {
+  if (!set) return group;
+  const pose = new THREE.Group();
+  pose.name = `props:${set.flag}:${set.moved ? 'moved' : 'before'}`;
+  pose.userData.set = set;
+  pose.visible = !set.moved;
+  group.add(pose);
+  return pose;
+}
+
 export function mergeStaticProps(group) {
   group.updateMatrixWorld(true);
-  const byMaterial = new Map();
-  const loose = [];
+  const sets = new Map(); // "" or flag:pose → { set, byMaterial, loose }
+  const bucket = (set) => {
+    const key = set ? `${set.flag}:${set.moved}` : '';
+    if (!sets.has(key)) sets.set(key, { set, byMaterial: new Map(), loose: [] });
+    return sets.get(key);
+  };
   for (const object of [...group.children]) {
-    if (staysLive(object)) continue;
+    if (staysLive(object)) {
+      if (object.userData.set?.moved) object.visible = false;
+      continue;
+    }
+    const { byMaterial, loose } = bucket(object.userData.set);
     object.traverse((child) => {
       if (!child.isMesh || !shown(child, object)) return;
       if (child.material.transparent) return loose.push(standalone(child));
@@ -78,7 +99,10 @@ export function mergeStaticProps(group) {
     });
     group.remove(object);
   }
-  for (const [material, parts] of byMaterial) group.add(mergedMesh(material, parts));
-  loose.forEach((mesh) => group.add(mesh));
+  for (const { set, byMaterial, loose } of sets.values()) {
+    const target = poseGroup(group, set);
+    for (const [material, parts] of byMaterial) target.add(mergedMesh(material, parts));
+    loose.forEach((mesh) => target.add(mesh));
+  }
   return group;
 }

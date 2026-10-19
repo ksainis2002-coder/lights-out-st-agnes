@@ -25,6 +25,8 @@ function levelTextKeys(level, items) {
   (level.pickups ?? []).forEach((pickup) => addItem(pickup.item));
   (level.maps ?? []).forEach((map) => [map.id, ...(map.with ?? [])].forEach((id) => add(`map.title.${id}`)));
   (level.ghosts ?? []).forEach((ghost) => add(ghost.line));
+  (level.chalk?.hints ?? []).forEach((hint) => add(hint.text));
+  (level.chalk?.taunts?.lines ?? []).forEach(add);
   return [...keys];
 }
 

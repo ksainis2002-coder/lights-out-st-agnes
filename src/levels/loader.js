@@ -88,6 +88,8 @@ export function parseLevel(data) {
     emitters: data.emitters ?? [],
     ghosts: data.ghosts ?? [],
     watcher: data.watcher ?? null, // the stone statue (ai/watcher.js)
+    chalk: data.chalk ?? null, // Maggie's chalk on the boards (ghosts/chalk.js)
+    tricks: data.tricks ?? [], // Maggie's tricks on rooms (ghosts/tricks.js)
     safe: data.safe === true, // safe rooms restore sanity (the patient room)
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
     // Outdoors: a night sky the colour of the fog, and a moon behind the clouds.

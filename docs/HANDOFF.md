@@ -146,3 +146,8 @@ the counting board, the class painting, the coat and the staff-room drawer, six 
 taunts), Maggie's Class 1 trick, the part A bot route and a performance check; then the owner's part A
 playtest.
 
+**Part A built (2026-10-19):** the owner approved the chalk and Classroom 1 stills; Maggie's chalk on
+the corridor boards and her Classroom 1 trick are in (0.2.23). Part A is complete. Waiting on the owner:
+the part A and wing 1 playtests (checklist in the Claude Doc "Part A Playtest Checklist"), fps on the
+playtest laptop, the content sheet, and the priority 1 sounds (Claude Doc "Sound List for 0.3 (School
+Wing)"). Then the pull request that puts 0.2.x on Pages, and part B stills.

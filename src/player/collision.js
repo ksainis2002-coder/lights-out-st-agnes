@@ -14,6 +14,7 @@ export function collides(level, x, z, radius) {
     }
   }
   return (level.obstacles ?? []).some((box) => {
+    if (box.off) return false; // a moved prop's other pose (props/moves.js)
     const nearestX = Math.max(box.minX, Math.min(x, box.maxX));
     const nearestZ = Math.max(box.minZ, Math.min(z, box.maxZ));
     return (x - nearestX) ** 2 + (z - nearestZ) ** 2 < radius * radius;

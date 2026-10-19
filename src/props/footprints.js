@@ -1,3 +1,5 @@
+import { asMoved } from './moves.js';
+
 // Floor footprints (width × depth in metres, prop-local) of props the player
 // cannot walk through. Small clutter (papers, blocks, toys) stays walkable.
 // A prop can opt out with "solid": false in level data.
@@ -53,16 +55,26 @@ const FOOTPRINTS = {
   deadTree: () => ({ size: [0.4, 0.4] }),
 };
 
-// Axis-aligned boxes in world x/z: { minX, maxX, minZ, maxZ }.
+function footprint(prop, cellSize) {
+  const { size: [w, d], offset: [ox, oz] = [0, 0] } = FOOTPRINTS[prop.type](prop.options);
+  const angle = ((prop.rotation ?? 0) * Math.PI) / 180;
+  const cos = Math.cos(angle), sin = Math.sin(angle);
+  const halfX = (w * Math.abs(cos) + d * Math.abs(sin)) / 2, halfZ = (w * Math.abs(sin) + d * Math.abs(cos)) / 2;
+  // Same rotation as the prop (three.js rotation.y): local x/z to world.
+  const x = prop.at[0] * cellSize + ox * cos + oz * sin;
+  const z = prop.at[1] * cellSize - ox * sin + oz * cos;
+  return { minX: x - halfX, maxX: x + halfX, minZ: z - halfZ, maxZ: z + halfZ };
+}
+
+// Axis-aligned boxes in world x/z: { minX, maxX, minZ, maxZ }. A prop with
+// "moved" has one for each pose; the one not in use is "off" (props/moves.js).
 export function propObstacles(props, cellSize) {
-  return props.filter((prop) => FOOTPRINTS[prop.type] && prop.solid !== false).map((prop) => {
-    const { size: [w, d], offset: [ox, oz] = [0, 0] } = FOOTPRINTS[prop.type](prop.options);
-    const angle = ((prop.rotation ?? 0) * Math.PI) / 180;
-    const cos = Math.cos(angle), sin = Math.sin(angle);
-    const halfX = (w * Math.abs(cos) + d * Math.abs(sin)) / 2, halfZ = (w * Math.abs(sin) + d * Math.abs(cos)) / 2;
-    // Same rotation as the prop (three.js rotation.y): local x/z to world.
-    const x = prop.at[0] * cellSize + ox * cos + oz * sin;
-    const z = prop.at[1] * cellSize - ox * sin + oz * cos;
-    return { minX: x - halfX, maxX: x + halfX, minZ: z - halfZ, maxZ: z + halfZ };
+  return props.filter((prop) => FOOTPRINTS[prop.type] && prop.solid !== false).flatMap((prop) => {
+    if (!prop.moved) return [footprint(prop, cellSize)];
+    const { flag } = prop.moved;
+    return [
+      { ...footprint(prop, cellSize), flag, moved: false },
+      { ...footprint(asMoved(prop), cellSize), flag, moved: true, off: true },
+    ];
   });
 }

@@ -1177,6 +1177,70 @@
    "rotation": -90
   },
   {
+   "type": "chalkBoardFrame",
+   "at": [
+    12.0,
+    10.017
+   ]
+  },
+  {
+   "type": "chalkBoard",
+   "at": [
+    12.0,
+    10.017
+   ],
+   "id": "chalk_west"
+  },
+  {
+   "type": "chalkBoardFrame",
+   "at": [
+    16.0,
+    11.983
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "chalkBoard",
+   "at": [
+    16.0,
+    11.983
+   ],
+   "rotation": 180,
+   "id": "chalk_middle"
+  },
+  {
+   "type": "chalkBoardFrame",
+   "at": [
+    30.0,
+    10.017
+   ]
+  },
+  {
+   "type": "chalkBoard",
+   "at": [
+    30.0,
+    10.017
+   ],
+   "id": "chalk_hall"
+  },
+  {
+   "type": "chalkBoardFrame",
+   "at": [
+    39.0,
+    11.983
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "chalkBoard",
+   "at": [
+    39.0,
+    11.983
+   ],
+   "rotation": 180,
+   "id": "chalk_east"
+  },
+  {
    "type": "classPainting",
    "at": [
     4.5,
@@ -1389,7 +1453,11 @@
     12.2,
     14.2
    ],
-   "rotation": 88
+   "rotation": 88,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": -9
+   }
   },
   {
    "type": "schoolDesk",
@@ -1397,7 +1465,11 @@
     12.2,
     15.4
    ],
-   "rotation": 90
+   "rotation": 90,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": -6
+   }
   },
   {
    "type": "schoolDesk",
@@ -1405,7 +1477,11 @@
     12.2,
     16.6
    ],
-   "rotation": 92
+   "rotation": 92,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": -4
+   }
   },
   {
    "type": "schoolDesk",
@@ -1413,7 +1489,11 @@
     12.2,
     17.8
    ],
-   "rotation": 89
+   "rotation": 89,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": -3
+   }
   },
   {
    "type": "schoolDesk",
@@ -1421,7 +1501,11 @@
     13.8,
     14.2
    ],
-   "rotation": 91
+   "rotation": 91,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 36
+   }
   },
   {
    "type": "schoolDesk",
@@ -1430,6 +1514,10 @@
     15.4
    ],
    "rotation": 88,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 23
+   },
    "id": "maggie_desk",
    "use": "lid",
    "message": "msg.maggieDesk",
@@ -1443,7 +1531,11 @@
     13.8,
     16.6
    ],
-   "rotation": 90
+   "rotation": 90,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 17
+   }
   },
   {
    "type": "schoolDesk",
@@ -1451,7 +1543,11 @@
     13.8,
     17.8
    ],
-   "rotation": 92
+   "rotation": 92,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 14
+   }
   },
   {
    "type": "schoolDesk",
@@ -1459,7 +1555,11 @@
     15.4,
     14.2
    ],
-   "rotation": 89
+   "rotation": 89,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 58
+   }
   },
   {
    "type": "schoolDesk",
@@ -1467,7 +1567,11 @@
     15.4,
     15.4
    ],
-   "rotation": 91
+   "rotation": 91,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 44
+   }
   },
   {
    "type": "schoolDesk",
@@ -1475,7 +1579,11 @@
     15.4,
     16.6
    ],
-   "rotation": 88
+   "rotation": 88,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 35
+   }
   },
   {
    "type": "schoolDesk",
@@ -1483,7 +1591,11 @@
     15.4,
     17.8
    ],
-   "rotation": 90
+   "rotation": 90,
+   "moved": {
+    "flag": "class1_turned",
+    "rotation": 28
+   }
   },
   {
    "type": "windowFrame",
@@ -2361,7 +2473,15 @@
    ],
    "y": 0.722,
    "rotation": 268,
-   "appearsWith": "opened_maggie_desk"
+   "appearsWith": "opened_maggie_desk",
+   "moved": {
+    "flag": "class1_turned",
+    "at": [
+     13.835,
+     15.313
+    ],
+    "rotation": 203
+   }
   },
   {
    "id": "detention_book",
@@ -2605,5 +2725,67 @@
     15.5
    ]
   ]
- }
+ },
+ "chalk": {
+  "boards": [
+   "chalk_west",
+   "chalk_middle",
+   "chalk_hall",
+   "chalk_east"
+  ],
+  "hints": [
+   {
+    "id": "library",
+    "stuck": "tried_libraryIndex",
+    "solved": "puzzle_library",
+    "text": "chalk.hint.library"
+   },
+   {
+    "id": "piano",
+    "stuck": "tried_piano",
+    "solved": "puzzle_piano",
+    "text": "chalk.hint.piano"
+   },
+   {
+    "id": "hopscotch",
+    "stuck": "tried_hopscotch",
+    "solved": "puzzle_hopscotch",
+    "text": "chalk.hint.hopscotch"
+   },
+   {
+    "id": "matches",
+    "stuck": "matches_missing",
+    "solved": "searched_cloak_pegs_east",
+    "text": "chalk.hint.matches"
+   },
+   {
+    "id": "watcher",
+    "catches": 2,
+    "text": "chalk.hint.watcher"
+   }
+  ],
+  "taunts": {
+   "after": "watcher_awake",
+   "lines": [
+    "chalk.taunt.behind",
+    "chalk.taunt.lookedAway",
+    "chalk.taunt.sawYou",
+    "chalk.taunt.notAllowed",
+    "chalk.taunt.comeBack"
+   ]
+  }
+ },
+ "tricks": [
+  {
+   "flag": "class1_turned",
+   "after": "puzzle_library",
+   "delay": 90,
+   "room": "class_1",
+   "at": [
+    13.0,
+    16.0
+   ],
+   "hear": 14
+  }
+ ]
 }

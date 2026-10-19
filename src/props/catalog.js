@@ -15,6 +15,7 @@ import { NURSE_PROPS } from './nurse.js';
 import { ART_PROPS } from './art.js';
 import { ENTRANCE_PROPS } from './entrance.js';
 import { CLOAKROOM_PROPS } from './cloakroom.js';
+import { CHALK_PROPS } from './chalkBoard.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -325,4 +326,5 @@ export const PROPS = {
   ...ART_PROPS,
   ...ENTRANCE_PROPS,
   ...CLOAKROOM_PROPS,
+  ...CHALK_PROPS,
 };

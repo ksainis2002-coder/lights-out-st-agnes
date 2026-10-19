@@ -92,6 +92,10 @@ export function createGameAudio(game) {
   events.on('watcher.grab', ({ position }) => play('drawer', { position: at(position, 0.4), rate: 0.4, volume: 1 }));
   events.on('collapse.grab', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
   events.on('watcher.introStarted', () => play('fluorescent_buzz', { volume: 0.5, rate: 0.8 }));
+  // Maggie's chalk on a board and Classroom 1's desks dragged round
+  // (chalk_write, chair_scrape): 0.2 sounds pitched for now.
+  events.on('chalk.scratch', ({ position }) => play('cloth_crouch', { position, rate: 1.8, volume: 0.6, refDistance: 2 }));
+  events.on('trick.scrape', ({ position }) => play('bed_creak', { position, rate: 0.75, volume: 1, refDistance: 3 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
   // Emitters loop, or with "every": [min, max] play once at random gaps
