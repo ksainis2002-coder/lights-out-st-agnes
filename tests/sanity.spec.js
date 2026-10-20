@@ -36,6 +36,23 @@ test('the dark drains sanity, much faster with the flashlight off', async ({ pag
   expect(100 - without).toBeGreaterThan((100 - withLight) * 3);
 });
 
+test('in total darkness sanity falls 0.6 a second, 0.1 with the flashlight on (owner pick 2026-10-20)', async ({ page }) => {
+  const rates = await page.evaluate(() => {
+    const g = window.__stAgnes;
+    g.loadLevel('orphanage_wing', 'landing');
+    g.world.level.lights.forEach((light) => (light.off = true)); // as in a power cut, everywhere
+    const rate = (flashlight) => {
+      if (g.world.flashlight.isOn() !== flashlight) g.world.flashlight.toggle();
+      g.sanity.set(100);
+      g.advance(0.5);
+      return g.sanity.rate();
+    };
+    return { off: rate(false), on: rate(true) };
+  });
+  expect(rates.off).toBeCloseTo(-0.6, 5); // full to a blackout in about 3 minutes
+  expect(rates.on).toBeCloseTo(-0.1, 5); // about 16 minutes
+});
+
 test('the patient room restores sanity; pills help too', async ({ page }) => {
   const restored = await page.evaluate(() => {
     const g = window.__stAgnes;

@@ -6,8 +6,15 @@
 import { keyName } from './ui/settingsRows.js';
 import { itemDef } from './items/catalog.js';
 
-const LINE_SECONDS = 5;
+// How long a line stays, by its length in the language played (owner
+// playtest 2026-10-20: 5 s each went too fast): 8 s, up to 12 for the longest.
+const LINE_SECONDS = { min: 8, max: 12, base: 3, perLetter: 0.1 };
 const SLIPPING = 85; // sanity where its effects begin (sanity/effects.js)
+
+function readingSeconds(text) {
+  const { min, max, base, perLetter } = LINE_SECONDS;
+  return Math.min(max, Math.max(min, base + text.length * perLetter));
+}
 
 // id → lines; params(keys) names the keys in each line.
 const LESSONS = {
@@ -35,7 +42,10 @@ export function setupTutorial(game) {
     if (progress.hasFlag(`tutorial_${id}`)) return;
     progress.setFlag(`tutorial_${id}`);
     const keys = game.settings.get('keys');
-    for (const line of LESSONS[id]) game.messages.notice(line.key, line.params?.(keys), LINE_SECONDS, tag);
+    for (const line of LESSONS[id]) {
+      const params = line.params?.(keys);
+      game.messages.notice(line.key, params, readingSeconds(game.i18n.t(line.key, params)), tag);
+    }
   }
 
   events.on('intro.finished', () => {

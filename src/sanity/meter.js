@@ -5,9 +5,11 @@
 
 export const MAX = 100;
 const LIGHT_CAP = 60;
+// Owner playtest 2026-10-20: the dark drained too fast, so half what it was
+// (full to blackout in total darkness about 3 minutes, 16 with the flashlight).
 const RATES = {
-  dark: 1.2, // per second in full darkness, flashlight off
-  darkWithFlashlight: 0.2,
+  dark: 0.6, // per second in full darkness, flashlight off
+  darkWithFlashlight: 0.1,
   lightRecovery: 0.3,
   safeRecovery: 3,
 };

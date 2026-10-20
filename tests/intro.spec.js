@@ -127,6 +127,36 @@ test('tutorial: every control is explained once, when it first matters', async (
   ]));
 });
 
+test('tutorial: a line stays 8 to 12 s by its length, with a pause before the next (owner pick 2026-10-20)', async ({ page }) => {
+  const shown = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.intro.finish();
+    const changes = [];
+    let last;
+    for (let i = 1; i <= 50 * 60; i++) {
+      game.advance(1 / 60);
+      const key = game.messages.current()?.key ?? null;
+      if (key !== last) changes.push({ key, at: i / 60 });
+      last = key;
+    }
+    return changes;
+  });
+  const basics = ['tutorial.move', 'tutorial.pause', 'tutorial.run', 'tutorial.crouch', 'tutorial.lean'];
+  expect(shown.filter(({ key }) => key).slice(0, 5).map(({ key }) => key)).toEqual(basics);
+  const lasted = (key) => {
+    const i = shown.findIndex((change) => change.key === key);
+    return shown[i + 1].at - shown[i].at;
+  };
+  for (const key of basics) {
+    expect(lasted(key)).toBeGreaterThanOrEqual(7.95);
+    expect(lasted(key)).toBeLessThanOrEqual(12.05);
+  }
+  expect(lasted('tutorial.crouch')).toBeGreaterThan(lasted('tutorial.lean')); // the longer line stays longer
+  const pause = shown.findIndex((change) => change.key === 'tutorial.pause');
+  expect(shown[pause - 1].key).toBeNull(); // a moment of quiet between two lines
+  expect(shown[pause].at - shown[pause - 1].at).toBeCloseTo(0.8, 1);
+});
+
 test('tutorial: ENTER skips a line, and the room door waits for the basics', async ({ page }) => {
   const result = await page.evaluate(() => {
     const game = window.__stAgnes;

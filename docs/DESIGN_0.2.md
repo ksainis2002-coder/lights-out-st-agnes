@@ -143,3 +143,13 @@ Greek). Room names on the map now shrink to stay inside small rooms (long Greek 
 Level data: recorders need an "id"; "safe": true on a level or a room; "key": [c, r] on the map
 entry; "mapAt" places a mark by hand.
 
+## Playtest feedback (owner picks 2026-10-20)
+A first-time player found the tutorial lines too fast and sanity dropping too fast in wing 1.
+- Tutorial lines stay by their length in the language played: 8 s, up to 12 for the longest (they
+  were 5 s each), with a 0.8 s pause before each queued line. ENTER still skips. The patient room
+  door still waits for the five basics: now about 47 s (51 in Greek) unless skipped.
+- The dark drains half as fast (this undoes the doubling from the first owner playtest): 0.6 a
+  second with the flashlight off, 0.1 with it on, so full to blackout in total darkness takes about
+  3 minutes (16 with the flashlight). Light recovery, the cap of 60, ghost drains and difficulty
+  scaling stay as they were.
+
