@@ -7,6 +7,7 @@ No hidden instructions, credential harvesting or data exfiltration were found.
 | --- | --- | --- | --- |
 | threejs-game-director, threejs-gameplay-systems, threejs-aaa-graphics-builder, threejs-game-ui-designer, threejs-debug-profiler, threejs-qa-release | github.com/majidmanzarpour/threejs-game-skills | 8286774 | MIT |
 | game-ai, ai-behavior-trees-utility-ai, camera-systems, audio-design, shader-programming, performance-optimization, save-systems, level-design | github.com/gamedev-skills/awesome-gamedev-agent-skills (skills/disciplines) | d4b0e35 | Apache-2.0 (NOTICE kept) |
+| karpathy-guidelines | github.com/multica-ai/andrej-karpathy-skills (skills/) | 2c60614 | MIT (`license:` field; README) |
 | accessibility, benchmark-optimization-loop, browser-qa, canary-watch, click-path-audit, e2e-testing, i18n-sync, ui-demo, verification-loop, video-editing, vite-patterns | github.com/affaan-m/ECC (skills/) | 76aaa77 | MIT (`ECC-LICENSE`) |
 
 Not installed on purpose: threejs-3d-generator, threejs-image-generator, threejs-audio-generator
