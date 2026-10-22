@@ -152,4 +152,8 @@ A first-time player found the tutorial lines too fast and sanity dropping too fa
   second with the flashlight off, 0.1 with it on, so full to blackout in total darkness takes about
   3 minutes (16 with the flashlight). Light recovery, the cap of 60, ghost drains and difficulty
   scaling stay as they were.
+- Balance after it (the bot at human pace, 43.5 minutes): no blackouts, where there were about 3 an
+  hour; sanity still fell to 9 once and a pill saved it. That is under the brief's 2–4 deaths an
+  hour on Normal: the owner keeps it this way for wing 1 (2026-10-22). The balance chart
+  (`docs/balance/balance_0.2.html`) is from before the change.
 
