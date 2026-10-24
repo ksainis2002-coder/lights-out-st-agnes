@@ -19,6 +19,9 @@ the first set on 2026-10-13, the rest in a question-and-answer session on 2026-1
   main stairs.
 - **Part A3 stills approved (2026-10-19):** chalk_hint, chalk_taunt and class1_turned, built as
   drawn (0.2.23, see "Maggie's tricks as built").
+- **Part B stills approved (2026-10-24):** all nine (see "Part B stills"), with one change: the
+  headmaster gets a chair fit for a headmaster (head_office reshot, 0.2.28). Kept: Tommy's empty
+  desk at the roll call, and the Classroom 3 board "Form III / Monday, 2nd February".
 - **Piano stickers:** every colour also has its own shape, always on (owner pick): red circle,
   orange square, yellow triangle, green diamond, blue star, purple cross. The song page shows the
   same shapes, so colour-blind players can play it.
@@ -281,9 +284,10 @@ lines are in the content sheet.
 - The debug overlay (F3) shows a CHALK line (time with no progress, the next words due, boards
   written) and a TRICKS line (what the trick still waits for).
 
-## Part B stills, waiting for the owner (0.2.26)
+## Part B stills (0.2.26, approved 2026-10-24)
 - Stills in `docs/mockups/stills-0.3/`: upstairs_corridor, stairs_down, bell, roll_call, class4,
-  projector_film, head_office, head_flat, ui_map_upstairs. Built only once approved.
+  projector_film, head_office, head_flat, ui_map_upstairs. All approved; head_office reshot with his
+  chair (0.2.28).
 - Layout (`tools/levels/school_part_b.py`, for now writing the mockup level
   `src/mockups/levels/school_upper.json`): the first floor over the east half of the school. The
   corridor runs east to west; Classrooms 3 and 4 lie to the south, over Classes 1 and 2; the
@@ -295,12 +299,16 @@ lines are in the content sheet.
 - The bell: an electric school bell high on the corridor wall between the classroom doors; ringing,
   its dome blurs, and every door stands banged open.
 - Roll call (Classroom 3): faint pupils at every desk but the one nearest the door (T. Hale's), with
-  blurred faces and black eyes, all turned to look at you. Board (mockup copy): "Form III / Monday,
-  2nd February" (the day Tommy was struck off).
+  blurred faces and black eyes, all turned to look at you (owner: keep the empty desk). Board (mockup
+  copy, owner: keep it): "Form III / Monday, 2nd February" (the day Tommy was struck off); when built,
+  it goes into en.json and el.json and onto the content sheet.
 - Classroom 4: the blinds down, a pull-down screen over the board, the projector on its trolley among
   the desks. The film: five children in a line in their smocks, in profile, but the middle one has
   turned to the camera; grain and scratches; the beam lights the dust.
-- Office: his pedestal desk with a green leather top and a lamp, the inspector's report on it, the
+- Office: his pedestal desk with a green leather top and a lamp, and his chair behind it (owner
+  2026-10-24: "appropriate for a headmaster"): high-backed, buttoned oxblood leather with brass
+  studs, a carved dark frame with a crest and finials, arms (`headChair`). The visitor's chair across
+  the desk stays a hard school chair. The inspector's report on the desk, the
   records cabinet with its number lock (approved still ui_codeLock), the Founder's portrait, a
   bookcase, a crucifix, a hat stand with his coat. Flat: a bed under a crucifix, the doctor's letter
   on the bedside cupboard by the lamp, an armchair and a gramophone by the window, a wardrobe, a

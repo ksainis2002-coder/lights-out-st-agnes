@@ -151,6 +151,58 @@ function pedestalDesk(t) {
   return group(...parts);
 }
 
+// Oxblood leather, deep-buttoned in diamonds, brass studs round the edge.
+function buttonedLeatherTexture() {
+  const near = (value) => Math.abs(value - Math.round(value));
+  return canvasTexture(24, 32, (g, w, h) => {
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const u = near((x + 0.5) / 8 + (y + 0.5) / 10);
+        const v = near((x + 0.5) / 8 - (y + 0.5) / 10);
+        const edge = x === 0 || y === 0 || x === w - 1 || y === h - 1;
+        const stud = (x === 1 || y === 1 || x === w - 2 || y === h - 2) && (x + y) % 2 === 0;
+        if (edge) g.fillStyle = '#240a08';
+        else if (stud) g.fillStyle = '#b89048';
+        else if (u < 0.1 && v < 0.1) g.fillStyle = '#160404'; // a button
+        else if (u < 0.06 || v < 0.06) g.fillStyle = '#1c0907'; // a crease
+        else g.fillStyle = Math.min(u, v) > 0.22 ? '#3a1710' : '#2e120c'; // puffed between
+        g.fillRect(x, y, 1, 1);
+      }
+    }
+  });
+}
+
+// The headmaster's chair: high-backed, buttoned oxblood leather on a dark
+// carved frame (the wood of his desk), with arms, finials and a crest.
+function headChair(t) {
+  const wood = { color: '#4a2e1c' };
+  const leather = buttonedLeatherTexture();
+  const finial = (x) => {
+    const knob = mesh(new THREE.SphereGeometry(0.05, 6, 4), t.paintedWood, wood);
+    knob.position.set(x, 1.52, -0.25);
+    return knob;
+  };
+  const parts = [
+    box(t.paintedWood, [0.62, 0.08, 0.56], [0, 0.36, 0], wood), // the seat frame
+    box(leather, [0.52, 0.08, 0.5], [0, 0.44, 0.02]), // the seat
+    box(leather, [0.5, 0.86, 0.06], [0, 0.52, -0.22]), // the back
+    box(t.paintedWood, [0.66, 0.1, 0.08], [0, 1.38, -0.25], wood), // the top rail
+    box(t.paintedWood, [0.3, 0.1, 0.06], [0, 1.48, -0.25], wood), // the crest
+    finial(-0.29),
+    finial(0.29),
+  ];
+  for (const x of [-0.28, 0.28]) {
+    parts.push(
+      box(t.paintedWood, [0.06, 0.36, 0.06], [x, 0, 0.24], wood), // front leg
+      box(t.paintedWood, [0.07, 1.46, 0.07], [x, 0, -0.25], wood), // back leg and post
+      box(t.paintedWood, [0.05, 0.26, 0.05], [x, 0.44, 0.22], wood), // arm support
+      box(t.paintedWood, [0.07, 0.04, 0.56], [x, 0.7, -0.01], wood), // arm
+      box(leather, [0.06, 0.03, 0.34], [x, 0.74, 0.02]), // arm pad
+    );
+  }
+  return group(...parts);
+}
+
 // An upholstered armchair, worn dark red.
 function armchair(t) {
   const fabric = { color: '#5a2424' };
@@ -289,6 +341,6 @@ function ghostPupil(t, { opacity = 0.45, turn = 0 } = {}) {
 }
 
 export const UPSTAIRS_PROPS = {
-  schoolBell, projector, projectorScreen, pedestalDesk, armchair, bedsideCupboard, wardrobe, gramophone, hatStand, stairHead, sideTable,
+  schoolBell, projector, projectorScreen, pedestalDesk, headChair, armchair, bedsideCupboard, wardrobe, gramophone, hatStand, stairHead, sideTable,
   ghostPupil,
 };

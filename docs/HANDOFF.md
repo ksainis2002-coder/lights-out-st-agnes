@@ -152,6 +152,7 @@ the part A and wing 1 playtests (checklist in the Claude Doc "Part A Playtest Ch
 playtest laptop, the content sheet, and the priority 1 sounds (Claude Doc "Sound List for 0.3 (School
 Wing)"). Then the pull request that puts 0.2.x on Pages, and part B stills.
 
-**Part B stills (2026-10-24):** the owner asked to start part B. Nine stills of the first floor are
-waiting for approval (0.2.26; see "Part B stills" in `docs/DESIGN_0.3.md`). Build nothing of part B
-until they are approved; then move the level from `src/mockups/levels/` to `src/levels/`.
+**Part B stills (2026-10-24):** the owner asked to start part B. Nine stills of the first floor
+(0.2.26; see "Part B stills" in `docs/DESIGN_0.3.md`) are approved, with a proper headmaster's
+chair (0.2.28). Building part B waits for the owner's go; it starts by moving the level from
+`src/mockups/levels/` to `src/levels/`.

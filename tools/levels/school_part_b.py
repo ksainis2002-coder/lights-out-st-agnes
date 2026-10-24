@@ -127,7 +127,7 @@ def class4(L, c4):
 def office(L, off):
     L.prop(off, 'rug', 3.5, 2.3, width=3.2, depth=2.6)
     L.prop(off, 'pedestalDesk', 3.5, 1.8)
-    L.prop(off, 'chair', 3.5, 1.05)
+    L.prop(off, 'headChair', 3.5, 1.05)  # his: high-backed, buttoned leather (owner 2026-10-24)
     L.prop(off, 'chair', 3.5, 2.95, 180)
     L.prop(off, 'deskLamp', 2.95, 1.65, 20, y=0.76, lit=True)
     L.prop(off, 'paperSheet', 3.75, 1.75, 12, y=0.765)  # the inspector's report
