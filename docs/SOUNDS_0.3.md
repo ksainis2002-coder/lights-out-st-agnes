@@ -118,6 +118,9 @@ its own file when it comes in (one line each in `src/audio/gameAudio.js`).
 | Footsteps on the gravel and the grass outside | step_tile, step_wood | step_gravel, step_grass |
 | Chalk written on a corridor board (Maggie's hints and taunts) | cloth_crouch, pitched up | chalk_write |
 | Classroom 1's desks dragged round (Maggie's trick) | bed_creak, pitched down | chair_scrape |
+| A records-lock wheel clicking round | key_pickup, pitched up | lock_wheel_click |
+| The records drawer: a wrong try | door_locked | door_locked (fine as it is) |
+| The records drawer sliding out | drawer | drawer_metal |
 
 ## Counts
 - **Priority 1:** 23 sounds (49 files with the extra takes). Enough to build the wing.

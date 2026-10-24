@@ -856,21 +856,13 @@
    }
   },
   {
-   "type": "paperSheet",
-   "at": [
-    32.75,
-    5.75
-   ],
-   "rotation": 12,
-   "y": 0.765
-  },
-  {
    "type": "recordsCabinet",
    "at": [
     29.3,
     5.2
    ],
-   "rotation": 90
+   "rotation": 90,
+   "id": "records_cabinet"
   },
   {
    "type": "bookshelf",
@@ -972,15 +964,6 @@
    "options": {
     "lit": true
    }
-  },
-  {
-   "type": "paperSheet",
-   "at": [
-    40.28,
-    4.32
-   ],
-   "rotation": -14,
-   "y": 0.605
   },
   {
    "type": "windowFrame",
@@ -1194,8 +1177,75 @@
    "volume": 0.3
   }
  ],
- "pickups": [],
- "documents": [],
+ "pickups": [
+  {
+   "id": "records_gate_key",
+   "item": "gate_key",
+   "at": [
+    29.692,
+    5.2
+   ],
+   "y": 1.26,
+   "rotation": 180,
+   "model": "brassKey",
+   "color": "#7a6a58",
+   "appearsWith": "puzzle_records",
+   "radius": 0.09
+  }
+ ],
+ "documents": [
+  {
+   "id": "inspector_report",
+   "at": [
+    32.75,
+    5.75
+   ],
+   "y": 0.79,
+   "rotation": 12
+  },
+  {
+   "id": "struck_off",
+   "at": [
+    29.717,
+    5.312
+   ],
+   "y": 1.245,
+   "appearsWith": "puzzle_records",
+   "radius": 0.09,
+   "rotation": 94
+  },
+  {
+   "id": "medical_card",
+   "at": [
+    29.717,
+    5.088
+   ],
+   "y": 1.25,
+   "appearsWith": "puzzle_records",
+   "radius": 0.09,
+   "rotation": 84
+  },
+  {
+   "id": "venn_letter",
+   "at": [
+    40.28,
+    4.32
+   ],
+   "y": 0.602,
+   "rotation": -14
+  }
+ ],
+ "puzzles": {
+  "recordsLock": {
+   "prop": "records_cabinet",
+   "clue": "seen_counting_board",
+   "code": [
+    3,
+    5,
+    4
+   ]
+  }
+ },
  "maps": [
   {
    "id": "school_upper",

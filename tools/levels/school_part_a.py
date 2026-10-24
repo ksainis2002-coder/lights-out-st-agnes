@@ -519,6 +519,7 @@ def school():
                 {"id": "library", "stuck": "tried_libraryIndex", "solved": "puzzle_library", "text": "chalk.hint.library"},
                 {"id": "piano", "stuck": "tried_piano", "solved": "puzzle_piano", "text": "chalk.hint.piano"},
                 {"id": "hopscotch", "stuck": "tried_hopscotch", "solved": "puzzle_hopscotch", "text": "chalk.hint.hopscotch"},
+                {"id": "lock", "stuck": "tried_recordsLock", "solved": "puzzle_records", "text": "chalk.hint.lock"},
                 {"id": "matches", "stuck": "matches_missing", "solved": "searched_cloak_pegs_east", "text": "chalk.hint.matches"},
                 {"id": "watcher", "catches": 2, "text": "chalk.hint.watcher"},
             ],

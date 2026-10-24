@@ -338,6 +338,30 @@ lines are in the content sheet.
 - Not yet: the records lock and the documents (B2), the bell, roll call and film (B3), the storm and
   the watcher upstairs (B4). Until then the watcher stays downstairs and the first floor is quiet.
 
+## Part B2 as built (0.2.32)
+- The records lock (`src/puzzles/recordsLock.js`, close-up `src/ui/screens/codeLock.js`, as in the
+  approved still ui_codeLock): "Try the lock" on the office's records cabinet. ▲▼ or the mouse wheel
+  turn the chosen wheel (up counts up: the number below rolls into the window), ◀▶ choose a wheel,
+  0–9 set it and move on; a click on a wheel's top or bottom half chooses and turns it; CLICK the
+  drawer (or ENTER) tries it. The wheels stay where they were left (progress value
+  `records_wheels`).
+- 354 (content sheet, Normal) opens it once Classroom 2's board has been read (`seen_counting_board`;
+  like the piano, a lucky guess before the clue does nothing). Wrong: the drawer shakes and "The
+  drawer won't open."; right: the close-up steps back, "Click. The drawer slides out.", a
+  checkpoint. The top drawer slides out with its files; on them lie the roll ("Struck off the
+  roll"), Tommy's medical card and the cemetery gate key (each takes a tight aim: they lie side by
+  side). The gate key opens the cemetery gate (part C fills the cemetery).
+- The inspector's report lies on his desk; Dr. Venn's letter on the bedside cupboard in his flat,
+  by the lamp. All four papers are the content sheet's text, English and Greek, with the journal
+  lines.
+- The paper map rings the lock (a padlock in the ring) once tried, until solved. Maggie's chalk hint
+  for it ("COUNT WHAT THE BOARD SAYS") is now in her list: it goes up on a ground-floor corridor
+  board after three minutes stuck.
+- Stand-in sounds: a wheel click (key_pickup pitched up), the locked rattle for a wrong try, the
+  0.2 drawer for the slide (SOUNDS_0.3.md lists what replaces them).
+- Not in the content sheet yet, added for the owner to check: the drawer's label card "RECORDS
+  A–Z" («ΑΡΧΕΙΟ Α–Ω»).
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

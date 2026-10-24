@@ -9,6 +9,7 @@ import { fusesPuzzle, SOLVED as FUSES_SOLVED } from './fuses.js';
 import { libraryIndexPuzzle, SOLVED as LIBRARY_SOLVED } from './libraryIndex.js';
 import { pianoPuzzle, SOLVED as PIANO_SOLVED } from './piano.js';
 import { hopscotchPuzzle, SOLVED as HOPSCOTCH_SOLVED } from './hopscotch.js';
+import { recordsLockPuzzle, SOLVED as RECORDS_SOLVED } from './recordsLock.js';
 
 const PUZZLES = {
   namePlates: { create: namePlatesPuzzle, solved: PLATES_SOLVED, symbol: 'plates' },
@@ -18,6 +19,7 @@ const PUZZLES = {
   libraryIndex: { create: libraryIndexPuzzle, solved: LIBRARY_SOLVED, symbol: 'book' },
   piano: { create: pianoPuzzle, solved: PIANO_SOLVED, symbol: 'music' },
   hopscotch: { create: hopscotchPuzzle, solved: HOPSCOTCH_SOLVED, symbol: 'hop' },
+  recordsLock: { create: recordsLockPuzzle, solved: RECORDS_SOLVED, symbol: 'lock' },
 };
 
 // For the paper map: each puzzle's solved flag and the symbol in its ring.

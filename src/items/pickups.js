@@ -3,6 +3,7 @@
 //                 "model": "crank" uses that prop instead of a plain coloured box.
 //                 "appearsWith": "puzzle_plates" keeps a pickup hidden until that flag is set.
 //                 "lockedUntil": "puzzle_fuses" shows it (behind glass) but it can't be taken yet.
+//                 "radius": how near the aim must come (default 0.25 m; less for things side by side).
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
 //                 "model": "chalkSlate", "height": 1.3 for something read on a wall;
 //                 "upright": true pins a sheet to a wall or board (as for maps);
@@ -61,7 +62,7 @@ export function createPickups(game, level, data) {
     group.add(mesh);
     usable.push({
       position: mesh.position.clone().setY((pickup.y ?? 0) + 0.05),
-      radius: 0.25,
+      radius: pickup.radius ?? 0.25,
       prompt() {
         if (progress.isTaken(pickup.id) || !mesh.visible) return null;
         if (pickup.lockedUntil && !progress.hasFlag(pickup.lockedUntil)) return { key: 'prompt.lockedAway' };
@@ -90,7 +91,7 @@ export function createPickups(game, level, data) {
     if (doc.moved) Object.assign(mesh.userData, { moves: movesOf(doc), usePosition: position });
     usable.push({
       position,
-      radius: 0.25,
+      radius: doc.radius ?? 0.25,
       prompt: () => (mesh.visible ? { key: 'prompt.read' } : null),
       use: () => readDocument(game, doc),
     });

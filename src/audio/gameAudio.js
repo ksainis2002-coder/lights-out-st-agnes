@@ -64,7 +64,10 @@ export function createGameAudio(game) {
   events.on('toy.moved', () => play('wooden_toy', { volume: 0.5 }));
   // The plates drop the crank (a rolling clatter); the toys draw back a bolt;
   // the lullaby lets a hidden door creak loose.
-  const SOLVED_SOUND = { plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz', piano: 'key_pickup', library: 'paper_pickup' };
+  const SOLVED_SOUND = {
+    plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz', piano: 'key_pickup',
+    library: 'paper_pickup', records: 'drawer',
+  };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
   events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
   events.on('fuses.reset', () => play('door_locked', { volume: 0.7 }));
@@ -84,6 +87,10 @@ export function createGameAudio(game) {
   events.on('library.book', () => play('paper_pickup', { volume: 0.7 }));
   events.on('hopscotch.hop', () => play('step_wood', { volume: 0.6 }));
   events.on('hopscotch.wrong', () => play('giggle_close', { volume: 0.4 }));
+  // The records lock: each wheel clicks round; a wrong try rattles the drawer
+  // (lock_wheel_click and drawer_metal in docs/SOUNDS_0.3.md will replace them).
+  events.on('records.wheel', () => play('key_pickup', { volume: 0.35, rate: 1.8 }));
+  events.on('records.wrong', () => play('door_locked', { volume: 0.6 }));
   // The watcher: her grind each time she moves and her breath at arm's reach
   // (stone_grind, stone_near_breath) are pitched-down 0.2 sounds for now.
   const at = (point, y) => ({ x: point.x, y, z: point.z });

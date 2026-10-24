@@ -19,6 +19,7 @@ export const ITEMS = {
   toy_top: { icon: 'top' },
   statue_piece: { icon: 'statue' },
   headmaster_key: { icon: 'key', consumed: true },
+  gate_key: { icon: 'key', consumed: true },
   matches: { icon: 'matches' },
   skipping_rope: { icon: 'rope' },
 };

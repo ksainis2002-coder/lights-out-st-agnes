@@ -95,19 +95,33 @@ function indexCabinet(t) {
 }
 
 // Steel filing cabinet for pupil records, a three-wheel combination lock on
-// the top drawer (lock: false for a plain office filing cabinet).
+// the top drawer (lock: false for a plain office filing cabinet). The top
+// drawer is a group of its own ("drawer"): openDrawer slides it out, files
+// and all; shut, its files hide inside the cabinet.
 function recordsCabinet(t, { lock = true } = {}) {
   const grey = { color: '#8a8e88' }; // painted steel (the sheet texture keeps it grey, not black)
+  const front = (y) => [
+    box(t.sheet, [0.44, 0.28, 0.02], [0, y, 0.3], { color: '#9a9e98' }),
+    box(t.sheet, [0.12, 0.02, 0.03], [0, y + 0.2, 0.32], { color: '#b0b0a8' }),
+  ];
   const parts = [box(t.sheet, [0.5, 1.32, 0.6], [0, 0, 0], grey)];
-  for (let i = 0; i < 4; i++) {
-    const y = 0.06 + i * 0.32;
-    parts.push(box(t.sheet, [0.44, 0.28, 0.02], [0, y, 0.3], { color: '#9a9e98' }));
-    parts.push(box(t.sheet, [0.12, 0.02, 0.03], [0, y + 0.2, 0.32], { color: '#b0b0a8' }));
+  for (let i = 0; i < 3; i++) parts.push(...front(0.06 + i * 0.32));
+  const top = [...front(1.02), box(t.sheet, [0.42, 0.2, 0.34], [0, 1.04, 0.12], { color: '#c8b890' })]; // files to the brim
+  if (lock) {
+    top.push(box(t.sheet, [0.16, 0.07, 0.04], [0, 1.15, 0.32], { color: '#a88a40' })); // the lock
+    [-0.04, 0, 0.04].forEach((x) => top.push(box(t.sheet, [0.025, 0.05, 0.02], [x, 1.16, 0.345], { color: '#d8c890' })));
   }
-  if (!lock) return group(...parts);
-  parts.push(box(t.sheet, [0.16, 0.07, 0.04], [0, 1.15, 0.32], { color: '#a88a40' })); // the lock
-  [-0.04, 0, 0.04].forEach((x) => parts.push(box(t.sheet, [0.025, 0.05, 0.02], [x, 1.16, 0.345], { color: '#d8c890' })));
-  return group(...parts);
+  const drawer = group(...top);
+  drawer.name = 'drawer';
+  return group(...parts, drawer);
+}
+
+// Slides a records cabinet's top drawer out (its lock opened), once.
+export function openDrawer(cabinet) {
+  const drawer = cabinet.getObjectByName('drawer');
+  if (!drawer || drawer.userData.open) return;
+  drawer.position.z += 0.36;
+  drawer.userData.open = true;
 }
 
 // Hopscotch chalked on the floor: 1 2 3 singles, 4|5, 6, 7|8, 9, 10 home.

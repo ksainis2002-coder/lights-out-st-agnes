@@ -2778,6 +2778,12 @@
     "text": "chalk.hint.hopscotch"
    },
    {
+    "id": "lock",
+    "stuck": "tried_recordsLock",
+    "solved": "puzzle_records",
+    "text": "chalk.hint.lock"
+   },
+   {
     "id": "matches",
     "stuck": "matches_missing",
     "solved": "searched_cloak_pegs_east",

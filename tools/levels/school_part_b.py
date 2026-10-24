@@ -9,7 +9,7 @@ Each stair head takes you down to the foot of the same stairs.
 
 The JSON file is the game's data; this script is how it was laid out. A rerun
 overwrites hand edits."""
-import json, os
+import json, math, os
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src', 'levels', 'school_upper.json')
 COLS, ROWS = 45, 21
@@ -19,6 +19,12 @@ COOL = '#c8d4e8'
 
 def r3(v):
     return round(v, 3)
+
+
+def local_cells(at, rotation, lx, lz, cell=1.2):
+    """A point given in a prop's own metres (x right, z out of its front), in level cells."""
+    t = math.radians(rotation)
+    return [r3(at[0] + (lx * math.cos(t) + lz * math.sin(t)) / cell), r3(at[1] + (-lx * math.sin(t) + lz * math.cos(t)) / cell)]
 
 
 class Room:
@@ -35,7 +41,7 @@ class Room:
 
 class Level:
     def __init__(self):
-        self.props, self.lights = [], []
+        self.props, self.lights, self.pickups, self.documents = [], [], [], []
 
     def prop(self, room, type_, x, z, rotation=0, y=None, extra=None, **options):
         p = {"type": type_, "at": room.at(x, z)}
@@ -48,6 +54,12 @@ class Level:
         if extra:
             p.update(extra)
         self.props.append(p)
+
+    def document(self, at, did, y, rotation=0, **extra):
+        doc = {"id": did, "at": at, "y": y, **extra}
+        if rotation:
+            doc["rotation"] = r3(rotation)
+        self.documents.append(doc)
 
     def light(self, room, x, z, height, intensity, distance, color=COOL):
         self.lights.append({"type": "point", "at": room.at(x, z), "height": height, "color": color,
@@ -134,8 +146,17 @@ def office(L, off):
     L.prop(off, 'headChair', 3.5, 1.05)  # his: high-backed, buttoned leather (owner 2026-10-24)
     L.prop(off, 'chair', 3.5, 2.95, 180)
     L.prop(off, 'deskLamp', 2.95, 1.65, 20, y=0.76, lit=True)
-    L.prop(off, 'paperSheet', 3.75, 1.75, 12, y=0.765)  # the inspector's report
-    L.prop(off, 'recordsCabinet', 0.3, 1.2, 90)  # the number lock (approved still ui_codeLock)
+    L.document(off.at(3.75, 1.75), 'inspector_report', 0.79, 12)  # on his desk
+    # The records cabinet's number lock (approved still ui_codeLock). Solved, its
+    # top drawer slides out, the roll, the medical card and the gate key on its files.
+    cabinet = off.at(0.3, 1.2)
+    L.prop(off, 'recordsCabinet', 0.3, 1.2, 90, extra={"id": "records_cabinet"})
+    # Side by side across the drawer, so each takes a tight aim (radius).
+    L.document(local_cells(cabinet, 90, -0.135, 0.5), 'struck_off', 1.245, 94, appearsWith='puzzle_records', radius=0.09)
+    L.document(local_cells(cabinet, 90, 0.135, 0.5), 'medical_card', 1.25, 84, appearsWith='puzzle_records', radius=0.09)
+    L.pickups.append({"id": "records_gate_key", "item": "gate_key", "at": local_cells(cabinet, 90, 0.0, 0.47), "y": 1.26,
+                      "rotation": 180, "model": "brassKey", "color": "#7a6a58", "appearsWith": "puzzle_records",
+                      "radius": 0.09})
     L.prop(off, 'bookshelf', 0.2, 3.5, 90, length=1.8)
     L.prop(off, 'portrait', 3.5, 0, y=0.6)
     L.prop(off, 'crucifix', 5.6, 0, height=2.1)
@@ -152,7 +173,7 @@ def flat(L, fl):
     L.prop(fl, 'crucifix', 4.6, 0, height=1.9)
     L.prop(fl, 'bedsideCupboard', 3.15, 0.3)
     L.prop(fl, 'deskLamp', 3.0, 0.32, 0, y=0.6, lit=True)
-    L.prop(fl, 'paperSheet', 3.28, 0.32, -14, y=0.605)  # the doctor's letter
+    L.document(fl.at(3.28, 0.32), 'venn_letter', 0.602, -14)  # the doctor's letter, by his lamp
     L.prop(fl, 'windowFrame', 1.4, 0)
     L.prop(fl, 'armchair', 1.0, 1.3, 140)
     L.prop(fl, 'sideTable', 1.9, 0.7)
@@ -200,7 +221,9 @@ def level():
         "rooms": rooms, "doors": DOORS, "triggers": [],
         "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],
-        "pickups": [], "documents": [],
+        "pickups": L.pickups, "documents": L.documents,
+        # Puzzle 3: the counting lesson's answer (content sheet, Normal) opens the records drawer.
+        "puzzles": {"recordsLock": {"prop": "records_cabinet", "clue": "seen_counting_board", "code": [3, 5, 4]}},
         # The plan itself is pinned in the staff room (school_ground); this
         # entry draws it: the key in the empty north-west corner.
         "maps": [{"id": "school_upper", "key": [2.0, 1.0]}],

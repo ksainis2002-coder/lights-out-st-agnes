@@ -102,6 +102,11 @@ const SYMBOLS = {
   hop(ctx, x, y) {
     [[-1.3, 1.2], [-2.6, -1.4], [0, -1.4], [-1.3, -4]].forEach(([dx, dy]) => ctx.rect(x + dx, y + dy, 2.6, 2.6));
   },
+  lock(ctx, x, y) {
+    ctx.rect(x - 3, y - 0.5, 6, 4.5); // a padlock: the body, the shackle over it
+    ctx.moveTo(x + 2, y - 0.5);
+    ctx.arc(x, y - 0.5, 2, 0, Math.PI, true);
+  },
 };
 
 const DRAW = {
