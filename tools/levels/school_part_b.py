@@ -1,15 +1,17 @@
-"""Writes src/mockups/levels/school_upper.json: the school's first floor (0.3
-part B), laid out for the owner's stills before it is built. Same conventions
-as tools/levels/school_part_a.py: furniture in room-local cells, (0, 0) at a
+"""Writes src/levels/school_upper.json: the school's first floor (0.3 part B),
+as in the owner's approved stills (2026-10-24). Same conventions as
+tools/levels/school_part_a.py: furniture in room-local cells, (0, 0) at a
 room's north-west corner, walls on the lines x = 0, x = w, z = 0, z = d.
 
 The stairs line up with the ground floor's: the back stairs come up at
 x 26-27 beside the gym, the main stairs at x 27-28 over the hall's north side.
-Once the stills are approved the level moves to src/levels/ and gets its
-doors, triggers and set pieces."""
+Each stair head takes you down to the foot of the same stairs.
+
+The JSON file is the game's data; this script is how it was laid out. A rerun
+overwrites hand edits."""
 import json, os
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src', 'mockups', 'levels', 'school_upper.json')
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src', 'levels', 'school_upper.json')
 COLS, ROWS = 45, 21
 WARM = '#ffd9a0'
 COOL = '#c8d4e8'
@@ -61,8 +63,10 @@ ROOMS = {
     'office': Room('head_office', 29, 4, 35, 8, floor='parquet', wall='wallpaper'),
     'flat': Room('head_flat', 37, 4, 42, 8, floor='wood', wall='wallpaper'),
 }
+# The office takes the headmaster's key (it dropped out of the piano); the
+# flat is reached only through the office.
 DOORS = [{"id": "upper_class_3", "cell": [12, 12]}, {"id": "upper_class_4", "cell": [21, 12]},
-         {"id": "head_office", "cell": [32, 9]}, {"id": "head_flat", "cell": [36, 6]}]
+         {"id": "head_office", "cell": [32, 9], "locked": "headmaster_key"}, {"id": "head_flat", "cell": [36, 6]}]
 
 
 def grid():
@@ -95,8 +99,8 @@ def corridor(L, cor):
 
 
 # Desks in rows facing the board on the west wall, as on the ground floor.
-def classroom(L, room, lines, blinds=False):
-    L.prop(room, 'blackboard', 0, 3.0, 90, lines=lines)
+def classroom(L, room, line_keys, blinds=False):
+    L.prop(room, 'blackboard', 0, 3.0, 90, lineKeys=line_keys)
     L.prop(room, 'table', 1.3, 1.6, 90)
     L.prop(room, 'chair', 0.8, 1.6, 90)
     n = 0
@@ -111,13 +115,13 @@ def classroom(L, room, lines, blinds=False):
 
 
 def class3(L, c3):
-    classroom(L, c3, ["Form III", "Monday, 2nd February"])
+    classroom(L, c3, ["chalk.class3.form", "chalk.class3.date"])  # the day Tommy was struck off
     L.prop(c3, 'ledger', 1.25, 1.6, 75, y=0.76)  # the register, open on the teacher's table
     L.light(c3, 4.5, 5.4, 2.2, 2.0, 8)
 
 
 def class4(L, c4):
-    classroom(L, c4, ["Form IV", "Film: Our School"], blinds=True)
+    classroom(L, c4, ["chalk.class4.form", "chalk.class4.film"], blinds=True)
     L.prop(c4, 'projectorScreen', 0.02, 3.0, 90, extra={"id": "film_screen"})
     L.prop(c4, 'projector', 5.6, 3.0, -90, extra={"id": "projector"})  # in the aisle among the desks
     L.prop(c4, 'smallItem', 1.3, 1.9, 0, y=0.76, color='#5a5a58', size=[0.24, 0.03, 0.24])  # a film can
@@ -159,9 +163,13 @@ def flat(L, fl):
 
 
 def stairs(L, main, back):
-    # The heads of the two stairs: black wells going down, the rails falling away.
-    L.prop(main, 'stairHead', 1.0, 1.0, 180, width=2.3, carpet=True)
-    L.prop(back, 'stairHead', 1.0, 2.0, 0, width=2.3)
+    # The heads of the two stairs: black wells going down, the rails falling
+    # away. Look down the flight to go down to the foot of the same stairs.
+    down = lambda spawn, room, x, z: {"use": "travel", "to": {"level": "school_ground", "spawn": spawn},
+                                      "prompt": "prompt.stairsDown", "useAt": room.at(x, z), "useHeight": 0.8,
+                                      "useRadius": 0.9}
+    L.prop(main, 'stairHead', 1.0, 1.0, 180, extra=down('main_stairs', main, 1.0, 1.4), width=2.3, carpet=True)
+    L.prop(back, 'stairHead', 1.0, 2.0, 0, extra=down('back_stairs', back, 1.0, 1.6), width=2.3)
 
 
 def level():
@@ -172,18 +180,29 @@ def level():
     office(L, ROOMS['office'])
     flat(L, ROOMS['flat'])
     stairs(L, ROOMS['main'], ROOMS['back'])
+    ambience = [{"name": "amb_rain_inside", "volume": 0.35}, {"name": "amb_building_hum", "volume": 0.25}]
+    rooms = []
+    for room in ROOMS.values():
+        data = room.data()
+        data["ambience"] = ambience + ([{"name": "amb_wind_corridor", "volume": 0.25}] if room.id == 'upper_corridor' else [])
+        rooms.append(data)
+    # Spawns at the head of each stairs, facing the corridor (a spawn's cell
+    # is the corner of the cell it stands in the middle of).
+    main_spawn = {"cell": [27.5, 12.0], "yawDegrees": 0}
     return {
         "id": "school_upper", "wing": "school", "cellSize": 1.2, "wallHeight": 3.4,
         "floorTexture": "floor", "ceilingTexture": "ceiling",
         "ambient": {"color": "#8a98c8", "intensity": 0.9},
         "legend": {".": "floor", "#": "schoolWall"},
         "map": grid(),
-        "spawns": {"default": {"cell": [28.0, 12.6], "yawDegrees": 0},
-                   "main_stairs": {"cell": [28.0, 12.6], "yawDegrees": 0},
-                   "back_stairs": {"cell": [27.0, 8.7], "yawDegrees": 180}},
-        "rooms": [room.data() for room in ROOMS.values()], "doors": DOORS, "triggers": [],
+        "spawns": {"default": main_spawn, "main_stairs": main_spawn,
+                   "back_stairs": {"cell": [26.5, 8.1], "yawDegrees": 180}},
+        "rooms": rooms, "doors": DOORS, "triggers": [],
         "props": L.props, "lights": L.lights,
+        "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],
         "pickups": [], "documents": [],
+        # The plan itself is pinned in the staff room (school_ground); this
+        # entry draws it: the key in the empty north-west corner.
         "maps": [{"id": "school_upper", "key": [2.0, 1.0]}],
     }
 

@@ -277,7 +277,7 @@ def school():
     L.light(gym, 4.0, 0.8, 4.0, 5, 13)
     L.light(gym, 9.5, 0.8, 4.0, 5, 13)
 
-    # Back stairs: a flight up to the first floor (part B; "Not yet" till then).
+    # Back stairs: a flight up to the first floor.
     L.prop(bst, 'stairs', 1.0, 4.0, steps=12, landing=1.4, extra={"use": "travel", "to": {"level": "school_upper", "spawn": "back_stairs"},
                                                                  "prompt": "prompt.stairsUp", "useHeight": 1.0, "useRadius": 0.8})
 
@@ -478,14 +478,18 @@ def school():
         out_rooms.append(data)
 
     maps = [{"id": "school_ground", "at": hall.at(5.8, hz + 6 - 0.06), "y": 1.5, "rotation": 180, "upright": True,
-             "with": ["grounds"], "key": [12.6, 0.15]}]
+             "with": ["grounds"], "key": [12.6, 0.15], "detail": "map.detail.school_ground"},
+            # The first-floor plan, pinned on the staff-room notice board (school_upper draws it).
+            {"id": "school_upper", "at": stf.at(4.0, 0.04), "y": 1.5, "upright": True, "detail": "map.detail.school_upper"}]
     return {
         "id": "school_ground", "wing": "school", "cellSize": 1.2, "wallHeight": 3.4,
         "floorTexture": "floor", "ceilingTexture": "ceiling",
         "ambient": {"color": "#8a98c8", "intensity": 0.9},
         "legend": {".": "floor", "#": "schoolWall"},
         "map": grid,
-        "spawns": {"default": {"cell": [30, 16], "yawDegrees": 0}, "front_door": {"cell": [30, 16], "yawDegrees": 0}},
+        # Coming down: at the foot of each stairs (a spawn's cell is the corner of the cell it stands in the middle of).
+        "spawns": {"default": {"cell": [30, 16], "yawDegrees": 0}, "front_door": {"cell": [30, 16], "yawDegrees": 0},
+                   "main_stairs": {"cell": [28.2, 18.1], "yawDegrees": -45}, "back_stairs": {"cell": [26.5, 9.1], "yawDegrees": 180}},
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],
         "pickups": L.pickups, "documents": L.documents, "maps": maps,

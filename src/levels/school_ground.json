@@ -49,6 +49,20 @@
     16
    ],
    "yawDegrees": 0
+  },
+  "main_stairs": {
+   "cell": [
+    28.2,
+    18.1
+   ],
+   "yawDegrees": -45
+  },
+  "back_stairs": {
+   "cell": [
+    26.5,
+    9.1
+   ],
+   "yawDegrees": 180
   }
  },
  "rooms": [
@@ -2520,7 +2534,18 @@
    "key": [
     12.6,
     0.15
-   ]
+   ],
+   "detail": "map.detail.school_ground"
+  },
+  {
+   "id": "school_upper",
+   "at": [
+    44.0,
+    13.04
+   ],
+   "y": 1.5,
+   "upright": true,
+   "detail": "map.detail.school_upper"
   }
  ],
  "puzzles": {

@@ -3,16 +3,15 @@
 // tools/levels/school_part_b.py: coming up the main stairs to the corridor and
 // its bell; the bell ringing with every door banged open; the roll call in
 // Classroom 3; Classroom 4 with the projector, and the film; the headmaster's
-// office and his flat; the first-floor plan in the journal.
-// Text here is mockup copy, not game text (game text goes through i18n).
+// office and his flat; the first-floor plan in the journal. Since 0.2.31 they
+// stage the game's own level (src/levels/school_upper.json).
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { findProp } from '../props/place.js';
 import { aim } from './helpers.js';
 import { createJournalScreen } from '../ui/screens/journal.js';
 import { i18n } from '../i18n/index.js';
-import { LEVELS } from '../levels/index.js';
-import upper from './levels/school_upper.json';
+import upper from '../levels/school_upper.json';
 
 const CELL = upper.cellSize;
 const world3 = ([col, row], y = 0) => new THREE.Vector3(col * CELL, y, row * CELL);
@@ -94,26 +93,15 @@ function rollCall(world, eye) {
   });
 }
 
-// The journal's MAPS page with the first-floor plan (names are mockup copy).
-const ROOM_NAMES = {
-  'map.title.school_upper': 'St. Agnes School, first floor',
-  'map.room.upper_corridor': 'Corridor',
-  'map.room.class_3': 'Classroom 3',
-  'map.room.class_4': 'Classroom 4',
-  'map.room.head_office': "Headmaster's office",
-  'map.room.head_flat': "Headmaster's flat",
-  'map.room.main_stairs': 'Main stairs',
-  'map.room.back_stairs': 'Back stairs',
-};
+// The journal's MAPS page with the first-floor plan.
 function upstairsMap(ctx) {
-  LEVELS.school_upper = upper; // the mockup level stands in for the one to build
-  const t = (key, params) => ROOM_NAMES[key] ?? i18n.t(key, params);
+  const t = (key, params) => i18n.t(key, params);
   const game = {
     journal: { maps: () => ['school_upper'], clues: () => [], documents: () => [] },
     world: { level: { id: 'school_upper', wing: 'school' } },
     player: { state: { position: { x: 28.0 * CELL, z: 11.2 * CELL } } },
     progress: { hasFlag: () => false },
-    i18n: { ...i18n, t, has: (key) => key in ROOM_NAMES || i18n.has(key) },
+    i18n,
     settings: { get: () => ({ hold: 'KeyH', journal: 'KeyJ', map: 'KeyM' }) },
     sanity: { value: () => 80 },
   };

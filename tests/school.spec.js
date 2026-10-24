@@ -64,14 +64,6 @@ test('courtyard: into the school and out again; the chapel, the chains and the c
   expect(await lookAt(page, [10.5, 10.8], [10.5, 9.5, 1.2])).toBe('prompt.locked');
 });
 
-test('the stairs up say "Not yet" until the first floor is built', async ({ page }) => {
-  await load(page, 'school_ground', 'front_door');
-  expect(await lookAt(page, [28.6, 18.7], [27.67, 18.33, 1.0])).toBe('prompt.notYet');
-  await use(page);
-  expect(await arrive(page)).toBe('school_ground');
-  expect(await lookAt(page, [27.0, 10.4], [27.0, 9.0, 1.0])).toBe('prompt.notYet');
-});
-
 test('the plan on the hall notice board adds the ground floor and the grounds to the journal', async ({ page }) => {
   const errors = trackErrors(page);
   await load(page, 'school_ground', 'front_door');

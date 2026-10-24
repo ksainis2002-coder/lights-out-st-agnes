@@ -314,6 +314,30 @@ lines are in the content sheet.
   on the bedside cupboard by the lamp, an armchair and a gramophone by the window, a wardrobe, a
   washstand.
 
+## Part B1 as built (0.2.31)
+- Owner 2026-10-24: build part B. The level is `src/levels/school_upper.json`, written by
+  `tools/levels/school_part_b.py`; the part B stills now stage the game's own level.
+- Stairs both ways: the hall's main stairs and the back stairs by the gym take you up to the head of
+  the same stairs (spawns `main_stairs`, `back_stairs`), facing the corridor; look down a stair head
+  (`stairHead` with use `travel`, "Go downstairs") to come back to the foot of the same stairs (new
+  spawns on the ground floor: beside the hall stairs' bottom step facing into the hall, at the foot of
+  the back stairs facing the corridor). You arrive facing away from the stairs, so no prompt sends you
+  straight back. Each trip autosaves a checkpoint, as every level change does.
+- The stair heads' footprints cover the wells: you cannot step off the landing into the dark.
+- The office door takes the headmaster's key (used up, like wing 1's office key); the flat's door,
+  inside the office, is open. Classrooms 3 and 4 are open.
+- The first-floor plan is pinned on the staff-room notice board. The upper level's own map entry only
+  draws it (the key in the empty north-west corner). A map entry can name the line under its prompt
+  (`detail`): the hall plan said "Sister's plan of the wing"; both school plans now say what they are.
+- New footprints: his desk and chair, the armchair, bedside cupboard, wardrobe, hat stand, side table,
+  the projector's trolley and the stair heads.
+- Strings added while building, now on the content sheet for the owner to check: the Classroom 3
+  board ("Form III / Monday, 2nd February"; Greek «Γ΄ τάξη / Δευτέρα, 2 Φεβρουαρίου»), the Classroom 4
+  board ("Form IV / Film: Our School", mostly behind the screen), the room name "Main stairs", and the
+  two plans' lines.
+- Not yet: the records lock and the documents (B2), the bell, roll call and film (B3), the storm and
+  the watcher upstairs (B4). Until then the watcher stays downstairs and the first floor is quiet.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

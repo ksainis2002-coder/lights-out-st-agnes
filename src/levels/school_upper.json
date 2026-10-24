@@ -39,22 +39,22 @@
  "spawns": {
   "default": {
    "cell": [
-    28.0,
-    12.6
+    27.5,
+    12.0
    ],
    "yawDegrees": 0
   },
   "main_stairs": {
    "cell": [
-    28.0,
-    12.6
+    27.5,
+    12.0
    ],
    "yawDegrees": 0
   },
   "back_stairs": {
    "cell": [
-    27.0,
-    8.7
+    26.5,
+    8.1
    ],
    "yawDegrees": 180
   }
@@ -68,7 +68,21 @@
     42,
     11
    ],
-   "floor": "floor"
+   "floor": "floor",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.35
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    },
+    {
+     "name": "amb_wind_corridor",
+     "volume": 0.25
+    }
+   ]
   },
   {
    "id": "class_3",
@@ -78,7 +92,17 @@
     16,
     18
    ],
-   "floor": "parquet"
+   "floor": "parquet",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.35
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    }
+   ]
   },
   {
    "id": "class_4",
@@ -88,7 +112,17 @@
     25,
     18
    ],
-   "floor": "parquet"
+   "floor": "parquet",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.35
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    }
+   ]
   },
   {
    "id": "main_stairs",
@@ -104,6 +138,16 @@
     13,
     28,
     14
+   ],
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.35
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    }
    ]
   },
   {
@@ -120,6 +164,16 @@
     6,
     27,
     7
+   ],
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.35
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    }
    ]
   },
   {
@@ -131,7 +185,17 @@
     8
    ],
    "floor": "parquet",
-   "wall": "wallpaper"
+   "wall": "wallpaper",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.35
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    }
+   ]
   },
   {
    "id": "head_flat",
@@ -142,7 +206,17 @@
     8
    ],
    "floor": "wood",
-   "wall": "wallpaper"
+   "wall": "wallpaper",
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.35
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    }
+   ]
   }
  ],
  "doors": [
@@ -165,7 +239,8 @@
    "cell": [
     32,
     9
-   ]
+   ],
+   "locked": "headmaster_key"
   },
   {
    "id": "head_flat",
@@ -375,9 +450,9 @@
    ],
    "rotation": 90,
    "options": {
-    "lines": [
-     "Form III",
-     "Monday, 2nd February"
+    "lineKeys": [
+     "chalk.class3.form",
+     "chalk.class3.date"
     ]
    }
   },
@@ -542,9 +617,9 @@
    ],
    "rotation": 90,
    "options": {
-    "lines": [
-     "Form IV",
-     "Film: Our School"
+    "lineKeys": [
+     "chalk.class4.form",
+     "chalk.class4.film"
     ]
    }
   },
@@ -964,7 +1039,19 @@
    "options": {
     "width": 2.3,
     "carpet": true
-   }
+   },
+   "use": "travel",
+   "to": {
+    "level": "school_ground",
+    "spawn": "main_stairs"
+   },
+   "prompt": "prompt.stairsDown",
+   "useAt": [
+    28.0,
+    13.4
+   ],
+   "useHeight": 0.8,
+   "useRadius": 0.9
   },
   {
    "type": "stairHead",
@@ -974,7 +1061,19 @@
    ],
    "options": {
     "width": 2.3
-   }
+   },
+   "use": "travel",
+   "to": {
+    "level": "school_ground",
+    "spawn": "back_stairs"
+   },
+   "prompt": "prompt.stairsDown",
+   "useAt": [
+    27.0,
+    7.6
+   ],
+   "useHeight": 0.8,
+   "useRadius": 0.9
   }
  ],
  "lights": [
@@ -1087,6 +1186,12 @@
    "color": "#ffd9a0",
    "intensity": 2.8,
    "distance": 6
+  }
+ ],
+ "ambience": [
+  {
+   "name": "amb_rain_inside",
+   "volume": 0.3
   }
  ],
  "pickups": [],

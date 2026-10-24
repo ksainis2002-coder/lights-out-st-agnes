@@ -53,6 +53,20 @@ const FOOTPRINTS = {
   gravestone: () => ({ size: [0.6, 0.3] }),
   gatePillar: () => ({ size: [0.42, 0.42] }),
   deadTree: () => ({ size: [0.4, 0.4] }),
+  // School, first floor (0.3 part B): the office, the flat, the projector, the stair heads.
+  pedestalDesk: () => ({ size: [1.5, 0.8] }),
+  headChair: () => ({ size: [0.62, 0.56] }),
+  armchair: () => ({ size: [0.74, 0.7] }),
+  bedsideCupboard: () => ({ size: [0.46, 0.4] }),
+  wardrobe: () => ({ size: [1.18, 0.62] }),
+  hatStand: () => ({ size: [0.4, 0.4] }),
+  sideTable: () => ({ size: [0.5, 0.5] }),
+  projector: () => ({ size: [0.6, 0.4] }),
+  // The flight falls away from the top step (prop origin) down the well.
+  stairHead: (options) => {
+    const length = (options?.steps ?? 8) * (options?.run ?? 0.28);
+    return { size: [options?.width ?? 1.6, length], offset: [0, -length / 2] };
+  },
 };
 
 function footprint(prop, cellSize) {

@@ -11,6 +11,7 @@
 //   "maps":      [{ "id": "orphanage_wing", "at": [c, r], "y": 0.77, "hidden": {...} }] (see journalMap.js)
 //                 "with": ["grounds"] adds more maps with it (one plan of two places);
 //                 "upright": true pins it to a wall or board, facing the way "rotation" turns it.
+//                 "detail": "<key>" is the line under its prompt (else wing 1's, Sister's plan).
 //                 An entry with no "at" lies nowhere: it only says how a map found
 //                 elsewhere is drawn (the grounds, which come on the hall plan).
 // Using a pickup puts its item in the inventory; using a document opens it;
@@ -102,7 +103,7 @@ export function createPickups(game, level, data) {
     usable.push({
       position: mesh.position.clone().setY((map.y ?? 0) + 0.02),
       radius: 0.25,
-      prompt: () => (journal.maps().includes(map.id) ? null : { key: 'prompt.takeMap', detail: 'item.map.short' }),
+      prompt: () => (journal.maps().includes(map.id) ? null : { key: 'prompt.takeMap', detail: map.detail ?? 'item.map.short' }),
       use() {
         journal.addMap(map.id);
         (map.with ?? []).forEach((id) => journal.addMap(id));
