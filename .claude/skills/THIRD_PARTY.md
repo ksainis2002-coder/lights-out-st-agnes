@@ -7,6 +7,7 @@ No hidden instructions, credential harvesting or data exfiltration were found.
 | --- | --- | --- | --- |
 | threejs-game-director, threejs-gameplay-systems, threejs-aaa-graphics-builder, threejs-game-ui-designer, threejs-debug-profiler, threejs-qa-release | github.com/majidmanzarpour/threejs-game-skills | 8286774 | MIT |
 | game-ai, ai-behavior-trees-utility-ai, camera-systems, audio-design, shader-programming, performance-optimization, save-systems, level-design | github.com/gamedev-skills/awesome-gamedev-agent-skills (skills/disciplines) | d4b0e35 | Apache-2.0 (NOTICE kept) |
+| test-driven-development, receiving-code-review | github.com/obra/superpowers (skills/) | 2ce8aa1 | MIT (LICENSE in each folder) |
 | karpathy-guidelines | github.com/multica-ai/andrej-karpathy-skills (skills/) | 2c60614 | MIT (`license:` field; README) |
 | accessibility, benchmark-optimization-loop, browser-qa, canary-watch, click-path-audit, e2e-testing, i18n-sync, ui-demo, verification-loop, video-editing, vite-patterns | github.com/affaan-m/ECC (skills/) | 76aaa77 | MIT (`ECC-LICENSE`) |
 
@@ -31,5 +32,11 @@ separate skills library repo for other projects.
 - video-editing: use its FFmpeg/Remotion parts for the trailer only; never its ElevenLabs/fal.ai
   layer (paid). It mentions other ECC skills (fal-ai-media, videodb) that are not installed here.
 - accessibility covers iOS/Android too; only the web parts apply (PC browser).
+- test-driven-development says code written before its test gets deleted. That means new code in
+  the current change only; never delete existing game code. Tests here are Playwright, not unit.
+- The other Superpowers skills (brainstorming, plans, subagent execution, worktrees) are kept in the
+  separate skills library, not here: they start subagents, skip check-ins or gate work behind
+  design docs, which clashes with "ask the owner first". Debugging and verification come from the
+  account's `anthropic-skills:systematic-debugging` and `anthropic-skills:verification-before-completion`.
 - For the trailer and period research use `anthropic-skills:remotion-video-creation` and
   `anthropic-skills:deep-research`, as CLAUDE.md says.
