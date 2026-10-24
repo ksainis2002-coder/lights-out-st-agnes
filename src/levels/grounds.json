@@ -771,12 +771,12 @@
  ],
  "ambience": [
   {
-   "name": "amb_rain_inside",
-   "volume": 0.8
+   "name": "amb_rain_outside",
+   "volume": 1.0
   },
   {
-   "name": "amb_wind_corridor",
-   "volume": 0.5
+   "name": "amb_wind_outside",
+   "volume": 0.75
   }
  ],
  "pickups": [],

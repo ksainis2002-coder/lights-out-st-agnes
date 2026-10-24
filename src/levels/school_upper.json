@@ -99,8 +99,8 @@
      "volume": 0.35
     },
     {
-     "name": "amb_building_hum",
-     "volume": 0.25
+     "name": "amb_classroom",
+     "volume": 0.15
     }
    ]
   },
@@ -119,8 +119,8 @@
      "volume": 0.35
     },
     {
-     "name": "amb_building_hum",
-     "volume": 0.25
+     "name": "amb_classroom",
+     "volume": 0.15
     }
    ]
   },

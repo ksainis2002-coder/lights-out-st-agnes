@@ -7,7 +7,9 @@ generated in code and need no line unless a file is added.
 Files in `assets/sounds/` are cut and converted from the owner's downloads by
 `tools/process-sounds.mjs` (see `assets/sounds/manifest.json`). Every licence below was
 checked by the owner on its Freesound page (batches 1–4: 2026-10-08/09). A licence marked
-"CC0 (to confirm)" has not been checked yet and must not ship in a release.
+"CC0 (to confirm)" has not been checked yet and must not ship in a release. The school wing's
+priority 1 batch (2026-10-24) waits for the owner's links: until they come, its rows say
+"link to come".
 
 | File | Original download | Source | Author | Licence |
 | ---- | ----------------- | ------ | ------ | ------- |
@@ -63,3 +65,53 @@ checked by the owner on its Freesound page (batches 1–4: 2026-10-08/09). A lic
 | sounds/wake_gasp.ogg | wake_gasp.mp3 | [freesound 588666](https://freesound.org/people/ThePig01/sounds/588666/) | ThePig01 | CC0 |
 | sounds/hospital_drip.ogg | hospital_drip.wav | [freesound 337525](https://freesound.org/people/Ev-Dawg/sounds/337525/) | Ev-Dawg | CC0 |
 | sounds/fluorescent_buzz.ogg | fluorescent_buzz.flac | [freesound 637546](https://freesound.org/people/kyles/sounds/637546/) | kyles | CC0 |
+| sounds/stone_grind_1.ogg | stone_grind_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/stone_grind_2.ogg | stone_grind_2.mp3 | link to come | to come | CC0 (to confirm) |
+| sounds/stone_grind_3.ogg | stone_grind_3.wav | link to come | to come | CC0 (to confirm) |
+| sounds/stone_near_breath.ogg | stone_near_breath.wav | link to come | to come | CC0 (to confirm) |
+| sounds/girl_hum.ogg | girl_hum.wav | link to come | to come | CC0 (to confirm) |
+| sounds/rope_slap_1.ogg | rope_slap_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/rope_slap_2.ogg | rope_slap_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/rope_slap_3.ogg | rope_slap_3.wav | link to come | to come | CC0 (to confirm) |
+| sounds/desk_lid_1.ogg | desk_lid_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/desk_lid_2.ogg | desk_lid_2.flac | link to come | to come | CC0 (to confirm) |
+| sounds/desk_lid_3.ogg | desk_lid_3.mp3 | link to come | to come | CC0 (to confirm) |
+| sounds/drawer_metal.ogg | drawer_metal.wav | link to come | to come | CC0 (to confirm) |
+| sounds/chalk_write_1.ogg | chalk_write_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/chalk_write_2.ogg | chalk_write_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/chalk_write_3.ogg | chalk_write_3.mp3 | link to come | to come | CC0 (to confirm) |
+| sounds/chair_scrape_1.ogg | chair_scrape_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/chair_scrape_2.ogg | chair_scrape_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/chair_scrape_3.ogg | chair_scrape_3.mp3 | link to come | to come | CC0 (to confirm) |
+| sounds/step_gravel_1–2.ogg | step_gravel_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_gravel_3–4.ogg | step_gravel_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_gravel_5–6.ogg | step_gravel_3.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_grass_1–2.ogg | step_grass_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_grass_3–4.ogg | step_grass_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_grass_5–6.ogg | step_grass_3.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_stone_1–2.ogg | step_stone_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_stone_3–4.ogg | step_stone_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/step_stone_5–6.ogg | step_stone_3.wav | link to come | to come | CC0 (to confirm) |
+| sounds/amb_rain_outside.ogg | amb_rain_outside.wav | link to come | to come | CC0 (to confirm) |
+| sounds/amb_wind_outside.ogg | amb_wind_outside.m4a | link to come | to come | CC0 (to confirm) |
+| sounds/amb_classroom.ogg | amb_classroom.wav | link to come | to come | CC0 (to confirm) |
+| sounds/mus_drone_school.ogg | mus_drone_school.wav | link to come | to come | CC0 (to confirm) |
+| sounds/projector.ogg | projector.wav | link to come | to come | CC0 (to confirm) |
+| sounds/projector_stop.ogg | projector.wav | link to come | to come | CC0 (to confirm) |
+| sounds/school_bell.ogg | school_bell.wav | link to come | to come | CC0 (to confirm) |
+| sounds/door_bang_1.ogg | door_bang_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/door_bang_2.ogg | door_bang_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/door_bang_3.ogg | door_bang_3.wav | link to come | to come | CC0 (to confirm) |
+| sounds/lock_wheel_click_1–2.ogg | lock_wheel_click_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/lock_wheel_click_3–4.ogg | lock_wheel_click_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/lock_wheel_click_5–6.ogg | lock_wheel_click_3.wav | link to come | to come | CC0 (to confirm) |
+| sounds/book_drop_1.ogg | book_drop_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/book_drop_2.ogg | book_drop_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/book_drop_3.ogg | book_drop_3.mp3 | link to come | to come | CC0 (to confirm) |
+| sounds/gate_creak.ogg | gate_creak.mp3 | link to come | to come | CC0 (to confirm) |
+| sounds/match_strike_1.ogg | match_strike_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/match_strike_2.ogg | match_strike_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/match_strike_3.ogg | match_strike_3.flac | link to come | to come | CC0 (to confirm) |
+| sounds/thunder_close_1.ogg | thunder_close_1.wav | link to come | to come | CC0 (to confirm) |
+| sounds/thunder_close_2.ogg | thunder_close_2.wav | link to come | to come | CC0 (to confirm) |
+| sounds/thunder_close_3.ogg | thunder_close_3.mp3 | link to come | to come | CC0 (to confirm) |

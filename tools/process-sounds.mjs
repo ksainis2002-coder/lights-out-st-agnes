@@ -12,7 +12,10 @@
 //            (a number, or one number per source), numbered id_1, id_2…
 //   loop   – starts at the first event and ends just before a later event,
 //            so the clip loops on a natural boundary (breathing, heartbeat)
+//   cut    – exact clips from each "start" for maxLength seconds (one hit
+//            inside a longer sound); per source a number or a list of starts
 // Any entry may set "start" (seconds) to skip the beginning of its source.
+// "start" and "maxLength" may also be one number per source.
 //   bed    – ambience bed (stereo unless channels: 1), up to maxLength, with its end crossfaded
 //            into its start (crossfade seconds) so it loops without a seam
 import { spawnSync } from 'node:child_process';
@@ -144,12 +147,15 @@ function encodeBed(file, samples, entry, outName) {
   return { out: `${outName}.ogg`, seconds: Number((length - xf).toFixed(2)) };
 }
 
+const perSource = (value, index) => (Array.isArray(value) ? value[index] : value);
+
 function clipsFor(entry, file, samples, events, sourceIndex) {
   const duration = samples.length / RATE;
   const pre = 0.02;
-  const max = entry.maxLength ?? duration;
-  const skip = entry.start ?? 0; // ignore events before this time
+  const max = perSource(entry.maxLength, sourceIndex) ?? duration;
+  const skip = perSource(entry.start, sourceIndex) ?? 0; // ignore events before this time
   const first = events.find((e) => e.start >= skip) ?? events[0] ?? { start: skip, end: duration };
+  if (entry.mode === 'cut') return [skip].flat().map((at) => [at, Math.min(duration, at + max)]);
   if (entry.mode === 'whole') {
     const last = events[events.length - 1] ?? first;
     const from = Math.max(0, first.start - pre);
@@ -185,9 +191,10 @@ function processEntry(id, entry) {
       return;
     }
     const events = findEvents(envelope(samples));
-    for (const [from, to] of clipsFor(entry, file, samples, events, sourceIndex)) {
+    const clips = clipsFor(entry, file, samples, events, sourceIndex);
+    for (const [from, to] of clips) {
       counter += 1;
-      const numbered = sources.length > 1 || (entry.mode === 'split' && entry.take !== 1);
+      const numbered = sources.length > 1 || clips.length > 1 || (entry.mode === 'split' && entry.take !== 1);
       results.push({ source, ...encode(file, samples, from, to, numbered ? `${id}_${counter}` : id, entry.fade ?? 0.05, entry.channels) });
     }
   });

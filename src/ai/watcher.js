@@ -30,6 +30,8 @@ const REPATH = 0.4; // seconds between route updates
 const LOSE_AFTER = 15; // seconds out of her reach before she wanders off
 const SPAN = 0.8; // her plinth, metres (the player cannot walk through her)
 const CATCH_LINES = 5;
+const DRONE = 'mus_drone_school';
+const DRONE_LEVEL = { seen: 0.09, unseen: 0.33 }; // as loud as the 0.2 drone it replaced
 
 export function createWatcher(game) {
   const position = new THREE.Vector3();
@@ -56,7 +58,7 @@ export function createWatcher(game) {
     statue = null;
     mode = null;
     warning = null;
-    game.sfx.setLayer('mus_drone_low', 0);
+    game.sfx.setLayer(DRONE, 0);
   }
 
   function moveTo(x, z) {
@@ -207,8 +209,8 @@ export function createWatcher(game) {
   // The drone swells while she is close and unseen (design 0.3: weather and sound).
   function updateDrone(seen) {
     const close = Math.max(0, 1 - distanceTo(player()) / 14);
-    const level = mode !== 'hunting' ? 0 : seen ? 0.15 : 0.55;
-    game.sfx.setLayer('mus_drone_low', level * close);
+    const level = mode !== 'hunting' ? 0 : seen ? DRONE_LEVEL.seen : DRONE_LEVEL.unseen;
+    game.sfx.setLayer(DRONE, level * close);
   }
 
   function update(dt) {

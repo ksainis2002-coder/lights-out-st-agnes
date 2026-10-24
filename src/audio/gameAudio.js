@@ -7,8 +7,9 @@ import { roomAt } from '../levels/loader.js';
 
 const STRIDE = { crouch: 0.55, walk: 0.75, run: 0.95 }; // metres between steps
 const STEP_VOLUME = { crouch: 0.3, walk: 0.65, run: 1 };
-// School floors use the nearest sound until the outdoor steps arrive (sound list 0.3).
-const FLOOR_SOUND = { wood: 'step_wood', parquet: 'step_wood', floor: 'step_tile', tile: 'step_tile', hallTile: 'step_tile', gravel: 'step_tile', grass: 'step_wood' };
+const FLOOR_SOUND = { wood: 'step_wood', parquet: 'step_wood', floor: 'step_tile', tile: 'step_tile', hallTile: 'step_tile', gravel: 'step_gravel', grass: 'step_grass' };
+// Iron gates creak (louder than the doors, so played quieter); other doors use door_use.
+const DOOR_SOUND = { gate: { name: 'gate_creak', volume: 0.6 } };
 const AMBIENCE_FADE = 1.5; // seconds
 // Before a game starts (warning, main menu, setup): a hummed lullaby over tape hiss.
 const MENU_AMBIENCE = [{ name: 'mus_lullaby_hum', volume: 0.55 }, { name: 'tape_hiss', volume: 0.12 }];
@@ -24,11 +25,11 @@ export function createGameAudio(game) {
   let thunderIn = 30;
   const played = {}; // name → count, for the debug overlay and tests
 
-  function play(name, { position = null, volume = 1, bus = 'effects', loop = false, pitchJitter, refDistance, rate } = {}) {
+  function play(name, { position = null, volume = 1, bus = 'effects', loop = false, pitchJitter, refDistance, rate, delay } = {}) {
     if (!ready) return null;
     played[name] = (played[name] ?? 0) + 1;
     const buffer = library.pick(name);
-    return buffer ? playSound(mixer, buffer, { position, volume, bus, loop, pitchJitter, refDistance, rate }) : null;
+    return buffer ? playSound(mixer, buffer, { position, volume, bus, loop, pitchJitter, refDistance, rate, delay }) : null;
   }
 
   async function start() {
@@ -44,8 +45,13 @@ export function createGameAudio(game) {
     return { x: c.x, y: 1.2, z: c.z };
   }
 
-  events.on('door.opened', (door) => play('door_use', { position: doorPosition(door) }));
-  events.on('door.closed', (door) => play('door_use', { position: doorPosition(door), volume: 0.8 }));
+  function playDoor(door, volume) {
+    const sound = DOOR_SOUND[door.look] ?? { name: 'door_use', volume: 1 };
+    play(sound.name, { position: doorPosition(door), volume: sound.volume * volume });
+  }
+
+  events.on('door.opened', (door) => playDoor(door, 1));
+  events.on('door.closed', (door) => playDoor(door, 0.8));
   events.on('door.locked', (door) => play('door_locked', { position: doorPosition(door) }));
   events.on('prop.refused', (prop) => {
     const size = game.world.level.cellSize;
@@ -66,67 +72,76 @@ export function createGameAudio(game) {
   // the lullaby lets a hidden door creak loose.
   const SOLVED_SOUND = {
     plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz', piano: 'key_pickup',
-    library: 'paper_pickup', records: 'drawer',
+    library: 'paper_pickup', records: 'drawer_metal',
   };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
   events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
   events.on('fuses.reset', () => play('door_locked', { volume: 0.7 }));
   events.on('power.cut', () => play('thunder_far', { volume: 1 }));
-  // The storm's thunder after each strike (thunder_close in docs/SOUNDS_0.3.md
-  // will join it), louder outside.
-  events.on('storm.thunder', ({ outdoors }) => play('thunder_far', { volume: outdoors ? 1 : 0.75, pitchJitter: 0.08 }));
+  // The storm's thunder after each strike, quieter indoors.
+  events.on('storm.thunder', ({ outdoors }) => play('thunder_close', { volume: outdoors ? 1 : 0.55, pitchJitter: 0.08 }));
   events.on('reveal', () => play('paper_pickup', { volume: 0.8 }));
   events.on('musicBox.wound', () => play('drawer', { volume: 0.6 }));
-  // School wing: 0.2 sounds stand in until the 0.3 files arrive (desk_lid,
-  // cloth_rustle, book_slide, rope_slap, key_drop_wood in docs/SOUNDS_0.3.md).
+  // School wing: Maggie's desk lid, the staff-room drawer. 0.2 sounds still
+  // stand in for the coat, the book and the piano's key until the priority 2
+  // files arrive (cloth_rustle, book_slide, key_drop_wood in docs/SOUNDS_0.3.md).
   const propPosition = (prop, y) => {
     const size = game.world.level.cellSize;
     const [col, row] = prop.useAt ?? prop.at;
     return { x: col * size, y, z: row * size };
   };
-  events.on('prop.opened', (prop) => play('drawer', { position: propPosition(prop, 0.8), volume: 0.7 }));
+  events.on('prop.opened', (prop) => {
+    const lid = prop.use === 'lid';
+    play(lid ? 'desk_lid' : 'drawer_metal', { position: propPosition(prop, 0.8), volume: lid ? 0.3 : 0.35 });
+  });
   events.on('prop.searched', (prop) => play('cloth_crouch', { position: propPosition(prop, 1.1) }));
   events.on('library.drawer', () => play('drawer', { volume: 0.5 }));
   events.on('library.book', () => play('paper_pickup', { volume: 0.7 }));
   events.on('hopscotch.hop', () => play('step_wood', { volume: 0.6 }));
-  events.on('hopscotch.wrong', () => play('giggle_close', { volume: 0.4 }));
-  // The records lock: each wheel clicks round; a wrong try rattles the drawer
-  // (lock_wheel_click and drawer_metal in docs/SOUNDS_0.3.md will replace them).
-  events.on('records.wheel', () => play('key_pickup', { volume: 0.35, rate: 1.8 }));
-  events.on('records.wrong', () => play('door_locked', { volume: 0.6 }));
-  // Upstairs set pieces (school_bell, door_bang, projector in docs/SOUNDS_0.3.md
-  // will replace these 0.2 stand-ins): the bell rings and doors bang open; the
-  // roll call's heads turn on a low sting; the projector clatters, then snaps.
-  const loops = {};
-  const loop = (key, name, options) => {
-    loops[key]?.stop();
-    loops[key] = play(name, { loop: true, pitchJitter: 0, ...options });
-  };
-  const endLoop = (key) => {
-    loops[key]?.stop();
-    loops[key] = null;
-  };
-  events.on('setPiece.ring', ({ position }) => loop('bell', 'fluorescent_buzz', { position, rate: 1.6, volume: 1, refDistance: 4 }));
-  events.on('setPiece.ringStop', () => endLoop('bell'));
-  events.on('setPiece.doorBang', (door) => play('door_locked', { position: doorPosition(door), volume: 1, rate: 0.7 }));
-  events.on('setPiece.turn', ({ position }) => play('mus_stinger', { position, volume: 0.45, bus: 'music', pitchJitter: 0 }));
-  events.on('setPiece.projector', ({ position }) => loop('projector', 'swing_chain', { position, rate: 2.2, volume: 0.9, refDistance: 3 }));
-  events.on('setPiece.filmSnap', () => {
-    endLoop('projector');
-    play('paper_pickup', { volume: 0.9, rate: 0.8 });
+  // A wrong square: the rope slaps the floor, then she giggles.
+  events.on('hopscotch.wrong', () => {
+    play('rope_slap', { volume: 0.5 });
+    play('giggle_close', { volume: 0.4, delay: 0.3 });
   });
-  // The watcher: her grind each time she moves and her breath at arm's reach
-  // (stone_grind, stone_near_breath) are pitched-down 0.2 sounds for now.
+  // The records lock: each wheel clicks round; a wrong try rattles the drawer.
+  events.on('records.wheel', () => play('lock_wheel_click', { volume: 0.5 }));
+  events.on('records.wrong', () => play('door_locked', { volume: 0.6 }));
+  // Upstairs set pieces: the bell rings and its ring dies away, doors bang
+  // open; the roll call's heads turn on a low sting (mus_stinger_low will
+  // replace it); the projector clatters, then runs down as the film snaps.
+  const running = {}; // sounds a later event stops: the bell, the projector
+  const begin = (key, name, options) => {
+    running[key]?.stop();
+    running[key] = play(name, { pitchJitter: 0, ...options });
+  };
+  const end = (key) => {
+    running[key]?.stop();
+    running[key] = null;
+  };
+  let projectorAt = null;
+  events.on('setPiece.ring', ({ position }) => begin('bell', 'school_bell', { position, volume: 1, refDistance: 4 }));
+  events.on('setPiece.ringStop', () => end('bell'));
+  events.on('setPiece.doorBang', (door) => play('door_bang', { position: doorPosition(door), volume: 0.8 }));
+  events.on('setPiece.turn', ({ position }) => play('mus_stinger', { position, volume: 0.45, bus: 'music', pitchJitter: 0 }));
+  events.on('setPiece.projector', ({ position }) => {
+    projectorAt = position;
+    begin('projector', 'projector', { position, loop: true, volume: 1, refDistance: 3 });
+  });
+  events.on('setPiece.filmSnap', () => {
+    end('projector');
+    play('projector_stop', { position: projectorAt, volume: 0.9, refDistance: 3 });
+  });
+  // The watcher: her stone grinds each time she moves, a dusty breath at
+  // arm's reach (her warning), a heavier grind as she grabs.
   const at = (point, y) => ({ x: point.x, y, z: point.z });
-  events.on('watcher.moved', ({ position }) => play('drawer', { position: at(position, 0.4), rate: 0.5, volume: 1, refDistance: 2 }));
-  events.on('watcher.breath', ({ position }) => play('breath_hold', { position: at(position, 1.9), rate: 0.7, volume: 1 }));
-  events.on('watcher.grab', ({ position }) => play('drawer', { position: at(position, 0.4), rate: 0.4, volume: 1 }));
+  events.on('watcher.moved', ({ position }) => play('stone_grind', { position: at(position, 0.4), volume: 0.6, refDistance: 2 }));
+  events.on('watcher.breath', ({ position }) => play('stone_near_breath', { position: at(position, 1.9), volume: 0.9 }));
+  events.on('watcher.grab', ({ position }) => play('stone_grind', { position: at(position, 0.4), rate: 0.8, volume: 0.8 }));
   events.on('collapse.grab', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
   events.on('watcher.introStarted', () => play('fluorescent_buzz', { volume: 0.5, rate: 0.8 }));
-  // Maggie's chalk on a board and Classroom 1's desks dragged round
-  // (chalk_write, chair_scrape): 0.2 sounds pitched for now.
-  events.on('chalk.scratch', ({ position }) => play('cloth_crouch', { position, rate: 1.8, volume: 0.6, refDistance: 2 }));
-  events.on('trick.scrape', ({ position }) => play('bed_creak', { position, rate: 0.75, volume: 1, refDistance: 3 }));
+  // Maggie's chalk on a board and Classroom 1's desks dragged round.
+  events.on('chalk.scratch', ({ position }) => play('chalk_write', { position, volume: 1, refDistance: 3 }));
+  events.on('trick.scrape', ({ position }) => play('chair_scrape', { position, volume: 0.5, refDistance: 3 }));
   // Positional loops placed in the level (the office clock): "emitters".
   let emitterSources = [];
   // Emitters loop, or with "every": [min, max] play once at random gaps

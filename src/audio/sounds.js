@@ -26,8 +26,9 @@ function createPanner(ctx, position, refDistance = 1) {
 }
 
 // Plays a decoded buffer into a mixer bus. Returns the source node.
-// rate < 1 plays lower and slower (a stand-in pitched down, say).
-export function playSound(mixer, buffer, { bus = 'effects', position = null, volume = 1, pitchJitter = 0.05, volumeJitter = 0.1, loop = false, refDistance, rate = 1 } = {}) {
+// rate < 1 plays lower and slower (a stand-in pitched down, say); delay
+// (seconds) starts it later.
+export function playSound(mixer, buffer, { bus = 'effects', position = null, volume = 1, pitchJitter = 0.05, volumeJitter = 0.1, loop = false, refDistance, rate = 1, delay = 0 } = {}) {
   const ctx = mixer.context();
   if (!ctx || !buffer) return null;
   const source = ctx.createBufferSource();
@@ -39,7 +40,7 @@ export function playSound(mixer, buffer, { bus = 'effects', position = null, vol
   let node = source.connect(gain);
   if (position) node = node.connect(createPanner(ctx, position, refDistance));
   node.connect(mixer.bus(bus));
-  source.start();
+  source.start(ctx.currentTime + delay);
   return source;
 }
 

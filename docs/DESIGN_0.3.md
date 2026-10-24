@@ -428,6 +428,20 @@ lines are in the content sheet.
   133, Class 3 135; at most 19k triangles; 12 point lights upstairs. The roll call adds about 66
   draw calls for its 4 s, the film a few.
 
+## Sounds, priority 1 (0.2.38)
+- The owner's 49 files replace the stand-ins (`docs/SOUNDS_0.3.md` lists what still stands in). Each
+  plays about as loud as the stand-in it replaced, so the mix stays as tuned; the owner judges them
+  on real speakers.
+- The watcher: her stone grinds as she moves, a dusty breath at arm's reach (her warning), a heavier
+  grind as she grabs, and the drone while she is close and unseen. Maggie hums under her rhymes; a
+  wrong square slaps the rope, then she giggles. Chalk on the boards; Classroom 1's desks scrape.
+- Maggie's desk lid, the staff-room drawer, the lock's wheels and the records drawer. The bell rings
+  once and its ring dies away; the doors bang open; the projector runs, and runs down when the film
+  snaps. Close thunder in the storm, quieter indoors.
+- Outdoors: rain and wind beds, gravel and grass steps, the iron gates creak. The classrooms have
+  their own room tone in place of the building's hum.
+- For later parts: stone steps (stone paths), match strikes (the lanterns), book drops.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

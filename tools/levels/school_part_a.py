@@ -188,7 +188,7 @@ def grounds():
                    "school_door": {"cell": [20, 15], "yawDegrees": 90}},
         "rooms": [cemetery.data(), court.data(), road.data()],
         "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
-        "ambience": [{"name": "amb_rain_inside", "volume": 0.8}, {"name": "amb_wind_corridor", "volume": 0.5}],
+        "ambience": [{"name": "amb_rain_outside", "volume": 1.0}, {"name": "amb_wind_outside", "volume": 0.75}],
         # The grounds come on the hall plan (the school's map entry "with"); this
         # entry only says how their page is drawn: the key, right of the plan.
         "pickups": [], "documents": [], "maps": [{"id": "grounds", "key": [22.6, 0.3]}], "ghosts": L.ghosts,
@@ -471,11 +471,18 @@ def school():
     L.maggie('maggie_corridor', 'appear', cor.at(29.5, 0.6), rotation=-90, cells=[17, 10, 25, 11],
              requires={"flag": "name_maggie"}, line='maggie.corridor', leadTo=[33.5, 10.6])
 
-    room_ambience = [{"name": "amb_rain_inside", "volume": 0.35}, {"name": "amb_building_hum", "volume": 0.25}]
+    # The rain everywhere; the classrooms' own room tone, elsewhere the
+    # building's hum; the wind in the corridor and the hall.
+    rain = {"name": "amb_rain_inside", "volume": 0.35}
+    hum = {"name": "amb_building_hum", "volume": 0.25}
+    classroom = {"name": "amb_classroom", "volume": 0.15}
+    wind = {"name": "amb_wind_corridor", "volume": 0.25}
     out_rooms = []
     for room in rooms.values():
         data = room.data()
-        data["ambience"] = room_ambience if room.id not in ('main_corridor', 'entrance_hall') else room_ambience + [{"name": "amb_wind_corridor", "volume": 0.25}]
+        data["ambience"] = [rain, classroom if room.id.startswith('class_') else hum]
+        if room.id in ('main_corridor', 'entrance_hall'):
+            data["ambience"].append(wind)
         out_rooms.append(data)
 
     maps = [{"id": "school_ground", "at": hall.at(5.8, hz + 6 - 0.06), "y": 1.5, "rotation": 180, "upright": True,

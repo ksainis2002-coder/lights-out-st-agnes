@@ -29,9 +29,9 @@ const VANISH_DISTANCE = 4;
 const STARE_SECONDS = 1.2;
 const SEEN_DRAIN = 0.5; // sanity per second while a ghost child is in view
 const LINE_SECONDS = 3.6; // each sung line of a rhyme
-// Maggie's humming under her rhymes: the 0.2 hummed lullaby stands in until
-// girl_hum arrives (sound list 0.3).
-const HUM = 'mus_lullaby_hum';
+// Maggie's humming under her rhymes (sound list 0.3).
+const HUM = 'girl_hum';
+const HUM_VOLUME = 0.3;
 
 export function createGhostDirector(game) {
   const cooldowns = {};
@@ -82,7 +82,7 @@ export function createGhostDirector(game) {
       active.ghost = spawnGhost(event, level);
       active.phase = 'sing';
       active.line = -1;
-      active.hum = game.sfx.play(event.hum ?? HUM, { position: active.ghost.position, volume: 0.5, loop: true, pitchJitter: 0 });
+      active.hum = game.sfx.play(event.hum ?? HUM, { position: active.ghost.position, volume: HUM_VOLUME, loop: true, pitchJitter: 0 });
     } else {
       game.mixer.duck('effects', -14, { attack: 0.3, hold: 2.5, release: 1.5 }); // the tell: the room goes quiet
       if (event.setup?.sound) game.sfx.play(event.setup.sound, { position: world(level, event.setup.at ?? event.at, 1.2), volume: 0.6 });

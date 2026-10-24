@@ -224,11 +224,17 @@ def level():
     office(L, ROOMS['office'])
     flat(L, ROOMS['flat'])
     stairs(L, ROOMS['main'], ROOMS['back'])
-    ambience = [{"name": "amb_rain_inside", "volume": 0.35}, {"name": "amb_building_hum", "volume": 0.25}]
+    # The rain everywhere; the classrooms' own room tone, elsewhere the
+    # building's hum; the wind in the corridor.
+    rain = {"name": "amb_rain_inside", "volume": 0.35}
+    hum = {"name": "amb_building_hum", "volume": 0.25}
+    classroom = {"name": "amb_classroom", "volume": 0.15}
     rooms = []
     for room in ROOMS.values():
         data = room.data()
-        data["ambience"] = ambience + ([{"name": "amb_wind_corridor", "volume": 0.25}] if room.id == 'upper_corridor' else [])
+        data["ambience"] = [rain, classroom if room.id.startswith('class_') else hum]
+        if room.id == 'upper_corridor':
+            data["ambience"].append({"name": "amb_wind_corridor", "volume": 0.25})
         rooms.append(data)
     # Spawns at the head of each stairs, facing the corridor (a spawn's cell
     # is the corner of the cell it stands in the middle of).

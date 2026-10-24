@@ -1,5 +1,5 @@
 {
-  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d, batch 4: 6417c6f).",
+  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d, batch 4: 6417c6f; school wing priority 1: ecadb37).",
   "sounds": {
     "step_tile": {
       "mode": "split",
@@ -295,6 +295,304 @@
       "maxLength": 25,
       "crossfade": 3,
       "channels": 1
+    },
+    "stone_grind": {
+      "mode": "trim",
+      "from": [
+        "stone_grind_1.wav",
+        "stone_grind_2.mp3",
+        "stone_grind_3.wav"
+      ],
+      "start": [
+        0,
+        5.7,
+        52.9
+      ],
+      "maxLength": 1.4,
+      "fade": 0.3
+    },
+    "stone_near_breath": {
+      "mode": "trim",
+      "from": "stone_near_breath.wav",
+      "start": 29.4,
+      "maxLength": 1.6,
+      "fade": 0.35
+    },
+    "girl_hum": {
+      "mode": "whole",
+      "from": "girl_hum.wav",
+      "maxLength": 25.2,
+      "fade": 0.5
+    },
+    "rope_slap": {
+      "mode": "cut",
+      "from": [
+        "rope_slap_1.wav",
+        "rope_slap_2.wav",
+        "rope_slap_3.wav"
+      ],
+      "start": [
+        1.32,
+        2.122,
+        0.45
+      ],
+      "maxLength": [
+        0.16,
+        0.3,
+        0.14
+      ],
+      "fade": 0.06
+    },
+    "desk_lid": {
+      "mode": "cut",
+      "from": [
+        "desk_lid_1.wav",
+        "desk_lid_2.flac",
+        "desk_lid_3.mp3"
+      ],
+      "start": [
+        4.295,
+        0.218,
+        0.745
+      ],
+      "maxLength": [
+        0.4,
+        1.0,
+        0.45
+      ],
+      "fade": 0.2
+    },
+    "drawer_metal": {
+      "mode": "trim",
+      "from": "drawer_metal.wav",
+      "maxLength": 1.15,
+      "fade": 0.3
+    },
+    "chalk_write": {
+      "mode": "trim",
+      "from": [
+        "chalk_write_1.wav",
+        "chalk_write_2.wav",
+        "chalk_write_3.mp3"
+      ],
+      "start": [
+        0.6,
+        1.7,
+        0.8
+      ],
+      "maxLength": 2.0,
+      "fade": 0.3
+    },
+    "chair_scrape": {
+      "mode": "trim",
+      "from": [
+        "chair_scrape_1.wav",
+        "chair_scrape_2.wav",
+        "chair_scrape_3.mp3"
+      ],
+      "start": [
+        0.6,
+        23.2,
+        2.2
+      ],
+      "maxLength": [
+        1.6,
+        1.5,
+        1.1
+      ],
+      "fade": 0.3
+    },
+    "step_gravel": {
+      "mode": "split",
+      "from": [
+        "step_gravel_1.wav",
+        "step_gravel_2.wav",
+        "step_gravel_3.wav"
+      ],
+      "take": [
+        2,
+        2,
+        2
+      ],
+      "maxLength": 0.45,
+      "minGap": 0.4,
+      "fade": 0.15
+    },
+    "step_grass": {
+      "mode": "split",
+      "from": [
+        "step_grass_1.wav",
+        "step_grass_2.wav",
+        "step_grass_3.wav"
+      ],
+      "take": [
+        2,
+        2,
+        2
+      ],
+      "maxLength": 0.45,
+      "minGap": 0.4,
+      "fade": 0.15
+    },
+    "step_stone": {
+      "mode": "split",
+      "from": [
+        "step_stone_1.wav",
+        "step_stone_2.wav",
+        "step_stone_3.wav"
+      ],
+      "take": [
+        2,
+        2,
+        2
+      ],
+      "maxLength": [
+        0.4,
+        0.3,
+        0.3
+      ],
+      "minGap": 0.4,
+      "fade": 0.12
+    },
+    "amb_rain_outside": {
+      "mode": "bed",
+      "from": "amb_rain_outside.wav",
+      "maxLength": 48,
+      "crossfade": 4
+    },
+    "amb_wind_outside": {
+      "mode": "bed",
+      "from": "amb_wind_outside.m4a",
+      "start": 1,
+      "maxLength": 48,
+      "crossfade": 5,
+      "channels": 1
+    },
+    "amb_classroom": {
+      "mode": "bed",
+      "from": "amb_classroom.wav",
+      "maxLength": 18,
+      "crossfade": 3,
+      "channels": 1
+    },
+    "mus_drone_school": {
+      "mode": "bed",
+      "from": "mus_drone_school.wav",
+      "start": 3,
+      "maxLength": 22,
+      "crossfade": 4
+    },
+    "projector": {
+      "mode": "bed",
+      "from": "projector.wav",
+      "start": 20,
+      "maxLength": 16,
+      "crossfade": 2,
+      "channels": 1
+    },
+    "projector_stop": {
+      "mode": "trim",
+      "from": "projector.wav",
+      "start": 166.2,
+      "maxLength": 1.4,
+      "fade": 0.3
+    },
+    "school_bell": {
+      "mode": "trim",
+      "from": "school_bell.wav",
+      "maxLength": 3.3,
+      "fade": 0.4
+    },
+    "door_bang": {
+      "mode": "whole",
+      "from": [
+        "door_bang_1.wav",
+        "door_bang_2.wav",
+        "door_bang_3.wav"
+      ],
+      "maxLength": 1.6,
+      "fade": 0.3
+    },
+    "lock_wheel_click": {
+      "mode": "cut",
+      "from": [
+        "lock_wheel_click_1.wav",
+        "lock_wheel_click_2.wav",
+        "lock_wheel_click_3.wav"
+      ],
+      "start": [
+        [
+          1.583,
+          1.835
+        ],
+        [
+          10.484,
+          9.558
+        ],
+        [
+          1.689,
+          6.372
+        ]
+      ],
+      "maxLength": 0.12,
+      "fade": 0.04
+    },
+    "book_drop": {
+      "mode": "trim",
+      "from": [
+        "book_drop_1.wav",
+        "book_drop_2.wav",
+        "book_drop_3.mp3"
+      ],
+      "start": [
+        0.4,
+        0,
+        1.2
+      ],
+      "maxLength": 0.9,
+      "fade": 0.2
+    },
+    "gate_creak": {
+      "mode": "trim",
+      "from": "gate_creak.mp3",
+      "start": 0.8,
+      "maxLength": 3.4,
+      "fade": 0.6
+    },
+    "match_strike": {
+      "mode": "trim",
+      "from": [
+        "match_strike_1.wav",
+        "match_strike_2.wav",
+        "match_strike_3.flac"
+      ],
+      "start": [
+        4.4,
+        0,
+        0
+      ],
+      "maxLength": 1.5,
+      "fade": 0.4
+    },
+    "thunder_close": {
+      "mode": "whole",
+      "from": [
+        "thunder_close_1.wav",
+        "thunder_close_2.wav",
+        "thunder_close_3.mp3"
+      ],
+      "start": [
+        3.3,
+        0,
+        3.4
+      ],
+      "maxLength": [
+        9,
+        12,
+        10
+      ],
+      "fade": 2.5,
+      "channels": 2
     }
   }
 }

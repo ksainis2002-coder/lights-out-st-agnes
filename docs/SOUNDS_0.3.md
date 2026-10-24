@@ -12,6 +12,9 @@ Updated 2026-10-14 after the owner's Q&A: the watcher's breath is now priority 1
 warning), the projector is priority 1 (the film set piece), the piano needs no files (its notes
 are made by the game), and the new rooms and puzzles add the rows marked **new**.
 
+Priority 1 is in the game (2026-10-24): the owner's 49 files, cut by `tools/process-sounds.mjs`
+(`assets/sounds/manifest.json`). Their links and a CC0 check are still to come (`assets/CREDITS.md`).
+
 ## How to hand them over (same as 0.2)
 1. On Freesound, set the licence filter to **Creative Commons 0** (OpenGameArt: **CC0**). Skip
    anything CC-BY, CC-BY-NC or "Sampling+", even if it sounds perfect.
@@ -99,34 +102,19 @@ gibberish only), so no sung words are needed. Her giggle reuses the 0.2 giggle.
 
 ## Stand-ins in the game now
 Until the files above arrive, the game plays a 0.2 sound in their place. Each one is swapped for
-its own file when it comes in (one line each in `src/audio/gameAudio.js`).
+its own file when it comes in (one line each in `src/audio/gameAudio.js`). The priority 1 rows
+are gone: those sounds now play their own files.
 | Happens | Plays now | Will play |
 | --- | --- | --- |
-| Lifting Maggie's desk lid; the staff-room drawer | drawer | desk_lid; drawer_metal |
 | Searching the coat pockets | cloth_crouch | cloth_rustle |
 | A card-index drawer | drawer | drawer (fine as it is) |
 | Taking a book off the shelf | paper_pickup | book_slide |
 | The key falling out of the piano | key_pickup | key_drop_wood |
 | A hop on the hopscotch | step_wood | step_wood (fine as it is) |
-| Maggie humming under her rhymes | mus_lullaby_hum | girl_hum |
-| The watcher moving (each grind) | drawer, pitched down | stone_grind |
-| Her breath at arm's reach (the warning) | breath_hold, pitched down | stone_near_breath |
-| The drone while she is close and unseen | mus_drone_low | mus_drone_school |
-| The grab | mus_stinger, drawer pitched down | mus_stinger_low, stone_grind |
+| The grab | mus_stinger, stone_grind pitched down | mus_stinger_low, stone_grind |
 | The library light dying | fluorescent_buzz | fluorescent_buzz (fine as it is) |
-| A wrong square | giggle_close (quiet) | rope_slap, then the giggle |
-| Footsteps on the gravel and the grass outside | step_tile, step_wood | step_gravel, step_grass |
-| Chalk written on a corridor board (Maggie's hints and taunts) | cloth_crouch, pitched up | chalk_write |
-| Classroom 1's desks dragged round (Maggie's trick) | bed_creak, pitched down | chair_scrape |
-| A records-lock wheel clicking round | key_pickup, pitched up | lock_wheel_click |
 | The records drawer: a wrong try | door_locked | door_locked (fine as it is) |
-| The records drawer sliding out | drawer | drawer_metal |
-| The bell ringing upstairs (the bell set piece) | fluorescent_buzz, pitched up | school_bell |
-| A classroom door banging open | door_locked, pitched down | door_bang |
 | The roll call's heads turning | mus_stinger (quiet) | mus_stinger_low |
-| The projector running | swing_chain, sped up | projector |
-| The film snapping | paper_pickup, pitched down | projector (its end) |
-| Thunder after each lightning strike | thunder_far (quieter indoors) | thunder_close |
 
 ## Counts
 - **Priority 1:** 23 sounds (49 files with the extra takes). Enough to build the wing.

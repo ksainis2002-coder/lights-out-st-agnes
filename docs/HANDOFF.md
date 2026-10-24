@@ -164,5 +164,9 @@ still open), the content sheet's checklist, the sounds. The owner confirmed the 
 cooldown and the watcher staying on her floor when she is not close (2026-10-24). Next: part C
 (the cemetery: graves, lanterns, the lamb and file page, the watcher at the chapel and outside in
 the storm, the hub's drawings and decay), stills first.
+**School wing sounds, priority 1 (2026-10-24):** the owner pushed the 49 files (ecadb37). They are cut
+by `tools/process-sounds.mjs` (new `cut` mode for single hits; `start` and `maxLength` per source) and
+play in place of the stand-ins, each about as loud as the stand-in it replaced (0.2.38). Waiting on the
+owner: the download links and a CC0 check (the CREDITS rows say "link to come"). Next sounds: priority 2.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

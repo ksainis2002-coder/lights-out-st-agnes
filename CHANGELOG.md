@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.38 — School wing sounds, priority 1: the owner's 49 files now play in place of the stand-ins (the watcher's grind and breath, the drone, Maggie's hum, the rope, chalk, desks, the lock and drawers, the bell, banging doors, the projector, close thunder, outdoor rain and wind, gravel and grass steps, the gates, the classrooms' room tone), each about as loud as the stand-in it replaced. The sound script can now cut single hits exactly. Three new sound tests.
 - 0.2.37 — Sound list: the storm's thunder joins the stand-ins table, and the Sound List doc now shows part B's stand-ins and which files part B already uses.
 - 0.2.36 — Part B playtest checklist (a Claude Doc, like part A's), with five tuning picks for after the playtest. The owner's picks are in the design notes: the three set pieces keep 30 s apart, and the watcher stays downstairs if she is not close when you go up.
 - 0.2.35 — School wing, part B4: the watcher between floors. Take the stairs while she is close behind you and she follows: about 16 s later you hear her stone on the stairs, and from 20 s she comes off them as soon as nobody is looking that way. Not close, she stays on her floor, and you find her there when you go back. Upstairs she hunts the corridor and the stairs; the rooms are safe. A bot now plays part B from the hall to the back stairs (about 80 s at bot pace, no catches). Upstairs measures 67–135 draw calls a room. Part B is built. Three new tests and the route.
