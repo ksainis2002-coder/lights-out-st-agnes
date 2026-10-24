@@ -17,6 +17,9 @@ for (const route of routes) {
         game.intro.finish();
       } else {
         game.play();
+        // A route can start further on: what is already done or carried.
+        (r.given?.flags ?? []).forEach((flag) => game.progress.setFlag(flag));
+        (r.given?.items ?? []).forEach((item) => game.inventory.add(item));
         game.loadLevel(r.level);
       }
       const result = game.runBot(r);

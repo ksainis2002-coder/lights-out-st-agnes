@@ -249,6 +249,11 @@ def level():
         "puzzles": {"recordsLock": {"prop": "records_cabinet", "clue": "seen_counting_board", "code": [3, 5, 4]}},
         "setPieces": set_pieces(seats),
         "weather": {"storm": "puzzle_records"},  # the storm starts with the records drawer (levels/storm.js)
+        # The watcher hunts the corridor and the stairs up here once she has followed
+        # you up (ai/watcherFloors.js); the rooms are safe.
+        "watcher": {"territory": ["upper_corridor", "main_stairs", "back_stairs"],
+                    "spawns": [[10.0, 10.8], [41.5, 10.8], [27.0, 8.6], [28.0, 12.5]],
+                    "arrivals": {"main_stairs": [28.0, 12.5], "back_stairs": [27.0, 8.6]}},
         # The plan itself is pinned in the staff room (school_ground); this
         # entry draws it: the key in the empty north-west corner.
         "maps": [{"id": "school_upper", "key": [2.0, 1.0]}],

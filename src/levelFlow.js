@@ -36,7 +36,7 @@ export function setupLevelFlow(game) {
   game.travel = (id, spawnName) => {
     if (trip) return;
     trip = { id, spawnName, t: 0, loaded: false };
-    game.events.emit('level.leaving', id);
+    game.events.emit('level.leaving', { id, spawn: spawnName }); // the watcher may follow (ai/watcherFloors.js)
   };
 
   game.isTravelling = () => trip !== null;

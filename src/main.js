@@ -40,6 +40,7 @@ import { createSubtitles } from './ui/subtitles.js';
 import { createGhostDirector } from './ghosts/director.js';
 import { createWatcher } from './ai/watcher.js';
 import { createWatcherIntro } from './ai/watcherIntro.js';
+import { createWatcherFloors } from './ai/watcherFloors.js';
 import { createBlink } from './sanity/blink.js';
 import { createMoves } from './props/moves.js';
 import { createChalk } from './ghosts/chalk.js';
@@ -97,6 +98,7 @@ function createGame() {
   game.blink = createBlink(game);
   game.watcher = createWatcher(game);
   game.watcherIntro = createWatcherIntro(game, game.watcher);
+  game.watcherFloors = createWatcherFloors(game, game.watcher); // she follows you up and down the stairs
   game.enemies = [game.watcher]; // the debug overlay shows their senses and state
   game.moves = createMoves(game); // props that stand another way once a flag is set
   game.chalk = createChalk(game); // Maggie's chalk on the corridor boards
@@ -181,6 +183,9 @@ function setupModes(game) {
   // While playing without the mouse captured (after a menu), the game waits
   // for a click. Tests turn this off: headless browsers cannot capture.
   game.requireMouseCapture = true;
+  // Tests that time things step by step turn this off: the frame loop then only
+  // draws, and the game moves on only through game.advance().
+  game.realTime = true;
   game.needsClick = () =>
     game.requireMouseCapture && game.mode === 'playing' && 'pointerLockElement' in document && !document.pointerLockElement;
 
@@ -279,6 +284,7 @@ function simulate(game, dt) {
   game.blink.update(dt);
   game.watcher.update(dt);
   game.watcherIntro.update(dt);
+  game.watcherFloors.update(dt);
   game.chalk.update(dt);
   game.tricks.update(dt);
   game.setPieces.update(dt);
@@ -294,7 +300,7 @@ function tick(game, dt) {
   const { player, input, world, settings } = game;
   game.frame += 1;
   game.time += dt;
-  if (!game.needsClick()) simulate(game, dt);
+  if (!game.needsClick() && game.realTime) simulate(game, dt);
   player.applyToCamera(world.camera, settings);
   if (game.collapse.active()) game.collapse.applyCamera(world.camera);
   else if (game.intro.active()) game.intro.applyCamera(world.camera);

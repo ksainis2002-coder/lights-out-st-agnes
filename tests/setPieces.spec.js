@@ -46,6 +46,7 @@ const CLASS_4 = [22.0, 13.6];
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
+  await page.evaluate(() => (window.__stAgnes.realTime = false)); // time moves only by advance()
   await page.evaluate(() => window.__stAgnes.play());
   await load(page, 'school_upper', 'main_stairs');
   await listen(page);

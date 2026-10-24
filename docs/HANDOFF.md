@@ -156,7 +156,11 @@ Wing)"). Then the pull request that puts 0.2.x on Pages, and part B stills.
 (0.2.26; see "Part B stills" in `docs/DESIGN_0.3.md`) are approved, with a proper headmaster's
 chair (0.2.28). The owner said build (2026-10-24). B1 is in (0.2.31): the first floor, stairs both
 ways, the office locked by the headmaster's key, the plan in the staff room ("Part B1 as built" in
-`docs/DESIGN_0.3.md`). Next: B2 the records lock and the part B documents, B3 the bell, roll call
-and film, B4 the storm, the watcher between floors, the part B bot route and a performance check.
+`docs/DESIGN_0.3.md`). Then B2 the records lock and the part B documents (0.2.32), B3 the bell, roll
+call and film (0.2.33), B4 the storm (0.2.34), the watcher between floors, the part B bot route and
+a performance check (0.2.35). Part B is built. Waiting on the owner: the part B playtest (with the
+part A and wing 1 playtests still open), the content sheet's checklist, the sounds. Next: part C
+(the cemetery: graves, lanterns, the lamb and file page, the watcher at the chapel and outside in
+the storm, the hub's drawings and decay), stills first.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

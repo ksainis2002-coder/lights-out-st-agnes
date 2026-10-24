@@ -401,6 +401,31 @@ lines are in the content sheet.
 - The debug overlay (F3) has a STORM line: what it waits for, or the seconds to the next strike.
 - Not yet: the watcher outside in the storm (part C).
 
+## The watcher between floors, the part B route (0.2.35)
+- `src/ai/watcherFloors.js`: she hunts one floor at a time (progress value `watcher_floor`; at
+  first the floor she woke on). Take the stairs while she hunts within 12 m of you and she follows:
+  16 s after you arrive her grind sounds on those stairs, and from 20 s she comes off them (at the
+  head upstairs, the foot downstairs) as soon as nobody is looking there and you are not standing on
+  the spot. Leave that floor before she gets there and she stays where she was. Not close: she keeps
+  to her floor, and you find her there when you go back.
+- Upstairs she hunts the corridor and both stair heads ("watcher" in school_upper.json); the
+  classrooms, the office and the flat are safe. Her arrival spots are the stairs' spawn spots
+  ("arrivals" by spawn name, both floors). The debug overlay (F3) has a FLOORS line.
+- My call, for the owner to check: she does not come up on her own when you go up alone; the brief's
+  "doors alone do not save you" is met by the follow.
+- Bot route `tests/bot-routes/school_upper.json` (part B, starting after part A: the key, the board
+  read, the watcher awake downstairs): the main stairs up (the bell), the office (unlocked with the
+  key), the lock (354), the roll and the card and the key, the report, the flat and the letter,
+  Classroom 4 (the film), Classroom 3, down the back stairs. About 79 s of game time at bot pace, no
+  catches; the roll call waited out its cooldown while the bot hurried through Classroom 3. The
+  bot test takes a route's "given" flags and items. Tests that time things (set pieces, the storm,
+  the floors) set `game.realTime = false`: the frame loop then only draws and time moves only
+  through `advance()`, so a busy test machine cannot shift their timings.
+- Performance (as for part A: the highest of four directions per room at 320×180, software
+  renderer): corridor 67 draw calls, main stairs 76, Class 4 90, back stairs 89, office 108, flat
+  133, Class 3 135; at most 19k triangles; 12 point lights upstairs. The roll call adds about 66
+  draw calls for its 4 s, the film a few.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

@@ -10,12 +10,15 @@
 //   "still":  { "at": [c, r], "rotation": 90, "until": "<flag>" }  the courtyard: never moves
 //   "asleep": { "at": [c, r], "rotation": 0 }                       before her introduction (ai/watcherIntro.js)
 //   "territory": [room ids], "spawns": [[c, r], …]                  where she hunts once awake (flag watcher_awake)
+// She hunts one floor at a time (progress value watcher_floor; ai/watcherFloors.js
+// brings her up or down the stairs after you): at first the floor she woke on.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { gazeOn, clearLine } from './gaze.js';
 import { createPathing } from './path.js';
 
 export const AWAKE = 'watcher_awake';
+export const FLOOR = 'watcher_floor';
 const SPEED = 2.6; // m/s while unseen, on Normal (walk 1.7, run 3.3)
 const DIFFICULTY = { story: 0.75, normal: 1, hard: 1.2 };
 const REACH = 1.2; // metres: arm's reach, where the warning starts
@@ -94,6 +97,8 @@ export function createWatcher(game) {
     lostFor = 0;
     wandering = null;
     if (progress.hasFlag(AWAKE)) {
+      const floor = progress.getValue(FLOOR, null) ?? (data.asleep ? level.id : null);
+      if (floor !== level.id) return; // she hunts another floor
       place(level, farSpot(level, data.spawns));
       mode = 'hunting';
     } else if (data.asleep) {
@@ -265,7 +270,16 @@ export function createWatcher(game) {
     wake() {
       if (!statue || mode !== 'asleep') return;
       game.progress.setFlag(AWAKE);
+      game.progress.setValue(FLOOR, game.world.level.id);
       mode = 'hunting';
+    },
+    // Up or down the stairs after you (ai/watcherFloors.js): she hunts this floor now.
+    arrive(at) {
+      const level = game.world.level;
+      if (statue || !level.watcher?.territory) return;
+      place(level, at);
+      mode = 'hunting';
+      game.progress.setValue(FLOOR, level.id);
     },
     route: (to) => (pathing ? pathing.route(position, to) : []),
     state: () => ({ mode, x: position.x, z: position.z, seen: gaze.seen, why: gaze.why, warning, catches, lost: Boolean(wandering) }),

@@ -512,6 +512,8 @@ def school():
                       "comfort": "keep"},
             "territory": ["main_corridor", "library", "gym", "entrance_hall", "back_stairs"],
             "spawns": [lib.at(5.5, 0.8), gym.at(9.5, 1.5), cor.at(43.0, 0.6), cor.at(1.0, 0.6), hall.at(3.5, hz + 2.5)],
+            # Following you down (ai/watcherFloors.js): where she comes off each stairs.
+            "arrivals": {"main_stairs": [28.7, 18.6], "back_stairs": [27.0, 9.6]},
         },
         # Maggie's chalk (ghosts/chalk.js): a hint when you are stuck on a puzzle
         # you have tried (the content sheet's lines), now and then a taunt.

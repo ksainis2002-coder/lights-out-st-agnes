@@ -26,6 +26,7 @@ const strikeAndLook = (page, seconds) => game(page, (seconds) => {
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
+  await page.evaluate(() => (window.__stAgnes.realTime = false)); // time moves only by advance()
   await page.evaluate(() => window.__stAgnes.play());
 });
 
