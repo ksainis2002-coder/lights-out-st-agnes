@@ -21,7 +21,10 @@ Also skipped from the library: the 15 Superpowers skills (they trigger before an
 agent not to check in between tasks, start subagents and commit their own plan files; the five
 this game would use are already in the account as anthropic-skills) and the 38 Matt Pocock skills
 (TypeScript and issue-tracker workflows; code-review clashes with the built-in /code-review,
-git-guardrails blocks every push, the setup skills rewrite CLAUDE.md).
+git-guardrails blocks every push, the setup skills rewrite CLAUDE.md). Also free-game-asset-discovery
+(library 354843c; read in full): it fetches 2D sprite packs for Phaser by script and lists sources
+that are not CC0 (game-icons.net, soundimage.org); here every model and texture is built in code
+and the owner brings the CC0 sounds from the lists in docs/SOUNDS_0.x.md.
 
 ## Where these skills clash with CLAUDE.md (CLAUDE.md and the brief win)
 - threejs-* assume TypeScript, desktop + mobile, and a "premium/AAA" visual bar. This project is
