@@ -216,6 +216,11 @@ export function createGhostDirector(game) {
     update,
     reset,
     active: () => active,
+    // Shared with the set pieces (ghosts/setPieces.js), so no two scares stack.
+    cooldownLeft: (group = 'scare') => Math.max(0, (cooldowns[group] ?? 0) - clock),
+    startCooldown(group = 'scare', seconds = SCARE_COOLDOWN) {
+      cooldowns[group] = Math.max(cooldowns[group] ?? 0, clock + seconds);
+    },
     debugLine: () => `GHOSTS  ${active ? `${active.event.id} (${active.event.kind}, ${active.phase})` : 'none'}   scare cooldown ${Math.max(0, Math.round((cooldowns.scare ?? 0) - clock))}s`,
   };
 }

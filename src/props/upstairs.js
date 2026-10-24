@@ -79,9 +79,9 @@ function projector(t) {
 }
 
 // A frame of the old film: five children in a line in their school smocks,
-// walking left to right, all in profile but the middle one, who has turned to
-// the camera. Grain, scratches, a dark frame line.
-export function filmFrameTexture() {
+// walking left to right, all in profile; turned: the middle one has turned
+// to the camera. Grain, scratches, a dark frame line.
+export function filmFrameTexture({ turned = true } = {}) {
   return canvasTexture(96, 72, (g, w, h) => {
     const random = seeded(7);
     const light = g.createRadialGradient(w / 2, h / 2, 8, w / 2, h / 2, 60);
@@ -100,9 +100,10 @@ export function filmFrameTexture() {
       g.fillRect(x + 7, head + 26, 3, 8);
       g.beginPath();
       g.arc(x + 5.5, head, 5.5, 0, Math.PI * 2);
-      g.fillStyle = i === 2 ? '#e4e4dc' : '#2e2e32';
+      const looking = turned && i === 2;
+      g.fillStyle = looking ? '#e4e4dc' : '#2e2e32';
       g.fill();
-      if (i === 2) {
+      if (looking) {
         g.fillStyle = '#060606'; // looking at you
         g.fillRect(x + 2, head - 2, 2, 3);
         g.fillRect(x + 7, head - 2, 2, 3);
@@ -119,6 +120,18 @@ export function filmFrameTexture() {
   });
 }
 
+// The projector's beam: a faint cone of light from the lens to the screen
+// (world points). Additive, so it only ever brightens.
+export function projectorBeam(from, to) {
+  const cone = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.02, 0.75, from.distanceTo(to), 16, 1, true),
+    new THREE.MeshBasicMaterial({ color: 0xd8dccf, transparent: true, opacity: 0.07, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }),
+  );
+  cone.position.copy(from).add(to).multiplyScalar(0.5);
+  cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), to.clone().sub(from).normalize());
+  return cone;
+}
+
 // A pull-down screen over a blackboard: the roller case, the cloth, the bar.
 // film: the old film showing on it (unlit, as projected light).
 function projectorScreen(t, { film = false } = {}) {
@@ -126,6 +139,7 @@ function projectorScreen(t, { film = false } = {}) {
   const size = [2.0, 1.5];
   const at = [0, 1.75, 0.07];
   const cloth = film ? plane(filmFrameTexture(), size, at, { unlit: true }) : decal(t.sheet, size, at, { color: '#cfcfc6' });
+  cloth.name = 'cloth'; // hidden while the film runs on it (ghosts/film.js)
   return group(
     box(t.iron, [2.2, 0.1, 0.1], [0, 2.5, 0.06], black),
     cloth,
@@ -326,6 +340,7 @@ function ghostPupil(t, { opacity = 0.45, turn = 0 } = {}) {
   const head = mesh(new THREE.SphereGeometry(0.1, 7, 5), t.sheet, ghost);
   const face = plane(blurredFaceTexture(), [0.18, 0.18], [0, 0, 0.095], { ...ghost, opacity: Math.min(1, opacity + 0.35) });
   const headGroup = group(head, face);
+  headGroup.name = 'head'; // the roll call turns it (ghosts/rollCall.js)
   headGroup.position.set(0, 0.98, 0.32);
   headGroup.rotation.y = turn;
   const arms = [-0.13, 0.13].map((x) => {

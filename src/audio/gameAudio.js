@@ -91,6 +91,27 @@ export function createGameAudio(game) {
   // (lock_wheel_click and drawer_metal in docs/SOUNDS_0.3.md will replace them).
   events.on('records.wheel', () => play('key_pickup', { volume: 0.35, rate: 1.8 }));
   events.on('records.wrong', () => play('door_locked', { volume: 0.6 }));
+  // Upstairs set pieces (school_bell, door_bang, projector in docs/SOUNDS_0.3.md
+  // will replace these 0.2 stand-ins): the bell rings and doors bang open; the
+  // roll call's heads turn on a low sting; the projector clatters, then snaps.
+  const loops = {};
+  const loop = (key, name, options) => {
+    loops[key]?.stop();
+    loops[key] = play(name, { loop: true, pitchJitter: 0, ...options });
+  };
+  const endLoop = (key) => {
+    loops[key]?.stop();
+    loops[key] = null;
+  };
+  events.on('setPiece.ring', ({ position }) => loop('bell', 'fluorescent_buzz', { position, rate: 1.6, volume: 1, refDistance: 4 }));
+  events.on('setPiece.ringStop', () => endLoop('bell'));
+  events.on('setPiece.doorBang', (door) => play('door_locked', { position: doorPosition(door), volume: 1, rate: 0.7 }));
+  events.on('setPiece.turn', ({ position }) => play('mus_stinger', { position, volume: 0.45, bus: 'music', pitchJitter: 0 }));
+  events.on('setPiece.projector', ({ position }) => loop('projector', 'swing_chain', { position, rate: 2.2, volume: 0.9, refDistance: 3 }));
+  events.on('setPiece.filmSnap', () => {
+    endLoop('projector');
+    play('paper_pickup', { volume: 0.9, rate: 0.8 });
+  });
   // The watcher: her grind each time she moves and her breath at arm's reach
   // (stone_grind, stone_near_breath) are pitched-down 0.2 sounds for now.
   const at = (point, y) => ({ x: point.x, y, z: point.z });

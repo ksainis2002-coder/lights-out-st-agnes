@@ -362,6 +362,32 @@ lines are in the content sheet.
 - Not in the content sheet yet, added for the owner to check: the drawer's label card "RECORDS
   A–Z" («ΑΡΧΕΙΟ Α–Ω»).
 
+## Part B3 as built (0.2.33)
+- The set pieces (`src/ghosts/setPieces.js` with `bell.js`, `rollCall.js`, `film.js`), registered in
+  the level's data ("setPieces") with their tell, cooldown group and comfort field (scare rules §1).
+  Each plays once (flag `set_<id>`), the first time you are in its room once it may; leaving the
+  level mid-piece ends it and brings its lamps back.
+- **The bell** (corridor, first time upstairs): the corridor goes quiet for 1.2 s, then the bell
+  rings for 3 s with nobody there (a ringing bell, its dome a blur, stands in for the still one) and
+  Classroom 4's door, then Classroom 3's, bang open; a locked door holds. Costs 3 sanity.
+- **The roll call** (Classroom 3): the lamp dies (two flickers, or a fade with flicker off) and the
+  level's ambient light drops; every desk but Tommy's, the nearest the door, fills with a faint
+  pupil facing the board; 1.6 s later they all turn their heads to you (a low sting), 6 sanity; 2 s
+  later the lamp is back and the desks are empty.
+- **The film** (Classroom 4): the lamp dies and the projector starts by itself; on the screen five
+  children walk in profile, the frame weaving a little, the screen light flickering (steady with
+  flicker off); after 4.2 s the middle child has turned to the camera (4 sanity); 1.6 s later the
+  film snaps: the projector stops, the screen goes white for a blink (dark at once with reduce
+  effects or flicker off), the beam dies, and a second later the lamp is back.
+- Cooldown: the set pieces keep a cooldown of their own, 30 s after one starts, so they never stack
+  but each still plays on your first visit (the brief's 90 s would hold the roll call back until you
+  had left Classroom 3); each also starts the ghost children's 90 s scare cooldown. A scripted
+  override of the 90 s, logged here as the scare rules ask. Comfort mode cuts all three.
+- Silent, as the content sheet says: no subtitles. Stand-in sounds (SOUNDS_0.3.md): the bell, the
+  door bangs, the sting, the projector's clatter and the snap.
+- The debug overlay (F3) has a SET PIECES line: the one running and its phase, or the ones still to
+  come and the cooldown.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

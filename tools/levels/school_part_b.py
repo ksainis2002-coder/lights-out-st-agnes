@@ -111,25 +111,31 @@ def corridor(L, cor):
 
 
 # Desks in rows facing the board on the west wall, as on the ground floor.
+# Returns the desks, [[col, row, rotation], …], the one nearest the door first.
 def classroom(L, room, line_keys, blinds=False):
     L.prop(room, 'blackboard', 0, 3.0, 90, lineKeys=line_keys)
     L.prop(room, 'table', 1.3, 1.6, 90)
     L.prop(room, 'chair', 0.8, 1.6, 90)
     n = 0
+    desks = []
     for x in (3.2, 4.8, 6.4):
         for z in (1.2, 2.4, 3.6, 4.8):
-            L.prop(room, 'schoolDesk', x, z, 90 + (n * 7 % 5 - 2))
+            rotation = 90 + (n * 7 % 5 - 2)
+            L.prop(room, 'schoolDesk', x, z, rotation)
+            desks.append(room.at(x, z) + [rotation])
             n += 1
     window = {"blind": True} if blinds else {}
     for x in (2.0, 4.5, 7.0):
         L.prop(room, 'windowFrame', x, 6, 180, **window)
     L.prop(room, 'radiator', 4.5, 6, 180)
+    return desks
 
 
 def class3(L, c3):
-    classroom(L, c3, ["chalk.class3.form", "chalk.class3.date"])  # the day Tommy was struck off
+    desks = classroom(L, c3, ["chalk.class3.form", "chalk.class3.date"])  # the day Tommy was struck off
     L.prop(c3, 'ledger', 1.25, 1.6, 75, y=0.76)  # the register, open on the teacher's table
     L.light(c3, 4.5, 5.4, 2.2, 2.0, 8)
+    return desks[1:]  # the roll call: every desk but Tommy's, the nearest the door
 
 
 def class4(L, c4):
@@ -193,10 +199,27 @@ def stairs(L, main, back):
     L.prop(back, 'stairHead', 1.0, 2.0, 0, extra=down('back_stairs', back, 1.0, 1.6), width=2.3)
 
 
+# The set pieces (design 0.3; approved stills bell, roll_call, projector_film;
+# ghosts/setPieces.js): each with its tell, a cooldown of their own so two
+# never stack, and cut in comfort mode (scare rules §1, §5).
+def set_pieces(seats):
+    common = {"cooldownGroup": "setPiece", "cooldown": 30, "comfort": "skip"}
+    return [
+        {"id": "bell", "kind": "bell", "room": "upper_corridor", **common, "drain": 3,
+         "setup": {"tell": "the corridor goes quiet", "seconds": 1.2},
+         "bell": "school_bell", "doors": ["upper_class_4", "upper_class_3"]},
+        {"id": "roll_call", "kind": "rollCall", "room": "class_3", **common, "drain": 6,
+         "setup": {"tell": "the lamps die", "seconds": 1.0}, "seats": seats},
+        {"id": "film", "kind": "film", "room": "class_4", **common, "drain": 4,
+         "setup": {"tell": "the lamp goes out and the projector starts by itself", "seconds": 0.8},
+         "screen": "film_screen", "projector": "projector"},
+    ]
+
+
 def level():
     L = Level()
     corridor(L, ROOMS['corridor'])
-    class3(L, ROOMS['class3'])
+    seats = class3(L, ROOMS['class3'])
     class4(L, ROOMS['class4'])
     office(L, ROOMS['office'])
     flat(L, ROOMS['flat'])
@@ -224,6 +247,7 @@ def level():
         "pickups": L.pickups, "documents": L.documents,
         # Puzzle 3: the counting lesson's answer (content sheet, Normal) opens the records drawer.
         "puzzles": {"recordsLock": {"prop": "records_cabinet", "clue": "seen_counting_board", "code": [3, 5, 4]}},
+        "setPieces": set_pieces(seats),
         # The plan itself is pinned in the staff room (school_ground); this
         # entry draws it: the key in the empty north-west corner.
         "maps": [{"id": "school_upper", "key": [2.0, 1.0]}],

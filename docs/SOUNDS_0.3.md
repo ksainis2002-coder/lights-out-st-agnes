@@ -121,6 +121,11 @@ its own file when it comes in (one line each in `src/audio/gameAudio.js`).
 | A records-lock wheel clicking round | key_pickup, pitched up | lock_wheel_click |
 | The records drawer: a wrong try | door_locked | door_locked (fine as it is) |
 | The records drawer sliding out | drawer | drawer_metal |
+| The bell ringing upstairs (the bell set piece) | fluorescent_buzz, pitched up | school_bell |
+| A classroom door banging open | door_locked, pitched down | door_bang |
+| The roll call's heads turning | mus_stinger (quiet) | mus_stinger_low |
+| The projector running | swing_chain, sped up | projector |
+| The film snapping | paper_pickup, pitched down | projector (its end) |
 
 ## Counts
 - **Priority 1:** 23 sounds (49 files with the extra takes). Enough to build the wing.

@@ -7,6 +7,7 @@
 // stage the game's own level (src/levels/school_upper.json).
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
+import { projectorBeam } from '../props/upstairs.js';
 import { findProp } from '../props/place.js';
 import { aim } from './helpers.js';
 import { createJournalScreen } from '../ui/screens/journal.js';
@@ -51,18 +52,6 @@ function lightsOut(world, keep = () => false) {
   });
 }
 
-// The projector's beam: a faint cone from the lens to the screen.
-function beam(world, from, to) {
-  const length = from.distanceTo(to);
-  const cone = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.02, 0.75, length, 16, 1, true),
-    new THREE.MeshBasicMaterial({ color: 0xd8dccf, transparent: true, opacity: 0.07, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }),
-  );
-  cone.position.copy(from).add(to).multiplyScalar(0.5);
-  cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), to.clone().sub(from).normalize());
-  world.scene.add(cone);
-}
-
 // Classroom 4 with the film running: lamps out, the screen lit, the beam.
 function filmRunning(world) {
   if (world.flashlight.isOn()) world.flashlight.toggle();
@@ -76,7 +65,7 @@ function filmRunning(world) {
   const projector = findProp(world.levelGroup, 'projector');
   projector.updateWorldMatrix(true, true);
   lit.updateWorldMatrix(true, true);
-  beam(world, projector.localToWorld(new THREE.Vector3(-0.02, 1.02, 0.3)), lit.localToWorld(new THREE.Vector3(0, 1.75, 0.08)));
+  world.scene.add(projectorBeam(projector.localToWorld(new THREE.Vector3(-0.02, 1.02, 0.3)), lit.localToWorld(new THREE.Vector3(0, 1.75, 0.08))));
 }
 
 // The roll call: a faint pupil at every desk but one, heads turned to the

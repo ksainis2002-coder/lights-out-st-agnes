@@ -1246,6 +1246,111 @@
    ]
   }
  },
+ "setPieces": [
+  {
+   "id": "bell",
+   "kind": "bell",
+   "room": "upper_corridor",
+   "cooldownGroup": "setPiece",
+   "cooldown": 30,
+   "comfort": "skip",
+   "drain": 3,
+   "setup": {
+    "tell": "the corridor goes quiet",
+    "seconds": 1.2
+   },
+   "bell": "school_bell",
+   "doors": [
+    "upper_class_4",
+    "upper_class_3"
+   ]
+  },
+  {
+   "id": "roll_call",
+   "kind": "rollCall",
+   "room": "class_3",
+   "cooldownGroup": "setPiece",
+   "cooldown": 30,
+   "comfort": "skip",
+   "drain": 6,
+   "setup": {
+    "tell": "the lamps die",
+    "seconds": 1.0
+   },
+   "seats": [
+    [
+     12.2,
+     15.4,
+     90
+    ],
+    [
+     12.2,
+     16.6,
+     92
+    ],
+    [
+     12.2,
+     17.8,
+     89
+    ],
+    [
+     13.8,
+     14.2,
+     91
+    ],
+    [
+     13.8,
+     15.4,
+     88
+    ],
+    [
+     13.8,
+     16.6,
+     90
+    ],
+    [
+     13.8,
+     17.8,
+     92
+    ],
+    [
+     15.4,
+     14.2,
+     89
+    ],
+    [
+     15.4,
+     15.4,
+     91
+    ],
+    [
+     15.4,
+     16.6,
+     88
+    ],
+    [
+     15.4,
+     17.8,
+     90
+    ]
+   ]
+  },
+  {
+   "id": "film",
+   "kind": "film",
+   "room": "class_4",
+   "cooldownGroup": "setPiece",
+   "cooldown": 30,
+   "comfort": "skip",
+   "drain": 4,
+   "setup": {
+    "tell": "the lamp goes out and the projector starts by itself",
+    "seconds": 0.8
+   },
+   "screen": "film_screen",
+   "projector": "projector"
+  }
+ ],
  "maps": [
   {
    "id": "school_upper",

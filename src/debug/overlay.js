@@ -61,6 +61,7 @@ export function createDebugOverlay(game) {
     ];
     if (game.ghosts) lines.push([game.ghosts.debugLine(), COLORS.enemy]);
     if (game.chalk) lines.push([game.chalk.debugLine(), COLORS.enemy]);
+    if (game.setPieces) lines.push([game.setPieces.debugLine(), COLORS.enemy]);
     const tricks = game.tricks?.debugLine();
     if (tricks) lines.push([tricks, COLORS.enemy]);
     for (const enemy of game.enemies ?? []) lines.push([enemy.debugLine(), COLORS.enemy]);
