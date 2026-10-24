@@ -126,6 +126,7 @@ its own file when it comes in (one line each in `src/audio/gameAudio.js`).
 | The roll call's heads turning | mus_stinger (quiet) | mus_stinger_low |
 | The projector running | swing_chain, sped up | projector |
 | The film snapping | paper_pickup, pitched down | projector (its end) |
+| Thunder after each lightning strike | thunder_far (quieter indoors) | thunder_close |
 
 ## Counts
 - **Priority 1:** 23 sounds (49 files with the extra takes). Enough to build the wing.
