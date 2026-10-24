@@ -11,6 +11,8 @@
 //   "maps":      [{ "id": "orphanage_wing", "at": [c, r], "y": 0.77, "hidden": {...} }] (see journalMap.js)
 //                 "with": ["grounds"] adds more maps with it (one plan of two places);
 //                 "upright": true pins it to a wall or board, facing the way "rotation" turns it.
+//                 An entry with no "at" lies nowhere: it only says how a map found
+//                 elsewhere is drawn (the grounds, which come on the hall plan).
 // Using a pickup puts its item in the inventory; using a document opens it;
 // taking a map adds it to the journal's MAPS page.
 import * as THREE from 'three';
@@ -94,7 +96,7 @@ export function createPickups(game, level, data) {
   }
 
   for (const map of data.maps ?? []) {
-    if (journal.maps().includes(map.id)) continue;
+    if (!map.at || journal.maps().includes(map.id)) continue;
     const mesh = place(level, paperSheet(game, map.upright), map);
     group.add(mesh);
     usable.push({

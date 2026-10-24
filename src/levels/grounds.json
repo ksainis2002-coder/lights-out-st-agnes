@@ -781,7 +781,15 @@
  ],
  "pickups": [],
  "documents": [],
- "maps": [],
+ "maps": [
+  {
+   "id": "grounds",
+   "key": [
+    22.6,
+    0.3
+   ]
+  }
+ ],
  "ghosts": [
   {
    "id": "maggie_courtyard",

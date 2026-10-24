@@ -189,7 +189,9 @@ def grounds():
         "rooms": [cemetery.data(), court.data(), road.data()],
         "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.8}, {"name": "amb_wind_corridor", "volume": 0.5}],
-        "pickups": [], "documents": [], "maps": [], "ghosts": L.ghosts,
+        # The grounds come on the hall plan (the school's map entry "with"); this
+        # entry only says how their page is drawn: the key, right of the plan.
+        "pickups": [], "documents": [], "maps": [{"id": "grounds", "key": [22.6, 0.3]}], "ghosts": L.ghosts,
         # St. Agnes on the path, facing the school; gone once you have been inside.
         "watcher": {"still": {"at": [12.5, 15.0], "rotation": 90, "until": "visited_entrance_hall"}},
     }

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.30 — Fix: in the courtyard, with the hall plan taken, the journal's MAPS page threw errors and drew nothing (the grounds had no map entry of their own). The grounds map now draws, with its key at the top right. A new test checks that every map you can take can be drawn.
 - 0.2.29 — Tools, not the game: the one new skill in the owner's claude-skills library, free-game-asset-discovery, is left out (it fetches 2D sprite packs and sounds that are not all CC0; this game builds its art in code and the owner brings the CC0 sounds). .claude/skills/THIRD_PARTY.md says why.
 - 0.2.28 — Owner approved all nine part B stills, with one change: the headmaster now sits in a chair fit for a headmaster, high-backed and buttoned in dark oxblood leather with brass studs, on a carved frame with a crest and finials (the head_office still is reshot with it). Kept as drawn: Tommy's empty desk at the roll call and the Classroom 3 board, "Form III / Monday, 2nd February". Not in the game yet.
 - 0.2.27 — Tools, not the game: two more skills from the owner's claude-skills library, psx-horror-style (PS1 horror art direction: low-poly props, small textures, fog, sparse staging) and karpathy-guidelines (ask when unclear, change only what was asked, prove it with a test). The Superpowers and Matt Pocock skills are left out: they skip check-ins, start subagents or target TypeScript and issue trackers (.claude/skills/THIRD_PARTY.md says why).

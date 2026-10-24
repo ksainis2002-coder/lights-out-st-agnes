@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync, readdirSync } from 'node:fs';
 import { trackErrors, waitForBoot } from './helpers.js';
 
 // Marks on the paper map (owner request 2026-10-14, approved still ui_mapMarks).
@@ -78,6 +79,34 @@ test('the map with its marks and key draws in both languages without errors', as
     await page.waitForTimeout(200);
     expect(await page.evaluate(() => window.__stAgnes.ui.current()?.tab())).toBe('maps');
     expect(kinds(await marks(page))).toEqual(['puzzle:fuses', 'puzzle:music', 'puzzle:plates', 'puzzle:toys', 'recorder', 'safe']);
+    await page.keyboard.press('Escape');
+  }
+  expect(errors).toEqual([]);
+});
+
+// A map found in one level can be the plan of another (the hall plan brings
+// the grounds); its page is drawn from the entry with its id in its own level.
+test('every map you can take has an entry in its own level that draws it', () => {
+  const dir = new URL('../src/levels/', import.meta.url);
+  const levels = Object.fromEntries(readdirSync(dir).filter((f) => f.endsWith('.json'))
+    .map((f) => JSON.parse(readFileSync(new URL(f, dir), 'utf8'))).map((data) => [data.id, data]));
+  const taken = Object.values(levels).flatMap((data) => (data.maps ?? []).filter((map) => map.at).flatMap((map) => [map.id, ...(map.with ?? [])]));
+  expect(taken.length).toBeGreaterThan(0);
+  for (const id of taken) expect(levels[id]?.maps?.some((map) => map.id === id), `no map entry for ${id}`).toBe(true);
+});
+
+test('in the courtyard, the journal draws the grounds map without errors', async ({ page }) => {
+  const errors = trackErrors(page);
+  for (const language of ['en', 'el']) {
+    await page.evaluate((language) => {
+      const game = window.__stAgnes;
+      game.settings.set('language', language);
+      game.loadLevel('grounds', 'school_door');
+      ['school_ground', 'grounds'].forEach((id) => game.journal.addMap(id));
+      game.openScreen('journal', { tab: 'maps' });
+    }, language);
+    await page.waitForTimeout(200);
+    expect(await page.evaluate(() => window.__stAgnes.ui.current()?.tab())).toBe('maps');
     await page.keyboard.press('Escape');
   }
   expect(errors).toEqual([]);

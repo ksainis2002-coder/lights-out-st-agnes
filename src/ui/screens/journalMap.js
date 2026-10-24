@@ -4,6 +4,8 @@
 // ink marks on top show you, recorders, safe places and puzzles in hand
 // (mapMarks.js), with a key in the corner the map entry names.
 // Level data: "maps": [{ "id": "<level id>", "at": [c, r], "hidden": ["<room id>"], "key": [c, r] }]
+// Every map needs an entry with its own id in its own level, even one found
+// elsewhere (the grounds come on the hall plan): that entry draws it.
 import { LEVELS } from '../../levels/index.js';
 import { INK, SERIF, paperText } from '../paper.js';
 import { mapMarks, drawMark, drawKey } from '../mapMarks.js';
