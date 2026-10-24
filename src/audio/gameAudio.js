@@ -72,6 +72,9 @@ export function createGameAudio(game) {
   events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
   events.on('fuses.reset', () => play('door_locked', { volume: 0.7 }));
   events.on('power.cut', () => play('thunder_far', { volume: 1 }));
+  // The storm's thunder after each strike (thunder_close in docs/SOUNDS_0.3.md
+  // will join it), louder outside.
+  events.on('storm.thunder', ({ outdoors }) => play('thunder_far', { volume: outdoors ? 1 : 0.75, pitchJitter: 0.08 }));
   events.on('reveal', () => play('paper_pickup', { volume: 0.8 }));
   events.on('musicBox.wound', () => play('drawer', { volume: 0.6 }));
   // School wing: 0.2 sounds stand in until the 0.3 files arrive (desk_lid,

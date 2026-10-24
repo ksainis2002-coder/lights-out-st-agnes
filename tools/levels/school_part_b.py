@@ -248,6 +248,7 @@ def level():
         # Puzzle 3: the counting lesson's answer (content sheet, Normal) opens the records drawer.
         "puzzles": {"recordsLock": {"prop": "records_cabinet", "clue": "seen_counting_board", "code": [3, 5, 4]}},
         "setPieces": set_pieces(seats),
+        "weather": {"storm": "puzzle_records"},  # the storm starts with the records drawer (levels/storm.js)
         # The plan itself is pinned in the staff room (school_ground); this
         # entry draws it: the key in the empty north-west corner.
         "maps": [{"id": "school_upper", "key": [2.0, 1.0]}],

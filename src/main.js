@@ -45,6 +45,7 @@ import { createMoves } from './props/moves.js';
 import { createChalk } from './ghosts/chalk.js';
 import { createTricks } from './ghosts/tricks.js';
 import { createSetPieces } from './ghosts/setPieces.js';
+import { createStorm } from './levels/storm.js';
 import { createIntro } from './cutscenes/intro.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
@@ -101,6 +102,7 @@ function createGame() {
   game.chalk = createChalk(game); // Maggie's chalk on the corridor boards
   game.tricks = createTricks(game); // Maggie's tricks on rooms (Classroom 1's desks)
   game.setPieces = createSetPieces(game); // upstairs: the bell, the roll call, the film
+  game.storm = createStorm(game); // lightning and thunder once the records drawer is open
   game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
   game.events.on('collapse.scare', () => game.hallucinations.remove());
   game.events.on('level.loaded', () => {
@@ -280,6 +282,7 @@ function simulate(game, dt) {
   game.chalk.update(dt);
   game.tricks.update(dt);
   game.setPieces.update(dt);
+  game.storm.update(dt);
   game.moves.update();
   game.hallucinations.update(dt, game.sanity.value(), world.camera);
   world.update(dt);

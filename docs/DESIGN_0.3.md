@@ -388,6 +388,19 @@ lines are in the content sheet.
 - The debug overlay (F3) has a SET PIECES line: the one running and its phase, or the ones still to
   come and the cooldown.
 
+## The storm as built (0.2.34)
+- `src/levels/storm.js`: the courtyard and both school floors have "weather": { "storm":
+  "puzzle_records" }. It rains from the start; once the records drawer is open, the first strike
+  comes 6–10 s later, then one every 20–40 s, with the thunder 1–3 s after each (thunder_far for
+  now, louder outside).
+- Outdoors (approved still "storm"): the sky and the fog go the still's pale blue-white, a bright
+  light falls on the ground and the walls, and the bolt shows ahead of you over the trees; half the
+  strikes blink twice. Indoors: the light through the windows washes the room.
+- Reduce effects or flicker off: a soft glow rising over 0.35 s and fading over 1.2 s, half as
+  bright, and no bolt (scare rules §5).
+- The debug overlay (F3) has a STORM line: what it waits for, or the seconds to the next strike.
+- Not yet: the watcher outside in the storm (part C).
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

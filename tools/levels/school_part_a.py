@@ -192,6 +192,7 @@ def grounds():
         # The grounds come on the hall plan (the school's map entry "with"); this
         # entry only says how their page is drawn: the key, right of the plan.
         "pickups": [], "documents": [], "maps": [{"id": "grounds", "key": [22.6, 0.3]}], "ghosts": L.ghosts,
+        "weather": {"storm": "puzzle_records"},  # lightning once the records drawer is open (levels/storm.js)
         # St. Agnes on the path, facing the school; gone once you have been inside.
         "watcher": {"still": {"at": [12.5, 15.0], "rotation": 90, "until": "visited_entrance_hall"}},
     }
@@ -493,6 +494,7 @@ def school():
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],
         "pickups": L.pickups, "documents": L.documents, "maps": maps,
+        "weather": {"storm": "puzzle_records"},  # lightning once the records drawer is open (levels/storm.js)
         "puzzles": {
             "libraryIndex": {"prop": "card_index", "shelf": "shelf_700", "ticket": "library_ticket", "drawer": 18,
                              "book": 784, "song": "my_song"},

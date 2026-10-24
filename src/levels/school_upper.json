@@ -1351,6 +1351,9 @@
    "projector": "projector"
   }
  ],
+ "weather": {
+  "storm": "puzzle_records"
+ },
  "maps": [
   {
    "id": "school_upper",

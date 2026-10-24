@@ -2548,6 +2548,9 @@
    "detail": "map.detail.school_upper"
   }
  ],
+ "weather": {
+  "storm": "puzzle_records"
+ },
  "puzzles": {
   "libraryIndex": {
    "prop": "card_index",
