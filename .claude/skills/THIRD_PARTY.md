@@ -12,6 +12,7 @@ No hidden instructions, credential harvesting or data exfiltration were found.
 | accessibility, benchmark-optimization-loop, browser-qa, canary-watch, click-path-audit, e2e-testing, i18n-sync, ui-demo, verification-loop, video-editing, vite-patterns | github.com/affaan-m/ECC (skills/) | 76aaa77 | MIT (`ECC-LICENSE`) |
 | grill-me, grilling, diagnosing-bugs, prototype, wait-what | github.com/mattpocock/skills (skills/<bucket>/) | 5beb35b | MIT (LICENSE in each folder) |
 | psx-horror-style | github.com/arjun988/blender-skills (.claude/skills/) | 8f778d2 | MIT (LICENSE in folder) |
+| free-game-asset-discovery | github.com/kyssta-exe/skills (creative/) | 34dd0fb | MIT (stated in repo README; no LICENSE file) |
 
 Not installed on purpose: threejs-3d-generator, threejs-image-generator, threejs-audio-generator
 (paid Tripo / Gemini / ElevenLabs). Models and textures are built in code; sounds are CC0.
@@ -55,3 +56,9 @@ separate skills library repo for other projects.
 - grilling asks rounds of numbered questions. Keep them short, with y/n or multiple-choice answers.
 - wait-what expects a GLOSSARY.md; this repo has none, so it re-pitches in plain English only.
 - diagnosing-bugs' HITL script is a bash template the owner runs; read it before running it.
+- free-game-asset-discovery: use it only for sounds and music. Models and textures stay built in code.
+  Take CC0 only (Kenney audio packs, OpenGameArt CC0, itch.io's CC0 music tag); skip its game-icons.net
+  (CC BY) and soundimage.org (attribution, MP3) sources. Ogg only, and every file gets a line in
+  assets/CREDITS.md. Claude cannot download from Freesound/OpenGameArt here, so it builds the list and
+  the owner downloads. It was written for Hermes Agent: ignore `delegate_task` and `skill_manage`, and
+  its Dungeon Market Tycoon manifest is just an example.

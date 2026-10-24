@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.8 — Dev tooling only, no game change: added the free-game-asset-discovery skill (github.com/kyssta-exe/skills, MIT) to `.claude/skills` for finding and checking CC0 sounds and music (Kenney, OpenGameArt, itch.io CC0 tag).
 - 0.2.7 — Dev tooling only, no game change: added five Matt Pocock skills (github.com/mattpocock/skills, MIT) to `.claude/skills`: grill-me, grilling, diagnosing-bugs, prototype, wait-what; and psx-horror-style (github.com/arjun988/blender-skills, MIT) for PS1 horror art direction. All 38 Pocock skills went to the separate skills library.
 - 0.2.6 — Dev tooling only, no game change: added two Superpowers skills (github.com/obra/superpowers, MIT) to `.claude/skills`: test-driven-development and receiving-code-review. The other 13 Superpowers skills went to the separate skills library only. Installed by hand (skillsmp.com unreachable).
 - 0.2.5 — Dev tooling only, no game change: added the karpathy-guidelines skill (github.com/multica-ai/andrej-karpathy-skills, MIT) to `.claude/skills`: think before coding, keep it simple, change only what was asked, verify against clear goals. Installed by hand (skillsmp.com unreachable).
