@@ -46,7 +46,8 @@ function addFloorAndCeiling(bucketFor, level, col, row) {
   const s = level.cellSize;
   const h = level.heightAt(col, row);
   const x0 = col * s, z0 = row * s;
-  addFace(bucketFor(level.textures.floor(col, row)), [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]);
+  const floor = level.textures.floor(col, row);
+  if (floor !== 'none') addFace(bucketFor(floor), [x0, 0, z0 + s], [s, 0, 0], [0, 0, -s], [0, 1, 0]); // none: a stairwell
   const ceiling = level.textures.ceiling(col, row);
   if (ceiling === 'none') return; // outdoors: open to the night sky
   addFace(bucketFor(ceiling), [x0, h, z0], [s, 0, 0], [0, 0, s], [0, -1, 0]);

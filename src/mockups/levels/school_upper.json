@@ -1,0 +1,1103 @@
+{
+ "id": "school_upper",
+ "wing": "school",
+ "cellSize": 1.2,
+ "wallHeight": 3.4,
+ "floorTexture": "floor",
+ "ceilingTexture": "ceiling",
+ "ambient": {
+  "color": "#8a98c8",
+  "intensity": 0.9
+ },
+ "legend": {
+  ".": "floor",
+  "#": "schoolWall"
+ },
+ "map": [
+  "#############################################",
+  "#############################################",
+  "#############################################",
+  "#############################################",
+  "#############################.......#......##",
+  "#############################.......#......##",
+  "##########################..#.......#......##",
+  "##########################..#.......#......##",
+  "##########################..#.......#......##",
+  "##########################..#################",
+  "#########..................................##",
+  "#########..................................##",
+  "###########################..################",
+  "#########........#........#..################",
+  "#########........#........#..################",
+  "#########........#........###################",
+  "#########........#........###################",
+  "#########........#........###################",
+  "#########........#........###################",
+  "#############################################",
+  "#############################################"
+ ],
+ "spawns": {
+  "default": {
+   "cell": [
+    28.0,
+    12.6
+   ],
+   "yawDegrees": 0
+  },
+  "main_stairs": {
+   "cell": [
+    28.0,
+    12.6
+   ],
+   "yawDegrees": 0
+  },
+  "back_stairs": {
+   "cell": [
+    27.0,
+    8.7
+   ],
+   "yawDegrees": 180
+  }
+ },
+ "rooms": [
+  {
+   "id": "upper_corridor",
+   "cells": [
+    9,
+    10,
+    42,
+    11
+   ],
+   "floor": "floor"
+  },
+  {
+   "id": "class_3",
+   "cells": [
+    9,
+    13,
+    16,
+    18
+   ],
+   "floor": "parquet"
+  },
+  {
+   "id": "class_4",
+   "cells": [
+    18,
+    13,
+    25,
+    18
+   ],
+   "floor": "parquet"
+  },
+  {
+   "id": "main_stairs",
+   "cells": [
+    27,
+    12,
+    28,
+    14
+   ],
+   "floor": "wood",
+   "well": [
+    27,
+    13,
+    28,
+    14
+   ]
+  },
+  {
+   "id": "back_stairs",
+   "cells": [
+    26,
+    6,
+    27,
+    9
+   ],
+   "floor": "wood",
+   "well": [
+    26,
+    6,
+    27,
+    7
+   ]
+  },
+  {
+   "id": "head_office",
+   "cells": [
+    29,
+    4,
+    35,
+    8
+   ],
+   "floor": "parquet",
+   "wall": "wallpaper"
+  },
+  {
+   "id": "head_flat",
+   "cells": [
+    37,
+    4,
+    42,
+    8
+   ],
+   "floor": "wood",
+   "wall": "wallpaper"
+  }
+ ],
+ "doors": [
+  {
+   "id": "upper_class_3",
+   "cell": [
+    12,
+    12
+   ]
+  },
+  {
+   "id": "upper_class_4",
+   "cell": [
+    21,
+    12
+   ]
+  },
+  {
+   "id": "head_office",
+   "cell": [
+    32,
+    9
+   ]
+  },
+  {
+   "id": "head_flat",
+   "cell": [
+    36,
+    6
+   ]
+  }
+ ],
+ "triggers": [],
+ "props": [
+  {
+   "type": "runner",
+   "at": [
+    13.5,
+    11.0
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 9.6,
+    "width": 1.0
+   }
+  },
+  {
+   "type": "runner",
+   "at": [
+    22,
+    11.0
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 9.6,
+    "width": 1.0
+   }
+  },
+  {
+   "type": "runner",
+   "at": [
+    30.5,
+    11.0
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 9.6,
+    "width": 1.0
+   }
+  },
+  {
+   "type": "runner",
+   "at": [
+    39,
+    11.0
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 9.6,
+    "width": 1.0
+   }
+  },
+  {
+   "type": "radiator",
+   "at": [
+    14,
+    10
+   ]
+  },
+  {
+   "type": "radiator",
+   "at": [
+    21,
+    10
+   ]
+  },
+  {
+   "type": "radiator",
+   "at": [
+    30,
+    10
+   ]
+  },
+  {
+   "type": "radiator",
+   "at": [
+    38,
+    10
+   ]
+  },
+  {
+   "type": "bench",
+   "at": [
+    15,
+    11.85
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 1.8
+   }
+  },
+  {
+   "type": "bench",
+   "at": [
+    32,
+    11.85
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 1.8
+   }
+  },
+  {
+   "type": "bench",
+   "at": [
+    39,
+    11.85
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 1.8
+   }
+  },
+  {
+   "type": "coatPegs",
+   "at": [
+    10.5,
+    12
+   ],
+   "rotation": 180,
+   "options": {
+    "count": 4,
+    "coats": 2
+   }
+  },
+  {
+   "type": "coatPegs",
+   "at": [
+    19.5,
+    12
+   ],
+   "rotation": 180,
+   "options": {
+    "count": 4,
+    "coats": 2
+   }
+  },
+  {
+   "type": "schoolBell",
+   "at": [
+    20.5,
+    10
+   ],
+   "id": "school_bell"
+  },
+  {
+   "type": "wallClock",
+   "at": [
+    17,
+    10
+   ],
+   "options": {
+    "height": 2.3
+   }
+  },
+  {
+   "type": "noticeBoard",
+   "at": [
+    15,
+    10
+   ]
+  },
+  {
+   "type": "portrait",
+   "at": [
+    30.5,
+    10
+   ],
+   "y": 0.4
+  },
+  {
+   "type": "saintPicture",
+   "at": [
+    34,
+    12
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    9,
+    11.0
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    43,
+    11.0
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "blackboard",
+   "at": [
+    9,
+    16.0
+   ],
+   "rotation": 90,
+   "options": {
+    "lines": [
+     "Form III",
+     "Monday, 2nd February"
+    ]
+   }
+  },
+  {
+   "type": "table",
+   "at": [
+    10.3,
+    14.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "chair",
+   "at": [
+    9.8,
+    14.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    12.2,
+    14.2
+   ],
+   "rotation": 88
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    12.2,
+    15.4
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    12.2,
+    16.6
+   ],
+   "rotation": 92
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    12.2,
+    17.8
+   ],
+   "rotation": 89
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    13.8,
+    14.2
+   ],
+   "rotation": 91
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    13.8,
+    15.4
+   ],
+   "rotation": 88
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    13.8,
+    16.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    13.8,
+    17.8
+   ],
+   "rotation": 92
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    15.4,
+    14.2
+   ],
+   "rotation": 89
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    15.4,
+    15.4
+   ],
+   "rotation": 91
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    15.4,
+    16.6
+   ],
+   "rotation": 88
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    15.4,
+    17.8
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    11.0,
+    19
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    13.5,
+    19
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    16.0,
+    19
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "radiator",
+   "at": [
+    13.5,
+    19
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "ledger",
+   "at": [
+    10.25,
+    14.6
+   ],
+   "rotation": 75,
+   "y": 0.76
+  },
+  {
+   "type": "blackboard",
+   "at": [
+    18,
+    16.0
+   ],
+   "rotation": 90,
+   "options": {
+    "lines": [
+     "Form IV",
+     "Film: Our School"
+    ]
+   }
+  },
+  {
+   "type": "table",
+   "at": [
+    19.3,
+    14.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "chair",
+   "at": [
+    18.8,
+    14.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    21.2,
+    14.2
+   ],
+   "rotation": 88
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    21.2,
+    15.4
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    21.2,
+    16.6
+   ],
+   "rotation": 92
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    21.2,
+    17.8
+   ],
+   "rotation": 89
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    22.8,
+    14.2
+   ],
+   "rotation": 91
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    22.8,
+    15.4
+   ],
+   "rotation": 88
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    22.8,
+    16.6
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    22.8,
+    17.8
+   ],
+   "rotation": 92
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    24.4,
+    14.2
+   ],
+   "rotation": 89
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    24.4,
+    15.4
+   ],
+   "rotation": 91
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    24.4,
+    16.6
+   ],
+   "rotation": 88
+  },
+  {
+   "type": "schoolDesk",
+   "at": [
+    24.4,
+    17.8
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    20.0,
+    19
+   ],
+   "rotation": 180,
+   "options": {
+    "blind": true
+   }
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    22.5,
+    19
+   ],
+   "rotation": 180,
+   "options": {
+    "blind": true
+   }
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    25.0,
+    19
+   ],
+   "rotation": 180,
+   "options": {
+    "blind": true
+   }
+  },
+  {
+   "type": "radiator",
+   "at": [
+    22.5,
+    19
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "projectorScreen",
+   "at": [
+    18.02,
+    16.0
+   ],
+   "rotation": 90,
+   "id": "film_screen"
+  },
+  {
+   "type": "projector",
+   "at": [
+    23.6,
+    16.0
+   ],
+   "rotation": -90,
+   "id": "projector"
+  },
+  {
+   "type": "smallItem",
+   "at": [
+    19.3,
+    14.9
+   ],
+   "y": 0.76,
+   "options": {
+    "color": "#5a5a58",
+    "size": [
+     0.24,
+     0.03,
+     0.24
+    ]
+   }
+  },
+  {
+   "type": "rug",
+   "at": [
+    32.5,
+    6.3
+   ],
+   "options": {
+    "width": 3.2,
+    "depth": 2.6
+   }
+  },
+  {
+   "type": "pedestalDesk",
+   "at": [
+    32.5,
+    5.8
+   ]
+  },
+  {
+   "type": "chair",
+   "at": [
+    32.5,
+    5.05
+   ]
+  },
+  {
+   "type": "chair",
+   "at": [
+    32.5,
+    6.95
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "deskLamp",
+   "at": [
+    31.95,
+    5.65
+   ],
+   "rotation": 20,
+   "y": 0.76,
+   "options": {
+    "lit": true
+   }
+  },
+  {
+   "type": "paperSheet",
+   "at": [
+    32.75,
+    5.75
+   ],
+   "rotation": 12,
+   "y": 0.765
+  },
+  {
+   "type": "recordsCabinet",
+   "at": [
+    29.3,
+    5.2
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "bookshelf",
+   "at": [
+    29.2,
+    7.5
+   ],
+   "rotation": 90,
+   "options": {
+    "length": 1.8
+   }
+  },
+  {
+   "type": "portrait",
+   "at": [
+    32.5,
+    4
+   ],
+   "y": 0.6
+  },
+  {
+   "type": "crucifix",
+   "at": [
+    34.6,
+    4
+   ],
+   "options": {
+    "height": 2.1
+   }
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    30.3,
+    4
+   ]
+  },
+  {
+   "type": "hatStand",
+   "at": [
+    34.7,
+    8.4
+   ]
+  },
+  {
+   "type": "wallClock",
+   "at": [
+    36,
+    5.0
+   ],
+   "rotation": -90,
+   "options": {
+    "height": 2.3
+   }
+  },
+  {
+   "type": "rug",
+   "at": [
+    40.0,
+    6.4
+   ],
+   "options": {
+    "width": 2.4,
+    "depth": 1.8
+   }
+  },
+  {
+   "type": "bed",
+   "at": [
+    41.6,
+    4.85
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "crucifix",
+   "at": [
+    41.6,
+    4
+   ],
+   "options": {
+    "height": 1.9
+   }
+  },
+  {
+   "type": "bedsideCupboard",
+   "at": [
+    40.15,
+    4.3
+   ]
+  },
+  {
+   "type": "deskLamp",
+   "at": [
+    40.0,
+    4.32
+   ],
+   "y": 0.6,
+   "options": {
+    "lit": true
+   }
+  },
+  {
+   "type": "paperSheet",
+   "at": [
+    40.28,
+    4.32
+   ],
+   "rotation": -14,
+   "y": 0.605
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    38.4,
+    4
+   ]
+  },
+  {
+   "type": "armchair",
+   "at": [
+    38.0,
+    5.3
+   ],
+   "rotation": 140
+  },
+  {
+   "type": "sideTable",
+   "at": [
+    38.9,
+    4.7
+   ]
+  },
+  {
+   "type": "gramophone",
+   "at": [
+    38.9,
+    4.7
+   ],
+   "rotation": 150,
+   "y": 0.6
+  },
+  {
+   "type": "wardrobe",
+   "at": [
+    37.32,
+    8.0
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "washstand",
+   "at": [
+    42.8,
+    7.8
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "stairHead",
+   "at": [
+    28.0,
+    13.0
+   ],
+   "rotation": 180,
+   "options": {
+    "width": 2.3,
+    "carpet": true
+   }
+  },
+  {
+   "type": "stairHead",
+   "at": [
+    27.0,
+    8.0
+   ],
+   "options": {
+    "width": 2.3
+   }
+  }
+ ],
+ "lights": [
+  {
+   "type": "point",
+   "at": [
+    11.5,
+    11.0
+   ],
+   "height": 2.2,
+   "color": "#c8d4e8",
+   "intensity": 1.6,
+   "distance": 7
+  },
+  {
+   "type": "point",
+   "at": [
+    18.5,
+    11.0
+   ],
+   "height": 2.2,
+   "color": "#c8d4e8",
+   "intensity": 1.6,
+   "distance": 7
+  },
+  {
+   "type": "point",
+   "at": [
+    25.5,
+    11.0
+   ],
+   "height": 2.2,
+   "color": "#c8d4e8",
+   "intensity": 1.6,
+   "distance": 7
+  },
+  {
+   "type": "point",
+   "at": [
+    32.5,
+    11.0
+   ],
+   "height": 2.2,
+   "color": "#c8d4e8",
+   "intensity": 1.6,
+   "distance": 7
+  },
+  {
+   "type": "point",
+   "at": [
+    39.5,
+    11.0
+   ],
+   "height": 2.2,
+   "color": "#c8d4e8",
+   "intensity": 1.6,
+   "distance": 7
+  },
+  {
+   "type": "point",
+   "at": [
+    13.5,
+    18.4
+   ],
+   "height": 2.2,
+   "color": "#c8d4e8",
+   "intensity": 2.0,
+   "distance": 8
+  },
+  {
+   "type": "point",
+   "at": [
+    22.5,
+    18.4
+   ],
+   "height": 2.2,
+   "color": "#c8d4e8",
+   "intensity": 1.4,
+   "distance": 8
+  },
+  {
+   "type": "point",
+   "at": [
+    32.0,
+    5.7
+   ],
+   "height": 1.2,
+   "color": "#ffd9a0",
+   "intensity": 2.4,
+   "distance": 6
+  },
+  {
+   "type": "point",
+   "at": [
+    32.5,
+    7.5
+   ],
+   "height": 2.6,
+   "color": "#c8d4e8",
+   "intensity": 0.8,
+   "distance": 6
+  },
+  {
+   "type": "point",
+   "at": [
+    39.6,
+    4.8
+   ],
+   "height": 1.2,
+   "color": "#ffd9a0",
+   "intensity": 2.8,
+   "distance": 6
+  }
+ ],
+ "pickups": [],
+ "documents": [],
+ "maps": [
+  {
+   "id": "school_upper",
+   "key": [
+    2.0,
+    1.0
+   ]
+  }
+ ]
+}

@@ -39,7 +39,13 @@ export function parseLevel(data) {
   const roomHeightAt = (col, row) => roomAtCell(col, row)?.height ?? null;
 
   const textures = {
-    floor: (col, row) => roomAtCell(col, row)?.floor ?? data.floorTexture ?? 'floor',
+    // A room's "well" ([c0, r0, c1, r1]) has no floor: the stairs go down through it.
+    floor: (col, row) => {
+      const room = roomAtCell(col, row);
+      const [c0, r0, c1, r1] = room?.well ?? [];
+      if (room?.well && col >= c0 && col <= c1 && row >= r0 && row <= r1) return 'none';
+      return room?.floor ?? data.floorTexture ?? 'floor';
+    },
     ceiling: (col, row) => roomAtCell(col, row)?.ceiling ?? data.ceilingTexture ?? 'ceiling',
     // A wall face takes the texture of the room it faces, else the wall cell's own.
     wall: (openCol, openRow, wallCol, wallRow) => roomAtCell(openCol, openRow)?.wall ?? kindAt(wallCol, wallRow),

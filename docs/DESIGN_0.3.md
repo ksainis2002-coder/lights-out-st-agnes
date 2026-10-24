@@ -281,6 +281,31 @@ lines are in the content sheet.
 - The debug overlay (F3) shows a CHALK line (time with no progress, the next words due, boards
   written) and a TRICKS line (what the trick still waits for).
 
+## Part B stills, waiting for the owner (0.2.26)
+- Stills in `docs/mockups/stills-0.3/`: upstairs_corridor, stairs_down, bell, roll_call, class4,
+  projector_film, head_office, head_flat, ui_map_upstairs. Built only once approved.
+- Layout (`tools/levels/school_part_b.py`, for now writing the mockup level
+  `src/mockups/levels/school_upper.json`): the first floor over the east half of the school. The
+  corridor runs east to west; Classrooms 3 and 4 lie to the south, over Classes 1 and 2; the
+  headmaster's office lies to the north, over the music room, and his flat lies beyond it, reached
+  only through the office. The back stairs come up beside the corridor at x 26-27, the main stairs on
+  a landing at x 27-28, both lined up with the ground floor's.
+- The stair heads: the flight falls away down a well with no floor (a room's `well` in level data;
+  `stairHead` prop), the red runner on the main stairs, bare wood on the back stairs.
+- The bell: an electric school bell high on the corridor wall between the classroom doors; ringing,
+  its dome blurs, and every door stands banged open.
+- Roll call (Classroom 3): faint pupils at every desk but the one nearest the door (T. Hale's), with
+  blurred faces and black eyes, all turned to look at you. Board (mockup copy): "Form III / Monday,
+  2nd February" (the day Tommy was struck off).
+- Classroom 4: the blinds down, a pull-down screen over the board, the projector on its trolley among
+  the desks. The film: five children in a line in their smocks, in profile, but the middle one has
+  turned to the camera; grain and scratches; the beam lights the dust.
+- Office: his pedestal desk with a green leather top and a lamp, the inspector's report on it, the
+  records cabinet with its number lock (approved still ui_codeLock), the Founder's portrait, a
+  bookcase, a crucifix, a hat stand with his coat. Flat: a bed under a crucifix, the doctor's letter
+  on the bedside cupboard by the lamp, an armchair and a gramophone by the window, a wardrobe, a
+  washstand.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

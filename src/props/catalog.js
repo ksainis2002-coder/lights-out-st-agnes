@@ -16,6 +16,7 @@ import { ART_PROPS } from './art.js';
 import { ENTRANCE_PROPS } from './entrance.js';
 import { CLOAKROOM_PROPS } from './cloakroom.js';
 import { CHALK_PROPS } from './chalkBoard.js';
+import { UPSTAIRS_PROPS } from './upstairs.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -82,8 +83,15 @@ function drawing(t, { kind = 'house', name, toy } = {}) {
   return group(decal(drawingTexture(kind), [0.4, 0.4], [0, 1.2, 0.03]));
 }
 
-function windowFrame(t) {
-  return group(decal(t.windowPane, [1, 1.3], [0, 1.6, 0.03]));
+// blind: a dark roller blind pulled down over it (Classroom 4, for the film).
+function windowFrame(t, { blind = false } = {}) {
+  const pane = decal(t.windowPane, [1, 1.3], [0, 1.6, 0.03]);
+  if (!blind) return group(pane);
+  return group(
+    pane,
+    decal(t.sheet, [1.04, 1.3], [0, 1.6, 0.04], { color: '#2e2a24' }),
+    box(t.sheet, [1.1, 0.06, 0.06], [0, 2.22, 0.04], { color: '#3a3026' }), // the roller
+  );
 }
 
 // Ceiling fluorescent tube (glowing, unlit material) at the given height.
@@ -327,4 +335,5 @@ export const PROPS = {
   ...ENTRANCE_PROPS,
   ...CLOAKROOM_PROPS,
   ...CHALK_PROPS,
+  ...UPSTAIRS_PROPS,
 };
