@@ -382,7 +382,8 @@ lines are in the content sheet.
 - Cooldown: the set pieces keep a cooldown of their own, 30 s after one starts, so they never stack
   but each still plays on your first visit (the brief's 90 s would hold the roll call back until you
   had left Classroom 3); each also starts the ghost children's 90 s scare cooldown. A scripted
-  override of the 90 s, logged here as the scare rules ask. Comfort mode cuts all three.
+  override of the 90 s, logged here as the scare rules ask; the owner confirmed the 30 s
+  (2026-10-24). Comfort mode cuts all three.
 - Silent, as the content sheet says: no subtitles. Stand-in sounds (SOUNDS_0.3.md): the bell, the
   door bangs, the sting, the projector's clatter and the snap.
 - The debug overlay (F3) has a SET PIECES line: the one running and its phase, or the ones still to
@@ -411,8 +412,9 @@ lines are in the content sheet.
 - Upstairs she hunts the corridor and both stair heads ("watcher" in school_upper.json); the
   classrooms, the office and the flat are safe. Her arrival spots are the stairs' spawn spots
   ("arrivals" by spawn name, both floors). The debug overlay (F3) has a FLOORS line.
-- My call, for the owner to check: she does not come up on her own when you go up alone; the brief's
-  "doors alone do not save you" is met by the follow.
+- Owner 2026-10-24: keep it. If she is not close when you go up, she stays downstairs and upstairs
+  is safe; she does not wander up on her own. The brief's "doors alone do not save you" is met by
+  the follow.
 - Bot route `tests/bot-routes/school_upper.json` (part B, starting after part A: the key, the board
   read, the watcher awake downstairs): the main stairs up (the bell), the office (unlocked with the
   key), the lock (354), the roll and the card and the key, the report, the flat and the letter,
