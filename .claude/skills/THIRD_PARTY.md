@@ -10,9 +10,14 @@ No hidden instructions, credential harvesting or data exfiltration were found.
 | test-driven-development, receiving-code-review | github.com/obra/superpowers (skills/) | 2ce8aa1 | MIT (LICENSE in each folder) |
 | karpathy-guidelines | github.com/multica-ai/andrej-karpathy-skills (skills/) | 2c60614 | MIT (`license:` field; README) |
 | accessibility, benchmark-optimization-loop, browser-qa, canary-watch, click-path-audit, e2e-testing, i18n-sync, ui-demo, verification-loop, video-editing, vite-patterns | github.com/affaan-m/ECC (skills/) | 76aaa77 | MIT (`ECC-LICENSE`) |
+| grill-me, grilling, diagnosing-bugs, prototype, wait-what | github.com/mattpocock/skills (skills/<bucket>/) | 5beb35b | MIT (LICENSE in each folder) |
+| psx-horror-style | github.com/arjun988/blender-skills (.claude/skills/) | 8f778d2 | MIT (LICENSE in folder) |
 
 Not installed on purpose: threejs-3d-generator, threejs-image-generator, threejs-audio-generator
 (paid Tripo / Gemini / ElevenLabs). Models and textures are built in code; sounds are CC0.
+
+Matt Pocock's repo has 38 skills; only the 5 above fit here (code-review clashes with the built-in
+/code-review and tdd repeats test-driven-development). All 38 are in the skills library.
 
 ECC has 311 skills. All were vetted; only the 11 above fit this game. The full set is kept in a
 separate skills library repo for other projects.
@@ -36,7 +41,17 @@ separate skills library repo for other projects.
   the current change only; never delete existing game code. Tests here are Playwright, not unit.
 - The other Superpowers skills (brainstorming, plans, subagent execution, worktrees) are kept in the
   separate skills library, not here: they start subagents, skip check-ins or gate work behind
-  design docs, which clashes with "ask the owner first". Debugging and verification come from the
-  account's `anthropic-skills:systematic-debugging` and `anthropic-skills:verification-before-completion`.
+  design docs, which clashes with "ask the owner first". Verification comes from the account's
+  `anthropic-skills:verification-before-completion`; for hard bugs use diagnosing-bugs (or the
+  account's `anthropic-skills:systematic-debugging`).
 - For the trailer and period research use `anthropic-skills:remotion-video-creation` and
   `anthropic-skills:deep-research`, as CLAUDE.md says.
+- psx-horror-style is written for Blender assets. Apply its budgets, palette, fog and staging rules
+  to the code-built models and the render/ pipeline; there is no Blender here. Its flicker and
+  strobe ideas obey the reduce-effects and flicker-off settings, and its scares go through
+  st-agnes-scare-rules.
+- prototype commits to throwaway branches. Here prototypes stay on the working branch or in the
+  scratchpad, never main, and a UI prototype counts as the mockup the owner sees before building.
+- grilling asks rounds of numbered questions. Keep them short, with y/n or multiple-choice answers.
+- wait-what expects a GLOSSARY.md; this repo has none, so it re-pitches in plain English only.
+- diagnosing-bugs' HITL script is a bash template the owner runs; read it before running it.
