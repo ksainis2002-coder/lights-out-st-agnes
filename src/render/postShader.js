@@ -1,6 +1,8 @@
 // Final full-screen pass. Takes the 320×180 scene and the 480×270 UI layer
 // and adds the approved look: 15-bit colour with ordered dither (scene only),
 // menu dimming, chroma bleed, grain, scanlines, a tracking band, vignette.
+// The UI texture can be finer than 480×270 (paper screens are drawn at 3×,
+// uUiTexRes); bleed, grain and scanlines still follow the 480×270 grid.
 // 0.2 effects (all 0 = off): uBlur (waking, sanity), uAberration (sanity,
 // in scene pixels), uEyelid (0 open … 1 closed), uVignette (extra darkening),
 // uRewind (VHS rewind tearing), uFade (0 … 1 = black, for level changes).
@@ -19,12 +21,14 @@ uniform sampler2D tScene;
 uniform sampler2D tUi;
 uniform vec2 uSceneRes;
 uniform vec2 uUiRes;
+uniform vec2 uUiTexRes;
 uniform float uTime;
 uniform float uDither;
 uniform float uBrightness;
 uniform float uSaturation;
 uniform float uGrain;
 uniform float uBleed;
+uniform float uScanline;
 uniform float uBand;
 uniform float uBandPos;
 uniform float uBlur;
@@ -66,8 +70,8 @@ vec3 sceneAt(vec2 uv) {
 
 // The UI layer is sampled at the untorn position: VCR text stays steady.
 vec3 composite(vec2 uv, vec2 uiUv) {
-  vec2 uiPx = floor(uiUv * uUiRes);
-  vec4 ui = texture2D(tUi, (uiPx + 0.5) / uUiRes);
+  vec2 uiPx = floor(uiUv * uUiTexRes);
+  vec4 ui = texture2D(tUi, (uiPx + 0.5) / uUiTexRes);
   return mix(sceneAt(uv), ui.rgb, ui.a);
 }
 
@@ -85,10 +89,10 @@ void main() {
   noise += inBand * 30.0 * hash(cell.yx + uTime);
   noise += uRewind * (tear * 70.0 + 12.0) * hash(cell + uTime * 3.1);
   color += noise / 255.0;
-  color *= mod(row, 2.0) > 0.5 ? 0.86 : 1.0;
+  color *= mod(row, 2.0) > 0.5 ? uScanline : 1.0;
   // Dark edges and eyelids shade the scene, never the HUD drawn over it
   // (the battery cell sits in a corner; owner playtest).
-  float uiA = texture2D(tUi, (floor(vUv * uUiRes) + 0.5) / uUiRes).a;
+  float uiA = texture2D(tUi, (floor(vUv * uUiTexRes) + 0.5) / uUiTexRes).a;
   vec2 v = vUv - 0.5;
   float shade = 1.0 - min(1.0, dot(v, v) * (1.6 + uVignette * 4.0));
   if (uEyelid > 0.0) {
@@ -111,12 +115,14 @@ export function createPostMaterial(sceneTexture, uiTexture) {
       tUi: { value: uiTexture },
       uSceneRes: { value: new THREE.Vector2(320, 180) },
       uUiRes: { value: new THREE.Vector2(480, 270) },
+      uUiTexRes: { value: new THREE.Vector2(480, 270) },
       uTime: { value: 0 },
       uDither: { value: 1 },
       uBrightness: { value: 1 },
       uSaturation: { value: 1 },
       uGrain: { value: 14 },
       uBleed: { value: 1 },
+      uScanline: { value: 0.86 },
       uBand: { value: 0 },
       uBandPos: { value: 0.82 },
       uBlur: { value: 0 },

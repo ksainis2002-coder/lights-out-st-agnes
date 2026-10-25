@@ -67,5 +67,5 @@ export function createMusicBoxScreen(ui, { press, played }) {
     return true;
   }
 
-  return { name: 'musicBox', look: 'game', draw, hits, key };
+  return { name: 'musicBox', look: 'paper', draw, hits, key };
 }

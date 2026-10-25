@@ -52,5 +52,5 @@ export function createItemCardScreen(ui, { item }) {
     return true;
   }
 
-  return { name: 'itemCard', look: 'game', draw, hits, key, item: () => item };
+  return { name: 'itemCard', look: 'paper', draw, hits, key, item: () => item };
 }

@@ -126,5 +126,5 @@ export function createCodeLockScreen(ui, { wheels, turn, set, tryDrawer, note })
   // Scrolling up turns the chosen wheel up, like the ▲ key.
   const wheel = (direction) => turn(chosen, -direction);
 
-  return { name: 'codeLock', look: 'game', draw, hits, key, wheel, wheels, note, chosen: () => chosen };
+  return { name: 'codeLock', look: 'paper', draw, hits, key, wheel, wheels, note, chosen: () => chosen };
 }

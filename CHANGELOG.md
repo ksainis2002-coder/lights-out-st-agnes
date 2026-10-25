@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.39 — Easier reading (owner request): the journal, maps, documents and close-ups are drawn three times finer, without the VHS colour bleed and with lighter scanlines; the game view keeps the full tape look. Long document bylines shrink to fit on the paper. Two new tests.
 - 0.2.38 — School wing sounds, priority 1: the owner's 49 files now play in place of the stand-ins (the watcher's grind and breath, the drone, Maggie's hum, the rope, chalk, desks, the lock and drawers, the bell, banging doors, the projector, close thunder, outdoor rain and wind, gravel and grass steps, the gates, the classrooms' room tone), each about as loud as the stand-in it replaced. The sound script can now cut single hits exactly. Three new sound tests.
 - 0.2.37 — Sound list: the storm's thunder joins the stand-ins table, and the Sound List doc now shows part B's stand-ins and which files part B already uses.
 - 0.2.36 — Part B playtest checklist (a Claude Doc, like part A's), with five tuning picks for after the playtest. The owner's picks are in the design notes: the three set pieces keep 30 s apart, and the watcher stays downstairs if she is not close when you go up.

@@ -81,5 +81,5 @@ export function createCardIndexScreen(ui, { pick, found, note }) {
     return true;
   }
 
-  return { name: 'cardIndex', look: 'game', draw, hits, key, found, note };
+  return { name: 'cardIndex', look: 'paper', draw, hits, key, found, note };
 }

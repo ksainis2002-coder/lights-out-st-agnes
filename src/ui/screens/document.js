@@ -2,14 +2,16 @@
 // the view with a typed transcript beside it. T hides the transcript; click,
 // ENTER or ESC puts the paper back.
 import { osdText, wrapText, COLORS } from '../osd.js';
-import { PAPER, INK_SOFT, BLOT, paperText, paperParagraph } from '../paper.js';
+import { PAPER, INK_SOFT, BLOT, SERIF, paperText, paperParagraph, fitSize } from '../paper.js';
 
 const W = 480;
 const H = 270;
+const TEXT_WIDTH = 176; // the paper is 200 wide, with 12 px margins
 
 export function createDocumentScreen(ui, { id }) {
   const { t, game } = ui;
   let transcript = true;
+  let bylineSize = 9; // shrinks to fit a long byline (owner 2026-10-25)
   const openedAt = performance.now(); // the click that opened it must not close it
   const body = () => t(`doc.${id}.body`);
 
@@ -23,8 +25,10 @@ export function createDocumentScreen(ui, { id }) {
     ctx.fillStyle = PAPER;
     ctx.fillRect(-100, -112, 200, 226);
     paperText(ctx, t(`doc.${id}.title`), -88, -100, 10);
-    paperText(ctx, t(`doc.${id}.byline`), -88, -86, 9, INK_SOFT);
-    paperParagraph(ctx, body(), -88, -66, 176, 9, 12);
+    const byline = t(`doc.${id}.byline`);
+    bylineSize = fitSize(ctx, byline, TEXT_WIDTH, 9);
+    paperText(ctx, byline, -88, -86, bylineSize, INK_SOFT);
+    paperParagraph(ctx, body(), -88, -66, TEXT_WIDTH, 9, 12);
     ctx.restore();
     if (transcript) {
       ctx.fillStyle = 'rgba(5,7,10,0.6)';
@@ -44,5 +48,5 @@ export function createDocumentScreen(ui, { id }) {
     return true;
   }
 
-  return { name: 'document', look: 'game', draw, hits, key, transcript: () => transcript };
+  return { name: 'document', look: 'paper', draw, hits, key, transcript: () => transcript, byline: () => ({ text: t(`doc.${id}.byline`), font: `${bylineSize}px ${SERIF}`, width: TEXT_WIDTH }) };
 }

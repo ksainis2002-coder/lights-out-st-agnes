@@ -77,5 +77,5 @@ export function createPianoScreen(ui, { press, played }) {
     return true;
   }
 
-  return { name: 'piano', look: 'game', draw, hits, key, played };
+  return { name: 'piano', look: 'paper', draw, hits, key, played };
 }

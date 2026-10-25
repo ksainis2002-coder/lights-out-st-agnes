@@ -86,5 +86,5 @@ export function createCloseViewScreen(ui, options) {
     return true;
   }
 
-  return { name: 'closeView', view: options.view, look: 'game', draw, hits, key };
+  return { name: 'closeView', view: options.view, look: 'paper', draw, hits, key };
 }

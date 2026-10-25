@@ -45,6 +45,17 @@ export function fitPaperText(ctx, text, width, size) {
   return `${cut.trimEnd()}…`;
 }
 
+// The largest size (from size down to min, in half pixels) at which one line
+// fits in width: a long byline shrinks instead of running off the paper.
+export function fitSize(ctx, text, width, size, min = 6) {
+  ctx.font = `${size}px ${SERIF}`;
+  while (size > min && ctx.measureText(text).width > width) {
+    size -= 0.5;
+    ctx.font = `${size}px ${SERIF}`;
+  }
+  return size;
+}
+
 // The lines a paragraph wraps to at this width (a newline starts a new line),
 // without drawing: for laying text out over pages.
 export function paperLines(ctx, text, width, size) {

@@ -132,5 +132,5 @@ export function createJournalScreen(ui, options = {}) {
     return true;
   }
 
-  return { name: 'journal', look: 'game', draw, hits, key, tab: () => TABS[tab], page: () => page, pageCount: () => pageCount, selectedDocument: () => game.journal.documents()[doc] };
+  return { name: 'journal', look: 'paper', draw, hits, key, tab: () => TABS[tab], page: () => page, pageCount: () => pageCount, selectedDocument: () => game.journal.documents()[doc] };
 }

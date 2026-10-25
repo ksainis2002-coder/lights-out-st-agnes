@@ -9,11 +9,14 @@ export const SCENE_HEIGHT = 180;
 export const UI_WIDTH = 480;
 export const UI_HEIGHT = 270;
 
-// Grain and band strength per look, as in the approved stills.
+// Grain and band strength per look, as in the approved stills. Paper screens
+// (journal, documents, close-ups) drop the colour bleed and most of the
+// scanlines and grain so their text reads (owner 2026-10-25).
 const LOOKS = {
-  game: { grain: 14, band: 0, dither: 1, brightness: 1, saturation: 1 },
-  menu: { grain: 26, band: 1, dither: 0.6, brightness: 0.45 * 0.65, saturation: 0.6 },
-  screen: { grain: 12, band: 0, dither: 1, brightness: 1, saturation: 1 },
+  game: { grain: 14, band: 0, dither: 1, brightness: 1, saturation: 1, bleed: 1, scanline: 0.86 },
+  menu: { grain: 26, band: 1, dither: 0.6, brightness: 0.45 * 0.65, saturation: 0.6, bleed: 1, scanline: 0.86 },
+  screen: { grain: 12, band: 0, dither: 1, brightness: 1, saturation: 1, bleed: 1, scanline: 0.86 },
+  paper: { grain: 6, band: 0, dither: 1, brightness: 1, saturation: 1, bleed: 0, scanline: 0.95 },
 };
 
 function lowResTarget() {
@@ -73,6 +76,18 @@ export function createPipeline(canvas, uiCanvas) {
     u.uDither.value = look.dither;
     u.uBrightness.value = look.brightness;
     u.uSaturation.value = look.saturation;
+    u.uBleed.value = look.bleed;
+    u.uScanline.value = look.scanline;
+  }
+
+  // The UI canvas is bigger while a paper screen is open (drawn at 3×): its
+  // texture then needs new storage.
+  function fitUiTexture() {
+    const res = post.uniforms.uUiTexRes.value;
+    if (res.x === uiCanvas.width && res.y === uiCanvas.height) return false;
+    res.set(uiCanvas.width, uiCanvas.height);
+    uiTexture.dispose();
+    return true;
   }
 
   // Screen effects for the current frame (sanity, waking, rewind).
@@ -94,7 +109,7 @@ export function createPipeline(canvas, uiCanvas) {
     renderer.render(scene, camera);
     stats.drawCalls = renderer.info.render.calls;
     stats.triangles = renderer.info.render.triangles;
-    if (uiDirty) uiTexture.needsUpdate = true;
+    if (fitUiTexture() || uiDirty) uiTexture.needsUpdate = true;
     applyLook(look, time);
     applyEffects();
     renderer.setRenderTarget(null);

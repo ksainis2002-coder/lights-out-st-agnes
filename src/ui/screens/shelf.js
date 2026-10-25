@@ -95,5 +95,5 @@ export function createShelfScreen(ui, { take, taken, note }) {
     return true;
   }
 
-  return { name: 'shelf', look: 'game', draw, hits, key, taken, note };
+  return { name: 'shelf', look: 'paper', draw, hits, key, taken, note };
 }

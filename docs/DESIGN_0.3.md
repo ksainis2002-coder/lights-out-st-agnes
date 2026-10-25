@@ -442,6 +442,15 @@ lines are in the content sheet.
   their own room tone in place of the building's hum.
 - For later parts: stone steps (stone paths), match strikes (the lanterns), book drops.
 
+## Paper screens (0.2.39, owner 2026-10-25)
+- The owner found the journal map hard to read: the VHS colour bleed (red one pixel left, blue one
+  right), the scanlines and the 480×270 page smeared its small labels. Paper screens (look `paper`:
+  the journal with its maps, documents, the item and sanity cards, every close-up) now drop the
+  colour bleed, keep only faint scanlines and grain, and draw on a UI canvas three times as fine
+  (1440×810, in the same 480×270 layout). The game view, menus and HUD keep the full tape look.
+- A document's byline shrinks (down to 6 px) to fit on the paper: the inspector's report, and
+  Dr. Venn's letter in Greek, ran off its edge.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

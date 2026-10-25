@@ -36,5 +36,5 @@ export function createSanityCardScreen(ui, { after = false } = {}) {
     return true;
   }
 
-  return { name: 'sanityCard', look: 'game', draw, hits, key };
+  return { name: 'sanityCard', look: 'paper', draw, hits, key };
 }

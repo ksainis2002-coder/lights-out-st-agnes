@@ -79,5 +79,5 @@ export function createFuseBoxScreen(ui, { pull, pulled, note }) {
   }
 
   // pulled and note are read by tests.
-  return { name: 'fuseBox', look: 'game', draw, hits, key, pulled, note };
+  return { name: 'fuseBox', look: 'paper', draw, hits, key, pulled, note };
 }

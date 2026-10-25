@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 import { trackErrors, waitForBoot } from './helpers.js';
 
 const screenName = (page) => page.evaluate(() => window.__stAgnes.ui.current()?.name ?? null);
@@ -177,4 +178,49 @@ test('losing the mouse while playing (browser ESC) still pauses', async ({ page 
   await page.evaluate(() => document.exitPointerLock()); // what the browser does on ESC
   await page.waitForFunction(() => window.__stAgnes.mode === 'ui');
   expect(await screenName(page)).toBe('menu');
+});
+
+// Paper screens (journal, documents, close-ups) are drawn three times finer
+// and without the colour bleed, so their text reads (owner 2026-10-25).
+test('paper screens draw three times finer, then the canvas goes back', async ({ page }) => {
+  const errors = trackErrors(page);
+  await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.newGame();
+    game.intro.finish();
+    game.journal.addMap('orphanage_wing');
+    game.openScreen('journal', { tab: 'maps' });
+  });
+  await page.waitForFunction(() => window.__stAgnes.ui.canvasSize()[0] === 1440);
+  expect(await page.evaluate(() => [window.__stAgnes.ui.look(), ...window.__stAgnes.ui.canvasSize()])).toEqual(['paper', 1440, 810]);
+  await page.evaluate(() => window.__stAgnes.resume());
+  await page.waitForFunction(() => window.__stAgnes.ui.canvasSize()[0] === 480);
+  expect(await page.evaluate(() => window.__stAgnes.ui.canvasSize())).toEqual([480, 270]);
+  expect(errors).toEqual([]);
+});
+
+test('every document byline fits on the paper, in both languages', async ({ page }) => {
+  const en = JSON.parse(readFileSync(new URL('../src/i18n/en.json', import.meta.url), 'utf8'));
+  const ids = Object.keys(en).filter((key) => /^doc\.[a-z0-9_]+\.byline$/.test(key)).map((key) => key.split('.')[1]);
+  expect(ids.length).toBeGreaterThan(10);
+  await page.evaluate(() => {
+    window.__stAgnes.newGame();
+    window.__stAgnes.intro.finish();
+  });
+  for (const language of ['en', 'el']) {
+    for (const id of ids) {
+      const fit = await page.evaluate(async ({ language, id }) => {
+        const game = window.__stAgnes;
+        game.settings.set('language', language);
+        game.openScreen('document', { id });
+        await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
+        const { text, font, width } = game.ui.current().byline();
+        const ctx = document.createElement('canvas').getContext('2d');
+        ctx.font = font;
+        game.resume();
+        return { used: ctx.measureText(text).width, width };
+      }, { language, id });
+      expect(fit.used, `${language} ${id}`).toBeLessThanOrEqual(fit.width);
+    }
+  }
 });

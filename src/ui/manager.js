@@ -1,5 +1,7 @@
 // Owns the 480×270 UI canvas and the current screen. Routes keyboard,
 // mouse and wheel input to the screen while the game is in UI mode.
+// Paper screens (look 'paper') draw on a canvas three times as fine, in the
+// same 480×270 coordinates, so their text stays sharp (owner 2026-10-25).
 import { createWarningScreen } from './screens/warning.js';
 import { createMenuScreen } from './screens/menu.js';
 import { createSettingsScreen } from './screens/settings.js';
@@ -19,6 +21,7 @@ import { createSanityCardScreen } from './screens/sanityCard.js';
 
 export const UI_WIDTH = 480;
 export const UI_HEIGHT = 270;
+const PAPER_SCALE = 3;
 
 const SCREENS = {
   warning: createWarningScreen,
@@ -97,8 +100,18 @@ export function createUi(game, canvas, uiCanvas) {
   });
   canvas.addEventListener('wheel', (event) => screen?.wheel?.(Math.sign(event.deltaY)), { passive: true });
 
+  function fitCanvas() {
+    const scale = screen?.look === 'paper' ? PAPER_SCALE : 1;
+    if (uiCanvas.width !== UI_WIDTH * scale) {
+      uiCanvas.width = UI_WIDTH * scale;
+      uiCanvas.height = UI_HEIGHT * scale;
+    }
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  }
+
   // Redraws the open screen. Returns true when the UI texture changed.
   function update() {
+    fitCanvas();
     if (!screen) {
       if (cleared && !hud) return false;
       ctx.clearRect(0, 0, UI_WIDTH, UI_HEIGHT);
@@ -117,6 +130,7 @@ export function createUi(game, canvas, uiCanvas) {
     close,
     setHud: (fn) => (hud = fn),
     drawHud: (target) => hud?.(target) ?? false, // tests: the HUD into any canvas
+    canvasSize: () => [uiCanvas.width, uiCanvas.height], // tests: 3× for paper screens
     update,
     current: () => screen,
     look: () => screen?.look ?? 'game',

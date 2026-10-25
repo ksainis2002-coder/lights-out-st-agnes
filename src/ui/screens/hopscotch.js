@@ -90,5 +90,5 @@ export function createHopscotchScreen(ui, { hop, hopped, note, rhyme = () => nul
     return true;
   }
 
-  return { name: 'hopscotch', look: 'game', draw, hits, key, hopped, note, rhyme };
+  return { name: 'hopscotch', look: 'paper', draw, hits, key, hopped, note, rhyme };
 }
