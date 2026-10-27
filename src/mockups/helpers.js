@@ -36,3 +36,10 @@ export function aim(camera, [x, y, z], yawDeg, pitchDeg = 0, rollDeg = 0) {
   camera.position.set(x, y, z);
   camera.rotation.set(pitchDeg * rad, yawDeg * rad, rollDeg * rad, 'YXZ');
 }
+
+// The camera at a point (metres, eye height y) looking at another.
+export function look(world, [x, z], [tx, tz], y = 1.6, toY = 1.2) {
+  const yaw = Math.atan2(-(tx - x), -(tz - z));
+  const pitch = Math.atan2(toY - y, Math.hypot(tx - x, tz - z));
+  aim(world.camera, [x, y, z], (yaw * 180) / Math.PI, (pitch * 180) / Math.PI);
+}

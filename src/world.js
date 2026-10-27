@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { createTextures } from './render/textures.js';
 import { parseLevel } from './levels/loader.js';
 import { buildLevelMeshes } from './levels/build.js';
+import { buildBuildings } from './levels/buildings.js';
 import { createDoors } from './levels/doors.js';
 import { createFlashlight } from './player/flashlight.js';
 import { placeProps, placeLights } from './props/place.js';
@@ -40,6 +41,7 @@ export function createWorld(levelData) {
     group.add(
       new THREE.AmbientLight(level.ambient.color, level.ambient.intensity),
       buildLevelMeshes(level, textures),
+      buildBuildings(level, level.buildings, textures),
       placeProps(level, textures),
       placeLights(level),
       doors.group,

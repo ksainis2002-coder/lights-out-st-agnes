@@ -26,6 +26,37 @@ for (const [file, data] of levels) {
   });
 }
 
+// Outdoors, the buildings behind the facades (levels/buildings.js) stand on
+// wall cells or past the map's edge, never on ground the player walks.
+test('the buildings outside stand only on walls or past the edge of the map', () => {
+  for (const [file, data] of levels) {
+    const level = parseLevel(data);
+    for (const { id, cells: [c0, r0, c1, r1] } of data.buildings ?? []) {
+      for (let row = r0; row <= r1; row++) {
+        for (let col = c0; col <= c1; col++) {
+          const onMap = row >= 0 && row < level.rows && col >= 0 && col < level.cols;
+          if (onMap) expect(level.isWall(col, row), `${file}: ${id} covers ${col},${row}`).toBe(true);
+        }
+      }
+    }
+  }
+});
+
+test('the buildings outside have walls, slate roofs up to their ridge and windows', async () => {
+  const THREE = await import('three');
+  const { buildBuildings } = await import('../src/levels/buildings.js');
+  const data = levels.find(([file]) => file === 'grounds.json')[1];
+  const textures = Object.fromEntries(['brick', 'stone', 'slate', 'sash'].map((name) => [name, new THREE.Texture()]));
+  const group = buildBuildings(parseLevel(data), data.buildings, textures);
+  const mesh = (name) => group.children.find((child) => child.material.map === textures[name]);
+  for (const name of Object.keys(textures)) expect(mesh(name), name).toBeTruthy();
+  mesh('slate').geometry.computeBoundingBox();
+  const highest = Math.max(...data.buildings.map((building) => data.wallHeight + building.rise));
+  expect(mesh('slate').geometry.boundingBox.max.y).toBeCloseTo(highest);
+  const windows = data.buildings.flatMap((b) => (b.windows ?? []).map((w) => w.along.length * (w.storeys?.length ?? 2)));
+  expect(mesh('sash').geometry.attributes.position.count).toBe(windows.reduce((a, b) => a + b, 0) * 6);
+});
+
 test('wall clock hands follow the local time', async () => {
   const { handAngles } = await import('../src/props/clocks.js');
   const at = (h, m) => handAngles(new Date(2026, 9, 10, h, m, 0));

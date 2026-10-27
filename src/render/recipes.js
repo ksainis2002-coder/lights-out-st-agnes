@@ -146,6 +146,24 @@ export function hedge(x, y, random) {
   return [18 + n * 0.3, 30 + n + leaf, 22 + n * 0.4];
 }
 
+// Roof slates (outside, 0.3): dark blue-grey courses, the joints staggered,
+// a shadow under each course.
+export function slate(x, y, random) {
+  const n = random() * 14;
+  const offset = (y >> 2) % 2 ? 3 : 0;
+  if (y % 4 === 3) return [30, 32, 36];
+  if ((x + offset) % 6 === 0) return [38, 40, 46];
+  return [46 + n * 0.5, 49 + n * 0.5, 56 + n * 0.5];
+}
+
+// A dark window in a frame, four panes (the buildings' side walls, 0.3).
+export function sash(x, y, random) {
+  const n = random() * 8;
+  const frame = x < 3 || x > 28 || y < 3 || y > 28 || x === 15 || x === 16 || y === 15 || y === 16;
+  if (frame) return [58 + n, 50 + n, 48 + n];
+  return [22 + n, 26 + n, 30 + n];
+}
+
 // Low cemetery wall: dark rough stone blocks with deep mortar.
 export function wallStone(x, y, random) {
   const n = random() * 20;

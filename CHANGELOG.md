@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.43 — Fix: the buildings round the courtyard have depth from outside: behind each facade, side walls with windows, a slate roof and chimneys (the owner's note on the part C stills).
 - 0.2.42 — Fix: lightning comes every 20–40 s counted from one strike to the next; the wait used to stand still during each strike and its thunder, so two strikes could be up to 43 s apart.
 - 0.2.41 — Stills for getting back to the patient room and for the hub changing as you play. Owner's picks: the hub's own door set into the staff room and the headmaster's flat (leaving the hub by its door takes you back there), and the hub a little worse after each part of the school. The hub's damp stains redrawn with ragged edges.
 - 0.2.40 — School wing, part C stills (approved by the owner): the cemetery gate, the five grave lanterns (unlit, three lit, snuffed after a wrong order), Agnes's slab open on the stone lamb, taking the lamb, T. Hale's file page 2, the watcher in the gateway in the storm and at the chapel door, and the hub on your return (a new drawing, damp and fallen tiles, a cracked door pane). New props for them.

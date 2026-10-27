@@ -100,7 +100,9 @@ export function parseLevel(data) {
     weather: data.weather ?? null, // the storm, once a flag is set (levels/storm.js)
     safe: data.safe === true, // safe rooms restore sanity (the patient room)
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
-    // Outdoors: a night sky the colour of the fog, and a moon behind the clouds.
+    // Outdoors: the buildings behind the facades (levels/buildings.js), a night
+    // sky the colour of the fog, and a moon behind the clouds.
+    buildings: data.buildings ?? [],
     fog: data.fog ?? null,
     moon: data.moon ?? null,
   };

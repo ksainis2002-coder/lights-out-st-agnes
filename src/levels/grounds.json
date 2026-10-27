@@ -9,6 +9,124 @@
   "iron": 0.06,
   "hedge": 3.0
  },
+ "buildings": [
+  {
+   "id": "orphanage",
+   "cells": [
+    -9,
+    10,
+    0,
+    15
+   ],
+   "wall": "brick",
+   "ridge": "z",
+   "rise": 5,
+   "chimneys": [
+    [
+     -4,
+     11.5
+    ],
+    [
+     -4,
+     14.5
+    ]
+   ],
+   "windows": [
+    {
+     "side": "north",
+     "along": [
+      2.5,
+      5.5,
+      9.5,
+      12.5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "asylum",
+   "cells": [
+    -9,
+    16,
+    0,
+    20
+   ],
+   "wall": "stone",
+   "ridge": "z",
+   "rise": 5.5,
+   "chimneys": [
+    [
+     -4,
+     18.5
+    ]
+   ]
+  },
+  {
+   "id": "chapel",
+   "cells": [
+    0,
+    21,
+    12,
+    29
+   ],
+   "wall": "stone",
+   "ridge": "x",
+   "rise": 6,
+   "windows": [
+    {
+     "side": "east",
+     "along": [
+      3.0,
+      6.5
+     ],
+     "storeys": [
+      3.0
+     ],
+     "size": [
+      1.2,
+      3.2
+     ]
+    }
+   ]
+  },
+  {
+   "id": "school",
+   "cells": [
+    21,
+    10,
+    30,
+    23
+   ],
+   "wall": "brick",
+   "ridge": "z",
+   "rise": 5,
+   "chimneys": [
+    [
+     26,
+     12
+    ],
+    [
+     26,
+     16.5
+    ],
+    [
+     26,
+     21
+    ]
+   ],
+   "windows": [
+    {
+     "side": "north",
+     "along": [
+      2.5,
+      5.5,
+      9.5,
+      12.5
+     ]
+    }
+   ]
+  }
+ ],
  "floorTexture": "gravel",
  "ceilingTexture": "none",
  "ambient": {

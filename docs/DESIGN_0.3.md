@@ -504,6 +504,20 @@ lines are in the content sheet.
   reshot to match. New props: `hubDoorway` and `crayonHouse`
   (`src/props/hubDoor.js`); `tileDecay` takes `missing: false` for stains only.
 
+## Buildings outside (0.2.43, the owner's note of 2026-10-27)
+- The note: from outside the buildings looked as if they had no depth from the side. The map only
+  draws a wall where open ground meets it, so each building was its facade alone: a flat wall
+  ending in an edge, with nothing on top.
+- Each building now has a body behind its facade (`src/levels/buildings.js`, data in the level's
+  "buildings", written by `tools/levels/school_part_a.py`): side walls, a slate roof with gable
+  ends, chimneys, and windows on the ends that can be seen. They stand on wall cells or past the
+  edge of the map, out of reach; a facade on the same plane still wins, so its windows and doors
+  stay in front. Orphanage and school in brick, asylum and chapel in stone; the chapel's ridge
+  runs east-west, so from the courtyard its roof is a dark mass against the sky.
+- Before/after stills: outside_corner, outside_courtyard, outside_road (`*_before.png` next to
+  them) and the approved watcher_storm (reshot; watcher_storm_before.png is the approved one).
+  Cost: four draw calls outdoors, about 3.6k triangles.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,
