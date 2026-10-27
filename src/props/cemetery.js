@@ -41,9 +41,11 @@ function stoneLamb(t) {
 
 // Agnes's grave slab: a low stone lid on her plot. Open, it lies pushed
 // aside and tipped onto the grass; the hollow beneath is dark, with the lamb
-// and a folded page of T. Hale's file in it.
-function graveSlab(t, { open = false } = {}) {
+// and a folded page of T. Hale's file in it ("empty": not those two, when the
+// game places them to be taken). The lid is named, so it can slide.
+function graveSlab(t, { open = false, empty = false } = {}) {
   const lid = box(t.stone, [0.48, 0.07, 0.86], [0, 0.06, 0.58], STONE);
+  lid.name = 'lid';
   if (!open) return group(lid);
   lid.position.x = 0.44;
   lid.rotation.set(0, 0.2, -0.08);
@@ -55,6 +57,7 @@ function graveSlab(t, { open = false } = {}) {
     box(t.stone, [0.05, 0.05, 0.7], [-0.215, 0.06, 0.58], STONE),
     box(t.stone, [0.05, 0.05, 0.7], [0.215, 0.06, 0.58], STONE),
   ];
+  if (empty) return group(lid, hollow, ...rim);
   const lamb = stoneLamb(t);
   lamb.position.set(0.02, 0.064, 0.7);
   lamb.rotation.y = -Math.PI / 2 + 0.4; // looking out over the foot of the grave

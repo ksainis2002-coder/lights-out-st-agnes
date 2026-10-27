@@ -686,6 +686,55 @@
    "id": "grave_agnes"
   },
   {
+   "type": "graveLantern",
+   "at": [
+    11.961,
+    5.448
+   ],
+   "id": "lantern_agnes"
+  },
+  {
+   "type": "graveLantern",
+   "at": [
+    9.32,
+    5.687
+   ],
+   "id": "lantern_thomas"
+  },
+  {
+   "type": "graveLantern",
+   "at": [
+    8.439,
+    5.448
+   ],
+   "id": "lantern_margaret"
+  },
+  {
+   "type": "graveLantern",
+   "at": [
+    11.08,
+    5.687
+   ],
+   "id": "lantern_samuel"
+  },
+  {
+   "type": "graveLantern",
+   "at": [
+    10.2,
+    5.933
+   ],
+   "id": "lantern_edith"
+  },
+  {
+   "type": "graveSlab",
+   "at": [
+    12.1,
+    6.1
+   ],
+   "rotation": 192,
+   "id": "agnes_slab"
+  },
+  {
    "type": "gravestone",
    "at": [
     5.4,
@@ -897,8 +946,33 @@
    "volume": 0.75
   }
  ],
- "pickups": [],
- "documents": [],
+ "pickups": [
+  {
+   "id": "agnes_lamb",
+   "item": "stone_lamb",
+   "at": [
+    11.99,
+    5.646
+   ],
+   "y": 0.064,
+   "model": "stoneLamb",
+   "appearsWith": "puzzle_lanterns",
+   "radius": 0.3,
+   "rotation": 124.918
+  }
+ ],
+ "documents": [
+  {
+   "id": "hale_file_2",
+   "at": [
+    12.08,
+    5.845
+   ],
+   "y": 0.07,
+   "appearsWith": "puzzle_lanterns",
+   "rotation": 212
+  }
+ ],
  "maps": [
   {
    "id": "grounds",
@@ -936,6 +1010,23 @@
    ]
   }
  ],
+ "puzzles": {
+  "lanterns": {
+   "lanterns": [
+    "lantern_agnes",
+    "lantern_thomas",
+    "lantern_margaret",
+    "lantern_samuel",
+    "lantern_edith"
+   ],
+   "item": "matches",
+   "slab": "agnes_slab",
+   "mapAt": [
+    10.2,
+    7.0
+   ]
+  }
+ },
  "weather": {
   "storm": "puzzle_records"
  },

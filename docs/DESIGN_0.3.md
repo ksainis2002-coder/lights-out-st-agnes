@@ -506,6 +506,24 @@ lines are in the content sheet.
   reshot to match. New props: `hubDoorway` and `crayonHouse`
   (`src/props/hubDoor.js`); `tileDecay` takes `missing: false` for stains only.
 
+## The cemetery puzzle as built (0.2.46)
+- `src/puzzles/lanterns.js`, data written by `tools/levels/school_part_a.py`: a lantern at the
+  foot of each child's grave (1 m out from the stone, as in the stills), "Light the lantern" with
+  the matches (one match each; the box stays). In the order of the roll (Agnes, Thomas, Margaret,
+  Samuel, Edith on Normal), each one lit stays lit, also when you leave and come back (progress
+  value `lanterns_lit`). One out of turn catches for a moment, then all of them shrink and go out,
+  smoke rising and thinning over 4 s: "The flames shrink and go out, all of them." Without the
+  matches: "You need something to light it with."
+- All five: "All five burn steady. Stone grinds under the small grave with no surname." Agnes's
+  slab slides aside over 1.6 s (stone_grind), and the stone lamb (statue piece 2) and T. Hale's
+  file page 2 appear in the hollow (`puzzle_lanterns`, a checkpoint). The lamb, the file page
+  and Maggie's rope finish the school wing (`wing_school_done`).
+- The lanterns' lights are always there, dark until lit, so lighting one never rebuilds the
+  shaders. Short animations on a level run through `world.animate` (cleared on level change).
+- The paper map rings the graves with a flame once a lantern has been tried. Sounds: a match
+  strike per lantern; the snuff is silent until candle_snuff (priority 2) arrives.
+- Not yet: Hard shuffles the roll (with every puzzle's Hard answers, later); the watcher outside.
+
 ## Doors home and the hub's changes as built (0.2.44)
 - Doors home: the patient room's own door (`hubDoorway`, its pale green tiles round it) in the
   staff room's east wall by the tape recorder and in the headmaster's flat between bed and

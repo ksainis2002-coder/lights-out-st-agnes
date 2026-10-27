@@ -183,5 +183,8 @@ facades with side walls, windows, slate roofs and chimneys (see "Buildings outsi
 `docs/DESIGN_0.3.md`); before/after stills sent for a y/n.
 **Doors home and the hub's changes (0.2.44):** built as picked (see "Doors home and the hub's
 changes as built"). Next: the cemetery puzzle (sets `puzzle_lanterns`), the watcher outside.
+**Cemetery puzzle (0.2.46):** the five lanterns, Agnes's slab, the stone lamb and file page 2 are in
+the game (see "The cemetery puzzle as built"). Next: the watcher outside in the storm and at the
+chapel door, the part C bot route, the doors home on the map.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

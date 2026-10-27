@@ -72,7 +72,7 @@ export function createGameAudio(game) {
   // the lullaby lets a hidden door creak loose.
   const SOLVED_SOUND = {
     plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz', piano: 'key_pickup',
-    library: 'paper_pickup', records: 'drawer_metal',
+    library: 'paper_pickup', records: 'drawer_metal', lanterns: 'stone_grind',
   };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
   events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
@@ -105,6 +105,7 @@ export function createGameAudio(game) {
   });
   // The records lock: each wheel clicks round; a wrong try rattles the drawer.
   events.on('records.wheel', () => play('lock_wheel_click', { volume: 0.5 }));
+  events.on('lantern.lit', ({ position }) => play('match_strike', { position, volume: 0.8, refDistance: 2 }));
   events.on('records.wrong', () => play('door_locked', { volume: 0.6 }));
   // Upstairs set pieces: the bell rings and its ring dies away, doors bang
   // open; the roll call's heads turn on a low sting (mus_stinger_low will

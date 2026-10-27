@@ -133,23 +133,40 @@ function rain(t, { width = 10, depth = 10, height = 6, count = 500 } = {}) {
 
 // Grave lantern: a small iron lamp with glass sides on the grave's foot;
 // lit, its candle glows (the cemetery puzzle lights them in order).
+// Its glass and its light, lit or not (the cemetery puzzle lights them one
+// by one). The light is always there, dark when unlit, so lighting one never
+// changes how many lights the scene has (no shader rebuild mid-game).
+const GLASS = {
+  lit: { color: '#f0c070', unlit: true, transparent: true, opacity: 0.9 },
+  dark: { color: '#3a4048', transparent: true, opacity: 0.5 },
+};
+const GLOW = 1.2;
+
+export function setLanternLit(lantern, t, lit) {
+  lantern.getObjectByName('glass').material = materialFor(t.sheet, lit ? GLASS.lit : GLASS.dark);
+  lantern.getObjectByName('glow').intensity = lit ? GLOW : 0;
+}
+
 function graveLantern(t, { lit = false } = {}) {
   const iron = { color: '#2c2c2e' };
+  const glass = box(t.sheet, [0.12, 0.2, 0.12], [0, 0.03, 0], GLASS.dark);
+  glass.name = 'glass';
+  const glow = new THREE.PointLight('#f0b060', 0, 3, 1.4);
+  glow.name = 'glow';
+  glow.position.y = 0.14;
   const parts = [
     box(t.iron, [0.16, 0.02, 0.16], [0, 0, 0], iron),
     box(t.iron, [0.16, 0.02, 0.16], [0, 0.24, 0], iron),
     mesh(new THREE.ConeGeometry(0.12, 0.08, 4), t.iron, iron),
-    box(t.sheet, [0.12, 0.2, 0.12], [0, 0.03, 0], { color: lit ? '#f0c070' : '#3a4048', unlit: lit, transparent: true, opacity: lit ? 0.9 : 0.5 }),
+    glass,
+    glow,
   ];
   parts[2].position.y = 0.3;
   parts[2].rotation.y = Math.PI / 4;
   [[-0.07, -0.07], [0.07, -0.07], [-0.07, 0.07], [0.07, 0.07]].forEach(([x, z]) => parts.push(box(t.iron, [0.02, 0.24, 0.02], [x, 0, z], iron)));
-  if (lit) {
-    const glow = new THREE.PointLight('#f0b060', 1.2, 3, 1.4);
-    glow.position.y = 0.14;
-    parts.push(glow);
-  }
-  return group(...parts);
+  const lantern = group(...parts);
+  setLanternLit(lantern, t, lit);
+  return lantern;
 }
 
 // A lightning bolt in the sky: a jagged pale line with one fork (storm flashes).

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.46 — The cemetery puzzle: light the five grave lanterns with the matches in the order the children were struck off the roll; out of turn they all go out. All five, and Agnes's slab slides aside on the stone lamb and T. Hale's file page 2. They finish the school wing with Maggie's rope.
 - 0.2.45 — Test fix: the storm test now allows a third strike when both waits are short (it expected exactly two in 56 s, which was never certain).
 - 0.2.44 — Doors home: the patient room's own door now stands in the staff room and the headmaster's flat; through it to your room, and your room's door takes you back where you came in. The room changes a little after each part of the school: a new drawing, then damp and a cracked pane, then fallen tiles and a weaker lamp.
 - 0.2.43 — Fix: the buildings round the courtyard have depth from outside: behind each facade, side walls with windows, a slate roof and chimneys (the owner's note on the part C stills).

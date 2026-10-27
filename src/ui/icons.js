@@ -15,6 +15,7 @@ export const ICONS = {
   rope: { pal: { r: '#c8b890', h: '#b03028' }, rows: ['................', '....rrrrrrr.....', '...r.......r....', '..r.........r...', '..r.........r...', '.hh.........hh..', '.hh.........hh..', '.hh.........hh..'] },
   matches: { pal: { b: '#8a5a30', s: '#c8a040', w: '#e0d8c0', r: '#b03028' }, rows: ['................', '...........r....', '..........w.....', '.........w......', '...bbbbbbbb.....', '...bssssssb.....', '...bssssssb.....', '...bbbbbbbb.....'] },
   statue: { pal: { s: '#a8a8a0', d: '#6a6a64' }, rows: ['......ss........', '.....ssss.......', '.....sdds.......', '....ssssss......', '....sdssds......', '.....ssss.......', '....dddddd......'] },
+  lamb: { pal: { s: '#a8a49a', d: '#6a675f', w: '#d6d2c6' }, rows: ['................', '..........ss....', '.........ssss...', '...ssssssssdss..', '..sssswsssss....', '..ssssssssss....', '...ssssssss.....', '...d.d..d.d.....'] },
 };
 
 export function drawIcon(ctx, name, x, y, scale = 1) {

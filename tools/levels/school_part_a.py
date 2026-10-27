@@ -147,6 +147,7 @@ def grounds():
     # The cemetery: the five children's graves in a row, older stones round them.
     names = [("MARGARET ROWE", 8, False, 0.05), ("THOMAS HALE", 9, True, -0.04), ("EDITH CARR", 7, False, 0.1),
              ("SAMUEL PIKE", 10, False, 0.02), ("AGNES", None, False, 0.16)]
+    graves = {}  # first name: (x, z, rotation)
     for i, (name, age, worn, lean) in enumerate(names):
         x = 8.3 + i * 0.95
         z = 6.1 + abs(i - 2) * -0.25 + 0.5
@@ -156,6 +157,25 @@ def grounds():
         if worn:
             opts["worn"] = True
         L.prop(whole, 'gravestone', x, z, 168 + i * 6, extra={"id": f"grave_{name.split()[0].lower()}"}, **opts)
+        graves[name.split()[0].lower()] = (x, z, 168 + i * 6)
+
+    def on_plot(grave, along, side=0.0):
+        """A point on a grave's plot, `along` metres out from its stone and `side` across, in cells."""
+        x, z, rot = graves[grave]
+        t = math.radians(rot)
+        return x + (side * math.cos(t) + along * math.sin(t)) / 1.5, z + (-side * math.sin(t) + along * math.cos(t)) / 1.5
+
+    # Puzzle 5 (part C, approved stills): a lantern at the foot of each child's
+    # grave, lit in the order they were struck off the roll; then Agnes's slab
+    # slides aside on the stone lamb and T. Hale's file page 2.
+    roll = ['agnes', 'thomas', 'margaret', 'samuel', 'edith']
+    for grave in roll:
+        L.prop(whole, 'graveLantern', *on_plot(grave, 1.0), extra={"id": f"lantern_{grave}"})
+    agnes = graves['agnes']
+    L.prop(whole, 'graveSlab', agnes[0], agnes[1], agnes[2], extra={"id": "agnes_slab"})
+    L.pickup(whole, 'agnes_lamb', 'stone_lamb', *on_plot('agnes', 0.7, 0.02), rotation=r3(agnes[2] - 90 + math.degrees(0.4)),
+             y=0.064, model='stoneLamb', appearsWith='puzzle_lanterns', radius=0.3)
+    L.document(whole, 'hale_file_2', *on_plot('agnes', 0.38, -0.05), 0.07, rotation=r3(agnes[2] + 20), appearsWith='puzzle_lanterns')
     for (x, z, rot, lean) in [(5.4, 3.0, -10, 0.1), (15.8, 2.4, -3, 0.15), (16.2, 6.4, 4, 0.2), (5.2, 6.6, 11, 0.1),
                               (8.0, 2.0, 18, 0.15), (12.8, 2.6, 25, 0.2), (13.6, 5.4, 32, 0.1), (6.6, 4.8, 39, 0.15)]:
         L.prop(whole, 'gravestone', x, z, rot, lean=lean)
@@ -202,7 +222,9 @@ def grounds():
         "ambience": [{"name": "amb_rain_outside", "volume": 1.0}, {"name": "amb_wind_outside", "volume": 0.75}],
         # The grounds come on the hall plan (the school's map entry "with"); this
         # entry only says how their page is drawn: the key, right of the plan.
-        "pickups": [], "documents": [], "maps": [{"id": "grounds", "key": [22.6, 0.3]}], "ghosts": L.ghosts,
+        "pickups": L.pickups, "documents": L.documents, "maps": [{"id": "grounds", "key": [22.6, 0.3]}], "ghosts": L.ghosts,
+        "puzzles": {"lanterns": {"lanterns": [f"lantern_{grave}" for grave in roll], "item": "matches", "slab": "agnes_slab",
+                                 "mapAt": [10.2, 7.0]}},
         "weather": {"storm": "puzzle_records"},  # lightning once the records drawer is open (levels/storm.js)
         # St. Agnes on the path, facing the school; gone once you have been inside.
         "watcher": {"still": {"at": [12.5, 15.0], "rotation": 90, "until": "visited_entrance_hall"}},

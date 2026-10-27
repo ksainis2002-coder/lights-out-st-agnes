@@ -23,6 +23,10 @@ export function createWorld(levelData) {
   const textures = createTextures();
 
   const world = { scene, camera, flashlight, textures, level: null, doors: null, levelGroup: null };
+  // Short animations on the level (a slab sliding aside, smoke thinning):
+  // each runs every frame until it returns false; a new level drops them.
+  const animations = new Set();
+  world.animate = (step) => animations.add(step);
 
   world.loadLevel = (data) => {
     if (world.levelGroup) scene.remove(world.levelGroup);
@@ -47,6 +51,7 @@ export function createWorld(levelData) {
       doors.group,
     );
     scene.add(group);
+    animations.clear();
     Object.assign(world, { level, doors, levelGroup: group });
     return level;
   };
@@ -56,6 +61,7 @@ export function createWorld(levelData) {
   world.update = (dt) => {
     world.doors?.update(dt);
     if (world.levelGroup) updateClocks(world.levelGroup, world.now());
+    for (const step of animations) if (!step(dt)) animations.delete(step);
     flashlight.update(world.level, dt);
   };
 

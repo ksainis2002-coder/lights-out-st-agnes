@@ -107,6 +107,13 @@ const SYMBOLS = {
     ctx.moveTo(x + 2, y - 0.5);
     ctx.arc(x, y - 0.5, 2, 0, Math.PI, true);
   },
+  flame(ctx, x, y) {
+    ctx.moveTo(x, y - 4); // a lantern's flame: a drop, a wick under it
+    ctx.quadraticCurveTo(x + 3, y, x, y + 2);
+    ctx.quadraticCurveTo(x - 3, y, x, y - 4);
+    ctx.moveTo(x, y + 2);
+    ctx.lineTo(x, y + 4);
+  },
 };
 
 const DRAW = {
