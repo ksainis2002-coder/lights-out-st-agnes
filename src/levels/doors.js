@@ -1,6 +1,8 @@
 // Door panels for a level's door cells. A panel spans the doorway and swings
 // 90° on a hinge; while closed its cell blocks movement (level.isSolid).
-// A lintel fills the wall above the 2.1 m opening.
+// A lintel fills the wall above the 2.1 m opening, painted as that part of
+// the wall beside it (owner 2026-10-27: the school's lower paint band showed
+// over the doors).
 import * as THREE from 'three';
 import { box } from '../props/parts.js';
 
@@ -22,6 +24,14 @@ function gatePanel(textures, s) {
   return gate;
 }
 
+// The wall texture as build.js lays it on a wall, from `bottom` up to `top`
+// metres, instead of the whole texture squeezed onto each face of the box.
+function wallPart(geometry, level, bottom, top) {
+  const perMetre = level.wallRepeat / level.wallHeight;
+  const uv = geometry.attributes.uv;
+  for (let i = 0; i < uv.count; i++) uv.setY(i, perMetre * (bottom + uv.getY(i) * (top - bottom)));
+}
+
 function buildDoor(level, door, textures) {
   const s = level.cellSize;
   const center = level.cellCenter(...door.cell);
@@ -40,6 +50,7 @@ function buildDoor(level, door, textures) {
     return { door, holder, hinge };
   }
   const lintel = box(wallTexture ?? textures.plaster, [s, lintelHeight, s], [0, DOOR_HEIGHT, 0]);
+  wallPart(lintel.geometry, level, DOOR_HEIGHT, level.wallHeight);
 
   // Hidden doors look like the wall around them until they open.
   const panelTexture = door.hidden ? wallTexture : textures.door;

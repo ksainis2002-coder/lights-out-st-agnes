@@ -9,7 +9,7 @@ const SCHOOL = ['classroom', 'blackboard', 'watcher', 'watcher_close', 'maggie',
   'upstairs_corridor', 'stairs_down', 'bell', 'roll_call', 'class4', 'projector_film', 'head_office', 'head_flat', 'ui_map_upstairs',
   'cemetery_gate', 'lanterns', 'lanterns_lit', 'lanterns_out', 'agnes_slab', 'lamb_take', 'ui_filePage2', 'watcher_storm', 'watcher_chapel', 'hub_return', 'hub_door',
   'door_home_staff', 'door_home_flat', 'door_home_open', 'safe_room_staff', 'hub_after_A', 'hub_after_B', 'hub_after_C',
-  'outside_corner', 'outside_courtyard', 'outside_road'];
+  'outside_corner', 'outside_courtyard', 'outside_road', 'lintel_staff_room', 'lintel_upstairs'];
 const names = process.argv.slice(2).length ? process.argv.slice(2) : [...ALL, ...SCHOOL];
 const folder = (name) => new URL(`../docs/mockups/stills-${SCHOOL.includes(name) ? '0.3' : '0.2'}/`, import.meta.url).pathname;
 

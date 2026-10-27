@@ -193,5 +193,9 @@ the part C bot route and checklist, the doors home on the map.
 C and the outdoor cost is measured (0.2.49; "The part C route and performance"). The school wing is
 complete. Waiting on the owner: y/n on the buildings' new look, y/n on the green band over school
 doors, the part A, B and C playtests, the sound links. Then the 0.2.x pull request to main.
+**Owner picks (2026-10-27):** keep the buildings' look; the band over school doors is fixed (0.2.50);
+the part C checklist is the Claude Doc "Part C Playtest Checklist"
+(https://claude.ai/artifact/LDMwKqEd4oKpvkNwDYfQcL), five tuning picks in it. Waiting on the owner:
+the part A, B and C playtests and the sound links; then the 0.2.x pull request to main.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

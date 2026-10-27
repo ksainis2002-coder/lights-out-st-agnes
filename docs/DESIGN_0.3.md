@@ -585,6 +585,15 @@ lines are in the content sheet.
 - Before/after stills: outside_corner, outside_courtyard, outside_road (`*_before.png` next to
   them) and the approved watcher_storm (reshot; watcher_storm_before.png is the approved one).
   Cost: four draw calls outdoors, about 3.6k triangles.
+- Owner 2026-10-27: keep this look ("1y").
+
+## Door lintels (0.2.50, owner 2026-10-27: "2y")
+- Each door's lintel (the block over the 2.1 m opening, `src/levels/doors.js`) had the whole wall
+  texture squeezed onto it, so the school's green lower band showed over every door. It now carries
+  the wall's upper part, laid as `build.js` lays the wall beside it. Before/after:
+  `lintel_staff_room`, `lintel_upstairs` (`*_before.png` beside them).
+- Part C playtest checklist: the Claude Doc "Part C Playtest Checklist"
+  (https://claude.ai/artifact/LDMwKqEd4oKpvkNwDYfQcL), with five tuning picks.
 
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board

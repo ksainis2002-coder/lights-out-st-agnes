@@ -57,6 +57,19 @@ test('the buildings outside have walls, slate roofs up to their ridge and window
   expect(mesh('sash').geometry.attributes.position.count).toBe(windows.reduce((a, b) => a + b, 0) * 6);
 });
 
+// Owner 2026-10-27: the school's lower paint band showed over its doors.
+test('door lintels carry the upper part of the wall beside them, not its lower paint band', async () => {
+  const THREE = await import('three');
+  const { createDoors } = await import('../src/levels/doors.js');
+  const level = parseLevel(levels.find(([file]) => file === 'school_ground.json')[1]);
+  const textures = new Proxy({}, { get: (made, name) => (made[name] ??= new THREE.Texture()) });
+  const [lintel] = createDoors(level, textures).panels[0].holder.children;
+  const uv = lintel.geometry.attributes.uv;
+  const v = Array.from({ length: uv.count }, (_, i) => uv.getY(i));
+  expect(Math.min(...v)).toBeCloseTo(2.1 / level.wallHeight);
+  expect(Math.max(...v)).toBeCloseTo(1);
+});
+
 test('wall clock hands follow the local time', async () => {
   const { handAngles } = await import('../src/props/clocks.js');
   const at = (h, m) => handAngles(new Date(2026, 9, 10, h, m, 0));
