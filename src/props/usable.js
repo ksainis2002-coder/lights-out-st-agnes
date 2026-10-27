@@ -13,7 +13,8 @@
 //   { "type": "stairs", "use": "travel", "to": { "level": "...", "spawn": "..." },
 //     "prompt": "prompt.stairsUp", "requires": "<flag>", "lockedMessage": "<key>" }
 // Stairs and outside doors drawn as props take you to another level ("Not
-// yet" while that level is not built).
+// yet" while that level is not built). "to": { ..., "back": "<spawn>" } lets
+// the way out over there bring you back here (the doors home to the hub).
 //   { "type": "facadeDoor", "use": "message", "message": "<key>", "prompt": "<key>" }
 // A door that never opens, or a look through a keyhole: just its line.
 //   { "type": "schoolDesk", "id": "maggie_desk", "use": "lid", "message": "<key>", "flags": ["name_maggie"] }
@@ -74,7 +75,7 @@ const USES = {
     },
     run(game, prop) {
       if (waiting(game, prop)) return refuse(game, prop, prop.lockedMessage);
-      if (LEVELS[prop.to.level]) game.travel(prop.to.level, prop.to.spawn);
+      if (LEVELS[prop.to.level]) game.travel(prop.to.level, prop.to.spawn, prop.to.back);
     },
   },
   message: { prompt: 'prompt.open', height: 1.2, run: (game, prop) => refuse(game, prop, prop.message) },

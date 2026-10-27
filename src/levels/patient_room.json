@@ -76,6 +76,129 @@
       "options": {
         "height": 2.6
       }
+    },
+    {
+      "type": "drawing",
+      "id": "hub_skipping",
+      "at": [
+        2.2,
+        1.0
+      ],
+      "options": {
+        "kind": "skipping"
+      },
+      "after": {
+        "flag": "puzzle_hopscotch"
+      }
+    },
+    {
+      "type": "tileDecay",
+      "id": "hub_damp",
+      "at": [
+        1.7,
+        1.0
+      ],
+      "options": {
+        "width": 1.8,
+        "height": 1.6,
+        "y": 1.2,
+        "seed": 3,
+        "missing": false
+      },
+      "after": {
+        "flag": "puzzle_records"
+      },
+      "until": {
+        "flag": "puzzle_lanterns"
+      }
+    },
+    {
+      "type": "tileDecay",
+      "id": "hub_damp_side",
+      "at": [
+        1.0,
+        3.6
+      ],
+      "rotation": 90,
+      "options": {
+        "width": 1.2,
+        "height": 1.0,
+        "y": 0.9,
+        "seed": 8,
+        "missing": false
+      },
+      "after": {
+        "flag": "puzzle_records"
+      },
+      "until": {
+        "flag": "puzzle_lanterns"
+      }
+    },
+    {
+      "type": "doorPane",
+      "id": "hub_pane",
+      "at": [
+        2.5,
+        6.459
+      ],
+      "rotation": 180,
+      "options": {
+        "cracked": true
+      },
+      "after": {
+        "flag": "puzzle_records"
+      }
+    },
+    {
+      "type": "tileDecay",
+      "id": "hub_tiles",
+      "at": [
+        1.7,
+        1.0
+      ],
+      "options": {
+        "width": 1.8,
+        "height": 1.6,
+        "y": 1.2,
+        "seed": 3,
+        "missing": true
+      },
+      "after": {
+        "flag": "puzzle_lanterns"
+      }
+    },
+    {
+      "type": "tileDecay",
+      "id": "hub_tiles_side",
+      "at": [
+        1.0,
+        3.6
+      ],
+      "rotation": 90,
+      "options": {
+        "width": 1.2,
+        "height": 1.0,
+        "y": 0.9,
+        "seed": 8,
+        "missing": true
+      },
+      "after": {
+        "flag": "puzzle_lanterns"
+      }
+    },
+    {
+      "type": "fallenTiles",
+      "id": "hub_fallen",
+      "at": [
+        1.6,
+        1.2
+      ],
+      "options": {
+        "seed": 5
+      },
+      "after": {
+        "flag": "puzzle_lanterns"
+      }
     }
   ],
   "lights": [
@@ -88,7 +211,24 @@
       "height": 2.4,
       "color": "#e6fff0",
       "intensity": 3.2,
-      "distance": 7
+      "distance": 7,
+      "until": {
+        "flag": "puzzle_lanterns"
+      }
+    },
+    {
+      "type": "point",
+      "at": [
+        3.0,
+        3.2
+      ],
+      "height": 2.4,
+      "color": "#e6fff0",
+      "intensity": 1.76,
+      "distance": 7,
+      "after": {
+        "flag": "puzzle_lanterns"
+      }
     }
   ],
   "spawns": {
@@ -118,7 +258,8 @@
         "level": "orphanage_wing",
         "spawn": "landing",
         "prompt": "prompt.leave",
-        "afterBasics": true
+        "afterBasics": true,
+        "returns": true
       }
     }
   ],

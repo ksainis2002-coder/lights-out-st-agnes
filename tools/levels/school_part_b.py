@@ -186,6 +186,10 @@ def flat(L, fl):
     L.prop(fl, 'gramophone', 1.9, 0.7, 150, y=0.6)
     L.prop(fl, 'wardrobe', 0.32, 4.0, 90)
     L.prop(fl, 'washstand', 5.8, 3.8, -90)
+    # A door home (owner pick 1a, 2026-10-27), as in the staff room downstairs.
+    L.prop(fl, 'hubDoorway', 6, 2.5, -90, extra={"id": "home_flat", "use": "travel", "prompt": "prompt.goHome",
+                                                 "to": {"level": "patient_room", "spawn": "door", "back": "home_flat"},
+                                                 "useHeight": 1.2, "useRadius": 0.8})
     L.light(fl, 2.6, 0.8, 1.2, 2.8, 6, WARM)
 
 
@@ -246,7 +250,8 @@ def level():
         "legend": {".": "floor", "#": "schoolWall"},
         "map": grid(),
         "spawns": {"default": main_spawn, "main_stairs": main_spawn,
-                   "back_stairs": {"cell": [26.5, 8.1], "yawDegrees": 180}},
+                   "back_stairs": {"cell": [26.5, 8.1], "yawDegrees": 180},
+                   "home_flat": {"cell": [42, 6], "yawDegrees": 90}},
         "rooms": rooms, "doors": DOORS, "triggers": [],
         "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],

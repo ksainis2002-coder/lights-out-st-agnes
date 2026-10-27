@@ -5,6 +5,7 @@ import { doorInteractables, applyDoorProgress } from './levels/doorUse.js';
 import { createPickups } from './items/pickups.js';
 import { propInteractables } from './props/usable.js';
 import { puzzleInteractables } from './puzzles/index.js';
+import { withChanges } from './levels/changes.js';
 
 export function setupLevelFlow(game) {
   let usable = [];
@@ -12,8 +13,8 @@ export function setupLevelFlow(game) {
   game.interaction.addSource(() => usable);
 
   game.loadLevel = (id, spawnName = 'default') => {
-    const data = LEVELS[id];
-    if (!data) throw new Error(`Unknown level "${id}"`);
+    if (!LEVELS[id]) throw new Error(`Unknown level "${id}"`);
+    const data = withChanges(LEVELS[id], game.progress); // what has changed there since
     const level = game.world.loadLevel(data);
     applyDoorProgress(level, game.progress);
     game.player.setLevel(level, level.spawns[spawnName] ?? level.spawn);
@@ -28,13 +29,16 @@ export function setupLevelFlow(game) {
   };
 
   // Travel fades to black, swaps the level, then fades back in. While it
-  // runs the player cannot move (game.isTravelling()).
+  // runs the player cannot move (game.isTravelling()). `back` names a spawn
+  // here: the way out of the level you arrive in can bring you back to it
+  // (the hub's door, after a door home in the school; doorUse.js "returns").
   const FADE_OUT = 0.35;
   const FADE_IN = 0.6;
   let trip = null;
 
-  game.travel = (id, spawnName) => {
+  game.travel = (id, spawnName, back = null) => {
     if (trip) return;
+    if (back) game.progress.setValue(`back_${id}`, { level: game.world.level.id, spawn: back });
     trip = { id, spawnName, t: 0, loaded: false };
     game.events.emit('level.leaving', { id, spawn: spawnName }); // the watcher may follow (ai/watcherFloors.js)
   };

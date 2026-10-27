@@ -465,6 +465,11 @@ def school():
     L.prop(stf, 'radiator', 3.0, 6, 180)
     L.prop(stf, 'noticeBoard', 4.0, 0)
     L.prop(stf, 'typewriter', 2.0, 3.4, y=0.77)
+    # A door home (owner pick 1a, 2026-10-27): the patient room's own door in
+    # the east wall, its tiles round it; through it to the hub and back here.
+    L.prop(stf, 'hubDoorway', 6, 4.5, -90, extra={"id": "home_staff", "use": "travel", "prompt": "prompt.goHome",
+                                                  "to": {"level": "patient_room", "spawn": "door", "back": "home_staff"},
+                                                  "useHeight": 1.2, "useRadius": 0.8})
     L.document(stf, 'unsent_letter', 2.75, 3.55, 0.77, 15)
     L.pickup(stf, 'staff_battery', 'battery', 3.4, 3.35, y=0.77)
     L.light(stf, 5.2, 1.6, 1.2, 2.2, 6, WARM)
@@ -508,6 +513,7 @@ def school():
         "map": grid,
         # Coming down: at the foot of each stairs (a spawn's cell is the corner of the cell it stands in the middle of).
         "spawns": {"default": {"cell": [30, 16], "yawDegrees": 0}, "front_door": {"cell": [30, 16], "yawDegrees": 0},
+                   "home_staff": {"cell": [45, 17], "yawDegrees": 90},
                    "main_stairs": {"cell": [28.2, 18.1], "yawDegrees": -45}, "back_stairs": {"cell": [26.5, 9.1], "yawDegrees": 180}},
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],

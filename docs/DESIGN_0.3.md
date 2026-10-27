@@ -504,6 +504,22 @@ lines are in the content sheet.
   reshot to match. New props: `hubDoorway` and `crayonHouse`
   (`src/props/hubDoor.js`); `tileDecay` takes `missing: false` for stains only.
 
+## Doors home and the hub's changes as built (0.2.44)
+- Doors home: the patient room's own door (`hubDoorway`, its pale green tiles round it) in the
+  staff room's east wall by the tape recorder and in the headmaster's flat between bed and
+  washstand: "Go back to your room". Through it you arrive inside your room's door; your room's
+  door ("Leave the room") then takes you back out where you came in. In from the landing it goes
+  to the landing, as before; a new game starts with the landing.
+- How: a travel's "back" names a spawn to come back to (`home_staff`, `home_flat`, the landing),
+  kept in the save as `back_<level>`; the hub door's exit has "returns" (`src/levelFlow.js`,
+  `src/levels/doorUse.js`). The watcher never follows into your room (no arrivals there).
+- The hub changes (`src/levels/changes.js`): props and lights in level data may carry "after"
+  and "until" story flags; a level is read as things stand each time you arrive. After the
+  hopscotch (`puzzle_hopscotch`): Maggie skipping beside the horse ("It wasn't here before.").
+  Once the storm starts (`puzzle_records`): damp down the tiles and the door's pane cracked.
+  After the cemetery (`puzzle_lanterns`, part C): tiles gone, some on the floor, the lamp at about
+  half. No save change: flags were already saved.
+
 ## Buildings outside (0.2.43, the owner's note of 2026-10-27)
 - The note: from outside the buildings looked as if they had no depth from the side. The map only
   draws a wall where open ground meets it, so each building was its facade alone: a flat wall

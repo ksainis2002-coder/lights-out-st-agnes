@@ -291,7 +291,8 @@
    "exit": {
     "level": "patient_room",
     "spawn": "door",
-    "prompt": "prompt.stairsUp"
+    "prompt": "prompt.stairsUp",
+    "back": "landing"
    }
   },
   {

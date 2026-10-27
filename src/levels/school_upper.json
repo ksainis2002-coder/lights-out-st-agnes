@@ -57,6 +57,13 @@
     8.1
    ],
    "yawDegrees": 180
+  },
+  "home_flat": {
+   "cell": [
+    42,
+    6
+   ],
+   "yawDegrees": 90
   }
  },
  "rooms": [
@@ -1011,6 +1018,24 @@
     7.8
    ],
    "rotation": -90
+  },
+  {
+   "type": "hubDoorway",
+   "at": [
+    43,
+    6.5
+   ],
+   "rotation": -90,
+   "id": "home_flat",
+   "use": "travel",
+   "prompt": "prompt.goHome",
+   "to": {
+    "level": "patient_room",
+    "spawn": "door",
+    "back": "home_flat"
+   },
+   "useHeight": 1.2,
+   "useRadius": 0.8
   },
   {
    "type": "stairHead",

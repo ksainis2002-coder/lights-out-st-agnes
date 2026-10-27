@@ -50,6 +50,13 @@
    ],
    "yawDegrees": 0
   },
+  "home_staff": {
+   "cell": [
+    45,
+    17
+   ],
+   "yawDegrees": 90
+  },
   "main_stairs": {
    "cell": [
     28.2,
@@ -2217,6 +2224,24 @@
     16.4
    ],
    "y": 0.77
+  },
+  {
+   "type": "hubDoorway",
+   "at": [
+    46,
+    17.5
+   ],
+   "rotation": -90,
+   "id": "home_staff",
+   "use": "travel",
+   "prompt": "prompt.goHome",
+   "to": {
+    "level": "patient_room",
+    "spawn": "door",
+    "back": "home_staff"
+   },
+   "useHeight": 1.2,
+   "useRadius": 0.8
   }
  ],
  "lights": [

@@ -3,6 +3,9 @@
 // usable until revealed. Door changes are recorded in game.progress.
 //   "requires": "<flag>"      stays locked until the flag is set; using it
 //                             shows "lockedMessage" (the garden door: wing 1 done)
+//   "exit": { ..., "back": "<spawn>" }  remembers this spot as the way back
+//   "exit": { ..., "returns": true }    leads back the way you came in, if
+//                             that was a door with "back" (the hub's door)
 //   an exit to a level that is not built yet says "Not yet"
 import * as THREE from 'three';
 import { itemDef, itemText } from '../items/catalog.js';
@@ -29,7 +32,8 @@ export function doorInteractables(game) {
   }
 
   const waiting = (door) => door.requires && !progress.hasFlag(door.requires);
-  const notBuilt = (door) => door.exit && !LEVELS[door.exit.level];
+  const exitOf = (door) => (door.exit?.returns && progress.getValue(`back_${level.id}`)) || door.exit;
+  const notBuilt = (door) => door.exit && !LEVELS[exitOf(door).level];
 
   function toggle(door) {
     door.open = !door.open;
@@ -62,7 +66,7 @@ export function doorInteractables(game) {
         if (waiting(door)) return refuse(door, door.lockedMessage);
         if (notBuilt(door)) return null;
         if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return null;
-        if (door.exit) return game.travel(door.exit.level, door.exit.spawn);
+        if (door.exit) return game.travel(exitOf(door).level, exitOf(door).spawn, door.exit.back);
         if (door.locked && !game.hasItem(door.locked)) return game.events.emit('door.locked', door);
         if (door.locked) unlock(door);
         toggle(door);

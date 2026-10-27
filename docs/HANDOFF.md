@@ -180,7 +180,8 @@ the hub's open door, or a crayon-marked safe room instead; the hub after parts A
 picked doors home in the staff room and the flat, and the hub changing after each part (1a, 2a).
 **Buildings outside (0.2.43):** the owner's note on the part C stills is fixed: bodies behind the
 facades with side walls, windows, slate roofs and chimneys (see "Buildings outside" in
-`docs/DESIGN_0.3.md`); before/after stills sent for a y/n. Next: the doors home and the hub's
-changes, then the cemetery puzzle and the watcher outside.
+`docs/DESIGN_0.3.md`); before/after stills sent for a y/n.
+**Doors home and the hub's changes (0.2.44):** built as picked (see "Doors home and the hub's
+changes as built"). Next: the cemetery puzzle (sets `puzzle_lanterns`), the watcher outside.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
