@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.41 — Stills for getting back to the patient room and for the hub changing as you play. Owner's picks: the hub's own door set into the staff room and the headmaster's flat (leaving the hub by its door takes you back there), and the hub a little worse after each part of the school. The hub's damp stains redrawn with ragged edges.
 - 0.2.40 — School wing, part C stills (approved by the owner): the cemetery gate, the five grave lanterns (unlit, three lit, snuffed after a wrong order), Agnes's slab open on the stone lamb, taking the lamb, T. Hale's file page 2, the watcher in the gateway in the storm and at the chapel door, and the hub on your return (a new drawing, damp and fallen tiles, a cracked door pane). New props for them.
 - 0.2.39 — Easier reading (owner request): the journal, maps, documents and close-ups are drawn three times finer, without the VHS colour bleed and with lighter scanlines; the game view keeps the full tape look. Long document bylines shrink to fit on the paper. Two new tests.
 - 0.2.38 — School wing sounds, priority 1: the owner's 49 files now play in place of the stand-ins (the watcher's grind and breath, the drone, Maggie's hum, the rope, chalk, desks, the lock and drawers, the bell, banging doors, the projector, close thunder, outdoor rain and wind, gravel and grass steps, the gates, the classrooms' room tone), each about as loud as the stand-in it replaced. The sound script can now cut single hits exactly. Three new sound tests.

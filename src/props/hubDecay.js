@@ -18,20 +18,35 @@ function seeded(seed) {
 
 const TILE_PX = 8; // one wall tile in the decay texture (32 px a metre)
 
+// Damp spreading down from a ragged, rounded tide line, darkest at the top;
+// its sides wander a pixel at a time.
+function drawStain(g, edge, left, width, length) {
+  let x0 = left;
+  let x1 = left + width;
+  const top = Math.floor(edge() * 5);
+  for (let y = top; y < length; y++) {
+    x0 += Math.round((edge() - 0.5) * 2);
+    x1 += Math.round((edge() - 0.5) * 2);
+    const inset = Math.max(0, 3 - (y - top)) * 2;
+    g.fillStyle = `rgba(78,60,30,${(0.7 * (1 - y / length)).toFixed(2)})`;
+    g.fillRect(x0 + inset, y, x1 - x0 - inset * 2, 1);
+  }
+}
+
 // Damp stains running down from the top, a few tiles gone (bare plaster
 // with a dark edge) and cracks between them. Transparent elsewhere.
-function decayTexture(seed) {
+function decayTexture(seed, missing) {
   return canvasTexture(64, 48, (g, w, h) => {
     const random = seeded(seed);
     g.clearRect(0, 0, w, h);
+    const edge = seeded(seed + 100); // the ragged edges, apart from the layout
     for (let i = 0; i < 3; i++) {
       const x = 8 + random() * (w - 16);
-      const stain = g.createLinearGradient(0, 0, 0, h * (0.5 + random() * 0.5));
-      stain.addColorStop(0, 'rgba(78,60,30,0.7)');
-      stain.addColorStop(1, 'rgba(84,66,34,0)');
-      g.fillStyle = stain;
-      g.fillRect(x - 6 - random() * 6, 0, 10 + random() * 10, h);
+      const length = h * (0.5 + random() * 0.5);
+      const left = Math.round(x - 6 - random() * 6);
+      drawStain(g, edge, left, Math.round(10 + random() * 10), length);
     }
+    if (!missing) return; // stains only, the tiles still on the wall
     for (let i = 0; i < 8; i++) {
       const x = Math.floor(random() * (w / TILE_PX)) * TILE_PX;
       const y = Math.floor(random() * (h / TILE_PX)) * TILE_PX;
@@ -55,8 +70,8 @@ function decayTexture(seed) {
 }
 
 // On a wall, facing +z (origin on the wall line, centre at height y).
-function tileDecay(t, { width = 1.6, height = 1.2, y = 1.3, seed = 3 } = {}) {
-  return group(decal(decayTexture(seed), [width, height], [0, y, 0.01], { transparent: true }));
+function tileDecay(t, { width = 1.6, height = 1.2, y = 1.3, seed = 3, missing = true } = {}) {
+  return group(decal(decayTexture(seed, missing), [width, height], [0, y, 0.01], { transparent: true }));
 }
 
 // Broken tiles on the floor under a bare patch.

@@ -476,6 +476,32 @@ lines are in the content sheet.
   `fallenTiles`, `doorPane` (`src/props/hubDecay.js`); a `skipping` children's drawing. The stills
   page draws paper screens three times finer, as the game does.
 
+## Doors home and the hub changing (0.2.41, picked 2026-10-27: 1a, 2a)
+- Owner 2026-10-27: the patient room is the only safe place, so either add a safe space in the
+  school or, better, connect each part to the hub, so the player keeps seeing the room change.
+  "Show me the stills first then ill choose." Seven stills in `docs/mockups/stills-0.3/`
+  (`src/mockups/doorsHomeStills.js`):
+  - 1a, doors home: door_home_staff (the hub's own door in the staff room's east wall by the tape
+    recorder, a ragged patch of its pale green tiles round it); door_home_flat (the same in the
+    headmaster's flat, between bed and washstand); door_home_open (leaving the hub by its door,
+    you walk out into the staff room: the school's real ground floor is built behind the hub,
+    turned to meet the doorway). Part C would use the garden door.
+  - 1c instead: safe_room_staff (the staff room as part A's safe room, the map's green crayon
+    house drawn on its door at a child's height).
+  - 2a, the hub a little worse after each part: hub_after_A (Maggie's skipping drawing),
+    hub_after_B (damp stains), hub_after_C (tiles gone, cracks, the lamp weaker; the same as the
+    approved hub_return). 2b would be only the last, all at once after the wing.
+- Picks asked: 1) a) doors home in the staff room and the flat · b) other rooms · c) a safe room in
+  each part; 2) a) the room changes after each part · b) once, after the wing.
+- Owner 2026-10-27: "1a,2a". Doors home in the staff room (part A) and the headmaster's flat (part
+  B); after the cemetery (part C) the way home is the garden door to the landing. The hub changes a
+  little after each part: A, the skipping drawing; B, damp stains and the cracked door panel; C,
+  tiles gone and the lamp weaker. Not answered yet: whether to fix the dark green band of wall
+  paint showing over school doors (door lintels).
+- The damp stains were redrawn with ragged edges (they read as brown boards); hub_return is
+  reshot to match. New props: `hubDoorway` and `crayonHouse`
+  (`src/props/hubDoor.js`); `tileDecay` takes `missing: false` for stains only.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

@@ -173,5 +173,11 @@ puzzle, the lamb and file page 2, the watcher outside and at the chapel, and the
 (0.2.40; see "Part C stills" in `docs/DESIGN_0.3.md`). All approved (2026-10-27), with the hub's
 skipping girl as its only new drawing and its decay as drawn. Next: build part C, starting with the
 owner's note that the buildings outside have no depth from the side.
+**Doors home (2026-10-27):** the owner asked whether the school has a safe room and wants each part
+connected to the hub so its changes stay in view. Proposal stills (0.2.41; see "Doors home" in
+`docs/DESIGN_0.3.md`): the hub's door in the staff room and the head's flat, the staff room through
+the hub's open door, or a crayon-marked safe room instead; the hub after parts A, B and C. The owner
+picked doors home in the staff room and the flat, and the hub changing after each part (1a, 2a).
+Next: build part C with them, starting with the buildings' depth.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

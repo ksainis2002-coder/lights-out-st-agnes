@@ -19,6 +19,7 @@ import { CHALK_PROPS } from './chalkBoard.js';
 import { UPSTAIRS_PROPS } from './upstairs.js';
 import { CEMETERY_PROPS } from './cemetery.js';
 import { HUB_PROPS } from './hubDecay.js';
+import { HUB_DOOR_PROPS } from './hubDoor.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -340,4 +341,5 @@ export const PROPS = {
   ...UPSTAIRS_PROPS,
   ...CEMETERY_PROPS,
   ...HUB_PROPS,
+  ...HUB_DOOR_PROPS,
 };
