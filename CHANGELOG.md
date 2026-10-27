@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.45 — Test fix: the storm test now allows a third strike when both waits are short (it expected exactly two in 56 s, which was never certain).
 - 0.2.44 — Doors home: the patient room's own door now stands in the staff room and the headmaster's flat; through it to your room, and your room's door takes you back where you came in. The room changes a little after each part of the school: a new drawing, then damp and a cracked pane, then fallen tiles and a weaker lamp.
 - 0.2.43 — Fix: the buildings round the courtyard have depth from outside: behind each facade, side walls with windows, a slate roof and chimneys (the owner's note on the part C stills).
 - 0.2.42 — Fix: lightning comes every 20–40 s counted from one strike to the next; the wait used to stand still during each strike and its thunder, so two strikes could be up to 43 s apart.

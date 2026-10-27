@@ -45,10 +45,13 @@ test('the storm waits for the records drawer; then lightning every 20 to 40 s, t
   expect(first[1].at - first[0].at).toBeGreaterThanOrEqual(0.98);
   expect(first[1].at - first[0].at).toBeLessThanOrEqual(3.05);
   await game(page, () => window.__stAgnes.advance(42));
+  // 46 s or more after the first: a second strike for sure, a third if both waits were short.
   const strikes = (await heard(page)).filter((e) => e.name === 'storm.lightning');
-  expect(strikes.length).toBe(2);
-  expect(strikes[1].at - strikes[0].at).toBeGreaterThanOrEqual(19.95);
-  expect(strikes[1].at - strikes[0].at).toBeLessThanOrEqual(40.05);
+  expect(strikes.length).toBeGreaterThanOrEqual(2);
+  strikes.slice(1).forEach((strike, i) => {
+    expect(strike.at - strikes[i].at).toBeGreaterThanOrEqual(19.95);
+    expect(strike.at - strikes[i].at).toBeLessThanOrEqual(40.05);
+  });
   expect(errors).toEqual([]);
 });
 

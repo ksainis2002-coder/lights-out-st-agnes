@@ -403,6 +403,8 @@ lines are in the content sheet.
 - Not yet: the watcher outside in the storm (part C).
 - Fix (0.2.42): the 20–40 s wait runs from one strike to the next, through the flash and the
   thunder; it used to stand still during them, so a gap could reach 43 s.
+- Test fix (0.2.45): two short waits fit a third strike in the test's window; it now checks every
+  gap is 20–40 s instead of counting exactly two.
 
 ## The watcher between floors, the part B route (0.2.35)
 - `src/ai/watcherFloors.js`: she hunts one floor at a time (progress value `watcher_floor`; at
