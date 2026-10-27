@@ -17,6 +17,8 @@ import { ENTRANCE_PROPS } from './entrance.js';
 import { CLOAKROOM_PROPS } from './cloakroom.js';
 import { CHALK_PROPS } from './chalkBoard.js';
 import { UPSTAIRS_PROPS } from './upstairs.js';
+import { CEMETERY_PROPS } from './cemetery.js';
+import { HUB_PROPS } from './hubDecay.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -336,4 +338,6 @@ export const PROPS = {
   ...CLOAKROOM_PROPS,
   ...CHALK_PROPS,
   ...UPSTAIRS_PROPS,
+  ...CEMETERY_PROPS,
+  ...HUB_PROPS,
 };

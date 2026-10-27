@@ -22,7 +22,7 @@ function outdoors(world) {
 }
 
 // A lightning flash: sky, fog and ambient light go pale blue-white for an instant.
-function flash(world) {
+export function flash(world) {
   const sky = 0x56627a;
   world.scene.background = new THREE.Color(sky);
   world.scene.fog = new THREE.FogExp2(sky, 0.028);

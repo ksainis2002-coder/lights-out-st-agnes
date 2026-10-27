@@ -451,6 +451,31 @@ lines are in the content sheet.
 - A document's byline shrinks (down to 6 px) to fit on the paper: the inspector's report, and
   Dr. Venn's letter in Greek, ran off its edge.
 
+## Part C stills (0.2.40, approved 2026-10-27)
+- Owner 2026-10-27: start part C stills. Eleven stills in `docs/mockups/stills-0.3/`
+  (`src/mockups/partCStills.js`), staged on the game's own grounds level and the hub:
+  cemetery_gate (through the open gate in the rain, the children's graves ahead); lanterns (an
+  unlit lantern at the foot of each child's grave, "Light the lantern" with the matches);
+  lanterns_lit (three lit in the order of the roll); lanterns_out (a wrong order: smoke and "The
+  flames shrink and go out, all of them."); agnes_slab (all five burn, her slab pushed aside,
+  "All five burn steady. Stone grinds under the small grave with no surname."); lamb_take (the
+  stone lamb in the hollow, file page 2 behind it, "Take Stone lamb" and its short line);
+  ui_filePage2 (T. Hale's file, page 2, content sheet text); watcher_storm (a flash: she stands in
+  the gateway behind you); watcher_chapel (afterwards she waits at the chapel door, facing it);
+  hub_return (Maggie skipping drawn beside the horse, damp stains and fallen tiles, the lamp
+  weaker); hub_door (proposal: a small wired-glass panel in the door, cracked).
+- Read against the hub as built: it already has a horse drawing (since wing 1), it has no
+  window and its walls are tiled. So the plan's "a horse, a skipping girl" shows only the girl as
+  new; "peeling paint" shows as stained and fallen tiles; "a cracked pane" as the door's
+  panel. Owner 2026-10-27: all eleven approved; only the skipping girl is new (the horse stays
+  the one drawing from wing 1); the decay as drawn, the cracked door panel included.
+- Owner note the same day: from outside, the buildings look as if they have no depth from the
+  side (flat walls ending in an edge, no roof). Fix it when building part C.
+- New props, used by the stills now and by part C later: `graveSlab` (closed or open, with the
+  lamb and a folded page), `stoneLamb`, `lanternSmoke` (`src/props/cemetery.js`); `tileDecay`,
+  `fallenTiles`, `doorPane` (`src/props/hubDecay.js`); a `skipping` children's drawing. The stills
+  page draws paper screens three times finer, as the game does.
+
 ## Part A performance (0.2.23)
 - Highest of four directions per room at 320×180 (software renderer, so no fps), with every board
   written and Class 1's desks turned: outdoors 52–74 draw calls; school hall 174, music 178,

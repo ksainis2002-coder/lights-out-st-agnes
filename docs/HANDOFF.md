@@ -168,5 +168,10 @@ the storm, the hub's drawings and decay), stills first.
 by `tools/process-sounds.mjs` (new `cut` mode for single hits; `start` and `maxLength` per source) and
 play in place of the stand-ins, each about as loud as the stand-in it replaced (0.2.38). Waiting on the
 owner: the download links and a CC0 check (the CREDITS rows say "link to come"). Next sounds: priority 2.
+**Part C stills (2026-10-27):** the owner asked to start part C. Eleven stills of the cemetery
+puzzle, the lamb and file page 2, the watcher outside and at the chapel, and the hub on your return
+(0.2.40; see "Part C stills" in `docs/DESIGN_0.3.md`). All approved (2026-10-27), with the hub's
+skipping girl as its only new drawing and its decay as drawn. Next: build part C, starting with the
+owner's note that the buildings outside have no depth from the side.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

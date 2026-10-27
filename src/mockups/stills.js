@@ -13,6 +13,7 @@ import { PART_A_STILLS } from './partAStills.js';
 import { CLOSE_UP_STILLS } from './closeUpStills.js';
 import { PART_A3_STILLS } from './partA3Stills.js';
 import { PART_B_STILLS } from './partBStills.js';
+import { PART_C_STILLS } from './partCStills.js';
 import { mapMarks } from './mapUi.js';
 import patientRoom from '../levels/patient_room.json';
 import dorms from '../levels/dorms.json';
@@ -107,6 +108,7 @@ const STILLS = {
   ...CLOSE_UP_STILLS,
   ...PART_A3_STILLS,
   ...PART_B_STILLS,
+  ...PART_C_STILLS,
   // Owner requests (wing 1): the washroom and linen cupboard furnished, and the
   // quiet room marked by the child kept in it. Real level, flashlight on.
   room_washroom: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [11.9, 1.6, 17.4], 129, -10) },
@@ -131,8 +133,9 @@ async function render() {
   const still = STILLS[name];
   const canvas = document.getElementById('game');
   const ui = document.createElement('canvas');
-  ui.width = W;
-  ui.height = H;
+  const scale = still.look === 'paper' ? 3 : 1; // paper screens draw three times finer, as in the game
+  ui.width = W * scale;
+  ui.height = H * scale;
   const pipeline = createPipeline(canvas, ui);
   const world = createWorld(still.level);
   still.setup({ world, fx: pipeline.fx });
@@ -149,6 +152,7 @@ async function render() {
     world.camera.updateMatrixWorld();
   }
   const ctx = ui.getContext('2d');
+  ctx.setTransform(scale, 0, 0, scale, 0, 0);
   still.ui?.(ctx);
   for (let i = 0; i < 4; i++) {
     pipeline.render(world.scene, world.camera, { look: still.look ?? 'game', time: 1.7, uiDirty: true });
