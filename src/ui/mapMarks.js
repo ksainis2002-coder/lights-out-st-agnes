@@ -1,11 +1,12 @@
 // Marks on the paper map (owner request 2026-10-14, approved still
 // ui_mapMarks): you (red crayon X), tape recorders you have come across (ink
-// cassette), safe places (green crayon house: the way up to your room, and
-// hiding rooms once you have been in them), and puzzles you have tried but
+// cassette), safe places (green crayon house: the ways to your room, its own
+// door set into a wall in the school included, and hiding rooms once you
+// have been in them), and puzzles you have tried but
 // not solved yet (blue crayon ring with what it is). A solved puzzle's ring
 // is gone. A key explains them in an empty corner of each map.
-// Level data: a door whose exit leads to a "safe" level, rooms with
-// "safe": true, recorders as props with "use": "save" and an "id", puzzles
+// Level data: a door (or a prop with "use": "travel") that leads to a "safe"
+// level, rooms with "safe": true, recorders as props with "use": "save" and an "id", puzzles
 // by name, and the map entry's "key": [c, r] for the key's corner. A
 // recorder or puzzle takes "mapAt": [c, r] to place its mark by hand (clear
 // of a room's name).
@@ -20,6 +21,12 @@ const BLUE = '#2f4f9a';
 const SIDES = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
 const isFloor = (data, col, row) => data.legend[data.map[row]?.[col]] === 'floor';
+
+// A little into the room a wall prop faces (a door home: rotation -90 faces west).
+function inFront({ at, rotation = 0 }) {
+  const turn = (rotation * Math.PI) / 180;
+  return [at[0] + Math.sin(turn) * 0.6, at[1] + Math.cos(turn) * 0.6];
+}
 
 // Just outside a door, on the side away from the level's floor.
 function outside(data, [col, row]) {
@@ -50,6 +57,7 @@ export function mapMarks(game, mapId) {
   const marks = [];
   for (const prop of data.props ?? []) {
     if (prop.use === 'save' && prop.id && progress.hasFlag(`seen_${prop.id}`)) marks.push({ kind: 'recorder', at: prop.mapAt ?? prop.at });
+    if (prop.use === 'travel' && LEVELS[prop.to?.level]?.safe) marks.push({ kind: 'safe', at: prop.mapAt ?? inFront(prop) });
   }
   for (const door of data.doors ?? []) {
     if (LEVELS[door.exit?.level]?.safe) marks.push({ kind: 'safe', at: outside(data, door.cell) });

@@ -51,6 +51,13 @@ test('map marks: the stairs up to your room are safe; a tape recorder shows once
   expect(seen.after.sort()).toEqual(['recorder', 'safe']);
 });
 
+test('map marks: the doors home in the staff room and the flat are safe places', async ({ page }) => {
+  const safe = await page.evaluate(() => ['school_ground', 'school_upper'].map((map) => window.__stAgnes.mapMarks(map)
+    .filter((mark) => mark.kind === 'safe').map(({ at }) => at.map((v) => Math.round(v * 10) / 10))));
+  expect(safe[0]).toContainEqual([45.4, 17.5]); // the staff room's east wall
+  expect(safe[1]).toContainEqual([42.4, 6.5]); // the flat's east wall
+});
+
 test('map marks: a puzzle is ringed after you first try it, and the ring goes once it is solved', async ({ page }) => {
   await page.evaluate(() => window.__stAgnes.loadLevel('orphanage_wing', 'landing'));
   expect(kinds(await marks(page))).not.toContain('puzzle:music');
