@@ -506,6 +506,21 @@ lines are in the content sheet.
   reshot to match. New props: `hubDoorway` and `crayonHouse`
   (`src/props/hubDoor.js`); `tileDecay` takes `missing: false` for stains only.
 
+## The part C route and performance (0.2.49)
+- Bot route `tests/bot-routes/grounds_part_c.json` (starting after part B: the gate key, the matches,
+  the storm on, Maggie's rope given, the watcher awake indoors): across the courtyard, the gate
+  unlocked, in, and the gate shut behind you (closed doors stop her: she comes to the gateway and
+  waits outside it); the five lanterns in the order of the roll, the lamb, file page 2; out by the
+  gate (she has gone to the chapel door), the garden door, the landing's stairs to your room. About
+  46 s of game time at bot pace, no collapses, sanity no lower than 89; the school wing done.
+- Outdoors, the highest of four directions per spot (320×180, software renderer, the storm on, the
+  lanterns lit, the slab open, her outside): courtyard 113 draw calls, cemetery 75, road 111,
+  garden door 139, school door 103, by the gate 111; at most 19.5k triangles; 9 point lights. Up
+  from 52–74 in 0.2.23: the building bodies (4), the five lanterns (8 parts each), the open slab,
+  the lamb, her statue. Still well under the school's rooms (up to 322); if the playtest laptop
+  struggles outside, merge each lantern's iron parts first.
+- The paper map marks the doors home (0.2.48) with the green house, like the stairs up to your room.
+
 ## The watcher outside as built (0.2.47)
 - `src/ai/watcherOutside.js`, data in the grounds' "watcher" (generator): before the storm the
   grounds hold only the still statue of the courtyard (until you have been inside). Once the

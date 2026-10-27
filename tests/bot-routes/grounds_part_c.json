@@ -1,0 +1,236 @@
+{
+ "id": "grounds_part_c",
+ "level": "grounds",
+ "given": {
+  "flags": [
+   "watcher_awake",
+   "puzzle_records",
+   "tool_flashlight",
+   "visited_entrance_hall",
+   "puzzle_hopscotch",
+   "name_maggie",
+   "set_bell",
+   "set_roll_call",
+   "set_film"
+  ],
+  "items": [
+   "gate_key",
+   "matches"
+  ]
+ },
+ "steps": [
+  {
+   "skipTutorial": true
+  },
+  {
+   "tap": "flashlight"
+  },
+  {
+   "cell": [
+    10.0,
+    10.5
+   ]
+  },
+  {
+   "use": [
+    10.5,
+    9.5
+   ],
+   "y": 1.0,
+   "expect": "prompt.unlock"
+  },
+  {
+   "cell": [
+    10.0,
+    9.0
+   ]
+  },
+  {
+   "cell": [
+    10.0,
+    7.9
+   ]
+  },
+  {
+   "use": [
+    10.5,
+    9.5
+   ],
+   "y": 1.0,
+   "expect": "prompt.close"
+  },
+  {
+   "cell": [
+    12.35,
+    7.5
+   ]
+  },
+  {
+   "cell": [
+    12.35,
+    4.35
+   ]
+  },
+  {
+   "cell": [
+    11.461,
+    4.348
+   ]
+  },
+  {
+   "use": [
+    11.961,
+    5.448
+   ],
+   "y": 0.15,
+   "expect": "prompt.lightLantern"
+  },
+  {
+   "cell": [
+    8.82,
+    4.587
+   ]
+  },
+  {
+   "use": [
+    9.32,
+    5.687
+   ],
+   "y": 0.15,
+   "expect": "prompt.lightLantern"
+  },
+  {
+   "cell": [
+    7.939,
+    4.348
+   ]
+  },
+  {
+   "use": [
+    8.439,
+    5.448
+   ],
+   "y": 0.15,
+   "expect": "prompt.lightLantern"
+  },
+  {
+   "cell": [
+    10.58,
+    4.587
+   ]
+  },
+  {
+   "use": [
+    11.08,
+    5.687
+   ],
+   "y": 0.15,
+   "expect": "prompt.lightLantern"
+  },
+  {
+   "cell": [
+    9.7,
+    4.833
+   ]
+  },
+  {
+   "use": [
+    10.2,
+    5.933
+   ],
+   "y": 0.15,
+   "expect": "prompt.lightLantern"
+  },
+  {
+   "wait": 2
+  },
+  {
+   "cell": [
+    12.35,
+    4.35
+   ]
+  },
+  {
+   "cell": [
+    12.12,
+    5.15
+   ]
+  },
+  {
+   "use": [
+    11.99,
+    5.646
+   ],
+   "y": 0.12,
+   "expect": "prompt.take"
+  },
+  {
+   "use": [
+    12.08,
+    5.845
+   ],
+   "y": 0.07,
+   "expect": "prompt.read"
+  },
+  {
+   "cell": [
+    12.35,
+    7.5
+   ]
+  },
+  {
+   "cell": [
+    10.0,
+    7.9
+   ]
+  },
+  {
+   "use": [
+    10.5,
+    9.5
+   ],
+   "y": 1.0,
+   "expect": "prompt.open"
+  },
+  {
+   "cell": [
+    10.0,
+    9.0
+   ]
+  },
+  {
+   "cell": [
+    10.0,
+    10.1
+   ]
+  },
+  {
+   "cell": [
+    2.0,
+    12.0
+   ]
+  },
+  {
+   "use": [
+    1.0,
+    12.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.goInside"
+  },
+  {
+   "cell": [
+    1.0,
+    11.0
+   ]
+  },
+  {
+   "use": [
+    0.5,
+    11.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.stairsUp"
+  }
+ ]
+}

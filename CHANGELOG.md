@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.49 — A bot route plays part C from the courtyard to your room (the gate shut behind you, the lanterns, the lamb, file page 2); outdoor performance measured.
 - 0.2.48 — The doors home show on the paper map as safe places, with the green house.
 - 0.2.47 — The watcher outside: once the storm starts she comes into the cemetery by its gate behind you, hunts the grounds and follows you through the doors; after you take the lamb she stands at the chapel door, facing it. You now see her through iron gates and railings, and a lightning flash lights her.
 - 0.2.46 — The cemetery puzzle: light the five grave lanterns with the matches in the order the children were struck off the roll; out of turn they all go out. All five, and Agnes's slab slides aside on the stone lamb and T. Hale's file page 2. They finish the school wing with Maggie's rope.

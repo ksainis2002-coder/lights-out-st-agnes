@@ -189,5 +189,9 @@ chapel door, the part C bot route, the doors home on the map.
 **The watcher outside (0.2.47):** she comes into the cemetery by its gate in the storm, hunts the
 grounds, and stands at the chapel door after the lamb (see "The watcher outside as built"). Next:
 the part C bot route and checklist, the doors home on the map.
+**Part C built (2026-10-27):** the doors home show on the paper map (0.2.48); a bot route plays part
+C and the outdoor cost is measured (0.2.49; "The part C route and performance"). The school wing is
+complete. Waiting on the owner: y/n on the buildings' new look, y/n on the green band over school
+doors, the part A, B and C playtests, the sound links. Then the 0.2.x pull request to main.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
