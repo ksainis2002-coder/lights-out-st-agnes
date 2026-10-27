@@ -25,6 +25,7 @@ export function createStorm(game) {
   let rig = null; // this level's flash lights, sky and bolt
   let nextIn = null; // seconds to the next strike, once the storm is on
   let strike = null; // { t, glow, twice, thunderAt, rumbled }
+  let flash = 0; // how bright the flash is now, 0..1 (ai/gaze.js: it lights the watcher)
 
   const flag = () => game.world.level.weather?.storm ?? null;
   const on = () => Boolean(flag()) && game.progress.hasFlag(flag());
@@ -44,6 +45,7 @@ export function createStorm(game) {
   }
 
   function light(k) {
+    flash = k;
     if (!rig) return;
     rig.ambient.intensity = k * (rig.outdoors ? OUTDOOR.ambient : INDOOR.ambient);
     if (!rig.outdoors) return;
@@ -90,6 +92,7 @@ export function createStorm(game) {
 
   game.events.on('level.loaded', () => {
     strike = null;
+    flash = 0;
     build();
   });
   build();
@@ -99,6 +102,7 @@ export function createStorm(game) {
     on,
     strike: () => on() && !strike && start(), // tests: lightning now
     flash: () => ({ light: rig?.ambient.intensity ?? 0, bolt: rig?.bolt?.visible ?? false }), // tests
+    flashLight: () => flash,
     debugLine: () => (flag() ? `STORM  ${on() ? `on, next strike ${Math.round(nextIn ?? 0)}s${strike ? '  (striking)' : ''}` : `waits for ${flag()}`}` : 'STORM  none here'),
   };
 }

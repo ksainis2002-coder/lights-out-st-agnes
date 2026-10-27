@@ -8,6 +8,8 @@
 // drains sanity slowly. Shut in a safe room for a while, she loses you.
 // Level data, "watcher":
 //   "still":  { "at": [c, r], "rotation": 90, "until": "<flag>" }  the courtyard: never moves
+//             (or a list; "afterTaken": "<pickup>" for one that only comes later: the chapel door)
+//   "from":   "<flag>"                                              she hunts here only once it is set
 //   "asleep": { "at": [c, r], "rotation": 0 }                       before her introduction (ai/watcherIntro.js)
 //   "territory": [room ids], "spawns": [[c, r], …]                  where she hunts once awake (flag watcher_awake)
 // She hunts one floor at a time (progress value watcher_floor; ai/watcherFloors.js
@@ -55,6 +57,8 @@ export function createWatcher(game) {
 
   function remove() {
     statue?.parent?.remove(statue);
+    const obstacles = game.world.level?.obstacles;
+    if (obstacles?.includes(obstacle)) obstacles.splice(obstacles.indexOf(obstacle), 1);
     statue = null;
     mode = null;
     warning = null;
@@ -83,18 +87,27 @@ export function createWatcher(game) {
     return [...spots].sort((a, b) => far(b) - far(a))[0];
   }
 
-  // On every level load: the courtyard statue, the sleeping one, or the hunter.
+  // The statue that stands still here now, if any (see "still" above).
+  function stillNow(data) {
+    const { progress } = game;
+    const now = (still) => !(still.until && progress.hasFlag(still.until)) && !(still.afterTaken && !progress.isTaken(still.afterTaken));
+    return [data.still ?? []].flat().find(now) ?? null;
+  }
+
+  // On every level load: a still statue, the sleeping one, or the hunter.
   function setup(level) {
     remove();
     const data = level.watcher;
     if (!data) return;
     const { progress } = game;
-    if (data.still) {
-      if (!progress.hasFlag(data.still.until)) place(level, data.still.at, data.still.rotation);
-      mode = statue ? 'still' : null;
+    const still = stillNow(data);
+    if (still) {
+      place(level, still.at, still.rotation);
+      mode = 'still';
       return;
     }
-    pathing = createPathing(level, data.territory ?? []);
+    if (!data.territory || (data.from && !progress.hasFlag(data.from))) return;
+    pathing = createPathing(level, data.territory);
     route = [];
     lostFor = 0;
     wandering = null;
@@ -282,6 +295,13 @@ export function createWatcher(game) {
       place(level, at);
       mode = 'hunting';
       game.progress.setValue(FLOOR, level.id);
+    },
+    // Done hunting (ai/watcherOutside.js): a statue again, standing where she is put.
+    standStill(at, rotation) {
+      const level = game.world.level;
+      remove();
+      place(level, at, rotation);
+      mode = 'still';
     },
     route: (to) => (pathing ? pathing.route(position, to) : []),
     state: () => ({ mode, x: position.x, z: position.z, seen: gaze.seen, why: gaze.why, warning, catches, lost: Boolean(wandering) }),

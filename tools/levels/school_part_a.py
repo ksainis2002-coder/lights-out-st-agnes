@@ -226,8 +226,17 @@ def grounds():
         "puzzles": {"lanterns": {"lanterns": [f"lantern_{grave}" for grave in roll], "item": "matches", "slab": "agnes_slab",
                                  "mapAt": [10.2, 7.0]}},
         "weather": {"storm": "puzzle_records"},  # lightning once the records drawer is open (levels/storm.js)
-        # St. Agnes on the path, facing the school; gone once you have been inside.
-        "watcher": {"still": {"at": [12.5, 15.0], "rotation": 90, "until": "visited_entrance_hall"}},
+        # St. Agnes on the path, facing the school; gone once you have been inside. Once the storm
+        # starts she hunts out here too: into the cemetery by its gate behind you, and in and out
+        # through the doors after you; after the lamb she stands at the chapel door, facing it
+        # (ai/watcherOutside.js; approved stills watcher_storm, watcher_chapel).
+        "watcher": {"still": [{"at": [12.5, 15.0], "rotation": 90, "until": "visited_entrance_hall"},
+                              {"at": [6.5, 20.27], "rotation": 0, "afterTaken": "agnes_lamb"}],
+                    "from": "puzzle_records", "territory": ["courtyard", "cemetery"],
+                    "spawns": [[10.5, 10.6], [3.0, 13.5], [18.5, 13.5], [10.5, 19.0], [10.5, 3.5], [16.5, 7.5]],
+                    "arrivals": {"school_door": [19.0, 15.5], "garden_door": [2.5, 12.5]},
+                    "outside": {"room": "cemetery", "gateway": [10.5, 10.4], "lamb": "agnes_lamb",
+                                "chapel": {"at": [6.5, 20.27], "rotation": 0}}},
     }
 
 
@@ -559,7 +568,7 @@ def school():
             "territory": ["main_corridor", "library", "gym", "entrance_hall", "back_stairs"],
             "spawns": [lib.at(5.5, 0.8), gym.at(9.5, 1.5), cor.at(43.0, 0.6), cor.at(1.0, 0.6), hall.at(3.5, hz + 2.5)],
             # Following you down (ai/watcherFloors.js): where she comes off each stairs.
-            "arrivals": {"main_stairs": [28.7, 18.6], "back_stairs": [27.0, 9.6]},
+            "arrivals": {"main_stairs": [28.7, 18.6], "back_stairs": [27.0, 9.6], "front_door": [29.5, 16.5]},
         },
         # Maggie's chalk (ghosts/chalk.js): a hint when you are stuck on a puzzle
         # you have tried (the content sheet's lines), now and then a taunt.

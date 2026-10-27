@@ -67,6 +67,7 @@ export function createDebugOverlay(game) {
     if (tricks) lines.push([tricks, COLORS.enemy]);
     for (const enemy of game.enemies ?? []) lines.push([enemy.debugLine(), COLORS.enemy]);
     if (game.watcherFloors) lines.push([game.watcherFloors.debugLine(), COLORS.enemy]);
+    if (game.watcherOutside && game.world.level.watcher?.outside) lines.push([game.watcherOutside.debugLine(), COLORS.enemy]);
     return lines;
   }
 

@@ -1,8 +1,9 @@
 // The player's gaze, for the watcher (design 0.3, owner 2026-10-14): she is
 // seen only when she is on screen, not behind a wall or a closed door, and
-// lit — the flashlight's beam on her, a lamp near her, or within about 2 m.
-// In the dark she counts as unseen; so does she where the fog hides her, and
-// so do the player's blinks (sanity/blink.js).
+// lit — the flashlight's beam on her, a lamp near her, within about 2 m, or
+// a lightning flash. In the dark she counts as unseen; so does she where the
+// fog hides her, and so do the player's blinks (sanity/blink.js). Iron gates
+// and railings hide nothing: you see her through the bars.
 import * as THREE from 'three';
 
 const NEAR = 2; // metres: close enough to see her without a light
@@ -11,6 +12,8 @@ const BEAM_RANGE = 14; // metres
 const LAMP_LIGHT = 0.35; // lamp light at her feet that counts as lit (as sanity/meter.js lightAt)
 const STEP = 0.1; // metres between line-of-sight samples
 const FOG_SEEN = 1.4; // fog density × distance beyond which the fog hides her (about 85%)
+const FLASH_SEEN = 0.3; // a lightning flash this bright lights her (levels/storm.js)
+const SEE_OVER = 1.2; // metres: a wall lower than this (railings) hides nothing
 
 const frustum = new THREE.Frustum();
 const matrix = new THREE.Matrix4();
@@ -31,6 +34,19 @@ export function clearLine(level, from, to) {
   return true;
 }
 
+// As clearLine, but for the eye: through an iron gate, or over railings.
+function sightLine(level, from, to) {
+  const dx = to.x - from.x;
+  const dz = to.z - from.z;
+  const length = Math.hypot(dx, dz);
+  for (let d = STEP; d < length - STEP; d += STEP) {
+    const { col, row } = level.worldToCell(from.x + (dx * d) / length, from.z + (dz * d) / length);
+    const seeThrough = level.doorAt(col, row)?.look === 'gate' || (level.isWall(col, row) && level.wallHeightAt(col, row) < SEE_OVER);
+    if (level.isSolid(col, row) && !seeThrough) return false;
+  }
+  return true;
+}
+
 // How lit she is by the level's lamps, as the sanity meter reckons it, but
 // only from lamps with nothing solid between them and her (a lamp in the next
 // room does not light her through the wall).
@@ -41,7 +57,7 @@ function lampLight(level, at) {
     const from = { x: lamp.at[0] * level.cellSize, z: lamp.at[1] * level.cellSize };
     const distance = Math.hypot(from.x - at.x, from.z - at.z);
     const reach = lamp.distance ?? 8;
-    if (distance >= reach || !clearLine(level, from, at)) continue;
+    if (distance >= reach || !sightLine(level, from, at)) continue;
     light += (1 - distance / reach) * ((lamp.intensity ?? 3) / 3);
   }
   return light;
@@ -54,7 +70,7 @@ export function inView(game, points) {
   const camera = game.world.camera;
   matrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
   frustum.setFromProjectionMatrix(matrix);
-  return points.some((point) => frustum.containsPoint(point) && clearLine(game.world.level, camera.position, point));
+  return points.some((point) => frustum.containsPoint(point) && sightLine(game.world.level, camera.position, point));
 }
 
 // Is the flashlight's beam on this point? The beam points a little below the view.
@@ -80,9 +96,10 @@ export function gazeOn(game, points, base) {
   const level = game.world.level;
   const fog = game.world.scene.fog?.density;
   if (fog && camera.position.distanceTo(base) > FOG_SEEN / fog) return { seen: false, why: 'fog' };
-  if (!visible.some((point) => clearLine(level, camera.position, point))) return { seen: false, why: 'wall' };
+  if (!visible.some((point) => sightLine(level, camera.position, point))) return { seen: false, why: 'wall' };
   if (Math.hypot(camera.position.x - base.x, camera.position.z - base.z) < NEAR) return { seen: true, why: 'near' };
   if (visible.some((point) => inBeam(game, point))) return { seen: true, why: 'torch' };
+  if ((game.storm?.flashLight() ?? 0) >= FLASH_SEEN) return { seen: true, why: 'lightning' };
   if (lampLight(level, base) >= LAMP_LIGHT) return { seen: true, why: 'lamp' };
   return { seen: false, why: 'dark' };
 }

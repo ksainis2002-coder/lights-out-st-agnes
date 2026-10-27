@@ -41,6 +41,7 @@ import { createGhostDirector } from './ghosts/director.js';
 import { createWatcher } from './ai/watcher.js';
 import { createWatcherIntro } from './ai/watcherIntro.js';
 import { createWatcherFloors } from './ai/watcherFloors.js';
+import { createWatcherOutside } from './ai/watcherOutside.js';
 import { createBlink } from './sanity/blink.js';
 import { createMoves } from './props/moves.js';
 import { createChalk } from './ghosts/chalk.js';
@@ -99,6 +100,7 @@ function createGame() {
   game.watcher = createWatcher(game);
   game.watcherIntro = createWatcherIntro(game, game.watcher);
   game.watcherFloors = createWatcherFloors(game, game.watcher); // she follows you up and down the stairs
+  game.watcherOutside = createWatcherOutside(game, game.watcher); // out in the storm, then at the chapel door
   game.enemies = [game.watcher]; // the debug overlay shows their senses and state
   game.moves = createMoves(game); // props that stand another way once a flag is set
   game.chalk = createChalk(game); // Maggie's chalk on the corridor boards
@@ -285,6 +287,7 @@ function simulate(game, dt) {
   game.watcher.update(dt);
   game.watcherIntro.update(dt);
   game.watcherFloors.update(dt);
+  game.watcherOutside.update(dt);
   game.chalk.update(dt);
   game.tricks.update(dt);
   game.setPieces.update(dt);

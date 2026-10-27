@@ -506,6 +506,23 @@ lines are in the content sheet.
   reshot to match. New props: `hubDoorway` and `crayonHouse`
   (`src/props/hubDoor.js`); `tileDecay` takes `missing: false` for stains only.
 
+## The watcher outside as built (0.2.47)
+- `src/ai/watcherOutside.js`, data in the grounds' "watcher" (generator): before the storm the
+  grounds hold only the still statue of the courtyard (until you have been inside). Once the
+  storm is on ("from": `puzzle_records`), with her awake and the lamb still in its grave: go
+  among the graves and she comes in by the cemetery gate behind you, the moment nobody watches
+  the gateway, her stone grinding there; a lightning flash shows her in it (approved still
+  watcher_storm). From then she hunts the courtyard and the cemetery, and follows you through
+  the school door and the garden door as on the stairs (arrivals; back in by the school's front
+  door too). Before the storm she never follows you out.
+- Take the lamb and, as soon as nobody is looking at her, she stands at the chapel door, facing
+  it (approved still watcher_chapel), and hunts nowhere after that (her floor: "chapel"; the
+  grounds keep her there as a still statue on every load).
+- Sight (`src/ai/gaze.js`): iron gates and railings no longer hide her, so she never moves while
+  you watch her through the bars; a lightning flash lights her as the beam does ("lightning").
+  Her grab still needs nothing solid between you.
+- The debug overlay (F3) has an OUTSIDE line on the grounds.
+
 ## The cemetery puzzle as built (0.2.46)
 - `src/puzzles/lanterns.js`, data written by `tools/levels/school_part_a.py`: a lantern at the
   foot of each child's grave (1 m out from the stone, as in the stills), "Light the lantern" with

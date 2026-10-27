@@ -24,8 +24,10 @@ export function createWatcherFloors(game, watcher) {
   function leaving({ id, spawn }) {
     follow = null;
     const her = watcher.position();
-    const at = LEVELS[id]?.watcher?.arrivals?.[spawn];
+    const there = LEVELS[id]?.watcher;
+    const at = there?.arrivals?.[spawn];
     if (!her || !at || watcher.state().mode !== 'hunting') return;
+    if (there.from && !game.progress.hasFlag(there.from)) return; // not out there yet (the grounds before the storm)
     const p = game.player.state.position;
     if (Math.hypot(her.x - p.x, her.z - p.z) <= FOLLOW_RANGE) follow = { level: id, at, t: 0, grinded: false };
   }

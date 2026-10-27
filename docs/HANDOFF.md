@@ -186,5 +186,8 @@ changes as built"). Next: the cemetery puzzle (sets `puzzle_lanterns`), the watc
 **Cemetery puzzle (0.2.46):** the five lanterns, Agnes's slab, the stone lamb and file page 2 are in
 the game (see "The cemetery puzzle as built"). Next: the watcher outside in the storm and at the
 chapel door, the part C bot route, the doors home on the map.
+**The watcher outside (0.2.47):** she comes into the cemetery by its gate in the storm, hunts the
+grounds, and stands at the chapel door after the lamb (see "The watcher outside as built"). Next:
+the part C bot route and checklist, the doors home on the map.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
