@@ -401,6 +401,8 @@ lines are in the content sheet.
   bright, and no bolt (scare rules §5).
 - The debug overlay (F3) has a STORM line: what it waits for, or the seconds to the next strike.
 - Not yet: the watcher outside in the storm (part C).
+- Fix (0.2.42): the 20–40 s wait runs from one strike to the next, through the flash and the
+  thunder; it used to stand still during them, so a gap could reach 43 s.
 
 ## The watcher between floors, the part B route (0.2.35)
 - `src/ai/watcherFloors.js`: she hunts one floor at a time (progress value `watcher_floor`; at

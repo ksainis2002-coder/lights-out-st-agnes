@@ -52,6 +52,23 @@ test('the storm waits for the records drawer; then lightning every 20 to 40 s, t
   expect(errors).toEqual([]);
 });
 
+test('the longest wait is 40 s, counted from one strike to the next', async ({ page }) => {
+  const errors = trackErrors(page);
+  await load(page, 'grounds', 'school_door');
+  const gap = await game(page, () => {
+    const g = window.__stAgnes;
+    Math.random = () => 0.999; // every wait and every thunder at its longest
+    const at = [];
+    g.events.on('storm.lightning', () => at.push(g.session.playTime));
+    g.progress.setFlag('puzzle_records');
+    g.advance(55);
+    return at[1] - at[0];
+  });
+  expect(gap).toBeGreaterThanOrEqual(39.9);
+  expect(gap).toBeLessThanOrEqual(40.05);
+  expect(errors).toEqual([]);
+});
+
 test('outdoors a strike lights the sky and shows the bolt; with reduce effects only a soft glow, no bolt', async ({ page }) => {
   await game(page, () => window.__stAgnes.progress.setFlag('puzzle_records'));
   await load(page, 'grounds', 'school_door');

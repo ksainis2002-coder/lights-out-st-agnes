@@ -70,6 +70,7 @@ export function createStorm(game) {
   function update(dt) {
     if (!on()) return;
     if (nextIn === null) nextIn = between(FIRST_STRIKE);
+    nextIn -= dt; // counted from strike to strike, through the flash and the thunder too
     if (strike) {
       strike.t += dt;
       const k = strikeLight(strike.t, strike);
@@ -82,7 +83,6 @@ export function createStorm(game) {
       if (strike.rumbled && k === 0) strike = null;
       return;
     }
-    nextIn -= dt;
     if (nextIn > 0) return;
     nextIn = between(BETWEEN);
     start();
