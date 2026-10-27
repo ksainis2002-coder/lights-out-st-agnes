@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.9 — Dev tooling only, no game change: added the psx-retro-rendering skill (github.com/SummerEngine/summer, MIT) to `.claude/skills`: the PS1 shader pipeline (vertex snap, affine textures, RGB5 dither, vertex lighting, fog), written for Godot and ported by hand to Three.js.
 - 0.2.8 — Dev tooling only, no game change: added the free-game-asset-discovery skill (github.com/kyssta-exe/skills, MIT) to `.claude/skills` for finding and checking CC0 sounds and music (Kenney, OpenGameArt, itch.io CC0 tag).
 - 0.2.7 — Dev tooling only, no game change: added five Matt Pocock skills (github.com/mattpocock/skills, MIT) to `.claude/skills`: grill-me, grilling, diagnosing-bugs, prototype, wait-what; and psx-horror-style (github.com/arjun988/blender-skills, MIT) for PS1 horror art direction. All 38 Pocock skills went to the separate skills library.
 - 0.2.6 — Dev tooling only, no game change: added two Superpowers skills (github.com/obra/superpowers, MIT) to `.claude/skills`: test-driven-development and receiving-code-review. The other 13 Superpowers skills went to the separate skills library only. Installed by hand (skillsmp.com unreachable).
