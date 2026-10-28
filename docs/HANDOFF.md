@@ -212,6 +212,8 @@ branch (the deploy workflow run by hand on it built and passed every test, then 
 refused). Pages takes version tags only, so the owner pushes the tag from their PC:
 `git pull origin claude/hopeful-keller-xpdeeg`, `git tag vX.Y.Z`, `git push origin vX.Y.Z`
 (main stays at 0.2.8 until the 0.2.x pull request).
+The deploy runs every test on GitHub's runner, slower than a laptop: tests get 60 s each (0.2.54);
+v0.2.53's deploy failed on the 30 s limit (twice, the byline test), so the build to tag is v0.2.54.
 **Priority 3 sounds (0.2.53):** the owner's 7 files are in ("Where priority 3 plays" in
 `docs/SOUNDS_0.3.md`); every sound on the list is now in the game. Next: the owner tags v0.2.53 for
 the test build, then the playtests; then the 0.2.x pull request.

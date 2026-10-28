@@ -123,7 +123,6 @@ test('only a board in the room you are in, and near you', async ({ page }) => {
 });
 
 test('once she is awake, about one board in four is a taunt, and none while she is near', async ({ page }) => {
-  test.setTimeout(60_000); // over eight minutes of game time: slow when every test runs at once
   const run = await game(page, () => {
     const g = window.__stAgnes;
     const { stand, wait } = window.__c;

@@ -44,7 +44,6 @@ for (const { name, level, spawnName, spawn, door } of [
 }
 
 test("in from the landing, your room's door goes back to the landing", async ({ page }) => {
-  test.setTimeout(60_000); // four levels loaded in turn: slow when every test runs at once
   await load(page, 'school_ground', 'home_staff');
   await lookAt(page, [45.5, 17.5], [46.0, 17.5, 1.2]);
   await use(page);

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.54 — Tests: each test may take 60 s (was 30 s). The slowest load several levels with a software renderer and ran out of time on GitHub's slower machine, which stopped the test build from being published.
 - 0.2.53 — Priority 3 sounds: a chalk hint ends with the chalk tapped on the board (a taunt still starts with a screech), a distant PE whistle in the gym now and then, quiet crickets outside until the storm; the broken music box and the shovel digs are kept for later. Every sound on the list is now in the game.
 - 0.2.52 — The owner confirmed every school-wing sound is CC0 (credits updated) and kept the big sting for the grab. A test build of parts A–C for the playtests (Pages takes it from a version tag pushed by the owner).
 - 0.2.51 — Priority 2 sounds: the watcher's plinth thuds when she stops, the slab's seal cracks, the lanterns snuff out, Maggie's rope turns and she claps, a taunt screeches on the board, a ruler slap starts the roll call, the gym and the library have their own room tone and the gym its ball, crows outside until the storm, creaking boards upstairs, steps on the stairs, chains on the locked gates, a page turning as you read, and one bell toll at the chapel. The coat, the book and the piano's key play their own sounds; the grab keeps its big sting. Every school-wing credit has its source link.
