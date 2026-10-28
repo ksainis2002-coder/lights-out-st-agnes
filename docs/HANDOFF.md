@@ -202,5 +202,10 @@ the part A, B and C playtests and the sound links; then the 0.2.x pull request t
 every school-wing credit has its link from the owner's sound list (2026-10-27). Waiting on the
 owner: the priority 3 files, a y/n that every linked page is CC0 (freesound.org is blocked in this
 session's network settings, so Claude cannot check), the playtests; then the 0.2.x pull request.
+**Test build (0.2.52, owner 2026-10-28):** "1y 2y": every linked sound is CC0, the grab keeps the big
+sting. The owner asked for the new version online to playtest parts A to C with a second player:
+tag v0.2.52 on the working branch deploys it to GitHub Pages (main stays at 0.2.8 until the 0.2.x
+pull request). Checklist: the Claude Doc "Playtest Checklist: Parts A–C"
+(https://claude.ai/artifact/1EjRSdaV8B4jp1xp3s4GCA), with 14 tuning picks. Priority 3 files next.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

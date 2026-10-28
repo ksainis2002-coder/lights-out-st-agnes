@@ -14,8 +14,8 @@ are made by the game), and the new rooms and puzzles add the rows marked **new**
 
 Priority 1 is in the game (2026-10-24), and priority 2 (2026-10-27: where each one plays is at the
 end): the owner's files, cut by `tools/process-sounds.mjs` (`assets/sounds/manifest.json`). The
-owner's sound list (2026-10-27) gave every source link (the Source URL column below); the CC0 check
-of each page is still to come (`assets/CREDITS.md`).
+owner's sound list (2026-10-27) gave every source link (the Source URL column below), and the owner
+checked that every linked page is CC0, priority 3's included (2026-10-28; `assets/CREDITS.md`).
 
 ## How to hand them over (same as 0.2)
 1. On Freesound, set the licence filter to **Creative Commons 0** (OpenGameArt: **CC0**). Skip

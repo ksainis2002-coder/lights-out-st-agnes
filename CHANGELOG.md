@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.52 — The owner confirmed every school-wing sound is CC0 (credits updated) and kept the big sting for the grab. A test build of parts A–C goes on GitHub Pages for the playtests (tag v0.2.52).
 - 0.2.51 — Priority 2 sounds: the watcher's plinth thuds when she stops, the slab's seal cracks, the lanterns snuff out, Maggie's rope turns and she claps, a taunt screeches on the board, a ruler slap starts the roll call, the gym and the library have their own room tone and the gym its ball, crows outside until the storm, creaking boards upstairs, steps on the stairs, chains on the locked gates, a page turning as you read, and one bell toll at the chapel. The coat, the book and the piano's key play their own sounds; the grab keeps its big sting. Every school-wing credit has its source link.
 - 0.2.50 — Fix: the wall's green lower band no longer shows above school doors; each door's lintel carries the upper part of the wall beside it. The new look of the buildings outside stays (owner's pick).
 - 0.2.49 — A bot route plays part C from the courtyard to your room (the gate shut behind you, the lanterns, the lamb, file page 2); outdoor performance measured.

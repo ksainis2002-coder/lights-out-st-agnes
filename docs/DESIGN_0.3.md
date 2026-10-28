@@ -450,6 +450,8 @@ lines are in the content sheet.
 - The owner's 35 files (2026-10-27), each placed where the sound list said ("Where priority 2
   plays" in `docs/SOUNDS_0.3.md`). Owner rule: where a stand-in works better, it stays. The grab
   keeps the big sting; the short low hit goes to the roll call, which had a quiet big sting.
+- Owner 2026-10-28: "1y 2y": every linked sound is CC0 (credits updated), and the grab keeps the
+  big sting.
 - The watcher: her plinth thuds as it settles when she stops after a slide (`watcher.settled`):
   more to hear, never a warning; the warning is still her breath.
 - Scare rules: the roll call's tell now starts with a ruler slapped on the teacher's table (level
