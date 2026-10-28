@@ -101,6 +101,28 @@ test('she never moves while you keep her in the light, and slides at 2.6 m/s onc
   expect(await game(page, () => window.__grinds)).toBeGreaterThan(0); // her stone grinds as she goes
 });
 
+test('her plinth settles with one thud when she stops after a slide, not after a twitch', async ({ page }) => {
+  await awake(page);
+  const thuds = await game(page, () => {
+    const g = window.__stAgnes;
+    const { stand, place } = window.__w;
+    let count = 0;
+    g.events.on('watcher.settled', () => (count += 1));
+    const look = (yaw, seconds) => {
+      stand([20, 10.6], { yaw });
+      g.advance(seconds);
+      return count;
+    };
+    place([8, 10.6]);
+    const watched = look(90, 1); // in your light: she never moved
+    look(-90, 1); // your back to her: she slides
+    const stopped = look(90, 0.5); // look again: she stops
+    look(-90, 0.2); // a glance away: too short a slide to be heard settling
+    return { watched, stopped, twitch: look(90, 0.5) };
+  });
+  expect(thuds).toEqual({ watched: 0, stopped: 1, twitch: 1 });
+});
+
 test('in the dark she moves even while you face her', async ({ page }) => {
   await awake(page);
   const run = await game(page, () => {

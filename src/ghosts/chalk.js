@@ -110,7 +110,7 @@ export function createChalk(game) {
     draw(board);
     lastWrite = clock;
     scratch = { position: board.position, t: 0, next: 0 };
-    game.events.emit('chalk.written', { board: board.id, key: words.key, taunt: Boolean(words.taunt) });
+    game.events.emit('chalk.written', { board: board.id, key: words.key, taunt: Boolean(words.taunt), position: board.position });
   }
 
   function updateScratch(dt) {

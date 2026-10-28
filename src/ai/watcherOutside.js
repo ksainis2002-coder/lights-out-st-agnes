@@ -47,7 +47,7 @@ export function createWatcherOutside(game, watcher) {
     if (her && !unseen(her)) return;
     progress.setValue(FLOOR, AT_CHAPEL);
     watcher.standStill(data.chapel.at, data.chapel.rotation);
-    game.events.emit('watcher.chapel');
+    game.events.emit('watcher.chapel', { position: spot(data.chapel.at) }); // the chapel bell tolls
   }
 
   function update() {

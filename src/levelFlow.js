@@ -32,15 +32,16 @@ export function setupLevelFlow(game) {
   // runs the player cannot move (game.isTravelling()). `back` names a spawn
   // here: the way out of the level you arrive in can bring you back to it
   // (the hub's door, after a door home in the school; doorUse.js "returns").
+  // `via` is how you leave: 'door', or 'stairs' (steps on the treads, not a door).
   const FADE_OUT = 0.35;
   const FADE_IN = 0.6;
   let trip = null;
 
-  game.travel = (id, spawnName, back = null) => {
+  game.travel = (id, spawnName, back = null, via = 'door') => {
     if (trip) return;
     if (back) game.progress.setValue(`back_${id}`, { level: game.world.level.id, spawn: back });
     trip = { id, spawnName, t: 0, loaded: false };
-    game.events.emit('level.leaving', { id, spawn: spawnName }); // the watcher may follow (ai/watcherFloors.js)
+    game.events.emit('level.leaving', { id, spawn: spawnName, via }); // the watcher may follow (ai/watcherFloors.js)
   };
 
   game.isTravelling = () => trip !== null;

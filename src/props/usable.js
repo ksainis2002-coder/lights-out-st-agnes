@@ -37,6 +37,7 @@ function useClock(game) {
 }
 
 const waiting = (game, prop) => prop.requires && !game.progress.hasFlag(prop.requires);
+const STAIRS = new Set(['stairs', 'stairHead']); // travel props you climb, not open
 const setFlags = (game, prop) => (prop.flags ?? []).forEach((flag) => game.progress.setFlag(flag));
 
 // A door or gate that won't let you through: its line, and the locked rattle.
@@ -75,7 +76,8 @@ const USES = {
     },
     run(game, prop) {
       if (waiting(game, prop)) return refuse(game, prop, prop.lockedMessage);
-      if (LEVELS[prop.to.level]) game.travel(prop.to.level, prop.to.spawn, prop.to.back);
+      const via = STAIRS.has(prop.type) ? 'stairs' : 'door';
+      if (LEVELS[prop.to.level]) game.travel(prop.to.level, prop.to.spawn, prop.to.back, via);
     },
   },
   message: { prompt: 'prompt.open', height: 1.2, run: (game, prop) => refuse(game, prop, prop.message) },

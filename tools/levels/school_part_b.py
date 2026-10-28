@@ -212,8 +212,10 @@ def set_pieces(seats):
         {"id": "bell", "kind": "bell", "room": "upper_corridor", **common, "drain": 3,
          "setup": {"tell": "the corridor goes quiet", "seconds": 1.2},
          "bell": "school_bell", "doors": ["upper_class_4", "upper_class_3"]},
+        # A ruler slapped on the teacher's table (classroom(): local 1.3, 1.6) as the lamps die.
         {"id": "roll_call", "kind": "rollCall", "room": "class_3", **common, "drain": 6,
-         "setup": {"tell": "the lamps die", "seconds": 1.0}, "seats": seats},
+         "setup": {"tell": "the lamps die", "seconds": 1.0, "sound": "ruler_slap",
+                   "at": ROOMS['class3'].at(1.3, 1.6)}, "seats": seats},
         {"id": "film", "kind": "film", "room": "class_4", **common, "drain": 4,
          "setup": {"tell": "the lamp goes out and the projector starts by itself", "seconds": 0.8},
          "screen": "film_screen", "projector": "projector"},
@@ -260,6 +262,7 @@ def level():
         "puzzles": {"recordsLock": {"prop": "records_cabinet", "clue": "seen_counting_board", "code": [3, 5, 4]}},
         "setPieces": set_pieces(seats),
         "weather": {"storm": "puzzle_records"},  # the storm starts with the records drawer (levels/storm.js)
+        "creaks": 0.12,  # the old boards upstairs creak now and then under a step (audio/gameAudio.js)
         # The watcher hunts the corridor and the stairs up here once she has followed
         # you up (ai/watcherFloors.js); the rooms are safe.
         "watcher": {"territory": ["upper_corridor", "main_stairs", "back_stairs"],

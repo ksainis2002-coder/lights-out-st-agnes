@@ -1,6 +1,7 @@
 // The watcher (wing 2): St. Agnes in stone on her plinth. She moves only
 // while nobody is looking (ai/gaze.js), sliding on the plinth with a stone
-// grind, and keeps to her rooms; closed doors stop her (ai/path.js). At arm's
+// grind (a thud as it settles when she stops: watcher.settled), and keeps to
+// her rooms; closed doors stop her (ai/path.js). At arm's
 // reach a dusty breath is her warning: 1.5 s (comfort mode: 3 s, and half
 // speed) to turn and look at her before she grabs (scare rules §2, confirmed
 // by the owner). The grab hands over to the collapse: her face fills the
@@ -28,6 +29,7 @@ const STOP = 1.0; // she comes no closer than this
 const WARNING = 1.5; // seconds to turn and look (comfort mode: 3)
 const STARE_DRAIN = 25 / 40; // sanity per second: one pip of the pulse per 40 s
 const GRIND_EVERY = 0.9; // seconds between grinds while she moves
+const SETTLE_AFTER = 0.5; // seconds of sliding before her stop is heard
 const REPATH = 0.4; // seconds between route updates
 const LOSE_AFTER = 15; // seconds out of her reach before she wanders off
 const SPAN = 0.8; // her plinth, metres (the player cannot walk through her)
@@ -44,6 +46,7 @@ export function createWatcher(game) {
   let repath = 0;
   let warning = null; // seconds since her breath, while at arm's reach
   let grindIn = 0;
+  let slid = 0; // seconds she has slid since she last stood still
   let lostFor = 0;
   let wandering = null; // a far spot she drifts to once she has lost you
   let gaze = { seen: false, why: '-' };
@@ -62,6 +65,7 @@ export function createWatcher(game) {
     statue = null;
     mode = null;
     warning = null;
+    slid = 0;
     game.sfx.setLayer(DRONE, 0);
   }
 
@@ -134,6 +138,12 @@ export function createWatcher(game) {
   function stopWarning() {
     if (warning !== null) game.events.emit('watcher.breathStopped');
     warning = null;
+  }
+
+  // She stands still again: after a real slide, her plinth settles with a thud.
+  function settle() {
+    if (slid >= SETTLE_AFTER) game.events.emit('watcher.settled', { position: position.clone() });
+    slid = 0;
   }
 
   function grab() {
@@ -212,7 +222,8 @@ export function createWatcher(game) {
       if (go === room && !last) route.shift();
     }
     faceThePlayer();
-    if (moved < 1e-4) return;
+    if (moved < 1e-4) return settle();
+    slid += dt;
     grindIn -= dt;
     if (grindIn > 0) return;
     grindIn = GRIND_EVERY;
@@ -234,10 +245,14 @@ export function createWatcher(game) {
     if (gaze.seen) {
       game.sanity.drain(STARE_DRAIN * dt, 'watcher');
       stopWarning();
+      settle();
       return;
     }
     const p = player();
-    if (distanceTo(p) <= REACH && clearLine(game.world.level, position, p)) return updateWarning(dt);
+    if (distanceTo(p) <= REACH && clearLine(game.world.level, position, p)) {
+      settle();
+      return updateWarning(dt);
+    }
     stopWarning();
     move(dt);
   }

@@ -197,5 +197,10 @@ doors, the part A, B and C playtests, the sound links. Then the 0.2.x pull reque
 the part C checklist is the Claude Doc "Part C Playtest Checklist"
 (https://claude.ai/artifact/LDMwKqEd4oKpvkNwDYfQcL), five tuning picks in it. Waiting on the owner:
 the part A, B and C playtests and the sound links; then the 0.2.x pull request to main.
+**Priority 2 sounds (0.2.51):** the owner's 35 files are in ("Where priority 2 plays" in
+`docs/SOUNDS_0.3.md`); the grab keeps its stand-in sting (owner: keep a stand-in that is better);
+every school-wing credit has its link from the owner's sound list (2026-10-27). Waiting on the
+owner: the priority 3 files, a y/n that every linked page is CC0 (freesound.org is blocked in this
+session's network settings, so Claude cannot check), the playtests; then the 0.2.x pull request.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

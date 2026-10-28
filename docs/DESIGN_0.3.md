@@ -446,6 +446,21 @@ lines are in the content sheet.
   their own room tone in place of the building's hum.
 - For later parts: stone steps (stone paths), match strikes (the lanterns), book drops.
 
+## Sounds, priority 2 (0.2.51)
+- The owner's 35 files (2026-10-27), each placed where the sound list said ("Where priority 2
+  plays" in `docs/SOUNDS_0.3.md`). Owner rule: where a stand-in works better, it stays. The grab
+  keeps the big sting; the short low hit goes to the roll call, which had a quiet big sting.
+- The watcher: her plinth thuds as it settles when she stops after a slide (`watcher.settled`):
+  more to hear, never a warning; the warning is still her breath.
+- Scare rules: the roll call's tell now starts with a ruler slapped on the teacher's table (level
+  data `setup.sound` and `setup.at`; a set piece plays it as it starts, so comfort mode cuts it
+  with the piece). A chalk taunt starts with a screech, a tell by ear that it is a lie (rules §3);
+  comfort mode keeps every board quiet.
+- Places: the gym and the library have their own room tone; a ball bounces now and then in the gym
+  (heard only in there: emitter `room`); crows call from the dead trees outside until the storm
+  (emitter `until`); upstairs, old boards creak now and then under a step (level `creaks`). The
+  stairs sound like steps on the treads, not a door (`game.travel(..., via)`).
+
 ## Paper screens (0.2.39, owner 2026-10-25)
 - The owner found the journal map hard to read: the VHS colour bleed (red one pixel left, blue one
   right), the scanlines and the 480×270 page smeared its small labels. Paper screens (look `paper`:

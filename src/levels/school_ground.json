@@ -88,8 +88,8 @@
      "volume": 0.35
     },
     {
-     "name": "amb_building_hum",
-     "volume": 0.25
+     "name": "amb_library",
+     "volume": 0.3
     }
    ]
   },
@@ -109,8 +109,8 @@
      "volume": 0.35
     },
     {
-     "name": "amb_building_hum",
-     "volume": 0.25
+     "name": "amb_gym_hall",
+     "volume": 0.12
     }
    ]
   },
@@ -2437,6 +2437,23 @@
   {
    "name": "amb_rain_inside",
    "volume": 0.3
+  }
+ ],
+ "emitters": [
+  {
+   "sound": "ball_bounce_gym",
+   "at": [
+    21.5,
+    3.0
+   ],
+   "height": 0.3,
+   "volume": 0.6,
+   "distance": 3,
+   "every": [
+    30,
+    75
+   ],
+   "room": "gym"
   }
  ],
  "pickups": [

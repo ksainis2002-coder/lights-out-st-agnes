@@ -83,7 +83,7 @@ export function lanternsPuzzle(game, level, data) {
     progress.setFlag(SOLVED);
     openSlab({ slide: true });
     game.messages.show('msg.lanternsSolved', null, 5);
-    game.events.emit('lanterns.solved');
+    game.events.emit('lanterns.solved', { position: slab.getWorldPosition(new THREE.Vector3()) });
     game.events.emit('puzzle.solved', 'lanterns');
     game.events.emit('checkpoint');
   }

@@ -279,6 +279,7 @@
    "rotation": 90,
    "use": "message",
    "message": "msg.westWingChained",
+   "chained": true,
    "useHeight": 1.2,
    "useRadius": 0.8
   },
@@ -944,6 +945,38 @@
   {
    "name": "amb_wind_outside",
    "volume": 0.75
+  }
+ ],
+ "emitters": [
+  {
+   "sound": "crow",
+   "at": [
+    14.8,
+    4.2
+   ],
+   "height": 5.0,
+   "volume": 0.4,
+   "distance": 4,
+   "every": [
+    25,
+    60
+   ],
+   "until": "puzzle_records"
+  },
+  {
+   "sound": "crow",
+   "at": [
+    6.5,
+    -0.6
+   ],
+   "height": 6.0,
+   "volume": 0.4,
+   "distance": 4,
+   "every": [
+    35,
+    80
+   ],
+   "until": "puzzle_records"
   }
  ],
  "pickups": [

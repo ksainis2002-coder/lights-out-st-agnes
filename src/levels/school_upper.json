@@ -1300,7 +1300,12 @@
    "drain": 6,
    "setup": {
     "tell": "the lamps die",
-    "seconds": 1.0
+    "seconds": 1.0,
+    "sound": "ruler_slap",
+    "at": [
+     10.3,
+     14.6
+    ]
    },
    "seats": [
     [
@@ -1379,6 +1384,7 @@
  "weather": {
   "storm": "puzzle_records"
  },
+ "creaks": 0.12,
  "watcher": {
   "territory": [
    "upper_corridor",

@@ -117,7 +117,8 @@ def grounds():
     # wing (west, chained), the school (east), the chapel (south, keyhole).
     L.prop(whole, 'facadeDoor', 1, 12.5, 90, extra={"use": "travel", "to": {"level": "orphanage_wing", "spawn": "garden_door"},
                                                    "prompt": "prompt.goInside", "useHeight": 1.2, "useRadius": 0.8})
-    L.prop(whole, 'facadeDoor', 1, 18.5, 90, extra={"use": "message", "message": "msg.westWingChained", "useHeight": 1.2, "useRadius": 0.8})
+    L.prop(whole, 'facadeDoor', 1, 18.5, 90, extra={"use": "message", "message": "msg.westWingChained", "chained": True,
+                                                   "useHeight": 1.2, "useRadius": 0.8})
     L.prop(whole, 'facadeDoor', 21, 15.5, -90, extra={"use": "travel", "to": {"level": "school_ground", "spawn": "front_door"},
                                                      "prompt": "prompt.toSchool", "useHeight": 1.2, "useRadius": 0.8})
     L.prop(whole, 'facadeDoor', 6.5, 21, 180, extra={"use": "message", "message": "msg.chapelKeyhole", "prompt": "prompt.keyhole",
@@ -182,6 +183,9 @@ def grounds():
     L.prop(whole, 'deadTree', 14.8, 4.2, height=5.5)
     for x, rot, h in [(6.5, 70, 7), (11.5, 170, 8), (17.5, 290, 6.5), (2.0, 20, 7.5)]:
         L.prop(whole, 'deadTree', x, -0.6, rot, height=h)
+    # Crows in the dead trees call now and then, until the storm drives them off.
+    crows = [{"sound": "crow", "at": [x, z], "height": h, "volume": 0.4, "distance": 4, "every": every,
+              "until": "puzzle_records"} for x, z, h, every in [(14.8, 4.2, 5.0, [25, 60]), (6.5, -0.6, 6.0, [35, 80])]]
     L.prop(whole, 'rain', 11, 12, width=34, depth=38, height=9, count=1400)
 
     L.light(whole, 1.6, 12.5, 2.9, 7, 12, '#d8a050')   # lamp over the garden door
@@ -220,6 +224,7 @@ def grounds():
         "rooms": [cemetery.data(), court.data(), road.data()],
         "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_outside", "volume": 1.0}, {"name": "amb_wind_outside", "volume": 0.75}],
+        "emitters": crows,
         # The grounds come on the hall plan (the school's map entry "with"); this
         # entry only says how their page is drawn: the key, right of the plan.
         "pickups": L.pickups, "documents": L.documents, "maps": [{"id": "grounds", "key": [22.6, 0.3]}], "ghosts": L.ghosts,
@@ -518,16 +523,17 @@ def school():
     L.maggie('maggie_corridor', 'appear', cor.at(29.5, 0.6), rotation=-90, cells=[17, 10, 25, 11],
              requires={"flag": "name_maggie"}, line='maggie.corridor', leadTo=[33.5, 10.6])
 
-    # The rain everywhere; the classrooms' own room tone, elsewhere the
-    # building's hum; the wind in the corridor and the hall.
+    # The rain everywhere; the classrooms', the gym's and the library's own
+    # room tone, elsewhere the building's hum; the wind in the corridor and the hall.
     rain = {"name": "amb_rain_inside", "volume": 0.35}
     hum = {"name": "amb_building_hum", "volume": 0.25}
     classroom = {"name": "amb_classroom", "volume": 0.15}
+    own = {"gym": {"name": "amb_gym_hall", "volume": 0.12}, "library": {"name": "amb_library", "volume": 0.3}}
     wind = {"name": "amb_wind_corridor", "volume": 0.25}
     out_rooms = []
     for room in rooms.values():
         data = room.data()
-        data["ambience"] = [rain, classroom if room.id.startswith('class_') else hum]
+        data["ambience"] = [rain, own.get(room.id) or (classroom if room.id.startswith('class_') else hum)]
         if room.id in ('main_corridor', 'entrance_hall'):
             data["ambience"].append(wind)
         out_rooms.append(data)
@@ -548,6 +554,9 @@ def school():
                    "main_stairs": {"cell": [28.2, 18.1], "yawDegrees": -45}, "back_stairs": {"cell": [26.5, 9.1], "yawDegrees": 180}},
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],
+        # Now and then a ball bounces at the far end of the empty gym, heard only in there.
+        "emitters": [{"sound": "ball_bounce_gym", "at": gym.at(8.5, 2.0), "height": 0.3, "volume": 0.6, "distance": 3,
+                      "every": [30, 75], "room": "gym"}],
         "pickups": L.pickups, "documents": L.documents, "maps": maps,
         "weather": {"storm": "puzzle_records"},  # lightning once the records drawer is open (levels/storm.js)
         "puzzles": {

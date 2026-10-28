@@ -6,12 +6,15 @@
 // ghost children's scare cooldown too, and comfort mode cuts them (scare
 // rules §1, §5). They are silent: the content sheet gives them no text.
 // Event fields: id, kind ("bell" | "rollCall" | "film"), room, requires (a
-// flag), setup { tell, seconds }, cooldownGroup, cooldown (seconds), comfort
-// ("skip" | "keep"), drain (sanity at the hit), and the kind's own data.
+// flag), setup { tell, seconds, sound, at } (a sound with the tell, played
+// at [c, r]: a ruler slapped on Class 3's teacher's table), cooldownGroup, cooldown
+// (seconds), comfort ("skip" | "keep"), drain (sanity at the hit), and the
+// kind's own data.
 import { roomAt } from '../levels/loader.js';
 import { bellPiece } from './bell.js';
 import { rollCallPiece } from './rollCall.js';
 import { filmPiece } from './film.js';
+import { worldAt } from './setPieceKit.js';
 
 const KINDS = { bell: bellPiece, rollCall: rollCallPiece, film: filmPiece };
 
@@ -32,6 +35,8 @@ export function createSetPieces(game) {
     game.ghosts.startCooldown(event.cooldownGroup, event.cooldown);
     game.ghosts.startCooldown('scare');
     active = { event, piece: KINDS[event.kind](game, event), t: 0 };
+    const { sound, at } = event.setup ?? {};
+    if (sound) game.sfx.play(sound, { position: worldAt(game.world.level, at, 0.8), volume: 0.8, refDistance: 2, pitchJitter: 0 });
     game.events.emit('setPiece.started', event);
   }
 

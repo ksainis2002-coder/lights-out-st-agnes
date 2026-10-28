@@ -92,6 +92,7 @@ export function parseLevel(data) {
     power: data.power ?? null,
     ambience: data.ambience ?? [],
     emitters: data.emitters ?? [],
+    creaks: data.creaks ?? 0, // chance per step that a wooden floor creaks (audio/gameAudio.js)
     ghosts: data.ghosts ?? [],
     watcher: data.watcher ?? null, // the stone statue (ai/watcher.js)
     chalk: data.chalk ?? null, // Maggie's chalk on the boards (ghosts/chalk.js)
