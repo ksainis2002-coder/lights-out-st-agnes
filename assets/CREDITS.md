@@ -7,7 +7,7 @@ generated in code and need no line unless a file is added.
 Files in `assets/sounds/` are cut and converted from the owner's downloads by
 `tools/process-sounds.mjs` (see `assets/sounds/manifest.json`). Every licence below was
 checked by the owner on its Freesound page (batches 1–4: 2026-10-08/09; the school wing's
-priority 1 and 2 batches: 2026-10-28, with the links from the owner's sound list of 2026-10-27).
+priority 1, 2 and 3 batches: 2026-10-28, with the links from the owner's sound list of 2026-10-27).
 A licence marked "CC0 (to confirm)" has not been checked yet and must not ship in a release.
 Two school-wing sounds come from deleted Freesound accounts (the page names no user).
 
@@ -149,3 +149,10 @@ Two school-wing sounds come from deleted Freesound accounts (the page names no u
 | sounds/crow_3.ogg | crow_2.flac | [freesound 813115](https://freesound.org/people/qubodup/sounds/813115/) | qubodup | CC0 |
 | sounds/crow_4.ogg | crow_3.mp3 | [freesound 361470](https://freesound.org/people/Jofae/sounds/361470/) | Jofae | CC0 |
 | sounds/church_bell.ogg | church_bell.wav | [freesound 481969](https://freesound.org/people/Astounded/sounds/481969/) | Astounded | CC0 |
+| sounds/chalk_tap_1–2.ogg | chalk_tap.wav | [freesound 498130](https://freesound.org/people/16G_Panska_Neuer_Jiri/sounds/498130/) | 16G_Panska_Neuer_Jiri | CC0 |
+| sounds/whistle_gym.ogg | whistle_gym.wav | [freesound 218318](https://freesound.org/people/SpliceSound/sounds/218318/) | SpliceSound | CC0 |
+| sounds/amb_night_insects.ogg | amb_night_insects.wav | [freesound 436528](https://freesound.org/people/KikeVilaplana/sounds/436528/) | KikeVilaplana | CC0 |
+| sounds/mus_music_box_broken.ogg | mus_music_box_broken.wav | [freesound 346181](https://freesound.org/people/VSokorelos/sounds/346181/) | VSokorelos | CC0 |
+| sounds/shovel_dig_1.ogg | shovel_dig_1.wav | [freesound 651294](https://freesound.org/people/f3bbbo/sounds/651294/) | f3bbbo | CC0 |
+| sounds/shovel_dig_2.ogg | shovel_dig_2.wav | [freesound 353907](https://freesound.org/people/dr19/sounds/353907/) | dr19 | CC0 |
+| sounds/shovel_dig_3.ogg | shovel_dig_3.wav | [freesound 515087](https://freesound.org/people/szegvari/sounds/515087/) | szegvari | CC0 |

@@ -35,10 +35,13 @@ test('each priority 2 event plays its own sound, not the stand-in', async ({ pag
     fire('prop.refused', { at: [1, 18.5], chained: true }); // the west wing's chained door
     fire('document.read', { id: 'maggie_note' });
     fire('collapse.grab');
+    fire('chalk.tap', { position: at }); // a hint finished
+    // Kept for later parts (priority 3): they must load too.
+    ['mus_music_box_broken', 'shovel_dig'].forEach((name) => game.sfx.play(name, { volume: 0 }));
     return game.sfx.played();
   });
   const own = ['cloth_rustle', 'book_slide', 'key_drop_wood', 'child_clap', 'mus_stinger_low', 'candle_snuff', 'stone_crack',
-    'stone_step', 'church_bell', 'chalk_screech', 'page_turn'];
+    'stone_step', 'church_bell', 'chalk_screech', 'page_turn', 'chalk_tap', 'mus_music_box_broken', 'shovel_dig'];
   for (const name of own) expect(result[name] ?? 0, name).toBeGreaterThanOrEqual(1);
   expect(result.cloth_rustle).toBe(2); // the pockets, and the pupils turning
   expect(result.chain_rattle).toBe(2);
@@ -78,11 +81,11 @@ test('the stairs sound like steps on the treads; a door out still sounds like a 
   expect(((await played(page)).door_use ?? 0) - (up.door_use ?? 0)).toBe(1);
 });
 
-test('the gym and the library have their own room tone; the ball bounces only while you are in the gym', async ({ page }) => {
+test('the gym and the library have their own room tone; the ball and the whistle only while you are in the gym', async ({ page }) => {
   const result = await page.evaluate(() => {
     const game = window.__stAgnes;
     const random = Math.random;
-    Math.random = () => 0; // every timed sound at its shortest gap: the ball after 30 s
+    Math.random = () => 0; // every timed sound at its shortest gap: the ball every 30 s, the whistle after 90 s
     game.loadLevel('school_ground', 'front_door');
     const size = game.world.level.cellSize;
     const stand = (c, r, seconds = 0.1) => {
@@ -92,20 +95,24 @@ test('the gym and the library have their own room tone; the ball bounces only wh
     };
     const library = stand(6, 4);
     const gym = stand(18.5, 6, 31); // the gym: the first bounce comes at 30 s
-    const inGym = game.sfx.played().ball_bounce_gym ?? 0;
-    stand(30, 16, 31); // the hall: the next one is due at 60 s, out of earshot
+    const count = () => [game.sfx.played().ball_bounce_gym ?? 0, game.sfx.played().whistle_gym ?? 0];
+    const inGym = count();
+    stand(30, 16, 31); // the hall: the next bounce is due at 60 s, out of earshot
+    const outside = count();
+    stand(18.5, 6, 30); // back in the gym at 90 s: a bounce and the whistle
     Math.random = random;
-    return { library, gym, inGym, after: game.sfx.played().ball_bounce_gym ?? 0 };
+    return { library, gym, inGym, outside, back: count() };
   });
   expect(result.library).toContain('amb_library');
   expect(result.library).not.toContain('amb_building_hum');
   expect(result.gym).toContain('amb_gym_hall');
   expect(result.gym).not.toContain('amb_building_hum');
-  expect(result.inGym).toBe(1);
-  expect(result.after).toBe(1);
+  expect(result.inGym).toEqual([1, 0]);
+  expect(result.outside).toEqual([1, 0]);
+  expect(result.back).toEqual([2, 1]);
 });
 
-test('outside, crows call from the dead trees until the storm starts', async ({ page }) => {
+test('outside, crows call from the dead trees and crickets chirp until the storm starts', async ({ page }) => {
   const result = await page.evaluate(() => {
     const game = window.__stAgnes;
     const random = Math.random;
@@ -113,12 +120,16 @@ test('outside, crows call from the dead trees until the storm starts', async ({ 
     game.loadLevel('grounds', 'garden_door');
     game.advance(36);
     const before = game.sfx.played().crow ?? 0;
+    const crickets = game.sfx.beds().includes('amb_night_insects');
     game.progress.setFlag('puzzle_records'); // the storm
     game.advance(90);
     Math.random = random;
-    return { before, storm: (game.sfx.played().crow ?? 0) - before };
+    const storm = (game.sfx.played().crow ?? 0) - before;
+    game.loadLevel('grounds', 'garden_door'); // out again, in the storm
+    game.advance(0.2);
+    return { before, crickets, storm, stormCrickets: game.sfx.beds().includes('amb_night_insects') };
   });
-  expect(result).toEqual({ before: 2, storm: 0 });
+  expect(result).toEqual({ before: 2, crickets: true, storm: 0, stormCrickets: false });
 });
 
 test('upstairs an old board creaks now and then under a step; downstairs it does not', async ({ page }) => {

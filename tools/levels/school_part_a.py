@@ -223,7 +223,9 @@ def grounds():
                    "school_door": {"cell": [20, 15], "yawDegrees": 90}},
         "rooms": [cemetery.data(), court.data(), road.data()],
         "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
-        "ambience": [{"name": "amb_rain_outside", "volume": 1.0}, {"name": "amb_wind_outside", "volume": 0.75}],
+        # Quiet crickets under the rain until the storm (audio/gameAudio.js: "until").
+        "ambience": [{"name": "amb_rain_outside", "volume": 1.0}, {"name": "amb_wind_outside", "volume": 0.75},
+                     {"name": "amb_night_insects", "volume": 0.15, "until": "puzzle_records"}],
         "emitters": crows,
         # The grounds come on the hall plan (the school's map entry "with"); this
         # entry only says how their page is drawn: the key, right of the plan.
@@ -554,9 +556,12 @@ def school():
                    "main_stairs": {"cell": [28.2, 18.1], "yawDegrees": -45}, "back_stairs": {"cell": [26.5, 9.1], "yawDegrees": 180}},
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [{"name": "amb_rain_inside", "volume": 0.3}],
-        # Now and then a ball bounces at the far end of the empty gym, heard only in there.
+        # Now and then a ball bounces at the far end of the empty gym, and more rarely a
+        # PE teacher's whistle blows in the far corner; both heard only in there.
         "emitters": [{"sound": "ball_bounce_gym", "at": gym.at(8.5, 2.0), "height": 0.3, "volume": 0.6, "distance": 3,
-                      "every": [30, 75], "room": "gym"}],
+                      "every": [30, 75], "room": "gym"},
+                     {"sound": "whistle_gym", "at": gym.at(1.5, 1.5), "height": 1.6, "volume": 0.1, "distance": 3,
+                      "every": [90, 180], "room": "gym"}],
         "pickups": L.pickups, "documents": L.documents, "maps": maps,
         "weather": {"storm": "puzzle_records"},  # lightning once the records drawer is open (levels/storm.js)
         "puzzles": {

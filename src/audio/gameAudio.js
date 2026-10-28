@@ -170,9 +170,11 @@ export function createGameAudio(game) {
   events.on('collapse.grab', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
   events.on('watcher.introStarted', () => play('fluorescent_buzz', { volume: 0.5, rate: 0.8 }));
   // Maggie's chalk on a board and Classroom 1's desks dragged round. A taunt
-  // (always a lie) starts with a screech of the chalk, so taunts can be told
-  // from hints by ear; comfort mode keeps every board quiet.
+  // (always a lie) starts with a screech of the chalk and a hint ends with the
+  // chalk tapped on the board, so the two can be told apart by ear; comfort
+  // mode keeps the screech out.
   events.on('chalk.scratch', ({ position }) => play('chalk_write', { position, volume: 1, refDistance: 3 }));
+  events.on('chalk.tap', ({ position }) => play('chalk_tap', { position, volume: 1, refDistance: 3 }));
   events.on('chalk.written', ({ taunt, position }) => {
     if (taunt && !game.settings.get('comfortMode')) play('chalk_screech', { position, volume: 0.2, refDistance: 3 });
   });
@@ -244,9 +246,12 @@ export function createGameAudio(game) {
     play('floorboard_creak', { volume: STEP_VOLUME[pace] * 0.45, delay: 0.05 });
   }
 
+  // A bed with "until" is gone for good once that flag is set (the crickets
+  // outside, before the storm); it fades out at the next change of room.
   function ambienceFor(level, roomId) {
     const room = level.rooms.find((r) => r.id === roomId);
-    return room?.ambience ?? level.ambience ?? [];
+    const list = room?.ambience ?? level.ambience ?? [];
+    return list.filter((entry) => !entry.until || !game.progress.hasFlag(entry.until));
   }
 
   // Fades beds that the new room (or the menu) does not use, starts the ones it does.

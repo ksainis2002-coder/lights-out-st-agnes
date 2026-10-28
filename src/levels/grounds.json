@@ -945,6 +945,11 @@
   {
    "name": "amb_wind_outside",
    "volume": 0.75
+  },
+  {
+   "name": "amb_night_insects",
+   "volume": 0.15,
+   "until": "puzzle_records"
   }
  ],
  "emitters": [

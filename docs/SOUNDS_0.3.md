@@ -12,8 +12,9 @@ Updated 2026-10-14 after the owner's Q&A: the watcher's breath is now priority 1
 warning), the projector is priority 1 (the film set piece), the piano needs no files (its notes
 are made by the game), and the new rooms and puzzles add the rows marked **new**.
 
-Priority 1 is in the game (2026-10-24), and priority 2 (2026-10-27: where each one plays is at the
-end): the owner's files, cut by `tools/process-sounds.mjs` (`assets/sounds/manifest.json`). The
+All three priorities are in the game: priority 1 (2026-10-24), 2 (2026-10-27) and 3 (2026-10-28;
+where each one plays is at the end), the owner's files cut by `tools/process-sounds.mjs`
+(`assets/sounds/manifest.json`). The
 owner's sound list (2026-10-27) gave every source link (the Source URL column below), and the owner
 checked that every linked page is CC0, priority 3's included (2026-10-28; `assets/CREDITS.md`).
 
@@ -142,6 +143,15 @@ Each about as loud as the sound it replaced, or as its neighbours (measured loud
 - **crow:** crows in the dead trees outside, every 25–80 s, until the storm starts.
 - **church_bell:** one toll from the chapel when the watcher takes her place at its door.
 - Not used: child_clap_1 (single slow claps); the claps come from the other two takes.
+
+## Where priority 3 plays (0.2.53)
+- **chalk_tap:** a hint ends with the chalk tapped on the board (a taunt has none, it starts with
+  the screech), so the two can be told apart by ear.
+- **whistle_gym:** now and then (every 90–180 s) a PE teacher's whistle in the gym's far corner,
+  heard only while you are in there.
+- **amb_night_insects:** quiet crickets under the rain outside, until the storm starts.
+- **mus_music_box_broken**, **shovel_dig:** cut and kept for later, as the list says (a broken music
+  box for a later wing; digging only if a digging moment is added).
 
 ## Counts
 - **Priority 1:** 23 sounds (49 files with the extra takes). Enough to build the wing.

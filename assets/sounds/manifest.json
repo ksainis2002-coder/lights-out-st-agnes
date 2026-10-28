@@ -1,5 +1,5 @@
 {
-  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d, batch 4: 6417c6f; school wing priority 1: ecadb37, priority 2: 83a8afe).",
+  "note": "How each downloaded file in incoming/ becomes game clips. Run: node tools/process-sounds.mjs [ids…]. Originals are removed after processing; they stay in git history (batch 1: 45f0a32, batch 2: 0e73ed3, hum: 970a0ac, batch 3: 6f5f74d, batch 4: 6417c6f; school wing priority 1: ecadb37, priority 2: 83a8afe, priority 3: a974fbf).",
   "sounds": {
     "step_tile": {
       "mode": "split",
@@ -835,6 +835,56 @@
       "start": 67.18,
       "maxLength": 9,
       "fade": 3
+    },
+    "chalk_tap": {
+      "mode": "cut",
+      "from": "chalk_tap.wav",
+      "start": [
+        [
+          3.615,
+          7.63
+        ]
+      ],
+      "maxLength": 1.1,
+      "fade": 0.4
+    },
+    "whistle_gym": {
+      "mode": "trim",
+      "from": "whistle_gym.wav",
+      "maxLength": 2.2,
+      "fade": 0.6
+    },
+    "amb_night_insects": {
+      "mode": "bed",
+      "from": "amb_night_insects.wav",
+      "start": 2,
+      "maxLength": 40,
+      "crossfade": 4
+    },
+    "mus_music_box_broken": {
+      "mode": "whole",
+      "from": "mus_music_box_broken.wav",
+      "channels": 2,
+      "fade": 1.5
+    },
+    "shovel_dig": {
+      "mode": "cut",
+      "from": [
+        "shovel_dig_1.wav",
+        "shovel_dig_2.wav",
+        "shovel_dig_3.wav"
+      ],
+      "start": [
+        6.56,
+        5.0,
+        0.3
+      ],
+      "maxLength": [
+        0.6,
+        0.6,
+        0.45
+      ],
+      "fade": 0.15
     }
   }
 }

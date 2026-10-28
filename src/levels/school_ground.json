@@ -2454,6 +2454,21 @@
     75
    ],
    "room": "gym"
+  },
+  {
+   "sound": "whistle_gym",
+   "at": [
+    14.5,
+    2.5
+   ],
+   "height": 1.6,
+   "volume": 0.1,
+   "distance": 3,
+   "every": [
+    90,
+    180
+   ],
+   "room": "gym"
   }
  ],
  "pickups": [

@@ -48,18 +48,21 @@ test('a puzzle tried and then left for three minutes gets its hint, on a board n
     const g = window.__stAgnes;
     const { stand, wait } = window.__c;
     let scratches = 0;
+    let taps = 0;
     g.events.on('chalk.scratch', () => (scratches += 1));
+    g.events.on('chalk.tap', () => (taps += 1));
     g.progress.setFlag('tried_libraryIndex');
     stand([12.0, 11.2], { yaw: 180 }); // the corridor, your back to the west board
     wait(170);
     const early = g.chalk.written();
     wait(15);
-    return { early, later: g.chalk.written(), text: g.chalk.text('chalk_west'), scratches };
+    return { early, later: g.chalk.written(), text: g.chalk.text('chalk_west'), scratches, taps };
   });
   expect(run.early).toEqual({});
   expect(run.later).toEqual({ chalk_west: 'chalk.hint.library' });
   expect(run.text).toBe('THE NUMBER IS ON THE CARD');
   expect(run.scratches).toBeGreaterThan(2); // you hear it written
+  expect(run.taps).toBe(1); // and the chalk tapped on the board when it is done
   expect(errors).toEqual([]);
 });
 
@@ -120,27 +123,32 @@ test('only a board in the room you are in, and near you', async ({ page }) => {
 });
 
 test('once she is awake, about one board in four is a taunt, and none while she is near', async ({ page }) => {
+  test.setTimeout(60_000); // over eight minutes of game time: slow when every test runs at once
   const run = await game(page, () => {
     const g = window.__stAgnes;
     const { stand, wait } = window.__c;
     g.world.level.chalk.taunts.after = 'test_taunts'; // the watcher herself stays asleep in the library
     g.progress.setFlag('test_taunts');
+    let taps = 0;
+    g.events.on('chalk.tap', () => (taps += 1));
     stand([30.0, 11.2], { yaw: 180 });
     const size = g.world.level.cellSize;
     g.watcher.moveTo(30.0 * size, 15.5 * size); // 5 m off, in the hall
     wait(250);
     const near = g.chalk.written();
     g.watcher.moveTo(6.5 * size, 1.8 * size); // back at the end of her aisle
-    wait(0.5);
+    wait(4); // long enough for a hint's tap: a taunt has none
     const first = g.chalk.written();
+    const tauntTaps = taps;
     g.progress.setValue('chalk', { boards: {}, order: [], hints: ['a', 'b'], taunts: 1 }); // two hints since
     g.loadLevel('school_ground', 'front_door');
     stand([30.0, 11.2], { yaw: 180 });
     wait(250);
-    return { near, first, tooSoon: g.chalk.written() };
+    return { near, first, tauntTaps, tooSoon: g.chalk.written() };
   });
   expect(run.near).toEqual({});
   expect(run.first).toEqual({ chalk_hall: 'chalk.taunt.behind' });
+  expect(run.tauntTaps).toBe(0);
   expect(run.tooSoon).toEqual({}); // the next taunt waits for a third hint
 });
 

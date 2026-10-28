@@ -24,6 +24,7 @@ const TAUNT_GAP = 240; // seconds from the last board (or the watcher waking) to
 const HINTS_PER_TAUNT = 3; // about one board in four is a taunt
 const LIE_DISTANCE = 10; // metres: no taunt while the watcher is nearer than this
 const SCRATCHES = [0, 0.35, 0.8, 1.2, 1.7]; // seconds: the chalk heard on the board
+const TAP = 3.6; // seconds: then a hint ends with the chalk tapped on the board (a taunt does not)
 const SAVED = 'chalk'; // progress value: { boards: { id: key }, order: [ids], hints: [ids], taunts: n }
 
 const nothingWritten = () => ({ boards: {}, order: [], hints: [], taunts: 0 });
@@ -36,7 +37,7 @@ export function createChalk(game) {
   let calmSince = 0; // the clock at the last step forward
   let lastWrite = -Infinity;
   let awakeSince = null;
-  let scratch = null; // { position, t, next }
+  let scratch = null; // { position, t, next, taunt }
 
   const data = () => game.world.level.chalk;
 
@@ -109,7 +110,7 @@ export function createChalk(game) {
     game.progress.setValue(SAVED, saved);
     draw(board);
     lastWrite = clock;
-    scratch = { position: board.position, t: 0, next: 0 };
+    scratch = { position: board.position, t: 0, next: 0, taunt: Boolean(words.taunt) };
     game.events.emit('chalk.written', { board: board.id, key: words.key, taunt: Boolean(words.taunt), position: board.position });
   }
 
@@ -120,7 +121,9 @@ export function createChalk(game) {
       scratch.next += 1;
     }
     scratch.t += dt;
-    if (scratch.next === SCRATCHES.length) scratch = null;
+    if (scratch.t < TAP) return;
+    if (!scratch.taunt) game.events.emit('chalk.tap', { position: scratch.position });
+    scratch = null;
   }
 
   function update(dt) {

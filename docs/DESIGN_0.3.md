@@ -452,6 +452,12 @@ lines are in the content sheet.
   keeps the big sting; the short low hit goes to the roll call, which had a quiet big sting.
 - Owner 2026-10-28: "1y 2y": every linked sound is CC0 (credits updated), and the grab keeps the
   big sting.
+
+## Sounds, priority 3 (0.2.53)
+- A hint ends with the chalk tapped on the board (`chalk.tap`, 3.6 s after it starts); a taunt has
+  no tap and starts with the screech: two tells by ear, one for a lie.
+- A distant PE whistle in the gym now and then, and quiet crickets outside until the storm (an
+  ambience entry's `until`). The broken music box and the shovel digs are cut and kept for later.
 - The watcher: her plinth thuds as it settles when she stops after a slide (`watcher.settled`):
   more to hear, never a warning; the warning is still her breath.
 - Scare rules: the roll call's tell now starts with a ruler slapped on the teacher's table (level

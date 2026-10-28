@@ -203,9 +203,17 @@ every school-wing credit has its link from the owner's sound list (2026-10-27). 
 owner: the priority 3 files, a y/n that every linked page is CC0 (freesound.org is blocked in this
 session's network settings, so Claude cannot check), the playtests; then the 0.2.x pull request.
 **Test build (0.2.52, owner 2026-10-28):** "1y 2y": every linked sound is CC0, the grab keeps the big
-sting. The owner asked for the new version online to playtest parts A to C with a second player:
-tag v0.2.52 on the working branch deploys it to GitHub Pages (main stays at 0.2.8 until the 0.2.x
-pull request). Checklist: the Claude Doc "Playtest Checklist: Parts A–C"
-(https://claude.ai/artifact/1EjRSdaV8B4jp1xp3s4GCA), with 14 tuning picks. Priority 3 files next.
+sting. The owner asked for the new version online to playtest parts A to C with a second player.
+Checklist: the Claude Doc "Playtest Checklist: Parts A–C"
+(https://claude.ai/artifact/1EjRSdaV8B4jp1xp3s4GCA), with 14 tuning picks.
+**Publishing a test build (learned 2026-10-28):** Claude's session can push only the working
+branch, not tags (HTTP 403), and the github-pages environment refuses a deploy run from that
+branch (the deploy workflow run by hand on it built and passed every test, then its deploy job was
+refused). Pages takes version tags only, so the owner pushes the tag from their PC:
+`git pull origin claude/hopeful-keller-xpdeeg`, `git tag vX.Y.Z`, `git push origin vX.Y.Z`
+(main stays at 0.2.8 until the 0.2.x pull request).
+**Priority 3 sounds (0.2.53):** the owner's 7 files are in ("Where priority 3 plays" in
+`docs/SOUNDS_0.3.md`); every sound on the list is now in the game. Next: the owner tags v0.2.53 for
+the test build, then the playtests; then the 0.2.x pull request.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
