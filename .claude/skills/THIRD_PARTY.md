@@ -12,6 +12,7 @@ No hidden instructions, credential harvesting or data exfiltration were found.
 | accessibility, benchmark-optimization-loop, browser-qa, canary-watch, click-path-audit, e2e-testing, i18n-sync, ui-demo, verification-loop, video-editing, vite-patterns | github.com/affaan-m/ECC (skills/) | 76aaa77 | MIT (`ECC-LICENSE`) |
 | grill-me, grilling, diagnosing-bugs, prototype, wait-what | github.com/mattpocock/skills (skills/<bucket>/) | 5beb35b | MIT (LICENSE in each folder) |
 | psx-horror-style | github.com/arjun988/blender-skills (.claude/skills/) | 8f778d2 | MIT (LICENSE in folder) |
+| psx-retro-rendering | github.com/SummerEngine/summer (library/skills/) | 7840d32 | MIT (LICENSE in folder) |
 | free-game-asset-discovery | github.com/kyssta-exe/skills (creative/) | 34dd0fb | MIT (stated in repo README; no LICENSE file) |
 
 Not installed on purpose: threejs-3d-generator, threejs-image-generator, threejs-audio-generator
@@ -62,3 +63,7 @@ separate skills library repo for other projects.
   assets/CREDITS.md. Claude cannot download from Freesound/OpenGameArt here, so it builds the list and
   the owner downloads. It was written for Hermes Agent: ignore `delegate_task` and `skill_manage`, and
   its Dungeon Market Tycoon manifest is just an example.
+- psx-retro-rendering is written for Godot (Summer Engine). Port its shader maths (vertex snap, affine UVs,
+  RGB5 + PS1 dither, vertex lighting, blend modes, fog) to GLSL in src/render/; skip its GDScript,
+  project-setting and node steps. Its pure-black-texel-is-transparent rule is optional; code-built
+  textures must not rely on it by accident. psx-horror-style sets the look, this one the pipeline.
