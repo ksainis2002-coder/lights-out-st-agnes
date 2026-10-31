@@ -3,3 +3,6 @@ dist/
 test-results/
 playwright-report/
 shot.tmp.mjs
+.env
+.env.*
+!.env.example
