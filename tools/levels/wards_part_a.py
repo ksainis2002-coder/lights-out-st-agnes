@@ -30,7 +30,7 @@ class Room:
 
 class Level:
     def __init__(self):
-        self.props, self.lights, self.documents, self.lamps = [], [], [], []
+        self.props, self.lights, self.documents, self.lamps, self.pickups = [], [], [], [], []
 
     def prop(self, room, type_, x, z, rotation=0, lift=None, extra=None, **options):
         p = {"type": type_, "at": room.at(x, z)}
@@ -56,9 +56,12 @@ class Level:
         self.lights.append({"type": "point", "at": room.at(x, z), "height": height, "color": color,
                             "intensity": intensity, "distance": distance})
 
-    def lamp(self, room, lid, x, z):
+    def lamp(self, room, lid, x, z, circuit=None):
         """A ward lamp, lit until Sister M. puts it out (levels/lamps.js)."""
-        self.lamps.append({"id": lid, "room": room.id, "at": room.at(x, z)})
+        self.lamps.append({"id": lid, "room": room.id, "circuit": circuit or room.id, "at": room.at(x, z)})
+
+    def pickup(self, room, pid, item, x, z, y=0.0, **extra):
+        self.pickups.append({"id": pid, "item": item, "at": room.at(x, z), "y": y, **extra})
 
     def document(self, room, did, x, z, y, rotation=0, **extra):
         doc = {"id": did, "at": room.at(x, z), "y": y, **extra}
@@ -146,7 +149,7 @@ def wards():
     L.light(day, 10.0, 5.2, 2.2, 1.8, 7)
 
     # Fuse room: the board (puzzle 1, part A3) on the south wall.
-    L.prop(fus, 'fuseBoard', 2.0, 6, 180, extra={"id": "fuse_board"}, fuses=[3])
+    L.prop(fus, 'fuseBoard', 2.0, 6, 180, extra={"id": "fuse_board"}, fuses=[0])
     L.many(fus, [
         ('handprints', 3.2, 6, 180), ('wallScratches', 0.8, 6, 180, {"seed": 6}), ('peeledPaper', 0, 2.4, 90, {"seed": 3}),
         ('linenShelves', 4, 3.4, -90, {"length": 1.4, "seed": 4}), ('radiator', 0, 4.0, 90), ('bucketMop', 0.5, 5.5, 30),
@@ -166,6 +169,7 @@ def wards():
         ('bucketMop', 5.5, 5.3, 200), ('hangingBulb', 3.0, 3.0, 0, {"ceiling": 3.4}),
     ])
     L.light(bat, 3.0, 3.0, 2.4, 1.5, 6)
+    L.pickup(bat, 'fuse_baths', 'fuse', 1.5, 0.93, y=0.6, color='#d6d2c4')  # on the rim of the first tub
 
     # Ward A: ten beds, charts at their feet, every lamp on, the rule on the west wall.
     north = [0.95 + 1.84 * i for i in range(6)]
@@ -194,8 +198,10 @@ def wards():
         ('shoes', 1.7, 1.0, 80), ('shoes', 5.3, 2.1, -100, {"colour": "#4a2a20"}), ('teddy', 6.4, 0.8, -90, {}, 0.5),
         ('drawing', 1.5, 0, 0, {"kind": "house"}), ('drawing', 3.5, 0, 0, {"kind": "sun"}), ('drawing', 5.6, 0, 0, {"kind": "house"}),
         ('crucifix', 3.5, 0, 0, {"height": 2.9}), ('sheetPile', 1.9, 4.5), ('washstand', 7, 4.6, -90), ('foldingScreen', 5.4, 5.0, 20),
-        ('papers', 3.4, 3.6, 50, {"count": 4}), ('hangingBulb', 3.5, 2.6, 0, {"ceiling": 3.4}),
+        ('papers', 3.4, 3.6, 50, {"count": 4}),
     ])
+    L.lamp(ch, 'childrens_ward_1', 3.5, 2.0)
+    L.lamp(ch, 'childrens_ward_2', 3.5, 4.4)
     for did, x, z, rot in [('chart_dunn', 1.6, 1.95, 90), ('chart_rowe', 1.6, 4.25, 90), ('chart_lacey', 5.4, 0.8, -90), ('chart_carr', 5.4, 3.1, -90)]:
         L.document(ch, did, x, z, 0.5, rot)
     L.light(ch, 2.4, 1.0, 2.2, 1.6, 6)
@@ -208,8 +214,11 @@ def wards():
         ('recordsCabinet', 4.6, 0.3, 0, {"lock": False}), ('sink', 5, 2.8, -90), ('scales', 0.5, 0.5, 30), ('dripStand', 1.5, 0.6),
         ('trolley', 3.9, 1.6, 30), ('trolley', 1.4, 3.4, 300), ('foldingScreen', 0.9, 4.6, 70), ('chair', 3.8, 4.3, 200, {"toppled": True}),
         ('papers', 2.0, 1.8, 60, {"count": 6}), ('papers', 3.4, 2.6, 10, {"count": 4}), ('fallenTiles', 3.2, 0.9, 0, {"seed": 4}),
-        ('peeledPaper', 3.9, 0, 0, {"seed": 4}), ('puddle', 3.4, 3.2, 0, {"width": 0.7, "depth": 0.5}), ('hangingBulb', 2.5, 3.0, 0, {"ceiling": 3.4}),
+        ('peeledPaper', 3.9, 0, 0, {"seed": 4}), ('puddle', 3.4, 3.2, 0, {"width": 0.7, "depth": 0.5}),
     ])
+    L.lamp(dis, 'dispensary_1', 2.5, 3.0)
+    for pid, item, x, color in [('fuse_cabinet', 'fuse', 2.15, '#d6d2c4'), ('pills_cabinet', 'pills', 2.5, '#6a3a1a'), ('box_cylinder', 'music_box_cylinder', 2.9, '#b8923a')]:
+        L.pickup(dis, pid, item, x, 0.62, y=0.76, color=color, appearsWith='puzzle_medicine')
     L.document(dis, 'night_round', 3.5, 0.035 / 1.2, 1.5, 0, upright=True)
     L.light(dis, 2.5, 3.0, 2.4, 1.4, 6)
 
@@ -235,10 +244,18 @@ def wards():
         ('peeledPaper', 13.5, 0, 0, {"seed": 1}), ('peeledPaper', 26.2, 2, 180, {"seed": 8}), ('radiator', 5.0, 2, 180), ('radiator', 22.0, 0),
         ('puddle', 10.0, 1.0), ('laundryBasket', 38.4, 0.5),
     ])
-    for x in (4.0, 13.0, 21.0, 29.0, 37.0):
+    for i, x in enumerate((6.0, 20.0, 33.0)):
+        L.lamp(cor, f"corridor_{i + 1}", x, 1.0, circuit='corridor')
+    for x in (13.0, 27.0):
         L.prop(cor, 'hangingBulb', x, 1.0, ceiling=3.4)
     for x in (8.0, 20.0, 32.0):
         L.light(cor, x, 1.0, 2.4, 1.3, 9)
+
+    # The stairs behind their electric gate: up to the first floor (part B, not built: "Not yet").
+    L.prop(rooms['stairs'], 'stairs', 1.0, 4.6, 0, extra={"use": "travel", "to": {"level": "wards_upper", "spawn": "stairs"},
+                                                          "prompt": "prompt.stairsUp", "useHeight": 0.9, "useRadius": 0.8},
+           steps=10, landing=1.2)
+    L.light(rooms['stairs'], 1.0, 4.0, 2.4, 1.2, 5)
 
     hum = {"name": "amb_building_hum", "volume": 0.3}
     rain = {"name": "amb_rain_inside", "volume": 0.3}
@@ -260,12 +277,19 @@ def wards():
         "ambience": [rain],
         "emitters": [{"sound": "hospital_drip", "at": bat.at(4.3, 0.6), "height": 0.5, "volume": 0.5, "distance": 3,
                       "every": [4, 11], "room": "baths"}],
-        "pickups": [], "documents": L.documents,
+        "pickups": L.pickups, "documents": L.documents,
         # Nora's voice on the valve radios (levels/radios.js): once each, when you come near.
         "radios": [{"id": "radio_admissions", "at": adm.at(9.5, 2.05), "hear": 3.6, "lines": ["nora.admissions.1", "nora.admissions.2"]},
                    {"id": "radio_day", "at": day.at(5.0, 0.5), "hear": 3.6, "lines": ["nora.dayRoom"]}],
         "weather": {"storm": "puzzle_records"},
         "lamps": L.lamps,
+        # The fuse board (puzzles/wardFuses.js): Ward A's fuse is in it at first; a second lies in
+        # the baths, a third in the dispensary cabinet. Power on "stairs" opens the way up.
+        "puzzles": {
+            "wardFuses": {"prop": "fuse_board", "circuits": ["ward_a", "childrens_ward", "dispensary", "corridor", "stairs", "upstairs"],
+                          "start": [0], "opens": "stairs"},
+            "medicineLock": {"prop": "medicine_cabinet", "card": "night_round", "code": [3, 8, 1, 5]},
+        },
         # Sister M. (ai/nun.js). The first time you stand in Ward A she is at its west end and
         # puts its lamps out one by one, towards the doors; then she walks her round. The
         # nurses' station (the tape recorder, the door home) is not on it: a safe room.
@@ -277,7 +301,9 @@ def wards():
                       cor.at(1.5, 1.2), fus.at(2.0, 2.4)],
         },
         # Edith (ghosts/edith.js): on bed 7 of the children's ward, facing the room.
-        "edith": {"at": ch.at(5.75, 3.1), "y": 0.48, "rotation": -90, "room": "childrens_ward"},
+        "edith": {"at": ch.at(5.75, 3.1), "y": 0.48, "rotation": -90, "room": "childrens_ward",
+                  "hints": [{"after": "tried_wardFuses", "until": "power_dispensary", "lines": ["edith.hint.fuses"]},
+                            {"after": "tried_medicineLock", "until": "puzzle_medicine", "lines": ["edith.hint.round.1", "edith.hint.round.2"]}]},
     }
 
 

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.68 — The west wing's two ground floor puzzles. The fuse board: six circuits and three fuses to find; a live circuit lights its lamps and frees its electric lock, and lit lamps draw Sister M. The dispensary cabinet: four number wheels, opened by the medicine round (the card, the admissions book, the bed charts). Edith gives a hint if you are stuck for a few minutes.
 - 0.2.67 — Sister M. walks the west wing. Ward A's lamps go out one by one the first time you stand in it; after that she walks her round, sees your flashlight (a hissed "Lights out." and two seconds before she comes), loses you when it goes off, and catches you if she reaches your light or you walk into her in the dark. You can hide under Ward A's beds. Edith, on bed 7, whispers where she is. The nurses' station stays safe.
 - 0.2.66 — The west wing opens: once the school wing is done, the chain on its courtyard door lies cut and the asylum's ground floor can be walked: admissions, the day room, Ward A with its lamps on, the children's ward, the baths, the fuse room, the nurses' station (a tape recorder and a door home). Eight papers to read and Nora's voice on two radios. No Sister M. and no puzzles yet; the dispensary, the stairs and the basement stay shut.
 - 0.2.65 — 0.4 still of the fuse board's close-up screen (six sockets with their circuit cards, fuses in hand). The filled-out rooms are approved. Nothing in the game changes.

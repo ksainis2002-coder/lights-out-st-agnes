@@ -25,8 +25,9 @@ function labelTexture(text) {
 
 // The fuse board (puzzle 1): a slate panel with six porcelain sockets, each
 // labelled with its circuit, a main lever, conduit to the ceiling. "fuses":
-// which sockets (0–5) hold a fuse; "labels": the six circuit names.
-function fuseBoard(t, { fuses = [3], labels = ['WARD A', 'CHILDREN', 'DISPENSARY', 'CORRIDOR', 'STAIRS', 'UPSTAIRS'] } = {}) {
+// which sockets (0–5) hold a fuse at first; "labels": the six circuit names
+// (far too small to read from where you stand: the close-up carries them).
+function fuseBoard(t, { fuses = [0], labels = ['A', 'B', 'C', 'D', 'E', 'F'] } = {}) {
   const porcelain = { color: '#d6d2c4' };
   const parts = [
     box(t.sheet, [1.1, 0.84, 0.05], [0, 1.02, 0.025], { color: '#33363a' }), // the slate
@@ -37,6 +38,7 @@ function fuseBoard(t, { fuses = [3], labels = ['WARD A', 'CHILDREN', 'DISPENSARY
     box(t.iron, [0.1, 0.16, 0.06], [0.47, 1.36, 0.06], { color: '#1e1e20' }), // main switch
     strut(t.iron, [0.47, 1.46, 0.09], [0.47, 1.62, 0.2], [0.025, 0.025], { color: '#8a2a22' }),
   ];
+  const plugs = [];
   labels.forEach((text, i) => {
     const x = -0.36 + (i % 3) * 0.3;
     const y = i < 3 ? 1.5 : 1.14;
@@ -45,14 +47,18 @@ function fuseBoard(t, { fuses = [3], labels = ['WARD A', 'CHILDREN', 'DISPENSARY
       box(t.sheet, [0.07, 0.07, 0.02], [x, y + 0.045, 0.085], { color: '#141414' }), // the empty socket
       decal(labelTexture(text), [0.24, 0.045], [x, y - 0.04, 0.052]),
     );
-    if (fuses.includes(i)) {
-      parts.push(
-        box(t.sheet, [0.06, 0.06, 0.09], [x, y + 0.05, 0.1], porcelain),
-        box(t.sheet, [0.035, 0.035, 0.02], [x, y + 0.0625, 0.15], { color: '#b8923a' }),
-      );
-    }
+    const fuse = group(
+      box(t.sheet, [0.06, 0.06, 0.09], [x, y + 0.05, 0.1], porcelain),
+      box(t.sheet, [0.035, 0.035, 0.02], [x, y + 0.0625, 0.15], { color: '#b8923a' }),
+    );
+    fuse.visible = fuses.includes(i);
+    plugs.push(fuse);
+    parts.push(fuse);
   });
-  return group(...parts);
+  const board = group(...parts);
+  // The puzzle shows which sockets hold a fuse now (puzzles/wardFuses.js).
+  board.userData.setFuses = (held) => plugs.forEach((plug, i) => (plug.visible = Boolean(held[i])));
+  return board;
 }
 
 function staticTexture() {

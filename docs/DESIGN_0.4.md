@@ -168,6 +168,32 @@ Sister M., the ward lamps, hiding and Edith are in the game (ground floor only):
   board set piece (A3 / B).
 - Tests: `tests/nun.spec.js`.
 
+## Part A3 as built (0.2.68)
+The two ground floor puzzles; with them part A can be played from the courtyard door to the stairs.
+- **The fuse board** (`src/puzzles/wardFuses.js`, screen `src/ui/screens/wardFuses.js`, as the
+  approved still with the dark red lamp). Six sockets: Ward A, children's ward, dispensary,
+  corridor, stairs, upstairs. A fuse makes a circuit live (flag `power_<circuit>`): its lamps burn
+  and its electric lock lets go (the dispensary door, the stairs gate). Fuses are items.
+  - **Changed from the sheet:** the board's first fuse sits in **Ward A**, not Corridor: that is
+    why Ward A's lamps are on when you arrive. The second lies on the rim of a tub in the baths,
+    the third in the dispensary cabinet.
+  - Lamps: Ward A 3, children's ward 2, dispensary 1, corridor 3. Sister M. walks to the nearest
+    lit lamp and puts it out; a circuit whose lamps are all out shows dark red on the board, and
+    its fuse pulled and pushed in again lights them afresh. A lock stays open while its fuse is in,
+    whatever she does to the lamps.
+  - The way through: move Ward A's fuse to Dispensary (she comes to its lamp), put the baths' fuse
+    in a far circuit to draw her off, open the cabinet, then the third fuse in Stairs
+    (`puzzle_ward_fuses`, a checkpoint). The stairs prop says "Not yet" until part B.
+- **The medicine round** (`src/puzzles/medicineLock.js`, the school's lock screen with four wheels
+  and the label DISPENSARY): **3 8 1 5**, only once the night round card has been read. Open, the
+  cabinet leaves a fuse, pills and the music box's cylinder on the table under it
+  (`puzzle_medicine`, a checkpoint). The pills are the game's existing pills, with their text.
+- **Edith's hints** (level data "edith.hints"): after 150 s stuck on a puzzle you have tried, her
+  line for it, once: the fuse board, then the two medicine round lines.
+- Tests: `tests/wardPuzzles.spec.js`.
+- **Still open for part A:** the bot route through the ground floor, the wing's plan as a journal
+  map, the call board set piece, lightning making her flinch, the music box's case.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

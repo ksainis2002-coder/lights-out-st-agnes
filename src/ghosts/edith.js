@@ -2,8 +2,8 @@
 // girl on bed 7 of the children's ward. Faceless and unhurt, as every ghost
 // child. She hears Sister M.'s beads before you can and says where she is: a
 // whisper heard anywhere in the wing, never more often than every 20 s, and
-// only when what she has to say changes. She is "a child" until you read her
-// chart. Level data: "edith": { "at": [c, r], "y": 0.48, "rotation": -90, "room": "childrens_ward" }
+// only when what she has to say changes. Stuck on a puzzle for a few minutes,
+// you get her hint for it. She is "a child" until you read her chart. Level data: "edith": { "at": [c, r], "y": 0.48, "rotation": -90, "room": "childrens_ward" }
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { roomAt } from '../levels/loader.js';
@@ -23,6 +23,22 @@ export function createEdith(game) {
   let queue = []; // lines still to say, one after another
 
   const say = (key) => game.subtitles.show(key, { speaker: 'edith', seconds: SECONDS });
+  const stuck = new Map(); // hint line → seconds you have been stuck on its puzzle
+
+  // A hint for a puzzle you have tried and not solved, each line once, after
+  // a few minutes (level data: "hints": [{ "after", "until", "lines", "wait" }]).
+  function hint(level, dt) {
+    for (const entry of level.edith.hints ?? []) {
+      if (!game.progress.hasFlag(entry.after) || game.progress.hasFlag(entry.until)) continue;
+      const line = entry.lines.find((key) => !game.progress.hasFlag(`said_${key}`));
+      if (!line) continue;
+      stuck.set(line, (stuck.get(line) ?? 0) + dt);
+      if (stuck.get(line) < (entry.wait ?? 150)) continue;
+      game.progress.setFlag(`said_${line}`);
+      return line;
+    }
+    return null;
+  }
 
   function setup(level) {
     ghost = null;
@@ -81,6 +97,12 @@ export function createEdith(game) {
       return;
     }
     if (!game.progress.hasFlag('edith_met') || game.hiding.active()) return;
+    const tip = hint(level, dt);
+    if (tip && wait <= 0) {
+      say(tip);
+      wait = GAP;
+      return;
+    }
     const now = warning(level);
     const urgent = now === 'seen' || now === 'aside';
     if (!now || now === said || (wait > 0 && !urgent)) return;

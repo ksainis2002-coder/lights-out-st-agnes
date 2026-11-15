@@ -15,6 +15,8 @@ export const ICONS = {
   rope: { pal: { r: '#c8b890', h: '#b03028' }, rows: ['................', '....rrrrrrr.....', '...r.......r....', '..r.........r...', '..r.........r...', '.hh.........hh..', '.hh.........hh..', '.hh.........hh..'] },
   matches: { pal: { b: '#8a5a30', s: '#c8a040', w: '#e0d8c0', r: '#b03028' }, rows: ['................', '...........r....', '..........w.....', '.........w......', '...bbbbbbbb.....', '...bssssssb.....', '...bssssssb.....', '...bbbbbbbb.....'] },
   statue: { pal: { s: '#a8a8a0', d: '#6a6a64' }, rows: ['......ss........', '.....ssss.......', '.....sdds.......', '....ssssss......', '....sdssds......', '.....ssss.......', '....dddddd......'] },
+  fuse: { pal: { w: '#d6d2c4', b: '#b8923a', d: '#8a867a' }, rows: ['................', '................', '....bbwwwwwwbb..', '....bbwwwwwwbb..', '....bbwddddwbb..', '....bbwwwwwwbb..', '....bbwwwwwwbb..'] },
+  cylinder: { pal: { b: '#b8923a', d: '#6a5a2a', p: '#ffe9a0' }, rows: ['................', '................', '...dbbbbbbbbd...', '...dbpbbpbbbd...', '...dbbbpbbpbd...', '...dbpbbbpbbd...', '...dbbbbbbbbd...'] },
   lamb: { pal: { s: '#a8a49a', d: '#6a675f', w: '#d6d2c6' }, rows: ['................', '..........ss....', '.........ssss...', '...ssssssssdss..', '..sssswsssss....', '..ssssssssss....', '...ssssssss.....', '...d.d..d.d.....'] },
 };
 

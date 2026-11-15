@@ -1,8 +1,9 @@
 // The ward lamps (0.4): bare bulbs that are lit when you arrive, because the
 // power is still on, and that Sister M. puts out one by one (ai/nun.js).
-// Level data: "lamps": [{ "id": "ward_a_1", "room": "ward_a", "at": [c, r] }]
-// A lamp she has put out stays out (flag lamp_out_<id>) until the fuse board
-// lights its room again (part A3: relight).
+// Level data: "lamps": [{ "id": "ward_a_1", "room": "ward_a", "circuit": "ward_a", "at": [c, r] }]
+// A lamp burns while its circuit has a fuse (flag power_<circuit>; the fuse
+// board, puzzles/wardFuses.js) and she has not put it out (flag
+// lamp_out_<id>). A fuse pushed in again lights the circuit's lamps afresh.
 import * as THREE from 'three';
 
 const HEIGHT = 2.85; // the bulb, on its flex under a 3.4 m ceiling
@@ -13,6 +14,7 @@ export function createLamps(game) {
   let lamps = [];
 
   const flag = (id) => `lamp_out_${id}`;
+  const burns = (lamp) => game.progress.hasFlag(`power_${lamp.circuit}`) && !game.progress.hasFlag(flag(lamp.id));
 
   function show(lamp) {
     lamp.light.visible = lamp.lit;
@@ -30,7 +32,7 @@ export function createLamps(game) {
       const light = new THREE.PointLight('#ffd49a', 6, 9, 1.3);
       light.position.set(position.x, HEIGHT - 0.15, position.z);
       game.world.levelGroup.add(bulb, light);
-      const lamp = { id: data.id, room: data.room, position, bulb, light, lit: !game.progress.hasFlag(flag(data.id)) };
+      const lamp = { id: data.id, room: data.room, circuit: data.circuit, position, bulb, light, lit: burns(data) };
       show(lamp);
       return lamp;
     });
@@ -40,8 +42,7 @@ export function createLamps(game) {
     const lamp = lamps.find((entry) => entry.id === id);
     if (!lamp || lamp.lit === lit) return;
     lamp.lit = lit;
-    if (lit) game.progress.clearFlag(flag(id));
-    else game.progress.setFlag(flag(id));
+    game.progress.setFlag(flag(id));
     show(lamp);
     game.events.emit(lit ? 'lamp.lit' : 'lamp.out', { id, position: lamp.position.clone() });
   }
@@ -53,6 +54,19 @@ export function createLamps(game) {
     lit: () => lamps.filter((lamp) => lamp.lit),
     litIn: (room) => lamps.some((lamp) => lamp.lit && lamp.room === room),
     snuff: (id) => set(id, false),
-    relight: (id) => set(id, true),
+    // The fuse board: a circuit gets its fuse (every lamp on it burns again) or loses it.
+    power(circuit, on) {
+      for (const lamp of lamps.filter((entry) => entry.circuit === circuit)) {
+        if (on) game.progress.clearFlag(flag(lamp.id));
+        lamp.lit = burns(lamp);
+        show(lamp);
+      }
+      game.events.emit('lamps.power', { circuit, on });
+    },
+    // 'none' (no lamps on it), 'lit', or 'out' (she has put them all out).
+    circuitState(circuit) {
+      const on = lamps.filter((entry) => entry.circuit === circuit);
+      return !on.length ? 'none' : on.some((lamp) => lamp.lit) ? 'lit' : 'out';
+    },
   };
 }

@@ -236,5 +236,9 @@ priority 1 sounds, the school playtest reviews.
 **0.4 part A2 (0.2.67):** Sister M. walks the ground floor, the lamps go out, you can hide under
 Ward A's beds and Edith warns you ("Part A2 as built" in `docs/DESIGN_0.4.md`). Next: A3 (the fuse
 board close-up and its circuits, the fuse pickups, the medicine round and the dispensary cabinet).
+**0.4 part A3 (0.2.68):** the fuse board and the medicine round are in ("Part A3 as built" in
+`docs/DESIGN_0.4.md`); part A plays from the courtyard door to the stairs gate. Next: the loose
+ends of part A (bot route, journal map, call board, music box case), then part B's stills
+(observation, isolation, treatment room, Dr. Venn's office) and the camcorder.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

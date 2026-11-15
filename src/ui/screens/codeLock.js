@@ -5,6 +5,8 @@
 // wheel chooses and turns it. CLICK the drawer (or ENTER) tries it; a wrong
 // try shakes it, with its line above. ESC or a click outside steps back. The
 // puzzle (puzzles/recordsLock.js) passes wheels, turn, set, tryDrawer, note.
+// The dispensary cabinet (puzzles/medicineLock.js) uses it with four wheels
+// and its own label.
 import { osdText, fittedSize, COLORS } from '../osd.js';
 
 const W = 480;
@@ -44,7 +46,7 @@ function drawWheel(ctx, x, y, digit, chosen) {
   triangle(ctx, x + 15, y + WHEEL.h + 9, 5, false);
 }
 
-function drawDrawer(ctx, t, dx) {
+function drawDrawer(ctx, t, dx, label, count) {
   const { x, y, w, h } = DRAWER;
   ctx.fillStyle = '#4a4e4a';
   ctx.fillRect(x + dx, y, w, h);
@@ -55,23 +57,24 @@ function drawDrawer(ctx, t, dx) {
   ctx.strokeStyle = '#8a8a80';
   ctx.lineWidth = 1;
   ctx.strokeRect(195.5 + dx, 65.5, 89, 21);
-  const label = t('codeLock.label');
+  label = t(label);
   osdText(ctx, label, 240 + dx, 71, fittedSize(ctx, label, 9, 82), '#3a3020', 'center');
   ctx.fillStyle = '#8a6a2a'; // the brass lock plate
-  ctx.fillRect(176 + dx, 100, 128, 88);
+  const plate = count * WHEEL.step + 20; // 128 for three wheels
+  ctx.fillRect(W / 2 - plate / 2 + dx, 100, plate, 88);
   ctx.fillStyle = '#a88a3a';
-  ctx.fillRect(180 + dx, 104, 120, 80);
+  ctx.fillRect(W / 2 - plate / 2 + 4 + dx, 104, plate - 8, 80);
   ctx.fillStyle = '#3a3a36'; // the handle under the lock
   ctx.fillRect(208 + dx, 196, 64, 8);
 }
 
-export function createCodeLockScreen(ui, { wheels, turn, set, tryDrawer, note }) {
+export function createCodeLockScreen(ui, { wheels, turn, set, tryDrawer, note, label = 'codeLock.label' }) {
   const { t } = ui;
   const openedAt = performance.now();
   let chosen = 0;
   let shakeAt = -Infinity;
   const count = () => wheels().length;
-  const wheelX = (i) => WHEEL.x + i * WHEEL.step;
+  const wheelX = (i) => W / 2 - (count() * WHEEL.step - 6) / 2 + i * WHEEL.step; // centred: 189 for the first of three
 
   function attempt() {
     tryDrawer();
@@ -84,7 +87,7 @@ export function createCodeLockScreen(ui, { wheels, turn, set, tryDrawer, note })
     ctx.fillRect(0, 0, W, H);
     const since = performance.now() - shakeAt;
     const dx = since < SHAKE_FOR ? Math.round(Math.sin(since / 18) * 3) : 0;
-    drawDrawer(ctx, t, dx);
+    drawDrawer(ctx, t, dx, label, count());
     wheels().forEach((digit, i) => drawWheel(ctx, wheelX(i) + dx, WHEEL.y, digit, i === chosen));
     const line = note();
     if (line) osdText(ctx, t(line), W / 2, 26, fittedSize(ctx, t(line), 10, 440), COLORS.soft, 'center');

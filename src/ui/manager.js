@@ -15,6 +15,7 @@ import { createCardIndexScreen } from './screens/cardIndex.js';
 import { createShelfScreen } from './screens/shelf.js';
 import { createHopscotchScreen } from './screens/hopscotch.js';
 import { createCodeLockScreen } from './screens/codeLock.js';
+import { createWardFusesScreen } from './screens/wardFuses.js';
 import { createCloseViewScreen } from './screens/closeView.js';
 import { createItemCardScreen } from './screens/itemCard.js';
 import { createSanityCardScreen } from './screens/sanityCard.js';
@@ -36,6 +37,7 @@ const SCREENS = {
   shelf: createShelfScreen,
   hopscotch: createHopscotchScreen,
   codeLock: createCodeLockScreen,
+  wardFuses: createWardFusesScreen,
   closeView: createCloseViewScreen,
   itemCard: createItemCardScreen,
   sanityCard: createSanityCardScreen,

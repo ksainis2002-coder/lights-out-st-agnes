@@ -11,6 +11,8 @@ import { pianoPuzzle, SOLVED as PIANO_SOLVED } from './piano.js';
 import { hopscotchPuzzle, SOLVED as HOPSCOTCH_SOLVED } from './hopscotch.js';
 import { recordsLockPuzzle, SOLVED as RECORDS_SOLVED } from './recordsLock.js';
 import { lanternsPuzzle, SOLVED as LANTERNS_SOLVED } from './lanterns.js';
+import { wardFusesPuzzle, SOLVED as WARD_FUSES_SOLVED } from './wardFuses.js';
+import { medicineLockPuzzle, SOLVED as MEDICINE_SOLVED } from './medicineLock.js';
 
 const PUZZLES = {
   namePlates: { create: namePlatesPuzzle, solved: PLATES_SOLVED, symbol: 'plates' },
@@ -22,6 +24,8 @@ const PUZZLES = {
   hopscotch: { create: hopscotchPuzzle, solved: HOPSCOTCH_SOLVED, symbol: 'hop' },
   recordsLock: { create: recordsLockPuzzle, solved: RECORDS_SOLVED, symbol: 'lock' },
   lanterns: { create: lanternsPuzzle, solved: LANTERNS_SOLVED, symbol: 'flame' },
+  wardFuses: { create: wardFusesPuzzle, solved: WARD_FUSES_SOLVED, symbol: 'fuses' },
+  medicineLock: { create: medicineLockPuzzle, solved: MEDICINE_SOLVED, symbol: 'lock' },
 };
 
 // For the paper map: each puzzle's solved flag and the symbol in its ring.

@@ -23,6 +23,8 @@ export const ITEMS = {
   gate_key: { icon: 'key', consumed: true },
   matches: { icon: 'matches' },
   skipping_rope: { icon: 'rope' },
+  fuse: { icon: 'fuse' }, // the west wing's fuse board takes them, one a socket (puzzles/wardFuses.js)
+  music_box_cylinder: { icon: 'cylinder' }, // a part of Edith's music box
 };
 
 const FAMILIES = { plate: { icon: 'plate' } };
