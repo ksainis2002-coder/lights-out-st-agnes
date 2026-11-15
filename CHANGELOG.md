@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.66 — The west wing opens: once the school wing is done, the chain on its courtyard door lies cut and the asylum's ground floor can be walked: admissions, the day room, Ward A with its lamps on, the children's ward, the baths, the fuse room, the nurses' station (a tape recorder and a door home). Eight papers to read and Nora's voice on two radios. No Sister M. and no puzzles yet; the dispensary, the stairs and the basement stay shut.
 - 0.2.65 — 0.4 still of the fuse board's close-up screen (six sockets with their circuit cards, fuses in hand). The filled-out rooms are approved. Nothing in the game changes.
 - 0.2.64 — 0.4 room stills filled out after the owner's note (too empty): papers, toppled chairs, a stretcher, drip stands, fallen tiles, peeled paint, toys and shoes. Fuse board and television picks written down. Nothing in the game changes.
 - 0.2.63 — 0.4 stills of the ground floor rooms: admissions, the fuse room, the baths, the dispensary, the day room with its television, the children's ward with Edith. Nothing in the game changes.

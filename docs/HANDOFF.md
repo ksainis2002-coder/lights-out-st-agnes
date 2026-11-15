@@ -228,5 +228,10 @@ fixes and the 0.2.x pull request.
 approved Sister M. after three passes (hollow face, `src/props/burnedNun.js`) and the VHS tape tab
 icon. The wing 3 content sheet is a Claude Doc (link in DESIGN_0.4.md), waiting for the owner's
 checklist. Next: the 0.4 sound list, part A room stills, then build part A.
+**0.4 part A1 (0.2.66):** the west wing's ground floor is walkable from the courtyard once wing 2 is
+done, with its papers and Nora's radios ("Part A1 as built" in `docs/DESIGN_0.4.md`). The owner
+chose three steps: next A2 (Sister M. on her round, hiding under beds, Edith's warnings), then A3
+(the fuse board, the medicine round). Waiting on the owner: the content sheet's checklist, the
+priority 1 sounds, the school playtest reviews.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

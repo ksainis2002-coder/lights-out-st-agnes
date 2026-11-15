@@ -97,6 +97,7 @@ export function parseLevel(data) {
     watcher: data.watcher ?? null, // the stone statue (ai/watcher.js)
     chalk: data.chalk ?? null, // Maggie's chalk on the boards (ghosts/chalk.js)
     tricks: data.tricks ?? [], // Maggie's tricks on rooms (ghosts/tricks.js)
+    radios: data.radios ?? [], // Nora's voice on the valve radios (levels/radios.js)
     setPieces: data.setPieces ?? [], // the bell, the roll call, the film (ghosts/setPieces.js)
     weather: data.weather ?? null, // the storm, once a flag is set (levels/storm.js)
     safe: data.safe === true, // safe rooms restore sanity (the patient room)

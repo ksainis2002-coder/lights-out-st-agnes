@@ -48,6 +48,8 @@ import { createChalk } from './ghosts/chalk.js';
 import { createTricks } from './ghosts/tricks.js';
 import { createSetPieces } from './ghosts/setPieces.js';
 import { createStorm } from './levels/storm.js';
+import { createRadios } from './levels/radios.js';
+import { createSigns } from './levels/signs.js';
 import { createIntro } from './cutscenes/intro.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
@@ -107,6 +109,8 @@ function createGame() {
   game.tricks = createTricks(game); // Maggie's tricks on rooms (Classroom 1's desks)
   game.setPieces = createSetPieces(game); // upstairs: the bell, the roll call, the film
   game.storm = createStorm(game); // lightning and thunder once the records drawer is open
+  game.radios = createRadios(game); // Nora's voice on the west wing's radios
+  game.signs = createSigns(game); // painted signs in the game's language
   game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
   game.events.on('collapse.scare', () => game.hallucinations.remove());
   game.events.on('level.loaded', () => {
@@ -237,6 +241,7 @@ function applySettings(game) {
   const { settings, i18n, pipeline } = game;
   const sync = () => {
     i18n.setLanguage(settings.get('language'));
+    game.signs?.write();
     pipeline.effects.reduceEffects = settings.get('reduceEffects');
     pipeline.effects.flickerOff = settings.get('flickerOff');
   };
@@ -292,6 +297,7 @@ function simulate(game, dt) {
   game.tricks.update(dt);
   game.setPieces.update(dt);
   game.storm.update(dt);
+  game.radios.update(dt);
   game.moves.update();
   game.hallucinations.update(dt, game.sanity.value(), world.camera);
   world.update(dt);

@@ -111,7 +111,30 @@ shoes in the children's ward; props dripStand and stretcher are new): build the 
 code locks. **The television is dead until the camcorder is taken,** then on by itself.
 
 The owner approved the filled rooms ("build them") and building on the working branch while the
-school reviews are out. Still waiting for a yes: `ui_fuseBoard`, the fuse board's close-up screen.
+school reviews are out. `ui_fuseBoard` is approved with the dark red lamp added.
+
+## Part A1 as built (0.2.66)
+The ground floor of the west wing is in the game, without Sister M. and without puzzles:
+- **Level:** `src/levels/wards_ground.json`, written by `tools/levels/wards_part_a.py` (rerun it to
+  change the layout). North row: baths, Ward A, children's ward, dispensary, nurses' station,
+  stairs; the corridor; south row: fuse room, basement stairs, day room, admissions (the courtyard
+  door in its east wall). Furnished as the approved stills.
+- **The courtyard door:** chained until `wing_school_done`; from then on the cut chain lies on the
+  step and the door leads to admissions (the same script edits `grounds.json`).
+- **Shut for now:** the dispensary and the stairs gate (electric locks, flags `power_dispensary`,
+  `power_stairs`: the fuse board, A3) and the basement gate (`basement_open`, 0.5).
+- **Papers (content sheet):** Nora's note, the admissions book, the night book, the four bed charts,
+  the night round card. The owner answered the sheet's open questions; its checklist is not ticked
+  yet, so later edits to the sheet still have to be carried into `en.json` / `el.json`.
+- **Nora's radios:** `src/levels/radios.js` ("radios" in level data): admissions (two lines) and
+  the day room (one), each once, when you come within 3.6 m.
+- **The LIGHTS OUT sign:** a `wallSign` prop written in the game's language by `src/levels/signs.js`
+  (`"sign": "<i18n key>"` on a prop). Its look-at line `msg.lightsOutSign` is not on the sheet.
+- **Nurses' station:** the tape recorder and a door home.
+- **Not yet:** the wing's plan as a journal map, the fuse pickup in the baths, Edith, Sister M.
+  (A2), the fuse board and the medicine round (A3). The fuse board close-up is approved with a third
+  lamp state: dark red on a circuit whose lamps she has put out.
+- Tests: `tests/wards.spec.js`.
 
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills

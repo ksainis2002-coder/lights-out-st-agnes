@@ -164,4 +164,39 @@ function stretcher(t) {
   );
 }
 
-export const WARD_ROOM_PROPS = { fuseBoard, television, pigeonholes, callBoard, dripStand, stretcher };
+// A rule painted on a board on the wall (back to the wall). Its words come
+// from the game's language (levels/signs.js calls userData.write with the
+// lines of the prop's "sign" text); blank until then.
+function wallSign(t, { width = 3.0, height = 1.04, y = 1.82 } = {}) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 136;
+  canvas.height = 48;
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.NearestFilter;
+  texture.generateMipmaps = false;
+  function write(lines = []) {
+    const g = canvas.getContext('2d');
+    g.fillStyle = '#d8d0b0';
+    g.fillRect(0, 0, canvas.width, canvas.height);
+    g.fillStyle = '#1c1814';
+    [[0, 0, canvas.width, 2], [0, canvas.height - 2, canvas.width, 2], [0, 0, 2, canvas.height], [canvas.width - 2, 0, 2, canvas.height]].forEach((r) => g.fillRect(...r));
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    lines.slice(0, 2).forEach((line, i) => {
+      let size = i === 0 ? 20 : 16;
+      g.font = `bold ${size}px monospace`;
+      while (size > 8 && g.measureText(line).width > canvas.width - 10) g.font = `bold ${(size -= 1)}px monospace`;
+      g.fillText(line, canvas.width / 2, lines.length === 1 ? canvas.height / 2 : 14 + i * 21);
+    });
+    texture.needsUpdate = true;
+  }
+  write();
+  const board = decal(texture, [width, height], [0, y + height / 2, 0.012]);
+  board.userData.write = write;
+  const sign = group(board);
+  sign.userData.write = write;
+  return sign;
+}
+
+export const WARD_ROOM_PROPS = { fuseBoard, television, pigeonholes, callBoard, dripStand, stretcher, wallSign };

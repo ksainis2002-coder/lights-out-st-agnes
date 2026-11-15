@@ -70,7 +70,8 @@ export function usePrompt(ctx, text) {
 
 // Proposal: the fuse board close up (E at the board), like the code locks.
 // Six sockets with their circuit cards; a fuse in two of them, the cursor on
-// a third; a lamp by each socket shows a live circuit. Fuses in hand on the right.
+// a third; a lamp by each socket shows a live circuit, or dark red where Sister
+// M. has put that room's lamps out (owner pick). Fuses in hand on the right.
 const CIRCUITS = ['WARD A', 'CHILDREN\'S WARD', 'DISPENSARY', 'CORRIDOR', 'STAIRS', 'UPSTAIRS'];
 
 // Dark print on a cream card: plain, with no glow behind it, so it stays sharp.
@@ -82,7 +83,7 @@ function card(ctx, text, x, y) {
   ctx.fillText(text, x, y);
 }
 
-function socket(ctx, x, y, label, { fuse, selected }) {
+function socket(ctx, x, y, label, { fuse, selected, snuffed }) {
   ctx.fillStyle = '#d6d2c4'; // porcelain
   ctx.fillRect(x, y, 46, 40);
   ctx.fillStyle = '#b8b4a6';
@@ -99,7 +100,7 @@ function socket(ctx, x, y, label, { fuse, selected }) {
     ctx.fillRect(x + 16, y + 10, 3, 18);
     ctx.fillRect(x + 27, y + 10, 3, 18);
   }
-  ctx.fillStyle = fuse ? '#ffb040' : '#3a2a14'; // the circuit's lamp
+  ctx.fillStyle = snuffed ? '#8a1c14' : fuse ? '#ffb040' : '#3a2a14'; // the circuit's lamp: live, dark, or red where she put the lamps out
   ctx.fillRect(x + 52, y + 14, 8, 8);
   ctx.fillStyle = '#d8d0b0'; // the card
   ctx.fillRect(x - 12, y + 46, 84, 13);
@@ -122,7 +123,7 @@ export function fuseBoardClose(ctx) {
   ctx.fillRect(150, 42, 118, 14);
   card(ctx, 'WEST WING  LIGHTING', 209, 45);
   CIRCUITS.forEach((label, i) => {
-    socket(ctx, 86 + (i % 3) * 100, i < 3 ? 70 : 146, label, { fuse: i === 0 || i === 2, selected: i === 4 });
+    socket(ctx, 86 + (i % 3) * 100, i < 3 ? 70 : 146, label, { fuse: i === 0 || i === 2, selected: i === 4, snuffed: i === 0 });
   });
   osdText(ctx, 'IN HAND', 426, 84, 8, COLORS.dim, 'center');
   osdText(ctx, '0', 426, 98, 16, COLORS.osdValue, 'center');

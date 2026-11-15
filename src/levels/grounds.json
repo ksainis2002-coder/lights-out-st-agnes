@@ -197,6 +197,13 @@
     15
    ],
    "yawDegrees": 90
+  },
+  "west_wing_door": {
+   "cell": [
+    1,
+    18
+   ],
+   "yawDegrees": -90
   }
  },
  "rooms": [
@@ -267,19 +274,6 @@
     "spawn": "garden_door"
    },
    "prompt": "prompt.goInside",
-   "useHeight": 1.2,
-   "useRadius": 0.8
-  },
-  {
-   "type": "facadeDoor",
-   "at": [
-    1,
-    18.5
-   ],
-   "rotation": 90,
-   "use": "message",
-   "message": "msg.westWingChained",
-   "chained": true,
    "useHeight": 1.2,
    "useRadius": 0.8
   },
@@ -888,6 +882,60 @@
     "depth": 38,
     "height": 9,
     "count": 1400
+   }
+  },
+  {
+   "type": "facadeDoor",
+   "at": [
+    1,
+    18.5
+   ],
+   "rotation": 90,
+   "use": "message",
+   "message": "msg.westWingChained",
+   "chained": true,
+   "until": {
+    "flag": "wing_school_done"
+   },
+   "useHeight": 1.2,
+   "useRadius": 0.8
+  },
+  {
+   "type": "facadeDoor",
+   "at": [
+    1,
+    18.5
+   ],
+   "rotation": 90,
+   "id": "west_wing_door",
+   "use": "travel",
+   "after": {
+    "flag": "wing_school_done"
+   },
+   "to": {
+    "level": "wards_ground",
+    "spawn": "courtyard_door"
+   },
+   "prompt": "prompt.toWestWing",
+   "useHeight": 1.2,
+   "useRadius": 0.8
+  },
+  {
+   "type": "cutChain",
+   "at": [
+    1.55,
+    18.65
+   ],
+   "rotation": 110,
+   "solid": false,
+   "id": "cut_chain",
+   "use": "message",
+   "message": "msg.chainCut",
+   "prompt": "prompt.look",
+   "useHeight": 0.2,
+   "useRadius": 0.5,
+   "after": {
+    "flag": "wing_school_done"
    }
   }
  ],

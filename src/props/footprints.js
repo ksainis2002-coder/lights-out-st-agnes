@@ -67,6 +67,12 @@ const FOOTPRINTS = {
     const length = (options?.steps ?? 8) * (options?.run ?? 0.28);
     return { size: [options?.width ?? 1.6, length], offset: [0, -length / 2] };
   },
+  // The asylum wards (0.4).
+  wardBed: (options) => ({ size: options?.small ? [0.72, 1.6] : [0.9, 2.0] }),
+  wheelchair: () => ({ size: [0.66, 0.7] }),
+  television: () => ({ size: [0.7, 0.5] }),
+  stretcher: () => ({ size: [0.66, 1.9] }),
+  dripStand: () => ({ size: [0.3, 0.3] }),
 };
 
 function footprint(prop, cellSize) {

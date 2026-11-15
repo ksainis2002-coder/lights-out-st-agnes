@@ -201,10 +201,11 @@ function ironingBoard(t) {
   return group(board, cover);
 }
 
-// Bare bulb on a flex hanging from the ceiling (switched off).
-function hangingBulb(t, { ceiling = 2.8 } = {}) {
+// Bare bulb on a flex hanging from the ceiling; "lit": glowing (the level
+// data puts its light beside it).
+function hangingBulb(t, { ceiling = 2.8, lit = false } = {}) {
   const flex = box(t.iron, [0.01, 0.5, 0.01], [0, ceiling - 0.5, 0], { color: '#1a1a1a' });
-  const bulb = mesh(new THREE.SphereGeometry(0.045, 6, 4), t.sheet, { color: '#9a9a90' });
+  const bulb = mesh(new THREE.SphereGeometry(0.045, 6, 4), t.sheet, lit ? { unlit: true, color: '#ffe2a8' } : { color: '#9a9a90' });
   bulb.position.y = ceiling - 0.55;
   return group(flex, bulb);
 }

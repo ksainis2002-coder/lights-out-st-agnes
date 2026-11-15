@@ -45,8 +45,9 @@ function chartTexture() {
 
 // Asylum ward bed, head at -z: enamelled iron rails chipped to rust, a thin
 // striped mattress, a grey blanket, a chart at the foot. "straps": leather
-// restraints across the mattress; "unmade": the blanket thrown back.
-function wardBed(t, { number, chart = true, straps = false, unmade = false } = {}) {
+// restraints across the mattress; "unmade": the blanket thrown back;
+// "small": a child's bed, four fifths the size.
+function wardBed(t, { number, chart = true, straps = false, unmade = false, small = false } = {}) {
   const blanket = { color: '#6c7668' };
   const parts = [
     ...bedRail(t, 0.9, 1.05, -0.98),
@@ -63,7 +64,9 @@ function wardBed(t, { number, chart = true, straps = false, unmade = false } = {
     parts.push(board);
   }
   if (number) parts.push(decal(numberTexture(number), [0.2, 0.2], [0, 0.82, -0.955]));
-  return group(...parts);
+  const bed = group(...parts);
+  if (small) bed.scale.setScalar(0.8);
+  return bed;
 }
 
 // A tall ward window: dark glass behind iron bars, a blind half down.

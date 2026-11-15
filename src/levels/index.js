@@ -5,6 +5,7 @@ import orphanageWing from './orphanage_wing.json';
 import grounds from './grounds.json';
 import schoolGround from './school_ground.json';
 import schoolUpper from './school_upper.json';
+import wardsGround from './wards_ground.json';
 
 export const LEVELS = {
   test_corridor: testCorridor,
@@ -13,6 +14,7 @@ export const LEVELS = {
   grounds,
   school_ground: schoolGround,
   school_upper: schoolUpper,
+  wards_ground: wardsGround,
 };
 
 export const START_LEVEL = 'patient_room';
