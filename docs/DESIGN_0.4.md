@@ -89,6 +89,16 @@ prompt, item, room name, puzzle answer (cabinet 3815, Dr. Venn's door 4261) and 
 with seven open questions and a checklist for the owner. Nothing in it is approved until its
 checklist is ticked; the game text is carried from the sheet as it stands then.
 
+## Decided on the content sheet (owner, 2026-11-15)
+The sheet's seven open questions, all kept as written: the full confession; "Believes himself a
+grown man" on file page 3; Edith's last line names Tommy; Nora names Agnes on the first radio;
+Maggie wrote the door code (M.R.); Peter Dunn and Ann Lacey stay as names; camcorder keys C (already
+bound), N for the night view, right mouse button for the flash, all rebindable. The checklist on the
+sheet is still the owner's to tick.
+
+## Sounds
+`docs/SOUNDS_0.4.md` (IDs) and the owner's Claude Doc (search terms, links): 31 new sounds.
+
 ## Next
-The owner's checklist on the content sheet, the 0.4 sound list for the owner, stills
+The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.
