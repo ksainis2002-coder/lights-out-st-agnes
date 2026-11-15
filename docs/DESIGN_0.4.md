@@ -218,6 +218,13 @@ The loose ends, and two holes the bot route turned up:
   3 minutes from full to a blackout in full dark, less under the rooms' moonlight): pills, lit
   lamps and the nurses' station are the relief. Whether that is fair is the owner's call.
 
+## Part B stills (2026-11-16, waiting for a yes)
+`observation` (the tripod, the monitor, Nora's camcorder on the floor, the glass), `treatment_room`
+(the chair, seen through the glass), `isolation` (a padded cell by flashlight), `isolation_night`
+(the same wall in the night view: Maggie's writing) and `venn_office`. New, mockup-only: the
+`padded` wall texture and `src/props/wardUpper.js` (treatmentChair, tripod, camcorder, videoTape,
+observationGlass, nightWriting).
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

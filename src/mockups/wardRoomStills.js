@@ -5,7 +5,7 @@
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { look, subtitle, message } from './helpers.js';
-import { fuseBoardClose } from './wardUi.js';
+import { fuseBoardClose, camcorder } from './wardUi.js';
 import rooms from './levels/wardRooms.json';
 
 const CELL = 1.2;
@@ -138,5 +138,84 @@ export const WARD_ROOM_STILLS = {
       eye(world, [3.1, 8.6], [3, 7], 1.6, 1.45);
     },
     ui: fuseBoardClose,
+  },
+  // Part B, the first floor. Observation: the tripod, the monitor, Nora's
+  // camcorder where she dropped it, the glass onto the treatment room.
+  observation: {
+    level: rooms,
+    setup({ world }) {
+      furnish(world, [
+        ['observationGlass', 4, 1.02, 0], ['tripod', 3.2, 2.2, 20], ['camcorder', 4.3, 3.1, 70], ['videoTape', 4.75, 3.3, 30, {}, 0.01],
+        ['television', 6.3, 1.7, -50], ['table', 1.8, 1.5, 0], ['chair', 1.8, 2.2, 190], ['chair', 5.2, 4.0, 110, { toppled: true }],
+        ['papers', 1.8, 1.5, 0, { count: 5 }, 0.76], ['papers', 3.6, 3.6, 40, { count: 6 }], ['papers', 5.4, 2.8, 100, { count: 4 }],
+        ['recordsCabinet', 1.25, 3.4, 90, { lock: false }], ['wallClock', 6.2, 1, 0], ['peeledPaper', 1.02, 2.4, 90, { seed: 6 }],
+        ['hangingBulb', 4, 3, 0, { ceiling: 3.4 }], ['sheetPile', 2.4, 4.4, 0], ['notice', 2.2, 1, 0],
+      ]);
+      eye(world, [4.9, 5.4], [4, 2.2], 1.6, 0.6);
+    },
+    ui: (ctx) => message(ctx, 'A camcorder, on its side. Its red light is still on.'),
+  },
+  // The treatment room, seen through the glass: the chair under its lamp.
+  treatment_room: {
+    level: rooms,
+    setup({ world }) {
+      world.flashlight.toggle();
+      furnish(world, [
+        ['treatmentChair', 4, 15.0, 0], ['trolley', 5.3, 15.0, 70], ['dripStand', 2.8, 14.6, 0], ['examCouch', 1.8, 14.2, 90],
+        ['floorDrain', 4, 16, 0], ['puddle', 4.3, 15.9, 0], ['tileDecay', 4, 13, 0, { width: 2, height: 1.2, y: 1.6, seed: 5 }],
+        ['fallenTiles', 4.2, 13.5, 0, { seed: 7 }], ['bucketMop', 6.4, 13.6, 0], ['observationGlass', 4, 16.6, 180, { width: 3 }],
+        ['hangingBulb', 4, 15.0, 0, { ceiling: 3.4, lit: true }],
+      ]);
+      const cold = new THREE.PointLight('#cfe0ff', 12, 7, 1.1);
+      cold.position.set(4 * CELL, 2.5, 15.0 * CELL);
+      world.scene.add(cold);
+      eye(world, [4.7, 16.95], [4, 15.0], 1.6, 1.0);
+    },
+    ui: (ctx) => message(ctx, 'A chair with straps, under a lamp. The door has no handle on this side.'),
+  },
+  // An isolation cell by flashlight: padding, stains, nothing else.
+  isolation: {
+    level: rooms,
+    setup({ world }) {
+      furnish(world, [['tinPlate', 1.5, 19.5, 0], ['floorDrain', 2.5, 20.6, 0], ['wornPatch', 3.4, 19.6, 0], ['sheetPile', 3.5, 21.5, 0],
+        ['nightWriting', 2.5, 19, 0, { shown: false }]]);
+      eye(world, [2.6, 21.7], [2.5, 19], 1.5, 1.2);
+    },
+  },
+  // The same wall through the camcorder's night view: Maggie's writing.
+  isolation_night: {
+    level: rooms,
+    setup({ world, fx }) {
+      furnish(world, [['tinPlate', 1.5, 19.5, 0], ['floorDrain', 2.5, 20.6, 0], ['wornPatch', 3.4, 19.6, 0], ['sheetPile', 3.5, 21.5, 0],
+        ['nightWriting', 2.5, 19, 0, { lines: ['I watched him', 'through the hatch.', 'First he presses 4.', 'Then 2.'] }]]);
+      eye(world, [2.6, 21.7], [2.5, 19], 1.5, 1.2);
+      world.flashlight.toggle();
+      const lamp = new THREE.PointLight(0xffffff, 1.6, 12, 1.1);
+      lamp.position.copy(world.camera.position);
+      world.scene.add(lamp);
+      Object.assign(fx, { nightVision: 1, vignette: 0.5 });
+    },
+    ui: (ctx) => camcorder(ctx),
+  },
+  // Dr. Venn's office: his desk and lamp, the records, a couch, a radio.
+  venn_office: {
+    level: rooms,
+    setup({ world }) {
+      world.flashlight.toggle();
+      furnish(world, [
+        ['pedestalDesk', 12, 2.6, 0], ['headChair', 12, 1.9, 0], ['deskLamp', 11.5, 2.5, 200, { lit: true }, 0.79], ['radioSet', 12.5, 2.45, 170, {}, 0.79],
+        ['ledger', 11.9, 2.7, 15, {}, 0.79], ['papers', 12.3, 2.8, 0, { count: 4 }, 0.79], ['typewriter', 11.2, 2.75, 200, {}, 0.79],
+        ['recordsCabinet', 8.25, 1.6, 90], ['recordsCabinet', 8.25, 2.2, 90], ['recordsCabinet', 8.25, 2.8, 90], ['recordsCabinet', 8.25, 3.4, 90],
+        ['bookshelf', 10.2, 1.18, 0, { length: 2, seed: 9 }], ['bookshelf', 14.2, 1.18, 0, { length: 2, seed: 2 }], ['wallClock', 12.2, 1, 0],
+        ['examCouch', 15.2, 3.4, 90], ['foldingScreen', 14.4, 4.4, 60], ['eyeChart', 16, 2.2, -90], ['scales', 15.5, 1.6, 0],
+        ['rug', 12, 3.2, 0, { width: 3, depth: 2.2 }], ['armchair', 10.4, 4.3, 150], ['hatStand', 8.5, 5.4, 0], ['papers', 11, 4.2, 30, { count: 6 }],
+        ['barredWindow', 9.6, 6, 180], ['barredWindow', 13.8, 6, 180],
+      ]);
+      const warm = new THREE.PointLight('#ffb866', 4, 6, 1.3);
+      warm.position.set(11.6 * CELL, 1.2, 2.9 * CELL);
+      world.scene.add(warm);
+      eye(world, [12.6, 5.6], [12, 2], 1.6, 0.95);
+    },
+    ui: (ctx) => subtitle(ctx, '(Nora, on the radio) I\'ve lost the camera. I dropped it upstairs when she came.', { whisper: false }),
   },
 };

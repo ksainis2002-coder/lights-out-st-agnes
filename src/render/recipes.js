@@ -196,3 +196,18 @@ export function wardWall(x, y, random) {
   const scuff = (x * 5 + y * 7) % 31 < 2 ? -16 : 0;
   return [176 + n + damp + scuff, 170 + n + damp + scuff, 132 + n + damp * 1.2 + scuff];
 }
+
+// The isolation cells (0.4): quilted canvas padding, grey-cream, buttoned in
+// a diamond grid, stained darker towards the floor.
+export function padded(x, y, random) {
+  const n = random() * 8;
+  const u = x % 16; // a cushion is 0.6 m wide (a wall cell shows two) and 0.85 m tall
+  const v = y % 8;
+  const seam = u === 0 || v === 0;
+  const button = (u === 0 || u === 8) && v === 4;
+  const puff = 14 - Math.abs(u - 8) * 1.5 - Math.abs(v - 4) * 3; // each cushion swells in its middle
+  const stain = y > 22 ? (y - 22) * 5 : 0;
+  if (button) return [58, 50, 40];
+  if (seam) return [84 + n - stain, 78 + n - stain, 64 + n - stain];
+  return [150 + n + puff - stain, 142 + n + puff - stain, 120 + n + puff - stain];
+}
