@@ -233,5 +233,8 @@ done, with its papers and Nora's radios ("Part A1 as built" in `docs/DESIGN_0.4.
 chose three steps: next A2 (Sister M. on her round, hiding under beds, Edith's warnings), then A3
 (the fuse board, the medicine round). Waiting on the owner: the content sheet's checklist, the
 priority 1 sounds, the school playtest reviews.
+**0.4 part A2 (0.2.67):** Sister M. walks the ground floor, the lamps go out, you can hide under
+Ward A's beds and Edith warns you ("Part A2 as built" in `docs/DESIGN_0.4.md`). Next: A3 (the fuse
+board close-up and its circuits, the fuse pickups, the medicine round and the dispensary cabinet).
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

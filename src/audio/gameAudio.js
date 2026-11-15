@@ -168,6 +168,18 @@ export function createGameAudio(game) {
   events.on('watcher.breath', ({ position }) => play('stone_near_breath', { position: at(position, 1.9), volume: 0.9 }));
   events.on('watcher.grab', ({ position }) => play('stone_grind', { position: at(position, 0.4), rate: 0.8, volume: 0.8 }));
   events.on('collapse.grab', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
+  // Sister M. (stand-ins until the 0.4 sounds arrive, docs/SOUNDS_0.4.md): her
+  // beads as she walks (rosary_beads), the hiss and flare when she sees your
+  // light (nun_hiss, ember_flare), a lamp put out (lamp_off).
+  events.on('nun.beads', ({ position }) => play('chain_rattle', { position: at(position, 0.9), volume: 0.28, rate: 1.7, refDistance: 3 }));
+  events.on('nun.warning', ({ position }) => {
+    play('whisper', { position: at(position, 1.7), volume: 0.9, rate: 0.7, refDistance: 4 });
+    play('match_strike', { position: at(position, 0.6), volume: 0.8, rate: 0.6, refDistance: 4 });
+  });
+  events.on('nun.snuff', ({ position }) => play('candle_snuff', { position: at(position, 2.4), volume: 0.9, refDistance: 4 }));
+  events.on('nun.catch', ({ position }) => play('candle_snuff', { position: at(position, 1.6), volume: 1, rate: 0.8 }));
+  events.on('hide.entered', () => play('cloth_crouch', { volume: 0.8 }));
+  events.on('hide.left', () => play('cloth_crouch', { volume: 0.7 }));
   events.on('watcher.introStarted', () => play('fluorescent_buzz', { volume: 0.5, rate: 0.8 }));
   // Maggie's chalk on a board and Classroom 1's desks dragged round. A taunt
   // (always a lie) starts with a screech of the chalk and a hint ends with the

@@ -213,3 +213,23 @@ function reachingArm(t, habit) {
     hand,
   );
 }
+
+// Her catch (approved still nun_catch): she leans in, her burnt left hand up
+// at your light, the snuffer tipping over it. The collapse sets it 1.25 m in
+// front of the eyes, facing them (its +z towards you).
+export function nunCatch(t) {
+  const her = burnedNun(t, { glow: 1, reach: true });
+  her.rotation.x = 0.24;
+  const snuffer = candleSnuffer(t);
+  const hand = new THREE.Vector3(0.36, 1.2, 0.45);
+  const top = new THREE.Vector3(0.22, 1.9, 0.8); // the bell, over your light
+  const axis = top.clone().sub(hand).normalize();
+  snuffer.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), axis);
+  snuffer.rotateY(Math.PI);
+  snuffer.position.copy(top).addScaledVector(axis, -2.08);
+  const embers = new THREE.PointLight('#ff8a40', 2.1, 2.4, 1.2); // her own glow on her, from below
+  embers.position.set(0, 1.2, 0.75);
+  const pose = group(her, snuffer, embers);
+  pose.userData.grab = { from: 1.15, pitch: 0.1, roll: -0.05 }; // how the collapse frames her (sanity/collapse.js)
+  return pose;
+}

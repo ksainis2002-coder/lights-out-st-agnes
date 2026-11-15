@@ -24,7 +24,7 @@ function panel(ctx, x, y, w, h, alpha) {
 }
 
 function drawPrompt(ctx, game) {
-  const target = game.interaction.target();
+  const target = game.hiding.active() ? game.hiding.way : game.interaction.target(); // under a bed: the way out
   if (!target || game.inventory.isOpen()) return false;
   const prompt = target.prompt();
   if (!prompt) return false;

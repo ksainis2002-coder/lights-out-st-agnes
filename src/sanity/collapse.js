@@ -50,7 +50,7 @@ export function createCollapse(game) {
   let counterFrom = 0;
   let rewinds = 0;
 
-  // options: { grab: true } for the watcher's catch; { whisper, speaker } for
+  // options: { grab: true } for the watcher's catch ({ grab: 'nunCatch' }: Sister M.'s); { whisper, speaker } for
   // the line over the rewind (else the wing's blackout line).
   function start(why, options = {}) {
     if (phase) return;
@@ -62,7 +62,7 @@ export function createCollapse(game) {
     game.inventory.setOpen(false);
     if (options.grab && !game.settings.get('comfortMode')) {
       phase = 'grab';
-      grab = PROPS.watcherGrab(game.world.textures);
+      grab = PROPS[options.grab === true ? 'watcherGrab' : options.grab](game.world.textures);
       game.world.scene.add(grab);
       game.events.emit('collapse.grab', cause);
       return;
@@ -106,7 +106,8 @@ export function createCollapse(game) {
     camera.getWorldDirection(forward);
     forward.y = 0;
     forward.normalize();
-    grab.position.set(camera.position.x + forward.x * GRAB_FROM, 0, camera.position.z + forward.z * GRAB_FROM);
+    const from = grab.userData.grab?.from ?? GRAB_FROM;
+    grab.position.set(camera.position.x + forward.x * from, 0, camera.position.z + forward.z * from);
     grab.rotation.y = Math.atan2(-forward.x, -forward.z);
     const strong = !game.settings.get('reduceEffects');
     Object.assign(game.pipeline.fx, { vignette: 0.8, aberration: strong ? 3 : 1, blur: 0.3 });
@@ -167,8 +168,9 @@ export function createCollapse(game) {
   function applyCamera(camera) {
     if (phase === 'grab') {
       const k = Math.min(1, t / 0.2);
-      camera.rotation.x += GRAB_PITCH * k;
-      camera.rotation.z += GRAB_ROLL * k;
+      const pose = grab?.userData.grab ?? {}; // a grab prop may say how you look at it (Sister M. is your height)
+      camera.rotation.x += (pose.pitch ?? GRAB_PITCH) * k;
+      camera.rotation.z += (pose.roll ?? GRAB_ROLL) * k;
       return;
     }
     if (phase !== 'faint') return;

@@ -11,6 +11,7 @@ import json, os
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src', 'levels')
 MOON, WARM = '#5a6c9c', '#ffd49a'
+HIDE = {"use": "hide", "useRadius": 0.55}  # a bed you can slide under (player/hide.js)
 r3 = lambda v: round(v, 3)
 
 
@@ -29,7 +30,7 @@ class Room:
 
 class Level:
     def __init__(self):
-        self.props, self.lights, self.documents = [], [], []
+        self.props, self.lights, self.documents, self.lamps = [], [], [], []
 
     def prop(self, room, type_, x, z, rotation=0, lift=None, extra=None, **options):
         p = {"type": type_, "at": room.at(x, z)}
@@ -55,10 +56,9 @@ class Level:
         self.lights.append({"type": "point", "at": room.at(x, z), "height": height, "color": color,
                             "intensity": intensity, "distance": distance})
 
-    def lamp(self, room, x, z):
-        """A ward lamp, lit: the power is still on in here."""
-        self.prop(room, 'hangingBulb', x, z, ceiling=3.4, lit=True)
-        self.light(room, x, z, 2.7, 6, 9, WARM)
+    def lamp(self, room, lid, x, z):
+        """A ward lamp, lit until Sister M. puts it out (levels/lamps.js)."""
+        self.lamps.append({"id": lid, "room": room.id, "at": room.at(x, z)})
 
     def document(self, room, did, x, z, y, rotation=0, **extra):
         doc = {"id": did, "at": room.at(x, z), "y": y, **extra}
@@ -170,9 +170,9 @@ def wards():
     # Ward A: ten beds, charts at their feet, every lamp on, the rule on the west wall.
     north = [0.95 + 1.84 * i for i in range(6)]
     for i, x in enumerate(north):
-        L.prop(wa, 'wardBed', x, 0.87, 0, number=i + 1, unmade=i == 3, straps=i == 4)
+        L.prop(wa, 'wardBed', x, 0.87, 0, extra=HIDE, number=i + 1, unmade=i == 3, straps=i == 4)
     for i, x in enumerate([1.0, 4.6, 6.5, 10.0]):
-        L.prop(wa, 'wardBed', x, 5.13, 180, number=i + 7, unmade=i == 1, straps=i == 2)
+        L.prop(wa, 'wardBed', x, 5.13, 180, extra=HIDE, number=i + 7, unmade=i == 1, straps=i == 2)
     L.prop(wa, 'wallSign', 0, 3.0, 90, extra={"id": "lights_out_sign", "sign": "sign.lightsOut", "use": "message",
                                                "message": "msg.lightsOutSign", "prompt": "prompt.look", "useHeight": 2.3})
     L.many(wa, [
@@ -180,8 +180,8 @@ def wards():
         ('foldingScreen', 8.3, 4.6, 80), ('trolley', 5.6, 3.1, 20), ('dripStand', 3.6, 0.5), ('sheetPile', 5.4, 4.4), ('papers', 3.0, 3.2, 30, {"count": 5}),
         ('chair', 7.8, 2.9, 300, {"toppled": True}), ('wheelchair', 10.3, 3.3, 250), ('peeledPaper', 11, 2.2, -90, {"seed": 5}),
     ])
-    for x in (2.0, 5.5, 9.0):
-        L.lamp(wa, x, 3.0)
+    for i, x in enumerate((2.0, 5.5, 9.0)):
+        L.lamp(wa, f"ward_a_{i + 1}", x, 3.0)
 
     # Children's ward: seven small beds, bed 4 stripped; Edith's place is bed 7 (part A2).
     for i, z in enumerate([0.8, 1.95, 3.1, 4.25]):
@@ -265,6 +265,19 @@ def wards():
         "radios": [{"id": "radio_admissions", "at": adm.at(9.5, 2.05), "hear": 3.6, "lines": ["nora.admissions.1", "nora.admissions.2"]},
                    {"id": "radio_day", "at": day.at(5.0, 0.5), "hear": 3.6, "lines": ["nora.dayRoom"]}],
         "weather": {"storm": "puzzle_records"},
+        "lamps": L.lamps,
+        # Sister M. (ai/nun.js). The first time you stand in Ward A she is at its west end and
+        # puts its lamps out one by one, towards the doors; then she walks her round. The
+        # nurses' station (the tape recorder, the door home) is not on it: a safe room.
+        "nun": {
+            "territory": ["ward_corridor", "ward_a", "childrens_ward", "baths", "day_room", "admissions", "fuse_room"],
+            "intro": {"room": "ward_a", "from": wa.at(0.8, 3.0), "lamps": ["ward_a_1", "ward_a_2", "ward_a_3"]},
+            "round": [cor.at(9.5, 1.0), wa.at(5.5, 3.0), cor.at(15.5, 1.0), cor.at(22.5, 1.0), ch.at(3.5, 3.4), cor.at(29.5, 0.8),
+                      adm.at(6.0, 3.6), cor.at(29.5, 1.2), day.at(6.5, 3.6), cor.at(15.5, 1.2), cor.at(2.5, 1.0), bat.at(3.0, 4.2),
+                      cor.at(1.5, 1.2), fus.at(2.0, 2.4)],
+        },
+        # Edith (ghosts/edith.js): on bed 7 of the children's ward, facing the room.
+        "edith": {"at": ch.at(5.75, 3.1), "y": 0.48, "rotation": -90, "room": "childrens_ward"},
     }
 
 

@@ -49,6 +49,10 @@ import { createTricks } from './ghosts/tricks.js';
 import { createSetPieces } from './ghosts/setPieces.js';
 import { createStorm } from './levels/storm.js';
 import { createRadios } from './levels/radios.js';
+import { createLamps } from './levels/lamps.js';
+import { createNun } from './ai/nun.js';
+import { createHiding } from './player/hide.js';
+import { createEdith } from './ghosts/edith.js';
 import { createSigns } from './levels/signs.js';
 import { createIntro } from './cutscenes/intro.js';
 
@@ -103,7 +107,11 @@ function createGame() {
   game.watcherIntro = createWatcherIntro(game, game.watcher);
   game.watcherFloors = createWatcherFloors(game, game.watcher); // she follows you up and down the stairs
   game.watcherOutside = createWatcherOutside(game, game.watcher); // out in the storm, then at the chapel door
-  game.enemies = [game.watcher]; // the debug overlay shows their senses and state
+  game.hiding = createHiding(game); // under a ward bed
+  game.lamps = createLamps(game); // ward lamps, lit until Sister M. puts them out
+  game.nun = createNun(game); // Sister M., who sees only light
+  game.edith = createEdith(game); // Edith, who hears her coming
+  game.enemies = [game.watcher, game.nun]; // the debug overlay shows their senses and state
   game.moves = createMoves(game); // props that stand another way once a flag is set
   game.chalk = createChalk(game); // Maggie's chalk on the corridor boards
   game.tricks = createTricks(game); // Maggie's tricks on rooms (Classroom 1's desks)
@@ -273,8 +281,9 @@ function simulate(game, dt) {
   }
   game.updateItems();
   if (game.mode !== 'playing') return;
-  player.update(dt, input, settings);
-  const canSwitch = game.progress.hasFlag('tool_flashlight') && (world.flashlight.isOn() || game.battery.canLight());
+  if (game.hiding.active()) game.hiding.update(dt, input);
+  else player.update(dt, input, settings);
+  const canSwitch = !game.hiding.active() && game.progress.hasFlag('tool_flashlight') && (world.flashlight.isOn() || game.battery.canLight());
   if (input.wasPressed('flashlight') && canSwitch) {
     world.flashlight.toggle();
     game.events.emit('flashlight.toggled', world.flashlight.isOn());
@@ -282,8 +291,9 @@ function simulate(game, dt) {
   triggers.update({ ...player.state.position, y: 0.5 });
   game.updateVisits();
   player.applyToCamera(world.camera, settings);
+  game.hiding.applyCamera(world.camera);
   world.camera.updateMatrixWorld();
-  game.interaction.update(world.camera, input);
+  if (!game.hiding.active()) game.interaction.update(world.camera, input);
   game.tutorial.update();
   game.battery.update(dt);
   game.sanity.update(dt);
@@ -298,6 +308,8 @@ function simulate(game, dt) {
   game.setPieces.update(dt);
   game.storm.update(dt);
   game.radios.update(dt);
+  game.nun.update(dt);
+  game.edith.update(dt);
   game.moves.update();
   game.hallucinations.update(dt, game.sanity.value(), world.camera);
   world.update(dt);
@@ -311,6 +323,7 @@ function tick(game, dt) {
   game.time += dt;
   if (!game.needsClick() && game.realTime) simulate(game, dt);
   player.applyToCamera(world.camera, settings);
+  game.hiding.applyCamera(world.camera);
   if (game.collapse.active()) game.collapse.applyCamera(world.camera);
   else if (game.intro.active()) game.intro.applyCamera(world.camera);
   else if (game.session.active) applySanityEffects(game, game.sanity.value(), game.time);
@@ -332,6 +345,7 @@ function advance(game, seconds) {
     game.input.endFrame(); // a key press counts for one step, like one frame
   }
   game.player.applyToCamera(game.world.camera, game.settings);
+  game.hiding.applyCamera(game.world.camera);
 }
 
 function boot() {

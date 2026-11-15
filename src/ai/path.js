@@ -6,7 +6,9 @@
 
 const SIDES = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
-export function createPathing(level, territory) {
+// "opens": (door) => true for a walker who opens closed doors herself
+// (Sister M.); such a door's cell counts as open floor.
+export function createPathing(level, territory, { opens = null } = {}) {
   const inTerritory = (col, row) => territory.includes(level.roomAtCell(col, row)?.id);
   // A cell's middle half (a quarter of its area) overlapped by a furniture footprint.
   const furnished = (col, row) => {
@@ -27,7 +29,8 @@ export function createPathing(level, territory) {
     }
   }
   const walkable = (col, row) =>
-    col >= 0 && row >= 0 && col < level.cols && row < level.rows && open[row * level.cols + col] && !level.isSolid(col, row);
+    col >= 0 && row >= 0 && col < level.cols && row < level.rows && open[row * level.cols + col]
+    && (!level.isSolid(col, row) || Boolean(opens && level.doorAt(col, row) && opens(level.doorAt(col, row))));
 
   // Cells from "from" to the reachable cell nearest the target point
   // (the target's own cell when she can get there). [] when she is stuck.

@@ -1225,7 +1225,9 @@
     "number": 1,
     "unmade": false,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1237,7 +1239,9 @@
     "number": 2,
     "unmade": false,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1249,7 +1253,9 @@
     "number": 3,
     "unmade": false,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1261,7 +1267,9 @@
     "number": 4,
     "unmade": true,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1273,7 +1281,9 @@
     "number": 5,
     "unmade": false,
     "straps": true
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1285,7 +1295,9 @@
     "number": 6,
     "unmade": false,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1298,7 +1310,9 @@
     "number": 7,
     "unmade": false,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1311,7 +1325,9 @@
     "number": 8,
     "unmade": true,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1324,7 +1340,9 @@
     "number": 9,
     "unmade": false,
     "straps": true
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wardBed",
@@ -1337,7 +1355,9 @@
     "number": 10,
     "unmade": false,
     "straps": false
-   }
+   },
+   "use": "hide",
+   "useRadius": 0.55
   },
   {
    "type": "wallSign",
@@ -1457,39 +1477,6 @@
    "rotation": -90,
    "options": {
     "seed": 5
-   }
-  },
-  {
-   "type": "hangingBulb",
-   "at": [
-    10.0,
-    4.0
-   ],
-   "options": {
-    "ceiling": 3.4,
-    "lit": true
-   }
-  },
-  {
-   "type": "hangingBulb",
-   "at": [
-    13.5,
-    4.0
-   ],
-   "options": {
-    "ceiling": 3.4,
-    "lit": true
-   }
-  },
-  {
-   "type": "hangingBulb",
-   "at": [
-    17.0,
-    4.0
-   ],
-   "options": {
-    "ceiling": 3.4,
-    "lit": true
    }
   },
   {
@@ -2342,39 +2329,6 @@
   {
    "type": "point",
    "at": [
-    10.0,
-    4.0
-   ],
-   "height": 2.7,
-   "color": "#ffd49a",
-   "intensity": 6,
-   "distance": 9
-  },
-  {
-   "type": "point",
-   "at": [
-    13.5,
-    4.0
-   ],
-   "height": 2.7,
-   "color": "#ffd49a",
-   "intensity": 6,
-   "distance": 9
-  },
-  {
-   "type": "point",
-   "at": [
-    17.0,
-    4.0
-   ],
-   "height": 2.7,
-   "color": "#ffd49a",
-   "intensity": 6,
-   "distance": 9
-  },
-  {
-   "type": "point",
-   "at": [
     22.4,
     2.0
    ],
@@ -2580,5 +2534,121 @@
  ],
  "weather": {
   "storm": "puzzle_records"
+ },
+ "lamps": [
+  {
+   "id": "ward_a_1",
+   "room": "ward_a",
+   "at": [
+    10.0,
+    4.0
+   ]
+  },
+  {
+   "id": "ward_a_2",
+   "room": "ward_a",
+   "at": [
+    13.5,
+    4.0
+   ]
+  },
+  {
+   "id": "ward_a_3",
+   "room": "ward_a",
+   "at": [
+    17.0,
+    4.0
+   ]
+  }
+ ],
+ "nun": {
+  "territory": [
+   "ward_corridor",
+   "ward_a",
+   "childrens_ward",
+   "baths",
+   "day_room",
+   "admissions",
+   "fuse_room"
+  ],
+  "intro": {
+   "room": "ward_a",
+   "from": [
+    8.8,
+    4.0
+   ],
+   "lamps": [
+    "ward_a_1",
+    "ward_a_2",
+    "ward_a_3"
+   ]
+  },
+  "round": [
+   [
+    10.5,
+    9.0
+   ],
+   [
+    13.5,
+    4.0
+   ],
+   [
+    16.5,
+    9.0
+   ],
+   [
+    23.5,
+    9.0
+   ],
+   [
+    23.5,
+    4.4
+   ],
+   [
+    30.5,
+    8.8
+   ],
+   [
+    31.0,
+    14.6
+   ],
+   [
+    30.5,
+    9.2
+   ],
+   [
+    16.5,
+    14.6
+   ],
+   [
+    16.5,
+    9.2
+   ],
+   [
+    3.5,
+    9.0
+   ],
+   [
+    4.0,
+    5.2
+   ],
+   [
+    2.5,
+    9.2
+   ],
+   [
+    3.0,
+    13.4
+   ]
+  ]
+ },
+ "edith": {
+  "at": [
+   25.75,
+   4.1
+  ],
+  "y": 0.48,
+  "rotation": -90,
+  "room": "childrens_ward"
  }
 }

@@ -3,7 +3,7 @@
 // front facing +z.
 import * as THREE from 'three';
 import { box, strut, materialFor } from './parts.js';
-import { burnedNun, candleSnuffer } from './burnedNun.js';
+import { burnedNun, candleSnuffer, nunCatch } from './burnedNun.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -40,4 +40,4 @@ function ghostEdith(t, { opacity = 0.6 } = {}) {
   );
 }
 
-export const WARD_FIGURES = { burnedNun, candleSnuffer, ghostEdith };
+export const WARD_FIGURES = { burnedNun, candleSnuffer, nunCatch, ghostEdith };

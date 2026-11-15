@@ -138,6 +138,9 @@ const USES = {
   },
 };
 
+// { "type": "wardBed", "use": "hide" }: under the bed, out of Sister M.'s sight (player/hide.js).
+USES.hide = { prompt: 'prompt.hideUnderBed', height: 0.45, run: (game, prop) => game.hiding.enter(prop) };
+
 const DEFAULT_USE = { drawing: 'look', hymnBoard: 'look' };
 const useOf = (prop) => prop.use ?? DEFAULT_USE[prop.type];
 

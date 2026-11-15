@@ -136,6 +136,38 @@ The ground floor of the west wing is in the game, without Sister M. and without 
   lamp state: dark red on a circuit whose lamps she has put out.
 - Tests: `tests/wards.spec.js`.
 
+## Part A2 as built (0.2.67)
+Sister M., the ward lamps, hiding and Edith are in the game (ground floor only):
+- **Ward lamps** (`src/levels/lamps.js`, level data "lamps"): Ward A's three are lit when you
+  arrive. A lamp she has put out stays out (flag `lamp_out_<id>`); `relight` is there for the fuse
+  board (A3).
+- **Sister M.** (`src/ai/nun.js`, level data "nun"). The first time you stand in Ward A she is at
+  its far end and puts the three lamps out one by one (the set piece: she cannot catch you during
+  it); then flag `nun_walking`, a checkpoint, and her round through the corridor, Ward A, the
+  children's ward, admissions, the day room, the baths and the fuse room. She opens doors herself.
+  The nurses' station is not on her round: a safe room.
+  - She sees your flashlight when it is on and you are in her room or in a clear line within
+    15 m. Then: "Lights out." (a second sighting within a minute: "After eight. After eight."),
+    her embers flare, 2 s (comfort mode 3.5 s) before her first step. She walks at 1.5 m/s on
+    Normal (your walk is 1.7, your run 3.3), 0.6 of that in comfort mode.
+  - Light off: after 1.2 s "Who has a light?", she walks to where it was, then back to her round.
+  - Catch: she reaches your lit light (1 m), or you touch her in the dark (0.8 m). The catch pose
+    `nunCatch` (as the approved still), then the rewind with Edith's line for how it happened
+    (`edith.catch.light` / `.touch` / `.lamp`).
+  - Sounds are stand-ins until the 0.4 files arrive (chain rattle for the beads, a whisper and a
+    match for the hiss and flare, the candle snuff).
+- **Hiding** (`src/player/hide.js`): Ward A's ten beds have "use": "hide". Under one your light
+  goes off, the view is at floor height looking out (the mouse turns your head a little), and
+  she can neither see nor touch you. The use key brings you out.
+- **Edith** (`src/ghosts/edith.js`, level data "edith"): on bed 7. Two lines when you first come
+  near; then her warnings, anywhere in the wing, by how near Sister M. is (far / next room / seen /
+  dark / step aside / gone), at most every 20 s (the urgent two: 8 s). She is "a child" until her
+  chart is read. One change from the sheet: "She's gone on. You can breathe." in place of "gone
+  up", until there is an upstairs.
+- **Not yet:** lightning making her flinch, the lap and Maggie's-bed lines, the hints, the call
+  board set piece (A3 / B).
+- Tests: `tests/nun.spec.js`.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

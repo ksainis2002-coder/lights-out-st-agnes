@@ -22,6 +22,7 @@ export function createProgress() {
     setOpen: (id, open) => (open ? add('open', id) : drop('open', id)),
     hasFlag: (id) => has('flags', id),
     setFlag: (id) => add('flags', id),
+    clearFlag: (id) => drop('flags', id), // a ward lamp lit again (levels/lamps.js)
     // How much has been done so far (flags, pages, items, unlocks): it grows
     // with every step forward (ghosts/chalk.js: no growth for a while = stuck).
     steps: () => data.flags.length + data.read.length + data.taken.length + data.unlocked.length,
