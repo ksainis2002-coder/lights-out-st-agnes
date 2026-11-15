@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.63 — 0.4 stills of the ground floor rooms: admissions, the fuse room, the baths, the dispensary, the day room with its television, the children's ward with Edith. Nothing in the game changes.
 - 0.2.62 — 0.4: the owner's answers to the content sheet's open questions are written down, and the wing 3 sound list (31 new sounds, three priorities) is ready for the owner. Nothing in the game changes.
 - 0.2.61 — 0.4: Sister M.'s look is approved, and the wing 3 content sheet (every document, line, code and set piece, English and Greek) is written for the owner to check. Nothing in the game changes.
 - 0.2.60 — 0.4 stills: Sister M.'s face in proportion and uncluttered: a smaller oval of dark, the eyes where eyes sit, no loose embers around it. Nothing in the game changes.

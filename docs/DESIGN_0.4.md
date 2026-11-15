@@ -99,6 +99,11 @@ sheet is still the owner's to tick.
 ## Sounds
 `docs/SOUNDS_0.4.md` (IDs) and the owner's Claude Doc (search terms, links): 31 new sounds.
 
+## Part A room stills (2026-11-15, waiting for a yes)
+`admissions`, `fuse_room`, `baths`, `dispensary`, `day_room`, `childrens_ward`
+(`src/mockups/wardRoomStills.js`, furnished in the empty mock level `levels/wardRooms.json`). New
+props in `src/props/wardRooms.js`: fuseBoard, television, pigeonholes, callBoard.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

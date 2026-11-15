@@ -21,6 +21,7 @@ import { CEMETERY_PROPS } from './cemetery.js';
 import { HUB_PROPS } from './hubDecay.js';
 import { HUB_DOOR_PROPS } from './hubDoor.js';
 import { WARD_PROPS } from './wards.js';
+import { WARD_ROOM_PROPS } from './wardRooms.js';
 import { WARD_FIGURES } from './wardFigures.js';
 
 function group(...children) {
@@ -345,5 +346,6 @@ export const PROPS = {
   ...HUB_PROPS,
   ...HUB_DOOR_PROPS,
   ...WARD_PROPS,
+  ...WARD_ROOM_PROPS,
   ...WARD_FIGURES,
 };

@@ -18,6 +18,7 @@ import { DOORS_HOME_STILLS } from './doorsHomeStills.js';
 import { OUTSIDE_STILLS } from './outsideStills.js';
 import { FIX_STILLS } from './fixStills.js';
 import { WARD_STILLS } from './wardStills.js';
+import { WARD_ROOM_STILLS } from './wardRoomStills.js';
 import { mapMarks } from './mapUi.js';
 import patientRoom from '../levels/patient_room.json';
 import dorms from '../levels/dorms.json';
@@ -117,6 +118,7 @@ const STILLS = {
   ...OUTSIDE_STILLS,
   ...FIX_STILLS,
   ...WARD_STILLS,
+  ...WARD_ROOM_STILLS,
   // Owner requests (wing 1): the washroom and linen cupboard furnished, and the
   // quiet room marked by the child kept in it. Real level, flashlight on.
   room_washroom: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [11.9, 1.6, 17.4], 129, -10) },
