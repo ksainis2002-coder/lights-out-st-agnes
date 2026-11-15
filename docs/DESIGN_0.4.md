@@ -76,6 +76,10 @@ only the embers bright).
   body flattened to shoulders with a rippled hem, tube sleeves, a veil that falls open-fronted
   past her shoulders, an oval wimple whose inside is a well of dark, two burning almond eyes.
 
+- **Third pass (owner, 2026-11-15):** the face was misproportioned and cluttered. Now the opening
+  has a face's proportions, the eyes sit a little above its middle, and the loose embers and scorch
+  holes around it are gone: a clean dark oval and two eyes.
+
 ## Still open
 - **Looks:** the rebuilt Sister M. needs the owner's yes; the other stills were not objected to.
 

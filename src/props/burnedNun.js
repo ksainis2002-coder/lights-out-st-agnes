@@ -15,7 +15,7 @@ function mesh(geometry, texture, options) {
 }
 
 // Scorched linen for her wimple and cape: cream, burnt brown-black from one
-// edge (the canvas top), with a few holes.
+// edge (the canvas top).
 function scorchedLinenTexture() {
   let seed = 5;
   const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
@@ -29,8 +29,6 @@ function scorchedLinenTexture() {
         g.fillRect(x, y, 1, 1);
       }
     }
-    g.fillStyle = '#2a2018';
-    for (let i = 0; i < 7; i++) g.fillRect(Math.floor(random() * w), 6 + Math.floor(random() * 9), 1 + (i % 2), 1);
   });
 }
 
@@ -154,40 +152,38 @@ export function burnedNun(t, { glow = 0.5, reach = false } = {}) {
 function nunHead(t, fire) {
   const linen = { color: '#8f8676', flatShading: true };
   const oval = (object, z) => {
-    object.scale.set(0.72, 1.12, 1);
-    object.position.set(0, -0.03, z);
+    object.scale.set(0.66, 0.9, 1);
+    object.position.set(0, -0.025, z);
     return object;
   };
   const coif = mesh(new THREE.SphereGeometry(0.115, 10, 7), t.sheet, linen);
   coif.scale.set(0.92, 1.2, 0.95);
   const well = (side, texture, options) => {
-    const tube = mesh(new THREE.CylinderGeometry(0.1, 0.088, 0.075, 12, 1, true), texture, { ...options, side });
+    const tube = mesh(new THREE.CylinderGeometry(0.1, 0.09, 0.05, 12, 1, true), texture, { ...options, side });
     tube.rotation.x = Math.PI / 2; // its axis along z, the wider end forward
-    tube.scale.set(0.72, 1, 1.12);
-    tube.position.set(0, -0.03, 0.1275);
+    tube.scale.set(0.66, 1, 0.9);
+    tube.position.set(0, -0.025, 0.115);
     return tube;
   };
-  const neck = mesh(new THREE.CylinderGeometry(0.075, 0.105, 0.16, 8), t.sheet, linen);
+  const neck = mesh(new THREE.CylinderGeometry(0.07, 0.085, 0.16, 8), t.sheet, linen);
   neck.scale.z = 0.8;
   neck.position.set(0, -0.2, 0.01);
   // Each eye: a burning almond tilted a little inwards, a hot core.
-  const eyes = [-1, 1].flatMap((side) => [[0.016, '#ff6a18', 0.116], [0.007, '#ffe6a8', 0.119]].map(([radius, colour, z]) => {
+  const eyes = [-1, 1].flatMap((side) => [[0.016, '#ff6a18', 0.116], [0.0075, '#ffe6a8', 0.119]].map(([radius, colour, z]) => {
     const eye = mesh(new THREE.CircleGeometry(radius, 6), t.sheet, { unlit: true, color: fire(colour) });
-    eye.scale.set(1.25, 0.7, 1);
-    eye.rotation.z = side * -0.25;
-    eye.position.set(side * 0.031, -0.02, z);
+    eye.scale.set(1.2, 0.65, 1);
+    eye.rotation.z = side * -0.15;
+    eye.position.set(side * 0.029, -0.01, z); // where eyes sit in a face: a little above its middle
     return eye;
   }));
   const stare = new THREE.PointLight('#ff6a20', 0.5, 0.45, 1.5); // their light on the inside of the wimple
-  stare.position.set(0, -0.02, 0.15);
-  const rim = [-1.2, -0.6, -0.1, 0.5].map((angle) => box(t.sheet, [0.006, 0.009, 0.004],
-    [0.072 * Math.cos(angle), -0.034 + 0.112 * Math.sin(angle), 0.165], { unlit: true, color: fire('#ff7a20') })); // her left edge still burning
+  stare.position.set(0, -0.01, 0.14);
   const head = group(
     coif, neck,
     well(THREE.FrontSide, scorchedLinenTexture(), linen),
     well(THREE.BackSide, t.sheet, { color: '#050403' }),
-    oval(mesh(new THREE.CircleGeometry(0.089, 12), t.sheet, { color: '#030202' }), 0.112),
-    ...eyes, ...rim, stare,
+    oval(mesh(new THREE.CircleGeometry(0.091, 12), t.sheet, { color: '#030202' }), 0.112),
+    ...eyes, stare,
   );
   head.position.set(0, 1.74, 0.02);
   return head;

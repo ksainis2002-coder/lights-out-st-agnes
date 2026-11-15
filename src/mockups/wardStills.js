@@ -214,7 +214,7 @@ WARD_STILLS.nun_face = {
     const glow = new THREE.PointLight('#ffa060', 2.0, 2.4, 1.2);
     glow.position.set(4.5 * CELL - 0.25, 1.45, 7.3 * CELL + 0.6);
     world.scene.add(glow);
-    aim(world.camera, [4.5 * CELL - 0.1, 1.74, 7.3 * CELL + 0.62], -8, -3);
+    aim(world.camera, [4.5 * CELL, 1.72, 7.3 * CELL + 0.7], 0, -1);
     Object.assign(fx, { vignette: 0.4 });
   },
 };
