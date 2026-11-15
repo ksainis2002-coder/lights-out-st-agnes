@@ -133,4 +133,35 @@ function callBoard(t, { beds = 8, dropped = 7 } = {}) {
   return group(...parts, bell);
 }
 
-export const WARD_ROOM_PROPS = { fuseBoard, television, pigeonholes, callBoard };
+// A drip stand on a tripod foot, an empty glass bottle hung from its hook.
+function dripStand(t) {
+  const steel = { color: '#a8aca6' };
+  return group(
+    box(t.iron, [0.025, 1.85, 0.025], [0, 0.03, 0], steel),
+    box(t.iron, [0.5, 0.03, 0.04], [0, 0, 0], steel),
+    box(t.iron, [0.04, 0.03, 0.5], [0, 0, 0], steel),
+    box(t.iron, [0.22, 0.02, 0.02], [0.1, 1.86, 0], steel),
+    box(t.sheet, [0.08, 0.2, 0.08], [0.19, 1.62, 0], { color: '#8aa0a0', transparent: true, opacity: 0.6 }),
+    strut(t.sheet, [0.19, 1.62, 0], [0.12, 1.0, 0.05], [0.008, 0.008], { color: '#b8a878' }),
+  );
+}
+
+// A wheeled stretcher, 1.9 m long (along z): a thin mattress, a sheet thrown
+// half off it, a strap hanging.
+function stretcher(t) {
+  const steel = { color: '#9a9e98' };
+  const legs = [[-0.3, -0.8], [0.3, -0.8], [-0.3, 0.8], [0.3, 0.8]].map(([x, z]) => box(t.iron, [0.03, 0.72, 0.03], [x, 0.06, z], steel));
+  const wheels = [[-0.3, -0.8], [0.3, -0.8], [-0.3, 0.8], [0.3, 0.8]].map(([x, z]) => box(t.iron, [0.04, 0.08, 0.08], [x, 0, z], { color: '#1e1e20' }));
+  const sheet = box(t.sheet, [0.5, 0.5, 0.02], [0.36, 0.34, 0.2], { color: '#b8b4a4' });
+  sheet.rotation.z = 0.12;
+  return group(
+    ...legs, ...wheels,
+    box(t.iron, [0.66, 0.03, 1.9], [0, 0.78, 0], steel),
+    box(t.mattress, [0.62, 0.07, 1.84], [0, 0.81, 0]),
+    box(t.sheet, [0.66, 0.02, 0.9], [0.04, 0.88, 0.3], { color: '#b8b4a4' }),
+    sheet,
+    box(t.sheet, [0.05, 0.4, 0.012], [-0.34, 0.44, -0.3], { color: '#4a3020' }),
+  );
+}
+
+export const WARD_ROOM_PROPS = { fuseBoard, television, pigeonholes, callBoard, dripStand, stretcher };

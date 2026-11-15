@@ -104,6 +104,12 @@ sheet is still the owner's to tick.
 (`src/mockups/wardRoomStills.js`, furnished in the empty mock level `levels/wardRooms.json`). New
 props in `src/props/wardRooms.js`: fuseBoard, television, pigeonholes, callBoard.
 
+Owner's answers on them (2026-11-15): the rooms were **too empty**, so each got clutter and wear
+(papers, toppled chairs, a stretcher, drip stands, fallen tiles, peeled paint, handprints, toys and
+shoes in the children's ward; props dripStand and stretcher are new): build the rooms this full.
+**The fuse board opens a close-up screen** (E at the board, click a socket), like the piano and the
+code locks. **The television is dead until the camcorder is taken,** then on by itself.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.
