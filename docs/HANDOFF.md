@@ -240,5 +240,9 @@ board close-up and its circuits, the fuse pickups, the medicine round and the di
 `docs/DESIGN_0.4.md`); part A plays from the courtyard door to the stairs gate. Next: the loose
 ends of part A (bot route, journal map, call board, music box case), then part B's stills
 (observation, isolation, treatment room, Dr. Venn's office) and the camcorder.
+**0.4 part A closed (0.2.69):** the bot finishes the ground floor ("Part A closed" in
+`docs/DESIGN_0.4.md`, with two fixes to the puzzle and to her first appearance). Next: part B's
+stills (observation, isolation, treatment room, Dr. Venn's office), then the first floor and the
+camcorder. Waiting on the owner: playtest of part A, the sounds, the content sheet's checklist.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

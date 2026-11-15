@@ -89,6 +89,8 @@ test('every paper and radio line of the ground floor has its text in both langua
     }
     for (const radio of wards.radios) for (const line of radio.lines) expect(texts[lang][line], `${lang} ${line}`).toBeTruthy();
     for (const room of wards.rooms) expect(texts[lang][`room.${room.id}`], `${lang} room.${room.id}`).toBeTruthy();
+    for (const room of wards.rooms) expect(texts[lang][`map.room.${room.id}`], `${lang} map.room.${room.id}`).toBeTruthy();
+    expect(texts[lang]['map.title.wards_ground']).toBeTruthy();
   }
 });
 

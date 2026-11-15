@@ -18,6 +18,7 @@ export function createLamps(game) {
 
   function show(lamp) {
     lamp.light.visible = lamp.lit;
+    lamp.glow.off = !lamp.lit; // a lit lamp steadies the mind like any light (sanity/meter.js)
     lamp.bulb.material.color.setHex(lamp.lit ? LIT : DEAD);
   }
 
@@ -32,7 +33,9 @@ export function createLamps(game) {
       const light = new THREE.PointLight('#ffd49a', 6, 9, 1.3);
       light.position.set(position.x, HEIGHT - 0.15, position.z);
       game.world.levelGroup.add(bulb, light);
-      const lamp = { id: data.id, room: data.room, circuit: data.circuit, position, bulb, light, lit: burns(data) };
+      const glow = { type: 'point', at: data.at, distance: 9, intensity: 6, off: true };
+      level.lights.push(glow);
+      const lamp = { id: data.id, room: data.room, circuit: data.circuit, position, bulb, light, glow, lit: burns(data) };
       show(lamp);
       return lamp;
     });

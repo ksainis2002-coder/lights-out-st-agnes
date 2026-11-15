@@ -8,7 +8,7 @@ const game = (page, fn, arg) => page.evaluate(fn, arg);
 const flag = (page, name) => game(page, (name) => window.__stAgnes.progress.hasFlag(name), name);
 const screen = (page) => game(page, () => {
   const open = window.__stAgnes.ui.current();
-  return open ? { name: open.name, states: open.states?.() ?? null, inHand: open.inHand?.() ?? null, note: open.note?.() ?? null, wheels: open.wheels?.() ?? null } : null;
+  return open ? { name: open.name, states: open.states?.() ?? null, inHand: open.inHand?.().small ?? null, note: open.note?.() ?? null, wheels: open.wheels?.() ?? null } : null;
 });
 const keys = async (page, codes) => {
   for (const code of codes) await page.keyboard.press(code);
@@ -97,7 +97,7 @@ test('the medicine round: the numbers mean nothing until the card is read; 3 8 1
 
   // On the table under it now: a fuse, pills, the music box's cylinder.
   // (The pills last: the first bottle picked up opens its item card.)
-  for (const [x, item] of [[30.15, 'fuse'], [30.9, 'music_box_cylinder'], [30.5, 'pills']]) {
+  for (const [x, item] of [[30.15, 'fuse_large'], [30.9, 'music_box_cylinder'], [30.5, 'pills']]) {
     expect(await lookAt(page, [x, 2.3], [x, 1.62, 0.81])).toBe('prompt.take');
     await use(page);
     expect(await game(page, (item) => window.__stAgnes.inventory.has(item), item)).toBe(true);
@@ -105,17 +105,55 @@ test('the medicine round: the numbers mean nothing until the card is read; 3 8 1
   expect(errors).toEqual([]);
 });
 
-test('three fuses: the one in the baths and the cabinet\'s power the stairs gate; upstairs is not built yet', async ({ page }) => {
+test('the stairs take only the heavy fuse from the cabinet: the fuse from the baths is refused, the heavy one opens the gate', async ({ page }) => {
   expect(await lookAt(page, [2.5, 2.9], [2.5, 1.93, 0.65])).toBe('prompt.take'); // on the rim of the first tub
   await use(page);
   expect(await fuses(page)).toBe(1);
   await lookAt(page, ...BOARD);
   await use(page);
-  await keys(page, ['ArrowDown', 'ArrowRight', 'Enter', 'Escape']); // socket 5 of 6: the stairs
+  await keys(page, ['ArrowDown', 'ArrowRight', 'Enter']); // socket 5 of 6: the stairs
+  expect(await screen(page)).toMatchObject({ note: 'msg.fuseTooSmall', inHand: 1 });
+  expect(await flag(page, 'power_stairs')).toBe(false);
+  await game(page, () => window.__stAgnes.inventory.add('fuse_large'));
+  await keys(page, ['Enter', 'Escape']);
   expect(await flag(page, 'power_stairs')).toBe(true);
   expect(await flag(page, 'puzzle_ward_fuses')).toBe(true);
   expect(await lookAt(page, [38.5, 8.6], [38.5, 7.5, 1.2])).toBe('prompt.open');
   expect(await lookAt(page, [39, 6.2], [39, 5.6, 0.9])).toBe('prompt.notYet');
+});
+
+test('she cannot be missed: passing Ward A in the corridor opens its door and starts her', async ({ page }) => {
+  const result = await game(page, () => {
+    const g = window.__stAgnes;
+    const size = g.world.level.cellSize;
+    const before = g.nun.state().active;
+    Object.assign(g.player.state.position, { x: 15.5 * size, z: 9 * size });
+    g.advance(0.2);
+    const door = g.world.level.doors.find((entry) => entry.id === 'ward_a_east');
+    return { before, mode: g.nun.state().mode, open: door.open };
+  });
+  expect(result).toEqual({ before: false, mode: 'intro', open: true });
+});
+
+test('the call board rings for bed 7 the first time you stand in the nurses\' station', async ({ page }) => {
+  const rang = await game(page, () => {
+    const g = window.__stAgnes;
+    const size = g.world.level.cellSize;
+    const events = [];
+    g.events.on('callBoard.rang', ({ bed }) => events.push(bed));
+    Object.assign(g.player.state.position, { x: 35.5 * size, z: 4 * size });
+    g.advance(0.5);
+    g.advance(0.5);
+    return events;
+  });
+  expect(rang).toEqual([7]);
+});
+
+test('the wing\'s plan on the admissions board goes into the journal, and the music box\'s case lies by Maggie\'s bed', async ({ page }) => {
+  expect(await lookAt(page, [35.8, 12.4], [35.8, 11.04, 1.5])).toBe('prompt.takeMap');
+  expect(await lookAt(page, [22.2, 5.4], [21.75, 5.62, 0.07])).toBe('prompt.take');
+  await use(page);
+  expect(await game(page, () => window.__stAgnes.inventory.has('music_box_case'))).toBe(true);
 });
 
 test('stuck on the fuse board for a few minutes, Edith gives her hint once', async ({ page }) => {

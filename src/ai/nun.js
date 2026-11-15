@@ -15,6 +15,9 @@
 //   "intro": { "room": "ward_a", "from": [c, r], "lamps": [ids] }
 //       the first visit (set piece, cannot catch): she puts that room's lamps
 //       out one by one, towards you; her round starts when the last is out.
+//       "cells": [c0, r0, c1, r1] and "doors": [ids]: it also starts as you pass
+//       outside the room, and then the nearest of those doors opens by itself,
+//       so she cannot be missed by never going in. Lightning stops her for 1.5 s.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { clearLine } from './gaze.js';
@@ -33,6 +36,7 @@ const SNUFF = 1.4; // seconds at a lamp before it goes out
 const BEADS_EVERY = 0.85;
 const AGAIN = 60; // seconds: a second sighting inside this gets "After eight."
 const SPAN = 0.5; // her footprint: you cannot walk through her
+const FLINCH = 1.5; // seconds a flash of lightning stops her
 const LINE = { speaker: 'sister_m', manner: 'hissing', seconds: 3 };
 
 export function createNun(game) {
@@ -53,6 +57,7 @@ export function createNun(game) {
   let stop = 0; // index into her round
   let introLamps = [];
   let sees = false;
+  let flinch = 0;
 
   const comfort = () => game.settings.get('comfortMode');
   const player = () => game.player.state.position;
@@ -86,7 +91,9 @@ export function createNun(game) {
     game.world.levelGroup.add(model);
     obstacle = { mover: true };
     level.obstacles.push(obstacle);
-    pathing = createPathing(level, data().territory, { opens: (door) => !door.requires && !door.locked && !door.exit });
+    // Doors she opens herself: any but the way out, a keyed lock, or an electric lock with no power.
+    const opens = (door) => !door.exit && !door.locked && (!door.requires || game.progress.hasFlag(door.requires));
+    pathing = createPathing(level, data().territory, { opens });
     const spot = toWorld(at);
     moveTo(spot.x, spot.z);
   }
@@ -111,7 +118,12 @@ export function createNun(game) {
     const level = game.world.level;
     const intro = level.nun?.intro;
     if (!intro || model || game.progress.hasFlag(WALKING)) return;
-    if (roomAt(level, player()) !== intro.room) return;
+    const p = player();
+    const cell = level.worldToCell(p.x, p.z);
+    const [c0, r0, c1, r1] = intro.cells ?? [0, 0, -1, -1];
+    const passing = cell.col >= c0 && cell.col <= c1 && cell.row >= r0 && cell.row <= r1; // by its doors, outside
+    if (roomAt(level, p) !== intro.room && !passing) return;
+    if (passing) openNearest(level, intro.doors ?? [], p);
     introLamps = intro.lamps.filter((id) => game.lamps.all().find((lamp) => lamp.id === id)?.lit);
     place(intro.from);
     mode = 'intro';
@@ -146,9 +158,20 @@ export function createNun(game) {
 
   function nearestLitLamp() {
     const level = game.world.level;
-    const lit = game.lamps.lit().filter((lamp) => data().territory.includes(lamp.room));
+    const lit = game.lamps.lit().filter((lamp) => data().territory.includes(lamp.room) && pathing.reachable(lamp.position));
     lit.sort((a, b) => distanceTo(a.position) - distanceTo(b.position));
     return lit[0] && level ? { x: lit[0].position.x, z: lit[0].position.z, lamp: lit[0].id } : null;
+  }
+
+  // The set piece seen from the corridor: one of the room's doors swings open by itself.
+  function openNearest(level, ids, p) {
+    const doors = level.doors.filter((door) => ids.includes(door.id));
+    const far = (door) => Math.hypot(level.cellCenter(...door.cell).x - p.x, level.cellCenter(...door.cell).z - p.z);
+    const door = doors.sort((a, b) => far(a) - far(b))[0];
+    if (!door || door.open) return;
+    door.open = true;
+    game.progress.setOpen(door.id, true);
+    game.events.emit('door.opened', door);
   }
 
   function openDoorAhead(point) {
@@ -282,6 +305,10 @@ export function createNun(game) {
     if (mode === 'intro') return updateIntro(dt);
     const d = distanceTo(player());
     if (!game.hiding.active() && ((sees && d <= CATCH) || d <= TOUCH)) return caught(sees ? 'light' : 'touch');
+    if (flinch > 0) {
+      flinch -= dt; // lightning: she stops where she is, a hand up against it
+      return;
+    }
     if (mode === 'warning') {
       timer += dt;
       if (!sees) {
@@ -326,6 +353,9 @@ export function createNun(game) {
   }
 
   game.events.on('level.loaded', setup);
+  game.events.on('storm.lightning', () => {
+    if (model && mode !== 'intro') flinch = FLINCH;
+  });
 
   return {
     update,

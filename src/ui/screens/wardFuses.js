@@ -24,20 +24,24 @@ function card(ctx, text, x, y, width) {
   ctx.fillText(text, x, y);
 }
 
-function drawSocket(ctx, { x, y }, label, state, chosen) {
+function drawSocket(ctx, { x, y }, label, state, chosen, large) {
   ctx.fillStyle = '#d6d2c4'; // porcelain
   ctx.fillRect(x, y, 46, 40);
+  if (large) {
+    ctx.fillStyle = '#8a1c14'; // a red band: the heavy fuse goes here
+    ctx.fillRect(x, y, 46, 4);
+  }
   ctx.fillStyle = '#b8b4a6';
   ctx.fillRect(x, y + 36, 46, 4);
   if (state === 'empty') {
     ctx.fillStyle = '#141414';
-    ctx.fillRect(x + 14, y + 8, 18, 22);
+    ctx.fillRect(x + (large ? 9 : 14), y + 8, large ? 28 : 18, 22);
     ctx.fillStyle = '#6a5a2a'; // contacts down in the socket
     ctx.fillRect(x + 16, y + 10, 3, 18);
     ctx.fillRect(x + 27, y + 10, 3, 18);
   } else {
     ctx.fillStyle = '#efece0';
-    ctx.fillRect(x + 13, y + 6, 20, 26);
+    ctx.fillRect(x + (large ? 8 : 13), y + 6, large ? 30 : 20, 26);
     ctx.fillStyle = '#b8923a'; // the fuse's brass cap
     ctx.fillRect(x + 17, y + 12, 12, 12);
   }
@@ -52,7 +56,7 @@ function drawSocket(ctx, { x, y }, label, state, chosen) {
   ctx.strokeRect(x - 5, y - 5, 56, 50);
 }
 
-export function createWardFusesScreen(ui, { circuits, state, inHand, toggle, note }) {
+export function createWardFusesScreen(ui, { circuits, large, state, inHand, toggle, note }) {
   const { t } = ui;
   const openedAt = performance.now();
   let chosen = 0;
@@ -68,10 +72,14 @@ export function createWardFusesScreen(ui, { circuits, state, inHand, toggle, not
     ctx.fillStyle = '#d8d0b0';
     ctx.fillRect(134, 42, 150, 14);
     card(ctx, t('fuse.title'), 209, 45, 146);
-    circuits.forEach((circuit, i) => drawSocket(ctx, socketAt(i), t(`fuse.circuit.${circuit}`), state(i), i === chosen));
+    circuits.forEach((circuit, i) => drawSocket(ctx, socketAt(i), t(`fuse.circuit.${circuit}`), state(i), i === chosen, large.includes(circuit)));
     osdText(ctx, t('fuse.inHand'), 426, 84, fittedSize(ctx, t('fuse.inHand'), 8, 100), COLORS.dim, 'center');
-    osdText(ctx, String(inHand()), 426, 98, 16, COLORS.osdValue, 'center');
+    osdText(ctx, String(inHand().small), 426, 98, 16, COLORS.osdValue, 'center');
     osdText(ctx, t('fuse.fuses'), 426, 122, fittedSize(ctx, t('fuse.fuses'), 8, 100), COLORS.dim, 'center');
+    if (inHand().large) {
+      osdText(ctx, String(inHand().large), 426, 146, 16, COLORS.osdValue, 'center');
+      osdText(ctx, t('fuse.large'), 426, 170, fittedSize(ctx, t('fuse.large'), 8, 100), COLORS.dim, 'center');
+    }
     const line = note();
     if (line) osdText(ctx, t(line), W / 2, 12, fittedSize(ctx, t(line), 10, 440), COLORS.soft, 'center');
     osdText(ctx, t('fuse.footer'), W / 2, H - 22, fittedSize(ctx, t('fuse.footer'), 8, 460), COLORS.dim, 'center');

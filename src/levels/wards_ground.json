@@ -420,7 +420,10 @@
    "at": [
     35.8,
     11
-   ]
+   ],
+   "options": {
+    "plan": false
+   }
   },
   {
    "type": "wallClock",
@@ -571,8 +574,8 @@
   {
    "type": "chair",
    "at": [
-    32.9,
-    14.6
+    31.0,
+    15.7
    ],
    "rotation": 70,
    "options": {
@@ -1419,8 +1422,8 @@
   {
    "type": "trolley",
    "at": [
-    13.6,
-    4.1
+    14.6,
+    5.3
    ],
    "rotation": 20
   },
@@ -1814,8 +1817,8 @@
   {
    "type": "trolley",
    "at": [
-    31.9,
-    2.6
+    32.4,
+    4.4
    ],
    "rotation": 30
   },
@@ -1959,14 +1962,6 @@
    "rotation": 180
   },
   {
-   "type": "callBoard",
-   "at": [
-    34,
-    3.6
-   ],
-   "rotation": 90
-  },
-  {
    "type": "notice",
    "at": [
     36.2,
@@ -2012,6 +2007,15 @@
    "options": {
     "length": 1.6
    }
+  },
+  {
+   "type": "callBoard",
+   "at": [
+    34,
+    3.6
+   ],
+   "rotation": 90,
+   "id": "call_board"
   },
   {
    "type": "wheelchair",
@@ -2094,8 +2098,8 @@
   {
    "type": "dripStand",
    "at": [
-    5.5,
-    9.6
+    4.5,
+    8.3
    ]
   },
   {
@@ -2108,8 +2112,8 @@
   {
    "type": "chair",
    "at": [
-    19.5,
-    8.5
+    17.0,
+    9.6
    ],
    "rotation": 100,
    "options": {
@@ -2148,7 +2152,7 @@
   {
    "type": "radiator",
    "at": [
-    23.0,
+    27.0,
     8
    ]
   },
@@ -2419,8 +2423,18 @@
    "color": "#d6d2c4"
   },
   {
+   "id": "box_case",
+   "item": "music_box_case",
+   "at": [
+    21.75,
+    5.62
+   ],
+   "y": 0.02,
+   "color": "#8a8e88"
+  },
+  {
    "id": "fuse_cabinet",
-   "item": "fuse",
+   "item": "fuse_large",
    "at": [
     30.15,
     1.62
@@ -2529,6 +2543,22 @@
    "model": "ledger",
    "height": 0.05,
    "rotation": -15
+  }
+ ],
+ "maps": [
+  {
+   "id": "wards_ground",
+   "at": [
+    35.8,
+    11.04
+   ],
+   "y": 1.5,
+   "upright": true,
+   "key": [
+    1.0,
+    18.6
+   ],
+   "detail": "map.detail.wards_ground"
   }
  ],
  "radios": [
@@ -2656,6 +2686,9 @@
    "start": [
     0
    ],
+   "large": [
+    "stairs"
+   ],
    "opens": "stairs"
   },
   "medicineLock": {
@@ -2677,7 +2710,8 @@
    "baths",
    "day_room",
    "admissions",
-   "fuse_room"
+   "fuse_room",
+   "dispensary"
   ],
   "intro": {
    "room": "ward_a",
@@ -2689,6 +2723,16 @@
     "ward_a_1",
     "ward_a_2",
     "ward_a_3"
+   ],
+   "cells": [
+    9,
+    8,
+    17,
+    9
+   ],
+   "doors": [
+    "ward_a_west",
+    "ward_a_east"
    ]
   },
   "round": [
@@ -2758,6 +2802,11 @@
   "y": 0.48,
   "rotation": -90,
   "room": "childrens_ward",
+  "call": {
+   "prop": "call_board",
+   "room": "nurses_station",
+   "bed": 7
+  },
   "hints": [
    {
     "after": "tried_wardFuses",

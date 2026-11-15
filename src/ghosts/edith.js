@@ -7,12 +7,14 @@
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { roomAt } from '../levels/loader.js';
+import { findProp } from '../props/place.js';
 
 const MEET_WITHIN = 3.2; // metres
 const GAP = 20; // seconds between her warnings
 const NEAR = 9; // metres: "the next room"
 const FAR = 20; // metres: "two rooms away"
 const SECONDS = 4.5;
+const RANG = 'call_board_rang';
 
 export function createEdith(game) {
   let ghost = null;
@@ -55,6 +57,21 @@ export function createEdith(game) {
     pale.position.set(0, 0.8, 0.5);
     ghost.add(pale);
     game.world.levelGroup.add(ghost);
+    if (data.call && game.progress.hasFlag(RANG)) findProp(game.world.levelGroup, data.call.prop)?.userData.drop?.(data.call.bed);
+  }
+
+  // The set piece that leads to her: the first time you stand in the nurses'
+  // station, the call board rings and the flag of her bed drops. Nobody rang.
+  function callBoard(level) {
+    const call = level.edith.call;
+    if (!call || game.progress.hasFlag(RANG) || roomAt(level, game.player.state.position) !== call.room) return;
+    const board = findProp(game.world.levelGroup, call.prop);
+    if (!board) return;
+    game.progress.setFlag(RANG);
+    board.userData.drop?.(call.bed);
+    const position = new THREE.Vector3();
+    board.getWorldPosition(position);
+    game.events.emit('callBoard.rang', { position: position.setY(2.1), bed: call.bed });
   }
 
   function meet(level) {
@@ -88,6 +105,7 @@ export function createEdith(game) {
     const level = game.world.level;
     if (!level.edith || !ghost) return;
     wait -= dt;
+    callBoard(level);
     meet(level);
     if (queue.length) {
       if (wait <= 0) {

@@ -113,13 +113,13 @@ def wards():
     desk = (9.0, 2.2)
     L.many(adm, [
         ('pedestalDesk', *desk), ('chair', 9.0, 1.5), ('typewriter', 9.35, 2.25, 185, {}, 0.79), ('deskLamp', 8.5, 2.1, 200, {"lit": False}, 0.79),
-        ('pigeonholes', 8.2, 0), ('mapBoard', 10.8, 0), ('wallClock', 5.6, 0), ('crucifix', 9.5, 0, 0, {"height": 2.3}), ('noticeBoard', 6.8, 0),
+        ('pigeonholes', 8.2, 0), ('mapBoard', 10.8, 0, 0, {"plan": False}), ('wallClock', 5.6, 0), ('crucifix', 9.5, 0, 0, {"height": 2.3}), ('noticeBoard', 6.8, 0),
         ('peeledPaper', 12.4, 0, 0, {"seed": 2}), ('peeledPaper', 3.4, 0, 0, {"seed": 7}),
         ('recordsCabinet', 0.3, 1.2, 90), ('recordsCabinet', 0.3, 1.8, 90), ('recordsCabinet', 0.3, 2.4, 90),
         ('bench', 2.6, 5.8, 180, {"length": 2.6}), ('bench', 8.6, 5.8, 180, {"length": 2.6}),
         ('barredWindow', 4.2, 6, 180), ('barredWindow', 7.0, 6, 180), ('barredWindow', 11.4, 6, 180),
         ('papers', 8.2, 3.3, 40, {"count": 7}), ('papers', 10.4, 2.9, 110, {"count": 5}), ('papers', 6.6, 2.2, 0, {"count": 6}),
-        ('chair', 7.9, 3.6, 70, {"toppled": True}), ('hatStand', 13.9, 0.5), ('umbrellaStand', 14.5, 4.0),
+        ('chair', 6.0, 4.7, 70, {"toppled": True}), ('hatStand', 13.9, 0.5), ('umbrellaStand', 14.5, 4.0),
         ('stretcher', 12.2, 4.6, 70), ('sheetPile', 11.0, 5.0), ('rug', 9.0, 2.4, 0, {"width": 2.6, "depth": 1.8}),
         ('hangingBulb', 7.5, 3.0, 0, {"ceiling": 3.4}),
     ])
@@ -181,7 +181,7 @@ def wards():
                                                "message": "msg.lightsOutSign", "prompt": "prompt.look", "useHeight": 2.3})
     L.many(wa, [
         ('barredWindow', 1.9, 0), ('barredWindow', 5.55, 0), ('barredWindow', 9.2, 0), ('bedsideCupboard', 1.9, 0.3), ('bedsideCupboard', 7.4, 0.3),
-        ('foldingScreen', 8.3, 4.6, 80), ('trolley', 5.6, 3.1, 20), ('dripStand', 3.6, 0.5), ('sheetPile', 5.4, 4.4), ('papers', 3.0, 3.2, 30, {"count": 5}),
+        ('foldingScreen', 8.3, 4.6, 80), ('trolley', 6.6, 4.3, 20), ('dripStand', 3.6, 0.5), ('sheetPile', 5.4, 4.4), ('papers', 3.0, 3.2, 30, {"count": 5}),
         ('chair', 7.8, 2.9, 300, {"toppled": True}), ('wheelchair', 10.3, 3.3, 250), ('peeledPaper', 11, 2.2, -90, {"seed": 5}),
     ])
     for i, x in enumerate((2.0, 5.5, 9.0)):
@@ -200,6 +200,8 @@ def wards():
         ('crucifix', 3.5, 0, 0, {"height": 2.9}), ('sheetPile', 1.9, 4.5), ('washstand', 7, 4.6, -90), ('foldingScreen', 5.4, 5.0, 20),
         ('papers', 3.4, 3.6, 50, {"count": 4}),
     ])
+    # The music box's case, pushed under Maggie's stripped bed (the box is mended in part C).
+    L.pickup(ch, 'box_case', 'music_box_case', 1.75, 4.62, y=0.02, color='#8a8e88')
     L.lamp(ch, 'childrens_ward_1', 3.5, 2.0)
     L.lamp(ch, 'childrens_ward_2', 3.5, 4.4)
     for did, x, z, rot in [('chart_dunn', 1.6, 1.95, 90), ('chart_rowe', 1.6, 4.25, 90), ('chart_lacey', 5.4, 0.8, -90), ('chart_carr', 5.4, 3.1, -90)]:
@@ -212,12 +214,12 @@ def wards():
     L.many(dis, [
         ('table', 2.5, 0.45), ('papers', 2.8, 0.5, 0, {}, 0.76), ('cabinet', 0.2, 1.4, 90), ('cabinet', 0.2, 2.2, 90), ('wallClock', 1.1, 0),
         ('recordsCabinet', 4.6, 0.3, 0, {"lock": False}), ('sink', 5, 2.8, -90), ('scales', 0.5, 0.5, 30), ('dripStand', 1.5, 0.6),
-        ('trolley', 3.9, 1.6, 30), ('trolley', 1.4, 3.4, 300), ('foldingScreen', 0.9, 4.6, 70), ('chair', 3.8, 4.3, 200, {"toppled": True}),
+        ('trolley', 4.4, 3.4, 30), ('trolley', 1.4, 3.4, 300), ('foldingScreen', 0.9, 4.6, 70), ('chair', 3.8, 4.3, 200, {"toppled": True}),
         ('papers', 2.0, 1.8, 60, {"count": 6}), ('papers', 3.4, 2.6, 10, {"count": 4}), ('fallenTiles', 3.2, 0.9, 0, {"seed": 4}),
         ('peeledPaper', 3.9, 0, 0, {"seed": 4}), ('puddle', 3.4, 3.2, 0, {"width": 0.7, "depth": 0.5}),
     ])
     L.lamp(dis, 'dispensary_1', 2.5, 3.0)
-    for pid, item, x, color in [('fuse_cabinet', 'fuse', 2.15, '#d6d2c4'), ('pills_cabinet', 'pills', 2.5, '#6a3a1a'), ('box_cylinder', 'music_box_cylinder', 2.9, '#b8923a')]:
+    for pid, item, x, color in [('fuse_cabinet', 'fuse_large', 2.15, '#d6d2c4'), ('pills_cabinet', 'pills', 2.5, '#6a3a1a'), ('box_cylinder', 'music_box_cylinder', 2.9, '#b8923a')]:
         L.pickup(dis, pid, item, x, 0.62, y=0.76, color=color, appearsWith='puzzle_medicine')
     L.document(dis, 'night_round', 3.5, 0.035 / 1.2, 1.5, 0, upright=True)
     L.light(dis, 2.5, 3.0, 2.4, 1.4, 6)
@@ -230,9 +232,10 @@ def wards():
                                                   "to": {"level": "patient_room", "spawn": "door", "back": "home_wards"},
                                                   "useHeight": 1.2, "useRadius": 0.8})
     L.many(sta, [
-        ('chair', 1.0, 1.2, 180), ('callBoard', 0, 2.6, 90), ('notice', 2.2, 0), ('wallClock', 0, 4.4, 90),
+        ('chair', 1.0, 1.2, 180), ('notice', 2.2, 0), ('wallClock', 0, 4.4, 90),
         ('recordsCabinet', 2.7, 0.35, 0, {"lock": False}), ('papers', 1.6, 2.6, 20, {"count": 5}), ('bench', 0.2, 4.6, 90, {"length": 1.6}),
     ])
+    L.prop(sta, 'callBoard', 0, 2.6, 90, extra={"id": "call_board"})
     L.document(sta, 'night_book', 1.15, 0.6, 0.76, -15, model='ledger', height=0.05)
     L.light(sta, 1.3, 0.8, 1.2, 2.2, 6, WARM)
 
@@ -240,8 +243,8 @@ def wards():
     L.many(cor, [
         ('wheelchair', 7.2, 0.6, -50), ('bench', 12.5, 1.82, 180, {"length": 2.4}), ('stretcher', 20.5, 1.45, 90), ('trolley', 27.5, 0.4, 10),
         ('bench', 31.5, 1.82, 180, {"length": 2.4}), ('papers', 15.0, 1.0, 20, {"count": 6}), ('papers', 24.0, 0.8, 70, {"count": 5}),
-        ('papers', 34.0, 1.2, 0, {"count": 4}), ('dripStand', 4.5, 1.6), ('sheetPile', 36.5, 1.5), ('chair', 18.5, 0.5, 100, {"toppled": True}),
-        ('peeledPaper', 13.5, 0, 0, {"seed": 1}), ('peeledPaper', 26.2, 2, 180, {"seed": 8}), ('radiator', 5.0, 2, 180), ('radiator', 22.0, 0),
+        ('papers', 34.0, 1.2, 0, {"count": 4}), ('dripStand', 3.5, 0.3), ('sheetPile', 36.5, 1.5), ('chair', 16.0, 1.6, 100, {"toppled": True}),
+        ('peeledPaper', 13.5, 0, 0, {"seed": 1}), ('peeledPaper', 26.2, 2, 180, {"seed": 8}), ('radiator', 5.0, 2, 180), ('radiator', 26.0, 0),
         ('puddle', 10.0, 1.0), ('laundryBasket', 38.4, 0.5),
     ])
     for i, x in enumerate((6.0, 20.0, 33.0)):
@@ -278,6 +281,9 @@ def wards():
         "emitters": [{"sound": "hospital_drip", "at": bat.at(4.3, 0.6), "height": 0.5, "volume": 0.5, "distance": 3,
                       "every": [4, 11], "room": "baths"}],
         "pickups": L.pickups, "documents": L.documents,
+        # The wing's plan, pinned on the admissions notice board (the journal draws it from the rooms).
+        "maps": [{"id": "wards_ground", "at": adm.at(10.8, 0.04), "y": 1.5, "upright": True, "key": [1.0, 18.6],
+                  "detail": "map.detail.wards_ground"}],
         # Nora's voice on the valve radios (levels/radios.js): once each, when you come near.
         "radios": [{"id": "radio_admissions", "at": adm.at(9.5, 2.05), "hear": 3.6, "lines": ["nora.admissions.1", "nora.admissions.2"]},
                    {"id": "radio_day", "at": day.at(5.0, 0.5), "hear": 3.6, "lines": ["nora.dayRoom"]}],
@@ -287,21 +293,24 @@ def wards():
         # the baths, a third in the dispensary cabinet. Power on "stairs" opens the way up.
         "puzzles": {
             "wardFuses": {"prop": "fuse_board", "circuits": ["ward_a", "childrens_ward", "dispensary", "corridor", "stairs", "upstairs"],
-                          "start": [0], "opens": "stairs"},
+                          "start": [0], "large": ["stairs"], "opens": "stairs"},
             "medicineLock": {"prop": "medicine_cabinet", "card": "night_round", "code": [3, 8, 1, 5]},
         },
         # Sister M. (ai/nun.js). The first time you stand in Ward A she is at its west end and
         # puts its lamps out one by one, towards the doors; then she walks her round. The
         # nurses' station (the tape recorder, the door home) is not on it: a safe room.
         "nun": {
-            "territory": ["ward_corridor", "ward_a", "childrens_ward", "baths", "day_room", "admissions", "fuse_room"],
-            "intro": {"room": "ward_a", "from": wa.at(0.8, 3.0), "lamps": ["ward_a_1", "ward_a_2", "ward_a_3"]},
+            "territory": ["ward_corridor", "ward_a", "childrens_ward", "baths", "day_room", "admissions", "fuse_room", "dispensary"],
+            "intro": {"room": "ward_a", "from": wa.at(0.8, 3.0), "lamps": ["ward_a_1", "ward_a_2", "ward_a_3"],
+                      # also as you pass its doors in the corridor: the nearer one swings open by itself
+                      "cells": [9, 8, 17, 9], "doors": ["ward_a_west", "ward_a_east"]},
             "round": [cor.at(9.5, 1.0), wa.at(5.5, 3.0), cor.at(15.5, 1.0), cor.at(22.5, 1.0), ch.at(3.5, 3.4), cor.at(29.5, 0.8),
                       adm.at(6.0, 3.6), cor.at(29.5, 1.2), day.at(6.5, 3.6), cor.at(15.5, 1.2), cor.at(2.5, 1.0), bat.at(3.0, 4.2),
                       cor.at(1.5, 1.2), fus.at(2.0, 2.4)],
         },
         # Edith (ghosts/edith.js): on bed 7 of the children's ward, facing the room.
         "edith": {"at": ch.at(5.75, 3.1), "y": 0.48, "rotation": -90, "room": "childrens_ward",
+                  "call": {"prop": "call_board", "room": "nurses_station", "bed": 7},
                   "hints": [{"after": "tried_wardFuses", "until": "power_dispensary", "lines": ["edith.hint.fuses"]},
                             {"after": "tried_medicineLock", "until": "puzzle_medicine", "lines": ["edith.hint.round.1", "edith.hint.round.2"]}]},
     }

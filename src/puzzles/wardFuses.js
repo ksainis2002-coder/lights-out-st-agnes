@@ -7,14 +7,18 @@
 // out stay out until that fuse is pulled and pushed in again.
 // Up close (E at the board): choose a socket, CLICK puts a fuse in or pulls
 // one out. Fuses are items; the board starts with one (Ward A's: that is why
-// its lamps are on when you arrive).
-// Level data: "wardFuses": { "prop": "fuse_board", "circuits": ["ward_a", …], "start": [0], "opens": "stairs" }
+// its lamps are on when you arrive). A "large" socket (the stairs' bolt) takes
+// only the heavy fuse from the dispensary cabinet, so the way up cannot be
+// had without the medicine round.
+// Level data: "wardFuses": { "prop": "fuse_board", "circuits": ["ward_a", …], "start": [0],
+//   "large": ["stairs"], "opens": "stairs" }
 import * as THREE from 'three';
 import { findProp } from '../props/place.js';
 
 export const SOLVED = 'puzzle_ward_fuses'; // the way upstairs has power
 const SOCKETS = 'ward_fuses'; // progress value: which sockets hold a fuse
 const FUSE = 'fuse';
+const LARGE = 'fuse_large'; // the heavy cartridge a "large" socket takes (the stairs' bolt)
 
 export function wardFusesPuzzle(game, level, data) {
   const { progress, inventory } = game;
@@ -23,7 +27,9 @@ export function wardFusesPuzzle(game, level, data) {
   let note = null;
 
   const sockets = () => progress.getValue(SOCKETS, data.circuits.map((_, i) => data.start.includes(i)));
-  const inHand = () => inventory.items().filter((item) => item === FUSE).length;
+  const fuseFor = (index) => ((data.large ?? []).includes(data.circuits[index]) ? LARGE : FUSE);
+  const count = (kind) => inventory.items().filter((item) => item === kind).length;
+  const inHand = () => ({ small: count(FUSE), large: count(LARGE) });
 
   // The flags and the board on the wall follow the sockets (also on every load).
   function sync() {
@@ -38,9 +44,11 @@ export function wardFusesPuzzle(game, level, data) {
     const circuit = data.circuits[index];
     note = null;
     if (held[index]) {
-      if (!inventory.add(FUSE)) return (note = 'msg.inventoryFull');
-    } else {
-      if (!inventory.remove(FUSE)) return (note = 'msg.noSpareFuse');
+      if (!inventory.add(fuseFor(index))) return (note = 'msg.inventoryFull');
+    } else if (!inventory.remove(fuseFor(index))) {
+      // The wrong size in hand says so; nothing in hand says that.
+      const other = fuseFor(index) === LARGE ? FUSE : LARGE;
+      return (note = count(other) ? (other === FUSE ? 'msg.fuseTooSmall' : 'msg.fuseTooBig') : 'msg.noSpareFuse');
     }
     held[index] = !held[index];
     progress.setValue(SOCKETS, held);
@@ -68,7 +76,7 @@ export function wardFusesPuzzle(game, level, data) {
     prompt: () => ({ key: 'prompt.openFuseBox' }),
     use() {
       note = null;
-      game.openScreen('wardFuses', { circuits: data.circuits, state, inHand, toggle, note: () => note });
+      game.openScreen('wardFuses', { circuits: data.circuits, large: data.large ?? [], state, inHand, toggle, note: () => note });
     },
   };
   return [target];

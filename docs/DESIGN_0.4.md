@@ -191,8 +191,32 @@ The two ground floor puzzles; with them part A can be played from the courtyard 
 - **Edith's hints** (level data "edith.hints"): after 150 s stuck on a puzzle you have tried, her
   line for it, once: the fuse board, then the two medicine round lines.
 - Tests: `tests/wardPuzzles.spec.js`.
-- **Still open for part A:** the bot route through the ground floor, the wing's plan as a journal
-  map, the call board set piece, lightning making her flinch, the music box's case.
+
+## Part A closed (0.2.69)
+The loose ends, and two holes the bot route turned up:
+- **She cannot be missed.** Her first round also starts when you pass Ward A's doors in the
+  corridor (level data `nun.intro.cells`, `doors`): the nearer door swings open by itself and the
+  lamps start going out. Before, never entering Ward A meant never meeting her.
+- **The stairs take a heavy fuse** (item `fuse_large`, `wardFuses.large`), found only in the
+  dispensary cabinet; the two ordinary fuses do not fit that socket, and the heavy one fits no
+  other. Before, Ward A's fuse could go straight into Stairs and skip the cabinet. **Changed from
+  the sheet:** the cabinet holds the heavy fuse, not a third ordinary one.
+- She only walks to lamps she can reach (a lamp behind a dead electric lock is left alone), and
+  opens an electric door only while its circuit is live. The dispensary is on her territory.
+- Lamps count as light for sanity: standing under a lit lamp steadies you, and draws her.
+- Lightning stops her for 1.5 s. The call board rings for bed 7 the first time you stand in the
+  nurses' station. The music box's case lies by Maggie's bed. The wing's plan hangs on the
+  admissions notice board and goes into the journal.
+- Level fixes found by the bot: a radiator stood in front of the children's ward door; a trolley
+  under a Ward A lamp; clutter moved so two lanes of the corridor can be walked.
+- **Bot route** `tests/bot-routes/wards_ground.json` (the script that wrote it is not kept): light
+  off, the plan, the book, the four charts and the case, past Ward A, Ward A's fuse to Dispensary,
+  the baths' fuse to Ward A as a lure, the card, 3 8 1 5, a pill, then the heavy fuse to Stairs
+  between two of her rounds, and through the gate. 253 s of game time at bot pace, no catch,
+  lowest sanity 54. Her round takes about 95 s.
+- **To watch in playtests:** the dark is the hiding place here but also drains sanity (about
+  3 minutes from full to a blackout in full dark, less under the rooms' moonlight): pills, lit
+  lamps and the nurses' station are the relief. Whether that is fair is the owner's call.
 
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills

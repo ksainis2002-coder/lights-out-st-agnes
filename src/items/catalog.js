@@ -24,7 +24,9 @@ export const ITEMS = {
   matches: { icon: 'matches' },
   skipping_rope: { icon: 'rope' },
   fuse: { icon: 'fuse' }, // the west wing's fuse board takes them, one a socket (puzzles/wardFuses.js)
+  fuse_large: { icon: 'fuseLarge' }, // the heavy one, for the stairs' socket
   music_box_cylinder: { icon: 'cylinder' }, // a part of Edith's music box
+  music_box_case: { icon: 'boxCase' }, // another
 };
 
 const FAMILIES = { plate: { icon: 'plate' } };

@@ -1,0 +1,763 @@
+{
+ "id": "wards_ground_part_a",
+ "level": "wards_ground",
+ "given": {
+  "flags": [
+   "wing_school_done",
+   "tool_flashlight"
+  ]
+ },
+ "steps": [
+  {
+   "tap": "flashlight"
+  },
+  {
+   "cell": [
+    36,
+    12
+   ]
+  },
+  {
+   "cell": [
+    35,
+    12
+   ]
+  },
+  {
+   "use": [
+    35.8,
+    11.04
+   ],
+   "y": 1.5,
+   "expect": "prompt.takeMap"
+  },
+  {
+   "cell": [
+    34,
+    14
+   ]
+  },
+  {
+   "use": [
+    33.85,
+    13.3
+   ],
+   "y": 0.84,
+   "expect": "prompt.read"
+  },
+  {
+   "cell": [
+    31,
+    14
+   ]
+  },
+  {
+   "cell": [
+    30,
+    12
+   ]
+  },
+  {
+   "cell": [
+    30,
+    11
+   ]
+  },
+  {
+   "use": [
+    30.5,
+    10.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.open"
+  },
+  {
+   "cell": [
+    30,
+    10
+   ]
+  },
+  {
+   "cell": [
+    30,
+    9
+   ]
+  },
+  {
+   "cell": [
+    23,
+    9
+   ]
+  },
+  {
+   "cell": [
+    23,
+    8
+   ]
+  },
+  {
+   "use": [
+    23.5,
+    7.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.open"
+  },
+  {
+   "cell": [
+    23,
+    7
+   ]
+  },
+  {
+   "cell": [
+    23,
+    6
+   ]
+  },
+  {
+   "cell": [
+    22,
+    5
+   ]
+  },
+  {
+   "use": [
+    21.6,
+    5.25
+   ],
+   "y": 0.52,
+   "expect": "prompt.read"
+  },
+  {
+   "use": [
+    21.75,
+    5.62
+   ],
+   "y": 0.07,
+   "expect": "prompt.take"
+  },
+  {
+   "cell": [
+    22,
+    3
+   ]
+  },
+  {
+   "use": [
+    21.6,
+    2.95
+   ],
+   "y": 0.52,
+   "expect": "prompt.read"
+  },
+  {
+   "cell": [
+    24,
+    2
+   ]
+  },
+  {
+   "use": [
+    25.4,
+    1.8
+   ],
+   "y": 0.52,
+   "expect": "prompt.read"
+  },
+  {
+   "cell": [
+    24,
+    4
+   ]
+  },
+  {
+   "use": [
+    25.4,
+    4.1
+   ],
+   "y": 0.52,
+   "expect": "prompt.read"
+  },
+  {
+   "cell": [
+    23,
+    6
+   ]
+  },
+  {
+   "cell": [
+    23,
+    7
+   ]
+  },
+  {
+   "cell": [
+    23,
+    8
+   ]
+  },
+  {
+   "cell": [
+    10,
+    8
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    10,
+    9
+   ]
+  },
+  {
+   "cell": [
+    2,
+    9
+   ],
+   "pace": "run"
+  },
+  {
+   "use": [
+    2.5,
+    10.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.open"
+  },
+  {
+   "cell": [
+    2,
+    10
+   ]
+  },
+  {
+   "cell": [
+    2,
+    12
+   ]
+  },
+  {
+   "cell": [
+    2,
+    14
+   ]
+  },
+  {
+   "cell": [
+    3,
+    15
+   ]
+  },
+  {
+   "use": [
+    3,
+    17
+   ],
+   "y": 1.4,
+   "expect": "prompt.openFuseBox",
+   "keepOpen": true
+  },
+  {
+   "screenKey": "Enter"
+  },
+  {
+   "screenKey": "ArrowRight"
+  },
+  {
+   "screenKey": "ArrowRight"
+  },
+  {
+   "screenKey": "Enter"
+  },
+  {
+   "resume": true
+  },
+  {
+   "cell": [
+    2,
+    14
+   ]
+  },
+  {
+   "cell": [
+    2,
+    12
+   ]
+  },
+  {
+   "cell": [
+    2,
+    10
+   ]
+  },
+  {
+   "cell": [
+    2,
+    9
+   ]
+  },
+  {
+   "cell": [
+    3,
+    8
+   ]
+  },
+  {
+   "use": [
+    3.5,
+    7.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.open"
+  },
+  {
+   "cell": [
+    3,
+    7
+   ]
+  },
+  {
+   "cell": [
+    3,
+    5
+   ]
+  },
+  {
+   "cell": [
+    2,
+    2
+   ]
+  },
+  {
+   "use": [
+    2.5,
+    1.93
+   ],
+   "y": 0.65,
+   "expect": "prompt.take"
+  },
+  {
+   "cell": [
+    3,
+    5
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ]
+  },
+  {
+   "cell": [
+    2,
+    9
+   ]
+  },
+  {
+   "cell": [
+    2,
+    10
+   ]
+  },
+  {
+   "cell": [
+    2,
+    12
+   ]
+  },
+  {
+   "cell": [
+    2,
+    14
+   ]
+  },
+  {
+   "cell": [
+    3,
+    15
+   ]
+  },
+  {
+   "use": [
+    3,
+    17
+   ],
+   "y": 1.4,
+   "expect": "prompt.openFuseBox",
+   "keepOpen": true
+  },
+  {
+   "screenKey": "Enter"
+  },
+  {
+   "resume": true
+  },
+  {
+   "wait": 30.0
+  },
+  {
+   "cell": [
+    2,
+    14
+   ]
+  },
+  {
+   "cell": [
+    2,
+    12
+   ]
+  },
+  {
+   "cell": [
+    2,
+    10
+   ]
+  },
+  {
+   "cell": [
+    2,
+    9
+   ]
+  },
+  {
+   "cell": [
+    10,
+    9
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    10,
+    8
+   ]
+  },
+  {
+   "cell": [
+    23,
+    8
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    24,
+    9
+   ]
+  },
+  {
+   "cell": [
+    30,
+    9
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    30,
+    8
+   ]
+  },
+  {
+   "cell": [
+    30,
+    7
+   ]
+  },
+  {
+   "cell": [
+    30,
+    6
+   ]
+  },
+  {
+   "cell": [
+    30,
+    3
+   ]
+  },
+  {
+   "cell": [
+    31,
+    2
+   ]
+  },
+  {
+   "use": [
+    31.5,
+    1.03
+   ],
+   "y": 1.5,
+   "expect": "prompt.read"
+  },
+  {
+   "cell": [
+    30,
+    2
+   ]
+  },
+  {
+   "use": [
+    30.78,
+    1.1
+   ],
+   "y": 1.42,
+   "expect": "prompt.tryLock",
+   "keepOpen": true
+  },
+  {
+   "screenKey": "Digit3"
+  },
+  {
+   "screenKey": "Digit8"
+  },
+  {
+   "screenKey": "Digit1"
+  },
+  {
+   "screenKey": "Digit5"
+  },
+  {
+   "screenKey": "Enter"
+  },
+  {
+   "use": [
+    30.15,
+    1.62
+   ],
+   "y": 0.81,
+   "expect": "prompt.take"
+  },
+  {
+   "use": [
+    30.9,
+    1.62
+   ],
+   "y": 0.81,
+   "expect": "prompt.take"
+  },
+  {
+   "use": [
+    30.5,
+    1.62
+   ],
+   "y": 0.81,
+   "expect": "prompt.take"
+  },
+  {
+   "select": "pills"
+  },
+  {
+   "tap": "combine"
+  },
+  {
+   "wait": 56.0
+  },
+  {
+   "cell": [
+    30,
+    3
+   ]
+  },
+  {
+   "cell": [
+    30,
+    6
+   ]
+  },
+  {
+   "cell": [
+    30,
+    7
+   ]
+  },
+  {
+   "cell": [
+    30,
+    9
+   ]
+  },
+  {
+   "cell": [
+    24,
+    9
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    23,
+    8
+   ]
+  },
+  {
+   "cell": [
+    20,
+    8
+   ]
+  },
+  {
+   "wait": 18.0
+  },
+  {
+   "cell": [
+    10,
+    8
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    10,
+    9
+   ]
+  },
+  {
+   "cell": [
+    2,
+    9
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    2,
+    10
+   ]
+  },
+  {
+   "cell": [
+    2,
+    12
+   ]
+  },
+  {
+   "cell": [
+    2,
+    14
+   ]
+  },
+  {
+   "cell": [
+    3,
+    15
+   ]
+  },
+  {
+   "use": [
+    3,
+    17
+   ],
+   "y": 1.4,
+   "expect": "prompt.openFuseBox",
+   "keepOpen": true
+  },
+  {
+   "screenKey": "ArrowDown"
+  },
+  {
+   "screenKey": "ArrowRight"
+  },
+  {
+   "screenKey": "Enter"
+  },
+  {
+   "resume": true
+  },
+  {
+   "wait": 12.0
+  },
+  {
+   "cell": [
+    2,
+    14
+   ]
+  },
+  {
+   "cell": [
+    2,
+    12
+   ]
+  },
+  {
+   "cell": [
+    2,
+    10
+   ]
+  },
+  {
+   "cell": [
+    2,
+    9
+   ]
+  },
+  {
+   "cell": [
+    10,
+    9
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    10,
+    8
+   ]
+  },
+  {
+   "cell": [
+    23,
+    8
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    24,
+    9
+   ]
+  },
+  {
+   "cell": [
+    30,
+    9
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    31,
+    8
+   ]
+  },
+  {
+   "cell": [
+    38,
+    8
+   ],
+   "pace": "run"
+  },
+  {
+   "use": [
+    38.5,
+    7.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.open"
+  },
+  {
+   "cell": [
+    38,
+    7
+   ]
+  },
+  {
+   "cell": [
+    38,
+    6
+   ]
+  }
+ ]
+}

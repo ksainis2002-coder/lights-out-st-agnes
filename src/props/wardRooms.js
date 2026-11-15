@@ -124,19 +124,25 @@ function pigeonholes(t, { columns = 6, rows = 4 } = {}) {
   return group(...parts);
 }
 
-// The nurses' call board: numbered flags behind glass, one dropped, a bell.
-function callBoard(t, { beds = 8, dropped = 7 } = {}) {
+// The nurses' call board: numbered windows behind glass, a red flag in the
+// one that has been rung (userData.drop(bed) shows it), a bell on top.
+function callBoard(t, { beds = 8, dropped = null } = {}) {
   const parts = [box(t.paintedWood, [0.9, 0.5, 0.06], [0, 1.5, 0.03], { color: '#3a2a1c' })];
+  const flags = [];
   for (let i = 0; i < beds; i++) {
     const x = -0.33 + (i % 4) * 0.22;
     const y = i < 4 ? 1.78 : 1.56;
-    parts.push(box(t.sheet, [0.14, 0.14, 0.01], [x, y, 0.065], { color: '#14110e' }));
-    if (i + 1 === dropped) parts.push(box(t.sheet, [0.1, 0.1, 0.012], [x, y + 0.01, 0.07], { color: '#b02a22' }));
+    const flag = box(t.sheet, [0.1, 0.1, 0.012], [x, y + 0.01, 0.07], { color: '#b02a22' });
+    flag.visible = i + 1 === dropped;
+    flags.push(flag);
+    parts.push(box(t.sheet, [0.14, 0.14, 0.01], [x, y, 0.065], { color: '#14110e' }), flag);
   }
   const bell = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 5, 0, Math.PI * 2, 0, Math.PI / 2), materialFor(t.sheet, { color: '#b8923a' }));
   bell.rotation.x = Math.PI / 2;
   bell.position.set(0, 2.1, 0.03);
-  return group(...parts, bell);
+  const board = group(...parts, bell);
+  board.userData.drop = (bed) => flags.forEach((flag, i) => (flag.visible = i + 1 === bed));
+  return board;
 }
 
 // A drip stand on a tripod foot, an empty glass bottle hung from its hook.
