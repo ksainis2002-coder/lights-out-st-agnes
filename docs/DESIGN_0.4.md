@@ -56,14 +56,19 @@ only the embers bright).
   empty bed.
 - **Way out:** every lamp dead, Sister M. between you and the door, Edith's box playing you out.
 
-## Open picks (asked 2026-11-14)
-1. Looks: are the stills right?
-2. Way in: chain cut by Nora / bolt cutters you must find / another door.
-3. Caught: one catch rewinds / two hits.
-4. In the dark: touching her catches you / she never catches you in the dark.
-5. Camcorder: found upstairs / given at the start.
-6. Size: two floors, ~60 min / one floor, ~45 min.
-7. Way out: a chase with every lamp dead / a quiet walk out.
+## Picked by the owner (2026-11-15)
+- **Way in:** Nora cut the chain; it lies on the step with her bolt cutters.
+- **Caught:** one catch, then the rewind (as with the watcher).
+- **In the dark:** she cannot see you, but touching her catches you.
+- **Camcorder:** found upstairs, midway (the observation room).
+- **Size:** two floors, about 60 minutes.
+- **Way out:** a chase with every lamp dead.
+
+## Still open
+- **Looks:** every still but the nun's face is not yet confirmed one by one; her face is still
+  off. Four faces to choose from in `nun_faces.png` (`face` option of `burnedNun`: charred, skull,
+  hollow, veiled); the three not picked get removed from `src/props/wardFigures.js`.
+- **Tab icon:** the owner wants one; three drawings in `favicon_options.png` (lamp, tape, her eyes).
 
 ## After the picks
 Content sheet (every document, line and code, EN + EL), the 0.4 sound list for the owner, stills

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.57 — 0.4 picks written down (way in, catch, the dark, camcorder, size, way out) and two sheets to choose from: four faces for Sister M. and three tab icons. Nothing in the game changes.
 - 0.2.56 — 0.4 stills, owner's notes: Sister M.'s face is built in pieces (heavy brow, deep sockets with an ember in each, a hanging jaw) instead of a drawn-on face, and the ward's LIGHTS OUT sign is bigger, in two lines, and reads. Nothing in the game changes.
 - 0.2.55 — 0.4 kickoff, nothing in the game changes: first stills of the asylum wards (the ward, Sister M. lit, in the dark and at the catch, Edith, the camcorder's night view, hiding under a bed, the radio, the corridor, the cut chain at the west wing door), the wing's proposed plan, and the proposal in docs/DESIGN_0.4.md. Tests and stills use the cloud session's own browser when there is one. The no-errors tests ignore that browser asking for a favicon the game does not have.
 - 0.2.54 — Tests: each test may take 60 s (was 30 s). The slowest load several levels with a software renderer and ran out of time on GitHub's slower machine, which stopped the test build from being published.
