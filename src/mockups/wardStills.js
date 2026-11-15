@@ -205,19 +205,16 @@ export const WARD_STILLS = {
   },
 };
 
-// Four faces to choose between: the same close view of each.
-function faceStill(face) {
-  return {
-    level: wards,
-    setup({ world, fx }) {
-      world.flashlight.toggle();
-      add(world, 'burnedNun', [4.5, 7.3], 0, { glow: 1, face });
-      const glow = new THREE.PointLight('#ffa060', 2.6, 2.4, 1.2);
-      glow.position.set(4.5 * CELL - 0.2, 1.5, 7.3 * CELL + 0.6);
-      world.scene.add(glow);
-      aim(world.camera, [4.5 * CELL, 1.74, 7.3 * CELL + 0.62], 0, -3);
-      Object.assign(fx, { vignette: 0.4 });
-    },
-  };
-}
-['charred', 'skull', 'hollow', 'veiled'].forEach((face) => { WARD_STILLS[`nun_face_${face}`] = faceStill(face); });
+// Her face close: nothing in the wimple but the dark and two embers.
+WARD_STILLS.nun_face = {
+  level: wards,
+  setup({ world, fx }) {
+    world.flashlight.toggle();
+    add(world, 'burnedNun', [4.5, 7.3], 0, { glow: 1 });
+    const glow = new THREE.PointLight('#ffa060', 2.0, 2.4, 1.2);
+    glow.position.set(4.5 * CELL - 0.25, 1.45, 7.3 * CELL + 0.6);
+    world.scene.add(glow);
+    aim(world.camera, [4.5 * CELL - 0.1, 1.74, 7.3 * CELL + 0.62], -8, -3);
+    Object.assign(fx, { vignette: 0.4 });
+  },
+};

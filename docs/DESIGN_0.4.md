@@ -64,11 +64,15 @@ only the embers bright).
 - **Size:** two floors, about 60 minutes.
 - **Way out:** a chase with every lamp dead.
 
+- **Sister M.'s face: hollow** (from four options), "but improve on it": the first face was too
+  flat, too bright and not burnt enough. Now the wimple is a deep well of scorched linen, burnt
+  away down her left side with its edge still glowing; inside only the dark, the hint of a brow
+  and a jaw, and an ember far back where each eye was (`nun_face`, `nun`, `nun_catch`). The other
+  three options are gone from the code.
+- **Tab icon:** the VHS tape (`assets/textures/favicon.png`, drawn by `tools/make-favicon.py`).
+
 ## Still open
-- **Looks:** every still but the nun's face is not yet confirmed one by one; her face is still
-  off. Four faces to choose from in `nun_faces.png` (`face` option of `burnedNun`: charred, skull,
-  hollow, veiled); the three not picked get removed from `src/props/wardFigures.js`.
-- **Tab icon:** the owner wants one; three drawings in `favicon_options.png` (lamp, tape, her eyes).
+- **Looks:** the improved hollow face needs the owner's yes; the other stills were not objected to.
 
 ## After the picks
 Content sheet (every document, line and code, EN + EL), the 0.4 sound list for the owner, stills

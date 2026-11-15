@@ -4,8 +4,6 @@
 export function trackErrors(page) {
   const errors = [];
   page.on('console', (msg) => {
-    // A full browser asks for /favicon.ico by itself; the game has no icon yet (not a game error).
-    if (msg.location().url.endsWith('/favicon.ico')) return;
     if (msg.type() === 'error') errors.push(msg.text());
   });
   page.on('pageerror', (err) => errors.push(err.message));

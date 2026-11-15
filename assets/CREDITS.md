@@ -156,3 +156,4 @@ Two school-wing sounds come from deleted Freesound accounts (the page names no u
 | sounds/shovel_dig_1.ogg | shovel_dig_1.wav | [freesound 651294](https://freesound.org/people/f3bbbo/sounds/651294/) | f3bbbo | CC0 |
 | sounds/shovel_dig_2.ogg | shovel_dig_2.wav | [freesound 353907](https://freesound.org/people/dr19/sounds/353907/) | dr19 | CC0 |
 | sounds/shovel_dig_3.ogg | shovel_dig_3.wav | [freesound 515087](https://freesound.org/people/szegvari/sounds/515087/) | szegvari | CC0 |
+| textures/favicon.png | (none) | drawn in the project by `tools/make-favicon.py` | project | CC0 |
