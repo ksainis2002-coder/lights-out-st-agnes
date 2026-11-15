@@ -110,6 +110,9 @@ shoes in the children's ward; props dripStand and stretcher are new): build the 
 **The fuse board opens a close-up screen** (E at the board, click a socket), like the piano and the
 code locks. **The television is dead until the camcorder is taken,** then on by itself.
 
+The owner approved the filled rooms ("build them") and building on the working branch while the
+school reviews are out. Still waiting for a yes: `ui_fuseBoard`, the fuse board's close-up screen.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

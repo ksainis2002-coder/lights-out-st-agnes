@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { look, subtitle, message } from './helpers.js';
+import { fuseBoardClose } from './wardUi.js';
 import rooms from './levels/wardRooms.json';
 
 const CELL = 1.2;
@@ -128,5 +129,14 @@ export const WARD_ROOM_STILLS = {
       eye(world, [3.6, 5.7], [4.4, 2.6], 1.6, 0.75);
     },
     ui: (ctx) => subtitle(ctx, '(a child, whispering) You walk heavier than she does. You’re not her.'),
+  },
+  // Proposal: the fuse board's close-up screen (owner pick: a close-up, not a bigger board).
+  ui_fuseBoard: {
+    level: rooms,
+    setup({ world }) {
+      furnish(world, [['fuseBoard', 3, 7, 0, { fuses: [0, 2] }]]);
+      eye(world, [3.1, 8.6], [3, 7], 1.6, 1.45);
+    },
+    ui: fuseBoardClose,
   },
 };

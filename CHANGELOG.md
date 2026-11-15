@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.65 — 0.4 still of the fuse board's close-up screen (six sockets with their circuit cards, fuses in hand). The filled-out rooms are approved. Nothing in the game changes.
 - 0.2.64 — 0.4 room stills filled out after the owner's note (too empty): papers, toppled chairs, a stretcher, drip stands, fallen tiles, peeled paint, toys and shoes. Fuse board and television picks written down. Nothing in the game changes.
 - 0.2.63 — 0.4 stills of the ground floor rooms: admissions, the fuse room, the baths, the dispensary, the day room with its television, the children's ward with Edith. Nothing in the game changes.
 - 0.2.62 — 0.4: the owner's answers to the content sheet's open questions are written down, and the wing 3 sound list (31 new sounds, three priorities) is ready for the owner. Nothing in the game changes.

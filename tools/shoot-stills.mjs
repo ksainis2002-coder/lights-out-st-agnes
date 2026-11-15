@@ -13,7 +13,7 @@ const SCHOOL = ['classroom', 'blackboard', 'watcher', 'watcher_close', 'maggie',
   'outside_corner', 'outside_courtyard', 'outside_road', 'lintel_staff_room', 'lintel_upstairs'];
 const WARDS = ['ward', 'nun', 'nun_dark', 'nun_catch', 'edith', 'camcorder_night', 'hide_bed', 'radio', 'ward_corridor', 'west_wing_door',
   'nun_face',
-  'admissions', 'fuse_room', 'baths', 'dispensary', 'day_room', 'childrens_ward'];
+  'admissions', 'fuse_room', 'baths', 'dispensary', 'day_room', 'childrens_ward', 'ui_fuseBoard'];
 const names = process.argv.slice(2).length ? process.argv.slice(2) : [...ALL, ...SCHOOL, ...WARDS];
 const version = (name) => (WARDS.includes(name) ? '0.4' : SCHOOL.includes(name) ? '0.3' : '0.2');
 const folder = (name) => new URL(`../docs/mockups/stills-${version(name)}/`, import.meta.url).pathname;

@@ -1,7 +1,7 @@
 // Mockups of the 0.4 displays, drawn on the 480×270 UI layer: the camcorder's
 // own display (it takes over from the sanity pulse once the camcorder is
 // found) and a use prompt. Copy here is mockup text, not game text.
-import { osdText, COLORS } from '../ui/osd.js';
+import { osdText, COLORS, UI_FONT } from '../ui/osd.js';
 import { drawPulseGlyph, sanityState } from '../ui/pulse.js';
 
 const W = 480;
@@ -66,4 +66,66 @@ export function usePrompt(ctx, text) {
   ctx.strokeStyle = 'rgba(232,240,255,0.35)';
   ctx.strokeRect(W / 2 - width / 2 + 0.5, H / 2 + 22.5, width - 1, 15);
   osdText(ctx, text, W / 2, H / 2 + 25, 10, COLORS.text, 'center');
+}
+
+// Proposal: the fuse board close up (E at the board), like the code locks.
+// Six sockets with their circuit cards; a fuse in two of them, the cursor on
+// a third; a lamp by each socket shows a live circuit. Fuses in hand on the right.
+const CIRCUITS = ['WARD A', 'CHILDREN\'S WARD', 'DISPENSARY', 'CORRIDOR', 'STAIRS', 'UPSTAIRS'];
+
+// Dark print on a cream card: plain, with no glow behind it, so it stays sharp.
+function card(ctx, text, x, y) {
+  ctx.font = `bold 9px ${UI_FONT}`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillStyle = '#14100c';
+  ctx.fillText(text, x, y);
+}
+
+function socket(ctx, x, y, label, { fuse, selected }) {
+  ctx.fillStyle = '#d6d2c4'; // porcelain
+  ctx.fillRect(x, y, 46, 40);
+  ctx.fillStyle = '#b8b4a6';
+  ctx.fillRect(x, y + 36, 46, 4);
+  if (fuse) {
+    ctx.fillStyle = '#efece0';
+    ctx.fillRect(x + 13, y + 6, 20, 26);
+    ctx.fillStyle = '#b8923a'; // its brass cap
+    ctx.fillRect(x + 17, y + 12, 12, 12);
+  } else {
+    ctx.fillStyle = '#141414';
+    ctx.fillRect(x + 14, y + 8, 18, 22);
+    ctx.fillStyle = '#6a5a2a'; // contacts down in the socket
+    ctx.fillRect(x + 16, y + 10, 3, 18);
+    ctx.fillRect(x + 27, y + 10, 3, 18);
+  }
+  ctx.fillStyle = fuse ? '#ffb040' : '#3a2a14'; // the circuit's lamp
+  ctx.fillRect(x + 52, y + 14, 8, 8);
+  ctx.fillStyle = '#d8d0b0'; // the card
+  ctx.fillRect(x - 12, y + 46, 84, 13);
+  card(ctx, label, x + 30, y + 49);
+  if (selected) {
+    ctx.strokeStyle = COLORS.osdValue;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x - 5, y - 5, 56, 50);
+  }
+}
+
+export function fuseBoardClose(ctx) {
+  ctx.fillStyle = 'rgba(0,0,0,0.72)';
+  ctx.fillRect(0, 0, 480, 270);
+  ctx.fillStyle = '#4a3524'; // the wooden frame
+  ctx.fillRect(48, 30, 322, 196);
+  ctx.fillStyle = '#33363a'; // the slate
+  ctx.fillRect(54, 36, 310, 184);
+  ctx.fillStyle = '#d8d0b0';
+  ctx.fillRect(150, 42, 118, 14);
+  card(ctx, 'WEST WING  LIGHTING', 209, 45);
+  CIRCUITS.forEach((label, i) => {
+    socket(ctx, 86 + (i % 3) * 100, i < 3 ? 70 : 146, label, { fuse: i === 0 || i === 2, selected: i === 4 });
+  });
+  osdText(ctx, 'IN HAND', 426, 84, 8, COLORS.dim, 'center');
+  osdText(ctx, '0', 426, 98, 16, COLORS.osdValue, 'center');
+  osdText(ctx, 'FUSES', 426, 122, 8, COLORS.dim, 'center');
+  osdText(ctx, '◀ ▶ ▲ ▼ choose  ·  CLICK put in / pull out  ·  ESC step back', 240, 248, 8, COLORS.dim, 'center');
 }
