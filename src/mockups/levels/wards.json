@@ -1,0 +1,472 @@
+{
+  "id": "wards_mockup",
+  "wing": "wards",
+  "cellSize": 1.2,
+  "wallHeight": 3.4,
+  "floorTexture": "floor",
+  "ceilingTexture": "ceiling",
+  "legend": {
+    "0": "floor",
+    "1": "wardWall",
+    "2": "door"
+  },
+  "map": [
+    "1111111111111111",
+    "1000000011111111",
+    "1000000011111111",
+    "1000000011111111",
+    "1000000011111111",
+    "1000000010000001",
+    "1000000010000001",
+    "1000000010000001",
+    "1000000010000001",
+    "1000000010000001",
+    "1112111111112111",
+    "1000000000000001",
+    "1000000000000001",
+    "1111111111111111"
+  ],
+  "spawn": {
+    "cell": [
+      4.5,
+      9.3
+    ],
+    "yawDegrees": 0
+  },
+  "rooms": [
+    {
+      "id": "ward",
+      "cells": [
+        1,
+        1,
+        7,
+        9
+      ]
+    },
+    {
+      "id": "station",
+      "cells": [
+        9,
+        5,
+        14,
+        9
+      ]
+    },
+    {
+      "id": "corridor",
+      "cells": [
+        1,
+        11,
+        14,
+        12
+      ]
+    }
+  ],
+  "props": [
+    {
+      "type": "wardBed",
+      "at": [
+        1.875,
+        1.9
+      ],
+      "rotation": 90,
+      "options": {
+        "number": 1,
+        "unmade": false,
+        "straps": false
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        1.875,
+        3.4
+      ],
+      "rotation": 90,
+      "options": {
+        "number": 2,
+        "unmade": true,
+        "straps": false
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        1.875,
+        4.9
+      ],
+      "rotation": 90,
+      "options": {
+        "number": 3,
+        "unmade": false,
+        "straps": false
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        1.875,
+        6.4
+      ],
+      "rotation": 90,
+      "options": {
+        "number": 4,
+        "unmade": false,
+        "straps": true
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        1.875,
+        7.9
+      ],
+      "rotation": 90,
+      "options": {
+        "number": 5,
+        "unmade": false,
+        "straps": false
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        7.125,
+        1.9
+      ],
+      "rotation": -90,
+      "options": {
+        "number": 11,
+        "unmade": false,
+        "chart": true
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        7.125,
+        3.4
+      ],
+      "rotation": -90,
+      "options": {
+        "number": 10,
+        "unmade": false,
+        "chart": true
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        7.125,
+        4.9
+      ],
+      "rotation": -90,
+      "options": {
+        "number": 9,
+        "unmade": true,
+        "chart": true
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        7.125,
+        6.4
+      ],
+      "rotation": -90,
+      "options": {
+        "number": 8,
+        "unmade": false,
+        "chart": true
+      }
+    },
+    {
+      "type": "wardBed",
+      "at": [
+        7.125,
+        7.9
+      ],
+      "rotation": -90,
+      "options": {
+        "number": 7,
+        "unmade": false,
+        "chart": true
+      }
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        1,
+        2.65
+      ],
+      "rotation": 90,
+      "options": {
+        "blind": 0.55
+      }
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        1,
+        4.15
+      ],
+      "rotation": 90,
+      "options": {
+        "blind": 0.55
+      }
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        1,
+        5.65
+      ],
+      "rotation": 90,
+      "options": {
+        "blind": 0.55
+      }
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        1,
+        7.15
+      ],
+      "rotation": 90,
+      "options": {
+        "blind": 0.55
+      }
+    },
+    {
+      "type": "foldingScreen",
+      "at": [
+        2.15,
+        7.15
+      ],
+      "rotation": 4
+    },
+    {
+      "type": "trolley",
+      "at": [
+        5.3,
+        5.6
+      ],
+      "rotation": 25
+    },
+    {
+      "type": "radiator",
+      "at": [
+        5.9,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "wallClock",
+      "at": [
+        2.6,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "hangingBulb",
+      "at": [
+        4.5,
+        3
+      ],
+      "options": {
+        "ceiling": 3.4
+      }
+    },
+    {
+      "type": "hangingBulb",
+      "at": [
+        4.5,
+        6.6
+      ],
+      "options": {
+        "ceiling": 3.4
+      }
+    },
+    {
+      "type": "table",
+      "at": [
+        11.5,
+        5.75
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "radioSet",
+      "at": [
+        11.2,
+        5.72
+      ],
+      "y": 0.76,
+      "rotation": 6
+    },
+    {
+      "type": "deskLamp",
+      "at": [
+        12.05,
+        5.7
+      ],
+      "y": 0.76,
+      "rotation": -20,
+      "options": {
+        "lit": true
+      }
+    },
+    {
+      "type": "papers",
+      "at": [
+        11.65,
+        5.85
+      ],
+      "y": 0.765
+    },
+    {
+      "type": "chair",
+      "at": [
+        12.6,
+        6.5
+      ],
+      "rotation": 150
+    },
+    {
+      "type": "medicineCabinet",
+      "at": [
+        15,
+        7.2
+      ],
+      "rotation": -90
+    },
+    {
+      "type": "notice",
+      "at": [
+        12.9,
+        5
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "wallClock",
+      "at": [
+        10.2,
+        5
+      ],
+      "rotation": 0
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        3,
+        13
+      ],
+      "rotation": 180,
+      "options": {
+        "blind": 0.3
+      }
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        6.5,
+        13
+      ],
+      "rotation": 180,
+      "options": {
+        "blind": 0.3
+      }
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        10,
+        13
+      ],
+      "rotation": 180,
+      "options": {
+        "blind": 0.3
+      }
+    },
+    {
+      "type": "barredWindow",
+      "at": [
+        13,
+        13
+      ],
+      "rotation": 180,
+      "options": {
+        "blind": 0.3
+      }
+    },
+    {
+      "type": "wheelchair",
+      "at": [
+        8.3,
+        11.75
+      ],
+      "rotation": -50
+    },
+    {
+      "type": "bench",
+      "at": [
+        11.2,
+        12.7
+      ],
+      "rotation": 180
+    }
+  ],
+  "lights": [
+    {
+      "type": "point",
+      "at": [
+        1.7,
+        3.4
+      ],
+      "height": 2.2,
+      "color": "#5a6c9c",
+      "intensity": 4.2,
+      "distance": 8
+    },
+    {
+      "type": "point",
+      "at": [
+        1.7,
+        6.4
+      ],
+      "height": 2.2,
+      "color": "#5a6c9c",
+      "intensity": 4.2,
+      "distance": 8
+    },
+    {
+      "type": "point",
+      "at": [
+        4.5,
+        12.4
+      ],
+      "height": 2.2,
+      "color": "#5a6c9c",
+      "intensity": 2.6,
+      "distance": 8
+    },
+    {
+      "type": "point",
+      "at": [
+        11,
+        12.4
+      ],
+      "height": 2.2,
+      "color": "#5a6c9c",
+      "intensity": 2.6,
+      "distance": 8
+    }
+  ],
+  "ambient": {
+    "color": "#8a98c8",
+    "intensity": 0.9
+  }
+}

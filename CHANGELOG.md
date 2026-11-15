@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.55 — 0.4 kickoff, nothing in the game changes: first stills of the asylum wards (the ward, Sister M. lit, in the dark and at the catch, Edith, the camcorder's night view, hiding under a bed, the radio, the corridor, the cut chain at the west wing door), the wing's proposed plan, and the proposal in docs/DESIGN_0.4.md. Tests and stills use the cloud session's own browser when there is one. The no-errors tests ignore that browser asking for a favicon the game does not have.
 - 0.2.54 — Tests: each test may take 60 s (was 30 s). The slowest load several levels with a software renderer and ran out of time on GitHub's slower machine, which stopped the test build from being published.
 - 0.2.53 — Priority 3 sounds: a chalk hint ends with the chalk tapped on the board (a taunt still starts with a screech), a distant PE whistle in the gym now and then, quiet crickets outside until the storm; the broken music box and the shovel digs are kept for later. Every sound on the list is now in the game.
 - 0.2.52 — The owner confirmed every school-wing sound is CC0 (credits updated) and kept the big sting for the grab. A test build of parts A–C for the playtests (Pages takes it from a version tag pushed by the owner).

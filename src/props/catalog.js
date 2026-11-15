@@ -20,6 +20,8 @@ import { UPSTAIRS_PROPS } from './upstairs.js';
 import { CEMETERY_PROPS } from './cemetery.js';
 import { HUB_PROPS } from './hubDecay.js';
 import { HUB_DOOR_PROPS } from './hubDoor.js';
+import { WARD_PROPS } from './wards.js';
+import { WARD_FIGURES } from './wardFigures.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -342,4 +344,6 @@ export const PROPS = {
   ...CEMETERY_PROPS,
   ...HUB_PROPS,
   ...HUB_DOOR_PROPS,
+  ...WARD_PROPS,
+  ...WARD_FIGURES,
 };

@@ -180,3 +180,19 @@ export function hallTile(x, y, random) {
   const wear = (x * 3 + y * 5) % 11 === 0 ? 18 : 0;
   return dark ? [34 + n + wear, 32 + n + wear, 30 + n + wear] : [178 + n - wear, 168 + n - wear, 142 + n - wear];
 }
+
+// Asylum wards (0.4): yellowed cream paint, damp running down from the
+// ceiling, over a dado of big glazed green tiles (about 30 cm) with a dark
+// capping rail.
+export function wardWall(x, y, random) {
+  const n = random() * 10;
+  if (y === 17) return [34, 44, 38];
+  if (y > 17) {
+    if (x % 8 === 0 || (y - 18) % 3 === 0) return [96 + n, 108 + n, 98 + n];
+    const dirt = y > 27 ? (y - 27) * 6 : 0;
+    return [128 + n - dirt, 156 + n - dirt, 136 + n - dirt];
+  }
+  const damp = (x % 11 === 3 || x % 11 === 4) && y < 9 + (x % 5) ? -26 : 0;
+  const scuff = (x * 5 + y * 7) % 31 < 2 ? -16 : 0;
+  return [176 + n + damp + scuff, 170 + n + damp + scuff, 132 + n + damp * 1.2 + scuff];
+}

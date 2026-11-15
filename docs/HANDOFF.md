@@ -217,5 +217,12 @@ v0.2.53's deploy failed on the 30 s limit (twice, the byline test), so the build
 **Priority 3 sounds (0.2.53):** the owner's 7 files are in ("Where priority 3 plays" in
 `docs/SOUNDS_0.3.md`); every sound on the list is now in the game. Next: the owner tags v0.2.53 for
 the test build, then the playtests; then the 0.2.x pull request.
+**0.4 kickoff (0.2.55):** while the playtest reviews are out, the first asylum wards stills and the
+wing's plan are drawn (`docs/mockups/stills-0.4/`) and the proposal is in `docs/DESIGN_0.4.md` with
+seven open picks. Mockup-only: ward props and figures, the `wardWall` texture, the night-view
+uniform (`fx.nightVision`, unused by the game). `tools/session-chromium.mjs` points Playwright at
+the cloud session's own Chromium when there is one (elsewhere it changes nothing). Next: the
+owner's picks, then the content sheet and the 0.4 sound list. Still owed for 0.3: the playtest
+fixes and the 0.2.x pull request.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

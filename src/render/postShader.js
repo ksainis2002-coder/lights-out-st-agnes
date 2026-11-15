@@ -6,6 +6,8 @@
 // 0.2 effects (all 0 = off): uBlur (waking, sanity), uAberration (sanity,
 // in scene pixels), uEyelid (0 open … 1 closed), uVignette (extra darkening),
 // uRewind (VHS rewind tearing), uFade (0 … 1 = black, for level changes).
+// 0.4: uNightVision (0 … 1): the camcorder's night view, the scene amplified
+// to green phosphor with more grain; the UI layer keeps its own colours.
 import * as THREE from 'three';
 
 const vertexShader = /* glsl */ `
@@ -37,6 +39,7 @@ uniform float uEyelid;
 uniform float uVignette;
 uniform float uRewind;
 uniform float uFade;
+uniform float uNightVision;
 varying vec2 vUv;
 
 float bayer2(vec2 a) { a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0.75); }
@@ -60,6 +63,12 @@ vec3 sceneAt(vec2 uv) {
     vec2 a = vec2(uAberration / uSceneRes.x, 0.0);
     c.r = scenePixel(uv + a).r;
     c.b = scenePixel(uv - a).b;
+  }
+  if (uNightVision > 0.0) {
+    float amp = pow(clamp(dot(c, vec3(0.299, 0.587, 0.114)) * 3.0, 0.0, 1.0), 0.8);
+    vec3 phosphor = vec3(0.14, 1.0, 0.3) * amp + vec3(0.01, 0.05, 0.02);
+    phosphor = mix(phosphor, vec3(0.82, 1.0, 0.86), smoothstep(0.8, 1.0, amp) * 0.7);
+    c = mix(c, phosphor, uNightVision);
   }
   c *= 255.0;
   float threshold = (bayer4(px) - 0.5) * 8.0 * uDither;
@@ -85,7 +94,7 @@ void main() {
   vec2 bleed = vec2(uBleed / uUiRes.x, 0.0);
   vec3 color = vec3(composite(uv - bleed, vUv - bleed).r, composite(uv, vUv).g, composite(uv + bleed, vUv + bleed).b);
   vec2 cell = floor(uv * uUiRes);
-  float noise = (hash(cell + fract(uTime * 7.31) * 113.0) - 0.5) * uGrain;
+  float noise = (hash(cell + fract(uTime * 7.31) * 113.0) - 0.5) * (uGrain + uNightVision * 26.0);
   noise += inBand * 30.0 * hash(cell.yx + uTime);
   noise += uRewind * (tear * 70.0 + 12.0) * hash(cell + uTime * 3.1);
   color += noise / 255.0;
@@ -131,6 +140,7 @@ export function createPostMaterial(sceneTexture, uiTexture) {
       uVignette: { value: 0 },
       uRewind: { value: 0 },
       uFade: { value: 0 },
+      uNightVision: { value: 0 },
     },
   });
 }

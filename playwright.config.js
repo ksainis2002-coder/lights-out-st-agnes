@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { executablePath } from './tools/session-chromium.mjs';
 
 // All tests run against the Vite preview server of a fresh build, never file://.
 const PORT = 4173;
@@ -20,7 +21,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        launchOptions: { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] },
+        launchOptions: { executablePath, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] },
       },
     },
   ],
