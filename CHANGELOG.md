@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.61 — 0.4: Sister M.'s look is approved, and the wing 3 content sheet (every document, line, code and set piece, English and Greek) is written for the owner to check. Nothing in the game changes.
 - 0.2.60 — 0.4 stills: Sister M.'s face in proportion and uncluttered: a smaller oval of dark, the eyes where eyes sit, no loose embers around it. Nothing in the game changes.
 - 0.2.59 — 0.4 stills: Sister M. rebuilt after the owner's notes: shoulders and sleeves instead of cones, a proper veil, an oval hollow wimple, larger burning eyes. Nothing in the game changes.
 - 0.2.58 — The browser tab has an icon, a small VHS tape. 0.4 stills: Sister M. has no face, as picked: a deep burnt hood with only the dark and two embers far back in it.

@@ -80,9 +80,15 @@ only the embers bright).
   has a face's proportions, the eyes sit a little above its middle, and the loose embers and scorch
   holes around it are gone: a clean dark oval and two eyes.
 
-## Still open
-- **Looks:** the rebuilt Sister M. needs the owner's yes; the other stills were not objected to.
+- **Sister M. approved (2026-11-15)** after the third pass. All 0.4 stills now stand as drawn.
 
-## After the picks
-Content sheet (every document, line and code, EN + EL), the 0.4 sound list for the owner, stills
+## Content sheet (2026-11-15)
+The Claude Doc "Wing 3 Content Sheet: Asylum Wards"
+(https://claude.ai/artifact/PVe4s5Cuuk9ZhvXsJwgCoE) holds every document, radio message, line,
+prompt, item, room name, puzzle answer (cabinet 3815, Dr. Venn's door 4261) and set piece, EN + EL,
+with seven open questions and a checklist for the owner. Nothing in it is approved until its
+checklist is ticked; the game text is carried from the sheet as it stands then.
+
+## Next
+The owner's checklist on the content sheet, the 0.4 sound list for the owner, stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

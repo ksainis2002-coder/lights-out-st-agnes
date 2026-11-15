@@ -224,5 +224,9 @@ uniform (`fx.nightVision`, unused by the game). `tools/session-chromium.mjs` poi
 the cloud session's own Chromium when there is one (elsewhere it changes nothing). Next: the
 owner's picks, then the content sheet and the 0.4 sound list. Still owed for 0.3: the playtest
 fixes and the 0.2.x pull request.
+**0.4 picks and content sheet (0.2.61):** the owner picked the wing's rules (in `docs/DESIGN_0.4.md`),
+approved Sister M. after three passes (hollow face, `src/props/burnedNun.js`) and the VHS tape tab
+icon. The wing 3 content sheet is a Claude Doc (link in DESIGN_0.4.md), waiting for the owner's
+checklist. Next: the 0.4 sound list, part A room stills, then build part A.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
