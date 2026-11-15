@@ -71,8 +71,13 @@ only the embers bright).
   three options are gone from the code.
 - **Tab icon:** the VHS tape (`assets/textures/favicon.png`, drawn by `tools/make-favicon.py`).
 
+- **Second pass on her (owner, 2026-11-15):** the hole looked boxy, the headdress shape was wrong
+  and the whole figure blocky; eyes: larger and glowing. Rebuilt in `src/props/burnedNun.js`: a
+  body flattened to shoulders with a rippled hem, tube sleeves, a veil that falls open-fronted
+  past her shoulders, an oval wimple whose inside is a well of dark, two burning almond eyes.
+
 ## Still open
-- **Looks:** the improved hollow face needs the owner's yes; the other stills were not objected to.
+- **Looks:** the rebuilt Sister M. needs the owner's yes; the other stills were not objected to.
 
 ## After the picks
 Content sheet (every document, line and code, EN + EL), the 0.4 sound list for the owner, stills
