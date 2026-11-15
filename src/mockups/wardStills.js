@@ -24,18 +24,22 @@ function add(world, type, [c, r], rotationDeg = 0, options, y = 0) {
 
 // The ward's rule, painted in capitals on its end wall.
 function lightsOutSign(world) {
-  const sign = canvasTexture(128, 24, (g, w, h) => {
-    g.fillStyle = '#cfc8ac';
+  const sign = canvasTexture(136, 50, (g, w, h) => {
+    g.fillStyle = '#d8d0b0';
     g.fillRect(0, 0, w, h);
-    g.strokeStyle = '#3a342a';
-    g.strokeRect(1.5, 1.5, w - 3, h - 3);
-    g.fillStyle = '#2a2620';
-    g.font = 'bold 15px sans-serif';
+    g.fillStyle = '#1c1814';
+    g.fillRect(0, 0, w, 2);
+    g.fillRect(0, h - 2, w, 2);
+    g.fillRect(0, 0, 2, h);
+    g.fillRect(w - 2, 0, 2, h);
     g.textAlign = 'center';
     g.textBaseline = 'middle';
-    g.fillText('LIGHTS OUT 8 P.M.', w / 2, h / 2 + 1);
+    g.font = 'bold 20px monospace';
+    g.fillText('LIGHTS OUT', w / 2, 15);
+    g.font = 'bold 17px monospace';
+    g.fillText('AT 8 P.M.', w / 2, 37);
   });
-  world.scene.add(decal(sign, [3.2, 0.6], [4.5 * CELL, 2.55, CELL + 0.012]));
+  world.scene.add(decal(sign, [3.0, 1.04], [4.5 * CELL, 2.34, CELL + 0.012]));
 }
 
 // The camcorder's night view: no flashlight; the lens's own lamp, which
@@ -69,7 +73,7 @@ function snufferOver(world, hand, top) {
 
 // Her own glow on her face, from below (the catch: your light is going out).
 function faceGlow(world, [x, y, z]) {
-  const glow = new THREE.PointLight('#ff8a40', 2.6, 2.2, 1.2);
+  const glow = new THREE.PointLight('#ff8a40', 2.1, 2.2, 1.2);
   glow.position.set(x, y, z);
   world.scene.add(glow);
 }
@@ -92,7 +96,7 @@ export const WARD_STILLS = {
     level: wards,
     setup({ world, fx }) {
       lightsOutSign(world);
-      add(world, 'burnedNun', [4.5, 2.3], 0, { glow: 1 });
+      add(world, 'burnedNun', [4.5, 1.75], 0, { glow: 1 });
       aim(world.camera, [4.6 * CELL, 1.6, 5.7 * CELL], 0, 3);
       Object.assign(fx, { vignette: 0.3 });
     },
@@ -106,7 +110,7 @@ export const WARD_STILLS = {
     setup({ world, fx }) {
       lightsOutSign(world);
       world.flashlight.toggle();
-      add(world, 'burnedNun', [4.5, 2.3], 0, { glow: 0.5 });
+      add(world, 'burnedNun', [4.5, 1.75], 0, { glow: 0.5 });
       aim(world.camera, [4.6 * CELL, 1.6, 5.7 * CELL], 0, 3);
       Object.assign(fx, { vignette: 0.3 });
     },
@@ -119,7 +123,7 @@ export const WARD_STILLS = {
       world.flashlight.toggle();
       const nun = add(world, 'burnedNun', [4.5, 7.3], 0, { glow: 1, reach: true });
       nun.rotation.x = 0.24; // leaning in over you
-      faceGlow(world, [4.5 * CELL, 1.35, 7.3 * CELL + 0.75]);
+      faceGlow(world, [4.5 * CELL, 1.22, 7.3 * CELL + 0.7]);
       aim(world.camera, [4.5 * CELL, 1.6, 8.26 * CELL], 0, 5, -3);
       snufferOver(world, new THREE.Vector3(4.5 * CELL + 0.36, 1.2, 7.3 * CELL + 0.45), new THREE.Vector3(4.5 * CELL + 0.25, 1.86, 8.26 * CELL - 0.42));
       Object.assign(fx, { vignette: 0.5, aberration: 1.5 });

@@ -14,45 +14,6 @@ function mesh(geometry, texture, options) {
   return new THREE.Mesh(geometry, materialFor(texture, options));
 }
 
-// Her face inside the wimple: burnt black and cracked, deep sockets, the
-// nose gone, the lips drawn back from the teeth.
-function burntFaceTexture() {
-  return canvasTexture(24, 26, (g) => {
-    g.clearRect(0, 0, 24, 26);
-    g.fillStyle = '#261d17';
-    g.fillRect(1, 0, 22, 26);
-    g.fillStyle = '#3d322a'; // ash, where the skin has flaked
-    [[2, 1, 7, 2], [15, 2, 6, 2], [2, 13, 3, 4], [18, 14, 4, 3], [9, 22, 6, 2], [4, 20, 2, 2]].forEach((r) => g.fillRect(...r));
-    g.fillStyle = '#140f0c'; // deeper char
-    [[10, 3, 4, 3], [3, 17, 4, 2], [17, 19, 4, 3], [1, 8, 2, 4], [21, 8, 2, 4]].forEach((r) => g.fillRect(...r));
-    g.fillStyle = '#050403'; // sockets, the nose, the mouth
-    g.fillRect(4, 8, 6, 4);
-    g.fillRect(14, 8, 6, 4);
-    g.fillRect(5, 12, 4, 1);
-    g.fillRect(15, 12, 4, 1);
-    g.fillRect(11, 13, 1, 3);
-    g.fillRect(13, 13, 1, 3);
-    g.fillRect(6, 18, 12, 3);
-    g.fillStyle = '#7a6c58'; // teeth
-    [7, 9, 11, 13, 15].forEach((x) => g.fillRect(x, 18, 1, 1));
-    [8, 10, 12, 14, 16].forEach((x) => g.fillRect(x, 20, 1, 1));
-  });
-}
-
-// What still burns in it: a point deep in each socket and the cracks across
-// her brow and cheek (drawn unlit over the face).
-function emberFaceTexture() {
-  return canvasTexture(24, 26, (g) => {
-    g.clearRect(0, 0, 24, 26);
-    g.fillStyle = '#ff6a1a';
-    [[6, 9, 2, 2], [16, 9, 2, 2]].forEach((r) => g.fillRect(...r));
-    [[4, 2], [5, 3], [6, 3], [7, 4], [8, 5], [8, 6], [19, 13], [18, 14], [18, 15], [17, 16], [16, 17], [2, 15], [3, 16], [12, 23], [13, 24]].forEach(([x, y]) => g.fillRect(x, y, 1, 1));
-    g.fillStyle = '#ffe08a';
-    g.fillRect(7, 10, 1, 1);
-    g.fillRect(16, 10, 1, 1);
-  });
-}
-
 // Scorched linen for her wimple and cape: cream, burnt brown-black from one
 // edge (the canvas top), with a few holes.
 function scorchedLinenTexture() {
@@ -146,7 +107,7 @@ function burnedNun(t, { glow = 0.5, reach = false } = {}) {
   // Right arm: forward at the elbow, gripping the snuffer's pole (at the
   // catch the snuffer is over your light: whoever poses her places it).
   const parts = [
-    robe, cracks, guimpe, drape, nunHead(t, { cream, black, burning }),
+    robe, cracks, guimpe, drape, nunHead(t, { cream, black, ember: new THREE.Color('#ff6a1a').multiplyScalar(0.4 + glow * 0.6).getHex() }),
     box(t.sheet, [0.12, 0.38, 0.12], [0.27, 1.12, 0.02], habit),
     strut(t.sheet, [0.27, 1.16, 0.04], [0.31, 1.06, 0.3], [0.12, 0.12], habit),
     box(t.sheet, [0.06, 0.08, 0.06], [0.31, 1.02, 0.31], { color: '#1a1410' }),
@@ -161,11 +122,43 @@ function burnedNun(t, { glow = 0.5, reach = false } = {}) {
   return group(...parts);
 }
 
+// Her face, built not drawn: a charred brow ridge over two deep sockets with
+// an ember far back in each, cheekbones, the stub of a nose, the jaw hanging
+// open on the dark. Flat-shaded pieces on the head (z = 0.095 is its front).
+function burntFace(t, ember) {
+  const char = { color: '#1c1511', flatShading: true };
+  const ash = { color: '#271e18', flatShading: true };
+  const hollow = { color: '#050403' };
+  const lit = { unlit: true, color: ember };
+  const parts = [
+    box(t.sheet, [0.136, 0.03, 0.044], [0, 0.02, 0.088], char), // brow ridge, heavy over the sockets
+    strut(t.sheet, [0, 0.03, 0.1], [0, -0.028, 0.11], [0.018, 0.016], ash), // what is left of the nose
+    box(t.sheet, [0.018, 0.014, 0.008], [0, -0.05, 0.093], hollow),
+    box(t.sheet, [0.078, 0.022, 0.03], [0, -0.076, 0.082], char), // upper jaw
+    box(t.sheet, [0.05, 0.007, 0.006], [0, -0.079, 0.098], { color: '#5e5444' }), // teeth, a pale line
+    box(t.sheet, [0.062, 0.04, 0.02], [0, -0.116, 0.074], hollow), // the open mouth
+    strut(t.sheet, [0.052, -0.02, 0.094], [0.03, -0.074, 0.1], [0.005, 0.004], lit), // a crack still burning
+    strut(t.sheet, [-0.056, 0.05, 0.1], [-0.03, 0.03, 0.107], [0.005, 0.004], lit),
+  ];
+  [-1, 1].forEach((side) => {
+    const cheek = box(t.sheet, [0.04, 0.03, 0.03], [side * 0.043, -0.056, 0.082], ash);
+    cheek.rotation.z = side * 0.35;
+    parts.push(
+      box(t.sheet, [0.046, 0.04, 0.01], [side * 0.034, -0.02, 0.083], hollow), // socket
+      box(t.sheet, [0.011, 0.011, 0.004], [side * 0.034, -0.004, 0.087], lit),
+      cheek,
+    );
+  });
+  const jaw = box(t.sheet, [0.07, 0.026, 0.05], [0.004, -0.142, 0.066], char);
+  jaw.rotation.z = 0.09; // hanging a little crooked
+  return group(...parts, jaw);
+}
+
 // Her head: the burnt face framed by the wimple (a band over the brow, a
 // wrap under the chin), the black veil over it.
-function nunHead(t, { cream, black, burning }) {
-  const head = mesh(new THREE.SphereGeometry(0.1, 8, 6), t.sheet, { color: '#2b221c', flatShading: true });
-  head.scale.set(0.88, 1.18, 0.95);
+function nunHead(t, { cream, black, ember }) {
+  const head = mesh(new THREE.SphereGeometry(0.1, 8, 6), t.sheet, { color: '#211a15', flatShading: true });
+  head.scale.set(0.8, 1.22, 0.95);
   const coif = mesh(new THREE.SphereGeometry(0.118, 9, 6, Math.PI * 0.68, Math.PI * 1.64, 0, Math.PI * 0.8), t.sheet, cream);
   coif.scale.set(0.95, 1.2, 1);
   const veil = mesh(new THREE.SphereGeometry(0.15, 9, 6, Math.PI * 0.76, Math.PI * 1.48, 0, Math.PI * 0.6), t.sheet, black);
@@ -173,11 +166,9 @@ function nunHead(t, { cream, black, burning }) {
   veil.position.y = 0.03;
   const headGroup = group(
     head, coif, veil,
-    box(t.sheet, [0.15, 0.035, 0.03], [0, 0.062, 0.078], cream),
-    box(t.sheet, [0.2, 0.03, 0.04], [0, 0.1, 0.07], black),
-    box(t.sheet, [0.12, 0.05, 0.03], [0, -0.135, 0.06], cream),
-    decal(burntFaceTexture(), [0.15, 0.165], [0, -0.022, 0.096], { transparent: true }),
-    decal(emberFaceTexture(), [0.15, 0.165], [0, -0.022, 0.098], { transparent: true, unlit: true, color: burning, polygonOffsetFactor: -4 }),
+    box(t.sheet, [0.2, 0.05, 0.05], [0, 0.058, 0.07], black), // the veil's edge, low on her brow
+    box(t.sheet, [0.12, 0.04, 0.03], [0, -0.175, 0.045], cream),
+    burntFace(t, ember),
   );
   headGroup.position.set(0, 1.74, 0.03);
   headGroup.rotation.x = 0.16; // looking down at you

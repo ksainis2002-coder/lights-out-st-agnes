@@ -15,6 +15,10 @@ Mockup-only code so far: the ward props (`src/props/wards.js`), the figures
 (`fx.nightVision`, 0 in the game), and the mock level and UI in `src/mockups/`. No game level,
 enemy, item or text exists yet.
 
+Owner's notes on the first set (2026-11-15), fixed in 0.2.56: the sign was hard to read (now two
+lines, larger), and the nun's face looked like a drawing stuck on (now built from pieces, darker,
+only the embers bright).
+
 ## The wing as proposed
 - **Way in:** the chained west wing door in the courtyard. When wing 2 is done its chain lies cut
   on the step with a pair of bolt cutters: Nora went in ahead of you.
