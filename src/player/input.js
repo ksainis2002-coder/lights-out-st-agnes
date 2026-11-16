@@ -25,6 +25,8 @@ export function createInput(target, settings) {
     down.add(code);
   });
   document.addEventListener('mouseup', (event) => down.delete(`Mouse${event.button}`));
+  // The right mouse button is a game key (the camcorder's flash): no browser menu over the game.
+  document.addEventListener('contextmenu', (event) => enabled && event.preventDefault());
 
   document.addEventListener('mousemove', (event) => {
     if (!enabled || document.pointerLockElement !== target) return;

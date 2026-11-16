@@ -8,6 +8,7 @@
 export const ITEMS = {
   // card: a "new item" card the first time it is picked up (usable items only).
   flashlight: { icon: 'torch', tool: true, card: true },
+  camcorder: { icon: 'camcorder', tool: true, card: true }, // Nora's, found upstairs in the west wing
   office_key: { icon: 'key', consumed: true },
   linen_key: { icon: 'key', consumed: true },
   music_box_crank: { icon: 'crank' },

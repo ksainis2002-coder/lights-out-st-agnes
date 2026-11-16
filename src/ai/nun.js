@@ -58,6 +58,7 @@ export function createNun(game) {
   let introLamps = [];
   let sees = false;
   let flinch = 0;
+  let stunned = 0;
 
   const comfort = () => game.settings.get('comfortMode');
   const player = () => game.player.state.position;
@@ -303,6 +304,11 @@ export function createNun(game) {
     sees = mode !== 'intro' && seesYourLight();
     if (glow) glow.intensity = mode === 'warning' || mode === 'chasing' ? 4 : 2.2;
     if (mode === 'intro') return updateIntro(dt);
+    if (stunned > 0) {
+      stunned -= dt; // the camcorder's flash: blind, she can neither walk nor catch
+      if (glow) glow.intensity = 0.8;
+      return;
+    }
     const d = distanceTo(player());
     if (!game.hiding.active() && ((sees && d <= CATCH) || d <= TOUCH)) return caught(sees ? 'light' : 'touch');
     if (flinch > 0) {
@@ -361,7 +367,14 @@ export function createNun(game) {
     update,
     debugLine,
     drawDebug,
-    state: () => ({ mode, x: position.x, z: position.z, sees, active: Boolean(model) }),
+    state: () => ({ mode, x: position.x, z: position.z, sees, active: Boolean(model), stunned: stunned > 0 }),
+    // The camcorder's flash (player/camcorder.js): she stands blinded for that long.
+    stun(seconds) {
+      if (!model || mode === 'intro') return false;
+      stunned = seconds;
+      game.events.emit('nun.stunned', { position: position.clone() });
+      return true;
+    },
     position: () => (model ? position.clone() : null),
     // For tests: stand her somewhere, facing her round again.
     moveTo(x, z) {

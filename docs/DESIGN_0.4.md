@@ -225,6 +225,25 @@ The loose ends, and two holes the bot route turned up:
 `padded` wall texture and `src/props/wardUpper.js` (treatmentChair, tripod, camcorder, videoTape,
 observationGlass, nightWriting).
 
+## The camcorder as built (0.2.71)
+`src/player/camcorder.js`, display `src/ui/camcorderHud.js` (as the approved still, with the flash
+state at the top and the date, time and pulse lifted clear of the subtitles). It is not found in the
+game yet: its pickup comes with part B (flag `tool_camcorder`, item `camcorder`, with a "new item"
+card).
+- **C** raises or lowers it. **N** (while raised) is the night view: the picture goes green, a lens
+  lamp shows the dark, your flashlight goes off, and Sister M. sees none of it. **Right mouse
+  button** (while raised) is the flash: a burst of light (a soft fade with reduce-effects or
+  flicker-off) that stuns her for 5 s if she is in front of you within 9 m; then 20 s to charge.
+  All three keys can be rebound, and are listed in Controls once it is found (settings version 4, with a migration).
+- Its battery (progress value `camcorder_battery`): half gone when found, 15 minutes raised from
+  full, 1.6 times faster in the night view, 3 per flash. Flat, it will not come up. No way to
+  recharge it yet (an open point for part B).
+- The date and time on its display are your own clock's (local time, no network); the year never
+  shows. The pulse is shown only on the camcorder once it is found, as the brief says.
+- For sanity the night view counts as light in hand, like the flashlight.
+- Writing that only the night view shows: props with `userData.setShown` (`nightWriting`).
+- Tests: `tests/camcorder.spec.js`.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

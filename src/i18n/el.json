@@ -694,5 +694,18 @@
   "map.room.day_room": "Αίθουσα ημέρας",
   "map.room.ward_stairs": "Σκάλα",
   "map.room.basement_stairs": "Υπόγειο",
-  "map.title.wards_ground": "«Αγία Αγνή», δυτική πτέρυγα, ισόγειο"
+  "map.title.wards_ground": "«Αγία Αγνή», δυτική πτέρυγα, ισόγειο",
+  "settings.action.nightView": "Κάμερα: νυχτερινή λήψη",
+  "settings.action.flash": "Κάμερα: φλας",
+  "camcorder.night": "ΝΥΧΤΑ",
+  "camcorder.flashReady": "ΦΛΑΣ ΕΤΟΙΜΟ",
+  "camcorder.charging": "ΦΟΡΤΙΖΕΙ",
+  "camcorder.batteryLow": "ΧΑΜΗΛΗ ΜΠΑΤΑΡΙΑ",
+  "camcorder.months": "ΙΑΝ.,ΦΕΒ.,ΜΑΡ.,ΑΠΡ.,ΜΑΪ.,ΙΟΥΝ.,ΙΟΥΛ.,ΑΥΓ.,ΣΕΠ.,ΟΚΤ.,ΝΟΕ.,ΔΕΚ.",
+  "msg.camcorderDead": "Η μπαταρία της κάμερας έχει αδειάσει.",
+  "item.camcorder.name": "Η κάμερα της Nora",
+  "item.camcorder.desc": "Μια βιντεοκάμερα με νυχτερινή λήψη και φλας. Κάτω από το λουρί είναι χαραγμένο: N. KANE.",
+  "item.camcorder.short": "Μια βιντεοκάμερα. Το κόκκινο φωτάκι της είναι ακόμα αναμμένο.",
+  "card.camcorder.body": "Η νυχτερινή λήψη βλέπει στο σκοτάδι χωρίς να βγάζει φως. Το φλας τυφλώνει για μια στιγμή και μετά θέλει χρόνο να φορτίσει. Η μπαταρία αδειάζει όσο την κρατάς σηκωμένη.",
+  "card.camcorder.use": "{camcorder}  σήκωσε / κατέβασε   ·   {nightView}  νυχτερινή λήψη   ·   {flash}  φλας"
 }

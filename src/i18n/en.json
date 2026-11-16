@@ -694,5 +694,18 @@
   "map.room.day_room": "Day room",
   "map.room.ward_stairs": "Stairs",
   "map.room.basement_stairs": "Basement",
-  "map.title.wards_ground": "St. Agnes, the west wing, ground floor"
+  "map.title.wards_ground": "St. Agnes, the west wing, ground floor",
+  "settings.action.nightView": "Camcorder: night view",
+  "settings.action.flash": "Camcorder: flash",
+  "camcorder.night": "NIGHT",
+  "camcorder.flashReady": "FLASH READY",
+  "camcorder.charging": "CHARGING",
+  "camcorder.batteryLow": "BATTERY LOW",
+  "camcorder.months": "JAN.,FEB.,MAR.,APR.,MAY,JUN.,JUL.,AUG.,SEP.,OCT.,NOV.,DEC.",
+  "msg.camcorderDead": "The camcorder's battery is flat.",
+  "item.camcorder.name": "Nora's camcorder",
+  "item.camcorder.desc": "A video camera with a night setting and a flash. N. KANE is scratched under the strap.",
+  "item.camcorder.short": "A video camera. Its red light is still on.",
+  "card.camcorder.body": "Its night view sees in the dark without making light. Its flash blinds for a moment, then has to charge. The battery runs down while it is up.",
+  "card.camcorder.use": "{camcorder}  raise / lower   ·   {nightView}  night view   ·   {flash}  flash"
 }

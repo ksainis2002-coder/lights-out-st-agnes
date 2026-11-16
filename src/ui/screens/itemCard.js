@@ -38,7 +38,8 @@ export function createItemCardScreen(ui, { item }) {
     osdText(ctx, capitals(itemText(game.i18n, item)), W / 2, 144, 12, COLORS.text, 'center');
     body.forEach((line, i) => osdText(ctx, line, W / 2, 162 + i * 12, 9, COLORS.soft, 'center'));
     const keys = game.settings.get('keys');
-    const how = t(`card.${item}.use`, { flashlight: keyName(keys.flashlight), battery: keyName(keys.battery), inventory: keyName(keys.inventory), use: keyName(keys.use) });
+    const how = t(`card.${item}.use`, { flashlight: keyName(keys.flashlight), battery: keyName(keys.battery), inventory: keyName(keys.inventory), use: keyName(keys.use),
+      camcorder: keyName(keys.camcorder), nightView: keyName(keys.nightView), flash: keyName(keys.flash) });
     osdText(ctx, how, W / 2, howY, 9, COLORS.osdValue, 'center');
     osdText(ctx, t('card.footer'), W / 2, howY + 18, 8, COLORS.dim, 'center');
   }

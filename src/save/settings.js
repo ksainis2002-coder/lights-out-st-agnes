@@ -4,12 +4,14 @@
 
 import { migrate } from './migrate.js';
 
-export const SETTINGS_VERSION = 3;
+export const SETTINGS_VERSION = 4;
 export const SETTINGS_MIGRATIONS = {
   // 0.1.59: crouch toggle (owner request), off for existing players.
   1: (data) => ({ ...data, crouchToggle: false }),
   // 0.1.63: B swaps the flashlight battery (owner request).
   2: (data) => ({ ...data, keys: { ...data.keys, battery: data.keys?.battery ?? 'KeyB' } }),
+  // 0.2.71: the camcorder's night view (N) and flash (right mouse button).
+  3: (data) => ({ ...data, keys: { ...data.keys, nightView: data.keys?.nightView ?? 'KeyN', flash: data.keys?.flash ?? 'Mouse2' } }),
 };
 
 export const DEFAULT_KEYS = {
@@ -24,6 +26,8 @@ export const DEFAULT_KEYS = {
   holdBreath: 'Space',
   flashlight: 'KeyF',
   camcorder: 'KeyC',
+  nightView: 'KeyN',
+  flash: 'Mouse2',
   journal: 'KeyJ',
   map: 'KeyM',
   hold: 'KeyH',

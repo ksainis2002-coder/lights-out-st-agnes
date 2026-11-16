@@ -244,5 +244,9 @@ ends of part A (bot route, journal map, call board, music box case), then part B
 `docs/DESIGN_0.4.md`, with two fixes to the puzzle and to her first appearance). Next: part B's
 stills (observation, isolation, treatment room, Dr. Venn's office), then the first floor and the
 camcorder. Waiting on the owner: playtest of part A, the sounds, the content sheet's checklist.
+**0.4 part B started (0.2.71):** the first floor's stills are drawn and waiting for a yes, and the
+camcorder is built ("The camcorder as built" in `docs/DESIGN_0.4.md`) but not yet found in the game.
+Next, once the stills are approved: the first-floor level (`wards_upper`), the camcorder and tape
+pickup, the day room television, the isolation writing and Dr. Venn's door.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

@@ -52,6 +52,7 @@ import { createRadios } from './levels/radios.js';
 import { createLamps } from './levels/lamps.js';
 import { createNun } from './ai/nun.js';
 import { createHiding } from './player/hide.js';
+import { createCamcorder } from './player/camcorder.js';
 import { createEdith } from './ghosts/edith.js';
 import { createSigns } from './levels/signs.js';
 import { createIntro } from './cutscenes/intro.js';
@@ -111,6 +112,7 @@ function createGame() {
   game.lamps = createLamps(game); // ward lamps, lit until Sister M. puts them out
   game.nun = createNun(game); // Sister M., who sees only light
   game.edith = createEdith(game); // Edith, who hears her coming
+  game.camcorder = createCamcorder(game); // Nora's: night view and flash
   game.enemies = [game.watcher, game.nun]; // the debug overlay shows their senses and state
   game.moves = createMoves(game); // props that stand another way once a flag is set
   game.chalk = createChalk(game); // Maggie's chalk on the corridor boards
@@ -308,6 +310,7 @@ function simulate(game, dt) {
   game.setPieces.update(dt);
   game.storm.update(dt);
   game.radios.update(dt);
+  game.camcorder.update(dt, input);
   game.nun.update(dt);
   game.edith.update(dt);
   game.moves.update();

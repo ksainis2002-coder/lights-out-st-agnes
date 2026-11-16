@@ -15,7 +15,7 @@ export function createSettingsScreen(ui, { returnTo = 'menu' } = {}) {
   let scroll = 0;
   let waiting = null;
   const screen = { waitingFor: () => waiting, waitForKey: (action) => (waiting = action) };
-  const tabs = buildTabs(settings, t, screen);
+  const tabs = buildTabs(settings, t, screen, { camcorder: Boolean(ui.game?.progress.hasFlag('tool_camcorder')) });
   const rows = () => tabs[tab].rows;
 
   function selectTab(index) {

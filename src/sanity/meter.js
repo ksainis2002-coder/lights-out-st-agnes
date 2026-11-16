@@ -50,7 +50,7 @@ export function createSanity(game) {
     } else {
       const light = lightAt(level, player.state.position);
       const darkness = Math.max(0, 1 - light);
-      const flashlightOn = world.flashlight.isOn();
+      const flashlightOn = world.flashlight.isOn() || Boolean(game.camcorder?.nightOn()); // the night view lets you see, too
       rate = -darkness * (flashlightOn ? RATES.darkWithFlashlight : RATES.dark) * scale;
       if (light > 0.8 && value < LIGHT_CAP) rate = RATES.lightRecovery;
       if (rate < 0) lastCause = 'dark';

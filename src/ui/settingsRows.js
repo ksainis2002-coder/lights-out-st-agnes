@@ -2,9 +2,9 @@
 // text, how ◀▶ changes it, what ENTER does, and its help line.
 import { DEFAULT_KEYS } from '../save/settings.js';
 
-// Keys for things not in the game yet stay bound but unlisted (owner: the
-// camcorder is found in the asylum wards, 0.4).
-const HIDDEN_ACTIONS = ['camcorder'];
+// The camcorder's keys stay bound but unlisted until it is found (owner: it
+// comes in the asylum wards, 0.4; flag tool_camcorder).
+const CAMCORDER_ACTIONS = ['camcorder', 'nightView', 'flash'];
 
 const KEY_NAMES = {
   ShiftLeft: 'L-SHIFT', ShiftRight: 'R-SHIFT', ControlLeft: 'L-CTRL', ControlRight: 'R-CTRL',
@@ -95,8 +95,9 @@ export function rebind(settings, action, code) {
   settings.set('keys', keys);
 }
 
-export function buildTabs(settings, t, screen) {
+export function buildTabs(settings, t, screen, { camcorder = false } = {}) {
   const s = settings;
+  const HIDDEN_ACTIONS = camcorder ? [] : CAMCORDER_ACTIONS;
   return [
     {
       id: 'game',
