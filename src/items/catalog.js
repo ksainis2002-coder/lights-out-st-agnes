@@ -29,6 +29,9 @@ export const ITEMS = {
   fuse_large: { icon: 'fuseLarge' }, // the heavy one, for the stairs' socket
   music_box_cylinder: { icon: 'cylinder' }, // a part of Edith's music box
   music_box_case: { icon: 'boxCase' }, // another
+  music_box_key: { icon: 'key' }, // the third, from Sister M.'s trunk
+  sister_key: { icon: 'key', consumed: true }, // the night sister's door (Dr. Venn kept it)
+  stone_palm: { icon: 'palm' }, // statue piece 3 (wing 3)
 };
 
 const FAMILIES = { plate: { icon: 'plate' } };

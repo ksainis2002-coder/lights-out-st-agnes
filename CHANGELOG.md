@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.79 — Sister M.'s room upstairs: the night sister's key on Dr. Venn's desk opens it; her trunk holds her confession and the music box's key; taking the stone palm from before her candle puts the candle out and brings her, even from the floor below. Also fixed: a fallen chair blocked the day room door, and a bench blocked the isolation lobby's door.
 - 0.2.78 — Edith redrawn after the owner's note (the ghost looked off up close): a small girl in a nightdress sitting on the edge of her bed, feet dangling, the music box in her hands.
 - 0.2.77 — 0.4 stills for the end of the west wing: Sister M.'s room, her candle before the stone palm, her trunk open, Edith with her music box mended, the way out in the dark, and your room after the wing. Nothing in the game changes.
 - 0.2.76 — Nora's tape plays on the day room television: half a minute of her own footage in the night view (Ward A's lamps going out, the writing in a cell, Sister M. in a doorway), with her words. A click stops it; it can be played again.

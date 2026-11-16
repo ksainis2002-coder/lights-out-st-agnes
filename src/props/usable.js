@@ -138,6 +138,20 @@ const USES = {
   },
 };
 
+// { "type": "trunk", "id": "sister_trunk", "use": "trunk" }: opened once (flag opened_<id>);
+// what lies in it appears with that flag (pickups and documents "appearsWith").
+USES.trunk = {
+  prompt: 'prompt.openTrunk',
+  height: 0.5,
+  done: (game, prop) => game.progress.hasFlag(`opened_${prop.id}`),
+  setup: (game, prop) => game.progress.hasFlag(`opened_${prop.id}`) && findProp(game.world.levelGroup, prop.id)?.userData.setOpen?.(true),
+  run(game, prop) {
+    game.progress.setFlag(`opened_${prop.id}`);
+    findProp(game.world.levelGroup, prop.id)?.userData.setOpen?.(true);
+    game.events.emit('prop.opened', prop);
+    game.events.emit('reveal');
+  },
+};
 // { "type": "television", "use": "tape", "message": "<key>" }: the day room's set. With Nora's tape
 // in hand it goes in the video recorder and plays (cutscenes/tape.js), and can be played again;
 // without it, its line.

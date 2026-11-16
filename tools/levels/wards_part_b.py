@@ -64,7 +64,7 @@ def upper():
         'lobby': Room('isolation', 8, 4, 14, 5),
         'treatment': Room('treatment_room', 16, 1, 21, 5, wall='tile'),
         'observation': Room('observation', 22, 1, 26, 5),
-        'stairs': Room('ward_stairs_top', 28, 1, 29, 5, well=[28, 1, 29, 2]),
+        'stairs': Room('ward_stairs_top', 28, 1, 29, 6, well=[28, 1, 29, 2]),  # row 6 opens onto the corridor
         'corridor': Room('treatment_corridor', 1, 7, 29, 8),
         'venn': Room('venn_office', 1, 10, 8, 12),
     }
@@ -75,7 +75,7 @@ def upper():
                 cells[r][c] = '.'
     doors = [
         # Sister M.'s room (part C) and Dr. Venn's office (part B2) stay shut for now.
-        {"id": "upper_sister", "cell": [3, 6], "requires": "sister_room_open", "lockedMessage": "msg.sisterDoorLocked"},
+        {"id": "upper_sister", "cell": [3, 6], "locked": "sister_key", "lockedMessage": "msg.sisterDoorLocked"},
         {"id": "upper_venn", "cell": [4, 9], "requires": "puzzle_venn_door", "lockedMessage": "msg.vennDoorLocked"},
         {"id": "upper_isolation", "cell": [11, 6]}, {"id": "upper_cell_1", "cell": [9, 3]}, {"id": "upper_cell_2", "cell": [13, 3]},
         {"id": "upper_observation", "cell": [24, 6]},
@@ -83,8 +83,6 @@ def upper():
     for door in doors:
         c, r = door["cell"]
         cells[r][c] = '.'
-    for c in (28, 29):
-        cells[6][c] = '.'  # the stair head opens straight onto the corridor
     sis, c1, c2, lob, tre, obs, sta, cor, ven = (rooms[k] for k in (
         'sister', 'cell_1', 'cell_2', 'lobby', 'treatment', 'observation', 'stairs', 'corridor', 'venn'))
 
@@ -119,7 +117,7 @@ def upper():
     L.lights.append({"type": "point", "at": tre.at(3.7, 2.5), "height": 1.9, "color": COLD, "intensity": 9, "distance": 6})
 
     # The isolation cells off their lobby: padding and nothing else (the writing comes in B2).
-    L.many(lob, [('bench', 3.5, 1.8, 180, {"length": 2.4}), ('bucketMop', 6.5, 0.5), ('tinPlate', 0.6, 0.5), ('papers', 4.6, 1.0, 20, {"count": 4}),
+    L.many(lob, [('bench', 5.3, 1.8, 180, {"length": 2.4}), ('bucketMop', 6.5, 0.5), ('tinPlate', 0.6, 0.5), ('papers', 4.6, 1.0, 20, {"count": 4}),
                  ('peeledPaper', 7, 1.0, -90, {"seed": 8}), ('hangingBulb', 3.5, 1.0, 0, {"ceiling": 3.4})])
     L.many(c1, [('tinPlate', 0.5, 0.5), ('wornPatch', 2.3, 0.6), ('floorDrain', 1.5, 1.3)])
     L.many(c2, [('sheetPile', 2.3, 0.6), ('wornPatch', 0.7, 0.7), ('floorDrain', 1.5, 1.3)])
@@ -167,6 +165,26 @@ def upper():
     L.light(ven, 3.6, 1.35, 1.1, 2.4, 6, '#ffb866')
     L.light(ven, 5.0, 1.2, 0.9, 1.2, 4, '#ffb050')
 
+    # The night sister's key, on Dr. Venn's desk by his lamp.
+    L.pickup(ven, 'sister_key', 'sister_key', 3.3, 1.2, y=0.79, color='#5a5a5c')
+
+    # Sister M.'s room (part C, approved stills): the bed tight-made along the west wall, the
+    # trunk at its foot, the kneeler before the crucifix, the window boarded, her spare habit on
+    # its peg, and on the east wall the one light she allows: a candle before the stone palm.
+    L.many(sis, [
+        ('wardBed', 0.62, 1.6, 0, {"chart": False}), ('prieDieu', 3.2, 0.45), ('crucifix', 3.2, 0, 0, {"height": 1.9}),
+        ('boardedWindow', 1.4, 0), ('boardedWindow', 4.9, 0), ('habitPeg', 0.9, 5, 180), ('washstand', 6, 4.1, -90),
+        ('bedsideCupboard', 0.3, 0.45, 90), ('sideTable', 5.62, 2.4, -90), ('sootStain', 6, 2.4, -90, {"width": 1.0, "depth": 1.4, "y": 1.9, "seed": 5}),
+        ('rug', 3.2, 1.0, 0, {"width": 1.2, "depth": 0.8}), ('papers', 3.6, 3.6, 30, {"count": 3}),
+    ])
+    L.prop(sis, 'trunk', 0.62, 2.85, 0, extra={"id": "sister_trunk", "use": "trunk", "useHeight": 0.5, "useRadius": 0.45}, contents=False)
+    L.prop(sis, 'altarCloth', 5.62, 2.4, -90)
+    L.prop(sis, 'candle', 5.52, 2.25, 0, lift=0.636, extra={"id": "sister_candle", "litUntil": {"taken": "stone_palm"}, "outMessage": "msg.candleOut"})
+    L.pickup(sis, 'stone_palm', 'stone_palm', 5.66, 2.45, y=0.636, model='stonePalm', rotation=-90, radius=0.3, summons=True)
+    L.pickup(sis, 'music_box_key', 'music_box_key', 0.75, 2.9, y=0.47, color='#d8b04a', appearsWith='opened_sister_trunk')
+    L.documents.append({"id": "sister_confession", "at": sis.at(0.5, 2.82), "y": 0.47, "rotation": 15, "appearsWith": "opened_sister_trunk"})
+    L.light(sis, 3.0, 4.6, 2.2, 0.9, 5)
+
     hum = {"name": "amb_building_hum", "volume": 0.3}
     rain = {"name": "amb_rain_inside", "volume": 0.35}
     out_rooms = []
@@ -195,7 +213,7 @@ def upper():
         # Sister M. up here: no first round (that was Ward A's); she comes up after you
         # (ai/nunFloors.js) by the stairs and walks this round. The treatment room has no door.
         "nun": {
-            "territory": ["treatment_corridor", "observation", "isolation", "cell_1", "cell_2", "ward_stairs_top"],
+            "territory": ["treatment_corridor", "observation", "isolation", "cell_1", "cell_2", "ward_stairs_top", "sister_room"],
             "round": [cor.at(26.5, 1.0), obs.at(2.6, 3.4), cor.at(20.0, 1.0), cor.at(10.5, 0.8), lob.at(3.5, 0.8), cor.at(10.5, 1.2), cor.at(2.5, 1.0)],
             "arrivals": {"stairs": sta.at(1.0, 4.4)},
         },

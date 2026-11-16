@@ -67,7 +67,7 @@ export function doorInteractables(game) {
         if (notBuilt(door)) return null;
         if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return null;
         if (door.exit) return game.travel(exitOf(door).level, exitOf(door).spawn, door.exit.back);
-        if (door.locked && !game.hasItem(door.locked)) return game.events.emit('door.locked', door);
+        if (door.locked && !game.hasItem(door.locked)) return refuse(door, door.lockedMessage); // its line, if it has one (Sister M.'s door)
         if (door.locked) unlock(door);
         toggle(door);
       },

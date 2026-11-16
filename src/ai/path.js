@@ -34,9 +34,11 @@ export function createPathing(level, territory, { opens = null } = {}) {
 
   // Cells from "from" to the reachable cell nearest the target point
   // (the target's own cell when she can get there). [] when she is stuck.
-  function route(from, to) {
+  // anyStart: set out even from a cell she could not walk into (Sister M.
+  // stood at a lamp over a bed), as long as it is not a wall.
+  function route(from, to, { anyStart = false } = {}) {
     const start = level.worldToCell(from.x, from.z);
-    if (!walkable(start.col, start.row)) return [];
+    if (!walkable(start.col, start.row) && !(anyStart && !level.isSolid(start.col, start.row))) return [];
     const key = (col, row) => row * level.cols + col;
     const cameFrom = new Map([[key(start.col, start.row), null]]);
     const queue = [start];

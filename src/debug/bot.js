@@ -15,6 +15,8 @@
 //   { "screenClick": 18 }   click the n-th clickable spot of the open screen (a drawer, a book)
 //   { "resume": true }   put back whatever screen is open (a page found in a book)
 //   { "wait": 15 }   stand still that long (a rhyme to hear out)
+//   { "waitUntil": { "nunIn": [c0, r0, c1, r1] }, "max": 150 }   stand still until Sister M. is in those cells
+//   { "openDoor": [col, row] }   open that door if it is shut
 // A "use" that opens a screen (a document) is closed again; one that starts
 // travel waits for the new level. Old routes (a "points" list) still work.
 import * as THREE from 'three';
@@ -88,8 +90,32 @@ function linger(game, seconds) {
   game.player.state.yaw = start;
 }
 
+// Stand still until Sister M. walks into a box of cells (or "max" seconds pass: then the step fails).
+function waitUntilNun(game, [c0, r0, c1, r1], max = 150) {
+  const size = game.world.level.cellSize;
+  for (let t = 0; t < max; t += 0.1) {
+    const her = game.nun.state();
+    const col = her.x / size;
+    const row = her.z / size;
+    if (her.active && col >= c0 && col <= c1 + 1 && row >= r0 && row <= r1 + 1) return { seconds: t, ok: true };
+    if (game.collapse.active()) return { seconds: t, ok: false };
+    game.advance(0.1);
+  }
+  return { seconds: max, ok: false };
+}
+
+// Open the door in a cell if it is shut (she may have opened it already).
+function openDoor(game, [col, row]) {
+  const door = game.world.level.doorAt(col, row);
+  if (!door) return { seconds: 0, ok: false };
+  if (door.open) return { seconds: 0, ok: true };
+  return aimAndUse(game, { use: [col + 0.5, row + 0.5], y: 1.2, expect: 'prompt.open' });
+}
+
 function runStep(game, step, maxSeconds) {
   if (step.cell) return walk(game, step, maxSeconds);
+  if (step.waitUntil) return waitUntilNun(game, step.waitUntil.nunIn, step.max);
+  if (step.openDoor) return openDoor(game, step.openDoor);
   if (step.use) return aimAndUse(game, step);
   if (step.select) {
     const items = game.inventory.items();

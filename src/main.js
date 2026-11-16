@@ -56,6 +56,7 @@ import { createHiding } from './player/hide.js';
 import { createCamcorder } from './player/camcorder.js';
 import { createEdith } from './ghosts/edith.js';
 import { createSigns } from './levels/signs.js';
+import { createFlagProps } from './levels/flagProps.js';
 import { createIntro } from './cutscenes/intro.js';
 import { createTape } from './cutscenes/tape.js';
 
@@ -125,6 +126,7 @@ function createGame() {
   game.storm = createStorm(game); // lightning and thunder once the records drawer is open
   game.radios = createRadios(game); // Nora's voice on the west wing's radios
   game.signs = createSigns(game); // painted signs in the game's language
+  game.flagProps = createFlagProps(game); // a candle that goes out as you take what it lit
   game.events.on('sanity.empty', (cause) => game.collapse.start(cause));
   game.events.on('collapse.scare', () => game.hallucinations.remove());
   game.events.on('level.loaded', () => {
@@ -322,6 +324,7 @@ function simulate(game, dt) {
   game.nunFloors.update(dt);
   game.edith.update(dt);
   game.moves.update();
+  game.flagProps.update();
   game.hallucinations.update(dt, game.sanity.value(), world.camera);
   world.update(dt);
   game.sfx.update(dt);

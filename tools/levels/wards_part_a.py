@@ -248,7 +248,7 @@ def wards():
     L.many(cor, [
         ('wheelchair', 7.2, 0.6, -50), ('bench', 12.5, 1.82, 180, {"length": 2.4}), ('stretcher', 20.5, 1.45, 90), ('trolley', 27.5, 0.4, 10),
         ('bench', 31.5, 1.82, 180, {"length": 2.4}), ('papers', 15.0, 1.0, 20, {"count": 6}), ('papers', 24.0, 0.8, 70, {"count": 5}),
-        ('papers', 34.0, 1.2, 0, {"count": 4}), ('dripStand', 3.5, 0.3), ('sheetPile', 36.5, 1.5), ('chair', 16.0, 1.6, 100, {"toppled": True}),
+        ('papers', 34.0, 1.2, 0, {"count": 4}), ('dripStand', 3.5, 0.3), ('sheetPile', 36.5, 1.5), ('chair', 17.4, 1.5, 100, {"toppled": True}),
         ('peeledPaper', 13.5, 0, 0, {"seed": 1}), ('peeledPaper', 26.2, 2, 180, {"seed": 8}), ('radiator', 5.0, 2, 180), ('radiator', 26.0, 0),
         ('puddle', 10.0, 1.0), ('laundryBasket', 38.4, 0.5),
     ])

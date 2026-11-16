@@ -331,6 +331,37 @@ habitPeg, sootStain) and Edith's `box: 'open'`. The mock camcorder display now m
 - **Part C in two steps:** C1 the night sister's key, her room, the trunk, the confession and the
   stone palm; C2 Edith's box mended, the chase out, the wing finished, your room's decay, the bot run.
 
+## Part C1 as built (0.2.79)
+- **The night sister's key** (`sister_key`, on Dr. Venn's desk, used up): without it her door
+  (`upper_sister`, `"locked": "sister_key"`) gives its line (`msg.sisterDoorLocked`; a keyed door
+  now says its `lockedMessage` when you lack the key); with it the key turns and the door swings open.
+- **Her room** (`sister_room`, as in the approved stills): the bed tight-made, the kneeler before
+  the crucifix, the windows boarded, her spare habit on its peg, washstand, cupboard, the soot
+  above the candle. Props in `src/props/sisterRoom.js`.
+- **Her trunk** (prop `trunk`, use `trunk` in `src/props/usable.js`): opens once (flag
+  `opened_sister_trunk`); inside, her confession (`sister_confession`) and the music box's key
+  (`music_box_key`), both `appearsWith` the flag.
+- **The stone palm** (statue piece 3, pickup `stone_palm` with `"summons": true`) before her one
+  candle (`sister_candle` with `litUntil: { "taken": "stone_palm" }`, run by
+  `src/levels/flagProps.js`): taking it puts the candle out (`msg.candleOut`, the snuff) and draws
+  her (`src/ai/nunFloors.js`). On this floor she walks straight there; from the floor below her
+  beads are heard on the stairs and she comes up 8 s later (16 s in comfort mode), walks in to the
+  candle, then goes back to her round. Dr. Venn's office is off her round: a place to wait.
+- **Her doors** (`src/ai/nunDoors.js`): she opens any door not locked against her (her own once you
+  have unlocked it), never an exit. Her walking keeps to open floor: toward a spot she cannot reach
+  she walks to the nearest one she can (before, she could cut through a wall), and she can start
+  from a doorway. The stair head upstairs now joins the corridor (she could not path from it).
+- **Two blocked doorways found by a new check** (`tests/levels.spec.js`: every doorway can be
+  walked into, every usable prop reached): a toppled chair shut the day room (moved aside; the
+  television could not be reached on foot), and the isolation lobby's bench stood across its door
+  (moved along the same wall).
+- **The ground floor's bot route** now follows where she is rather than a stopwatch: new bot steps
+  `{ "waitUntil": { "nunIn": [c0, r0, c1, r1] }, "max": s }` and `{ "openDoor": [col, row] }`.
+  It hides in the day room and under a bed in Ward A while she passes; about 5:45 of game time.
+- Tests: `tests/sisterRoom.spec.js`.
+- **For C2:** Edith's box mended, the chase out, the wing finished, your room's decay, the bot run
+  for the whole wing.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

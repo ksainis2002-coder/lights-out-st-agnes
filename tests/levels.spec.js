@@ -80,8 +80,9 @@ test('wall clock hands follow the local time', async () => {
 });
 
 // Beds, tables, chairs and cubbies block the player. Nobody spawns inside
-// one, and with every door open, each pickup and document can still be
-// reached on foot (within arm's length of a walkable spot).
+// one, and with every door open, each pickup, document and usable prop can
+// still be reached on foot (within arm's length of a walkable spot), and
+// every doorway can be walked into (a toppled chair once shut the day room).
 const RADIUS = 0.3;
 const ARM = 1.4;
 const playable = levels.filter(([file]) => file !== 'dorms.json'); // dorms.json only stages mockup stills
@@ -110,10 +111,17 @@ for (const [file, data] of playable) {
       }
     }
     const maps = (data.maps ?? []).filter((map) => map.at); // an entry without "at" only draws a map found elsewhere
-    for (const thing of [...(data.pickups ?? []), ...(data.documents ?? []), ...maps]) {
+    const usable = (data.props ?? []).filter((prop) => prop.use);
+    for (const thing of [...(data.pickups ?? []), ...(data.documents ?? []), ...maps, ...usable]) {
       const x = thing.at[0] * level.cellSize, z = thing.at[1] * level.cellSize;
       const near = walkable.some(([wx, wz]) => Math.hypot(wx - x, wz - z) < ARM);
-      expect(near, `${thing.id} can't be reached`).toBe(true);
+      expect(near, `${thing.id ?? thing.type} at ${thing.at} can't be reached`).toBe(true);
+    }
+    const size = level.cellSize;
+    for (const door of data.doors ?? []) {
+      const [col, row] = door.cell;
+      const inside = walkable.some(([wx, wz]) => Math.floor(wx / size) === col && Math.floor(wz / size) === row);
+      expect(inside, `door ${door.id} can't be walked into`).toBe(true);
     }
   });
 }

@@ -14,7 +14,10 @@ const game = (page, fn, arg) => page.evaluate(fn, arg);
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
   await waitForBoot(page);
-  await page.evaluate(() => window.__stAgnes.play());
+  await page.evaluate(() => {
+    window.__stAgnes.play();
+    window.__stAgnes.progress.setFlag('tutorial_use'); // its first-use line would cover the lines checked here
+  });
 });
 
 test('the stairs lead up to the first floor and back down to their foot', async ({ page }) => {

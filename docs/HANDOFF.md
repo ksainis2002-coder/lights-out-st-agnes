@@ -257,5 +257,9 @@ waiting for a tape, the first floor's plan ("Part B2 as built" in `docs/DESIGN_0
 the owner: the `ui_tape` still. Then: the tape playback, part C.
 **0.4 Nora's tape (0.2.76):** plays on the day room television ("Nora's tape as built" in
 `docs/DESIGN_0.4.md`). Part B is done. Next: part C, starting with stills of Sister M.'s room.
+**0.4 part C1 (0.2.79):** the night sister's key, her room, the trunk (her confession, the music
+box's key) and the stone palm, whose candle goes out and brings her ("Part C1 as built" in
+`docs/DESIGN_0.4.md`, with two blocked doorways fixed). Next: C2 (Edith's box mended, the chase out,
+the wing finished, your room's decay, the whole-wing bot run).
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

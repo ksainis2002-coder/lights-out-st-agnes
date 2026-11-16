@@ -30,20 +30,24 @@ function prieDieu(t) {
 }
 
 // A candle stub on a saucer; "lit": its small flame and a warm light.
+// userData.setLit(false) puts it out (levels/flagProps.js: "litUntil").
 function candle(t, { lit = true, height = 0.12 } = {}) {
   const wax = mesh(new THREE.CylinderGeometry(0.022, 0.024, height, 7), t.sheet, { color: '#e8dcc0' });
   wax.position.y = 0.012 + height / 2;
   const saucer = mesh(new THREE.CylinderGeometry(0.06, 0.05, 0.012, 9), t.sheet, { color: '#8a8a82' });
   saucer.position.y = 0.006;
   const parts = [saucer, wax, box(t.sheet, [0.04, 0.01, 0.02], [0.03, 0.012, 0.01], { color: '#e8dcc0' })]; // wax run down
-  if (lit) {
-    const flame = mesh(new THREE.ConeGeometry(0.012, 0.045, 5), t.sheet, { unlit: true, color: '#ffe2a0' });
-    flame.position.y = 0.012 + height + 0.02;
-    const glow = new THREE.PointLight('#ffb866', 2.6, 4.0, 1.3);
-    glow.position.y = 0.012 + height + 0.06;
-    parts.push(flame, glow);
-  }
-  return group(...parts);
+  const flame = mesh(new THREE.ConeGeometry(0.012, 0.045, 5), t.sheet, { unlit: true, color: '#ffe2a0' });
+  flame.position.y = 0.012 + height + 0.02;
+  const glow = new THREE.PointLight('#ffb866', 2.6, 4.0, 1.3);
+  glow.position.y = 0.012 + height + 0.06;
+  const stub = group(...parts, flame, glow);
+  stub.userData.setLit = (on) => {
+    flame.visible = on;
+    glow.visible = on;
+  };
+  stub.userData.setLit(lit);
+  return stub;
 }
 
 // The stone palm: the open palm and fingers of a statue's hand, broken at
@@ -68,9 +72,10 @@ function stonePalm(t) {
 }
 
 // Her trunk at the foot of the bed: dark wood, iron bands. "open": the lid
-// thrown back, folded grey cloth inside, a folded paper, a little key on a
-// black ribbon.
-function trunk(t, { open = false } = {}) {
+// thrown back, folded grey cloth inside, and ("contents") a folded paper and a
+// little key on a black ribbon; the game leaves those out (they are a document
+// and a pickup there) and opens it with userData.setOpen (props/usable.js).
+function trunk(t, { open = false, contents = true } = {}) {
   const wood = { color: '#3a2a1c' };
   const iron = { color: '#2a2a2c' };
   const lid = group( // hinged at the back
@@ -79,7 +84,7 @@ function trunk(t, { open = false } = {}) {
     box(t.iron, [0.04, 0.052, 0.48], [0.25, 0, 0.23], iron),
   );
   lid.position.set(0, 0.46, -0.23);
-  lid.rotation.x = open ? -1.85 : 0;
+  const inside = group(box(t.sheet, [0.76, 0.012, 0.4], [0, 0.458, 0], { color: '#55555a' })); // folded habits, filled to the brim
   const parts = [
     box(t.paintedWood, [0.82, 0.44, 0.46], [0, 0.02, 0], wood),
     box(t.iron, [0.04, 0.46, 0.48], [-0.25, 0, 0], iron),
@@ -87,15 +92,20 @@ function trunk(t, { open = false } = {}) {
     box(t.sheet, [0.06, 0.06, 0.02], [0, 0.32, 0.235], { color: '#8a7a3a' }), // the lock plate
     lid,
   ];
-  if (open) {
-    parts.push(
-      box(t.sheet, [0.76, 0.012, 0.4], [0, 0.458, 0], { color: '#55555a' }), // folded habits, filled to the brim
+  if (contents) {
+    inside.add(
       box(t.sheet, [0.22, 0.006, 0.15], [-0.12, 0.47, 0.04], { color: '#d8d0b4' }), // the folded paper
       box(t.sheet, [0.02, 0.005, 0.2], [0.15, 0.471, 0.0], { color: '#141414' }), // the ribbon
       box(t.sheet, [0.04, 0.012, 0.06], [0.15, 0.472, 0.11], { color: '#d8b04a' }), // the key
     );
   }
-  return group(...parts);
+  const chest = group(...parts, inside);
+  chest.userData.setOpen = (value) => {
+    lid.rotation.x = value ? -1.85 : 0;
+    inside.visible = value;
+  };
+  chest.userData.setOpen(open);
+  return chest;
 }
 
 // A window with its blind pulled down and nailed shut with three boards.
@@ -150,4 +160,14 @@ function sootStain(t, { width = 1.6, depth = 1.2, ceiling = false, height = 3.4,
   return group(stain);
 }
 
-export const SISTER_ROOM_PROPS = { prieDieu, candle, stonePalm, trunk, boardedWindow, habitPeg, sootStain };
+// A white cloth laid over a small table top (0.5 m square, its top at 0.6 m), its edges hanging.
+function altarCloth(t, { top = 0.6 } = {}) {
+  const linen = { color: '#d8d4c8' };
+  return group(
+    box(t.sheet, [0.44, 0.006, 0.4], [0, top + 0.03, 0], linen),
+    box(t.sheet, [0.44, 0.1, 0.006], [0, top - 0.07, 0.2], linen),
+    box(t.sheet, [0.44, 0.1, 0.006], [0, top - 0.07, -0.2], linen),
+  );
+}
+
+export const SISTER_ROOM_PROPS = { prieDieu, candle, stonePalm, trunk, boardedWindow, habitPeg, sootStain, altarCloth };

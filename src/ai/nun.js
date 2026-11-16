@@ -23,6 +23,7 @@ import { PROPS } from '../props/catalog.js';
 import { clearLine } from './gaze.js';
 import { createPathing } from './path.js';
 import { roomAt } from '../levels/loader.js';
+import { nunOpens, openDoorAhead, openNearest } from './nunDoors.js';
 
 export const WALKING = 'nun_walking';
 export const FLOOR = 'nun_floor'; // progress value: the level she walks now (ai/nunFloors.js brings her after you)
@@ -93,9 +94,7 @@ export function createNun(game) {
     game.world.levelGroup.add(model);
     obstacle = { mover: true };
     level.obstacles.push(obstacle);
-    // Doors she opens herself: any but the way out, a keyed lock, or an electric lock with no power.
-    const opens = (door) => !door.exit && !door.locked && (!door.requires || game.progress.hasFlag(door.requires));
-    pathing = createPathing(level, data().territory, { opens });
+    pathing = createPathing(level, data().territory, { opens: nunOpens(game) });
     const spot = toWorld(at);
     moveTo(spot.x, spot.z);
   }
@@ -126,7 +125,7 @@ export function createNun(game) {
     const [c0, r0, c1, r1] = intro.cells ?? [0, 0, -1, -1];
     const passing = cell.col >= c0 && cell.col <= c1 && cell.row >= r0 && cell.row <= r1; // by its doors, outside
     if (roomAt(level, p) !== intro.room && !passing) return;
-    if (passing) openNearest(level, intro.doors ?? [], p);
+    if (passing) openNearest(game, intro.doors ?? [], p);
     introLamps = intro.lamps.filter((id) => game.lamps.all().find((lamp) => lamp.id === id)?.lit);
     place(intro.from);
     mode = 'intro';
@@ -167,38 +166,23 @@ export function createNun(game) {
     return lit[0] && level ? { x: lit[0].position.x, z: lit[0].position.z, lamp: lit[0].id } : null;
   }
 
-  // The set piece seen from the corridor: one of the room's doors swings open by itself.
-  function openNearest(level, ids, p) {
-    const doors = level.doors.filter((door) => ids.includes(door.id));
-    const far = (door) => Math.hypot(level.cellCenter(...door.cell).x - p.x, level.cellCenter(...door.cell).z - p.z);
-    const door = doors.sort((a, b) => far(a) - far(b))[0];
-    if (!door || door.open) return;
-    door.open = true;
-    game.progress.setOpen(door.id, true);
-    game.events.emit('door.opened', door);
-  }
-
-  function openDoorAhead(point) {
-    const level = game.world.level;
-    const cell = level.worldToCell(point.x, point.z);
-    const door = level.doorAt(cell.col, cell.row);
-    if (!door || door.open) return;
-    door.open = true;
-    game.progress.setOpen(door.id, true);
-    game.events.emit('door.opened', door);
-  }
-
   // One step along her route to the target; true once she stands at it.
   function walk(dt, reach = 0.25) {
     if (!route.length) {
-      route = pathing.route(position, target);
+      route = pathing.route(position, target, { anyStart: true });
+      if (!route.length) return true; // nowhere she can walk from here: stand (never through a wall)
+      const level = game.world.level;
+      const end = level.worldToCell(route.at(-1).x, route.at(-1).z);
+      const goal = level.worldToCell(target.x, target.z);
+      // The last stretch goes to the spot itself only when it is in the last cell she can reach.
+      route.reaches = end.col === goal.col && end.row === goal.row;
       if (route.length > 1) route.shift();
     }
     const speed = SPEED * (DIFFICULTY[game.settings.get('difficulty')] ?? 1) * (comfort() ? 0.6 : 1);
     let step = speed * dt;
     while (step > 1e-6) {
       const last = route.length <= 1;
-      const aim = last ? target : route[0];
+      const aim = last && route.reaches ? target : route[0];
       const dx = aim.x - position.x;
       const dz = aim.z - position.z;
       const length = Math.hypot(dx, dz);
@@ -208,7 +192,7 @@ export function createNun(game) {
         continue;
       }
       const go = Math.min(step, length);
-      openDoorAhead({ x: position.x + (dx / length) * 0.7, z: position.z + (dz / length) * 0.7 });
+      openDoorAhead(game, { x: position.x + (dx / length) * 0.7, z: position.z + (dz / length) * 0.7 });
       moveTo(position.x + (dx / length) * go, position.z + (dz / length) * go);
       model.rotation.y = Math.atan2(dx, dz);
       step -= go;
@@ -372,6 +356,13 @@ export function createNun(game) {
     drawDebug,
     state: () => ({ mode, x: position.x, z: position.z, sees, active: Boolean(model), stunned: stunned > 0 }),
     hide: (value) => model && (model.visible = !value), // out of Nora's footage (cutscenes/tape.js)
+    // Something drew her (ai/nunFloors.js: the stone palm taken): she walks there, then on with her round.
+    summon(point) {
+      if (!model || mode === 'intro') return;
+      mode = 'searching';
+      dark = LOSES;
+      goTo({ x: point.x, z: point.z });
+    },
     // The camcorder's flash (player/camcorder.js): she stands blinded for that long.
     stun(seconds) {
       if (!model || mode === 'intro') return false;

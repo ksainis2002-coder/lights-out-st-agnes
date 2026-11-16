@@ -77,6 +77,7 @@ export function createGameAudio(game) {
   events.on('collapse.started', () => play('wake_gasp', { volume: 0.7 }));
   events.on('collapse.scare', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
   events.on('game.saved', () => play('vhs_eject', { volume: 0.7, pitchJitter: 0 }));
+  events.on('candle.out', ({ position }) => play('candle_snuff', { position, volume: 0.9, refDistance: 3 }));
   events.on('tape.started', () => play('vhs_insert', { volume: 0.8, pitchJitter: 0 })); // Nora's tape into the day room's recorder
   events.on('tape.ended', () => play('vhs_eject', { volume: 0.6, pitchJitter: 0 }));
   // Leaving by the stairs: a few steps on the wooden treads while the view fades.
@@ -112,6 +113,7 @@ export function createGameAudio(game) {
   };
   events.on('prop.opened', (prop) => {
     const lid = prop.use === 'lid';
+    if (prop.type === 'trunk') return play('door_open_slow', { position: propPosition(prop, 0.5), volume: 0.5, rate: 1.4 }); // stand-in for trunk_open
     play(lid ? 'desk_lid' : 'drawer_metal', { position: propPosition(prop, 0.8), volume: lid ? 0.3 : 0.35 });
   });
   events.on('prop.searched', (prop) => play('cloth_rustle', { position: propPosition(prop, 1.1), volume: 1.3 }));
