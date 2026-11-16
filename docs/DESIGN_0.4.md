@@ -321,6 +321,16 @@ ceiling and down the walls, a candle burnt down to nothing on your table, the li
 New, mockup-only: `src/props/sisterRoom.js` (prieDieu, candle, stonePalm, trunk, boardedWindow,
 habitPeg, sootStain) and Edith's `box: 'open'`. The mock camcorder display now matches the game's.
 
+## Owner's picks on part C (2026-11-17)
+- **Stills approved,** with one note: "the ghost looks a little off". Edith rebuilt as a seated child
+  in a nightdress (a torso narrowing to the shoulders, puffed sleeves, a round collar, the gown over
+  her lap and falling from the knees, bare shins and feet hanging over the bed's edge, arms down and
+  forward to the box), drawn without seeing through herself; the mended box's lid lined faded red,
+  its light softer. `edith` and `box_mended` reshot (the latter from her side).
+- **The chase out:** she walks at 2.0 m/s (your walk 1.7, your run 3.3).
+- **Part C in two steps:** C1 the night sister's key, her room, the trunk, the confession and the
+  stone palm; C2 Edith's box mended, the chase out, the wing finished, your room's decay, the bot run.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

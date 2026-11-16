@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.78 — Edith redrawn after the owner's note (the ghost looked off up close): a small girl in a nightdress sitting on the edge of her bed, feet dangling, the music box in her hands.
 - 0.2.77 — 0.4 stills for the end of the west wing: Sister M.'s room, her candle before the stone palm, her trunk open, Edith with her music box mended, the way out in the dark, and your room after the wing. Nothing in the game changes.
 - 0.2.76 — Nora's tape plays on the day room television: half a minute of her own footage in the night view (Ward A's lamps going out, the writing in a cell, Sister M. in a doorway), with her words. A click stops it; it can be played again.
 - 0.2.75 — The first floor's secrets: Maggie's writing in the isolation cells, seen only through the camcorder's night view; Dr. Venn's door opens to the numbers she wrote, and his office holds his notes, page 3 of T. Hale's file, Nora on the radio and a door home. The day room television comes on by itself once you have the camcorder. The first floor's plan for the journal.

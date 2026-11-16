@@ -96,7 +96,7 @@ export const WARD_PARTC_STILLS = {
       const pale = new THREE.PointLight('#9fb4dc', 1.6, 4.5, 1.3);
       pale.position.set(6.7 * CELL, 1.5, 8.9 * CELL);
       world.scene.add(pale);
-      look(world, [6.6 * CELL, 8.75 * CELL], [6.86 * CELL, 8.32 * CELL], 0.95, 0.72);
+      look(world, [5.85 * CELL, 8.45 * CELL], [6.9 * CELL, 8.3 * CELL], 1.3, 0.78); // from her side: sitting on the bed's edge, the box in her lap
     },
     ui: (ctx) => subtitle(ctx, '(Edith, whispering) That’s it. That’s the one my mother wound.'),
   },
