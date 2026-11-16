@@ -310,6 +310,17 @@ Comfort mode: a slow turn and no fall. Reduce-effects / flicker-off soften the s
 rewind setting). Its clue: `watched_nora_tape`. Sounds: tape hiss, the VCR's insert and eject, the
 lamps going out (candle snuff as a stand-in). Tests: `tests/tape.spec.js`.
 
+## Part C stills (2026-11-17, waiting for a yes)
+`sister_room` (her room by flashlight: the bed tight-made, the trunk at its foot, the kneeler before
+the crucifix, the window boarded, her spare habit on its peg), `sister_shrine` (the one light she
+allows: a candle before the stone palm on a white cloth), `sister_trunk` (open: her habits, the
+folded confession, the music box's key on a black ribbon), `box_mended` (Edith with her box open
+and playing in her lap), `way_out` (every lamp dead, the night view, Sister M. between you and
+admissions) and `hub_after_wards` (your room after the wing: soot spreading from the lamp over the
+ceiling and down the walls, a candle burnt down to nothing on your table, the light weaker).
+New, mockup-only: `src/props/sisterRoom.js` (prieDieu, candle, stonePalm, trunk, boardedWindow,
+habitPeg, sootStain) and Edith's `box: 'open'`. The mock camcorder display now matches the game's.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

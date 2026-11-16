@@ -47,12 +47,13 @@ export function camcorder(ctx, { night = true } = {}) {
   if (night) osdText(ctx, 'NIGHT', EDGE + 10, EDGE + 28, 9, '#9dffb0');
   osdText(ctx, 'SP 0:12:47', W - EDGE - 10, EDGE + 10, 12, COLORS.text, 'right');
   battery(ctx, W - EDGE - 44, EDGE + 29, 2);
-  osdText(ctx, 'OCT. 30 19--', W - EDGE - 10, H - EDGE - 36, 10, COLORS.text, 'right');
-  osdText(ctx, 'AM  2:41', W - EDGE - 10, H - EDGE - 23, 10, COLORS.text, 'right');
-  osdText(ctx, 'FLASH READY', W / 2, H - EDGE - 23, 9, COLORS.osdValue, 'center');
+  // As built (0.2.71): date, time and pulse lifted clear of the subtitles, the flash state at the top.
+  osdText(ctx, 'OCT. 30 19--', W - EDGE - 10, H - EDGE - 62, 10, COLORS.text, 'right');
+  osdText(ctx, 'AM  2:41', W - EDGE - 10, H - EDGE - 49, 10, COLORS.text, 'right');
+  osdText(ctx, 'FLASH READY', W / 2, EDGE + 10, 9, COLORS.osdValue, 'center');
   const state = sanityState(62);
-  drawPulseGlyph(ctx, EDGE + 10, H - EDGE - 34, state, 1.7);
-  osdText(ctx, 'uneasy', EDGE + 80, H - EDGE - 32, 8, '#c9d2e0');
+  drawPulseGlyph(ctx, EDGE + 10, H - EDGE - 60, state, 1.7);
+  osdText(ctx, 'uneasy', EDGE + 80, H - EDGE - 58, 8, '#c9d2e0');
 }
 
 // A use prompt as the game draws it: centre dot and one line.

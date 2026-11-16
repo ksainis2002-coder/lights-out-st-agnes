@@ -18,7 +18,7 @@ function mesh(geometry, texture, options) {
 // Edith Carr, sitting on the edge of a bed with her music box in her lap,
 // her head tilted to listen (she is blind). Faceless and unhurt, as every
 // ghost child (scare rules). Origin: where she sits.
-function ghostEdith(t, { opacity = 0.6 } = {}) {
+function ghostEdith(t, { opacity = 0.6, box: musicBox = 'closed' } = {}) {
   const ghost = { unlit: true, color: 0xd8e4ec, transparent: true, opacity, depthWrite: false, fog: false };
   const body = mesh(new THREE.CylinderGeometry(0.1, 0.17, 0.44, 7), t.sheet, ghost);
   body.position.y = 0.22;
@@ -35,9 +35,31 @@ function ghostEdith(t, { opacity = 0.6 } = {}) {
     box(t.sheet, [0.32, 0.1, 0.34], [0, -0.03, 0.12], ghost), // her lap
     box(t.sheet, [0.05, 0.3, 0.05], [-0.08, -0.33, 0.27], ghost),
     box(t.sheet, [0.05, 0.3, 0.05], [0.08, -0.33, 0.27], ghost),
-    box(t.sheet, [0.16, 0.09, 0.12], [0, 0.07, 0.24], { ...ghost, color: 0xf0dcae, opacity: Math.min(1, opacity + 0.25) }), // the music box
-    box(t.sheet, [0.05, 0.015, 0.015], [0.105, 0.11, 0.24], { ...ghost, color: 0xf0dcae, opacity: Math.min(1, opacity + 0.25) }), // its crank
+    ...(musicBox === 'open' ? openBox(t) : [
+      box(t.sheet, [0.16, 0.09, 0.12], [0, 0.07, 0.24], { ...ghost, color: 0xf0dcae, opacity: Math.min(1, opacity + 0.25) }), // the music box
+      box(t.sheet, [0.05, 0.015, 0.015], [0.105, 0.11, 0.24], { ...ghost, color: 0xf0dcae, opacity: Math.min(1, opacity + 0.25) }), // its crank
+    ]),
   );
+}
+
+// Her music box mended (part C): real, not ghostly, its lid open, the brass
+// cylinder turning inside, a warm light from it on her hands.
+function openBox(t) {
+  const tin = { color: '#b0b4ae' };
+  const lid = box(t.sheet, [0.16, 0.012, 0.12], [0, 0, 0.06], tin);
+  const hinge = group(lid); // hinged at the back, open towards her
+  hinge.position.set(0, 0.11, 0.18);
+  hinge.rotation.x = -1.9;
+  const glow = new THREE.PointLight('#ffcf8a', 2.2, 2.2, 1.3);
+  glow.position.set(0, 0.2, 0.3);
+  return [
+    box(t.sheet, [0.16, 0.08, 0.12], [0, 0.03, 0.24], tin),
+    box(t.sheet, [0.12, 0.03, 0.03], [0, 0.085, 0.22], { color: '#c8a050' }), // the cylinder
+    box(t.sheet, [0.12, 0.012, 0.04], [0, 0.085, 0.27], { color: '#d8d0b0' }), // its comb
+    box(t.sheet, [0.04, 0.012, 0.012], [0.1, 0.07, 0.24], { color: '#b8923a' }), // the key
+    hinge,
+    glow,
+  ];
 }
 
 export const WARD_FIGURES = { burnedNun, candleSnuffer, nunCatch, ghostEdith };
