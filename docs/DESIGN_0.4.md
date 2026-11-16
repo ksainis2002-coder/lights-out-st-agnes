@@ -248,7 +248,8 @@ card).
 - **Stills approved,** with the treatment room and the night writing redone: the chair now stands
   in a hard pool of light with an instrument tray, a stain round the drain, a box under it for feet
   that did not reach the floor and a small shoe (aftermath only); the writing is a child's
-  uneven scratching, its numbers pressed harder. Both waiting for a second look.
+  uneven scratching. Second look (2026-11-16): the treatment room approved; the writing made
+  easier to read (steadier letters, the code's numbers large on a line of their own).
 - **Camcorder battery:** the flashlight's spare batteries fit it. With it raised, the battery key
   puts one in (full again); lowered, the key feeds the flashlight as before (built, 0.2.72).
 - **Flash:** 5 s stun, 20 s charge, to be tuned after part B is played.

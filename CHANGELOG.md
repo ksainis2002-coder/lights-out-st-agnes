@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.73 — 0.4 still: the writing in the isolation cell is easier to read, its numbers large. Nothing in the game changes.
 - 0.2.72 — The flashlight's spare batteries also fit the camcorder: with it raised, the battery key puts one in. 0.4 stills: the treatment room and the writing in the isolation cells redone after the owner's notes.
 - 0.2.71 — Nora's camcorder is built (it is found upstairs, in the part still to come): C raises it, N is a green night view that Sister M. cannot see, the right mouse button fires a flash that stuns her for a few seconds and then has to charge. It has its own battery and display. Its three keys appear in Controls once it is found.
 - 0.2.70 — 0.4 stills of the first floor: the observation room with Nora's camcorder, the treatment room through the glass, an isolation cell by flashlight and in the night view (the writing on the padding), Dr. Venn's office. Nothing in the game changes.

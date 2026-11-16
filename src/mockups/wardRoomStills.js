@@ -196,7 +196,7 @@ export const WARD_ROOM_STILLS = {
     level: rooms,
     setup({ world, fx }) {
       furnish(world, [['tinPlate', 1.5, 19.5, 0], ['floorDrain', 2.5, 20.6, 0], ['wornPatch', 3.4, 19.6, 0], ['sheetPile', 3.5, 21.5, 0],
-        ['nightWriting', 2.5, 19, 0, { lines: ['I watched him', 'through the hatch.', 'First he presses 4.', 'Then 2.'] }]]);
+        ['nightWriting', 2.5, 19, 0, { lines: ['I watched him', 'through the hatch.', 'First he presses', '4  then  2'] }]]);
       eye(world, [2.6, 21.7], [2.5, 19], 1.5, 1.2);
       world.flashlight.toggle();
       const lamp = new THREE.PointLight(0xffffff, 1.6, 12, 1.1);

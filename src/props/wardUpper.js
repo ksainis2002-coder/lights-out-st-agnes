@@ -112,22 +112,23 @@ function nightWriting(t, { lines = [], shown = true, width = 3.0 } = {}) {
     g.strokeStyle = '#f0fff0';
     g.fillStyle = '#f0fff0';
     g.lineCap = 'round';
-    // A child's hand, scratched with a fingernail: each letter its own size
-    // and lean, the lines wandering, every stroke gone over twice.
+    // A child's hand, scratched with a fingernail: a little uneven, every
+    // stroke gone over twice; kept clear enough to read through the grain
+    // (owner 2026-11-16: the numbers are a door code).
     lines.slice(0, 4).forEach((line, i) => {
-      const size = Math.min(17, 150 / (line.length * 0.62));
+      const size = Math.min(18, 150 / (line.length * 0.62));
       let x = 4 + random() * 6;
       const base = 20 + i * 22;
       for (const letter of line) {
-        const tall = size * (0.85 + random() * 0.3) * (/[0-9]/.test(letter) ? 1.4 : 1); // the numbers pressed harder
+        const tall = size * (0.94 + random() * 0.12) * (/[0-9]/.test(letter) ? 1.7 : 1); // the numbers bigger, pressed harder
         g.font = `bold ${tall}px sans-serif`;
         g.save();
-        g.translate(x, base + (random() - 0.5) * 4 + (x / 160) * (i % 2 ? 5 : -4));
-        g.rotate((random() - 0.5) * 0.22);
+        g.translate(x, base + (random() - 0.5) * 2 + (x / 160) * (i % 2 ? 3 : -3));
+        g.rotate((random() - 0.5) * 0.1);
         g.fillText(letter, 0, 0);
         g.fillText(letter, 0.6, 0.4); // gone over twice
         g.restore();
-        x += g.measureText(letter).width + 0.6;
+        x += g.measureText(letter).width + 1;
       }
     });
     for (let i = 0; i < 9; i++) { // stray scratches beside the words
