@@ -18,12 +18,16 @@
 //       "cells": [c0, r0, c1, r1] and "doors": [ids]: it also starts as you pass
 //       outside the room, and then the nearest of those doors opens by itself,
 //       so she cannot be missed by never going in. Lightning stops her for 1.5 s.
+//   "hunt": { "flag", "from": [c, r], "round": [[c, r], …], "speed" }
+//       the way out (levels/wayOut.js): once every lamp is dead she hunts your
+//       light only, walks faster and keeps between you and the door.
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { clearLine } from './gaze.js';
 import { createPathing } from './path.js';
 import { roomAt } from '../levels/loader.js';
 import { nunOpens, openDoorAhead, openNearest } from './nunDoors.js';
+import { nunDebug } from './nunDebug.js';
 
 export const WALKING = 'nun_walking';
 export const FLOOR = 'nun_floor'; // progress value: the level she walks now (ai/nunFloors.js brings her after you)
@@ -68,6 +72,8 @@ export function createNun(game) {
   const data = () => game.world.level.nun;
   const toWorld = ([col, row]) => ({ x: col * game.world.level.cellSize, z: row * game.world.level.cellSize });
   const say = (key) => game.subtitles.show(key, LINE);
+  const hunt = () => (data()?.hunt && game.progress.hasFlag(data().hunt.flag) ? data().hunt : null);
+  const round = () => hunt()?.round ?? data().round;
 
   function remove() {
     model?.parent?.remove(model);
@@ -103,15 +109,15 @@ export function createNun(game) {
   function farStop() {
     const p = player();
     const far = (at) => Math.hypot(toWorld(at).x - p.x, toWorld(at).z - p.z);
-    return data().round.reduce((best, at, i) => (far(at) > far(data().round[best]) ? i : best), 0);
+    return round().reduce((best, at, i) => (far(at) > far(round()[best]) ? i : best), 0);
   }
 
   function setup(level) {
     remove();
     if (!level.nun || !game.progress.hasFlag(WALKING)) return;
     if (game.progress.getValue(FLOOR, 'wards_ground') !== level.id) return; // she is on the other floor
-    stop = farStop();
-    place(level.nun.round[stop]);
+    stop = hunt() ? 0 : farStop();
+    place(hunt()?.from ?? round()[stop]); // on the way out she waits between you and the door
     mode = 'round';
   }
 
@@ -178,7 +184,7 @@ export function createNun(game) {
       route.reaches = end.col === goal.col && end.row === goal.row;
       if (route.length > 1) route.shift();
     }
-    const speed = SPEED * (DIFFICULTY[game.settings.get('difficulty')] ?? 1) * (comfort() ? 0.6 : 1);
+    const speed = (hunt()?.speed ?? SPEED) * (DIFFICULTY[game.settings.get('difficulty')] ?? 1) * (comfort() ? 0.6 : 1);
     let step = speed * dt;
     while (step > 1e-6) {
       const last = route.length <= 1;
@@ -250,7 +256,7 @@ export function createNun(game) {
 
   function updateRound(dt) {
     if (!target) {
-      target = nearestLitLamp() ?? { ...toWorld(data().round[stop]) };
+      target = nearestLitLamp() ?? { ...toWorld(round()[stop]) };
       route = [];
     }
     if (!walk(dt, target.lamp ? 0.5 : 0.3)) return;
@@ -259,7 +265,7 @@ export function createNun(game) {
       timer = 0;
       return;
     }
-    stop = (stop + 1) % data().round.length;
+    stop = (stop + 1) % round().length;
     target = null;
   }
 
@@ -332,18 +338,7 @@ export function createNun(game) {
     updateRound(dt);
   }
 
-  function debugLine() {
-    if (!model) return 'NUN  none';
-    return `NUN  ${mode}  sees light ${sees ? 'yes' : 'no'}  ${distanceTo(player()).toFixed(1)} m  route ${route.length}  lamps lit ${game.lamps.lit().length}`;
-  }
-
-  function drawDebug(ctx, project) {
-    if (!model || game.mode !== 'playing') return;
-    const head = project(position.x, 2.2, position.z);
-    if (!head) return;
-    ctx.fillStyle = sees ? '#ff5a4a' : '#7dff8a';
-    ctx.fillText(`nun: ${mode}${sees ? ' (sees your light)' : ''}`, head.x - 60, head.y - 18);
-  }
+  const debug = nunDebug(game, () => ({ model, mode, sees, position, route, hunting: Boolean(hunt()) }));
 
   game.events.on('level.loaded', setup);
   game.events.on('storm.lightning', () => {
@@ -352,8 +347,7 @@ export function createNun(game) {
 
   return {
     update,
-    debugLine,
-    drawDebug,
+    ...debug,
     state: () => ({ mode, x: position.x, z: position.z, sees, active: Boolean(model), stunned: stunned > 0 }),
     hide: (value) => model && (model.visible = !value), // out of Nora's footage (cutscenes/tape.js)
     // Something drew her (ai/nunFloors.js: the stone palm taken): she walks there, then on with her round.
@@ -378,6 +372,20 @@ export function createNun(game) {
       place(at);
       stop = 0;
       mode = 'round';
+    },
+    // Every lamp has died (levels/wayOut.js): she stands between you and the
+    // door and hunts (data "hunt"); she walks this floor from now on.
+    startHunt() {
+      const from = data()?.hunt && toWorld(data().hunt.from);
+      if (!from || !hunt()) return;
+      game.progress.setFlag(WALKING);
+      game.progress.setValue(FLOOR, game.world.level.id);
+      if (model) moveTo(from.x, from.z);
+      else place(data().hunt.from);
+      mode = 'round';
+      stop = 0;
+      stunned = 0;
+      goTo(null);
     },
     // For tests: stand her somewhere, facing her round again.
     moveTo(x, z) {

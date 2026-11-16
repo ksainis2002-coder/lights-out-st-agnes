@@ -32,6 +32,9 @@ function limb(t, from, to, r, options) {
 // shoulders, over her lap, falling from the knees; bare shins and feet
 // hanging over the edge, not reaching the floor; arms down and forward,
 // hands on the box. Origin: where she sits; she faces +z.
+// box: 'closed' (the box as she remembers it), 'open' (mended, still
+// box_mended) or 'none' (the mended box is real now: a pickup in her lap,
+// then yours: ghosts/edithBox.js).
 function ghostEdith(t, { opacity = 0.6, box: musicBox = 'closed' } = {}) {
   // depthWrite on: seen close, her far side must not show through her.
   const ghost = { unlit: true, color: 0xd8e4ec, transparent: true, opacity, depthWrite: true, fog: false, flatShading: true };
@@ -70,7 +73,7 @@ function ghostEdith(t, { opacity = 0.6, box: musicBox = 'closed' } = {}) {
   const real = { color: 0xf0dcae, unlit: true, transparent: true, opacity: Math.min(1, opacity + 0.25), depthWrite: true, fog: false };
   return group(
     torso, lap, hem, ...legs, ...arms, ...sleeves, neck, collar, headGroup,
-    ...(musicBox === 'open' ? openBox(t) : [
+    ...(musicBox === 'none' ? [] : musicBox === 'open' ? openBox(t) : [
       box(t.sheet, [0.16, 0.09, 0.12], [0, 0.125, 0.21], real), // the music box
       box(t.sheet, [0.04, 0.012, 0.012], [0.1, 0.17, 0.21], real), // its crank
     ]),
@@ -99,4 +102,12 @@ function openBox(t) {
   ];
 }
 
-export const WARD_FIGURES = { burnedNun, candleSnuffer, nunCatch, ghostEdith };
+// The mended box on its own, origin under it: the pickup in Edith's lap that
+// she tells you to take (ghosts/edithBox.js).
+function musicBoxOpen(t) {
+  const parts = group(...openBox(t));
+  parts.position.set(0, -0.085, -0.21);
+  return group(parts);
+}
+
+export const WARD_FIGURES = { burnedNun, candleSnuffer, nunCatch, ghostEdith, musicBoxOpen };

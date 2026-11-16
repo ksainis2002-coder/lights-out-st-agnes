@@ -1,0 +1,267 @@
+{
+ "id": "wards_ground_part_c2",
+ "level": "wards_ground",
+ "spawn": "stairs",
+ "given": {
+  "flags": [
+   "wing_school_done",
+   "tool_flashlight",
+   "tool_camcorder",
+   "nun_walking",
+   "edith_met",
+   "power_stairs",
+   "puzzle_medicine",
+   "puzzle_venn_door",
+   "opened_sister_trunk",
+   "lamp_out_ward_a_1",
+   "lamp_out_ward_a_2",
+   "lamp_out_ward_a_3",
+   "lamp_out_dispensary_1"
+  ],
+  "items": [
+   "music_box_case",
+   "music_box_cylinder",
+   "music_box_key",
+   "stone_palm"
+  ],
+  "taken": [
+   "box_case",
+   "box_cylinder",
+   "music_box_key",
+   "stone_palm"
+  ],
+  "read": [
+   "hale_file_3"
+  ],
+  "values": {
+   "nun_floor": "wards_ground",
+   "ward_fuses": [
+    true,
+    false,
+    true,
+    false,
+    true,
+    false
+   ]
+  }
+ },
+ "expectFlags": [
+  "music_box_mended",
+  "lamps_dead",
+  "wards_escaped",
+  "wing_wards_done"
+ ],
+ "steps": [
+  {
+   "light": false
+  },
+  {
+   "openDoor": [
+    38,
+    7
+   ]
+  },
+  {
+   "cell": [
+    38,
+    7
+   ]
+  },
+  {
+   "cell": [
+    38,
+    8
+   ]
+  },
+  {
+   "cell": [
+    37.5,
+    8.5
+   ]
+  },
+  {
+   "cell": [
+    24,
+    8.5
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    23,
+    8
+   ]
+  },
+  {
+   "openDoor": [
+    23,
+    7
+   ]
+  },
+  {
+   "cell": [
+    23,
+    7
+   ]
+  },
+  {
+   "cell": [
+    23,
+    6
+   ]
+  },
+  {
+   "cell": [
+    24.1,
+    3.6
+   ]
+  },
+  {
+   "use": [
+    25.75,
+    4.1
+   ],
+   "y": 0.68,
+   "expect": "prompt.giveEdith"
+  },
+  {
+   "use": [
+    25.575,
+    4.1
+   ],
+   "y": 0.72,
+   "expect": "prompt.take"
+  },
+  {
+   "tap": "camcorder"
+  },
+  {
+   "tap": "nightView"
+  },
+  {
+   "waitUntil": {
+    "nunIn": [
+     23.5,
+     8,
+     24.5,
+     9.5
+    ]
+   },
+   "max": 30
+  },
+  {
+   "waitUntil": {
+    "nunIn": [
+     26,
+     8,
+     29,
+     9.5
+    ]
+   },
+   "max": 30
+  },
+  {
+   "cell": [
+    23,
+    6
+   ]
+  },
+  {
+   "cell": [
+    23,
+    7
+   ]
+  },
+  {
+   "cell": [
+    24,
+    7.9
+   ]
+  },
+  {
+   "waitUntil": {
+    "nunIn": [
+     29.5,
+     11,
+     31,
+     14
+    ]
+   },
+   "max": 30
+  },
+  {
+   "cell": [
+    24.5,
+    8.5
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    33,
+    8.5
+   ],
+   "pace": "run"
+  },
+  {
+   "waitUntil": {
+    "nunIn": [
+     23.5,
+     8,
+     28,
+     9.5
+    ]
+   },
+   "max": 30
+  },
+  {
+   "cell": [
+    30,
+    9.1
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    30,
+    10
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    30,
+    11.1
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    36,
+    11.4
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    37.9,
+    12.9
+   ],
+   "pace": "run"
+  },
+  {
+   "tap": "camcorder"
+  },
+  {
+   "use": [
+    40,
+    13.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.toCourtyard"
+  },
+  {
+   "wait": 3
+  }
+ ]
+}

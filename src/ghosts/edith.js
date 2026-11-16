@@ -8,6 +8,7 @@ import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { roomAt } from '../levels/loader.js';
 import { findProp } from '../props/place.js';
+import { MENDED } from './edithBox.js';
 
 const MEET_WITHIN = 3.2; // metres
 const GAP = 20; // seconds between her warnings
@@ -42,14 +43,11 @@ export function createEdith(game) {
     return null;
   }
 
-  function setup(level) {
-    ghost = null;
-    said = null;
-    queue = [];
-    wait = 0;
+  // Her figure on the bed; box: what is in her lap (props/wardFigures.js).
+  function build(level, box) {
     const data = level.edith;
-    if (!data?.at) return; // on other floors of the wing she is only her voice
-    ghost = PROPS.ghostEdith(game.world.textures, { opacity: 0.55 });
+    ghost?.parent?.remove(ghost);
+    ghost = PROPS.ghostEdith(game.world.textures, { opacity: 0.55, box });
     at = new THREE.Vector3(data.at[0] * level.cellSize, data.y ?? 0.48, data.at[1] * level.cellSize);
     ghost.position.copy(at);
     ghost.rotation.y = ((data.rotation ?? 0) * Math.PI) / 180;
@@ -57,6 +55,16 @@ export function createEdith(game) {
     pale.position.set(0, 0.8, 0.5);
     ghost.add(pale);
     game.world.levelGroup.add(ghost);
+  }
+
+  function setup(level) {
+    ghost = null;
+    said = null;
+    queue = [];
+    wait = 0;
+    const data = level.edith;
+    if (!data?.at) return; // on other floors of the wing she is only her voice
+    build(level, game.progress.hasFlag(MENDED) ? 'none' : 'closed'); // once mended, the box is a real thing in her lap
     if (data.call && game.progress.hasFlag(RANG)) findProp(game.world.levelGroup, data.call.prop)?.userData.drop?.(data.call.bed);
   }
 
@@ -140,5 +148,16 @@ export function createEdith(game) {
     if (doc?.id === 'chart_carr') game.progress.setFlag('name_edith');
   });
 
-  return { update, state: () => ({ said, present: Boolean(ghost) }) };
+  return {
+    update,
+    state: () => ({ said, present: Boolean(ghost), queued: queue.length }),
+    // For her music box (ghosts/edithBox.js) and the way out (levels/wayOut.js):
+    // lines said soon, one after another; what she holds; where she sits.
+    tell(keys) {
+      queue.push(...keys);
+      wait = Math.min(wait, 0.3);
+    },
+    showBox: (box) => ghost && build(game.world.level, box),
+    at: () => (ghost ? at.clone() : null),
+  };
 }

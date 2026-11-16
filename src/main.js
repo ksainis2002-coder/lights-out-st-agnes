@@ -55,6 +55,7 @@ import { createNunFloors } from './ai/nunFloors.js';
 import { createHiding } from './player/hide.js';
 import { createCamcorder } from './player/camcorder.js';
 import { createEdith } from './ghosts/edith.js';
+import { createWardsEnd } from './levels/wardsEnd.js';
 import { createSigns } from './levels/signs.js';
 import { createFlagProps } from './levels/flagProps.js';
 import { createIntro } from './cutscenes/intro.js';
@@ -117,6 +118,7 @@ function createGame() {
   game.nun = createNun(game); // Sister M., who sees only light
   game.nunFloors = createNunFloors(game, game.nun); // she comes up and down the stairs after you
   game.edith = createEdith(game); // Edith, who hears her coming
+  game.wardsEnd = createWardsEnd(game); // her music box mended, the way out, its tune
   game.camcorder = createCamcorder(game); // Nora's: night view and flash
   game.enemies = [game.watcher, game.nun]; // the debug overlay shows their senses and state
   game.moves = createMoves(game); // props that stand another way once a flag is set
@@ -323,6 +325,7 @@ function simulate(game, dt) {
   game.nun.update(dt);
   game.nunFloors.update(dt);
   game.edith.update(dt);
+  game.wardsEnd.update(dt);
   game.moves.update();
   game.flagProps.update();
   game.hallucinations.update(dt, game.sanity.value(), world.camera);

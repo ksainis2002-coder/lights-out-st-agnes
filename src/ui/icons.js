@@ -21,6 +21,7 @@ export const ICONS = {
   fuse: { pal: { w: '#d6d2c4', b: '#b8923a', d: '#8a867a' }, rows: ['................', '................', '....bbwwwwwwbb..', '....bbwwwwwwbb..', '....bbwddddwbb..', '....bbwwwwwwbb..', '....bbwwwwwwbb..'] },
   fuseLarge: { pal: { w: '#d6d2c4', b: '#b8923a', r: '#8a1c14' }, rows: ['................', '..bbwwwwwwwwwbb.', '..bbwwwwwwwwwbb.', '..bbrrrrrrrrrbb.', '..bbwwwwwwwwwbb.', '..bbwwwwwwwwwbb.', '..bbwwwwwwwwwbb.'] },
   boxCase: { pal: { t: '#8a8e88', d: '#4a4e4a', k: '#2a2c2a' }, rows: ['................', '................', '..tttttttttttt..', '..tddddddddddt..', '..tttttttttttt..', '..tkkkkkkkkkkt..', '..tkkkkkkkkkkt..', '..tttttttttttt..'] },
+  musicBox: { pal: { t: '#8a8e88', d: '#4a4e4a', r: '#6a2c2a', b: '#c8a050', k: '#b8923a' }, rows: ['...tttttttttt...', '...trrrrrrrrt...', '...trrrrrrrrt...', '..tttttttttttt..', '..tbbbbbbbbbbt.k', '..ttttttttttttkk', '..tddddddddddt..', '..tttttttttttt..'] },
   cylinder: { pal: { b: '#b8923a', d: '#6a5a2a', p: '#ffe9a0' }, rows: ['................', '................', '...dbbbbbbbbd...', '...dbpbbpbbbd...', '...dbbbpbbpbd...', '...dbpbbbpbbd...', '...dbbbbbbbbd...'] },
   lamb: { pal: { s: '#a8a49a', d: '#6a675f', w: '#d6d2c6' }, rows: ['................', '..........ss....', '.........ssss...', '...ssssssssdss..', '..sssswsssss....', '..ssssssssss....', '...ssssssss.....', '...d.d..d.d.....'] },
 };

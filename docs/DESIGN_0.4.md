@@ -362,6 +362,43 @@ habitPeg, sootStain) and Edith's `box: 'open'`. The mock camcorder display now m
 - **For C2:** Edith's box mended, the chase out, the wing finished, your room's decay, the bot run
   for the whole wing.
 
+## Part C2 as built (0.2.80)
+- **Edith's music box** (`src/ghosts/edithBox.js`, level data `edith.box`): close to her with a part
+  she has not named, she names it, once each (the case, the cylinder, the key); that also starts her
+  box hint, which waits a few minutes ("It had a case, a little drum with pins, and a key…"). With
+  all three, "Give to Edith": the box is mended (flag `music_box_mended`, a checkpoint) and plays in
+  her hands, open, as in `box_mended`: a pickup (`edith_music_box`, model `musicBoxOpen`) aimed at its
+  lid, since her chart hangs on the bed's rail just below (pickups now take `useHeight`). Her two
+  lines; her lap is empty from then on (`ghostEdith` takes `box: 'none'`).
+- **The tune** (`src/audio/edithTune.js`): made with Web Audio like wing 1's box: a slow lullaby in
+  three with one note missing, from her lap, then from your pocket the whole way out, winding down
+  as you come out. The owner's `mus_music_box_edith` can replace it.
+- **The way out** (`src/levels/wayOut.js`, level data `wayOut`; a scripted story beat): taking the box,
+  every bulb hums for 1.5 s (the tell), then every lamp dies for good (flag `lamps_dead`: no fuse
+  lights them again) and Edith says "She's put them all out. She's coming for yours. Go." A
+  checkpoint; the set-piece cooldown starts. Sister M. (`nun.hunt`) waits by the admissions door and
+  walks the corridor to the children's ward and back, and down into admissions and up, at 2.0 m/s
+  (comfort mode 1.2). She still sees only your light; the night view, the flash and the beds work as
+  before. A catch rewinds you to where the lamps died.
+- **Out:** through the courtyard door, Edith's last line in the courtyard: "Tommy. She never caught you
+  either." (journal clue `edith_tommy`; flag `wards_escaped`). The tune winds down. The wing is done
+  (`levels/wings.js`: the stone palm, Edith's box, file page 3, and being out: `wing_wards_done`).
+- **Your room after the wing** (approved still `hub_after_wards`; `patient_room.json`, "after" the
+  flag): soot from the lamp over the ceiling and on two walls, a candle burnt to nothing on the table,
+  the light weaker (1.06, was 1.76); its line once as you come in (level data `arrivals`,
+  `src/levels/arrivals.js`): "Three of the five are home. The room is colder."
+- **Sounds (stand-ins until the priority 1 files):** the hum `fluorescent_buzz`, the lamps dying
+  `thunder_far` and a low sting (not in comfort mode), the box clicking together `drawer`.
+- **Bot routes: the whole wing in three.** `wards_ground_part_a` (5:44 of game time),
+  `wards_upper_part_b_c1` (1:21: the camcorder, both cells in the night view, Dr. Venn's door, her key
+  and file page 3, her room, the trunk, the palm, waiting in Dr. Venn's office while she comes up, then
+  down) and `wards_ground_part_c2` (0:39: Edith, the box, the way out by the night view, timing her
+  loop past the admissions door, the courtyard; it must end with `wing_wards_done`). New bot steps
+  `{ "light": false }` and `{ "faceNun": true }`; a route can name its `spawn`, start with
+  `given.taken`, `given.read` and `given.values`, and list `expectFlags`.
+- `ai/nun.js` keeps under the size limit: her debug lines are in `ai/nunDebug.js` (the overlay shows
+  "hunting: the way out"). Tests: `tests/wardsEnd.spec.js`.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

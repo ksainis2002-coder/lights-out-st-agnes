@@ -1,0 +1,543 @@
+{
+ "id": "wards_upper_part_b_c1",
+ "level": "wards_upper",
+ "given": {
+  "flags": [
+   "wing_school_done",
+   "tool_flashlight",
+   "nun_walking",
+   "edith_met",
+   "power_stairs",
+   "lamp_out_ward_a_1",
+   "lamp_out_ward_a_2",
+   "lamp_out_ward_a_3"
+  ],
+  "values": {
+   "nun_floor": "wards_ground"
+  }
+ },
+ "expectFlags": [
+  "tool_camcorder",
+  "seen_cell_writing_1",
+  "seen_cell_writing_2",
+  "puzzle_venn_door",
+  "opened_sister_trunk"
+ ],
+ "steps": [
+  {
+   "light": false
+  },
+  {
+   "cell": [
+    28,
+    6
+   ]
+  },
+  {
+   "cell": [
+    28,
+    7
+   ]
+  },
+  {
+   "cell": [
+    24,
+    7
+   ]
+  },
+  {
+   "openDoor": [
+    24,
+    6
+   ]
+  },
+  {
+   "cell": [
+    24,
+    6
+   ]
+  },
+  {
+   "cell": [
+    24,
+    5
+   ]
+  },
+  {
+   "cell": [
+    23.6,
+    4.4
+   ]
+  },
+  {
+   "use": [
+    23.7,
+    4.3
+   ],
+   "y": 0.05,
+   "expect": "prompt.take"
+  },
+  {
+   "cell": [
+    24,
+    6
+   ]
+  },
+  {
+   "cell": [
+    24,
+    7
+   ]
+  },
+  {
+   "cell": [
+    16.5,
+    7.0
+   ]
+  },
+  {
+   "cell": [
+    16.0,
+    7.85
+   ]
+  },
+  {
+   "cell": [
+    14.25,
+    7.85
+   ]
+  },
+  {
+   "cell": [
+    13.75,
+    7.0
+   ]
+  },
+  {
+   "cell": [
+    11,
+    7
+   ]
+  },
+  {
+   "openDoor": [
+    11,
+    6
+   ]
+  },
+  {
+   "cell": [
+    11,
+    6
+   ]
+  },
+  {
+   "cell": [
+    11,
+    5
+   ]
+  },
+  {
+   "cell": [
+    9,
+    4
+   ]
+  },
+  {
+   "openDoor": [
+    9,
+    3
+   ]
+  },
+  {
+   "cell": [
+    9,
+    3
+   ]
+  },
+  {
+   "cell": [
+    9.0,
+    2.1
+   ]
+  },
+  {
+   "tap": "camcorder"
+  },
+  {
+   "tap": "nightView"
+  },
+  {
+   "wait": 0.8
+  },
+  {
+   "cell": [
+    9,
+    3
+   ]
+  },
+  {
+   "cell": [
+    9,
+    4
+   ]
+  },
+  {
+   "cell": [
+    13,
+    4
+   ]
+  },
+  {
+   "openDoor": [
+    13,
+    3
+   ]
+  },
+  {
+   "cell": [
+    13,
+    3
+   ]
+  },
+  {
+   "cell": [
+    13.0,
+    2.1
+   ]
+  },
+  {
+   "wait": 0.8
+  },
+  {
+   "tap": "camcorder"
+  },
+  {
+   "cell": [
+    13,
+    3
+   ]
+  },
+  {
+   "cell": [
+    13,
+    4
+   ]
+  },
+  {
+   "cell": [
+    11,
+    5
+   ]
+  },
+  {
+   "cell": [
+    11,
+    6
+   ]
+  },
+  {
+   "cell": [
+    11,
+    7
+   ]
+  },
+  {
+   "cell": [
+    4.8,
+    7.0
+   ]
+  },
+  {
+   "cell": [
+    4.8,
+    7.9
+   ]
+  },
+  {
+   "use": [
+    5.3,
+    9.0
+   ],
+   "y": 1.3,
+   "expect": "prompt.tryLock",
+   "keepOpen": true
+  },
+  {
+   "screenKey": "Digit4"
+  },
+  {
+   "screenKey": "Digit2"
+  },
+  {
+   "screenKey": "Digit6"
+  },
+  {
+   "screenKey": "Digit1"
+  },
+  {
+   "screenKey": "Enter"
+  },
+  {
+   "resume": true
+  },
+  {
+   "cell": [
+    4,
+    8
+   ]
+  },
+  {
+   "openDoor": [
+    4,
+    9
+   ]
+  },
+  {
+   "cell": [
+    4,
+    9
+   ]
+  },
+  {
+   "cell": [
+    3.8,
+    10.0
+   ]
+  },
+  {
+   "use": [
+    4.3,
+    11.2
+   ],
+   "y": 0.82,
+   "expect": "prompt.take"
+  },
+  {
+   "cell": [
+    5.05,
+    10.0
+   ]
+  },
+  {
+   "use": [
+    5.55,
+    11.55
+   ],
+   "y": 0.81,
+   "expect": "prompt.read"
+  },
+  {
+   "cell": [
+    4,
+    10
+   ]
+  },
+  {
+   "cell": [
+    4,
+    9
+   ]
+  },
+  {
+   "cell": [
+    3,
+    8
+   ]
+  },
+  {
+   "cell": [
+    3.0,
+    7.1
+   ]
+  },
+  {
+   "use": [
+    3.5,
+    6.5
+   ],
+   "y": 1.2,
+   "expect": "prompt.unlock"
+  },
+  {
+   "cell": [
+    3,
+    6
+   ]
+  },
+  {
+   "cell": [
+    3,
+    5
+   ]
+  },
+  {
+   "cell": [
+    1.7,
+    3.9
+   ]
+  },
+  {
+   "use": [
+    1.62,
+    3.85
+   ],
+   "y": 0.5,
+   "expect": "prompt.openTrunk"
+  },
+  {
+   "use": [
+    1.75,
+    3.9
+   ],
+   "y": 0.47,
+   "expect": "prompt.take"
+  },
+  {
+   "cell": [
+    5.1,
+    2.95
+   ]
+  },
+  {
+   "use": [
+    6.66,
+    3.45
+   ],
+   "y": 0.64,
+   "expect": "prompt.take"
+  },
+  {
+   "cell": [
+    3,
+    5
+   ]
+  },
+  {
+   "cell": [
+    3,
+    6
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ]
+  },
+  {
+   "cell": [
+    4,
+    8
+   ]
+  },
+  {
+   "cell": [
+    4,
+    9
+   ]
+  },
+  {
+   "cell": [
+    4,
+    10
+   ]
+  },
+  {
+   "cell": [
+    6.5,
+    10.2
+   ]
+  },
+  {
+   "waitUntil": {
+    "nunIn": [
+     1,
+     1,
+     6,
+     5
+    ]
+   },
+   "max": 90
+  },
+  {
+   "cell": [
+    4,
+    10
+   ]
+  },
+  {
+   "cell": [
+    4,
+    9
+   ]
+  },
+  {
+   "cell": [
+    4,
+    8
+   ]
+  },
+  {
+   "cell": [
+    4,
+    7
+   ]
+  },
+  {
+   "cell": [
+    13.75,
+    7.0
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    14.25,
+    7.85
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    16.0,
+    7.85
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    16.5,
+    7.0
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    27,
+    7
+   ],
+   "pace": "run"
+  },
+  {
+   "cell": [
+    28,
+    6
+   ]
+  },
+  {
+   "cell": [
+    28,
+    4
+   ]
+  },
+  {
+   "use": [
+    29.0,
+    2.6
+   ],
+   "y": 0.8,
+   "expect": "prompt.stairsDown"
+  }
+ ]
+}

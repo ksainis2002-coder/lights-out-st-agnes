@@ -17,6 +17,8 @@
 //   { "wait": 15 }   stand still that long (a rhyme to hear out)
 //   { "waitUntil": { "nunIn": [c0, r0, c1, r1] }, "max": 150 }   stand still until Sister M. is in those cells
 //   { "openDoor": [col, row] }   open that door if it is shut
+//   { "light": false }   switch the flashlight off (or on)
+//   { "faceNun": true }   turn to face Sister M. (to flash her with the camcorder)
 // A "use" that opens a screen (a document) is closed again; one that starts
 // travel waits for the new level. Old routes (a "points" list) still work.
 import * as THREE from 'three';
@@ -112,8 +114,24 @@ function openDoor(game, [col, row]) {
   return aimAndUse(game, { use: [col + 0.5, row + 0.5], y: 1.2, expect: 'prompt.open' });
 }
 
+// Look straight at Sister M., chest high, as a player lines up the flash.
+function faceNun(game) {
+  const her = game.nun.state();
+  if (!her.active) return { seconds: 0, ok: false };
+  const { position } = game.player.state;
+  game.player.state.yaw = angleTo(position, her);
+  game.player.state.pitch = Math.atan2(1.3 - game.player.state.eyeHeight, Math.hypot(her.x - position.x, her.z - position.z));
+  game.advance(1 / 30);
+  return { seconds: 1 / 30, ok: true };
+}
+
 function runStep(game, step, maxSeconds) {
   if (step.cell) return walk(game, step, maxSeconds);
+  if (step.light !== undefined) {
+    game.world.flashlight.setOn(step.light);
+    return { seconds: 0, ok: true };
+  }
+  if (step.faceNun) return faceNun(game);
   if (step.waitUntil) return waitUntilNun(game, step.waitUntil.nunIn, step.max);
   if (step.openDoor) return openDoor(game, step.openDoor);
   if (step.use) return aimAndUse(game, step);

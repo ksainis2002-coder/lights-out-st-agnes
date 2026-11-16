@@ -20,7 +20,10 @@ for (const route of routes) {
         // A route can start further on: what is already done or carried.
         (r.given?.flags ?? []).forEach((flag) => game.progress.setFlag(flag));
         (r.given?.items ?? []).forEach((item) => game.inventory.add(item));
-        game.loadLevel(r.level);
+        (r.given?.taken ?? []).forEach((id) => game.progress.take(id));
+        (r.given?.read ?? []).forEach((id) => game.progress.read(id));
+        Object.entries(r.given?.values ?? {}).forEach(([key, value]) => game.progress.setValue(key, value));
+        game.loadLevel(r.level, r.spawn);
       }
       const result = game.runBot(r);
       return { ...result, level: game.world.level.id, items: game.inventory.items(), flags: game.progress.toJSON().flags };
@@ -29,6 +32,7 @@ for (const route of routes) {
     writeFileSync(`test-results/bot/${route.id}.json`, JSON.stringify(result, null, 2));
     expect(result.failedStep).toBeNull();
     expect(result.finished).toBe(true);
+    expect(result.flags).toEqual(expect.arrayContaining(route.expectFlags ?? [])); // what the route must leave done
   });
 }
 

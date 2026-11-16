@@ -95,11 +95,19 @@ export function createGameAudio(game) {
   const SOLVED_SOUND = {
     plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz', piano: 'key_drop_wood',
     library: 'paper_pickup', records: 'drawer_metal', lanterns: 'stone_grind', hopscotch: 'child_clap',
+    music_box: 'drawer', // Edith's box clicks together (stand-in for music_box_wind)
   };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
   events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
   events.on('fuses.reset', () => play('door_locked', { volume: 0.7 }));
   events.on('power.cut', () => play('thunder_far', { volume: 1 }));
+  // The way out (levels/wayOut.js): every bulb in the wing hums, then the power dies
+  // (stand-ins until lamp_off; the low sting is cut in comfort mode).
+  events.on('lamps.dying', () => play('fluorescent_buzz', { volume: 1 }));
+  events.on('lamps.died', () => {
+    play('thunder_far', { volume: 1 });
+    if (!game.settings.get('comfortMode')) play('mus_stinger_low', { volume: 0.6, bus: 'music' });
+  });
   // The storm's thunder after each strike, quieter indoors.
   events.on('storm.thunder', ({ outdoors }) => play('thunder_close', { volume: outdoors ? 1 : 0.55, pitchJitter: 0.08 }));
   events.on('reveal', () => play('paper_pickup', { volume: 0.8 }));

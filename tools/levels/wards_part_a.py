@@ -207,6 +207,9 @@ def wards():
     ])
     # The music box's case, pushed under Maggie's stripped bed (the box is mended in part C).
     L.pickup(ch, 'box_case', 'music_box_case', 1.75, 4.62, y=0.02, color='#8a8e88')
+    # Edith's box, once mended (ghosts/edithBox.js): open and playing in her hands; taking it starts the way out.
+    L.pickup(ch, 'edith_music_box', 'music_box', 5.575, 3.1, y=0.565, model='musicBoxOpen', rotation=-90, radius=0.3,
+             useHeight=0.15, appearsWith='music_box_mended')  # aimed at its lid: her chart hangs just below
     L.lamp(ch, 'childrens_ward_1', 3.5, 2.0)
     L.lamp(ch, 'childrens_ward_2', 3.5, 4.4)
     for did, x, z, rot in [('chart_dunn', 1.6, 1.95, 90), ('chart_rowe', 1.6, 4.25, 90), ('chart_lacey', 5.4, 0.8, -90), ('chart_carr', 5.4, 3.1, -90)]:
@@ -316,12 +319,28 @@ def wards():
             "round": [cor.at(9.5, 1.0), wa.at(5.5, 3.0), cor.at(15.5, 1.0), cor.at(22.5, 1.0), ch.at(3.5, 3.4), cor.at(29.5, 0.8),
                       adm.at(6.0, 3.6), cor.at(29.5, 1.2), day.at(6.5, 3.6), cor.at(15.5, 1.2), cor.at(2.5, 1.0), bat.at(3.0, 4.2),
                       cor.at(1.5, 1.2), fus.at(2.0, 2.4)],
+            # The way out (levels/wayOut.js): every lamp dead, she waits by the admissions door, walks
+            # faster and keeps between you and the courtyard door: the corridor and admissions.
+            "hunt": {"flag": "wards_way_out", "from": cor.at(29.5, 1.2), "speed": 2.0,
+                     "round": [cor.at(23.0, 1.0), cor.at(29.5, 0.8), adm.at(5.5, 2.5), cor.at(29.5, 1.2)]},
         },
+        # The way out (levels/wayOut.js): taking Edith's mended box from her lap. A scripted story
+        # beat: the bulbs hum for 1.5 s (its tell), then every lamp dies; kept in comfort mode.
+        "wayOut": {"toy": "edith_music_box", "flag": "wards_way_out", "tell": 1.5, "line": "edith.box.lampsDie",
+                   "last": "edith.box.last", "to": "grounds",
+                   "setup": {"tell": "every bulb in the wing hums", "seconds": 1.5, "sound": "lamps.dying"},
+                   "cooldownGroup": "setPiece", "cooldown": 30, "comfort": "keep"},
         # Edith (ghosts/edith.js): on bed 7 of the children's ward, facing the room.
         "edith": {"at": ch.at(5.75, 3.1), "y": 0.48, "rotation": -90, "room": "childrens_ward",
                   "call": {"prop": "call_board", "room": "nurses_station", "bed": 7},
                   "hints": [{"after": "tried_wardFuses", "until": "power_dispensary", "lines": ["edith.hint.fuses"]},
-                            {"after": "tried_medicineLock", "until": "puzzle_medicine", "lines": ["edith.hint.round.1", "edith.hint.round.2"]}]},
+                            {"after": "tried_medicineLock", "until": "puzzle_medicine", "lines": ["edith.hint.round.1", "edith.hint.round.2"]},
+                            {"after": "tried_musicBox", "until": "music_box_mended", "lines": ["edith.hint.box"]}],
+                  # Her music box (ghosts/edithBox.js): she names each part you bring, once; all three mend it.
+                  "box": {"parts": ["music_box_case", "music_box_cylinder", "music_box_key"],
+                          "lines": {"music_box_case": "edith.box.case", "music_box_cylinder": "edith.box.cylinder",
+                                    "music_box_key": "edith.box.key"},
+                          "whole": ["edith.box.whole", "edith.box.take"]}},
     }
 
 

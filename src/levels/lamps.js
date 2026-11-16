@@ -4,17 +4,21 @@
 // A lamp burns while its circuit has a fuse (flag power_<circuit>; the fuse
 // board, puzzles/wardFuses.js) and she has not put it out (flag
 // lamp_out_<id>). A fuse pushed in again lights the circuit's lamps afresh.
+// Once Edith's box is mended every lamp dies for good (flag lamps_dead, the
+// way out: levels/wayOut.js): no fuse lights them again.
 import * as THREE from 'three';
 
 const HEIGHT = 2.85; // the bulb, on its flex under a 3.4 m ceiling
 const LIT = 0xffe2a8;
 const DEAD = 0x6a6a62;
+export const DEAD_FLAG = 'lamps_dead';
 
 export function createLamps(game) {
   let lamps = [];
 
   const flag = (id) => `lamp_out_${id}`;
-  const burns = (lamp) => game.progress.hasFlag(`power_${lamp.circuit}`) && !game.progress.hasFlag(flag(lamp.id));
+  const burns = (lamp) => game.progress.hasFlag(`power_${lamp.circuit}`) && !game.progress.hasFlag(flag(lamp.id))
+    && !game.progress.hasFlag(DEAD_FLAG);
 
   function show(lamp) {
     lamp.light.visible = lamp.lit;
@@ -66,6 +70,15 @@ export function createLamps(game) {
       lamp.bulb.material.color.setHex(lit ? LIT : DEAD);
     },
     refresh: () => lamps.forEach(show),
+    // Every lamp in the wing dies at once and stays dead (the way out).
+    dieAll() {
+      game.progress.setFlag(DEAD_FLAG);
+      for (const lamp of lamps) {
+        lamp.lit = false;
+        show(lamp);
+      }
+      game.events.emit('lamps.died');
+    },
     // The fuse board: a circuit gets its fuse (every lamp on it burns again) or loses it.
     power(circuit, on) {
       for (const lamp of lamps.filter((entry) => entry.circuit === circuit)) {

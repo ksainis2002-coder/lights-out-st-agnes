@@ -4,6 +4,8 @@
 //                 "appearsWith": "puzzle_plates" keeps a pickup hidden until that flag is set.
 //                 "lockedUntil": "puzzle_fuses" shows it (behind glass) but it can't be taken yet.
 //                 "radius": how near the aim must come (default 0.25 m; less for things side by side).
+//                 "useHeight": where on it you aim, above "y" (default 0.05 m; Edith's open box: its lid,
+//                 clear of her chart on the bed's foot rail just below).
 //   "documents": [{ "id": "night_duty", "at": [c, r], "y": 0.77, "rotation": 20 }]
 //                 "model": "chalkSlate", "height": 1.3 for something read on a wall;
 //                 "upright": true pins a sheet to a wall or board (as for maps);
@@ -61,7 +63,7 @@ export function createPickups(game, level, data) {
     if (!mesh.visible) hidden.push({ mesh, shown });
     group.add(mesh);
     usable.push({
-      position: mesh.position.clone().setY((pickup.y ?? 0) + 0.05),
+      position: mesh.position.clone().setY((pickup.y ?? 0) + (pickup.useHeight ?? 0.05)),
       radius: pickup.radius ?? 0.25,
       prompt() {
         if (progress.isTaken(pickup.id) || !mesh.visible) return null;

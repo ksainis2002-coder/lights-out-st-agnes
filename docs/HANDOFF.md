@@ -261,5 +261,9 @@ the owner: the `ui_tape` still. Then: the tape playback, part C.
 box's key) and the stone palm, whose candle goes out and brings her ("Part C1 as built" in
 `docs/DESIGN_0.4.md`, with two blocked doorways fixed). Next: C2 (Edith's box mended, the chase out,
 the wing finished, your room's decay, the whole-wing bot run).
+**0.4 part C2 (0.2.80):** Edith's box mended, the way out with every lamp dead, Edith's last line in
+the courtyard, the wing done, your room after it, and bot routes for the whole wing ("Part C2 as
+built" in `docs/DESIGN_0.4.md`). The west wing is complete. Next: the owner's playtest of the wing,
+the priority 1 sounds, then 0.4's release checklist (performance, balance) and the 0.2.x PR to main.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

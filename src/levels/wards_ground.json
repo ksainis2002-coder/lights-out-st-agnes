@@ -2478,6 +2478,20 @@
    "color": "#8a8e88"
   },
   {
+   "id": "edith_music_box",
+   "item": "music_box",
+   "at": [
+    25.575,
+    4.1
+   ],
+   "y": 0.565,
+   "model": "musicBoxOpen",
+   "rotation": -90,
+   "radius": 0.3,
+   "useHeight": 0.15,
+   "appearsWith": "music_box_mended"
+  },
+  {
    "id": "fuse_cabinet",
    "item": "fuse_large",
    "at": [
@@ -2844,7 +2858,49 @@
     3.0,
     13.4
    ]
-  ]
+  ],
+  "hunt": {
+   "flag": "wards_way_out",
+   "from": [
+    30.5,
+    9.2
+   ],
+   "speed": 2.0,
+   "round": [
+    [
+     24.0,
+     9.0
+    ],
+    [
+     30.5,
+     8.8
+    ],
+    [
+     30.5,
+     13.5
+    ],
+    [
+     30.5,
+     9.2
+    ]
+   ]
+  }
+ },
+ "wayOut": {
+  "toy": "edith_music_box",
+  "flag": "wards_way_out",
+  "tell": 1.5,
+  "line": "edith.box.lampsDie",
+  "last": "edith.box.last",
+  "to": "grounds",
+  "setup": {
+   "tell": "every bulb in the wing hums",
+   "seconds": 1.5,
+   "sound": "lamps.dying"
+  },
+  "cooldownGroup": "setPiece",
+  "cooldown": 30,
+  "comfort": "keep"
  },
  "edith": {
   "at": [
@@ -2874,7 +2930,30 @@
      "edith.hint.round.1",
      "edith.hint.round.2"
     ]
+   },
+   {
+    "after": "tried_musicBox",
+    "until": "music_box_mended",
+    "lines": [
+     "edith.hint.box"
+    ]
    }
-  ]
+  ],
+  "box": {
+   "parts": [
+    "music_box_case",
+    "music_box_cylinder",
+    "music_box_key"
+   ],
+   "lines": {
+    "music_box_case": "edith.box.case",
+    "music_box_cylinder": "edith.box.cylinder",
+    "music_box_key": "edith.box.key"
+   },
+   "whole": [
+    "edith.box.whole",
+    "edith.box.take"
+   ]
+  }
  }
 }

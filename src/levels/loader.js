@@ -101,6 +101,8 @@ export function parseLevel(data) {
     lamps: data.lamps ?? [], // ward lamps Sister M. puts out (levels/lamps.js)
     nun: data.nun ?? null, // Sister M. (ai/nun.js)
     edith: data.edith ?? null, // Edith on her bed (ghosts/edith.js)
+    wayOut: data.wayOut ?? null, // the chase out of the west wing (levels/wayOut.js)
+    arrivals: data.arrivals ?? [], // a line on coming in after something happened (levels/arrivals.js)
     setPieces: data.setPieces ?? [], // the bell, the roll call, the film (ghosts/setPieces.js)
     weather: data.weather ?? null, // the storm, once a flag is set (levels/storm.js)
     safe: data.safe === true, // safe rooms restore sanity (the patient room)

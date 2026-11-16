@@ -781,5 +781,20 @@
   "doc.sister_confession.title": "A folded paper",
   "doc.sister_confession.byline": "In her hand, never sent",
   "doc.sister_confession.body": "Father, I held the lamp.\nThe Founder said a house needs a heart, and that she was nobody's child. I held the lamp steady so he could see to do it.\nI have put out every light since, so that I need never see so well again.\nI kept her hand. It is all of her I could bring up from under the stone.",
-  "clue.read_sister_confession": "Sister M. held the lamp while the Founder did something to a child who was \"nobody's\". That is why she puts out every light."
+  "clue.read_sister_confession": "Sister M. held the lamp while the Founder did something to a child who was \"nobody's\". That is why she puts out every light.",
+  "edith.box.case": "That's the lid. I know the dent.",
+  "edith.box.cylinder": "I can hear the pins when you turn it. All there.",
+  "edith.box.key": "You went into her room.",
+  "edith.box.whole": "That's it. That's the one my mother wound.",
+  "edith.box.take": "Take it with you. I can hear it from anywhere.",
+  "edith.box.lampsDie": "She's put them all out. She's coming for yours. Go.",
+  "edith.box.last": "Tommy. She never caught you either.",
+  "edith.hint.box": "It had a case, a little drum with pins, and a key. The key she took herself.",
+  "prompt.giveEdith": "Give to Edith",
+  "item.music_box.name": "Edith's music box",
+  "item.music_box.desc": "It plays a slow tune with one note missing.",
+  "item.music_box.short": "It plays a slow tune with one note missing.",
+  "clue.solved_music_box": "Edith's music box is whole again. She told me to take it with me: she can hear it from anywhere.",
+  "clue.edith_tommy": "Out in the courtyard, Edith's voice: \"Tommy. She never caught you either.\" She called me Tommy.",
+  "msg.homeAfterWards": "Three of the five are home. The room is colder."
 }
