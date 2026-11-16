@@ -265,5 +265,9 @@ the wing finished, your room's decay, the whole-wing bot run).
 the courtyard, the wing done, your room after it, and bot routes for the whole wing ("Part C2 as
 built" in `docs/DESIGN_0.4.md`). The west wing is complete. Next: the owner's playtest of the wing,
 the priority 1 sounds, then 0.4's release checklist (performance, balance) and the 0.2.x PR to main.
+**0.4 release prep (0.2.81):** the whole wing finishes by bot in one go, performance measured per room
+(the ground floor is the heaviest scene yet), the release checks pass ("0.4 release prep" in
+`docs/DESIGN_0.4.md`; `docs/balance/balance_0.4.html`). Left: the owner's playtest (fps, time,
+catches), the priority 1 sounds, the content sheet's checklist, the 0.2.x PR to main, the tag.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

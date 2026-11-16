@@ -399,6 +399,35 @@ habitPeg, sootStain) and Edith's `box: 'open'`. The mock camcorder display now m
 - `ai/nun.js` keeps under the size limit: her debug lines are in `ai/nunDebug.js` (the overlay shows
   "hunting: the way out"). Tests: `tests/wardsEnd.spec.js`.
 
+## 0.4 release prep (0.2.81)
+- **The milestone (the brief):** "Asylum wards with the burned nun, Edith, camcorder, Nora on the
+  radio": all in the game, both floors, finishable start to end.
+- **Bot runs:** the three west wing routes pass on their own (`tests/bot.spec.js`), and played one
+  after another (up the stairs and back, Sister M. following between floors) they finish the wing:
+  7.8 min of game time at bot pace, no catches or collapses, lowest sanity 34, at the end
+  (`docs/balance/balance_0.4.html`). The ground floor's route now opens doors only if shut (she
+  opens them on her round) and hides in the day room's west side, off her line through it.
+- **Balance at human pace:** not measured by bot this time. The wing 1 method (a fixed route, 15 s
+  of looking around after every step) keeps meeting Sister M., because a bot can't watch and hear
+  her as a player does; even taught to dodge her, wait for her to pass and keep its light off near
+  her, it was caught 5 to 10 times in its first half hour. It did show: before the camcorder (part
+  A) the dark wears sanity down fast; the night view steadies it like a light. The time for the wing
+  and deaths per hour come from the owner's playtest (targets: about 45 min, the wing plan said 60;
+  2 to 4 deaths an hour).
+- **Performance** (as for 0.3: the highest of four directions per room at 320×180, software
+  renderer, every door open, the flashlight on): ground floor up to 425 draw calls (the stairs; baths
+  367, nurses' station 389, fuse room 370, Ward A 319, children's ward 236), 45k triangles, 27 point
+  lights; first floor up to 249 (the stair head; the sister's room 149, Dr. Venn's office 147), 19k
+  triangles, 16 point lights; the way out (every lamp dead) up to 429. The ground floor is the
+  heaviest scene so far (the school's worst was 322 draw calls and 19 lights). If the playtest laptop
+  drops below 60 fps there, first merge each ward's beds and clutter into fewer meshes, then fewer
+  point lights (the level's fill lights before the lamps).
+- **Release checks:** `base: './'` kept; no absolute `/assets/` paths; the debug overlay is off until
+  F3; the full suite passes.
+- **Left before 0.4 can be tagged:** the owner's playtest of the west wing on the playtest PC (fps on
+  the ground floor, the time, the catches, sanity before the camcorder); the 0.4 priority 1 sounds
+  (stand-ins until then); the content sheet's checklist; the 0.2.x PR to main; then the tag.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

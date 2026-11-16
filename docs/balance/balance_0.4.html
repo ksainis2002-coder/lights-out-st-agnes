@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wing 3 Balance</title>
+<style>
+:root{color-scheme:light;--surface-1:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#7a7974;--grid:#e6e5e1;--series-1:#2a78d6;--rule:#9b9a95;--band:#f1f0ec}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--surface-1:#1a1a19;--text-primary:#f0efec;--text-secondary:#c3c2b7;--text-muted:#8f8e86;--grid:#2e2e2c;--series-1:#3987e5;--rule:#6f6e68;--band:#232322}}
+:root[data-theme="dark"]{color-scheme:dark;--surface-1:#1a1a19;--text-primary:#f0efec;--text-secondary:#c3c2b7;--text-muted:#8f8e86;--grid:#2e2e2c;--series-1:#3987e5;--rule:#6f6e68;--band:#232322}
+body{margin:0;background:var(--surface-1);color:var(--text-primary);font:14px/1.45 system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px}
+h1{font-size:20px;margin:0 0 4px}h2{font-size:16px;margin:24px 0 6px}p{color:var(--text-secondary);margin:0 0 16px}
+.tiles{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 20px}.tile{flex:1 1 150px;border:1px solid var(--grid);border-radius:8px;padding:10px 12px}
+.tile b{display:block;font-size:24px;font-variant-numeric:tabular-nums}.tile span{color:var(--text-secondary);font-size:12px}
+.chart{position:relative}svg{width:100%;height:auto;display:block}
+.tip{position:absolute;pointer-events:none;background:var(--surface-1);border:1px solid var(--grid);border-radius:6px;padding:4px 8px;font-size:12px;color:var(--text-primary);display:none;white-space:nowrap}
+details{margin-top:16px;color:var(--text-secondary)}table{border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}td,th{padding:2px 10px;text-align:right;border-bottom:1px solid var(--grid)}
+table.targets{font-size:13px;width:100%;margin:4px 0 12px}table.targets td,table.targets th{text-align:left;padding:5px 8px}table.targets th{color:var(--text-secondary);font-weight:600}
+</style></head><body><main>
+<h1>Wing 3 (west wing): the whole wing by its bot routes</h1>
+<p>Its three bot routes played one after another at bot pace (no looking around), Normal difficulty: the ground floor, up the stairs (Sister M. follows 30 s later), the first floor and the stone palm, back down, Edith's box and the way out to the courtyard. Sanity sampled every 5 s of game time. This proves the wing can be finished; it is not how long a player takes.</p>
+<div class="tiles">
+<div class="tile"><b>7.8</b><span>minutes at bot pace (a player takes far longer)</span></div>
+<div class="tile"><b>0</b><span>catches or collapses (the route times her round)</span></div>
+<div class="tile"><b>34</b><span>lowest sanity, at the end: the bot keeps its light off upstairs and on the way out</span></div>
+<div class="tile"><b>3</b><span>parts, both floors, the wing done at the end</span></div>
+</div>
+<div class="chart" id="chart"><div class="tip" id="tip"></div></div>
+<details><summary>Table view</summary><table id="table"><thead><tr><th>Minute</th><th>Sanity</th><th>Floor</th></tr></thead><tbody></tbody></table></details>
+<h2>Against the targets</h2>
+<table class="targets"><thead><tr><th>Measure</th><th>Target (Normal)</th><th>Wing 1, 0.2 (bot at human pace)</th><th>Wing 3 (this run)</th><th>Wing 3, your playtest</th></tr></thead><tbody>
+<tr><td>Time for the wing</td><td>about 45 min (the wing 3 plan: about 60)</td><td>41.7 min</td><td>7.8 min at bot pace</td><td>to fill in</td></tr>
+<tr><td>Deaths per hour</td><td>2 to 4</td><td>4.3</td><td>0 (it times her round)</td><td>to fill in</td></tr>
+</tbody></table>
+<h2>Why no human-pace number for wing 3</h2>
+<p>Played the way wing 1 was measured (15 s of looking around after every step), the fixed route keeps meeting Sister M.: a bot can't watch and hear her the way a player does, so its count of catches (10 in its first 32 minutes in one run) says more about the bot than the wing. Two things it did show are worth watching in the playtest: before the camcorder (all of part A), standing in the dark wears sanity down fast (3 to 4 collapses in its first 20 minutes while it kept its light off whenever she was near), and the camcorder's night view, found upstairs, steadies the mind like a light.</p>
+</main>
+<script>
+const DATA = [[0.0, 100, "ground floor"], [0.08, 98.8, "ground floor"], [0.17, 97.2, "ground floor"], [0.25, 94.8, "ground floor"], [0.33, 93.3, "ground floor"], [0.42, 93, "ground floor"], [0.5, 91.7, "ground floor"], [0.58, 91.1, "ground floor"], [0.67, 88.5, "ground floor"], [0.75, 87.1, "ground floor"], [0.83, 84.7, "ground floor"], [0.92, 82.8, "ground floor"], [1.0, 80.5, "ground floor"], [1.57, 66.4, "ground floor"], [1.65, 64.2, "ground floor"], [1.73, 63.7, "ground floor"], [1.82, 61.8, "ground floor"], [1.9, 59.7, "ground floor"], [1.98, 58.8, "ground floor"], [2.07, 60, "ground floor"], [2.15, 60, "ground floor"], [2.23, 60, "ground floor"], [2.32, 60, "ground floor"], [2.4, 60, "ground floor"], [2.48, 60, "ground floor"], [2.57, 60, "ground floor"], [2.65, 60, "ground floor"], [2.73, 60, "ground floor"], [2.82, 60, "ground floor"], [2.9, 60, "ground floor"], [2.98, 60, "ground floor"], [3.07, 60, "ground floor"], [3.15, 60, "ground floor"], [3.23, 59.7, "ground floor"], [3.32, 60, "ground floor"], [3.4, 60, "ground floor"], [3.48, 60, "ground floor"], [3.57, 60, "ground floor"], [3.65, 60, "ground floor"], [3.73, 60, "ground floor"], [3.82, 60, "ground floor"], [3.9, 60, "ground floor"], [3.98, 60, "ground floor"], [4.07, 58.9, "ground floor"], [4.15, 60, "ground floor"], [4.23, 60, "ground floor"], [4.32, 60, "ground floor"], [4.4, 60, "ground floor"], [4.48, 60, "ground floor"], [4.57, 60, "ground floor"], [4.65, 60, "ground floor"], [4.73, 60, "ground floor"], [4.82, 60, "ground floor"], [4.9, 60, "ground floor"], [4.98, 60, "ground floor"], [5.07, 60, "ground floor"], [5.15, 60, "ground floor"], [5.23, 60, "ground floor"], [5.32, 60, "ground floor"], [5.4, 60, "ground floor"], [5.48, 60, "ground floor"], [5.57, 60, "ground floor"], [5.65, 60, "ground floor"], [5.73, 60, "ground floor"], [5.82, 58.8, "first floor"], [5.9, 57.5, "first floor"], [5.98, 57.4, "first floor"], [6.07, 55.7, "first floor"], [6.17, 54.1, "first floor"], [6.25, 53.8, "first floor"], [6.33, 52.4, "first floor"], [6.42, 50.9, "first floor"], [6.5, 51.3, "first floor"], [6.58, 51.3, "first floor"], [6.67, 49.2, "first floor"], [6.75, 47.9, "first floor"], [6.83, 49.4, "first floor"], [6.92, 48.8, "first floor"], [7.0, 48, "first floor"], [7.08, 46.6, "first floor"], [7.17, 44.8, "ground floor"], [7.25, 42.4, "ground floor"], [7.33, 41.8, "ground floor"], [7.42, 40.6, "ground floor"], [7.5, 38.9, "ground floor"], [7.58, 36.6, "ground floor"], [7.67, 35, "ground floor"], [7.77, 33.9, "ground floor"]];
+const BANDS = [[0.0, 5.73, "A \u00b7 ground floor"], [5.75, 7.1, "B + C1 \u00b7 first floor"], [7.1, 7.77, "C2 \u00b7 the way out"]];
+const W = 820, H = 340, L = 40, R = 12, T = 30, B = 44;
+const maxX = Math.ceil(DATA[DATA.length - 1][0]);
+const x = (m) => L + (m / maxX) * (W - L - R);
+const y = (v) => T + (1 - v / 100) * (H - T - B);
+const ns = 'http://www.w3.org/2000/svg';
+const svg = document.createElementNS(ns, 'svg');
+svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+svg.setAttribute('role', 'img');
+svg.setAttribute('aria-label', 'Sanity over time while the bot routes play the west wing');
+const el = (tag, attrs, text) => { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text !== undefined) e.textContent = text; svg.appendChild(e); return e; };
+BANDS.forEach(([from, to, name], i) => {
+  if (i % 2 === 0) el('rect', { x: x(from), y: T, width: x(to) - x(from), height: H - T - B, fill: 'var(--band)' });
+  el('text', { x: (x(from) + x(to)) / 2, y: T - 10, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--text-secondary)' }, name);
+});
+for (let v = 0; v <= 100; v += 25) {
+  el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: 'var(--grid)', 'stroke-width': 1 });
+  el('text', { x: L - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: 'var(--text-muted)' }, v);
+}
+for (let m = 0; m <= maxX; m += 1) el('text', { x: x(m), y: H - 26, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--text-muted)' }, m);
+el('text', { x: (L + W - R) / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 12, fill: 'var(--text-secondary)' }, 'minutes of game time');
+el('text', { x: 4, y: T - 10, 'font-size': 12, fill: 'var(--text-secondary)' }, 'Sanity');
+el('path', { d: DATA.map(([m, v], i) => `${i ? 'L' : 'M'}${x(m).toFixed(1)},${y(v).toFixed(1)}`).join(''), fill: 'none', stroke: 'var(--series-1)', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+const cross = el('line', { y1: T, y2: H - B, stroke: 'var(--rule)', 'stroke-width': 1, visibility: 'hidden' });
+const dot = el('circle', { r: 4, fill: 'var(--series-1)', stroke: 'var(--surface-1)', 'stroke-width': 2, visibility: 'hidden' });
+const hit = el('rect', { x: L, y: T, width: W - L - R, height: H - T - B, fill: 'transparent' });
+const chart = document.getElementById('chart');
+const tip = document.getElementById('tip');
+chart.appendChild(svg);
+hit.addEventListener('pointermove', (event) => {
+  const box = svg.getBoundingClientRect();
+  const m = ((event.clientX - box.left) / box.width * W - L) / (W - L - R) * maxX;
+  const [mm, v, floor] = DATA.reduce((best, p) => (Math.abs(p[0] - m) < Math.abs(best[0] - m) ? p : best));
+  for (const e of [cross, dot]) e.setAttribute('visibility', 'visible');
+  cross.setAttribute('x1', x(mm)); cross.setAttribute('x2', x(mm));
+  dot.setAttribute('cx', x(mm)); dot.setAttribute('cy', y(v));
+  tip.style.display = 'block';
+  tip.textContent = `${mm.toFixed(1)} min · sanity ${Math.round(v)} · ${floor}`;
+  const px = (x(mm) / W) * box.width;
+  tip.style.left = `${Math.min(px + 10, box.width - 170)}px`;
+  tip.style.top = `${(y(v) / H) * box.height - 34}px`;
+});
+hit.addEventListener('pointerleave', () => { for (const e of [cross, dot]) e.setAttribute('visibility', 'hidden'); tip.style.display = 'none'; });
+document.querySelector('#table tbody').innerHTML = DATA.filter((_, i) => i % 3 === 0).map(([m, v, f]) => `<tr><td>${m.toFixed(1)}</td><td>${Math.round(v)}</td><td>${f}</td></tr>`).join('');
+</script></body></html>
