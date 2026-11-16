@@ -129,8 +129,9 @@ function createGame() {
   });
   game.battery = createBattery(game);
   game.itemEffects = {
+    // A spare battery feeds whichever is in hand: the camcorder while it is raised, else the flashlight.
     battery: () => {
-      if (game.battery.replace()) game.inventory.remove('battery');
+      if (game.camcorder.raised() ? game.camcorder.recharge() : game.battery.replace()) game.inventory.remove('battery');
       return true;
     },
     pills: () => {

@@ -93,6 +93,28 @@ test('she cannot see the night view; the flash stuns her for 5 s and then needs 
   expect(result.collapsed).toBe(false);
 });
 
+test('a spare battery feeds the camcorder while it is raised, the flashlight otherwise', async ({ page }) => {
+  const result = await game(page, () => {
+    const g = window.__stAgnes;
+    g.progress.setFlag('tool_camcorder');
+    g.inventory.add('battery');
+    g.inventory.add('battery');
+    g.input.tap('camcorder');
+    g.advance(0.1);
+    const before = g.camcorder.battery();
+    g.input.tap('battery');
+    g.advance(0.1);
+    const fed = { camcorder: g.camcorder.battery(), left: g.inventory.items().length };
+    g.input.tap('battery'); // already full: the second one stays in the pocket
+    g.advance(0.1);
+    return { before, fed, kept: g.inventory.items().length };
+  });
+  expect(result.before).toBeLessThanOrEqual(50);
+  expect(result.fed.camcorder).toBeGreaterThan(99);
+  expect(result.fed.left).toBe(1);
+  expect(result.kept).toBe(1);
+});
+
 test('writing in the isolation cells shows only in the night view', async ({ page }) => {
   const shown = await game(page, () => {
     const g = window.__stAgnes;

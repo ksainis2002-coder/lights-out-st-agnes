@@ -155,21 +155,30 @@ export const WARD_ROOM_STILLS = {
     },
     ui: (ctx) => message(ctx, 'A camcorder, on its side. Its red light is still on.'),
   },
-  // The treatment room, seen through the glass: the chair under its lamp.
+  // The treatment room, seen through the glass: the chair in a hard pool of
+  // light, the instruments beside it, a box under it for feet that did not
+  // reach the floor, a small shoe left by the drain.
   treatment_room: {
     level: rooms,
-    setup({ world }) {
+    setup({ world, fx }) {
       world.flashlight.toggle();
       furnish(world, [
-        ['treatmentChair', 4, 15.0, 0], ['trolley', 5.3, 15.0, 70], ['dripStand', 2.8, 14.6, 0], ['examCouch', 1.8, 14.2, 90],
-        ['floorDrain', 4, 16, 0], ['puddle', 4.3, 15.9, 0], ['tileDecay', 4, 13, 0, { width: 2, height: 1.2, y: 1.6, seed: 5 }],
-        ['fallenTiles', 4.2, 13.5, 0, { seed: 7 }], ['bucketMop', 6.4, 13.6, 0], ['observationGlass', 4, 16.6, 180, { width: 3 }],
-        ['hangingBulb', 4, 15.0, 0, { ceiling: 3.4, lit: true }],
+        ['treatmentChair', 4, 15.0, 0], ['surgeryLamp', 4, 15.25, 0, { drop: 1.3 }], ['floorStain', 4, 15.35, 0], ['floorDrain', 4.5, 15.9, 0],
+        ['instrumentTray', 4.85, 15.25, -30], ['trolley', 3.0, 15.2, 100], ['dripStand', 3.3, 14.7, 0], ['examCouch', 1.8, 14.2, 90],
+        ['toyBox', 4, 15.42, 0, {}, 0, 0.55], ['shoes', 4.75, 15.75, 40], ['sheetPile', 2.6, 15.6, 0], ['bucketMop', 6.4, 13.6, 0],
+        ['tileDecay', 4, 13, 0, { width: 2.2, height: 1.4, y: 1.6, seed: 5 }], ['tileDecay', 1.02, 15, 90, { width: 1.4, height: 1, y: 1.2, seed: 2 }],
+        ['fallenTiles', 4.2, 13.5, 0, { seed: 7 }], ['handprints', 5.6, 13, 0], ['wallScratches', 2.6, 13, 0, { seed: 4 }],
+        ['recordsCabinet', 6.7, 14.6, -90, { lock: false }], ['wallClock', 5.9, 13, 0], ['observationGlass', 4, 16.6, 180, { width: 3 }],
       ]);
-      const cold = new THREE.PointLight('#cfe0ff', 12, 7, 1.1);
-      cold.position.set(4 * CELL, 2.5, 15.0 * CELL);
-      world.scene.add(cold);
-      eye(world, [4.7, 16.95], [4, 15.0], 1.6, 1.0);
+      const pool = new THREE.SpotLight('#eaf2ff', 70, 6, 0.75, 0.6, 1.1);
+      pool.position.set(4 * CELL, 2.9, 15.6 * CELL);
+      const fill = new THREE.PointLight('#8fa6cc', 5, 8, 1.2); // what the lamp throws back off the tiles
+      fill.position.set(4 * CELL, 1.6, 15.9 * CELL);
+      world.scene.add(fill);
+      pool.target.position.set(4 * CELL, 0, 15.25 * CELL);
+      world.scene.add(pool, pool.target);
+      eye(world, [4.75, 16.95], [4, 15.1], 1.6, 0.95);
+      Object.assign(fx, { vignette: 0.35 });
     },
     ui: (ctx) => message(ctx, 'A chair with straps, under a lamp. The door has no handle on this side.'),
   },

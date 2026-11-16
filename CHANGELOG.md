@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.72 — The flashlight's spare batteries also fit the camcorder: with it raised, the battery key puts one in. 0.4 stills: the treatment room and the writing in the isolation cells redone after the owner's notes.
 - 0.2.71 — Nora's camcorder is built (it is found upstairs, in the part still to come): C raises it, N is a green night view that Sister M. cannot see, the right mouse button fires a flash that stuns her for a few seconds and then has to charge. It has its own battery and display. Its three keys appear in Controls once it is found.
 - 0.2.70 — 0.4 stills of the first floor: the observation room with Nora's camcorder, the treatment room through the glass, an isolation cell by flashlight and in the night view (the writing on the padding), Dr. Venn's office. Nothing in the game changes.
 - 0.2.69 — West wing ground floor finished. Sister M. can no longer be avoided: passing Ward A's doors opens one by itself and starts her round. The stairs now need a heavy fuse that only the dispensary cabinet holds, so the medicine round cannot be skipped. Also: the wing's plan for the journal, the call board ringing for bed 7, lightning stopping her for a moment, the music box's case, lamps that steady your mind, and a radiator that blocked the children's ward door. A bot now plays the floor through.

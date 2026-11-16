@@ -236,13 +236,25 @@ card).
   flicker-off) that stuns her for 5 s if she is in front of you within 9 m; then 20 s to charge.
   All three keys can be rebound, and are listed in Controls once it is found (settings version 4, with a migration).
 - Its battery (progress value `camcorder_battery`): half gone when found, 15 minutes raised from
-  full, 1.6 times faster in the night view, 3 per flash. Flat, it will not come up. No way to
-  recharge it yet (an open point for part B).
+  full, 1.6 times faster in the night view, 3 per flash. Flat, it will not come up. A spare
+  flashlight battery fills it (the battery key, while it is raised).
 - The date and time on its display are your own clock's (local time, no network); the year never
   shows. The pulse is shown only on the camcorder once it is found, as the brief says.
 - For sanity the night view counts as light in hand, like the flashlight.
 - Writing that only the night view shows: props with `userData.setShown` (`nightWriting`).
 - Tests: `tests/camcorder.spec.js`.
+
+## Owner's picks on part B (2026-11-16)
+- **Stills approved,** with the treatment room and the night writing redone: the chair now stands
+  in a hard pool of light with an instrument tray, a stain round the drain, a box under it for feet
+  that did not reach the floor and a small shoe (aftermath only); the writing is a child's
+  uneven scratching, its numbers pressed harder. Both waiting for a second look.
+- **Camcorder battery:** the flashlight's spare batteries fit it. With it raised, the battery key
+  puts one in (full again); lowered, the key feeds the flashlight as before (built, 0.2.72).
+- **Flash:** 5 s stun, 20 s charge, to be tuned after part B is played.
+- **Part B in two steps:** B1 the first floor to walk, the stairs between floors, the camcorder and
+  tape, Sister M. following you up and down; B2 the television, the writing, Dr. Venn's door and
+  office, T. Hale's file page 3.
 
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills

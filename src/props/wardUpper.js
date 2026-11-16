@@ -105,26 +105,93 @@ function observationGlass(t, { width = 2.4, height = 1.2, sill = 1.0 } = {}) {
 // the wall). "lines": what it says; "shown": false hides it (the game shows
 // it while the night view is on).
 function nightWriting(t, { lines = [], shown = true, width = 3.0 } = {}) {
-  const texture = canvasTexture(128, 72, (g) => {
-    g.clearRect(0, 0, 128, 72);
+  let seed = 7;
+  const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const texture = canvasTexture(160, 96, (g) => {
+    g.clearRect(0, 0, 160, 96);
+    g.strokeStyle = '#f0fff0';
     g.fillStyle = '#f0fff0';
-    g.textBaseline = 'top';
+    g.lineCap = 'round';
+    // A child's hand, scratched with a fingernail: each letter its own size
+    // and lean, the lines wandering, every stroke gone over twice.
     lines.slice(0, 4).forEach((line, i) => {
-      let size = 15;
-      g.font = `bold ${size}px sans-serif`;
-      while (size > 7 && g.measureText(line).width > 122) g.font = `bold ${(size -= 1)}px sans-serif`;
-      g.save();
-      g.translate(3 + (i % 2) * 4, 3 + i * 17);
-      g.rotate(((i % 2) * 2 - 1) * 0.025); // a child's hand: no line quite level
-      g.fillText(line, 0, 0);
-      g.restore();
+      const size = Math.min(17, 150 / (line.length * 0.62));
+      let x = 4 + random() * 6;
+      const base = 20 + i * 22;
+      for (const letter of line) {
+        const tall = size * (0.85 + random() * 0.3) * (/[0-9]/.test(letter) ? 1.4 : 1); // the numbers pressed harder
+        g.font = `bold ${tall}px sans-serif`;
+        g.save();
+        g.translate(x, base + (random() - 0.5) * 4 + (x / 160) * (i % 2 ? 5 : -4));
+        g.rotate((random() - 0.5) * 0.22);
+        g.fillText(letter, 0, 0);
+        g.fillText(letter, 0.6, 0.4); // gone over twice
+        g.restore();
+        x += g.measureText(letter).width + 0.6;
+      }
     });
+    for (let i = 0; i < 9; i++) { // stray scratches beside the words
+      const x = random() * 150;
+      const y = random() * 90;
+      g.lineWidth = 1;
+      g.beginPath();
+      g.moveTo(x, y);
+      g.lineTo(x + 3 + random() * 5, y + (random() - 0.5) * 5);
+      g.stroke();
+    }
   });
-  const writing = decal(texture, [width, (width * 72) / 128], [0, 0.75, 0.015], { transparent: true, unlit: true, opacity: 0.95, depthWrite: false });
+  const writing = decal(texture, [width, (width * 96) / 160], [0, 1.15, 0.015], { transparent: true, unlit: true, opacity: 0.95, depthWrite: false });
   writing.visible = shown;
   const prop = group(writing);
   prop.userData.setShown = (value) => (writing.visible = value);
   return prop;
 }
 
-export const WARD_UPPER_PROPS = { treatmentChair, tripod, camcorder, videoTape, observationGlass, nightWriting };
+// The lamp over the treatment chair: a wide enamel shade on an arm from the
+// ceiling, its bulb lit (the level puts the light under it).
+function surgeryLamp(t, { ceiling = 3.4, drop = 1.2 } = {}) {
+  const shade = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.2, 8, 1, true), new THREE.MeshBasicMaterial({ color: 0x8a9088, side: THREE.DoubleSide }));
+  shade.position.y = ceiling - drop;
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.07, 6, 4), new THREE.MeshBasicMaterial({ color: 0xf2f6ff }));
+  bulb.position.y = ceiling - drop - 0.06;
+  return group(box(t.iron, [0.03, drop - 0.1, 0.03], [0, ceiling - drop + 0.1, 0], { color: '#3a3c3a' }), shade, bulb);
+}
+
+// A steel tray of instruments on a stand: a row of thin tools, a kidney
+// dish, a folded cloth.
+function instrumentTray(t) {
+  const steel = { color: '#b0b4ae' };
+  const tools = [-0.16, -0.1, -0.04, 0.02, 0.08].map((x, i) => box(t.iron, [0.012, 0.01, 0.16 + (i % 2) * 0.05], [x, 0.905, 0.02], steel));
+  return group(
+    box(t.iron, [0.03, 0.86, 0.03], [0, 0, 0], steel),
+    box(t.iron, [0.4, 0.03, 0.04], [0, 0, 0], steel),
+    box(t.iron, [0.04, 0.03, 0.4], [0, 0, 0], steel),
+    box(t.iron, [0.5, 0.02, 0.34], [0, 0.88, 0], steel),
+    ...tools,
+    box(t.sheet, [0.12, 0.03, 0.08], [0.17, 0.9, -0.08], { color: '#8a9a9a' }),
+    box(t.sheet, [0.14, 0.02, 0.1], [0.16, 0.9, 0.08], { color: '#c8c4b4' }),
+  );
+}
+
+// A dark old stain on the floor (walkable), soaked in around a drain or a chair.
+function floorStain(t, { width = 1.4, depth = 1.1 } = {}) {
+  let seed = 4;
+  const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const texture = canvasTexture(24, 24, (g) => {
+    g.clearRect(0, 0, 24, 24);
+    for (let y = 0; y < 24; y++) {
+      for (let x = 0; x < 24; x++) {
+        const d = Math.hypot(x - 11.5, y - 11.5) / 12 + (random() - 0.5) * 0.35;
+        if (d < 1) {
+          g.fillStyle = `rgba(${34 + random() * 14},${14 + random() * 8},${10 + random() * 6},${Math.min(0.85, (1 - d) * 1.6)})`;
+          g.fillRect(x, y, 1, 1);
+        }
+      }
+    }
+  });
+  const stain = decal(texture, [width, depth], [0, 0.012, 0], { transparent: true, depthWrite: false });
+  stain.rotation.x = -Math.PI / 2;
+  return group(stain);
+}
+
+export const WARD_UPPER_PROPS = { treatmentChair, tripod, camcorder, videoTape, observationGlass, nightWriting, surgeryLamp, instrumentTray, floorStain };

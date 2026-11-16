@@ -10,7 +10,8 @@
 //      charges for 20 s.
 // Its own battery (progress value camcorder_battery, 0–100; half gone when
 // found) runs down while it is raised, faster in the night view; flat, it
-// will not come up. All three keys can be rebound.
+// will not come up; a spare flashlight battery, used while it is raised (B),
+// fills it. All three keys can be rebound.
 import * as THREE from 'three';
 import { clearLine } from '../ai/gaze.js';
 
@@ -117,6 +118,14 @@ export function createCamcorder(game) {
     nightOn,
     night: () => night,
     battery,
+    // A spare battery (owner pick 2026-11-16: the flashlight's batteries fit it): full again.
+    recharge() {
+      if (battery() > 95) return false;
+      setBattery(100);
+      game.events.emit('battery.replaced');
+      game.messages.show('msg.camcorderBattery', null, 3);
+      return true;
+    },
     flashReady: () => charge <= 0,
     charging: () => charge,
   };
