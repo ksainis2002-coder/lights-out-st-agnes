@@ -57,6 +57,7 @@ import { createCamcorder } from './player/camcorder.js';
 import { createEdith } from './ghosts/edith.js';
 import { createSigns } from './levels/signs.js';
 import { createIntro } from './cutscenes/intro.js';
+import { createTape } from './cutscenes/tape.js';
 
 // Boot and main loop. Two modes: 'ui' (a screen is open, the world is
 // frozen behind it) and 'playing' (input drives the player).
@@ -103,6 +104,7 @@ function createGame() {
   game.presences = [() => game.hallucinations.active()?.position ?? null];
   game.collapse = createCollapse(game);
   game.intro = createIntro(game);
+  game.tape = createTape(game); // Nora's tape on the day room television
   game.ghosts = createGhostDirector(game);
   game.blink = createBlink(game);
   game.watcher = createWatcher(game);
@@ -181,6 +183,7 @@ function setupModes(game) {
   // Nothing is saved here; tapes and the checkpoint autosave stay as they are.
   game.stop = () => {
     game.intro.cancel();
+    game.tape.finish();
     game.messages.clear();
     resetState(game);
     Object.assign(game.pipeline.fx, { eyelid: 0, blur: 0, aberration: 0, vignette: 0, fade: 0 });
@@ -278,8 +281,9 @@ function simulate(game, dt) {
     world.update(dt);
     return;
   }
-  if (game.intro.active()) {
-    game.intro.update(dt, input);
+  if (game.intro.active() || game.tape.active()) {
+    if (game.intro.active()) game.intro.update(dt, input);
+    else game.tape.update(dt, input);
     world.update(dt);
     game.sfx.update(dt);
     return;
@@ -333,6 +337,7 @@ function tick(game, dt) {
   game.hiding.applyCamera(world.camera);
   if (game.collapse.active()) game.collapse.applyCamera(world.camera);
   else if (game.intro.active()) game.intro.applyCamera(world.camera);
+  else if (game.tape.active()) game.tape.applyCamera(world.camera);
   else if (game.session.active) applySanityEffects(game, game.sanity.value(), game.time);
   world.camera.updateMatrixWorld();
   updateListener(game.mixer, world.camera);

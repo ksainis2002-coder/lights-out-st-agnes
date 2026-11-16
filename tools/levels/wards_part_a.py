@@ -136,7 +136,7 @@ def wards():
     # (owner pick 2026-11-15), the video recorder's light waiting for a tape.
     camcorder = {"flag": "tool_camcorder"}
     L.prop(day, 'television', 11.4, 0.9, -15, extra={"id": "day_tv", "until": camcorder})
-    L.prop(day, 'television', 11.4, 0.9, -15, extra={"id": "day_tv", "after": camcorder, "use": "message", "message": "msg.tvStatic",
+    L.prop(day, 'television', 11.4, 0.9, -15, extra={"id": "day_tv", "after": camcorder, "use": "tape", "message": "msg.tvStatic",
                                                     "prompt": "prompt.look", "useHeight": 1.05, "useRadius": 0.4}, on=True)
     L.many(day, [
         ('rug', 9.4, 2.4, 0, {"width": 3, "depth": 2.2}), ('armchair', 8.2, 2.2, 125), ('armchair', 9.4, 2.9, 165),

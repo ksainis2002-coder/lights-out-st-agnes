@@ -39,15 +39,16 @@ export function createSubtitles(game) {
     },
     current: () => current,
     speaker: () => (current ? speakerLabel(game, current.speaker) : null), // the label shown now (tests)
-    draw(ctx) {
+    // width / bottom: a narrower box higher up (inside the television, cutscenes/tape.js).
+    draw(ctx, { width = 400, bottom = H - 30 } = {}) {
       if (!current || !game.settings.get('subtitles')) return false;
       const { t } = game.i18n;
       const tag = subtitleTag(game, current);
       const text = tag ? `${tag} ${t(current.key)}` : t(current.key);
-      const lines = wrapText(ctx, text, 10, 380);
-      const top = H - 30 - lines.length * 13;
+      const lines = wrapText(ctx, text, 10, width - 20);
+      const top = bottom - lines.length * 13;
       ctx.fillStyle = 'rgba(0,0,0,0.55)';
-      ctx.fillRect(W / 2 - 200, top - 4, 400, lines.length * 13 + 8);
+      ctx.fillRect(W / 2 - width / 2, top - 4, width, lines.length * 13 + 8);
       lines.forEach((line, i) => osdText(ctx, line, W / 2, top + i * 13, 10, current.whisper ? '#c9d2e0' : '#e8f0ff', 'center'));
       return true;
     },

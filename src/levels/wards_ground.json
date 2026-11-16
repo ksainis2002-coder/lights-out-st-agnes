@@ -687,7 +687,7 @@
    "after": {
     "flag": "tool_camcorder"
    },
-   "use": "message",
+   "use": "tape",
    "message": "msg.tvStatic",
    "prompt": "prompt.look",
    "useHeight": 1.05,

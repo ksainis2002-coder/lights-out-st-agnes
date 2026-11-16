@@ -371,6 +371,7 @@ export function createNun(game) {
     debugLine,
     drawDebug,
     state: () => ({ mode, x: position.x, z: position.z, sees, active: Boolean(model), stunned: stunned > 0 }),
+    hide: (value) => model && (model.visible = !value), // out of Nora's footage (cutscenes/tape.js)
     // The camcorder's flash (player/camcorder.js): she stands blinded for that long.
     stun(seconds) {
       if (!model || mode === 'intro') return false;

@@ -292,9 +292,23 @@ The first floor can be walked, and the camcorder can be found:
   glow, a look line ("waiting for a tape"), and the static heard in the room (radio_static as a
   stand-in; level emitters now take "after").
 - **The first floor's plan** on the corridor board by the stair head, for the journal.
-- **Not yet:** the tape played on the television (still `ui_tape` waiting for a yes), the night
-  sister's key (comes with part C, with her room), the bot route upstairs.
+- **Not yet:** the night sister's key (comes with part C, with her room), the bot route upstairs.
 - Tests: `tests/wardsB2.spec.js`.
+
+## Nora's tape as built (0.2.76)
+`src/cutscenes/tape.js`, display `src/ui/tapeHud.js` (approved still `ui_tape`). With the tape in
+hand, the day room television's use is "Play the tape": the tape goes into the recorder for good
+(flag `tape_in`, it can be played again) and about 25 s of her footage plays in the night view,
+inside the set's bezel, with her four lines (speaker "Nora, on tape"):
+1. Ward A as she filmed it, every lamp lit (the real room; `lamps.film` shows them lit without
+   touching the story, `refresh` puts them back), Sister M. hidden from the shot;
+2. the far lamps going out towards her;
+3. a cut to a padded cell built for the shot past the level's edge, the writing on its wall;
+4. the turn to the doorway, Sister M. in it, the fall, static.
+The game stands still while it plays (nothing can catch you); a click, ENTER or SPACE stops it.
+Comfort mode: a slow turn and no fall. Reduce-effects / flicker-off soften the static (the pipeline's
+rewind setting). Its clue: `watched_nora_tape`. Sounds: tape hiss, the VCR's insert and eject, the
+lamps going out (candle snuff as a stand-in). Tests: `tests/tape.spec.js`.
 
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills

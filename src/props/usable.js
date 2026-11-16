@@ -138,6 +138,19 @@ const USES = {
   },
 };
 
+// { "type": "television", "use": "tape", "message": "<key>" }: the day room's set. With Nora's tape
+// in hand it goes in the video recorder and plays (cutscenes/tape.js), and can be played again;
+// without it, its line.
+USES.tape = {
+  prompt: 'prompt.look',
+  height: 1.05,
+  promptFor: (game) => (game.inventory.has('nora_tape') || game.progress.hasFlag('tape_in') ? 'prompt.playTape' : 'prompt.look'),
+  run(game, prop) {
+    if (game.inventory.remove('nora_tape')) game.progress.setFlag('tape_in');
+    if (!game.progress.hasFlag('tape_in')) return game.messages.show(prop.message, null, 4);
+    game.tape.start();
+  },
+};
 // { "type": "wardBed", "use": "hide" }: under the bed, out of Sister M.'s sight (player/hide.js).
 USES.hide = { prompt: 'prompt.hideUnderBed', height: 0.45, run: (game, prop) => game.hiding.enter(prop) };
 

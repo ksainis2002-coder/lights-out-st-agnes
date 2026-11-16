@@ -255,5 +255,7 @@ the way out, the hub's decay).
 **0.4 part B2 (0.2.75):** the cell writing, Dr. Venn's door and office (file page 3), the television
 waiting for a tape, the first floor's plan ("Part B2 as built" in `docs/DESIGN_0.4.md`). Waiting on
 the owner: the `ui_tape` still. Then: the tape playback, part C.
+**0.4 Nora's tape (0.2.76):** plays on the day room television ("Nora's tape as built" in
+`docs/DESIGN_0.4.md`). Part B is done. Next: part C, starting with stills of Sister M.'s room.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

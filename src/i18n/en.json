@@ -753,5 +753,15 @@
   "map.room.observation": "Observation",
   "map.room.ward_stairs_top": "Stairs",
   "map.room.treatment_corridor": "Corridor",
-  "map.room.venn_office": "Dr. Venn"
+  "map.room.venn_office": "Dr. Venn",
+  "prompt.playTape": "Play the tape",
+  "speaker.nora_tape": "Nora, on tape",
+  "speaker.nora_tape.unknown": "a woman, on tape",
+  "tape.line.1": "Tape two. Ward A. Every lamp is on. Somebody keeps them on.",
+  "tape.line.2": "No. Somebody is putting them out.",
+  "tape.line.3": "Isolation. There's writing on the padding. You can't see it with your eyes, only through this. A child wrote it.",
+  "tape.end": "(her breath; the tape ends)",
+  "tape.play": "PLAY",
+  "tape.footer": "CLICK / ENTER  stop the tape",
+  "clue.watched_nora_tape": "Nora's tape: the thing in the wards cannot see the camcorder's night view. And a child wrote something in the isolation cells that only the night view shows."
 }

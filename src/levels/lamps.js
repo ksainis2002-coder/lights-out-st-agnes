@@ -57,6 +57,15 @@ export function createLamps(game) {
     lit: () => lamps.filter((lamp) => lamp.lit),
     litIn: (room) => lamps.some((lamp) => lamp.lit && lamp.room === room),
     snuff: (id) => set(id, false),
+    // For Nora's tape (cutscenes/tape.js): a lamp as it looked when she
+    // filmed, story untouched; refresh() shows them all as they are now.
+    film(id, lit) {
+      const lamp = lamps.find((entry) => entry.id === id);
+      if (!lamp) return;
+      lamp.light.visible = lit;
+      lamp.bulb.material.color.setHex(lit ? LIT : DEAD);
+    },
+    refresh: () => lamps.forEach(show),
     // The fuse board: a circuit gets its fuse (every lamp on it burns again) or loses it.
     power(circuit, on) {
       for (const lamp of lamps.filter((entry) => entry.circuit === circuit)) {

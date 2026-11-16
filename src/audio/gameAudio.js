@@ -77,6 +77,8 @@ export function createGameAudio(game) {
   events.on('collapse.started', () => play('wake_gasp', { volume: 0.7 }));
   events.on('collapse.scare', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
   events.on('game.saved', () => play('vhs_eject', { volume: 0.7, pitchJitter: 0 }));
+  events.on('tape.started', () => play('vhs_insert', { volume: 0.8, pitchJitter: 0 })); // Nora's tape into the day room's recorder
+  events.on('tape.ended', () => play('vhs_eject', { volume: 0.6, pitchJitter: 0 }));
   // Leaving by the stairs: a few steps on the wooden treads while the view fades.
   events.on('level.leaving', ({ via } = {}) => {
     if (via !== 'stairs') return play('door_use', { volume: 0.9 });
