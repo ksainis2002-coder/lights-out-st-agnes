@@ -248,5 +248,9 @@ camcorder. Waiting on the owner: playtest of part A, the sounds, the content she
 camcorder is built ("The camcorder as built" in `docs/DESIGN_0.4.md`) but not yet found in the game.
 Next, once the stills are approved: the first-floor level (`wards_upper`), the camcorder and tape
 pickup, the day room television, the isolation writing and Dr. Venn's door.
+**0.4 part B1 (0.2.74):** the first floor is walkable, the camcorder and tape can be picked up, and
+Sister M. follows between floors ("Part B1 as built" in `docs/DESIGN_0.4.md`). Next: B2 (the cell
+writing, Dr. Venn's door and office, the television), then part C (Sister M.'s room, the music box,
+the way out, the hub's decay).
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

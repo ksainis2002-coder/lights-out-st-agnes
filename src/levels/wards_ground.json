@@ -54,6 +54,13 @@
     5
    ],
    "yawDegrees": 90
+  },
+  "stairs": {
+   "cell": [
+    38.5,
+    6.0
+   ],
+   "yawDegrees": 180
   }
  },
  "rooms": [
@@ -2711,8 +2718,15 @@
    "day_room",
    "admissions",
    "fuse_room",
-   "dispensary"
+   "dispensary",
+   "ward_stairs"
   ],
+  "arrivals": {
+   "stairs": [
+    39.0,
+    6.3
+   ]
+  },
   "intro": {
    "room": "ward_a",
    "from": [

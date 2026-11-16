@@ -708,5 +708,20 @@
   "item.camcorder.short": "A video camera. Its red light is still on.",
   "card.camcorder.body": "Its night view sees in the dark without making light. Its flash blinds for a moment, then has to charge. The battery runs down while it is up.",
   "card.camcorder.use": "{camcorder}  raise / lower   ·   {nightView}  night view   ·   {flash}  flash",
-  "msg.camcorderBattery": "A fresh battery in the camcorder."
+  "msg.camcorderBattery": "A fresh battery in the camcorder.",
+  "room.wards_upper": "West wing, first floor",
+  "room.sister_room": "West wing — Sister M.'s room",
+  "room.cell_1": "West wing — isolation cell",
+  "room.cell_2": "West wing — isolation cell",
+  "room.isolation": "West wing — isolation",
+  "room.treatment_room": "West wing — treatment room",
+  "room.observation": "West wing — observation",
+  "room.ward_stairs_top": "West wing — stairs",
+  "room.treatment_corridor": "West wing — treatment corridor",
+  "room.venn_office": "West wing — Dr. Venn's office",
+  "msg.sisterDoorLocked": "Locked. No light under the door.",
+  "msg.vennDoorLocked": "Locked. A brass plate on the door: DR. A. VENN.",
+  "item.nora_tape.name": "Nora's tape",
+  "item.nora_tape.desc": "A video cassette. On its label: ST. AGNES — WEST WING — TAPE 2. If found, play it.",
+  "item.nora_tape.short": "A video cassette. TAPE 2."
 }

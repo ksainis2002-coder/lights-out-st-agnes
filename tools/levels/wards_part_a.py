@@ -275,7 +275,8 @@ def wards():
         "legend": {".": "floor", "#": "wardWall"},
         "map": [''.join(r) for r in cells],
         "spawns": {"default": {"cell": [38, 13], "yawDegrees": 90}, "courtyard_door": {"cell": [38, 13], "yawDegrees": 90},
-                   "home_wards": {"cell": [35.4, 5], "yawDegrees": 90}},
+                   "home_wards": {"cell": [35.4, 5], "yawDegrees": 90},
+                   "stairs": {"cell": [38.5, 6.0], "yawDegrees": 180}},  # coming down from the first floor
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [rain],
         "emitters": [{"sound": "hospital_drip", "at": bat.at(4.3, 0.6), "height": 0.5, "volume": 0.5, "distance": 3,
@@ -300,7 +301,8 @@ def wards():
         # puts its lamps out one by one, towards the doors; then she walks her round. The
         # nurses' station (the tape recorder, the door home) is not on it: a safe room.
         "nun": {
-            "territory": ["ward_corridor", "ward_a", "childrens_ward", "baths", "day_room", "admissions", "fuse_room", "dispensary"],
+            "territory": ["ward_corridor", "ward_a", "childrens_ward", "baths", "day_room", "admissions", "fuse_room", "dispensary", "ward_stairs"],
+            "arrivals": {"stairs": [39.0, 6.3]},  # where she comes off the stairs after you (ai/nunFloors.js)
             "intro": {"room": "ward_a", "from": wa.at(0.8, 3.0), "lamps": ["ward_a_1", "ward_a_2", "ward_a_3"],
                       # also as you pass its doors in the corridor: the nearer one swings open by itself
                       "cells": [9, 8, 17, 9], "doors": ["ward_a_west", "ward_a_east"]},

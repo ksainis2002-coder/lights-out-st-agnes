@@ -48,7 +48,7 @@ export function createEdith(game) {
     queue = [];
     wait = 0;
     const data = level.edith;
-    if (!data) return;
+    if (!data?.at) return; // on other floors of the wing she is only her voice
     ghost = PROPS.ghostEdith(game.world.textures, { opacity: 0.55 });
     at = new THREE.Vector3(data.at[0] * level.cellSize, data.y ?? 0.48, data.at[1] * level.cellSize);
     ghost.position.copy(at);
@@ -103,10 +103,12 @@ export function createEdith(game) {
 
   function update(dt) {
     const level = game.world.level;
-    if (!level.edith || !ghost) return;
+    if (!level.edith) return;
     wait -= dt;
-    callBoard(level);
-    meet(level);
+    if (ghost) {
+      callBoard(level);
+      meet(level);
+    }
     if (queue.length) {
       if (wait <= 0) {
         say(queue.shift());

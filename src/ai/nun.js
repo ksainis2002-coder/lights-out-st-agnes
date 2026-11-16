@@ -25,6 +25,7 @@ import { createPathing } from './path.js';
 import { roomAt } from '../levels/loader.js';
 
 export const WALKING = 'nun_walking';
+export const FLOOR = 'nun_floor'; // progress value: the level she walks now (ai/nunFloors.js brings her after you)
 const SPEED = 1.5; // m/s on Normal: a little under your walk (1.7), far under your run (3.3)
 const DIFFICULTY = { story: 0.8, normal: 1, hard: 1.2 };
 const SEES = 15; // metres: how far she sees a light
@@ -109,6 +110,7 @@ export function createNun(game) {
   function setup(level) {
     remove();
     if (!level.nun || !game.progress.hasFlag(WALKING)) return;
+    if (game.progress.getValue(FLOOR, 'wards_ground') !== level.id) return; // she is on the other floor
     stop = farStop();
     place(level.nun.round[stop]);
     mode = 'round';
@@ -137,6 +139,7 @@ export function createNun(game) {
     const lamp = id && game.lamps.all().find((entry) => entry.id === id);
     if (lamp) return goTo({ x: lamp.position.x, z: lamp.position.z, lamp: id });
     game.progress.setFlag(WALKING);
+    game.progress.setValue(FLOOR, game.world.level.id);
     game.events.emit('checkpoint');
     mode = 'round';
     target = null;
@@ -376,6 +379,14 @@ export function createNun(game) {
       return true;
     },
     position: () => (model ? position.clone() : null),
+    // Up or down the stairs after you (ai/nunFloors.js): she walks this floor now.
+    arrive(at) {
+      if (model || !data()) return;
+      game.progress.setValue(FLOOR, game.world.level.id);
+      place(at);
+      stop = 0;
+      mode = 'round';
+    },
     // For tests: stand her somewhere, facing her round again.
     moveTo(x, z) {
       if (!model) return;

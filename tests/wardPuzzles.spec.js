@@ -105,7 +105,7 @@ test('the medicine round: the numbers mean nothing until the card is read; 3 8 1
   expect(errors).toEqual([]);
 });
 
-test('the stairs take only the heavy fuse from the cabinet: the fuse from the baths is refused, the heavy one opens the gate', async ({ page }) => {
+test('the stairs take only the heavy fuse from the cabinet: the fuse from the baths is refused, the heavy one opens the gate to the stairs', async ({ page }) => {
   expect(await lookAt(page, [2.5, 2.9], [2.5, 1.93, 0.65])).toBe('prompt.take'); // on the rim of the first tub
   await use(page);
   expect(await fuses(page)).toBe(1);
@@ -119,7 +119,7 @@ test('the stairs take only the heavy fuse from the cabinet: the fuse from the ba
   expect(await flag(page, 'power_stairs')).toBe(true);
   expect(await flag(page, 'puzzle_ward_fuses')).toBe(true);
   expect(await lookAt(page, [38.5, 8.6], [38.5, 7.5, 1.2])).toBe('prompt.open');
-  expect(await lookAt(page, [39, 6.2], [39, 5.6, 0.9])).toBe('prompt.notYet');
+  expect(await lookAt(page, [39, 6.2], [39, 5.6, 0.9])).toBe('prompt.stairsUp');
 });
 
 test('she cannot be missed: passing Ward A in the corridor opens its door and starts her', async ({ page }) => {

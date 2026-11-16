@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.74 — The west wing's first floor: up the stairs to the treatment corridor, the observation room (Nora's camcorder and her tape to pick up), the treatment room seen through its glass, and the isolation cells. Sister M. now comes up or down the stairs about half a minute after you, her beads on the stairs first. Dr. Venn's office and her own room stay shut for now.
 - 0.2.73 — 0.4 still: the writing in the isolation cell is easier to read, its numbers large. Nothing in the game changes.
 - 0.2.72 — The flashlight's spare batteries also fit the camcorder: with it raised, the battery key puts one in. 0.4 stills: the treatment room and the writing in the isolation cells redone after the owner's notes.
 - 0.2.71 — Nora's camcorder is built (it is found upstairs, in the part still to come): C raises it, N is a green night view that Sister M. cannot see, the right mouse button fires a flash that stuns her for a few seconds and then has to charge. It has its own battery and display. Its three keys appear in Controls once it is found.

@@ -73,6 +73,10 @@ const FOOTPRINTS = {
   television: () => ({ size: [0.7, 0.5] }),
   stretcher: () => ({ size: [0.66, 1.9] }),
   dripStand: () => ({ size: [0.3, 0.3] }),
+  observationGlass: (options) => ({ size: [options?.width ?? 2.4, 0.16] }),
+  treatmentChair: () => ({ size: [0.9, 0.9] }),
+  tripod: () => ({ size: [0.5, 0.5] }),
+  instrumentTray: () => ({ size: [0.5, 0.34] }),
 };
 
 function footprint(prop, cellSize) {

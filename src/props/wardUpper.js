@@ -77,7 +77,8 @@ function videoTape(t) {
 }
 
 // The observation window: a steel frame in the wall line, wired glass.
-function observationGlass(t, { width = 2.4, height = 1.2, sill = 1.0 } = {}) {
+// It cannot be walked through (props/footprints.js).
+function observationGlass(t, { width = 2.4, height = 1.2, sill = 1.0, wall = false } = {}) {
   const steel = { color: '#6a6e6a' };
   const wires = canvasTexture(16, 16, (g) => {
     g.clearRect(0, 0, 16, 16);
@@ -91,7 +92,10 @@ function observationGlass(t, { width = 2.4, height = 1.2, sill = 1.0 } = {}) {
   });
   const pane = decal(wires, [width, height], [0, sill + height / 2, 0], { transparent: true, side: THREE.DoubleSide });
   pane.material.map.repeat?.set(width * 4, height * 4);
+  // "wall": the glass is a room's wall itself: tiles below the sill, plaster above the frame.
+  const fill = wall ? [box(t.tile, [width, sill - 0.06, 0.14], [0, 0, 0]), box(t.wardWall, [width, 3.4 - sill - height - 0.06, 0.14], [0, sill + height + 0.06, 0])] : [];
   return group(
+    ...fill,
     pane,
     box(t.iron, [width + 0.1, 0.06, 0.1], [0, sill - 0.06, 0], steel),
     box(t.iron, [width + 0.1, 0.06, 0.1], [0, sill + height, 0], steel),

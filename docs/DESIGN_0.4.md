@@ -257,6 +257,27 @@ card).
   tape, Sister M. following you up and down; B2 the television, the writing, Dr. Venn's door and
   office, T. Hale's file page 3.
 
+## Part B1 as built (0.2.74)
+The first floor can be walked, and the camcorder can be found:
+- **Level:** `src/levels/wards_upper.json`, written by `tools/levels/wards_part_b.py`. North row:
+  Sister M.'s room (shut, part C), two isolation cells off a lobby, the treatment room, the
+  observation room, the stair head; the treatment corridor; Dr. Venn's office (shut, B2).
+- **The stairs:** the ground floor's flight (behind its gate) leads up; the stair head leads down
+  to its foot (spawns `stairs` on both levels).
+- **Observation:** Nora's camcorder (pickup `nora_camcorder`, a tool with its "new item" card) and
+  her tape (item `nora_tape`, for the day room television in B2). Its west side is the glass
+  itself (`observationGlass` with `wall: true`, a footprint that cannot be walked through): the
+  treatment room is seen and never entered.
+- **Sister M. between floors** (`src/ai/nunFloors.js`): once her round has begun, she comes off
+  the stairs 30 s after you change floor (45 s in comfort mode), her beads heard on the stairs 5 s
+  before, never onto you. The floor she walks is saved (`nun_floor`). Upstairs she walks the
+  corridor, the observation room and the isolation lobby and cells; no first-round set piece.
+- **Edith** upstairs is only her voice (level data `"edith": { "room": null }`).
+- Tests: `tests/wardsUpper.spec.js`.
+- **For B2:** the writing in the cells (`nightWriting` with the game's language), Dr. Venn's door
+  (4 2 6 1) and office (his notes, T. Hale's file page 3, the radio, the night sister's key, a door
+  home), the tape on the day room television, the first floor's plan for the journal.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

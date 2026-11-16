@@ -51,6 +51,7 @@ import { createStorm } from './levels/storm.js';
 import { createRadios } from './levels/radios.js';
 import { createLamps } from './levels/lamps.js';
 import { createNun } from './ai/nun.js';
+import { createNunFloors } from './ai/nunFloors.js';
 import { createHiding } from './player/hide.js';
 import { createCamcorder } from './player/camcorder.js';
 import { createEdith } from './ghosts/edith.js';
@@ -111,6 +112,7 @@ function createGame() {
   game.hiding = createHiding(game); // under a ward bed
   game.lamps = createLamps(game); // ward lamps, lit until Sister M. puts them out
   game.nun = createNun(game); // Sister M., who sees only light
+  game.nunFloors = createNunFloors(game, game.nun); // she comes up and down the stairs after you
   game.edith = createEdith(game); // Edith, who hears her coming
   game.camcorder = createCamcorder(game); // Nora's: night view and flash
   game.enemies = [game.watcher, game.nun]; // the debug overlay shows their senses and state
@@ -313,6 +315,7 @@ function simulate(game, dt) {
   game.radios.update(dt);
   game.camcorder.update(dt, input);
   game.nun.update(dt);
+  game.nunFloors.update(dt);
   game.edith.update(dt);
   game.moves.update();
   game.hallucinations.update(dt, game.sanity.value(), world.camera);

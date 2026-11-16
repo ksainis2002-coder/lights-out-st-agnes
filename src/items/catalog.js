@@ -24,6 +24,7 @@ export const ITEMS = {
   gate_key: { icon: 'key', consumed: true },
   matches: { icon: 'matches' },
   skipping_rope: { icon: 'rope' },
+  nora_tape: { icon: 'tape' }, // her tape 2: plays on the day room television (part B2)
   fuse: { icon: 'fuse' }, // the west wing's fuse board takes them, one a socket (puzzles/wardFuses.js)
   fuse_large: { icon: 'fuseLarge' }, // the heavy one, for the stairs' socket
   music_box_cylinder: { icon: 'cylinder' }, // a part of Edith's music box
