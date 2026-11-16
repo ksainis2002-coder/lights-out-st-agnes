@@ -7,7 +7,7 @@ import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { canvasTexture, decal } from '../props/parts.js';
 import { aim, look, subtitle, message } from './helpers.js';
-import { camcorder, usePrompt } from './wardUi.js';
+import { camcorder, usePrompt, tapePlayback } from './wardUi.js';
 import wards from './levels/wards.json';
 import grounds from '../levels/grounds.json';
 
@@ -217,4 +217,19 @@ WARD_STILLS.nun_face = {
     aim(world.camera, [4.5 * CELL, 1.72, 7.3 * CELL + 0.7], 0, -1);
     Object.assign(fx, { vignette: 0.4 });
   },
+};
+
+// Proposal: Nora's tape playing on the day room television: her footage of
+// Ward A in her camcorder's night view, every lamp still on.
+WARD_STILLS.ui_tape = {
+  level: wards,
+  setup({ world, fx }) {
+    lightsOutSign(world);
+    lampOn(world, [4.5, 3.0]);
+    lampOn(world, [4.5, 6.6]);
+    aim(world.camera, [4.9 * CELL, 1.5, 9.4 * CELL], 4, -3, 2);
+    world.flashlight.toggle();
+    Object.assign(fx, { nightVision: 1, vignette: 0.2 });
+  },
+  ui: (ctx) => tapePlayback(ctx),
 };

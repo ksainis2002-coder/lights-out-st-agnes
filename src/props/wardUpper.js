@@ -109,17 +109,25 @@ function observationGlass(t, { width = 2.4, height = 1.2, sill = 1.0, wall = fal
 // the wall). "lines": what it says; "shown": false hides it (the game shows
 // it while the night view is on).
 function nightWriting(t, { lines = [], shown = true, width = 3.0 } = {}) {
-  let seed = 7;
-  const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const texture = canvasTexture(160, 96, (g) => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 160;
+  canvas.height = 96;
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.NearestFilter;
+  texture.generateMipmaps = false;
+  // A child's hand, scratched with a fingernail: a little uneven, every
+  // stroke gone over twice; kept clear enough to read through the grain
+  // (owner 2026-11-16: the numbers are a door code).
+  function write(text = []) {
+    let seed = 7;
+    const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const g = canvas.getContext('2d');
     g.clearRect(0, 0, 160, 96);
     g.strokeStyle = '#f0fff0';
     g.fillStyle = '#f0fff0';
     g.lineCap = 'round';
-    // A child's hand, scratched with a fingernail: a little uneven, every
-    // stroke gone over twice; kept clear enough to read through the grain
-    // (owner 2026-11-16: the numbers are a door code).
-    lines.slice(0, 4).forEach((line, i) => {
+    text.slice(0, 4).forEach((line, i) => {
       const size = Math.min(18, 150 / (line.length * 0.62));
       let x = 4 + random() * 6;
       const base = 20 + i * 22;
@@ -144,12 +152,26 @@ function nightWriting(t, { lines = [], shown = true, width = 3.0 } = {}) {
       g.lineTo(x + 3 + random() * 5, y + (random() - 0.5) * 5);
       g.stroke();
     }
-  });
+    texture.needsUpdate = true;
+  }
+  write(lines);
   const writing = decal(texture, [width, (width * 96) / 160], [0, 1.15, 0.015], { transparent: true, unlit: true, opacity: 0.95, depthWrite: false });
   writing.visible = shown;
   const prop = group(writing);
   prop.userData.setShown = (value) => (writing.visible = value);
+  prop.userData.write = write; // levels/signs.js: the lines of its "sign" text, in the game's language
   return prop;
+}
+
+// A brass plate with four number wheels, set in the wall beside a door (back
+// to the wall): Dr. Venn's door lock (puzzles/doorLock.js).
+function wheelLock(t) {
+  const brass = { color: '#a88a3a' };
+  return group(
+    box(t.sheet, [0.2, 0.14, 0.02], [0, 1.25, 0.01], { color: '#6a5424' }),
+    box(t.sheet, [0.18, 0.12, 0.012], [0, 1.26, 0.024], brass),
+    ...[-0.06, -0.02, 0.02, 0.06].map((x) => box(t.sheet, [0.03, 0.06, 0.014], [x, 1.29, 0.032], { color: '#d8c890' })),
+  );
 }
 
 // The lamp over the treatment chair: a wide enamel shade on an arm from the
@@ -199,4 +221,4 @@ function floorStain(t, { width = 1.4, depth = 1.1 } = {}) {
   return group(stain);
 }
 
-export const WARD_UPPER_PROPS = { treatmentChair, tripod, camcorder, videoTape, observationGlass, nightWriting, surgeryLamp, instrumentTray, floorStain };
+export const WARD_UPPER_PROPS = { treatmentChair, tripod, camcorder, videoTape, observationGlass, nightWriting, wheelLock, surgeryLamp, instrumentTray, floorStain };

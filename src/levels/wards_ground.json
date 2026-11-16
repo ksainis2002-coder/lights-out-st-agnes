@@ -668,7 +668,30 @@
     11.9
    ],
    "rotation": -15,
-   "id": "day_tv"
+   "id": "day_tv",
+   "until": {
+    "flag": "tool_camcorder"
+   }
+  },
+  {
+   "type": "television",
+   "at": [
+    21.4,
+    11.9
+   ],
+   "rotation": -15,
+   "options": {
+    "on": true
+   },
+   "id": "day_tv",
+   "after": {
+    "flag": "tool_camcorder"
+   },
+   "use": "message",
+   "message": "msg.tvStatic",
+   "prompt": "prompt.look",
+   "useHeight": 1.05,
+   "useRadius": 0.4
   },
   {
    "type": "rug",
@@ -2402,6 +2425,21 @@
   }
  ],
  "emitters": [
+  {
+   "sound": "radio_static",
+   "at": [
+    21.4,
+    12.3
+   ],
+   "height": 1.0,
+   "volume": 0.35,
+   "distance": 3,
+   "every": [
+    2.2,
+    2.8
+   ],
+   "after": "tool_camcorder"
+  },
   {
    "sound": "hospital_drip",
    "at": [

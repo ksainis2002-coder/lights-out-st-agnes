@@ -252,5 +252,8 @@ pickup, the day room television, the isolation writing and Dr. Venn's door.
 Sister M. follows between floors ("Part B1 as built" in `docs/DESIGN_0.4.md`). Next: B2 (the cell
 writing, Dr. Venn's door and office, the television), then part C (Sister M.'s room, the music box,
 the way out, the hub's decay).
+**0.4 part B2 (0.2.75):** the cell writing, Dr. Venn's door and office (file page 3), the television
+waiting for a tape, the first floor's plan ("Part B2 as built" in `docs/DESIGN_0.4.md`). Waiting on
+the owner: the `ui_tape` still. Then: the tape playback, part C.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

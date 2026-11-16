@@ -23,6 +23,7 @@ const FLASH_COST = 3;
 const CHARGE = 20; // seconds between flashes
 const STUN = 5;
 const RANGE = 9;
+const READ_WITHIN = 3.2; // metres: close enough to read writing on a wall
 const BURST = 0.18; // seconds the flash lights the room (reduce effects / flicker off: a soft 0.6 s)
 
 export function createCamcorder(game) {
@@ -84,6 +85,23 @@ export function createCamcorder(game) {
     game.world.levelGroup?.traverse((object) => object.userData.setShown?.(shownWriting));
   }
 
+  // Close to writing only the night view shows, and facing it: noted (flag
+  // seen_<id>, its clue in the journal), as if you had looked at it.
+  function readWriting() {
+    if (!nightOn()) return;
+    const level = game.world.level;
+    const p = game.player.state.position;
+    const forward = new THREE.Vector3();
+    game.world.camera.getWorldDirection(forward);
+    for (const prop of level.props) {
+      if (prop.type !== 'nightWriting' || !prop.id || game.progress.hasFlag(`seen_${prop.id}`)) continue;
+      const to = new THREE.Vector3(prop.at[0] * level.cellSize - p.x, 0, prop.at[1] * level.cellSize - p.z);
+      if (to.length() > READ_WITHIN || to.normalize().dot(forward.setY(0).normalize()) < 0.6) continue;
+      game.progress.setFlag(`seen_${prop.id}`);
+      game.events.emit('prop.looked', prop);
+    }
+  }
+
   function update(dt, input) {
     charge = Math.max(0, charge - dt);
     flashT += dt;
@@ -102,6 +120,7 @@ export function createCamcorder(game) {
     lens.intensity = nightOn() ? 1.6 : 0;
     game.pipeline.fx.nightVision = nightOn() ? 1 : 0;
     showWriting();
+    readWriting();
   }
 
   game.events.on('level.loaded', () => (shownWriting = null));

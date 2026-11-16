@@ -278,6 +278,24 @@ The first floor can be walked, and the camcorder can be found:
   (4 2 6 1) and office (his notes, T. Hale's file page 3, the radio, the night sister's key, a door
   home), the tape on the day room television, the first floor's plan for the journal.
 
+## Part B2 as built (0.2.75)
+- **Maggie's writing** (`nightWriting` props `cell_writing_1/2` with `"sign": "cell.writing.N"`,
+  written in the game's language by `levels/signs.js`): hidden by flashlight, shown in the night
+  view. Standing within 3.2 m facing it in the night view notes it (flag `seen_<id>`, its clue).
+- **Dr. Venn's door** (`src/puzzles/doorLock.js`, prop `wheelLock` beside the door, the school's
+  lock screen with four wheels and the label DR. A. VENN): 4 2 6 1, only once both cells are
+  read; sets `puzzle_venn_door`, which the door requires. A checkpoint.
+- **His office:** desk and lamp, the records, a couch, his notes (`venn_notes`), T. Hale's file page
+  3 (`hale_file_3`), Nora's two lines on his radio, a door home (spawn `home_venn`). Not on her
+  round: a safe room, like the nurses' station.
+- **The day room television:** dead until `tool_camcorder`, then a second prop with static and its
+  glow, a look line ("waiting for a tape"), and the static heard in the room (radio_static as a
+  stand-in; level emitters now take "after").
+- **The first floor's plan** on the corridor board by the stair head, for the journal.
+- **Not yet:** the tape played on the television (still `ui_tape` waiting for a yes), the night
+  sister's key (comes with part C, with her room), the bot route upstairs.
+- Tests: `tests/wardsB2.spec.js`.
+
 ## Next
 The owner's checklist on the content sheet and the priority 1 sounds; stills
 for part A's rooms, then build A, B, C in that order with the bot route per part.

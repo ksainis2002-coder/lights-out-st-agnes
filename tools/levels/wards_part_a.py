@@ -132,7 +132,12 @@ def wards():
     L.light(adm, 11.4, 5.2, 2.2, 1.8, 7)
 
     # Day room: armchairs turned to the television (dead until the camcorder is taken, part B).
-    L.prop(day, 'television', 11.4, 0.9, -15, extra={"id": "day_tv"})
+    # The television: dead until the camcorder is taken upstairs, then on by itself, all static
+    # (owner pick 2026-11-15), the video recorder's light waiting for a tape.
+    camcorder = {"flag": "tool_camcorder"}
+    L.prop(day, 'television', 11.4, 0.9, -15, extra={"id": "day_tv", "until": camcorder})
+    L.prop(day, 'television', 11.4, 0.9, -15, extra={"id": "day_tv", "after": camcorder, "use": "message", "message": "msg.tvStatic",
+                                                    "prompt": "prompt.look", "useHeight": 1.05, "useRadius": 0.4}, on=True)
     L.many(day, [
         ('rug', 9.4, 2.4, 0, {"width": 3, "depth": 2.2}), ('armchair', 8.2, 2.2, 125), ('armchair', 9.4, 2.9, 165),
         ('armchair', 10.8, 2.7, 200), ('armchair', 12.4, 1.5, 250), ('sideTable', 7.2, 1.3), ('tinPlate', 7.2, 1.3, 0, {}, 0.6),
@@ -279,7 +284,9 @@ def wards():
                    "stairs": {"cell": [38.5, 6.0], "yawDegrees": 180}},  # coming down from the first floor
         "rooms": out_rooms, "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "ambience": [rain],
-        "emitters": [{"sound": "hospital_drip", "at": bat.at(4.3, 0.6), "height": 0.5, "volume": 0.5, "distance": 3,
+        "emitters": [{"sound": "radio_static", "at": day.at(11.4, 1.3), "height": 1.0, "volume": 0.35, "distance": 3,
+                      "every": [2.2, 2.8], "after": "tool_camcorder"},  # the television's static (stand-in for tv_static)
+                     {"sound": "hospital_drip", "at": bat.at(4.3, 0.6), "height": 0.5, "volume": 0.5, "distance": 3,
                       "every": [4, 11], "room": "baths"}],
         "pickups": L.pickups, "documents": L.documents,
         # The wing's plan, pinned on the admissions notice board (the journal draws it from the rooms).

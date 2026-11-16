@@ -197,10 +197,11 @@ export function createGameAudio(game) {
   // Emitters loop, or with "every": [min, max] play once at random gaps
   // (a drip, not a machine-gun loop). A timed one may keep to a "room" (heard
   // only while you are in it: the gym's ball) or fall silent for good once a
-  // flag is set ("until": the crows, once the storm starts).
+  // flag is set ("until": the crows, once the storm starts), or wait for one
+  // ("after": the day room television's static, once the camcorder is taken).
   let timedEmitters = [];
   const gap = ([min, max]) => min + Math.random() * (max - min);
-  const silent = ({ room, until }) => (until && game.progress.hasFlag(until))
+  const silent = ({ room, until, after }) => (until && game.progress.hasFlag(until)) || (after && !game.progress.hasFlag(after))
     || (room && roomAt(game.world.level, game.player.state.position) !== room);
 
   function updateTimedEmitters(dt) {

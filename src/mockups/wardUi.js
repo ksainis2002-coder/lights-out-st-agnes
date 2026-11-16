@@ -130,3 +130,37 @@ export function fuseBoardClose(ctx) {
   osdText(ctx, 'FUSES', 426, 122, 8, COLORS.dim, 'center');
   osdText(ctx, '◀ ▶ ▲ ▼ choose  ·  CLICK put in / pull out  ·  ESC step back', 240, 248, 8, COLORS.dim, 'center');
 }
+
+// Proposal: Nora's tape on the day room television (B2). The view fills with
+// the set's screen: a dark rounded bezel, her camcorder's own overlay on the
+// footage, a VCR counter in the corner, her words as subtitles.
+export function tapePlayback(ctx, { line = '(Nora, on tape) Tape two. Ward A. Every lamp is on. Somebody keeps them on.' } = {}) {
+  const inner = { x: 70, y: 22, w: 340, h: 212 };
+  ctx.fillStyle = '#0c0c0e';
+  ctx.fillRect(0, 0, W, inner.y);
+  ctx.fillRect(0, inner.y + inner.h, W, H - inner.y - inner.h);
+  ctx.fillRect(0, 0, inner.x, H);
+  ctx.fillRect(inner.x + inner.w, 0, W - inner.x - inner.w, H);
+  ctx.strokeStyle = '#2a2a2e'; // the tube's curved edge
+  ctx.lineWidth = 10;
+  ctx.beginPath();
+  ctx.roundRect?.(inner.x - 4, inner.y - 4, inner.w + 8, inner.h + 8, 22);
+  ctx.stroke();
+  ctx.fillStyle = '#3a2a1c'; // the wooden cabinet under it, its knobs
+  ctx.fillRect(inner.x - 30, inner.y + inner.h + 14, inner.w + 60, 20);
+  ctx.fillStyle = '#b8b0a0';
+  ctx.fillRect(inner.x + inner.w - 20, inner.y + inner.h + 19, 8, 8);
+  ctx.fillRect(inner.x + inner.w - 6, inner.y + inner.h + 19, 8, 8);
+  osdText(ctx, '● REC', inner.x + 12, inner.y + 10, 9, COLORS.red);
+  osdText(ctx, 'NIGHT', inner.x + 12, inner.y + 22, 8, '#9dffb0');
+  osdText(ctx, 'PLAY ▶  0:00:07', W - 12, 6, 9, COLORS.text, 'right');
+  osdText(ctx, 'ESC / CLICK  stop the tape', W - 12, H - 14, 8, COLORS.dim, 'right');
+  const words = line;
+  ctx.font = 'bold 10px monospace';
+  const width = Math.min(330, ctx.measureText(words).width + 16);
+  ctx.fillStyle = 'rgba(0,0,0,0.6)';
+  ctx.fillRect(W / 2 - width / 2, inner.y + inner.h - 34, width, 28);
+  const half = words.length > 48 ? words.lastIndexOf(' ', 48) : words.length;
+  osdText(ctx, words.slice(0, half), W / 2, inner.y + inner.h - 31, 10, '#e8f0ff', 'center');
+  if (half < words.length) osdText(ctx, words.slice(half + 1), W / 2, inner.y + inner.h - 19, 10, '#e8f0ff', 'center');
+}
