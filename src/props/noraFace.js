@@ -19,9 +19,9 @@ const seeded = (seed) => () => (seed = (seed * 16807) % 2147483647) / 2147483647
 export const FACE = {
   eye: [0.4, 0.03, 0.92],
   brow: [0.4, 0.2, 0.9],
-  noseTip: [0, -0.28, 0.96],
-  mouth: [0, -0.54, 0.84], // owner: the mouth sat a little far down (now a lip's height under her nose)
-  chin: [0, -0.86, 0.5],
+  noseTip: [0, -0.24, 0.97], // owner: smaller, shorter, softer
+  mouth: [0, -0.5, 0.86], // owner: the mouth sat a little far down (now a lip's height under her nose)
+  chin: [0, -0.84, 0.54],
 };
 
 const SKIN = [180, 144, 124];
@@ -72,8 +72,8 @@ function lightAndShade(g, at) {
     blot(g, ...at(mirror([0.4, 0.07, 0.91], side)), 13, 6, 'rgba(120,84,72,0.38)'); // the sockets, under the brow
     blot(g, ...at(mirror([0.4, -0.08, 0.9], side)), 9, 3, 'rgba(132,112,124,0.18)'); // the thin skin under the eyes
     blot(g, ...at(mirror([0.38, 0.18, 0.9], side)), 12, 3, 'rgba(214,186,164,0.3)'); // the brow bone
-    blot(g, ...at(mirror([0.56, -0.16, 0.8], side)), 10, 5, 'rgba(214,184,162,0.35)'); // the cheeks, round and lit
-    blot(g, ...at(mirror([0.58, -0.48, 0.67], side)), 11, 8, 'rgba(132,96,82,0.25)'); // softly under them
+    blot(g, ...at(mirror([0.54, -0.2, 0.8], side)), 12, 6, 'rgba(214,184,162,0.35)'); // the cheeks, full, round and lit
+    blot(g, ...at(mirror([0.6, -0.52, 0.6], side)), 10, 7, 'rgba(132,96,82,0.18)'); // softly under them
     blot(g, ...at(mirror([0.72, 0.3, 0.62], side)), 9, 10, 'rgba(132,98,84,0.3)'); // the temples
     blot(g, ...at(mirror([0.6, -0.74, 0.32], side)), 15, 6, 'rgba(96,66,56,0.5)'); // under the jaw
     blot(g, ...at(mirror([0.5, -0.3, 0.8], side)), 8, 5, 'rgba(198,120,108,0.16)'); // a little colour in her cheeks
@@ -81,22 +81,23 @@ function lightAndShade(g, at) {
   }
   blot(g, ...at([0, 0.44, 0.9]), 20, 8, 'rgba(216,190,168,0.3)'); // the forehead, catching the light
   blot(g, ...at([0, -0.86, 0.5]), 7, 3, 'rgba(212,184,162,0.35)'); // the chin
-  blot(g, ...at([0, -0.7, 0.71]), 9, 2.5, 'rgba(120,82,70,0.4)'); // under her lower lip
+  blot(g, ...at([0, -0.66, 0.75]), 9, 2.5, 'rgba(120,82,70,0.4)'); // under her lower lip
   nose(g, at);
 }
 
-// Light down the bridge, soft shade down one side and under the tip, the nostrils.
+// A small, soft nose: a faint light down the short bridge, soft shade down
+// one side and under the round tip, the nostrils.
 function nose(g, at) {
-  const [x, top] = at([0, 0.12, 1]);
+  const [x, top] = at([0, 0.04, 1]);
   const [, tip] = at(FACE.noseTip);
-  blot(g, x, (top + tip) / 2, 1.5, (tip - top) / 2, 'rgba(218,192,170,0.4)', 0.5);
-  blot(g, x + 4, (top + tip) / 2 + 3, 2.5, (tip - top) / 2, 'rgba(128,90,76,0.3)');
-  blot(g, x, tip, 4, 2.5, 'rgba(204,140,124,0.25)'); // the tip, a little warm
-  blot(g, x, tip + 4, 7, 2, 'rgba(110,72,62,0.5)'); // under it
-  g.fillStyle = 'rgba(86,52,44,0.7)';
-  g.fillRect(Math.round(x - 5), Math.round(tip + 3), 3, 1);
-  g.fillRect(Math.round(x + 2), Math.round(tip + 3), 3, 1);
-  blot(g, x, tip + 8, 2, 3, 'rgba(130,90,76,0.25)'); // the groove above her lip
+  blot(g, x, (top + tip) / 2 + 1, 1.5, (tip - top) / 2, 'rgba(216,190,168,0.25)', 0.5);
+  blot(g, x + 3.5, (top + tip) / 2 + 3, 2, (tip - top) / 2.4, 'rgba(128,90,76,0.25)');
+  blot(g, x, tip, 4.5, 3, 'rgba(206,146,128,0.22)'); // the round tip, a little warm
+  blot(g, x, tip + 3.5, 6, 1.8, 'rgba(110,72,62,0.45)'); // under it
+  g.fillStyle = 'rgba(92,56,48,0.6)';
+  g.fillRect(Math.round(x - 4), Math.round(tip + 2.5), 3, 1);
+  g.fillRect(Math.round(x + 1), Math.round(tip + 2.5), 3, 1);
+  blot(g, x, tip + 6.5, 2, 2.5, 'rgba(130,90,76,0.22)'); // the groove above her lip
 }
 
 // An eye opened wide with fear, on you: the white showing above the iris, a

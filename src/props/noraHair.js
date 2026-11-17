@@ -22,15 +22,18 @@ const PARTING = -0.04;
 // Whether her hair grows at a direction from the head's centre: not on her
 // face and forehead, nor on her cheeks, ears and jaw; down to her nape.
 export function hasHair(d) {
-  if (d.z > 0.1 && d.y < 0.6 - 0.32 * d.x * d.x) return false;
+  if (d.z > 0.1 && d.y < 0.52 - 0.3 * d.x * d.x) return false; // owner: the hairline a little lower
   if (d.y < 0.16 && d.z > -0.22) return false;
   return d.y > -0.6;
 }
 
-// Straight hair lies close over the top of her head, fuller at the back.
+// Hair with body (owner: fuller on top): risen from her scalp over the crown
+// and either side of the parting, fuller at the back, thin only where it
+// meets her forehead.
 function thickness(d) {
   const front = Math.max(0, d.z);
-  return 0.01 + 0.03 * (1 - front * 0.85) + 0.02 * Math.max(0, -d.z) + 0.003 * Math.sin(Math.atan2(d.x, d.z) * 11);
+  const crown = 0.05 * Math.max(0, d.y);
+  return 0.014 + 0.05 * (1 - front * 0.8) + crown + 0.025 * Math.max(0, -d.z) + 0.003 * Math.sin(Math.atan2(d.x, d.z) * 11);
 }
 
 const mix = (k) => ROOT.map((c, i) => c + (ENDS[i] - c) * k);
@@ -48,7 +51,7 @@ function scalpTexture() {
         const d = texelDirection(px + 0.5, py + 0.5, w, h);
         if (!hasHair({ x: d.x, y: d.y + tips[px], z: d.z })) continue;
         const [r, gr, b] = mix(Math.min(1, (py / h) * 1.6)); // lighter further down
-        const k = 0.8 + streak[px] * 0.35 + (streak[px] > 0.85 ? 0.3 : 0) - (px % 3 === 0 ? 0.07 : 0) + (random() - 0.5) * 0.08;
+        const k = 0.8 + streak[px] * 0.35 + (streak[px] > 0.85 ? 0.3 : 0) - (px % 3 === 0 ? 0.04 : 0) + (random() - 0.5) * 0.08;
         image.data.set([Math.min(255, r * k), Math.min(255, gr * k), Math.min(255, b * k), 255], (py * w + px) * 4);
       }
     }
@@ -100,7 +103,7 @@ export function hairOnHead(head, { radius, bumps, scale }) {
   const shell = sculptedHead(radius, bumps, { scale, width: 32, height: 22, extra: thickness });
   const meshes = [new THREE.Mesh(shell.geometry, cut(scalpTexture()))];
   [[-1, 41], [1, 42]].forEach(([side, seed]) => {
-    const geometry = headPatch(head, (s, u) => [side * (0.58 + s * 0.16) + (u - 0.5) * 0.26, 0.68 - s * 1.15], { columns: 10, rows: 2, out: 0.006 });
+    const geometry = headPatch(head, (s, u) => [side * (0.58 + s * 0.16) + (u - 0.5) * 0.26, 0.6 - s * 1.07], { columns: 10, rows: 2, out: 0.006 });
     meshes.push(new THREE.Mesh(geometry, cut(lockTexture(seed, { along: true }))));
   });
   return { meshes, at: shell.at };

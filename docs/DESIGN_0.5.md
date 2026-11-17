@@ -275,6 +275,14 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   plainer: her eyes wider, the white showing above her irises, her brows lifted higher and drawn
   in, faint lines across her forehead, her lips further apart with her top teeth showing.
 
+## Owner's notes on the tenth pass (2026-11-17) and the eleventh
+- **Nora, one more small change: her nose smaller, shorter and softer; her face rounder with
+  fuller cheeks; her hair fuller on top and her hairline a little lower.** Her nose is now short
+  with a round tip and only a faint light down the bridge; her face wider and less long, the
+  cheeks full, the chin and jaw soft; her hair rises over her crown and either side of the
+  parting, and starts lower on her forehead. Her mouth moved up with her shorter nose, so it
+  still sits a lip's height under it.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.
