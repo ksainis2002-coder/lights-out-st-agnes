@@ -11,6 +11,7 @@
 //   { "type": "wallClock", "at": [...], "use": "clock" }
 // Using a clock reads out the real local time (a quiet hint for the 3:00 room).
 //   { "type": "stairs", "use": "travel", "to": { "level": "...", "spawn": "..." },
+//     "line": "<key>" (optional: said the first time you go, as the chapel's crypt steps),
 //     "prompt": "prompt.stairsUp", "requires": "<flag>", "lockedMessage": "<key>" }
 // Stairs and outside doors drawn as props take you to another level ("Not
 // yet" while that level is not built). "to": { ..., "back": "<spawn>" } lets
@@ -77,7 +78,12 @@ const USES = {
     run(game, prop) {
       if (waiting(game, prop)) return refuse(game, prop, prop.lockedMessage);
       const via = STAIRS.has(prop.type) ? 'stairs' : 'door';
-      if (LEVELS[prop.to.level]) game.travel(prop.to.level, prop.to.spawn, prop.to.back, via);
+      if (!LEVELS[prop.to.level]) return;
+      if (prop.line && !game.progress.hasFlag(`said_${prop.line}`)) {
+        game.progress.setFlag(`said_${prop.line}`);
+        game.messages.show(prop.line, null, 5);
+      }
+      game.travel(prop.to.level, prop.to.spawn, prop.to.back, via);
     },
   },
   message: { prompt: 'prompt.open', height: 1.2, run: (game, prop) => refuse(game, prop, prop.message) },
@@ -86,7 +92,8 @@ const USES = {
     prompt: 'prompt.look',
     height: 1.15,
     run(game, prop) {
-      const line = noteLook(game, prop);
+      const line = prop.message ?? noteLook(game, prop); // a line of its own (the chapel's altar), or its clue
+      if (prop.message) noteLook(game, prop);
       if (game.i18n.has(line)) game.messages.show(line, null, 5);
     },
   },

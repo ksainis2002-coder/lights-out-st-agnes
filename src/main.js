@@ -42,6 +42,7 @@ import { createWatcher } from './ai/watcher.js';
 import { createWatcherIntro } from './ai/watcherIntro.js';
 import { createWatcherFloors } from './ai/watcherFloors.js';
 import { createWatcherOutside } from './ai/watcherOutside.js';
+import { createAgnesPieces } from './ai/agnesPieces.js';
 import { createBlink } from './sanity/blink.js';
 import { createMoves } from './props/moves.js';
 import { createChalk } from './ghosts/chalk.js';
@@ -113,6 +114,7 @@ function createGame() {
   game.watcherIntro = createWatcherIntro(game, game.watcher);
   game.watcherFloors = createWatcherFloors(game, game.watcher); // she follows you up and down the stairs
   game.watcherOutside = createWatcherOutside(game, game.watcher); // out in the storm, then at the chapel door
+  game.agnes = createAgnesPieces(game, game.watcher); // in the chapel: her pieces given back
   game.hiding = createHiding(game); // under a ward bed
   game.lamps = createLamps(game); // ward lamps, lit until Sister M. puts them out
   game.nun = createNun(game); // Sister M., who sees only light
@@ -316,6 +318,7 @@ function simulate(game, dt) {
   game.watcherIntro.update(dt);
   game.watcherFloors.update(dt);
   game.watcherOutside.update(dt);
+  game.agnes.update(dt);
   game.chalk.update(dt);
   game.tricks.update(dt);
   game.setPieces.update(dt);

@@ -9,7 +9,10 @@
 // drains sanity slowly. Shut in a safe room for a while, she loses you.
 // Level data, "watcher":
 //   "still":  { "at": [c, r], "rotation": 90, "until": "<flag>" }  the courtyard: never moves
-//             (or a list; "afterTaken": "<pickup>" for one that only comes later: the chapel door)
+//             (or a list; "afterTaken": "<pickup>" for one that only comes later: the chapel door;
+//             "after": "<flag>" for one that stands only from then on: the chapel, once she is whole)
+//   "pieces": true                                                  the chapel: her stone as you give her back
+//             her pieces (ai/agnesPieces.js; "whole": the way she turns once all four are back)
 //   "from":   "<flag>"                                              she hunts here only once it is set
 //   "asleep": { "at": [c, r], "rotation": 0 }                       before her introduction (ai/watcherIntro.js)
 //   "territory": [room ids], "spawns": [[c, r], …]                  where she hunts once awake (flag watcher_awake)
@@ -19,6 +22,7 @@ import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { gazeOn, clearLine } from './gaze.js';
 import { createPathing } from './path.js';
+import { piecesNow } from './agnesPieces.js';
 
 export const AWAKE = 'watcher_awake';
 export const FLOOR = 'watcher_floor';
@@ -75,8 +79,11 @@ export function createWatcher(game) {
     Object.assign(obstacle, { minX: x - SPAN / 2, maxX: x + SPAN / 2, minZ: z - SPAN / 2, maxZ: z + SPAN / 2 });
   }
 
+  // Her stone: in the chapel, with the pieces given back so far.
+  const model = (level) => (level.watcher?.pieces ? PROPS.statueRebuilt(game.world.textures, piecesNow(game.progress)) : PROPS.statue(game.world.textures));
+
   function place(level, [col, row], rotation = 0) {
-    statue = PROPS.statue(game.world.textures);
+    statue = model(level);
     statue.rotation.y = (rotation * Math.PI) / 180;
     game.world.levelGroup.add(statue);
     obstacle = { mover: true };
@@ -94,7 +101,8 @@ export function createWatcher(game) {
   // The statue that stands still here now, if any (see "still" above).
   function stillNow(data) {
     const { progress } = game;
-    const now = (still) => !(still.until && progress.hasFlag(still.until)) && !(still.afterTaken && !progress.isTaken(still.afterTaken));
+    const now = (still) => !(still.until && progress.hasFlag(still.until)) && !(still.afterTaken && !progress.isTaken(still.afterTaken))
+      && !(still.after && !progress.hasFlag(still.after));
     return [data.still ?? []].flat().find(now) ?? null;
   }
 
@@ -317,6 +325,16 @@ export function createWatcher(game) {
       remove();
       place(level, at, rotation);
       mode = 'still';
+    },
+    // Her stone again as it is now, where she stands (a piece given back: ai/agnesPieces.js).
+    refresh() {
+      if (!statue) return;
+      const rotation = statue.rotation.y;
+      statue.parent?.remove(statue);
+      statue = model(game.world.level);
+      statue.rotation.y = rotation;
+      statue.position.copy(position);
+      game.world.levelGroup.add(statue);
     },
     route: (to) => (pathing ? pathing.route(position, to) : []),
     state: () => ({ mode, x: position.x, z: position.z, seen: gaze.seen, why: gaze.why, warning, catches, lost: Boolean(wandering) }),

@@ -19,6 +19,8 @@
 //   { "openDoor": [col, row] }   open that door if it is shut
 //   { "light": false }   switch the flashlight off (or on)
 //   { "faceNun": true }   turn to face Sister M. (to flash her with the camcorder)
+//   { "cell": [col, row], "watching": true }   walk there with your eyes on St. Agnes (she moves only unseen)
+//   { "useWatcher": true, "expect": "prompt.agnesHand" }   look her in the face where she stands, press use
 // A "use" that opens a screen (a document) is closed again; one that starts
 // travel waits for the new level. Old routes (a "points" list) still work.
 import * as THREE from 'three';
@@ -31,6 +33,26 @@ function angleTo(from, to) {
   return Math.atan2(-(to.x - from.x), -(to.z - from.z));
 }
 
+const MOVES = ['forward', 'back', 'left', 'right', 'run', 'crouch'];
+
+// Facing St. Agnes, the keys that move you towards the goal (as a player
+// steps sideways and back without taking their eyes off her).
+function sidestep(game, goal) {
+  const { player, input } = game;
+  const her = game.watcher.position();
+  if (her) player.state.yaw = angleTo(player.state.position, her);
+  const dx = goal.x - player.state.position.x;
+  const dz = goal.z - player.state.position.z;
+  const length = Math.hypot(dx, dz) || 1;
+  const sin = Math.sin(player.state.yaw), cos = Math.cos(player.state.yaw);
+  const ahead = (-sin * dx - cos * dz) / length;
+  const across = (cos * dx - sin * dz) / length;
+  input.setVirtual('forward', ahead > 0.38);
+  input.setVirtual('back', ahead < -0.38);
+  input.setVirtual('right', across > 0.38);
+  input.setVirtual('left', across < -0.38);
+}
+
 function walk(game, step, maxSeconds) {
   const { player, input, world } = game;
   const goal = world.level.cellCenter(step.cell[0], step.cell[1]);
@@ -39,12 +61,13 @@ function walk(game, step, maxSeconds) {
   input.setVirtual('forward', true);
   let elapsed = 0;
   while (Math.hypot(goal.x - player.state.position.x, goal.z - player.state.position.z) > REACH_DISTANCE) {
-    player.state.yaw = angleTo(player.state.position, goal);
+    if (step.watching) sidestep(game, goal);
+    else player.state.yaw = angleTo(player.state.position, goal);
     game.advance(STEP);
     elapsed += STEP;
     if (elapsed > maxSeconds) break;
   }
-  for (const action of ['forward', 'run', 'crouch']) input.setVirtual(action, false);
+  for (const action of MOVES) input.setVirtual(action, false);
   return { seconds: elapsed, ok: elapsed <= maxSeconds };
 }
 
@@ -62,9 +85,8 @@ function pointFor(game, use, y) {
   return prop.localToWorld(target.set(...use.local));
 }
 
-function aimAndUse(game, step) {
+function aimAndUse(game, step, point = pointFor(game, step.use, step.y)) {
   const { player, interaction } = game;
-  const point = pointFor(game, step.use, step.y);
   if (!point) return { seconds: 0, ok: false };
   const { position } = player.state;
   player.state.yaw = angleTo(position, point);
@@ -132,6 +154,7 @@ function runStep(game, step, maxSeconds) {
     return { seconds: 0, ok: true };
   }
   if (step.faceNun) return faceNun(game);
+  if (step.useWatcher) return aimAndUse(game, step, game.watcher.position()?.setY(1.5) ?? null);
   if (step.waitUntil) return waitUntilNun(game, step.waitUntil.nunIn, step.max);
   if (step.openDoor) return openDoor(game, step.openDoor);
   if (step.use) return aimAndUse(game, step);

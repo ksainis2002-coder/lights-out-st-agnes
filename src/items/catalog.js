@@ -32,6 +32,7 @@ export const ITEMS = {
   music_box_key: { icon: 'key' }, // the third, from Sister M.'s trunk
   sister_key: { icon: 'key', consumed: true }, // the night sister's door (Dr. Venn kept it)
   stone_palm: { icon: 'palm' }, // statue piece 3 (wing 3)
+  stone_heart: { icon: 'heart' }, // statue piece 4 (wing 4: the crypt, puzzles/plaques.js)
   music_box: { icon: 'musicBox' }, // Edith's, mended: wing 3's toy (ghosts/edithBox.js)
 };
 

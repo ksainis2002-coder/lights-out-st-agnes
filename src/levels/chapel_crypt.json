@@ -1,0 +1,281 @@
+{
+ "id": "chapel_crypt",
+ "wing": "chapel",
+ "cellSize": 1.2,
+ "wallHeight": 3.0,
+ "floorTexture": "stone",
+ "ceilingTexture": "stone",
+ "ambient": {
+  "color": "#6a7090",
+  "intensity": 0.7
+ },
+ "legend": {
+  ".": "floor",
+  "#": "wallStone"
+ },
+ "map": [
+  "##########",
+  "#........#",
+  "#........#",
+  "#........#",
+  "#........#",
+  "#..#######",
+  "#..#######",
+  "#..#######",
+  "##########"
+ ],
+ "spawns": {
+  "default": {
+   "cell": [
+    2.0,
+    4.2
+   ],
+   "yawDegrees": -30
+  },
+  "stairs": {
+   "cell": [
+    2.0,
+    4.2
+   ],
+   "yawDegrees": -30
+  }
+ },
+ "rooms": [
+  {
+   "id": "crypt",
+   "cells": [
+    1,
+    1,
+    8,
+    4
+   ],
+   "height": 2.6,
+   "wall": "wallStone",
+   "floor": "stone",
+   "ceiling": "stone",
+   "ambience": [
+    {
+     "name": "amb_building_hum",
+     "volume": 0.25
+    }
+   ]
+  },
+  {
+   "id": "crypt_stairs",
+   "cells": [
+    1,
+    5,
+    2,
+    7
+   ],
+   "height": 2.6,
+   "wall": "wallStone",
+   "floor": "stone",
+   "ceiling": "stone"
+  }
+ ],
+ "doors": [],
+ "triggers": [],
+ "props": [
+  {
+   "type": "memorialPlaque",
+   "at": [
+    2.0,
+    1
+   ],
+   "options": {
+    "name": "SAMUEL PIKE",
+    "age": 10
+   },
+   "id": "plaque_sam",
+   "useAt": [
+    2.0,
+    1.15
+   ],
+   "useHeight": 1.25,
+   "useRadius": 0.28
+  },
+  {
+   "type": "memorialPlaque",
+   "at": [
+    2.95,
+    1
+   ],
+   "options": {
+    "name": "AGNES"
+   },
+   "id": "plaque_agnes",
+   "useAt": [
+    2.95,
+    1.15
+   ],
+   "useHeight": 1.25,
+   "useRadius": 0.28
+  },
+  {
+   "type": "memorialPlaque",
+   "at": [
+    3.9,
+    1
+   ],
+   "options": {
+    "name": "EDITH CARR",
+    "age": 7
+   },
+   "id": "plaque_edith",
+   "useAt": [
+    3.9,
+    1.15
+   ],
+   "useHeight": 1.25,
+   "useRadius": 0.28
+  },
+  {
+   "type": "memorialPlaque",
+   "at": [
+    4.85,
+    1
+   ],
+   "options": {
+    "name": "THOMAS HALE",
+    "age": 9
+   },
+   "id": "plaque_tommy",
+   "useAt": [
+    4.85,
+    1.15
+   ],
+   "useHeight": 1.25,
+   "useRadius": 0.28
+  },
+  {
+   "type": "memorialPlaque",
+   "at": [
+    5.8,
+    1
+   ],
+   "options": {
+    "name": "MARGARET ROWE",
+    "age": 8
+   },
+   "id": "plaque_maggie",
+   "useAt": [
+    5.8,
+    1.15
+   ],
+   "useHeight": 1.25,
+   "useRadius": 0.28
+  },
+  {
+   "type": "cryptCarving",
+   "at": [
+    3.9,
+    1
+   ]
+  },
+  {
+   "type": "cryptNiche",
+   "at": [
+    7.35,
+    1
+   ],
+   "options": {
+    "heart": false
+   },
+   "id": "crypt_niche"
+  },
+  {
+   "type": "nicheSlab",
+   "at": [
+    7.35,
+    1
+   ],
+   "id": "niche_slab"
+  },
+  {
+   "type": "votiveRack",
+   "at": [
+    8.4,
+    3.6
+   ],
+   "rotation": -90,
+   "options": {
+    "lit": 2
+   }
+  },
+  {
+   "type": "stairs",
+   "at": [
+    2.0,
+    5.0
+   ],
+   "rotation": 180,
+   "options": {
+    "steps": 8,
+    "landing": 0.6
+   },
+   "use": "travel",
+   "to": {
+    "level": "chapel",
+    "spawn": "crypt"
+   },
+   "prompt": "prompt.stairsUp",
+   "useHeight": 0.9,
+   "useRadius": 0.8
+  }
+ ],
+ "lights": [
+  {
+   "type": "point",
+   "at": [
+    6.9,
+    2.0
+   ],
+   "height": 1.0,
+   "color": "#ffb070",
+   "intensity": 2.0,
+   "distance": 5
+  },
+  {
+   "type": "point",
+   "at": [
+    4.0,
+    2.8
+   ],
+   "height": 2.2,
+   "color": "#6a78a8",
+   "intensity": 0.9,
+   "distance": 6
+  }
+ ],
+ "pickups": [
+  {
+   "id": "crypt_heart",
+   "item": "stone_heart",
+   "at": [
+    7.35,
+    1.2
+   ],
+   "y": 1.06,
+   "model": "stoneHeart",
+   "appearsWith": "puzzle_plaques",
+   "radius": 0.2
+  }
+ ],
+ "documents": [],
+ "puzzles": {
+  "plaques": {
+   "plaques": [
+    "plaque_agnes",
+    "plaque_tommy",
+    "plaque_maggie",
+    "plaque_sam",
+    "plaque_edith"
+   ],
+   "slab": "niche_slab",
+   "hintAfter": 2,
+   "hint": "whisper.tommy.plaques",
+   "tommy": "plaque_tommy"
+  }
+ }
+}

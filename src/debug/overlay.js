@@ -68,6 +68,7 @@ export function createDebugOverlay(game) {
     for (const enemy of game.enemies ?? []) lines.push([enemy.debugLine(), COLORS.enemy]);
     if (game.watcherFloors) lines.push([game.watcherFloors.debugLine(), COLORS.enemy]);
     if (game.watcherOutside && game.world.level.watcher?.outside) lines.push([game.watcherOutside.debugLine(), COLORS.enemy]);
+    if (game.agnes && game.world.level.watcher?.pieces) lines.push([game.agnes.debugLine(), COLORS.enemy]); // her pieces, in the chapel
     return lines;
   }
 

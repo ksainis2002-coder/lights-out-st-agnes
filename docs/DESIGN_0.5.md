@@ -1,11 +1,10 @@
 # 0.5 the chapel and the basement: design proposal
 
-**Status (2026-11-17): every wing 4 still is approved; the content sheet (all of the wing's text,
-English and Greek) waits for the owner's yes; nothing is built yet.** Content sheet: the Claude Doc
-"Lights Out at St. Agnes: wing 4 content sheet (0.5)",
-https://claude.ai/artifact/BTuaqxchpYDVYGNJHJWg4c. The brief
-wins on anything not listed. The owner's picks get written into this file as they are made; until
-then every line below is a proposal, with the open questions at the end.
+**Status (2026-11-17): every wing 4 still and the content sheet (all of the wing's text, English and
+Greek) are approved; part A (the chapel and the crypt) is built (0.2.97); parts B and C are next.**
+Content sheet: the Claude Doc "Lights Out at St. Agnes: wing 4 content sheet (0.5)",
+https://claude.ai/artifact/BTuaqxchpYDVYGNJHJWg4c. The brief wins on anything not listed. The
+owner's picks are written into this file as they are made.
 
 ## What the brief fixes
 - Milestone 0.5: "Chapel and basement finale with the surgeon, Sam, Nora met, all four endings."
@@ -307,3 +306,25 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.
 3. **The secret ending:** in 0.5 (with the 3:00 room left for 0.6), or all of it in 0.6.
 4. **Nora:** strapped to the surgeon's table, or found hiding in the basement and caught later.
+
+## Part A as built (0.2.97)
+- **Levels:** `chapel` (the nave, 7 m high, on 3 m walls as the approved still's level so the stone
+  tiles instead of stretching; its light as the still) and `chapel_crypt`, both written by
+  `tools/levels/chapel.py`, which also opens the chapel door on the grounds once the west wing is
+  done (the keyhole before), takes the watcher off the chapel step then, and stops the grounds' rain
+  once she is whole. Run it after anything that writes the grounds afresh.
+- **St. Agnes** (`ai/agnesPieces.js`): she hunts the nave as the watcher; looked in the face, she
+  takes back the next piece you carry (hand, then the palm on it, the lamb, the heart), her stone
+  rebuilt each time. All four: the bell, the rain stopping (`levels/calm.js`: no storm, no rain beds),
+  the gate line, `basement_open`; she stands still for good, turned to the door.
+- **The crypt plaques** (`puzzles/plaques.js`): pushed in the roll's order; out of turn they all grind
+  back out; Tommy's whisper after two wrong tries (then every third); the slab grinds aside and stays
+  beside the niche, as in the approved still; the stone heart (new item) on the ledge.
+- **Small calls made while building** (all inside the approved sheet): the crypt steps' line shows
+  the first time you go down them; the Founder's board carries the approved dedication in four short
+  lines (TO THE GLORY OF GOD / AND FOR THE GOOD / OF THE CHILDREN / GIVEN BY, the name scratched out);
+  the plaques are lettered first name over surname, like the gravestones, so they can be read from a
+  step away; coming up from the crypt you face her.
+- **Tests:** `tests/chapel.spec.js` (door, pieces, calm, steps, plaques right and wrong, reloads) and
+  the bot route `tests/bot-routes/chapel_part_a.json` (the bot now sidesteps with its eyes on her).
+

@@ -1,6 +1,7 @@
 // Connects game events to sounds: footsteps by floor, doors, the flashlight,
 // room ambience beds (crossfaded between rooms), and distant thunder.
 // game.sfx.play(name, { position, volume, bus }) for one-shot sounds.
+import { isCalm, isRain } from '../levels/calm.js';
 import { playSound } from './sounds.js';
 import { createLibrary } from './library.js';
 import { roomAt } from '../levels/loader.js';
@@ -96,6 +97,7 @@ export function createGameAudio(game) {
     plates: 'wooden_toy', toys: 'door_locked', lullaby: 'door_open_slow', fuses: 'fluorescent_buzz', piano: 'key_drop_wood',
     library: 'paper_pickup', records: 'drawer_metal', lanterns: 'stone_grind', hopscotch: 'child_clap',
     music_box: 'drawer', // Edith's box clicks together (stand-in for music_box_wind)
+    plaques: 'stone_grind', // the niche opens in the crypt wall
   };
   events.on('puzzle.solved', (name) => play(SOLVED_SOUND[name] ?? 'wooden_toy', { volume: 0.9 }));
   events.on('fuses.lever', () => play('drawer', { volume: 0.5 }));
@@ -177,6 +179,14 @@ export function createGameAudio(game) {
   events.on('watcher.moved', ({ position }) => play('stone_grind', { position: at(position, 0.4), volume: 0.6, refDistance: 2 }));
   events.on('watcher.settled', ({ position }) => play('stone_step', { position: at(position, 0.3), volume: 0.7, refDistance: 2 }));
   events.on('watcher.chapel', ({ position }) => play('church_bell', { position: at(position, 9), volume: 1, refDistance: 10, pitchJitter: 0 }));
+  // St. Agnes in the chapel: each piece settles with her stone's thud; whole, the bell tolls once
+  // overhead and the rain fades out (ai/agnesPieces.js).
+  events.on('agnes.piece', ({ position }) => play('stone_step', { position: at(position, 1.2), volume: 0.8, refDistance: 2 }));
+  events.on('agnes.whole', ({ position }) => play('church_bell', { position: at(position, 6), volume: 1, refDistance: 10, pitchJitter: 0 }));
+  events.on('weather.calm', () => (lastRoom = undefined)); // the current room's beds again, without the rain
+  // The crypt's plaques: each goes in with a knock of stone; out of turn, they all grind back out.
+  events.on('plaque.pushed', ({ position }) => play('stone_step', { position: at(position, 1.2), volume: 0.6, refDistance: 2 }));
+  events.on('plaques.reset', ({ position }) => play('stone_grind', { position: at(position, 1.2), volume: 0.8, refDistance: 3 }));
   events.on('watcher.breath', ({ position }) => play('stone_near_breath', { position: at(position, 1.9), volume: 0.9 }));
   events.on('watcher.grab', ({ position }) => play('stone_grind', { position: at(position, 0.4), rate: 0.8, volume: 0.8 }));
   events.on('collapse.grab', () => play('mus_stinger', { volume: 1, bus: 'music', pitchJitter: 0 }));
@@ -274,10 +284,12 @@ export function createGameAudio(game) {
 
   // A bed with "until" is gone for good once that flag is set (the crickets
   // outside, before the storm); it fades out at the next change of room.
+  // After the calm (levels/calm.js) no bed is the rain.
   function ambienceFor(level, roomId) {
     const room = level.rooms.find((r) => r.id === roomId);
     const list = room?.ambience ?? level.ambience ?? [];
-    return list.filter((entry) => !entry.until || !game.progress.hasFlag(entry.until));
+    const calm = isCalm(game.progress);
+    return list.filter((entry) => (!entry.until || !game.progress.hasFlag(entry.until)) && !(calm && isRain(entry)));
   }
 
   // Fades beds that the new room (or the menu) does not use, starts the ones it does.

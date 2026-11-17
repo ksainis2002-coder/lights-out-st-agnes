@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.97 — Wing 4, part A: the chapel opens after the west wing. Give St. Agnes back her hand, palm, lamb and the stone heart from the crypt (five plaques pushed in the roll's order) with your eyes on her; whole, the bell tolls once, the rain stops for good and the gate under the west wing unlocks. All text in English and Greek.
 - 0.2.96 — Wing 4: every still approved (Nora last), and the wing's content sheet (all its text, English and Greek) drafted for the owner's yes. Nothing in the game changes.
 - 0.2.95 — Wing 4 stills, thirteenth pass: Nora's chin smaller, softer and rounder, with only soft shade under it and along her jaw. Nothing in the game changes.
 - 0.2.94 — Wing 4 stills, twelfth pass: Nora's mouth less open, her chin firmer with shade under it and along her jaw, and her neck set under her jaw instead of running straight from her chin. Nothing in the game changes.

@@ -25,7 +25,7 @@ import { WARD_ROOM_PROPS } from './wardRooms.js';
 import { WARD_UPPER_PROPS } from './wardUpper.js';
 import { SISTER_ROOM_PROPS } from './sisterRoom.js';
 import { WARD_FIGURES } from './wardFigures.js';
-import { CHAPEL_PROPS } from './chapel.js'; // 0.5 proposal: mockup stills only so far
+import { CHAPEL_PROPS } from './chapel.js'; // 0.5: the chapel and the crypt (and the mockup stills)
 import { BASEMENT_PROPS } from './basement.js';
 import { BASEMENT_FIGURES } from './basementFigures.js';
 

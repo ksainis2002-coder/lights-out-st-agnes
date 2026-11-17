@@ -10,6 +10,7 @@ import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { flickerAllowed } from '../ghosts/setPieceKit.js';
 import { strikeLight } from './lightning.js';
+import { isCalm } from './calm.js';
 
 const FIRST_STRIKE = [6, 10]; // seconds after the storm starts
 const BETWEEN = [20, 40];
@@ -28,7 +29,7 @@ export function createStorm(game) {
   let flash = 0; // how bright the flash is now, 0..1 (ai/gaze.js: it lights the watcher)
 
   const flag = () => game.world.level.weather?.storm ?? null;
-  const on = () => Boolean(flag()) && game.progress.hasFlag(flag());
+  const on = () => Boolean(flag()) && game.progress.hasFlag(flag()) && !isCalm(game.progress); // dead calm once she is whole
 
   function build() {
     const { level, levelGroup, textures } = game.world;

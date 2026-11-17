@@ -1,0 +1,422 @@
+{
+ "id": "chapel",
+ "wing": "chapel",
+ "cellSize": 1.2,
+ "wallHeight": 3.0,
+ "floorTexture": "stone",
+ "ceilingTexture": "wallStone",
+ "ambient": {
+  "color": "#8a98c8",
+  "intensity": 0.9
+ },
+ "legend": {
+  ".": "floor",
+  "#": "wallStone"
+ },
+ "map": [
+  "#########",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "#.......#",
+  "........#",
+  "#.......#",
+  "#########"
+ ],
+ "spawns": {
+  "default": {
+   "cell": [
+    1.5,
+    12.5
+   ],
+   "yawDegrees": -20
+  },
+  "door": {
+   "cell": [
+    1.5,
+    12.5
+   ],
+   "yawDegrees": -20
+  },
+  "crypt": {
+   "cell": [
+    6.6,
+    3.8
+   ],
+   "yawDegrees": 95
+  }
+ },
+ "rooms": [
+  {
+   "id": "chapel_nave",
+   "cells": [
+    1,
+    1,
+    7,
+    13
+   ],
+   "height": 7.0,
+   "wall": "wallStone",
+   "floor": "stone",
+   "ceiling": "wallStone",
+   "well": [
+    6,
+    1,
+    7,
+    2
+   ],
+   "ambience": [
+    {
+     "name": "amb_rain_inside",
+     "volume": 0.3
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.2
+    }
+   ]
+  }
+ ],
+ "doors": [
+  {
+   "id": "chapel_door",
+   "cell": [
+    0,
+    12
+   ],
+   "exit": {
+    "level": "grounds",
+    "spawn": "chapel_door",
+    "prompt": "prompt.toCourtyard"
+   }
+  }
+ ],
+ "triggers": [],
+ "props": [
+  {
+   "type": "altar",
+   "at": [
+    4.5,
+    2.9
+   ],
+   "id": "chapel_altar",
+   "use": "look",
+   "message": "msg.chapelAltar",
+   "useHeight": 1.1,
+   "useRadius": 0.6
+  },
+  {
+   "type": "pew",
+   "at": [
+    2.75,
+    7.0
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    6.25,
+    7.0
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    2.75,
+    8.2
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    6.25,
+    8.2
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    2.75,
+    9.4
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    6.25,
+    9.4
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    2.75,
+    10.6
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    6.25,
+    10.6
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    2.75,
+    11.8
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "pew",
+   "at": [
+    6.25,
+    11.8
+   ],
+   "rotation": 180,
+   "options": {
+    "length": 2.6
+   }
+  },
+  {
+   "type": "votiveRack",
+   "at": [
+    1.6,
+    5.2
+   ],
+   "rotation": 90,
+   "options": {
+    "lit": 4
+   }
+  },
+  {
+   "type": "votiveRack",
+   "at": [
+    7.4,
+    5.2
+   ],
+   "rotation": -90,
+   "options": {
+    "lit": 3
+   }
+  },
+  {
+   "type": "font",
+   "at": [
+    6.9,
+    13.2
+   ],
+   "id": "chapel_font",
+   "use": "look",
+   "message": "msg.chapelFont",
+   "useHeight": 0.9,
+   "useRadius": 0.6
+  },
+  {
+   "type": "benefactorsBoard",
+   "at": [
+    8,
+    12.0
+   ],
+   "rotation": -90,
+   "id": "chapel_board",
+   "use": "look",
+   "message": "msg.chapelBoard",
+   "useHeight": 1.6,
+   "useRadius": 0.6
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    1,
+    6.4
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    8,
+    6.4
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    1,
+    10.0
+   ],
+   "rotation": 90
+  },
+  {
+   "type": "windowFrame",
+   "at": [
+    8,
+    10.0
+   ],
+   "rotation": -90
+  },
+  {
+   "type": "stairHead",
+   "at": [
+    7.0,
+    3.0
+   ],
+   "options": {
+    "width": 1.9,
+    "steps": 7
+   },
+   "use": "travel",
+   "to": {
+    "level": "chapel_crypt",
+    "spawn": "stairs"
+   },
+   "prompt": "prompt.stairsDown",
+   "line": "msg.cryptSteps",
+   "useAt": [
+    7.0,
+    3.4
+   ],
+   "useHeight": 0.6,
+   "useRadius": 0.8
+  }
+ ],
+ "lights": [
+  {
+   "type": "point",
+   "at": [
+    4.5,
+    8.0
+   ],
+   "height": 5.5,
+   "color": "#6a78a8",
+   "intensity": 4.0,
+   "distance": 14
+  },
+  {
+   "type": "point",
+   "at": [
+    4.5,
+    4.4
+   ],
+   "height": 2.0,
+   "color": "#ffb070",
+   "intensity": 3.5,
+   "distance": 8
+  },
+  {
+   "type": "point",
+   "at": [
+    1.9,
+    5.2
+   ],
+   "height": 1.2,
+   "color": "#ffb070",
+   "intensity": 1.2,
+   "distance": 4
+  },
+  {
+   "type": "point",
+   "at": [
+    7.1,
+    5.2
+   ],
+   "height": 1.2,
+   "color": "#ffb070",
+   "intensity": 1.0,
+   "distance": 4
+  },
+  {
+   "type": "point",
+   "at": [
+    2.0,
+    12.5
+   ],
+   "height": 2.4,
+   "color": "#6a78a8",
+   "intensity": 1.0,
+   "distance": 5
+  }
+ ],
+ "pickups": [],
+ "documents": [],
+ "arrivals": [
+  {
+   "after": {
+    "flag": "wing_wards_done"
+   },
+   "message": "msg.agnesFirstLook"
+  }
+ ],
+ "weather": {
+  "storm": "puzzle_records"
+ },
+ "watcher": {
+  "territory": [
+   "chapel_nave"
+  ],
+  "spawns": [
+   [
+    4.5,
+    4.0
+   ]
+  ],
+  "pieces": true,
+  "still": [
+   {
+    "at": [
+     4.5,
+     4.0
+    ],
+    "rotation": -25,
+    "after": "agnes_whole"
+   }
+  ],
+  "whole": -25
+ }
+}

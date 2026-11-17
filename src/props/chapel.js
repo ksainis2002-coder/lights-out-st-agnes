@@ -1,11 +1,14 @@
-// The chapel and its crypt (0.5 proposal, docs/DESIGN_0.5.md; mockup stills
-// only until the owner approves them): pews, the altar, a rack of votive
-// candles, the font, the board of the five children's names, the crypt's
-// memorial plaques and the niche, St. Agnes' stone heart (the fourth piece,
-// owner pick 2026-11-17), and St. Agnes made whole. Origin on the floor,
-// front facing +z (a wall piece: its back on the wall line).
+// The chapel and its crypt (0.5 part A; approved stills chapel, statue_whole,
+// crypt; the wing 4 content sheet): pews, the altar, a rack of votive
+// candles, the font, the board of the five children's names (the mockups) and
+// the Founder's board (the game), the crypt's memorial plaques, the carving
+// over them, the niche and the slab that closes it, St. Agnes' stone heart
+// (the fourth piece), and St. Agnes as you give her back her pieces. Origin on
+// the floor, front facing +z (a wall piece: its back on the wall line).
+// Words in the game's language come from i18n, as on the gravestones.
 import * as THREE from 'three';
 import { box, decal, materialFor, canvasTexture } from './parts.js';
+import { i18n } from '../i18n/index.js';
 import { SCHOOL_PROPS } from './school.js';
 import { CEMETERY_PROPS } from './cemetery.js';
 
@@ -111,13 +114,75 @@ function nameBoard(t) {
   );
 }
 
-// A memorial plaque in the crypt wall: one child's name, cut into stone.
-// "set": pushed home (the crypt's puzzle wants them in the roll's order).
-function memorialPlaque(t, { name = 'AGNES', set = false } = {}) {
-  const words = lettering([name], { width: 96, height: 48, ink: '#2a2622', ground: '#9a968c' });
+// A memorial plaque in the crypt wall: one child's name cut into stone, and
+// "age" carves the age line ("AGED 9" / "9 ΕΤΩΝ"); "set": pushed home into
+// the wall (puzzles/plaques.js pushes the placed plaque itself). The name is
+// cut first name over surname in big letters on a coarse texture, as on the
+// gravestones, so it can be read from a step away at the game's resolution.
+function memorialPlaque(t, { name = 'AGNES', age, set = false } = {}) {
+  const words = canvasTexture(64, 42, (g, w, h) => {
+    g.fillStyle = '#9a968c';
+    g.fillRect(0, 0, w, h);
+    g.fillStyle = '#2a2622';
+    g.textAlign = 'center';
+    g.font = 'bold 11px serif';
+    const parts = name.split(' ').slice(0, 2);
+    parts.forEach((part, i) => g.fillText(part, w / 2, (parts.length > 1 || age ? 12 : 25) + i * 12, w - 4));
+    if (!age) return;
+    g.font = 'bold 9px serif';
+    g.fillText(i18n.t('grave.aged', { n: age }), w / 2, parts.length > 1 ? 37 : 26, w - 4);
+  });
   return group(
     box(t.stone, [0.5, 0.34, 0.06], [0, 1.15, set ? 0.0 : 0.03], { color: '#8e8a80', flatShading: true }),
-    decal(words, [0.44, 0.22], [0, 1.32, set ? 0.031 : 0.061]),
+    decal(words, [0.46, 0.3], [0, 1.32, set ? 0.031 : 0.061]),
+  );
+}
+
+// Carved in a band of stone over the plaques: THOSE WHO HAVE LEFT US.
+function cryptCarving(t, { width = 4.2 } = {}) {
+  const words = canvasTexture(256, 16, (g, w, h) => {
+    g.fillStyle = '#8a867c';
+    g.fillRect(0, 0, w, h);
+    g.fillStyle = '#2a2622';
+    g.font = 'bold 11px serif';
+    g.textAlign = 'center';
+    g.fillText(i18n.t('crypt.carving'), w / 2, 12);
+  });
+  return group(
+    box(t.stone, [width, 0.2, 0.05], [0, 1.62, 0.025], STONE),
+    decal(words, [width - 0.1, 0.16], [0, 1.72, 0.052]),
+  );
+}
+
+// A slab of stone across the niche, until the plaques open it.
+function nicheSlab(t) {
+  // In a group: placing a prop sets its own position, which would put a bare slab on the floor.
+  return group(box(t.stone, [0.6, 0.56, 0.05], [0, 1.03, 0.34], { color: '#7c786e', flatShading: true }));
+}
+
+// The Founder's board in the chapel: what it was given for and by whom, the
+// name scratched out (chapel.board.1–4; each line squeezed to fit).
+function benefactorsBoard(t) {
+  const lines = [1, 2, 3, 4].map((n) => i18n.t(`chapel.board.${n}`));
+  const words = canvasTexture(96, 128, (g, w, h) => {
+    g.fillStyle = '#2e2018';
+    g.fillRect(0, 0, w, h);
+    g.fillStyle = '#e8dcb0';
+    g.textAlign = 'center';
+    g.font = 'bold 8px serif';
+    lines.forEach((line, i) => g.fillText(line, w / 2, 20 + i * 15 + (i === 3 ? 6 : 0), w - 10));
+    g.strokeStyle = '#7a6a4a'; // the name, scratched out
+    g.lineWidth = 1;
+    for (let i = 0; i < 14; i++) {
+      g.beginPath();
+      g.moveTo(14 + i * 5, 84 + (i % 3) * 3);
+      g.lineTo(26 + i * 4, 96 - (i % 2) * 4);
+      g.stroke();
+    }
+  });
+  return group(
+    box(t.wood, [0.66, 0.86, 0.04], [0, 1.1, 0.02], { color: '#2e2018' }),
+    decal(words, [0.6, 0.8], [0, 1.53, 0.045]),
   );
 }
 
@@ -153,43 +218,65 @@ function cryptNiche(t, { heart = true } = {}) {
   return group(...parts);
 }
 
-// St. Agnes made whole: her right hand back at the wrist and open, the lamb
-// in the crook of her left arm, her heart set in her breast.
-function statueWhole(t) {
+// St. Agnes as you give her back her pieces (0.5 part A): "hand" (her wrist
+// and the back of her hand, wing 1's piece), "palm" (her open palm, fingers
+// and thumb on it, wing 3's), "lamb" (wing 2's, in the crook of her left
+// arm), "heart" (the crypt's, in the hollow carved in her breast, a faint
+// warmth in it). The hollow is there from the start. All four: whole.
+function statueRebuilt(t, { hand = false, palm = false, lamb = false, heart = false } = {}) {
   const her = SCHOOL_PROPS.statue(t);
-  her.children.at(-1).visible = false; // the fresh break at the right wrist
+  her.children.at(-1).visible = !hand; // the fresh break at the right wrist
   const stone = materialFor(t.stone, STONE);
-  const hand = new THREE.Group();
+  const handGroup = new THREE.Group();
   const part = (size, at, tilt = 0) => {
     const m = new THREE.Mesh(new THREE.BoxGeometry(...size), stone);
     m.position.set(...at);
     m.rotation.z = tilt;
-    hand.add(m);
+    handGroup.add(m);
   };
-  part([0.06, 0.12, 0.03], [0, 0.06, 0]); // the palm, open, towards you
-  [-0.02, -0.007, 0.007, 0.02].forEach((x, i) => part([0.011, 0.06 - Math.abs(i - 1.5) * 0.008, 0.012], [x, 0.14, 0]));
-  part([0.012, 0.045, 0.012], [0.04, 0.07, 0], -0.7); // the thumb
-  part([0.05, 0.05, 0.05], [0, -0.02, -0.02]); // the wrist, joined where it broke
-  hand.scale.setScalar(1.5); // owner 2026-11-17: the hand and the lamb should read at a glance
-  hand.position.set(0.12, 1.3, 0.33);
-  const lamb = CEMETERY_PROPS.stoneLamb(t); // the size it was cut to fill her arm
-  lamb.scale.multiplyScalar(1.25);
-  lamb.rotation.y = -0.2;
-  lamb.position.set(-0.14, 1.16, 0.3);
-  // Her heart set into a hollow carved in her breast, grey stone, a faint warmth in it.
+  if (hand) {
+    part([0.05, 0.05, 0.05], [0, -0.02, -0.02]); // the wrist, joined where it broke
+    part([0.06, 0.05, 0.03], [0, 0.03, -0.004]); // the back of her hand
+  }
+  if (palm) {
+    part([0.06, 0.07, 0.03], [0, 0.085, 0]); // the palm, open, towards you
+    [-0.02, -0.007, 0.007, 0.02].forEach((x, i) => part([0.011, 0.06 - Math.abs(i - 1.5) * 0.008, 0.012], [x, 0.14, 0]));
+    part([0.012, 0.045, 0.012], [0.04, 0.07, 0], -0.7); // the thumb
+  }
+  handGroup.scale.setScalar(1.5); // owner 2026-11-17: the hand and the lamb should read at a glance
+  handGroup.position.set(0.12, 1.3, 0.33);
+  const parts = [her, handGroup];
+  if (lamb) {
+    const stoneLamb = CEMETERY_PROPS.stoneLamb(t); // the size it was cut to fill her arm
+    stoneLamb.scale.multiplyScalar(1.25);
+    stoneLamb.rotation.y = -0.2;
+    stoneLamb.position.set(-0.14, 1.16, 0.3);
+    parts.push(stoneLamb);
+  }
   const hollow = new THREE.Mesh(new THREE.CircleGeometry(0.085, 10), materialFor(t.stone, { color: '#2e2c28' }));
   hollow.scale.y = 1.15;
   hollow.position.set(0, 1.56, 0.245);
   const rim = new THREE.Mesh(new THREE.TorusGeometry(0.088, 0.012, 4, 12), stone);
   rim.scale.y = 1.15;
   rim.position.set(0, 1.56, 0.247);
-  const heart = stoneHeart(t);
-  heart.scale.setScalar(1.25);
-  heart.position.set(0, 1.505, 0.255);
-  const warmth = new THREE.PointLight('#ffcc90', 0.35, 0.6, 1.5);
-  warmth.position.set(0, 1.56, 0.4);
-  return group(her, hand, lamb, hollow, rim, heart, warmth);
+  parts.push(hollow, rim);
+  if (heart) {
+    const stoneHeartPiece = stoneHeart(t);
+    stoneHeartPiece.scale.setScalar(1.25);
+    stoneHeartPiece.position.set(0, 1.505, 0.255);
+    const warmth = new THREE.PointLight('#ffcc90', 0.35, 0.6, 1.5);
+    warmth.position.set(0, 1.56, 0.4);
+    parts.push(stoneHeartPiece, warmth);
+  }
+  return group(...parts);
 }
 
-export const CHAPEL_PROPS = { pew, altar, votiveRack, font, nameBoard, memorialPlaque, stoneHeart, cryptNiche, statueWhole };
+// St. Agnes made whole (approved still statue_whole).
+function statueWhole(t) {
+  return statueRebuilt(t, { hand: true, palm: true, lamb: true, heart: true });
+}
+
+export const CHAPEL_PROPS = {
+  pew, altar, votiveRack, font, nameBoard, benefactorsBoard, memorialPlaque, cryptCarving, nicheSlab, stoneHeart, cryptNiche, statueRebuilt, statueWhole,
+};
 export { CHILDREN };

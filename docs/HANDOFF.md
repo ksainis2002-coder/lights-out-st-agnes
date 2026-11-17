@@ -308,5 +308,10 @@ by the owner). Waiting on Nora.
 **0.5 stills approved (0.2.96):** Nora approved, so every wing 4 still is. The wing's content sheet
 (all its text, EN and EL, with seven open questions) is drafted as a Claude Doc,
 https://claude.ai/artifact/BTuaqxchpYDVYGNJHJWg4c, and waits for the owner's yes before part A is built.
+**0.5 part A (0.2.97):** content sheet approved (escape = the fire, acceptance = the surgeon's
+table, becomes the building = the coal store; rewind lines by Sam through the water; Sister M. kept
+in the 12 MAY drawer). The chapel and the crypt are built: St. Agnes rebuilt with your eyes on her,
+the crypt plaques and her stone heart, the dead calm, `basement_open`. Details in "Part A as built"
+in `docs/DESIGN_0.5.md`. Next: part B (the basement, Dr. Venn, Sam, the boiler, the morgue).
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

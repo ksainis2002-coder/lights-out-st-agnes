@@ -204,6 +204,13 @@
     18
    ],
    "yawDegrees": -90
+  },
+  "chapel_door": {
+   "cell": [
+    6.5,
+    19.6
+   ],
+   "yawDegrees": 0
   }
  },
  "rooms": [
@@ -290,19 +297,6 @@
     "spawn": "front_door"
    },
    "prompt": "prompt.toSchool",
-   "useHeight": 1.2,
-   "useRadius": 0.8
-  },
-  {
-   "type": "facadeDoor",
-   "at": [
-    6.5,
-    21
-   ],
-   "rotation": 180,
-   "use": "message",
-   "message": "msg.chapelKeyhole",
-   "prompt": "prompt.keyhole",
    "useHeight": 1.2,
    "useRadius": 0.8
   },
@@ -882,6 +876,9 @@
     "depth": 38,
     "height": 9,
     "count": 1400
+   },
+   "until": {
+    "flag": "agnes_whole"
    }
   },
   {
@@ -937,6 +934,42 @@
    "after": {
     "flag": "wing_school_done"
    }
+  },
+  {
+   "type": "facadeDoor",
+   "at": [
+    6.5,
+    21
+   ],
+   "rotation": 180,
+   "use": "message",
+   "message": "msg.chapelKeyhole",
+   "prompt": "prompt.keyhole",
+   "until": {
+    "flag": "wing_wards_done"
+   },
+   "useHeight": 1.2,
+   "useRadius": 0.8
+  },
+  {
+   "type": "facadeDoor",
+   "at": [
+    6.5,
+    21
+   ],
+   "rotation": 180,
+   "id": "chapel_door",
+   "use": "travel",
+   "after": {
+    "flag": "wing_wards_done"
+   },
+   "to": {
+    "level": "chapel",
+    "spawn": "door"
+   },
+   "prompt": "prompt.toChapel",
+   "useHeight": 1.2,
+   "useRadius": 0.8
   }
  ],
  "lights": [
@@ -1132,7 +1165,8 @@
      20.27
     ],
     "rotation": 0,
-    "afterTaken": "agnes_lamb"
+    "afterTaken": "agnes_lamb",
+    "until": "wing_wards_done"
    }
   ],
   "from": "puzzle_records",
