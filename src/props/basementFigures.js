@@ -5,7 +5,7 @@
 // Sam greyer and dimmer, plainly wet, his own clothes; Nora less blocky and
 // frightened. Origin on the floor (Nora: on the table top), front facing +z.
 import * as THREE from 'three';
-import { box, materialFor } from './parts.js';
+import { box, materialFor, canvasTexture } from './parts.js';
 import { SURGEON_FIGURES } from './surgeon.js';
 
 function group(...children) {
@@ -73,79 +73,86 @@ function ghostSam(t, { opacity = 0.42, waterline = 0 } = {}) {
   return group(...parts);
 }
 
-// Nora's face, kept simple (owner 2026-11-17: the drawn-on features looked
-// stuck on): shadowed eye sockets and a dark open mouth, her hair fallen
-// across one side of it. Head-local: the face is towards +z, her left is +x.
-function noraHead(t, skin, hair) {
-  const skull = mesh(new THREE.SphereGeometry(0.095, 12, 9), t.sheet, skin);
-  skull.scale.set(0.9, 1.1, 0.95);
-  const socket = (x) => {
-    const s = mesh(new THREE.SphereGeometry(0.022, 8, 6), t.sheet, { color: '#3a2a24' });
-    s.scale.set(1.2, 0.8, 0.5);
-    s.position.set(x, 0.012, 0.082);
-    return s;
-  };
-  const mouth = mesh(new THREE.SphereGeometry(0.018, 8, 6), t.sheet, { color: '#1a0c0a' });
-  mouth.scale.set(1, 1.3, 0.5);
-  mouth.position.set(0, -0.052, 0.082);
-  const back = mesh(new THREE.SphereGeometry(0.104, 12, 7, 0, Math.PI * 2, Math.PI * 0.4, Math.PI * 0.6), t.sheet, hair);
-  back.rotation.x = Math.PI / 2;
-  const fringe = box(t.sheet, [0.15, 0.028, 0.05], [0, 0.068, 0.05], hair);
-  const across = box(t.sheet, [0.03, 0.12, 0.012], [0.035, -0.01, 0.092], hair); // fallen across her left eye
-  across.rotation.z = -0.35;
-  return group(skull, socket(-0.034), socket(0.034), mouth, back, fringe, across);
+// Nora's head (owner 2026-11-17: the pieces looked stuck on, the hair
+// weird): a face painted round the front of the head itself, eyes wide,
+// brows drawn up, mouth open, a bruise on her left cheekbone; her hair dark
+// over the top and the back, tied back. The sphere's front (+z) is u = 0.25.
+function noraHeadTexture() {
+  return canvasTexture(128, 64, (g, w, h) => {
+    g.fillStyle = '#c4a48c';
+    g.fillRect(0, 0, w, h);
+    g.fillStyle = '#2a1e16'; // hair: the crown, and the back from ear to ear
+    g.fillRect(0, 0, w, 19);
+    g.fillRect(w * 0.43, 0, w * 0.57, h * 0.78);
+    g.fillRect(0, 0, w * 0.07, h * 0.78);
+    const cx = w * 0.25;
+    g.fillStyle = '#e8e0d6'; // eyes wide open
+    [-8, 8].forEach((dx) => g.fillRect(cx + dx - 4, 28, 8, 5));
+    g.fillStyle = '#2a1e18';
+    [-8, 8].forEach((dx) => g.fillRect(cx + dx - 1, 29, 3, 3));
+    g.fillStyle = '#3a2618'; // brows, drawn up in the middle
+    g.fillRect(cx - 13, 24, 8, 2);
+    g.fillRect(cx + 5, 24, 8, 2);
+    g.fillRect(cx - 6, 23, 2, 1);
+    g.fillRect(cx + 4, 23, 2, 1);
+    g.fillStyle = '#a8866e'; // the nose's shadow
+    g.fillRect(cx - 1, 33, 3, 7);
+    g.fillStyle = '#2a1210'; // the mouth open
+    g.fillRect(cx - 4, 44, 9, 5);
+    g.fillStyle = 'rgba(94,70,104,0.7)'; // the bruise
+    g.fillRect(cx + 9, 34, 7, 5);
+  });
 }
 
 // Nora Kane on the surgeon's table (head towards -z), fighting the straps
-// (owner 2026-11-17): her back arched off the table, her head lifted and
-// turned to you ("turn": -1 her right, 1 her left), her right hand pulled
-// free and reaching, her left still under the strap, the fist clenched; her
-// hair loose and hanging off the end of the table. A slim woman of about
-// thirty in a wax jacket and jeans. Sits on the table top.
+// (owner 2026-11-17: not doll-thin, no hands in the air, a body that bends):
+// a woman of ordinary build, about thirty, in a wax jacket and jeans, built
+// standing and laid down; her back lifting, her arms pulling at her sides
+// under the strap, fists clenched, one knee drawn up, her head lifted and
+// turned to you ("turn": -1 her right, 1 her left). Sits on the table top.
 function noraStrapped(t, { turn = -1 } = {}) {
   const jacket = { color: '#55553a', flatShading: true };
   const jeans = { color: '#2a3446', flatShading: true };
   const skin = { color: '#c4a48c', flatShading: true };
-  const hair = { color: '#241a14' };
-  const along = (radius, length, at, scale, tilt = 0) => { // a body part lying along z
-    const part = mesh(new THREE.CylinderGeometry(radius[0], radius[1], length, 10), t.sheet, scale.options);
-    part.rotation.x = Math.PI / 2 - tilt;
-    part.scale.set(scale.x, 1, scale.y);
-    part.position.set(...at);
-    return part;
+  const part = (radius, height, y, options, z = 0) => {
+    const m = mesh(new THREE.CylinderGeometry(radius[0], radius[1], height, 10), t.sheet, options);
+    m.scale.z = 0.6;
+    m.position.set(0, y, z);
+    return m;
   };
-  const hips = along([0.12, 0.13], 0.22, [0, 0.085, 0.05], { x: 1, y: 0.68, options: jeans });
-  const waist = along([0.1, 0.11], 0.2, [0, 0.1, -0.15], { x: 1, y: 0.7, options: jacket }, 0.15);
-  const chest = along([0.14, 0.11], 0.32, [0, 0.17, -0.37], { x: 1, y: 0.62, options: jacket }, 0.4); // arched up off the table
+  const hips = part([0.16, 0.17], 0.2, 0.91, jeans);
+  const waist = part([0.14, 0.15], 0.16, 1.07, jacket, 0.01);
+  const chest = part([0.19, 0.15], 0.3, 1.3, jacket, 0.03);
   const shoulders = [-1, 1].map((side) => {
-    const s = mesh(new THREE.SphereGeometry(0.055, 8, 6), t.sheet, jacket);
-    s.position.set(side * 0.14, 0.23, -0.5);
-    return s;
+    const sphere = mesh(new THREE.SphereGeometry(0.065, 8, 6), t.sheet, jacket);
+    sphere.position.set(side * 0.18, 1.42, 0.02);
+    return sphere;
   });
-  const legs = [-0.065, 0.065].flatMap((x) => [
-    limb(t, [x, 0.08, 0.12], [x, 0.1, 0.5], 0.055, jeans),
-    limb(t, [x, 0.1, 0.5], [x, 0.07, 0.86], 0.045, jeans),
-    box(t.sheet, [0.08, 0.12, 0.08], [x, 0.03, 0.9], { color: '#3a2a20' }),
+  const legs = [
+    limb(t, [-0.09, 0.86, 0], [-0.09, 0.5, 0.18], 0.07, jeans), // her right knee drawn up
+    limb(t, [-0.09, 0.5, 0.18], [-0.09, 0.12, 0.08], 0.055, jeans),
+    box(t.sheet, [0.1, 0.13, 0.16], [-0.09, 0.0, 0.1], { color: '#3a2a20' }),
+    limb(t, [0.09, 0.86, 0], [0.09, 0.47, 0.02], 0.07, jeans),
+    limb(t, [0.09, 0.47, 0.02], [0.09, 0.1, 0], 0.055, jeans),
+    box(t.sheet, [0.1, 0.13, 0.16], [0.09, -0.02, 0.03], { color: '#3a2a20' }),
+  ];
+  const arms = [-1, 1].flatMap((side) => [ // down her sides, pulling against the strap
+    limb(t, [side * 0.2, 1.42, 0.02], [side * 0.26, 1.17, -0.02], 0.05, jacket),
+    limb(t, [side * 0.26, 1.17, -0.02], [side * 0.24, 0.95, 0.04], 0.045, jacket),
+    box(t.sheet, [0.06, 0.08, 0.07], [side * 0.24, 0.87, 0.04], skin),
   ]);
-  const left = [ // under the strap, the fist clenched
-    limb(t, [0.15, 0.22, -0.5], [0.19, 0.15, -0.25], 0.038, jacket),
-    limb(t, [0.19, 0.15, -0.25], [0.17, 0.09, -0.02], 0.034, jacket),
-    box(t.sheet, [0.05, 0.045, 0.06], [0.17, 0.06, 0.03], skin),
-  ];
-  const right = [ // pulled free, reaching to you
-    limb(t, [-0.15, 0.24, -0.5], [-0.3, 0.4, -0.44], 0.038, jacket),
-    limb(t, [-0.3, 0.4, -0.44], [-0.42, 0.56, -0.34], 0.034, jacket),
-    box(t.sheet, [0.04, 0.09, 0.07], [-0.45, 0.58, -0.32], skin),
-  ];
-  const neck = limb(t, [0, 0.24, -0.54], [-0.01, 0.31, -0.62], 0.038, skin);
-  const faceUp = noraHead(t, skin, hair);
-  faceUp.rotation.x = -Math.PI / 2 + 0.7; // lifted off the table
-  const head = group(faceUp);
-  head.rotation.z = -turn * 0.7; // turned towards you (her right is -x)
-  head.position.set(-0.02, 0.36, -0.68);
-  const hanging = [-0.05, 0, 0.05].map((x, i) => limb(t, [x, 0.3, -0.76], [x * 1.4, -0.22 - i * 0.04, -0.98], 0.018, hair));
-  const straps = [[-0.4, 0.27, 0.36], [0.06, 0.19, 0.3], [0.55, 0.17, 0.2]].map(([z, y, w]) => box(t.sheet, [w, 0.02, 0.07], [0, y, z], { color: '#3a2a1c' }));
-  return group(hips, waist, chest, ...shoulders, ...legs, ...left, ...right, neck, head, ...hanging, ...straps);
+  const neck = limb(t, [0, 1.45, 0.01], [0, 1.54, 0.03], 0.045, skin);
+  const skull = mesh(new THREE.SphereGeometry(0.105, 14, 10), noraHeadTexture(), { flatShading: false });
+  skull.scale.set(0.9, 1.1, 0.95);
+  const ponytail = limb(t, [0, 1.6, -0.08], [0, 1.4, -0.13], 0.03, { color: '#2a1e16' });
+  const head = group(skull);
+  head.position.set(0, 1.64, 0.04);
+  head.rotation.set(0.35, turn * 0.8, 0); // lifted towards her chest, turned to you
+  const body = group(hips, waist, chest, ...shoulders, ...legs, ...arms, neck, head, ponytail);
+  body.rotation.x = -Math.PI / 2; // laid on her back, head towards -z
+  body.position.set(0, 0.11, 0.82);
+  const straps = [[-0.48, 0.23, 0.44], [-0.09, 0.22, 0.4], [0.33, 0.19, 0.34]].map(([z, y, w]) => box(t.sheet, [w, 0.02, 0.07], [0, y, z], { color: '#3a2a1c' }));
+  return group(body, ...straps);
 }
 
 export const BASEMENT_FIGURES = { ...SURGEON_FIGURES, ghostSam, noraStrapped };

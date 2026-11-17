@@ -131,7 +131,7 @@ export const BASEMENT_STILLS = {
       light(world, '#d8c8a0', 2.2, 4, [14.2, 8.4], 2.5);
       light(world, '#8a9ac8', 1.2, 4, [13.6, 7.4], 1.4);
       light(world, '#9aa8c8', 0.9, 2.4, [13.5, 8.0], 2.0); // just enough on the bandage
-      eye(world, [12.75, 8.05], [14.4, 8.0], 1.7, 1.45); // his face and the tray he carries
+      eye(world, [13.55, 8.08], [14.4, 8.0], 1.72, 1.98); // his head and shoulders, from a little below
     },
   },
   // The tell: he has stopped, the clinking with him, and turned his head
@@ -204,7 +204,7 @@ export const BASEMENT_STILLS = {
         ['instrumentCabinet', 34, 2.2, -90], ['instrumentTray', 31.7, 4.0, -20],
       ]);
       world.flashlight.toggle();
-      eye(world, [29.15, 4.05], [30.4, 2.75], 1.65, 1.05); // a few steps in: the table under its lamp, her reaching to you
+      eye(world, [29.3, 2.7], [30.5, 2.95], 1.7, 0.95); // at her right side, the way she has turned her head; the room behind
     },
     ui(ctx) {
       usePrompt(ctx, 'CLICK  Undo the straps');

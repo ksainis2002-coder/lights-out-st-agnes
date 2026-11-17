@@ -160,6 +160,23 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   dark open mouth, her hair fallen across one eye and hanging off the end of the table. Seen from a
   few steps into the theatre: the table under its lamp, his cabinet, his tray.
 
+## Owner's notes on the third pass (2026-11-17) and the fourth
+- **Dr. Venn: "take inspiration from the doctor in Dead by Daylight".** Taken in spirit only (he stays
+  ours: no copy of that character's face, head brace, coat or shock kit). The owner picked three
+  qualities of it: a wrecked man who moves wrong, a tall ruined white coat, and that he drives you
+  mad (not the electricity). Now: a long white coat gone to grime, open down the front over the dark
+  gown, sleeves past his wrists with long gloved fingers splayed; a head mirror strapped over the
+  bandage; the bandage slipped on one side and the eye under it stitched shut; the jaw hanging open
+  and askew; the head cocked too far, one shoulder high, the right arm bent out; the tray of clean
+  instruments tipped in his left hand. **He drives you mad (to build):** near him your sanity falls
+  faster, and at low sanity his clinking comes from the wrong side.
+- **Nora: body stiff, face odd, "too slender, like a doll", her hair weird, "why are her hands in
+  the air?"** Now built as a woman of ordinary build standing and laid on the table: her back lifting,
+  her arms pulling at her sides under the strap with the fists clenched (no hand in the air), one knee
+  drawn up, her head lifted and turned to you; her face painted round the front of her head (eyes
+  wide, brows drawn up, mouth open, a bruise), her hair dark and tied back. Seen from her side, the
+  room behind.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.

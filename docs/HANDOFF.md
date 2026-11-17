@@ -279,5 +279,7 @@ stills" in `docs/DESIGN_0.5.md`).
 Sam, Nora, the held breath with two shapes to choose from); the chapel, crypt and morgue approved.
 **0.5 stills, third pass (0.2.85):** Dr. Venn with less gore, the breath ring picked, St. Agnes whole
 and Sam approved, Nora redrawn struggling in the theatre. Waiting on Dr. Venn and Nora.
+**0.5 stills, fourth pass (0.2.86):** Dr. Venn in the spirit the owner picked (wrecked, a ruined
+white coat, he drives you mad), Nora rebuilt with ordinary proportions and her hands down. Waiting on both.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

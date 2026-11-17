@@ -1,11 +1,15 @@
 // Dr. Venn, the surgeon: the blind hunter of the basement (0.5 proposal,
 // docs/DESIGN_0.5.md; mockup stills only until the owner approves him).
-// Owner 2026-11-17: Dr. Venn himself, bandaged over the eyes; the first
-// drawing was "not scary enough", so he is longer and thinner, stooped, a
-// loose end of the bandage hanging; the second had "too much gore", so the
-// blood is back to a few old marks: the threat is his silence and his tools,
-// which catch the light. Origin on the floor, front facing +z.
-// "listening": he has stopped, head turned and tilted towards a sound.
+// Owner 2026-11-17: Dr. Venn himself, bandaged over the eyes; not scary
+// enough, then too much gore; then, in the spirit of a doctor from another
+// game the owner likes (our own, not a copy): a man who has done things to
+// himself and moves wrong, a tall ruined white coat, and he drives you mad.
+// So: a long filthy coat, sleeves past his wrists; a head mirror strapped
+// over the bandage; the bandage slipped on one side, the eye under it stitched
+// shut; his jaw hanging open and askew; his head cocked too far, one shoulder
+// high, long fingers splayed; his tray of clean, glinting instruments. Origin
+// on the floor, front facing +z. "listening": stopped, head turned and
+// cocked further towards a sound.
 import * as THREE from 'three';
 import { box, materialFor, canvasTexture } from './parts.js';
 import { BASEMENT_PROPS } from './basement.js';
@@ -30,47 +34,28 @@ function limb(t, from, to, r, options) {
 }
 
 const seeded = (seed) => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-const BLOOD = (alpha) => `rgba(46,9,7,${alpha})`; // dried dark: bright red would read as paint under a lamp
 
-// His gown, gone grey with washing that never got the old blood out: rust
-// spatters and long smears down the front (v = 1 is the shoulders).
-function gownTexture() {
-  const random = seeded(3);
+// The coat: white gone to grime, grey and brown, darker at the hem and the
+// cuffs where it drags and where his hands go (v = 1 is the collar).
+function coatTexture() {
+  const random = seeded(5);
   return canvasTexture(32, 64, (g, w, h) => {
     for (let y = 0; y < h; y++) {
+      const grime = Math.max(0, (y - 40) * 2.2); // dirtier towards the hem (the canvas bottom)
       for (let x = 0; x < w; x++) {
-        const n = Math.floor(random() * 14);
-        g.fillStyle = `rgb(${96 + n},${93 + n},${84 + n})`;
+        const n = Math.floor(random() * 16);
+        g.fillStyle = `rgb(${150 + n - grime},${146 + n - grime},${132 + n - grime * 1.1})`;
         g.fillRect(x, y, 1, 1);
       }
     }
-    for (let i = 0; i < 3; i++) { // a few old marks the wash never got out
-      g.fillStyle = BLOOD(0.35);
-      g.fillRect(8 + random() * 16, 30 + random() * 20, 2 + random() * 2, 3 + random() * 4);
+    for (let i = 0; i < 9; i++) { // old brown stains, a grey water mark
+      g.fillStyle = i % 3 ? 'rgba(90,70,50,0.35)' : 'rgba(60,60,60,0.3)';
+      g.fillRect(random() * w, 14 + random() * 40, 2 + random() * 5, 3 + random() * 8);
     }
   });
 }
 
-// Black rubber, slick, smeared dark red where he wipes his hands.
-function apronTexture() {
-  const random = seeded(19);
-  return canvasTexture(16, 32, (g, w, h) => {
-    for (let y = 0; y < h; y++) {
-      for (let x = 0; x < w; x++) {
-        const n = Math.floor(random() * 8);
-        g.fillStyle = `rgb(${10 + n},${9 + n},${9 + n})`;
-        g.fillRect(x, y, 1, 1);
-      }
-    }
-    g.fillStyle = BLOOD(0.7); // one wiped smear
-    g.fillRect(9, 14, 2, 5);
-    g.fillStyle = 'rgba(70,70,70,0.4)'; // the shine on wet rubber
-    for (let y = 2; y < h; y += 7) g.fillRect(3, y, 1, 4);
-  });
-}
-
-// The bandage: wound twice, grey with old dressings, soaked through dark
-// where his eyes were, two runs down from them.
+// The bandage, slipped down on his left: a band of old dressing.
 function bandageTexture() {
   const random = seeded(7);
   return canvasTexture(64, 16, (g, w, h) => {
@@ -82,71 +67,99 @@ function bandageTexture() {
       }
     }
     g.fillStyle = 'rgba(110,100,84,0.6)';
-    for (let x = 0; x < w; x += 6) g.fillRect(x, 0, 1, h); // the turns of the wrap
-    for (const cx of [26, 38]) { // the eyes: a faint seep under the dressing
-      g.fillStyle = 'rgba(70,50,40,0.45)';
-      g.fillRect(cx - 3, 5, 7, 6);
-    }
+    for (let x = 0; x < w; x += 6) g.fillRect(x, 0, 1, h);
   });
 }
 
 function surgeon(t, { listening = false, tray = true } = {}) {
   const dark = { color: '#1c1a18' };
-  const skin = { color: '#8a7c70', flatShading: true }; // grey under the lamp, a man who never sees daylight
-  const glove = { color: '#1a1816' }; // black rubber gauntlets
-  const gown = gownTexture();
+  const coat = coatTexture();
   const legs = [-0.07, 0.07].flatMap((x) => [limb(t, [x, 0.74, 0], [x, 0.06, 0.03], 0.045, dark), box(t.sheet, [0.09, 0.06, 0.24], [x, 0, 0.07], dark)]);
-  const skirt = mesh(new THREE.CylinderGeometry(0.16, 0.23, 0.62, 9), gown, { flatShading: true });
-  skirt.position.y = 0.74;
-  skirt.scale.z = 0.62;
-  // Everything above the waist leans forward from it: he stoops to listen.
-  const torso = mesh(new THREE.CylinderGeometry(0.17, 0.15, 0.78, 9), gown, { flatShading: true });
-  torso.position.y = 0.43;
-  torso.scale.z = 0.58;
-  const apron = mesh(new THREE.PlaneGeometry(0.26, 0.98), apronTexture(), { side: THREE.DoubleSide });
-  apron.position.set(0, 0.0, 0.1);
-  const hands = tray ? [[-0.17, -0.02, 0.34], [0.17, -0.02, 0.34]] : [[-0.22, -0.18, 0.08], [0.22, -0.18, 0.08]];
-  const arms = [-1, 1].flatMap((side, i) => [
-    limb(t, [side * 0.19, 0.78, 0], [side * 0.23, 0.34, 0.06], 0.04, { color: '#5e5a52' }),
-    limb(t, [side * 0.23, 0.34, 0.06], hands[i], 0.036, glove),
-    box(t.sheet, [0.05, 0.03, 0.09], [hands[i][0], hands[i][1] - 0.02, hands[i][2]], glove), // long fingers round the tray
-  ]);
-  const neck = limb(t, [0, 0.8, 0], [0, 0.96, 0.03], 0.04, skin);
-  const upper = group(torso, apron, ...arms, neck, head(t, skin, listening));
-  upper.position.y = 1.04;
-  upper.rotation.x = 0.16;
+  // The coat hangs open at the front from the shoulders to his calves.
+  const coatGeometry = new THREE.CylinderGeometry(0.19, 0.29, 1.34, 12, 1, true, 0.42, Math.PI * 2 - 0.84); // the gap faces +z
+  const longCoat = mesh(coatGeometry, coat, { side: THREE.DoubleSide, flatShading: true });
+  longCoat.scale.z = 0.64;
+  longCoat.position.y = 0.67;
+  const under = mesh(new THREE.CylinderGeometry(0.15, 0.17, 1.1, 8), t.sheet, { color: '#3a3832' }); // the gown and black apron inside it
+  under.scale.z = 0.55;
+  under.position.y = 0.55;
+  const lower = group(longCoat, under);
+  lower.position.y = 0.6;
+  // Above the waist he leans forward, one shoulder higher than the other.
+  const sleeve = { color: '#8e8a7c' };
+  const glove = { color: '#1a1816' };
+  const tilt = 0.09;
+  const left = [ // the tray in his left hand, low and to the side
+    limb(t, [0.19, 0.78, 0], [0.24, 0.36, 0.08], 0.05, sleeve),
+    limb(t, [0.24, 0.36, 0.08], [0.2, 0.06, 0.26], 0.047, sleeve), // the sleeve, past his wrist
+    ...fingers(t, [0.2, 0.03, 0.29], glove, 0.3),
+  ];
+  const right = [ // the right arm bent out at the elbow, fingers splayed and reaching
+    limb(t, [-0.2, 0.82, 0], [-0.34, 0.5, 0.02], 0.05, sleeve),
+    limb(t, [-0.34, 0.5, 0.02], [-0.3, 0.16, 0.16], 0.047, sleeve),
+    ...fingers(t, [-0.3, 0.12, 0.18], glove, -0.4),
+  ];
+  const chest = mesh(new THREE.CylinderGeometry(0.2, 0.17, 0.82, 10, 1, true, 0.3, Math.PI * 2 - 0.6), coat, { side: THREE.DoubleSide, flatShading: true });
+  chest.scale.z = 0.6;
+  chest.position.y = 0.42;
+  const gown = mesh(new THREE.CylinderGeometry(0.17, 0.15, 0.8, 8), t.sheet, { color: '#3a3832' }); // seen down the open front
+  gown.scale.z = 0.52;
+  gown.position.y = 0.42;
+  const neck = limb(t, [0, 0.82, 0], [0.02, 0.98, 0.04], 0.04, { color: '#8a7c70' });
+  const upper = group(chest, gown, ...left, ...right, neck, head(t, listening));
+  upper.position.y = 1.0;
+  upper.rotation.set(0.18, 0, tilt);
   if (tray) {
     const held = BASEMENT_PROPS.instrumentTray(t, { held: true, glint: true });
-    held.position.set(0, -0.04, 0.38);
+    held.scale.setScalar(0.85);
+    held.position.set(0.24, 0.03, 0.32);
+    held.rotation.set(0.25, 0.3, -0.2); // tipped: it rattles as he walks
     upper.add(held);
   }
-  return group(...legs, skirt, upper);
+  return group(...legs, lower, upper);
 }
 
-// His head: long and gaunt, grey hair thin and combed back, the bandage
-// wound twice over his eyes, a loose end of it hanging at his jaw.
-function head(t, skin, listening) {
-  const skull = mesh(new THREE.SphereGeometry(0.1, 8, 7), t.sheet, skin);
+// Long gloved fingers, splayed, from the end of a sleeve.
+function fingers(t, at, options, turn) {
+  return [-0.024, -0.008, 0.008, 0.024].map((x, i) => {
+    const finger = box(t.sheet, [0.012, 0.1 + (i % 2) * 0.02, 0.012], [at[0] + x, at[1] - 0.1, at[2]], options);
+    finger.rotation.z = turn * 0.3 + (i - 1.5) * 0.12;
+    return finger;
+  });
+}
+
+// His head: long and grey, hair thin; a head mirror strapped over the
+// bandage; the bandage slipped on his left, the eye under it stitched shut;
+// the jaw hanging open and to one side; cocked too far.
+function head(t, listening) {
+  const skin = { color: '#8a7c70', flatShading: true };
+  const skull = mesh(new THREE.SphereGeometry(0.1, 10, 8), t.sheet, skin);
   skull.scale.set(0.86, 1.3, 0.98);
-  const hair = mesh(new THREE.SphereGeometry(0.104, 8, 5, Math.PI * 0.55, Math.PI * 1.9, 0, Math.PI * 0.5), t.sheet, { color: '#6a665e', side: THREE.DoubleSide });
+  const hair = mesh(new THREE.SphereGeometry(0.104, 10, 5, Math.PI * 0.55, Math.PI * 1.9, 0, Math.PI * 0.5), t.sheet, { color: '#6a665e', side: THREE.DoubleSide });
   hair.position.y = 0.03;
-  const wrap = bandageTexture();
-  const band = mesh(new THREE.CylinderGeometry(0.094, 0.096, 0.07, 10, 1, true), wrap, { side: THREE.DoubleSide });
-  band.position.set(0, 0.025, 0.004);
-  band.rotation.y = Math.PI / 2;
-  const band2 = band.clone();
-  band2.position.y = 0.06;
-  band2.rotation.z = 0.18;
-  const loose = box(t.sheet, [0.03, 0.17, 0.006], [0.085, -0.15, 0.02], { color: '#7a7058' });
-  loose.rotation.z = 0.15;
-  const cheeks = [-1, 1].map((side) => box(t.sheet, [0.012, 0.07, 0.05], [side * 0.07, -0.08, 0.06], { color: '#6e6054' }));
+  const band = mesh(new THREE.CylinderGeometry(0.094, 0.096, 0.07, 12, 1, true), bandageTexture(), { side: THREE.DoubleSide });
+  band.position.set(0, 0.03, 0.004);
+  band.rotation.set(0, Math.PI / 2, -0.22); // slipped down on his left
+  const loose = box(t.sheet, [0.03, 0.17, 0.006], [-0.085, -0.15, 0.02], { color: '#7a7058' });
+  loose.rotation.z = -0.15;
+  // Where it slipped: the eye stitched shut, a dark seam and three stitches.
+  const seam = box(t.sheet, [0.036, 0.005, 0.006], [0.036, -0.005, 0.092], { color: '#2a1a16' });
+  const stitches = [0.024, 0.036, 0.048].map((x) => box(t.sheet, [0.004, 0.016, 0.004], [x, -0.012, 0.094], { color: '#1a1210' }));
+  // The head mirror on its strap, over the bandage: a disc that catches your light.
+  const strap = mesh(new THREE.CylinderGeometry(0.104, 0.104, 0.018, 12, 1, true), t.sheet, { color: '#2a2622', side: THREE.DoubleSide });
+  strap.position.y = 0.085;
+  const mirror = mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.008, 12), t.iron, { color: '#e8ecf0', unlit: true });
+  mirror.rotation.x = Math.PI / 2 - 0.35;
+  mirror.position.set(-0.02, 0.1, 0.11);
   const nose = box(t.sheet, [0.02, 0.05, 0.03], [0, -0.05, 0.095], skin);
-  const mouth = box(t.sheet, [0.05, 0.008, 0.01], [0, -0.1, 0.088], { color: '#1e100c' }); // a thin slit
+  const mouth = box(t.sheet, [0.046, 0.04, 0.012], [0.008, -0.12, 0.086], { color: '#140a08' }); // the jaw hangs open
+  const jaw = box(t.sheet, [0.07, 0.024, 0.06], [0.014, -0.16, 0.055], skin);
+  jaw.rotation.z = 0.12; // and off to one side
+  const cheeks = [-1, 1].map((side) => box(t.sheet, [0.012, 0.07, 0.05], [side * 0.07, -0.08, 0.06], { color: '#6e6054' }));
   const ears = [-1, 1].map((side) => box(t.sheet, [0.018, 0.05, 0.03], [side * 0.088, -0.01, 0], skin));
-  const g = group(skull, hair, band, band2, loose, ...cheeks, nose, mouth, ...ears);
-  g.position.set(0, 1.08, 0.06);
-  if (listening) g.rotation.set(0.1, 0.5, 0.36);
-  else g.rotation.x = 0.1;
+  const g = group(skull, hair, band, loose, seam, ...stitches, strap, mirror, nose, mouth, jaw, ...cheeks, ...ears);
+  g.position.set(0.02, 1.1, 0.06);
+  g.rotation.set(0.12, listening ? 0.55 : 0.1, listening ? 0.62 : 0.42); // cocked too far, always
   return g;
 }
 
