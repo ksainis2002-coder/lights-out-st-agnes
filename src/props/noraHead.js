@@ -22,9 +22,10 @@ const BUMPS = both([
   { at: FACE.eye, size: 0.12, amount: -0.08 }, // her eyes
   { at: [0.54, -0.22, 0.8], size: 0.2, amount: 0.1 }, // her cheeks, full and round (owner: rounder)
   { at: [0, -0.49, 0.87], size: 0.12, stretch: [1.7, 0.8, 1], amount: 0.055 }, // full lips
-  { at: FACE.mouth, size: 0.06, stretch: [1.6, 0.9, 1], amount: -0.055 }, // parted, her breath caught
-  { at: FACE.chin, size: 0.17, amount: 0.045 }, // her chin, soft
-  { at: [0.62, -0.7, 0.32], size: 0.22, amount: 0.04 }, // a soft, round jaw
+  { at: FACE.mouth, size: 0.06, stretch: [1.7, 0.6, 1], amount: -0.03 }, // just parted
+  { at: FACE.chin, size: 0.14, amount: 0.065 }, // her chin, soft but there (owner: the chin a little off)
+  { at: [0, -0.96, 0.2], size: 0.16, amount: -0.03 }, // in under it, where her throat begins
+  { at: [0.62, -0.7, 0.32], size: 0.22, amount: 0.045 }, // a soft, round jaw
   { at: [0.85, 0.32, 0.4], size: 0.2, amount: -0.02 }, // her temples
   { at: [1, 0, -0.05], size: 0.12, stretch: [0.5, 1.4, 0.7], amount: 0.08 }, // her ears
 ]).concat([ // no face is the same on both sides

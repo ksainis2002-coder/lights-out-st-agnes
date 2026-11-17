@@ -142,7 +142,7 @@ function straps(tex, t) {
 // throat stand out with the strain, the skin flushed with fear; it goes down
 // into the jumper's knitted collar.
 function neck(tex) {
-  const path = [v(0, 0.104, -0.52), v(-0.013, 0.142, -0.582), v(-0.027, 0.168, -0.618)];
+  const path = [v(0, 0.1, -0.52), v(-0.015, 0.124, -0.585), v(-0.028, 0.138, -0.64)]; // into the underside of her head, so her jaw overhangs her throat (owner: the neck a little off)
   const cords = (theta) => 1 + 0.14 * (Math.exp(-((theta - 0.95) ** 2) / 0.05) + Math.exp(-((theta - 2.19) ** 2) / 0.05)) + 0.04 * Math.exp(-((theta - Math.PI / 2) ** 2) / 0.04);
   const throat = mesh(sweepGeometry(path, [[0.05, 0.045], 0.044, 0.042], { radial: 20, steps: 4, front: [0, 1, 0.3], shape: cords }), tex.neck);
   const collar = mesh(new THREE.TorusGeometry(0.054, 0.017, 6, 18), tex.jumper); // the jumper's collar, high on her throat

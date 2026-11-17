@@ -283,6 +283,12 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   parting, and starts lower on her forehead. Her mouth moved up with her shorter nose, so it
   still sits a lip's height under it.
 
+## Owner's notes on the eleventh pass (2026-11-17) and the twelfth
+- **Nora: her eyes and hair are fine; her mouth less open; her chin and neck "a little off".** Her
+  lips are now just parted (a glimpse of her top teeth). Her chin is a little firmer, lit, with
+  shade under it and along her jawline; her neck goes into the underside of her head, so her jaw
+  overhangs her throat instead of running straight into it.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.

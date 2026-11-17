@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.94 — Wing 4 stills, twelfth pass: Nora's mouth less open, her chin firmer with shade under it and along her jaw, and her neck set under her jaw instead of running straight from her chin. Nothing in the game changes.
 - 0.2.93 — Wing 4 stills, eleventh pass: Nora's nose smaller, shorter and softer, her face rounder with fuller cheeks, her hair fuller on top and her hairline lower (her mouth kept a lip's height under her nose). Nothing in the game changes.
 - 0.2.92 — Wing 4 stills, tenth pass: Nora's mouth moved up under her nose, and her fear a step plainer (wider eyes with white above the irises, brows higher and drawn in, lips further apart). Nothing in the game changes.
 - 0.2.91 — Wing 4 stills, ninth pass: Nora redrawn from the owner's reference, in spirit only: one plain, believable young woman (soft, photograph-like shading, clear skin, her fear quiet in her eyes and parted lips) with straight light-brown hair parted in the middle, loose to her shoulders; the close-up sees her face upright as she lifts her head to you; the three versions are dropped. Nothing in the game changes.

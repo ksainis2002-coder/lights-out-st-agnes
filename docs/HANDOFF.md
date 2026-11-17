@@ -301,5 +301,7 @@ the middle; the three versions dropped. Waiting on Nora.
 **0.5 stills, tenth pass (0.2.92):** Nora "close": more afraid, her mouth moved up. Waiting on Nora.
 **0.5 stills, eleventh pass (0.2.93):** Nora's nose smaller and softer, her face rounder, her hair
 fuller on top with a lower hairline. Waiting on Nora.
+**0.5 stills, twelfth pass (0.2.94):** Nora's mouth less open, her chin and jawline firmer, her
+neck set under her jaw. Waiting on Nora.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
