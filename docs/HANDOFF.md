@@ -295,5 +295,8 @@ exhausted with damp hair), all in adult proportions with hair that falls. Waitin
 **0.5 stills, eighth pass (0.2.90):** Nora "still fake, like a mannequin": living skin (freckles,
 uneven tone, sweat, wet eyes), a straining neck into a knitted collar, cloth with weave and
 creases, in the same three versions. Waiting on the pick.
+**0.5 stills, ninth pass (0.2.91):** Nora from the owner's reference (another game's heroine, in
+spirit only): one plain, believable young woman, quiet fear, straight light-brown hair parted in
+the middle; the three versions dropped. Waiting on Nora.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

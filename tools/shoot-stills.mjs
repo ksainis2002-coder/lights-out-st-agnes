@@ -16,7 +16,7 @@ const WARDS = ['ward', 'nun', 'nun_dark', 'nun_catch', 'edith', 'camcorder_night
   'admissions', 'fuse_room', 'baths', 'dispensary', 'day_room', 'childrens_ward', 'ui_fuseBoard',
   'observation', 'treatment_room', 'isolation', 'isolation_night', 'venn_office', 'ui_tape',
   'sister_room', 'sister_shrine', 'sister_trunk', 'box_mended', 'way_out', 'hub_after_wards'];
-const BASEMENT = ['chapel', 'statue_whole', 'crypt', 'surgeon', 'surgeon_face', 'surgeon_belt', 'surgeon_listens', 'ui_breath', 'sam', 'morgue', 'theatre_nora', 'nora_close', 'nora_a', 'nora_b', 'nora_c'];
+const BASEMENT = ['chapel', 'statue_whole', 'crypt', 'surgeon', 'surgeon_face', 'surgeon_belt', 'surgeon_listens', 'ui_breath', 'sam', 'morgue', 'theatre_nora', 'nora_close'];
 const names = process.argv.slice(2).length ? process.argv.slice(2) : [...ALL, ...SCHOOL, ...WARDS, ...BASEMENT];
 const version = (name) => (BASEMENT.includes(name) ? '0.5' : WARDS.includes(name) ? '0.4' : SCHOOL.includes(name) ? '0.3' : '0.2');
 const folder = (name) => new URL(`../docs/mockups/stills-${version(name)}/`, import.meta.url).pathname;

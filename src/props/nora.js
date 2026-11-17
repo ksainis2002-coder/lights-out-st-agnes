@@ -4,7 +4,7 @@
 // smudge, the straps like planks. Now built smooth, in layers: a woman of
 // about thirty and ordinary build in an open waxed jacket over a knitted
 // jumper, jeans and boots, on her back with her head towards -z; her head
-// lifted and turned to you (her right, -x); her back arched, her right knee
+// lifted to look down the table at you; her back arched, her right knee
 // drawn up, her fists clenched against the cuffs. Leather straps with steel
 // buckles cross her chest, her hips and her shins and go under the table's
 // edge. Owner, eighth pass: "still fake, like a mannequin": her skin is
@@ -145,15 +145,15 @@ function neck(tex) {
   const path = [v(0, 0.104, -0.52), v(-0.013, 0.142, -0.582), v(-0.027, 0.168, -0.618)];
   const cords = (theta) => 1 + 0.14 * (Math.exp(-((theta - 0.95) ** 2) / 0.05) + Math.exp(-((theta - 2.19) ** 2) / 0.05)) + 0.04 * Math.exp(-((theta - Math.PI / 2) ** 2) / 0.04);
   const throat = mesh(sweepGeometry(path, [[0.05, 0.045], 0.044, 0.042], { radial: 20, steps: 4, front: [0, 1, 0.3], shape: cords }), tex.neck);
-  const collar = mesh(new THREE.TorusGeometry(0.056, 0.013, 6, 18), tex.jumper);
-  collar.position.copy(path[0].clone().lerp(path[1], 0.2));
+  const collar = mesh(new THREE.TorusGeometry(0.054, 0.017, 6, 18), tex.jumper); // the jumper's collar, high on her throat
+  collar.position.copy(path[0].clone().lerp(path[1], 0.55));
   collar.quaternion.setFromUnitVectors(v(0, 0, 1), path[1].clone().sub(path[0]).normalize());
   return [throat, collar];
 }
 
-function noraStrapped(t, { turn = 0.6, lift = 0.65, look = 'terrified' } = {}) {
+function noraStrapped(t, { turn = 0.18, lift = 0.7 } = {}) {
   const tex = TEXTURES();
-  const head = noraHead(t, { look });
+  const head = noraHead();
   head.position.set(-0.04, 0.19, -0.67); // straining up off the table
   const lifted = new THREE.Quaternion().setFromAxisAngle(v(1, 0, 0), -Math.PI / 2 + lift);
   head.quaternion.setFromAxisAngle(v(0, 0, 1), turn).multiply(lifted); // lifted off the table, turned to you

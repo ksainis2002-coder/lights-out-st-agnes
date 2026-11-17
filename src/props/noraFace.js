@@ -1,15 +1,15 @@
 // Nora Kane's face, painted onto her sculpted head (0.5 proposal; mockup
-// stills only until the owner approves her). Owner 2026-11-17: "face still
-// odd"; then cartoon or doll-like, surprised rather than terrified, the hair
-// like a helmet; three versions to pick from. In proportion for a woman of
-// about thirty: her eyes an eye's width apart, her nose and mouth low on a
-// longer lower face; no outlines, only shade and colour, at a size the game's
-// resolution keeps. "look": terrified (brows up and drawn together, white
-// showing over her irises, her lips stretched back off her teeth), crying
-// (brows up in the middle, eyes wet and red-rimmed, tears, her mouth pulled
-// down in a sob), or exhausted (heavy lids, dark under the eyes, a split lip,
-// dirt and dried blood). The texture is 256 x 128: a texel is about 1.7 mm
-// across and 2.5 mm down her face; the face looks down +z, at u = 0.5.
+// stills only until the owner approves her). Owner 2026-11-17, after many
+// passes: take inspiration from the young woman of another horror game the
+// owner likes (in spirit only: our own face, hair and clothes), the owner
+// picking two of her qualities: "a real, ordinary woman" and "simple
+// natural hair". So: a believable, plain face lit the way a photograph is
+// (soft light from above, soft shade under the brow, the nose, the lip and
+// the jaw; nothing drawn as a line); clear, even skin with a light dusting of
+// freckles; fear shown quietly: her eyes a little wide and on you, her brows
+// lifted at the inner ends, her lips parted as she breathes. The texture is
+// 256 x 128: a texel is about 1.7 mm across and 2.5 mm down her face; the
+// face looks down +z, at u = 0.5.
 import { canvasTexture } from './parts.js';
 
 const seeded = (seed) => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
@@ -22,6 +22,8 @@ export const FACE = {
   mouth: [0, -0.62, 0.8],
   chin: [0, -0.88, 0.46],
 };
+
+const SKIN = [180, 144, 124];
 
 export function onTexture(w, h, [x, y, z]) {
   const length = Math.hypot(x, y, z);
@@ -47,313 +49,200 @@ export function blot(g, x, y, rx, ry, color, core = 0.3) {
   g.restore();
 }
 
-function shape(g, color, points) {
-  g.fillStyle = color;
-  g.beginPath();
-  points.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
-  g.closePath();
-  g.fill();
-}
-
 const mirror = ([x, y, z], side) => [x * side, y, z];
 
-// The bones of her face in light and shade, the same in every look.
-function structure(g, at) {
-  for (const side of [-1, 1]) {
-    blot(g, ...at(mirror([0.4, 0.06, 0.91], side)), 14, 6, 'rgba(98,66,56,0.5)'); // the sockets, under the brow
-    blot(g, ...at(mirror([0.4, -0.08, 0.9], side)), 9, 3, 'rgba(104,90,112,0.3)'); // the thin skin under the eyes, cooler
-    blot(g, ...at(mirror([0.38, 0.17, 0.9], side)), 12, 2.5, 'rgba(212,184,160,0.35)'); // the brow bone
-    blot(g, ...at(mirror([0.58, -0.14, 0.8], side)), 9, 4, 'rgba(212,182,158,0.45)'); // the cheekbones, lit
-    blot(g, ...at(mirror([0.56, -0.46, 0.69], side)), 10, 8, 'rgba(112,78,64,0.4)'); // under them
-    blot(g, ...at(mirror([0.72, 0.3, 0.62], side)), 9, 10, 'rgba(112,82,70,0.4)'); // the temples
-    blot(g, ...at(mirror([0.6, -0.74, 0.32], side)), 14, 5, 'rgba(86,58,50,0.55)'); // under the jaw
-    blot(g, ...at(mirror([0.5, -0.3, 0.8], side)), 9, 6, 'rgba(186,98,86,0.22)'); // colour in her cheeks
-    blot(g, ...at(mirror([0.2, -0.44, 0.92], side)), 2.5, 6, 'rgba(112,76,62,0.4)'); // from her nose to her mouth
-    blot(g, ...at(mirror([0.97, 0.0, -0.05], side)), 5, 6, 'rgba(184,96,86,0.35)'); // her ears, red
-  }
-  blot(g, ...at([0, 0.42, 0.9]), 18, 7, 'rgba(210,182,158,0.3)'); // the forehead, catching the light
-  blot(g, ...at([0, -0.86, 0.5]), 7, 3, 'rgba(208,178,154,0.4)'); // the chin
-  nose(g, at);
-}
-
-// Light down the bridge, shade down the far side and under the tip, the nostrils.
-function nose(g, at) {
-  const [x, top] = at([0, 0.12, 1]);
-  const [, tip] = at(FACE.noseTip);
-  g.fillStyle = 'rgba(208,172,150,0.5)';
-  g.fillRect(Math.round(x - 1), Math.round(top), 2, Math.round(tip - top));
-  blot(g, x + 4, (top + tip) / 2 + 2, 2.5, (tip - top) / 2, 'rgba(126,82,66,0.45)');
-  blot(g, x, tip, 4, 2.5, 'rgba(196,124,108,0.35)'); // the tip, a little red
-  blot(g, x, tip + 4, 7, 2, 'rgba(98,60,50,0.6)'); // under it
-  g.fillStyle = 'rgba(70,38,32,0.85)';
-  g.fillRect(Math.round(x - 5), Math.round(tip + 3), 3, 1);
-  g.fillRect(Math.round(x + 2), Math.round(tip + 3), 3, 1);
-  blot(g, x, tip + 8, 2, 3, 'rgba(120,76,62,0.3)'); // the groove above the lip
-}
-
-// One eye, with no outline: the white, the brown iris and its pupil, the
-// lids as skin over it. open: how far the lids part (texels); cover: how much
-// of the iris the upper lid hides (0 none, -1 a line of white above it).
-function eye(g, x, y, side, { open = 2.6, cover = 0.2, lower = 0, wet = false, red = 0 }) {
-  const top = y - open, bottom = y + open * 0.75 - lower;
-  const corner = (k) => [x + side * k * 8, y + (k > 0 ? -0.5 : 0.8)]; // outer corner a little higher
-  const inner = corner(-1), outer = corner(1);
-  g.save();
-  g.beginPath();
-  g.moveTo(...inner);
-  g.quadraticCurveTo(x - side * 1, top - 1.5, ...outer);
-  g.quadraticCurveTo(x + side * 1, bottom + 1, ...inner);
-  g.closePath();
-  g.fillStyle = red ? '#d6b2aa' : '#cfc4b8';
-  g.fill();
-  g.clip();
-  blot(g, inner[0] + side * 1.6, inner[1] - 0.4, 1.8, 1.3, 'rgba(196,112,104,0.95)'); // the pink inner corner
-  const ix = x - side * 0.6 - 1, iy = y - cover * 2.2; // turned a little to you, on her right
-  g.fillStyle = '#3c2416';
-  g.beginPath();
-  g.ellipse(ix, iy, 3.4, 2.4, 0, 0, Math.PI * 2);
-  g.fill();
-  g.fillStyle = '#5a3a24';
-  g.beginPath();
-  g.ellipse(ix, iy + 0.3, 2.2, 1.6, 0, 0, Math.PI * 2);
-  g.fill();
-  g.fillStyle = '#0c0606';
-  g.fillRect(Math.round(ix - 1), Math.round(iy - 0.5), 2, 2);
-  g.fillStyle = 'rgba(255,255,255,0.9)';
-  g.fillRect(Math.round(ix + 0.5), Math.round(iy - 1.5), 2, 1); // the lamp in her eye
-  if (cover > 0) { // the upper lid lowered over the iris
-    g.fillStyle = red ? '#b88070' : '#b48a74';
-    g.fillRect(x - 10, top - 4, 20, 4 + cover * 2.6);
-  }
-  g.restore();
-  g.strokeStyle = 'rgba(52,28,20,0.85)'; // lashes along the upper lid, heavier at the outer end
-  g.lineWidth = 1.2;
-  g.beginPath();
-  g.moveTo(...inner);
-  g.quadraticCurveTo(x - side * 1, top - 1.5 + Math.max(cover, 0) * 2.6, outer[0] + side, outer[1] - 0.5);
-  g.stroke();
-  blot(g, x + side * 1, top - 3, 8, 1.6, 'rgba(110,68,56,0.45)'); // the crease above
-  blot(g, x, bottom + 1.5, 7, 1.3, red ? `rgba(176,72,64,${0.45 * red + 0.2})` : 'rgba(134,86,70,0.35)'); // the lower lid
-  g.fillStyle = 'rgba(255,248,242,0.35)';
-  g.fillRect(Math.round(x - side * 4), Math.round(bottom + 0.4), 7, 1); // wet along its rim
-  if (wet) {
-    g.fillStyle = 'rgba(255,250,244,0.85)';
-    g.fillRect(Math.round(x - side * 3), Math.round(bottom), 3, 1); // tears welling on the lower lid
-  }
-}
-
-// A brow: a tapered stroke from the inner end (by her nose) to the outer.
-function brow(g, x, y, side, [innerUp, middleUp, outerUp], pinch = 0) {
-  const inner = [x - side * (6 - pinch), y - innerUp], middle = [x + side * 2, y - middleUp], outer = [x + side * 10, y - outerUp];
-  g.fillStyle = 'rgba(64,36,22,0.8)';
-  g.beginPath();
-  g.moveTo(inner[0], inner[1] - 1.5);
-  g.quadraticCurveTo(middle[0], middle[1] - 1.5, outer[0], outer[1]);
-  g.quadraticCurveTo(middle[0], middle[1] + 0.6, inner[0], inner[1] + 1.2);
-  g.closePath();
-  g.fill();
-}
-
-// Fine lines across the middle of her forehead and between her brows.
-function worry(g, at, { lines = 2, between = true }) {
-  const [x, y] = at([0, 0.36, 0.93]);
-  g.strokeStyle = 'rgba(122,78,62,0.5)';
-  g.lineWidth = 1;
-  for (let i = 0; i < lines; i++) {
-    g.beginPath();
-    g.moveTo(x - 9 + i, y + i * 3);
-    g.quadraticCurveTo(x, y + i * 3 - 1.5, x + 9 - i, y + i * 3);
-    g.stroke();
-  }
-  if (between) {
-    g.beginPath();
-    g.moveTo(x - 2, y + 7);
-    g.lineTo(x - 1.5, y + 11);
-    g.moveTo(x + 2, y + 7);
-    g.lineTo(x + 1.5, y + 11);
-    g.stroke();
-  }
-}
-
-// Living skin, never one colour: broad blotches warmer, cooler and yellower,
-// and a fine grain.
+// Clear skin, never quite one colour: a fine grain and faint warmer and
+// cooler patches.
 function paintSkin(g, w, h, [r, gr, b], random) {
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
-      const n = Math.floor(random() * 9) - 4;
+      const n = Math.floor(random() * 7) - 3;
       g.fillStyle = `rgb(${r + n},${gr + n},${b + n})`;
       g.fillRect(x, y, 1, 1);
     }
   }
-  const tones = ['rgba(192,106,92,0.14)', 'rgba(116,108,132,0.12)', 'rgba(198,172,118,0.14)'];
-  for (let i = 0; i < 70; i++) blot(g, random() * w, random() * h, 4 + random() * 9, 3 + random() * 6, tones[i % 3], 0.2);
+  const tones = ['rgba(196,112,98,0.08)', 'rgba(120,112,136,0.07)', 'rgba(200,176,126,0.08)'];
+  for (let i = 0; i < 60; i++) blot(g, random() * w, random() * h, 5 + random() * 9, 4 + random() * 6, tones[i % 3], 0.2);
 }
 
-// Freckles over her nose and cheeks (her hair is auburn).
+// The shape of her face in soft light from above, as a photograph shows it.
+function lightAndShade(g, at) {
+  for (const side of [-1, 1]) {
+    blot(g, ...at(mirror([0.4, 0.07, 0.91], side)), 13, 6, 'rgba(120,84,72,0.38)'); // the sockets, under the brow
+    blot(g, ...at(mirror([0.4, -0.08, 0.9], side)), 9, 3, 'rgba(132,112,124,0.18)'); // the thin skin under the eyes
+    blot(g, ...at(mirror([0.38, 0.18, 0.9], side)), 12, 3, 'rgba(214,186,164,0.3)'); // the brow bone
+    blot(g, ...at(mirror([0.56, -0.16, 0.8], side)), 10, 5, 'rgba(214,184,162,0.35)'); // the cheeks, round and lit
+    blot(g, ...at(mirror([0.58, -0.48, 0.67], side)), 11, 8, 'rgba(132,96,82,0.25)'); // softly under them
+    blot(g, ...at(mirror([0.72, 0.3, 0.62], side)), 9, 10, 'rgba(132,98,84,0.3)'); // the temples
+    blot(g, ...at(mirror([0.6, -0.74, 0.32], side)), 15, 6, 'rgba(96,66,56,0.5)'); // under the jaw
+    blot(g, ...at(mirror([0.5, -0.3, 0.8], side)), 8, 5, 'rgba(198,120,108,0.16)'); // a little colour in her cheeks
+    blot(g, ...at(mirror([0.97, 0.0, -0.05], side)), 5, 6, 'rgba(190,110,98,0.3)'); // her ears
+  }
+  blot(g, ...at([0, 0.44, 0.9]), 20, 8, 'rgba(216,190,168,0.3)'); // the forehead, catching the light
+  blot(g, ...at([0, -0.86, 0.5]), 7, 3, 'rgba(212,184,162,0.35)'); // the chin
+  blot(g, ...at([0, -0.76, 0.65]), 9, 2.5, 'rgba(120,82,70,0.4)'); // under her lower lip
+  nose(g, at);
+}
+
+// Light down the bridge, soft shade down one side and under the tip, the nostrils.
+function nose(g, at) {
+  const [x, top] = at([0, 0.12, 1]);
+  const [, tip] = at(FACE.noseTip);
+  blot(g, x, (top + tip) / 2, 1.5, (tip - top) / 2, 'rgba(218,192,170,0.4)', 0.5);
+  blot(g, x + 4, (top + tip) / 2 + 3, 2.5, (tip - top) / 2, 'rgba(128,90,76,0.3)');
+  blot(g, x, tip, 4, 2.5, 'rgba(204,140,124,0.25)'); // the tip, a little warm
+  blot(g, x, tip + 4, 7, 2, 'rgba(110,72,62,0.5)'); // under it
+  g.fillStyle = 'rgba(86,52,44,0.7)';
+  g.fillRect(Math.round(x - 5), Math.round(tip + 3), 3, 1);
+  g.fillRect(Math.round(x + 2), Math.round(tip + 3), 3, 1);
+  blot(g, x, tip + 8, 2, 3, 'rgba(130,90,76,0.25)'); // the groove above her lip
+}
+
+// An eye a little wider than at rest, on you: the white, a hazel iris with
+// its darker rim and the pupil, the lamp caught in it, soft lashes, the lid's
+// crease, the pink inner corner, a wet rim.
+function eye(g, x, y, side) {
+  const open = 2.8, top = y - open, bottom = y + open * 0.75;
+  const inner = [x - side * 8, y + 0.8], outer = [x + side * 8, y - 0.5];
+  g.save();
+  g.beginPath();
+  g.moveTo(...inner);
+  g.quadraticCurveTo(x - side, top - 1.5, ...outer);
+  g.quadraticCurveTo(x + side, bottom + 1, ...inner);
+  g.closePath();
+  g.fillStyle = '#d2c8bc';
+  g.fill();
+  g.clip();
+  blot(g, inner[0] + side * 1.6, inner[1] - 0.4, 1.8, 1.3, 'rgba(204,128,118,0.9)');
+  const ix = x - side * 0.6, iy = y + 0.4; // both on you, close
+  g.fillStyle = '#3e2a1c'; // the iris's rim
+  g.beginPath();
+  g.ellipse(ix, iy, 3.5, 2.5, 0, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = '#6e5232'; // hazel
+  g.beginPath();
+  g.ellipse(ix, iy, 2.6, 1.8, 0, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = '#0c0806';
+  g.fillRect(Math.round(ix - 1), Math.round(iy - 0.5), 2, 2);
+  g.fillStyle = 'rgba(255,255,255,0.9)';
+  g.fillRect(Math.round(ix + 0.5), Math.round(iy - 1.5), 2, 1);
+  blot(g, x, top, 9, 1.6, 'rgba(90,60,50,0.35)'); // the lid's shadow on the white
+  g.restore();
+  g.strokeStyle = 'rgba(58,36,26,0.65)';
+  g.lineWidth = 1;
+  g.beginPath();
+  g.moveTo(...inner);
+  g.quadraticCurveTo(x - side, top - 1.5, outer[0] + side, outer[1] - 0.4);
+  g.stroke();
+  blot(g, x + side, top - 3, 8, 1.5, 'rgba(122,84,70,0.35)'); // the crease
+  blot(g, x, bottom + 1.5, 7, 1.2, 'rgba(146,98,84,0.3)'); // the lower lid
+  g.fillStyle = 'rgba(255,248,242,0.3)';
+  g.fillRect(Math.round(x - side * 4), Math.round(bottom + 0.4), 7, 1);
+}
+
+// A natural brow, the colour of her hair but darker, lifted at the inner end.
+function brow(g, x, y, side) {
+  const inner = [x - side * 5.5, y - 8.5], middle = [x + side * 2, y - 8], outer = [x + side * 10, y - 5.5];
+  g.fillStyle = 'rgba(92,64,44,0.6)';
+  g.beginPath();
+  g.moveTo(inner[0], inner[1] - 1.3);
+  g.quadraticCurveTo(middle[0], middle[1] - 1.6, outer[0], outer[1]);
+  g.quadraticCurveTo(middle[0], middle[1] + 0.5, inner[0], inner[1] + 1.1);
+  g.closePath();
+  g.fill();
+}
+
+// Her lips, parted as she breathes: a fuller lower lip, the dark between
+// them, a glimpse of her top teeth, the shine on her lower lip.
+function lips(g, x, y) {
+  g.save();
+  g.filter = 'blur(0.5px)';
+  g.fillStyle = '#a66e66'; // the upper lip, its bow
+  g.beginPath();
+  g.moveTo(x - 13, y);
+  g.quadraticCurveTo(x - 6, y - 5, x, y - 3);
+  g.quadraticCurveTo(x + 6, y - 5, x + 13, y);
+  g.closePath();
+  g.fill();
+  g.fillStyle = '#b07670'; // the lower lip
+  g.beginPath();
+  g.moveTo(x - 12, y + 0.5);
+  g.quadraticCurveTo(x, y + 9, x + 12, y + 0.5);
+  g.closePath();
+  g.fill();
+  g.restore();
+  g.fillStyle = '#2a1212'; // parted
+  g.beginPath();
+  g.moveTo(x - 10, y + 0.2);
+  g.quadraticCurveTo(x, y - 1.2, x + 10, y + 0.2);
+  g.quadraticCurveTo(x, y + 2.4, x - 10, y + 0.2);
+  g.fill();
+  g.fillStyle = 'rgba(214,204,192,0.7)';
+  g.fillRect(Math.round(x - 4), Math.round(y - 0.5), 8, 1); // her top teeth, just
+  blot(g, x - 2, y + 4.5, 3.5, 0.9, 'rgba(255,236,228,0.45)', 0.2);
+}
+
+// A light dusting of freckles over her nose and cheeks.
 function freckles(g, at, random) {
-  for (let i = 0; i < 110; i++) {
-    const [x, y] = at([(random() * 2 - 1) * 0.64, -0.04 - random() * 0.32, 0.9]);
-    g.fillStyle = `rgba(${120 + Math.floor(random() * 24)},${76 + Math.floor(random() * 14)},58,${0.3 + random() * 0.35})`;
-    g.fillRect(Math.round(x), Math.round(y), random() < 0.3 ? 2 : 1, 1);
+  for (let i = 0; i < 45; i++) {
+    const [x, y] = at([(random() * 2 - 1) * 0.6, -0.05 - random() * 0.28, 0.9]);
+    g.fillStyle = `rgba(138,96,74,${0.12 + random() * 0.18})`;
+    g.fillRect(Math.round(x), Math.round(y), 1, 1);
   }
 }
 
-// The shine of sweat on her forehead, the bridge of her nose, her lip, her cheekbones.
-function sweat(g, at, amount) {
-  const spots = [[0, 0.45, 0.89, 6, 2], [-0.2, 0.38, 0.91, 3, 1.5], [0.22, 0.4, 0.9, 3, 1.5], [0, -0.06, 1, 1.5, 4], [0, -0.5, 0.87, 4, 1], [0.6, -0.12, 0.79, 3, 1.5], [-0.6, -0.12, 0.79, 3, 1.5]];
-  for (const [x, y, z, rx, ry] of spots) blot(g, ...at([x, y, z]), rx, ry, `rgba(255,244,230,${0.32 * amount})`, 0.2);
+// The faint shine of sweat on her forehead and the bridge of her nose.
+function sweat(g, at) {
+  for (const [x, y, z, rx, ry] of [[0, 0.45, 0.89, 6, 2], [0, -0.06, 1, 1.5, 4], [0.58, -0.14, 0.8, 3, 1.5], [-0.58, -0.14, 0.8, 3, 1.5]]) {
+    blot(g, ...at([x, y, z]), rx, ry, 'rgba(255,244,230,0.14)', 0.2);
+  }
 }
 
-// The shine on her lower lip.
-function lipShine(g, x, y, drop) {
-  blot(g, x - 3, y + drop, 3.5, 0.9, 'rgba(255,236,228,0.5)', 0.2);
-}
-
-// The three looks: how her lids, brows and mouth sit, and what else shows.
-const LOOKS = {
-  terrified: {
-    skin: [168, 134, 116],
-    sweat: 1,
-    lip: 5.5,
-    eyes: { open: 3.2, cover: -1, lower: 0.3 },
-    brows: [[9, 9, 6], 1.5],
-    worry: { lines: 2, between: true },
-    mouth(g, x, y) { // stretched back off her teeth, the jaw dropped a little
-      shape(g, '#985650', [[x - 17, y], [x - 8, y - 4], [x, y - 3.5], [x + 8, y - 4], [x + 17, y], [x + 9, y + 6], [x, y + 6.5], [x - 9, y + 6]]);
-      shape(g, '#220808', [[x - 15, y], [x - 7, y - 2.5], [x + 7, y - 2.5], [x + 15, y], [x + 7, y + 3.5], [x - 7, y + 3.5]]);
-      g.fillStyle = '#d6ccbe';
-      g.fillRect(Math.round(x - 9), Math.round(y - 2.5), 18, 2); // her top teeth
-      g.fillStyle = 'rgba(200,190,176,0.8)';
-      g.fillRect(Math.round(x - 6), Math.round(y + 2), 12, 1.5); // and the bottom ones
-    },
-    extras(g, at) {
-      g.fillStyle = 'rgba(255,246,236,0.55)'; // sweat on her forehead and lip
-      for (const [x, y] of [[-6, 0.44], [5, 0.4], [10, 0.47]]) g.fillRect(Math.round(at([0, y, 0.9])[0] + x), Math.round(at([0, y, 0.9])[1]), 1, 1);
-    },
-  },
-  crying: {
-    skin: [172, 132, 114],
-    sweat: 0.6,
-    lip: 9.5,
-    eyes: { open: 2.3, cover: 0.35, lower: 0.6, wet: true, red: 1 },
-    brows: [[9, 6, 3], 1],
-    worry: { lines: 2, between: false },
-    mouth(g, x, y) { // open in a sob: wide, the corners and the lower lip pulled down
-      shape(g, '#a4584e', [[x - 16, y + 4], [x - 8, y - 3], [x, y - 2], [x + 8, y - 3], [x + 16, y + 4], [x + 12, y + 10], [x, y + 11], [x - 12, y + 10]]);
-      shape(g, '#200606', [[x - 14, y + 4], [x - 7, y - 1], [x + 7, y - 1], [x + 14, y + 4], [x + 10, y + 7.5], [x - 10, y + 7.5]]);
-      g.fillStyle = '#d8cec0';
-      g.fillRect(Math.round(x - 8), Math.round(y - 1), 16, 2); // her top teeth
-      blot(g, x, y + 6.5, 5, 1.5, 'rgba(150,60,60,0.7)'); // her tongue
-      blot(g, x, y + 16, 5, 3, 'rgba(120,74,60,0.4)'); // her chin puckered
-    },
-    extras(g, at) {
-      for (const side of [-1, 1]) {
-        const [x, y] = at(mirror([0.5, -0.02, 0.87], side));
-        for (const [colour, width, dx] of [['rgba(120,70,60,0.5)', 2.5, 0.8], ['rgba(255,248,240,0.85)', 1.2, 0]]) {
-          g.strokeStyle = colour; // tears down her cheeks, wet and catching the light
-          g.lineWidth = width;
-          g.beginPath();
-          g.moveTo(x + dx, y);
-          g.quadraticCurveTo(x + side * 3 + dx, y + 12, x + side * 2 + dx, y + 26);
-          g.stroke();
-        }
-        blot(g, ...at(mirror([0.42, 0.0, 0.9], side)), 11, 6, 'rgba(176,64,60,0.35)'); // red round her eyes
-      }
-      blot(g, ...at(FACE.noseTip), 4, 3, 'rgba(190,80,76,0.45)'); // her nose red from crying
-    },
-  },
-  exhausted: {
-    skin: [160, 132, 120],
-    sweat: 0.8,
-    lip: 4,
-    eyes: { open: 2.4, cover: 0.55, lower: 0.2 },
-    brows: [[7, 6.5, 5], 0.5],
-    worry: null,
-    mouth(g, x, y) { // parted, dry, the lower lip split
-      shape(g, '#94645c', [[x - 13, y], [x - 6, y - 3], [x, y - 2.5], [x + 6, y - 3], [x + 13, y], [x + 7, y + 4.5], [x, y + 5], [x - 7, y + 4.5]]);
-      shape(g, '#2a0e0c', [[x - 10, y + 0.3], [x, y - 0.8], [x + 10, y + 0.3], [x, y + 1.6]]);
-      g.fillStyle = '#5a1410';
-      g.fillRect(Math.round(x + 4), Math.round(y + 1), 1, 4); // the split
-      blot(g, x + 12, y + 2, 2, 1.5, 'rgba(96,24,18,0.8)'); // dried blood at the corner
-    },
-    extras(g, at, random) {
-      for (const side of [-1, 1]) blot(g, ...at(mirror([0.42, -0.12, 0.88], side)), 9, 3, 'rgba(92,70,84,0.5)'); // dark under her eyes
-      blot(g, ...at([0.58, -0.4, 0.7]), 7, 5, 'rgba(98,66,102,0.5)'); // a bruise on her jaw
-      for (let i = 0; i < 6; i++) blot(g, 112 + random() * 34, 40 + random() * 46, 5 + random() * 4, 2 + random() * 2, 'rgba(70,52,42,0.28)'); // smears of dirt
-      const [x, y] = at([-0.6, 0.38, 0.7]);
-      g.strokeStyle = 'rgba(92,24,18,0.75)'; // the trickle from her temple, dried
-      g.beginPath();
-      g.moveTo(x, y);
-      g.quadraticCurveTo(x - 1, y + 16, x + 2, y + 34);
-      g.stroke();
-    },
-  },
-};
-
-export const NORA_LOOKS = Object.keys(LOOKS);
-
-// The whole face for one look. hasHair(direction): where her hair grows;
-// under it the skin is painted dark (any gap in the hair reads as hair) and
-// shaded where the hair overhangs it.
-export function noraFaceTexture(look, hasHair) {
-  const style = LOOKS[look] ?? LOOKS.terrified;
+// Her face. hasHair(direction): where her hair grows; under it the skin is
+// painted dark (any gap in the hair reads as hair) and shaded at its edge.
+export function noraFaceTexture(hasHair) {
   const random = seeded(23);
   return canvasTexture(256, 128, (g, w, h) => {
-    paintSkin(g, w, h, style.skin, random);
+    paintSkin(g, w, h, SKIN, random);
     const at = (dir) => onTexture(w, h, dir);
-    structure(g, at);
+    lightAndShade(g, at);
     freckles(g, at, random);
     for (const side of [-1, 1]) {
-      const [ex, ey] = at(mirror(FACE.eye, side));
       const lift = side > 0 ? 0.8 : 0; // no face is the same on both sides
-      eye(g, ex, ey - lift * 0.5, side, style.eyes);
+      const [ex, ey] = at(mirror(FACE.eye, side));
+      eye(g, ex, ey - lift * 0.5, side);
       const [bx, by] = at(mirror(FACE.brow, side));
-      brow(g, bx, by - lift, side, ...style.brows);
+      brow(g, bx, by + 8 - lift, side);
     }
-    if (style.worry) worry(g, at, style.worry);
-    blot(g, ...at([0.6, -0.12, 0.79]), 6, 4, 'rgba(100,64,112,0.65)'); // the bruise on her left cheekbone
-    blot(g, ...at([0.64, -0.08, 0.77]), 4, 2, 'rgba(150,140,72,0.35)');
-    cut(g, ...at([-0.58, 0.44, 0.68]));
+    blot(g, ...at([0.6, -0.12, 0.79]), 6, 4, 'rgba(110,80,120,0.3)'); // a bruise coming up on her left cheekbone
     const [mx, my] = at(FACE.mouth);
     g.save();
     g.translate(mx, my);
-    g.transform(1, -0.05, 0, 1, 0, 0); // her mouth a little higher on her left
+    g.transform(1, -0.04, 0, 1, 0, 0); // her mouth a little higher on her left
     g.translate(-mx, -my);
-    style.mouth(g, mx, my);
-    lipShine(g, mx, my, style.lip);
+    lips(g, mx, my);
     g.restore();
-    sweat(g, at, style.sweat);
-    style.extras(g, at, random);
+    sweat(g, at);
     underHair(g, w, h, hasHair);
   });
 }
 
-// Her skin elsewhere (her neck, her hands): the same living skin; `flush`
-// adds the red blotches fear brings up on the throat; `shade` darkens the
-// canvas bottom (under her jaw).
+// Her skin elsewhere (her neck, her hands): `flush` adds the red patches
+// fear brings up on the throat; `shade` darkens the canvas bottom (under her jaw).
 export function noraSkinTexture({ flush = 0, shade = 0 } = {}) {
   const random = seeded(37);
   return canvasTexture(64, 64, (g, w, h) => {
-    paintSkin(g, w, h, [166, 132, 116], random);
-    for (let i = 0; i < 12 * flush; i++) blot(g, random() * w, random() * h, 5 + random() * 6, 3 + random() * 4, 'rgba(192,92,84,0.25)', 0.2);
+    paintSkin(g, w, h, [SKIN[0] - 6, SKIN[1] - 6, SKIN[2] - 4], random);
+    for (let i = 0; i < 10 * flush; i++) blot(g, random() * w, random() * h, 5 + random() * 6, 3 + random() * 4, 'rgba(196,102,92,0.18)', 0.2);
     if (shade) {
       const gradient = g.createLinearGradient(0, h * 0.5, 0, h);
-      gradient.addColorStop(0, 'rgba(70,46,40,0)');
-      gradient.addColorStop(1, `rgba(70,46,40,${shade})`);
+      gradient.addColorStop(0, 'rgba(80,54,46,0)');
+      gradient.addColorStop(1, `rgba(80,54,46,${shade})`);
       g.fillStyle = gradient;
       g.fillRect(0, 0, w, h);
     }
   });
-}
-
-// A cut at her right temple, by her hair, dried.
-function cut(g, x, y) {
-  g.strokeStyle = '#6a1c16';
-  g.lineWidth = 1.5;
-  g.beginPath();
-  g.moveTo(x - 3, y);
-  g.lineTo(x + 3, y - 1);
-  g.stroke();
 }
 
 function underHair(g, w, h, hasHair) {
@@ -361,12 +250,12 @@ function underHair(g, w, h, hasHair) {
   mask.width = w;
   mask.height = h;
   const m = mask.getContext('2d');
-  m.fillStyle = '#2a1410';
+  m.fillStyle = '#3a2618';
   for (let py = 0; py < h; py++) {
     for (let px = 0; px < w; px++) if (hasHair(texelDirection(px + 0.5, py + 0.5, w, h))) m.fillRect(px, py, 1, 1);
   }
   g.save();
-  g.globalAlpha = 0.45;
+  g.globalAlpha = 0.4;
   g.filter = 'blur(2px)'; // the shade the hair casts at its edge
   g.drawImage(mask, 0, 1);
   g.restore();

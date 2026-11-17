@@ -109,8 +109,7 @@ camcorder: he has stopped and turned his head; your held breath under the pulse 
 `ui_breath` (the held breath without the camcorder: a ring round the centre of your view), `sam` (the
 boiler room under water, Sam faceless and dripping), `morgue` (drawers typed with dates, one out, a
 sheet over an adult, a tag on a toe), `theatre_nora` (Nora strapped to the table under its lamp,
-his cabinet and tray), `nora_close` (leaning over her: her face turned to you), `nora_a`,
-`nora_b`, `nora_c` (three versions of her face to pick from). Reshoot:
+his cabinet and tray), `nora_close` (leaning over her, her face lifted to yours). Reshoot:
 `node tools/shoot-stills.mjs <names>` with the dev server on 5199.
 Mockup-only code so far: `src/props/chapel.js`, `src/props/basement.js`,
 `src/props/basementFigures.js` (registered in the catalog for the stills), the figures
@@ -253,6 +252,22 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   and goes into the jumper's knitted collar; her hands have the same living skin; her clothes
   have weave, wear and creases (a knitted jumper, a creased waxed jacket with a dull shine,
   denim). The light on her is less flat.
+
+## Owner's notes on the eighth pass (2026-11-17) and the ninth
+- **Nora: "take inspiration from the female protagonist of Fears to Fathom: Scratch Creek".**
+  Taken in spirit only, as with Dr. Venn: Nora stays ours, with no copy of that character's face,
+  hair or clothes (Nora keeps her own waxed jacket, jumper and jeans). Of that character's
+  qualities the owner picked two: **a real, ordinary woman** (believable and plain, a calm natural
+  face where fear shows quietly in the eyes and the breathing) and **simple natural hair**. The
+  owner's screenshot was used for the feel only and is not kept in the repository.
+- The three versions are dropped for one Nora: a plain young woman's face lit as a photograph is
+  (soft light from above, soft shade under the brow, nose, lip and jaw, nothing drawn as a line),
+  clear even skin with a light dusting of freckles, soft round cheeks; her fear quiet: her eyes a
+  little wide and on you, her brows lifted at the inner ends, her lips parted as she breathes, a
+  bruise coming up on one cheekbone. Her hair is light brown, lighter at the lengths, straight,
+  parted in the middle, loose to her shoulders, falling either side of her face and spread on the
+  table round her head. She lifts her head to look down the table at you, so in `nora_close` her
+  face is upright and turned to you; the jumper's collar sits high on her throat.
 
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
