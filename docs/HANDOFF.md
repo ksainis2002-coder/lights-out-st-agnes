@@ -277,5 +277,7 @@ whole in 0.6, Nora on his table. Ten stills in `docs/mockups/stills-0.5/` wait f
 stills" in `docs/DESIGN_0.5.md`).
 **0.5 stills, second pass (0.2.84):** redrawn after the owner's notes (Dr. Venn, St. Agnes whole,
 Sam, Nora, the held breath with two shapes to choose from); the chapel, crypt and morgue approved.
+**0.5 stills, third pass (0.2.85):** Dr. Venn with less gore, the breath ring picked, St. Agnes whole
+and Sam approved, Nora redrawn struggling in the theatre. Waiting on Dr. Venn and Nora.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.85 — Wing 4 stills, third pass after the owner's notes: Dr. Venn's blood back to a few marks (the threat is his silence and his tools), the held breath as a ring round the centre of the view, and Nora struggling against the straps in the surgeon's theatre with a simpler face. St. Agnes whole and Sam approved. Nothing in the game changes.
 - 0.2.84 — Wing 4 stills redrawn after the owner's notes: Dr. Venn scarier (longer, stooped, the bandage soaked through, blood on his gloves and apron), St. Agnes whole with a grey stone heart and lit by candles, Sam plainly drowned, Nora frightened and better made, and two clearer shapes for the held breath. Nothing in the game changes.
 - 0.2.83 — First stills of wing 4 for the owner: the chapel and St. Agnes whole, the crypt, Dr. Venn the surgeon (in the corridor, up close, and listening for you), your held breath, Sam in the flooded boiler room, the morgue, and Nora on the surgeon's table. Nothing in the game changes.
 - 0.2.82 — Wing 4 planned (the chapel, its crypt and the basement): a proposal and its map, waiting for the owner's picks. Nothing in the game changes.

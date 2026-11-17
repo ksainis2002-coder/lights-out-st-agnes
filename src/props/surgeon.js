@@ -1,11 +1,11 @@
 // Dr. Venn, the surgeon: the blind hunter of the basement (0.5 proposal,
 // docs/DESIGN_0.5.md; mockup stills only until the owner approves him).
 // Owner 2026-11-17: Dr. Venn himself, bandaged over the eyes; the first
-// drawing was "not scary enough", so he is longer and thinner, stooped, the
-// bandage soaked through where his eyes were and a loose end hanging, blood
-// on his gloves, his apron and his gown (gore is allowed on adults). Origin
-// on the floor, front facing +z. "listening": he has stopped, head turned
-// and tilted towards a sound.
+// drawing was "not scary enough", so he is longer and thinner, stooped, a
+// loose end of the bandage hanging; the second had "too much gore", so the
+// blood is back to a few old marks: the threat is his silence and his tools,
+// which catch the light. Origin on the floor, front facing +z.
+// "listening": he has stopped, head turned and tilted towards a sound.
 import * as THREE from 'three';
 import { box, materialFor, canvasTexture } from './parts.js';
 import { BASEMENT_PROPS } from './basement.js';
@@ -44,13 +44,9 @@ function gownTexture() {
         g.fillRect(x, y, 1, 1);
       }
     }
-    for (let i = 0; i < 10; i++) { // smears running down
-      g.fillStyle = BLOOD(0.35 + random() * 0.35);
-      g.fillRect(6 + random() * 20, 20 + random() * 30, 1 + random() * 3, 8 + random() * 26);
-    }
-    for (let i = 0; i < 60; i++) { // spatter, heaviest low on the front
-      g.fillStyle = BLOOD(0.5 + random() * 0.4);
-      g.fillRect(random() * w, h * 0.35 + random() * random() * h * 0.65, 1, 1);
+    for (let i = 0; i < 3; i++) { // a few old marks the wash never got out
+      g.fillStyle = BLOOD(0.35);
+      g.fillRect(8 + random() * 16, 30 + random() * 20, 2 + random() * 2, 3 + random() * 4);
     }
   });
 }
@@ -66,10 +62,8 @@ function apronTexture() {
         g.fillRect(x, y, 1, 1);
       }
     }
-    for (let i = 0; i < 9; i++) {
-      g.fillStyle = BLOOD(0.8);
-      g.fillRect(random() * w, 4 + random() * 22, 1 + random() * 2, 2 + random() * 5);
-    }
+    g.fillStyle = BLOOD(0.7); // one wiped smear
+    g.fillRect(9, 14, 2, 5);
     g.fillStyle = 'rgba(70,70,70,0.4)'; // the shine on wet rubber
     for (let y = 2; y < h; y += 7) g.fillRect(3, y, 1, 4);
   });
@@ -89,11 +83,9 @@ function bandageTexture() {
     }
     g.fillStyle = 'rgba(110,100,84,0.6)';
     for (let x = 0; x < w; x += 6) g.fillRect(x, 0, 1, h); // the turns of the wrap
-    for (const cx of [26, 38]) { // the eyes: soaked, then a run down each
-      g.fillStyle = BLOOD(0.85);
+    for (const cx of [26, 38]) { // the eyes: a faint seep under the dressing
+      g.fillStyle = 'rgba(70,50,40,0.45)';
       g.fillRect(cx - 3, 5, 7, 6);
-      g.fillStyle = BLOOD(0.6);
-      g.fillRect(cx - 1, 10, 2, 6);
     }
   });
 }
@@ -101,7 +93,7 @@ function bandageTexture() {
 function surgeon(t, { listening = false, tray = true } = {}) {
   const dark = { color: '#1c1a18' };
   const skin = { color: '#8a7c70', flatShading: true }; // grey under the lamp, a man who never sees daylight
-  const glove = { color: '#3c1210' }; // rubber gauntlets, wet with it
+  const glove = { color: '#1a1816' }; // black rubber gauntlets
   const gown = gownTexture();
   const legs = [-0.07, 0.07].flatMap((x) => [limb(t, [x, 0.74, 0], [x, 0.06, 0.03], 0.045, dark), box(t.sheet, [0.09, 0.06, 0.24], [x, 0, 0.07], dark)]);
   const skirt = mesh(new THREE.CylinderGeometry(0.16, 0.23, 0.62, 9), gown, { flatShading: true });
@@ -124,7 +116,7 @@ function surgeon(t, { listening = false, tray = true } = {}) {
   upper.position.y = 1.04;
   upper.rotation.x = 0.16;
   if (tray) {
-    const held = BASEMENT_PROPS.instrumentTray(t, { held: true, bloody: true });
+    const held = BASEMENT_PROPS.instrumentTray(t, { held: true, glint: true });
     held.position.set(0, -0.04, 0.38);
     upper.add(held);
   }

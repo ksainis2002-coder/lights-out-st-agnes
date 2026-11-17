@@ -146,6 +146,20 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   HOLDING BREATH and turning red near the end.
 - Approved as drawn: the chapel, the crypt, the morgue.
 
+## Owner's notes on the second pass (2026-11-17) and the third
+- **Dr. Venn: "too much gore".** The blood is back to a few old marks on his gown and one wiped
+  smear on the apron; black rubber gauntlets; only a faint seep under the bandage; his instruments
+  are clean steel that catches the light. The threat is his silence and his tools. His close-up shows
+  him whole, the tray at his waist, a faint light on the bandage.
+- **Your held breath: the ring** round the centre of your view (the lungs are dropped).
+- **St. Agnes whole and Sam: approved.**
+- **Nora:** her face was "stuck on", she looked "like a doll", the pose "isn't afraid", and the
+  room should show. Now: a slimmer body (hips, waist, an arched chest, shoulders) under straps drawn
+  over her; her back arched off the table, her head lifted and turned to you, her right hand pulled
+  free and reaching, her left fist clenched under the strap; her face only shadowed eye sockets and a
+  dark open mouth, her hair fallen across one eye and hanging off the end of the table. Seen from a
+  few steps into the theatre: the table under its lamp, his cabinet, his tray.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.

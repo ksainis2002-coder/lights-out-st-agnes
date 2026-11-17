@@ -55,9 +55,9 @@ function corridor(world) {
   light(world, '#d8c8a0', 1.2, 6, [21, 8.0], 2.0);
 }
 
-// Your breath held (owner 2026-11-17: the first bar was hard to read and
-// the wrong shape), two options to choose from. A ring round the centre of
-// the view that empties as you hold it, the word under it:
+// Your breath held (owner 2026-11-17: the first bar was hard to read and the
+// wrong shape; of a ring and a pair of lungs, the ring): it empties round the
+// centre of your view as you hold it, the words under it.
 function breathRing(ctx, left = 0.5, cx = 480 / 2, cy = 270 / 2) {
   ctx.lineWidth = 3;
   ctx.strokeStyle = 'rgba(232,240,255,0.18)';
@@ -69,29 +69,6 @@ function breathRing(ctx, left = 0.5, cx = 480 / 2, cy = 270 / 2) {
   ctx.arc(cx, cy, 16, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
   ctx.stroke();
   osdText(ctx, 'HOLDING BREATH', cx, cy + 22, 9, '#e8f0ff', 'center');
-}
-
-// Or a small pair of lungs, low in the middle, that empty from the top down.
-function breathLungs(ctx, left = 0.5, cx = 480 / 2, y = 270 - 62) {
-  const lobe = (x) => {
-    ctx.beginPath();
-    ctx.ellipse(x, y + 14, 8, 13, 0, 0, Math.PI * 2);
-  };
-  ctx.fillStyle = 'rgba(5,7,10,0.55)'; // a dark backing, as behind the game's prompts
-  ctx.fillRect(cx - 50, y - 10, 100, 54);
-  ctx.save();
-  ctx.lineWidth = 1.5;
-  ctx.strokeStyle = '#e8f0ff';
-  [cx - 10, cx + 10].forEach((x) => { lobe(x); ctx.stroke(); });
-  ctx.beginPath();
-  ctx.rect(cx - 20, y + 27 - 26 * left, 40, 26 * left);
-  ctx.clip();
-  ctx.fillStyle = left < 0.3 ? '#ff8a7d' : '#e8f0ff';
-  [cx - 10, cx + 10].forEach((x) => { lobe(x); ctx.fill(); });
-  ctx.restore();
-  ctx.fillStyle = '#e8f0ff';
-  ctx.fillRect(cx - 1, y - 6, 2, 9); // the windpipe
-  osdText(ctx, 'HOLDING BREATH', cx, y + 32, 9, '#e8f0ff', 'center');
 }
 
 export const BASEMENT_STILLS = {
@@ -153,7 +130,8 @@ export const BASEMENT_STILLS = {
       world.flashlight.toggle(); // lit from above and aside, not blown out by a torch in his face
       light(world, '#d8c8a0', 2.2, 4, [14.2, 8.4], 2.5);
       light(world, '#8a9ac8', 1.2, 4, [13.6, 7.4], 1.4);
-      eye(world, [13.05, 8.05], [14.4, 8.0], 1.8, 1.8);
+      light(world, '#9aa8c8', 0.9, 2.4, [13.5, 8.0], 2.0); // just enough on the bandage
+      eye(world, [12.75, 8.05], [14.4, 8.0], 1.7, 1.45); // his face and the tray he carries
     },
   },
   // The tell: he has stopped, the clinking with him, and turned his head
@@ -176,8 +154,7 @@ export const BASEMENT_STILLS = {
       subtitle(ctx, '(the clinking stops)', { whisper: false });
     },
   },
-  // Holding your breath without the camcorder, option A: the ring round the
-  // centre of your view.
+  // Holding your breath without the camcorder: the ring round the centre of your view.
   ui_breath: {
     level: basement,
     setup({ world }) {
@@ -187,18 +164,6 @@ export const BASEMENT_STILLS = {
     },
     ui(ctx) {
       breathRing(ctx, 0.33);
-    },
-  },
-  // Option B: a small pair of lungs low in the middle, emptying.
-  ui_breath_lungs: {
-    level: basement,
-    setup({ world }) {
-      corridor(world);
-      furnish(world, [['surgeon', 15.2, 7.8, -90, { listening: true }]]);
-      eye(world, [12.7, 8.5], [15.2, 7.8], 1.0, 1.8);
-    },
-    ui(ctx) {
-      breathLungs(ctx, 0.33);
     },
   },
   // The boiler room under water to the knee: Sam stands in it, faceless and
@@ -239,7 +204,7 @@ export const BASEMENT_STILLS = {
         ['instrumentCabinet', 34, 2.2, -90], ['instrumentTray', 31.7, 4.0, -20],
       ]);
       world.flashlight.toggle();
-      eye(world, [30.25, 2.95], [30.45, 2.4], 1.55, 1.05); // leaning over her from beside her shoulder
+      eye(world, [29.15, 4.05], [30.4, 2.75], 1.65, 1.05); // a few steps in: the table under its lamp, her reaching to you
     },
     ui(ctx) {
       usePrompt(ctx, 'CLICK  Undo the straps');

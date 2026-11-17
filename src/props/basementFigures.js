@@ -73,81 +73,79 @@ function ghostSam(t, { opacity = 0.42, waterline = 0 } = {}) {
   return group(...parts);
 }
 
-// Nora's face, built on her head rather than painted on a flat card (owner
-// 2026-11-15, on a face that looked stuck on): eyes wide, brows drawn up,
-// mouth open on a breath, a bruise on her left cheekbone, a cut through her
-// right brow with a line of blood from it (she is an adult). Head-local: the
-// face is towards +z, her left is +x.
-function noraFace(t) {
-  const feature = (color, size, at, tilt = 0) => {
-    const piece = box(t.sheet, size, at, { color });
-    piece.rotation.z = tilt;
-    return piece;
+// Nora's face, kept simple (owner 2026-11-17: the drawn-on features looked
+// stuck on): shadowed eye sockets and a dark open mouth, her hair fallen
+// across one side of it. Head-local: the face is towards +z, her left is +x.
+function noraHead(t, skin, hair) {
+  const skull = mesh(new THREE.SphereGeometry(0.095, 12, 9), t.sheet, skin);
+  skull.scale.set(0.9, 1.1, 0.95);
+  const socket = (x) => {
+    const s = mesh(new THREE.SphereGeometry(0.022, 8, 6), t.sheet, { color: '#3a2a24' });
+    s.scale.set(1.2, 0.8, 0.5);
+    s.position.set(x, 0.012, 0.082);
+    return s;
   };
-  return [
-    ...[-1, 1].flatMap((side) => [
-      feature('#ece6dc', [0.03, 0.02, 0.01], [side * 0.033, 0.004, 0.09]), // the whites, all round
-      feature('#1e1814', [0.012, 0.012, 0.006], [side * 0.033, 0.008, 0.096]),
-      feature('#3a2418', [0.034, 0.008, 0.01], [side * 0.033, 0.04, 0.088], side * -0.3), // brows up at the middle
-    ]),
-    feature('#b8967e', [0.018, 0.034, 0.02], [0, -0.03, 0.094]), // the nose
-    feature('#2a1210', [0.036, 0.022, 0.01], [0, -0.068, 0.084]), // the mouth, open
-    feature('#5e4668', [0.03, 0.024, 0.006], [0.052, -0.022, 0.084]), // the bruise
-    feature('#7a1410', [0.022, 0.005, 0.006], [-0.035, 0.05, 0.088]), // the cut
-    feature('#7a1410', [0.004, 0.024, 0.004], [-0.028, 0.026, 0.094]), // and the blood from it
-  ];
+  const mouth = mesh(new THREE.SphereGeometry(0.018, 8, 6), t.sheet, { color: '#1a0c0a' });
+  mouth.scale.set(1, 1.3, 0.5);
+  mouth.position.set(0, -0.052, 0.082);
+  const back = mesh(new THREE.SphereGeometry(0.104, 12, 7, 0, Math.PI * 2, Math.PI * 0.4, Math.PI * 0.6), t.sheet, hair);
+  back.rotation.x = Math.PI / 2;
+  const fringe = box(t.sheet, [0.15, 0.028, 0.05], [0, 0.068, 0.05], hair);
+  const across = box(t.sheet, [0.03, 0.12, 0.012], [0.035, -0.01, 0.092], hair); // fallen across her left eye
+  across.rotation.z = -0.35;
+  return group(skull, socket(-0.034), socket(0.034), mouth, back, fringe, across);
 }
 
-// Nora Kane on her back on the table (head towards -z), strapped at the
-// chest, the hips and the knees, straining: her chest lifting against the
-// strap, her fists clenched at her sides under it, her head turned to you
-// ("turn": -1 her right, 1 her left), her hair loose and hanging off the end
-// of the table. A woman of about thirty in a wax jacket and jeans.
+// Nora Kane on the surgeon's table (head towards -z), fighting the straps
+// (owner 2026-11-17): her back arched off the table, her head lifted and
+// turned to you ("turn": -1 her right, 1 her left), her right hand pulled
+// free and reaching, her left still under the strap, the fist clenched; her
+// hair loose and hanging off the end of the table. A slim woman of about
+// thirty in a wax jacket and jeans. Sits on the table top.
 function noraStrapped(t, { turn = -1 } = {}) {
   const jacket = { color: '#55553a', flatShading: true };
   const jeans = { color: '#2a3446', flatShading: true };
   const skin = { color: '#c4a48c', flatShading: true };
   const hair = { color: '#241a14' };
-  // Shoulders wider than the waist; the chest raised a little off the table.
-  const chest = mesh(new THREE.CylinderGeometry(0.2, 0.15, 0.4, 9), t.sheet, jacket);
-  chest.rotation.x = Math.PI / 2 - 0.12;
-  chest.scale.x = 1.05;
-  chest.scale.z = 0.62;
-  chest.position.set(0, 0.13, -0.38);
-  const waist = mesh(new THREE.CylinderGeometry(0.15, 0.16, 0.34, 9), t.sheet, jacket);
-  waist.rotation.x = Math.PI / 2;
-  waist.scale.z = 0.6;
-  waist.position.set(0, 0.1, -0.02);
+  const along = (radius, length, at, scale, tilt = 0) => { // a body part lying along z
+    const part = mesh(new THREE.CylinderGeometry(radius[0], radius[1], length, 10), t.sheet, scale.options);
+    part.rotation.x = Math.PI / 2 - tilt;
+    part.scale.set(scale.x, 1, scale.y);
+    part.position.set(...at);
+    return part;
+  };
+  const hips = along([0.12, 0.13], 0.22, [0, 0.085, 0.05], { x: 1, y: 0.68, options: jeans });
+  const waist = along([0.1, 0.11], 0.2, [0, 0.1, -0.15], { x: 1, y: 0.7, options: jacket }, 0.15);
+  const chest = along([0.14, 0.11], 0.32, [0, 0.17, -0.37], { x: 1, y: 0.62, options: jacket }, 0.4); // arched up off the table
   const shoulders = [-1, 1].map((side) => {
-    const s = mesh(new THREE.SphereGeometry(0.075, 7, 5), t.sheet, jacket);
-    s.position.set(side * 0.19, 0.12, -0.53);
+    const s = mesh(new THREE.SphereGeometry(0.055, 8, 6), t.sheet, jacket);
+    s.position.set(side * 0.14, 0.23, -0.5);
     return s;
   });
-  const legs = [-0.08, 0.08].flatMap((x) => [
-    limb(t, [x, 0.09, 0.14], [x, 0.08, 0.86], 0.068, jeans),
-    box(t.sheet, [0.1, 0.14, 0.09], [x, 0.03, 0.9], { color: '#3a2a20' }),
+  const legs = [-0.065, 0.065].flatMap((x) => [
+    limb(t, [x, 0.08, 0.12], [x, 0.1, 0.5], 0.055, jeans),
+    limb(t, [x, 0.1, 0.5], [x, 0.07, 0.86], 0.045, jeans),
+    box(t.sheet, [0.08, 0.12, 0.08], [x, 0.03, 0.9], { color: '#3a2a20' }),
   ]);
-  // Arms down her sides, elbows pulling up against the strap, fists clenched.
-  const arms = [-1, 1].flatMap((side) => [
-    limb(t, [side * 0.22, 0.12, -0.52], [side * 0.25, 0.15, -0.22], 0.045, jacket),
-    limb(t, [side * 0.25, 0.15, -0.22], [side * 0.22, 0.08, 0.08], 0.04, jacket),
-    box(t.sheet, [0.06, 0.05, 0.07], [side * 0.22, 0.05, 0.12], skin),
-  ]);
-  const neck = limb(t, [0, 0.12, -0.58], [0, 0.14, -0.66], 0.045, skin);
-  const skull = mesh(new THREE.SphereGeometry(0.1, 12, 9), t.sheet, skin); // rounder: she is seen close
-  skull.scale.set(0.92, 1.08, 0.96);
-  const back = mesh(new THREE.SphereGeometry(0.108, 12, 7, 0, Math.PI * 2, Math.PI * 0.42, Math.PI * 0.58), t.sheet, hair);
-  back.rotation.x = Math.PI / 2;
-  const fringe = box(t.sheet, [0.16, 0.03, 0.05], [0, 0.07, 0.05], hair);
-  const headParts = [skull, back, fringe, ...noraFace(t)];
-  const faceUp = group(...headParts);
-  faceUp.rotation.x = -Math.PI / 2 + 0.25; // face up, the chin lifted off the table
-  const headGroup = group(faceUp);
-  headGroup.rotation.z = -turn * 0.75; // then turned towards you (her right is -x)
-  headGroup.position.set(0, 0.16, -0.73);
-  // Her hair loose over the end of the table, hanging.
-  const hanging = [-0.05, 0, 0.05].map((x, i) => box(t.sheet, [0.04, 0.22 + i * 0.03, 0.02], [x, -0.18 - i * 0.03, -0.92], hair));
-  return group(chest, waist, ...shoulders, ...legs, ...arms, neck, headGroup, ...hanging);
+  const left = [ // under the strap, the fist clenched
+    limb(t, [0.15, 0.22, -0.5], [0.19, 0.15, -0.25], 0.038, jacket),
+    limb(t, [0.19, 0.15, -0.25], [0.17, 0.09, -0.02], 0.034, jacket),
+    box(t.sheet, [0.05, 0.045, 0.06], [0.17, 0.06, 0.03], skin),
+  ];
+  const right = [ // pulled free, reaching to you
+    limb(t, [-0.15, 0.24, -0.5], [-0.3, 0.4, -0.44], 0.038, jacket),
+    limb(t, [-0.3, 0.4, -0.44], [-0.42, 0.56, -0.34], 0.034, jacket),
+    box(t.sheet, [0.04, 0.09, 0.07], [-0.45, 0.58, -0.32], skin),
+  ];
+  const neck = limb(t, [0, 0.24, -0.54], [-0.01, 0.31, -0.62], 0.038, skin);
+  const faceUp = noraHead(t, skin, hair);
+  faceUp.rotation.x = -Math.PI / 2 + 0.7; // lifted off the table
+  const head = group(faceUp);
+  head.rotation.z = -turn * 0.7; // turned towards you (her right is -x)
+  head.position.set(-0.02, 0.36, -0.68);
+  const hanging = [-0.05, 0, 0.05].map((x, i) => limb(t, [x, 0.3, -0.76], [x * 1.4, -0.22 - i * 0.04, -0.98], 0.018, hair));
+  const straps = [[-0.4, 0.27, 0.36], [0.06, 0.19, 0.3], [0.55, 0.17, 0.2]].map(([z, y, w]) => box(t.sheet, [w, 0.02, 0.07], [0, y, z], { color: '#3a2a1c' }));
+  return group(hips, waist, chest, ...shoulders, ...legs, ...left, ...right, neck, head, ...hanging, ...straps);
 }
 
 export const BASEMENT_FIGURES = { ...SURGEON_FIGURES, ghostSam, noraStrapped };
