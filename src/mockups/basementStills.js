@@ -58,9 +58,9 @@ function corridor(world) {
 
 // The surgeon's theatre: the table under its lamp, Nora strapped to it, his
 // cabinet, his tray of instruments on its stand.
-function theatre(world) {
+function theatre(world, look = 'terrified') {
   furnish(world, [
-    ['operatingTable', 30.5, 3.0, 0, { straps: false }], ['noraStrapped', 30.5, 3.0, 0, {}, 0.92], ['theatreLamp', 30.5, 3.0, 0, { height: 3.8 }],
+    ['operatingTable', 30.5, 3.0, 0, { straps: false }], ['noraStrapped', 30.5, 3.0, 0, { look }, 0.92], ['theatreLamp', 30.5, 3.0, 0, { height: 3.8 }],
     ['instrumentCabinet', 34, 2.2, -90], ['instrumentTray', 31.7, 4.0, -20],
   ]);
   world.flashlight.toggle();
@@ -230,6 +230,29 @@ export const BASEMENT_STILLS = {
     ui(ctx) {
       usePrompt(ctx, 'CLICK  Undo the straps');
       subtitle(ctx, '(Nora) Who is that? I can hear you breathing. Please.', { whisper: false });
+    },
+  },
+  // Three versions of her face to pick from (owner 2026-11-17): terrified
+  // with her hair loose, crying with it tied back, exhausted with it damp.
+  nora_a: {
+    level: basement,
+    setup({ world }) {
+      theatre(world, 'terrified');
+      eye(world, [30.3, 2.66], [30.47, 2.44], 1.33, 1.1);
+    },
+  },
+  nora_b: {
+    level: basement,
+    setup({ world }) {
+      theatre(world, 'crying');
+      eye(world, [30.3, 2.66], [30.47, 2.44], 1.33, 1.1);
+    },
+  },
+  nora_c: {
+    level: basement,
+    setup({ world }) {
+      theatre(world, 'exhausted');
+      eye(world, [30.3, 2.66], [30.47, 2.44], 1.33, 1.1);
     },
   },
   // Leaning over her: her face turned to you, the straps, her fist in its cuff.

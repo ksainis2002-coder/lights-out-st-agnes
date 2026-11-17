@@ -177,6 +177,43 @@ export function headPatch(head, fn, { columns = 12, rows = 2, out = 0.004 } = {}
   return geometry;
 }
 
+// A flat ribbon through control points (a lock of hair): `widths` and
+// `normals` (which way its face looks) per point, or one for all. Its texture
+// runs root (the canvas top) to tip (the canvas bottom), side to side across.
+export function cardGeometry(points, widths, normals, { steps = 4 } = {}) {
+  const curve = new THREE.CatmullRomCurve3(points.map(vector), false, 'centripetal');
+  const widthList = Array.isArray(widths) ? widths : points.map(() => widths);
+  const onePerPoint = Array.isArray(normals) && (Array.isArray(normals[0]) || normals[0]?.isVector3);
+  const normalList = (onePerPoint ? normals : points.map(() => normals)).map(vector);
+  const rings = (points.length - 1) * steps + 1;
+  const positions = [], uvs = [], index = [];
+  const side = new THREE.Vector3();
+  for (let i = 0; i < rings; i++) {
+    const u = i / (rings - 1);
+    const f = u * (points.length - 1), k = Math.min(Math.floor(f), points.length - 2), t = f - k;
+    const normal = normalList[k].clone().lerp(normalList[k + 1], t).normalize();
+    const width = widthList[k] + (widthList[k + 1] - widthList[k]) * t;
+    side.crossVectors(curve.getTangent(u), normal);
+    if (side.lengthSq() < 1e-6) side.set(1, 0, 0);
+    side.normalize().multiplyScalar(width / 2);
+    const centre = curve.getPoint(u);
+    for (const s of [-1, 1]) {
+      positions.push(centre.x + side.x * s, centre.y + side.y * s, centre.z + side.z * s);
+      uvs.push((s + 1) / 2, 1 - u);
+    }
+  }
+  for (let i = 0; i < rings - 1; i++) {
+    const a = i * 2;
+    index.push(a, a + 1, a + 3, a, a + 3, a + 2);
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+  geometry.setIndex(index);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
 // A hand at the origin: fingers along +z, palm down (-y), the thumb towards
 // `thumb` (-1: -x, 1: +x). curl: how far each joint bends (0 flat, 1.3 a
 // fist); spread: how far the fingers fan; length and width scale it.

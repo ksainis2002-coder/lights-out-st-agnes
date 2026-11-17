@@ -289,5 +289,8 @@ plus a close-up (`nora_close`). Waiting on both.
 **0.5 stills, sixth pass (0.2.88):** Dr. Venn approved; his belt tools made recognisable (a new
 close still, `surgeon_belt`). Nora's face repainted in proportion and framed by her hair. Waiting
 on Nora's face.
+**0.5 stills, seventh pass (0.2.89):** Dr. Venn approved. Nora's face in three versions to pick
+from (`nora_a` terrified with loose hair, `nora_b` crying with her hair tied back, `nora_c`
+exhausted with damp hair), all in adult proportions with hair that falls. Waiting on the pick.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

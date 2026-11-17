@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.89 — Wing 4 stills, seventh pass: Dr. Venn approved. Nora's face redrawn in an adult's proportions (her eyes further apart, her nose and mouth lower, no outlines) with hair that breaks into strands and falls onto the table, in three versions to pick from: terrified with her hair loose, crying with it tied back, exhausted with it damp. Nothing in the game changes.
 - 0.2.88 — Wing 4 stills, sixth pass: Dr. Venn approved; the tools on his belt made larger and easier to recognise (saw, mallet, scalpels, shears, forceps, hooks, clamps) with a new close still of his belt; Nora's face repainted in proportion and framed by her hair. Nothing in the game changes.
 - 0.2.87 — Wing 4 stills, fifth pass: Dr. Venn and Nora rebuilt from smooth sculpted shapes. Dr. Venn looms hunched over you with a knife raised and a hand reaching, his tools on a belt instead of a tray, a grey sunken face with the lips pulled back off the teeth and his stitched eye plain to see; Nora in layered clothes with real hair and leather straps with buckles, and a new close-up of her face. Nothing in the game changes.
 - 0.2.86 — Wing 4 stills, fourth pass: Dr. Venn redrawn as our own wrecked asylum doctor (a long ruined white coat, a head mirror over the bandage, an eye stitched shut, the jaw hanging, a twitchy stance), and Nora a woman of ordinary build fighting the straps with her hands down and her face painted on, not stuck on. Nothing in the game changes.

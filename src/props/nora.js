@@ -12,7 +12,8 @@
 import * as THREE from 'three';
 import { materialFor, canvasTexture } from './parts.js';
 import { sweepGeometry, strapGeometry, handGroup } from './sculpt.js';
-import { noraHead, noraHairTexture } from './noraHead.js';
+import { noraHead } from './noraHead.js';
+import { hairFall } from './noraHair.js';
 
 const seeded = (seed) => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 const v = (...p) => new THREE.Vector3(...p);
@@ -114,21 +115,14 @@ function straps(tex, t) {
   ];
 }
 
-// Her hair spilling off the back of her lifted head onto the table.
-function hairFall(head) {
-  const back = head.position.clone();
-  const path = [back.clone().add(v(0.03, -0.03, -0.05)), v(0.04, 0.04, -0.79), v(0.06, 0.012, -0.85), v(0.08, 0.008, -0.91)];
-  return mesh(sweepGeometry(path, [[0.03, 0.07], [0.016, 0.09], [0.01, 0.11], [0.006, 0.12]], { radial: 4, steps: 3, front: [1, 0, 0] }), noraHairTexture());
-}
-
-function noraStrapped(t, { turn = 0.6, lift = 0.65 } = {}) {
+function noraStrapped(t, { turn = 0.6, lift = 0.65, look = 'terrified' } = {}) {
   const tex = TEXTURES();
   const neck = mesh(sweepGeometry([[0, 0.112, -0.53], [-0.015, 0.15, -0.59], [-0.03, 0.17, -0.625]], [0.048, 0.044, 0.044], { radial: 8, steps: 3 }), tex.skin);
-  const head = noraHead(t);
+  const head = noraHead(t, { look });
   head.position.set(-0.04, 0.19, -0.67); // straining up off the table
   const lifted = new THREE.Quaternion().setFromAxisAngle(v(1, 0, 0), -Math.PI / 2 + lift);
   head.quaternion.setFromAxisAngle(v(0, 0, 1), turn).multiply(lifted); // lifted off the table, turned to you
-  return new THREE.Group().add(...torso(tex), ...arms(tex), ...legs(tex), ...straps(tex, t), neck, head, hairFall(head));
+  return new THREE.Group().add(...torso(tex), ...arms(tex), ...legs(tex), ...straps(tex, t), neck, head, ...hairFall(head));
 }
 
 export const NORA_FIGURES = { noraStrapped };

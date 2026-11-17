@@ -109,11 +109,13 @@ camcorder: he has stopped and turned his head; your held breath under the pulse 
 `ui_breath` (the held breath without the camcorder: a ring round the centre of your view), `sam` (the
 boiler room under water, Sam faceless and dripping), `morgue` (drawers typed with dates, one out, a
 sheet over an adult, a tag on a toe), `theatre_nora` (Nora strapped to the table under its lamp,
-his cabinet and tray), `nora_close` (leaning over her: her face turned to you). Reshoot:
+his cabinet and tray), `nora_close` (leaning over her: her face turned to you), `nora_a`,
+`nora_b`, `nora_c` (three versions of her face to pick from). Reshoot:
 `node tools/shoot-stills.mjs <names>` with the dev server on 5199.
 Mockup-only code so far: `src/props/chapel.js`, `src/props/basement.js`,
 `src/props/basementFigures.js` (registered in the catalog for the stills), the figures
-`src/props/surgeon.js`, `surgeonHead.js`, `surgeonTools.js`, `nora.js`, `noraHead.js` and their
+`src/props/surgeon.js`, `surgeonHead.js`, `surgeonTools.js`, `nora.js`, `noraHead.js`,
+`noraFace.js`, `noraHair.js` and their
 shape helpers `src/props/sculpt.js`, the mock level
 `src/mockups/levels/basement.json` and `src/mockups/basementStills.js`. No game level, enemy,
 item or text exists yet; the mockup captions are mockup copy (game text will go through i18n).
@@ -217,6 +219,26 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   forehead and cheekbones, shade under her jaw. Her hair frames her face and falls back off her
   jaw (it read as an egg). The cut is at her right temple, by the hair. Her head is lifted higher
   off the table and turned less, so in `nora_close` her face is upright to you.
+
+## Owner's notes on the sixth pass (2026-11-17) and the seventh
+- **Dr. Venn: approved,** his belt of tools included. Every wing 4 still but Nora is now approved.
+- **Nora: "still not right": cartoon or doll-like, surprised rather than terrified, the hair like a
+  helmet; three versions to pick from.** All three share a new face in an adult's proportions:
+  her eyes an eye's width apart (they were too close, which read as a doll's), her nose and mouth
+  lower on a longer lower face, no outlines (only shade and colour), and hair built as a thin layer
+  over her scalp whose edge breaks into strands, with locks that fall off her head and lie on the
+  table. The versions differ in her expression and her hair:
+  - `nora_a`, **terrified:** brows raised and drawn together, white showing over her irises, lines
+    across her forehead, her lips stretched back off her teeth, sweat; her hair long and loose,
+    parted on her right, spread round her head on the table, a lock over her temple.
+  - `nora_b`, **crying, pleading:** brows up in the middle, eyes wet and red-rimmed, tears down her
+    cheeks, her nose red, her mouth open in a sob with the corners pulled down; her hair tied back
+    in a ponytail coming loose, wisps at her temples.
+  - `nora_c`, **exhausted, hurt:** heavy lids, dark under her eyes, her lips parted and the lower
+    one split, a bruise on her jaw, smears of dirt, dried blood from the cut at her temple; her hair
+    damp and dark, clumped, stuck to her forehead and cheek.
+  The owner picks one (or mixes, e.g. one face with another's hair); the other two are then removed.
+  Until then `theatre_nora` and `nora_close` show version A.
 
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
