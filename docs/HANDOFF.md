@@ -298,5 +298,6 @@ creases, in the same three versions. Waiting on the pick.
 **0.5 stills, ninth pass (0.2.91):** Nora from the owner's reference (another game's heroine, in
 spirit only): one plain, believable young woman, quiet fear, straight light-brown hair parted in
 the middle; the three versions dropped. Waiting on Nora.
+**0.5 stills, tenth pass (0.2.92):** Nora "close": more afraid, her mouth moved up. Waiting on Nora.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

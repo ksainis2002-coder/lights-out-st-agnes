@@ -18,11 +18,11 @@ const BUMPS = both([
   { at: [0, -0.06, 1], size: 0.12, stretch: [0.42, 1.9, 1], amount: 0.16 }, // the bridge of her nose
   { at: FACE.noseTip, size: 0.08, amount: 0.09 }, // its tip
   { at: [0.09, -0.36, 0.93], size: 0.05, amount: 0.04 }, // its wings
-  { at: FACE.brow, size: 0.15, stretch: [1.5, 0.5, 1], amount: 0.05 }, // her brows
+  { at: [0.36, 0.24, 0.9], size: 0.15, stretch: [1.5, 0.5, 1], amount: 0.05 }, // her brows, lifted
   { at: FACE.eye, size: 0.12, amount: -0.08 }, // her eyes
   { at: [0.56, -0.16, 0.8], size: 0.17, amount: 0.07 }, // her cheeks, soft and round
-  { at: [0, -0.6, 0.8], size: 0.12, stretch: [1.7, 0.8, 1], amount: 0.055 }, // full lips
-  { at: FACE.mouth, size: 0.06, stretch: [1.7, 0.6, 1], amount: -0.035 }, // parted as she breathes
+  { at: [0, -0.53, 0.85], size: 0.12, stretch: [1.7, 0.8, 1], amount: 0.055 }, // full lips
+  { at: FACE.mouth, size: 0.06, stretch: [1.6, 0.9, 1], amount: -0.055 }, // parted, her breath caught
   { at: FACE.chin, size: 0.15, amount: 0.06 }, // her chin
   { at: [0.62, -0.7, 0.32], size: 0.2, amount: 0.02 }, // a soft jaw
   { at: [0.85, 0.32, 0.4], size: 0.2, amount: -0.03 }, // her temples

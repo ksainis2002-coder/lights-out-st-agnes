@@ -6,8 +6,9 @@
 // natural hair". So: a believable, plain face lit the way a photograph is
 // (soft light from above, soft shade under the brow, the nose, the lip and
 // the jaw; nothing drawn as a line); clear, even skin with a light dusting of
-// freckles; fear shown quietly: her eyes a little wide and on you, her brows
-// lifted at the inner ends, her lips parted as she breathes. The texture is
+// freckles; fear shown quietly, but plainly (owner: "more afraid"): her eyes
+// wide and on you, the white above her irises, her brows lifted high and
+// drawn in, lines across her forehead, her lips parted, her breath caught. The texture is
 // 256 x 128: a texel is about 1.7 mm across and 2.5 mm down her face; the
 // face looks down +z, at u = 0.5.
 import { canvasTexture } from './parts.js';
@@ -19,8 +20,8 @@ export const FACE = {
   eye: [0.4, 0.03, 0.92],
   brow: [0.4, 0.2, 0.9],
   noseTip: [0, -0.28, 0.96],
-  mouth: [0, -0.62, 0.8],
-  chin: [0, -0.88, 0.46],
+  mouth: [0, -0.54, 0.84], // owner: the mouth sat a little far down (now a lip's height under her nose)
+  chin: [0, -0.86, 0.5],
 };
 
 const SKIN = [180, 144, 124];
@@ -80,7 +81,7 @@ function lightAndShade(g, at) {
   }
   blot(g, ...at([0, 0.44, 0.9]), 20, 8, 'rgba(216,190,168,0.3)'); // the forehead, catching the light
   blot(g, ...at([0, -0.86, 0.5]), 7, 3, 'rgba(212,184,162,0.35)'); // the chin
-  blot(g, ...at([0, -0.76, 0.65]), 9, 2.5, 'rgba(120,82,70,0.4)'); // under her lower lip
+  blot(g, ...at([0, -0.7, 0.71]), 9, 2.5, 'rgba(120,82,70,0.4)'); // under her lower lip
   nose(g, at);
 }
 
@@ -98,11 +99,11 @@ function nose(g, at) {
   blot(g, x, tip + 8, 2, 3, 'rgba(130,90,76,0.25)'); // the groove above her lip
 }
 
-// An eye a little wider than at rest, on you: the white, a hazel iris with
-// its darker rim and the pupil, the lamp caught in it, soft lashes, the lid's
-// crease, the pink inner corner, a wet rim.
+// An eye opened wide with fear, on you: the white showing above the iris, a
+// hazel iris with its darker rim and the pupil, the lamp caught in it, soft
+// lashes, the lid's crease, the pink inner corner, a wet rim.
 function eye(g, x, y, side) {
-  const open = 2.8, top = y - open, bottom = y + open * 0.75;
+  const open = 3.4, top = y - open, bottom = y + open * 0.7;
   const inner = [x - side * 8, y + 0.8], outer = [x + side * 8, y - 0.5];
   g.save();
   g.beginPath();
@@ -114,7 +115,7 @@ function eye(g, x, y, side) {
   g.fill();
   g.clip();
   blot(g, inner[0] + side * 1.6, inner[1] - 0.4, 1.8, 1.3, 'rgba(204,128,118,0.9)');
-  const ix = x - side * 0.6, iy = y + 0.4; // both on you, close
+  const ix = x - side * 0.6, iy = y + 0.9; // both on you, close; white above them
   g.fillStyle = '#3e2a1c'; // the iris's rim
   g.beginPath();
   g.ellipse(ix, iy, 3.5, 2.5, 0, 0, Math.PI * 2);
@@ -127,7 +128,7 @@ function eye(g, x, y, side) {
   g.fillRect(Math.round(ix - 1), Math.round(iy - 0.5), 2, 2);
   g.fillStyle = 'rgba(255,255,255,0.9)';
   g.fillRect(Math.round(ix + 0.5), Math.round(iy - 1.5), 2, 1);
-  blot(g, x, top, 9, 1.6, 'rgba(90,60,50,0.35)'); // the lid's shadow on the white
+  blot(g, x, top, 9, 1.2, 'rgba(90,60,50,0.25)'); // the lid's shadow on the white
   g.restore();
   g.strokeStyle = 'rgba(58,36,26,0.65)';
   g.lineWidth = 1;
@@ -141,9 +142,10 @@ function eye(g, x, y, side) {
   g.fillRect(Math.round(x - side * 4), Math.round(bottom + 0.4), 7, 1);
 }
 
-// A natural brow, the colour of her hair but darker, lifted at the inner end.
+// A natural brow, the colour of her hair but darker, lifted high and drawn
+// in at the inner end with fear.
 function brow(g, x, y, side) {
-  const inner = [x - side * 5.5, y - 8.5], middle = [x + side * 2, y - 8], outer = [x + side * 10, y - 5.5];
+  const inner = [x - side * 4.5, y - 10.5], middle = [x + side * 2, y - 9.5], outer = [x + side * 10, y - 6.5];
   g.fillStyle = 'rgba(92,64,44,0.6)';
   g.beginPath();
   g.moveTo(inner[0], inner[1] - 1.3);
@@ -153,8 +155,21 @@ function brow(g, x, y, side) {
   g.fill();
 }
 
-// Her lips, parted as she breathes: a fuller lower lip, the dark between
-// them, a glimpse of her top teeth, the shine on her lower lip.
+// Faint lines across the middle of her forehead, from the lifted brows.
+function worry(g, at) {
+  const [x, y] = at([0, 0.34, 0.94]);
+  g.strokeStyle = 'rgba(132,92,78,0.35)';
+  g.lineWidth = 1;
+  for (const k of [0, 3]) {
+    g.beginPath();
+    g.moveTo(x - 8 + k / 3, y + k);
+    g.quadraticCurveTo(x, y + k - 1.2, x + 8 - k / 3, y + k);
+    g.stroke();
+  }
+}
+
+// Her lips, parted in fear, her breath caught: a fuller lower lip, the dark
+// between them, her top teeth showing, the shine on her lower lip.
 function lips(g, x, y) {
   g.save();
   g.filter = 'blur(0.5px)';
@@ -165,22 +180,22 @@ function lips(g, x, y) {
   g.quadraticCurveTo(x + 6, y - 5, x + 13, y);
   g.closePath();
   g.fill();
-  g.fillStyle = '#b07670'; // the lower lip
+  g.fillStyle = '#b07670'; // the lower lip, dropped
   g.beginPath();
   g.moveTo(x - 12, y + 0.5);
-  g.quadraticCurveTo(x, y + 9, x + 12, y + 0.5);
+  g.quadraticCurveTo(x, y + 11, x + 12, y + 0.5);
   g.closePath();
   g.fill();
   g.restore();
-  g.fillStyle = '#2a1212'; // parted
+  g.fillStyle = '#240e0e'; // parted
   g.beginPath();
   g.moveTo(x - 10, y + 0.2);
-  g.quadraticCurveTo(x, y - 1.2, x + 10, y + 0.2);
-  g.quadraticCurveTo(x, y + 2.4, x - 10, y + 0.2);
+  g.quadraticCurveTo(x, y - 1.4, x + 10, y + 0.2);
+  g.quadraticCurveTo(x, y + 4.6, x - 10, y + 0.2);
   g.fill();
-  g.fillStyle = 'rgba(214,204,192,0.7)';
-  g.fillRect(Math.round(x - 4), Math.round(y - 0.5), 8, 1); // her top teeth, just
-  blot(g, x - 2, y + 4.5, 3.5, 0.9, 'rgba(255,236,228,0.45)', 0.2);
+  g.fillStyle = 'rgba(214,204,192,0.8)';
+  g.fillRect(Math.round(x - 5), Math.round(y - 0.6), 10, 1.5); // her top teeth
+  blot(g, x - 2, y + 6, 3.5, 0.9, 'rgba(255,236,228,0.45)', 0.2);
 }
 
 // A light dusting of freckles over her nose and cheeks.
@@ -215,6 +230,7 @@ export function noraFaceTexture(hasHair) {
       const [bx, by] = at(mirror(FACE.brow, side));
       brow(g, bx, by + 8 - lift, side);
     }
+    worry(g, at);
     blot(g, ...at([0.6, -0.12, 0.79]), 6, 4, 'rgba(110,80,120,0.3)'); // a bruise coming up on her left cheekbone
     const [mx, my] = at(FACE.mouth);
     g.save();

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.92 — Wing 4 stills, tenth pass: Nora's mouth moved up under her nose, and her fear a step plainer (wider eyes with white above the irises, brows higher and drawn in, lips further apart). Nothing in the game changes.
 - 0.2.91 — Wing 4 stills, ninth pass: Nora redrawn from the owner's reference, in spirit only: one plain, believable young woman (soft, photograph-like shading, clear skin, her fear quiet in her eyes and parted lips) with straight light-brown hair parted in the middle, loose to her shoulders; the close-up sees her face upright as she lifts her head to you; the three versions are dropped. Nothing in the game changes.
 - 0.2.90 — Wing 4 stills, eighth pass: Nora no longer a mannequin: living skin (uneven tone, freckles, sweat, wet eyes, a shine on her lip), a face not the same on both sides, a short straining neck going into a knitted collar, and clothes with weave, wear and creases; still three versions to pick from. Nothing in the game changes.
 - 0.2.89 — Wing 4 stills, seventh pass: Dr. Venn approved. Nora's face redrawn in an adult's proportions (her eyes further apart, her nose and mouth lower, no outlines) with hair that breaks into strands and falls onto the table, in three versions to pick from: terrified with her hair loose, crying with it tied back, exhausted with it damp. Nothing in the game changes.

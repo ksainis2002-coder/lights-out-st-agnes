@@ -269,6 +269,12 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   table round her head. She lifts her head to look down the table at you, so in `nora_close` her
   face is upright and turned to you; the jumper's collar sits high on her throat.
 
+## Owner's notes on the ninth pass (2026-11-17) and the tenth
+- **Nora: "close, small changes": more afraid, and "the mouth is a little far down".** Her mouth
+  now sits a lip's height under her nose (it was about a centimetre too low). Her fear is a step
+  plainer: her eyes wider, the white showing above her irises, her brows lifted higher and drawn
+  in, faint lines across her forehead, her lips further apart with her top teeth showing.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.
