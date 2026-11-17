@@ -103,7 +103,8 @@ In `docs/mockups/stills-0.5/`, after the owner's picks: `chapel` (St. Agnes on h
 the altar, her hand gone at the wrist), `statue_whole` (her hand and palm back, the lamb in her arm,
 her stone heart in her breast; the bell, the rain stops), `crypt` (the plaques, two pushed home; her
 heart in the niche), `surgeon` (Dr. Venn coming down the cold corridor at you, a knife raised),
-`surgeon_face` (up close, looming over you: the bandage, the stitched eye, the teeth), `surgeon_listens` (the tell, through the
+`surgeon_face` (up close, looming over you: the bandage, the stitched eye, the teeth),
+`surgeon_belt` (his belt of tools, close), `surgeon_listens` (the tell, through the
 camcorder: he has stopped and turned his head; your held breath under the pulse line),
 `ui_breath` (the held breath without the camcorder: a ring round the centre of your view), `sam` (the
 boiler room under water, Sam faceless and dripping), `morgue` (drawers typed with dates, one out, a
@@ -201,6 +202,21 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   loose, over her ears, spilling off the back of her head onto the table. Leather straps with steel
   buckles go over her chest and arms, her hips and her shins and under the table's edge (the table's
   own flat straps are gone). A new close-up, `nora_close`, shows her face as you lean over her.
+
+## Owner's notes on the fifth pass (2026-11-17) and the sixth
+- **Dr. Venn: approved,** with one change: his tools should be easier to recognise on the belt.
+  Now larger than life (about one and a half times), chunky enough to survive the game's
+  resolution, each against a dark leather holster so the steel reads against his white coat: an
+  amputation saw with a toothed blade and a pistol grip, a surgical mallet head down, a leather roll
+  of scalpels with the blades up, shears, bone forceps, a ring of hooks, and the clamps behind. The
+  four that say what he is (shears, scalpels, mallet, saw) face the front. New close still:
+  `surgeon_belt` (his belt as he passes where you crouch).
+- **Nora: "face still odd, you're almost there".** Her face is repainted in proportion: almond
+  eyes opened wide and looking at you, softer lids and brows, a nose that shows (light down the
+  bridge, shade under it), her mouth open in fright with the top teeth showing, light on her
+  forehead and cheekbones, shade under her jaw. Her hair frames her face and falls back off her
+  jaw (it read as an egg). The cut is at her right temple, by the hair. Her head is lifted higher
+  off the table and turned less, so in `nora_close` her face is upright to you.
 
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.

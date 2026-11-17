@@ -286,5 +286,8 @@ white coat, he drives you mad), Nora rebuilt with ordinary proportions and her h
 looming, a knife raised, a hand reaching, his tools on a belt (no tray), a sculpted grey face with
 the lips drawn back and the stitched eye; Nora in layered clothes with real hair and leather straps,
 plus a close-up (`nora_close`). Waiting on both.
+**0.5 stills, sixth pass (0.2.88):** Dr. Venn approved; his belt tools made recognisable (a new
+close still, `surgeon_belt`). Nora's face repainted in proportion and framed by her hair. Waiting
+on Nora's face.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

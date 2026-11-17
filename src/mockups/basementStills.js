@@ -1,11 +1,11 @@
 // Mockup stills for 0.5, wing 4 (docs/DESIGN_0.5.md; owner picks 2026-11-17:
 // her stone heart, Dr. Venn the surgeon, Nora on his table): the chapel with
 // St. Agnes on her plinth, St. Agnes whole, the crypt, the surgeon coming at
-// you down the cold corridor and looming over you, the surgeon listening
-// (with your held breath on the camcorder's pulse line), the held breath
-// without the camcorder, Sam in the flooded boiler room, the morgue, and Nora
-// on the table, from the doorway and leaning over her. Text here is mockup
-// copy, not game text (game text goes through i18n).
+// you down the cold corridor, looming over you, and his belt of tools close
+// to, the surgeon listening (with your held breath on the camcorder's pulse
+// line), the held breath without the camcorder, Sam in the flooded boiler
+// room, the morgue, and Nora on the table, from the doorway and leaning over
+// her. Text here is mockup copy, not game text (game text goes through i18n).
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { CHILDREN } from '../props/chapel.js';
@@ -146,6 +146,19 @@ export const BASEMENT_STILLS = {
       eye(world, [13.66, 8.06], [14.4, 7.97], 1.6, 1.86); // he looms over you
     },
   },
+  // His belt as he passes where you crouch: the tools you hear clinking,
+  // each its own shape, at your eye level.
+  surgeon_belt: {
+    level: basement,
+    setup({ world }) {
+      corridor(world);
+      furnish(world, [['surgeon', 14.4, 8.0, -90]]);
+      world.flashlight.toggle();
+      light(world, '#d8c8a0', 1.3, 4, [14.0, 8.7], 2.3);
+      light(world, '#9aa8c8', 0.5, 3, [13.5, 7.7], 1.1);
+      eye(world, [13.66, 8.06], [14.3, 7.98], 1.04, 1.0);
+    },
+  },
   // The tell: he has stopped, the clinking with him, and turned his head
   // towards you. Through the camcorder, crouched, your breath held.
   surgeon_listens: {
@@ -224,7 +237,7 @@ export const BASEMENT_STILLS = {
     level: basement,
     setup({ world }) {
       theatre(world);
-      eye(world, [30.2, 2.62], [30.47, 2.43], 1.38, 1.08); // leaning over her, her face turned up to yours
+      eye(world, [30.3, 2.67], [30.47, 2.44], 1.36, 1.1); // leaning over her from her side, her face turned up to yours
     },
     ui(ctx) {
       subtitle(ctx, '(Nora) Please. Before he comes back.', { whisper: false });

@@ -1,12 +1,12 @@
 // Nora Kane's head (0.5 proposal, mockup stills only until the owner approves
-// her). Owner 2026-11-17, fifth pass: her face still odd, and she looked bald
-// with a black smudge. Now sculpted (a woman of about thirty: a small nose,
-// full lips, a soft jaw), her face painted at the scale it is drawn: eyes
-// wide with the whites showing all round, looking at you; brows drawn up;
-// mouth open; a bruise on her left cheekbone and a cut through her right
-// brow. Her hair has volume: dark auburn, loose, parted, over her ears and
-// down her neck; a strand fallen across her face. Origin at the head's
-// centre, the face looking down +z.
+// her). Owner 2026-11-17: her face odd, and she looked bald with a black
+// smudge; then "face still odd, almost there". Sculpted (a woman of about
+// thirty: a straight nose, full lips, a soft jaw), her face painted at the
+// scale it is drawn: almond eyes opened wide, looking at you; brows drawn up;
+// her mouth open in fright; a bruise on her left cheekbone and a cut at her
+// right temple. Her hair has volume and frames her face: dark auburn,
+// loose, parted, over her ears and down her neck, loose strands at her
+// temples. Origin at the head's centre, the face looking down +z.
 import * as THREE from 'three';
 import { materialFor, canvasTexture } from './parts.js';
 import { sculptedHead, headPatch } from './sculpt.js';
@@ -21,14 +21,14 @@ const BUMPS = both([
   { at: [0.3, 0.06, 0.95], size: 0.13, amount: -0.09 }, // the eyes
   { at: [0.58, -0.1, 0.8], size: 0.16, amount: 0.07 }, // the cheekbones
   { at: [0.5, -0.42, 0.74], size: 0.16, amount: -0.05 }, // the cheeks under them
-  { at: [0, -0.5, 0.87], size: 0.12, stretch: [1.6, 0.8, 1], amount: 0.06 }, // full lips
-  { at: [0, -0.52, 0.86], size: 0.06, stretch: [1.8, 1, 1], amount: -0.1 }, // the mouth open
+  { at: [0, -0.52, 0.86], size: 0.12, stretch: [1.6, 0.8, 1], amount: 0.05 }, // full lips
+  { at: [0, -0.55, 0.84], size: 0.07, stretch: [1.8, 1, 1], amount: -0.1 }, // the mouth open
   { at: [0, -0.86, 0.5], size: 0.16, amount: 0.08 }, // the chin
   { at: [0.62, -0.68, 0.32], size: 0.2, amount: 0.02 }, // the jaw
   { at: [0.85, 0.32, 0.4], size: 0.2, amount: -0.04 }, // the temples
   { at: [1, 0, -0.05], size: 0.12, stretch: [0.5, 1.4, 0.7], amount: 0.08 }, // the ears
 ]);
-const SCALE = [0.74, 1.02, 0.94];
+const SCALE = [0.72, 1.04, 0.92];
 const RADIUS = 0.1;
 
 function onTexture(w, h, [x, y, z]) {
@@ -49,7 +49,10 @@ function blot(g, x, y, rx, ry, color, core = 0.4) {
   g.restore();
 }
 
-// Her face at 256 x 128 (a texel is 2 mm across, 2.5 mm down).
+// Her face at 256 x 128 (a texel is 2 mm across, 2.5 mm down). Owner
+// 2026-11-17 (fifth pass: "face still odd, almost there"): features bolder
+// and in proportion, a nose that shows, a mouth open in fright rather than
+// an O, the hair framing her face.
 function faceTexture() {
   const random = seeded(23);
   return canvasTexture(256, 128, (g, w, h) => {
@@ -62,83 +65,119 @@ function faceTexture() {
     }
     const at = (dir) => onTexture(w, h, dir);
     for (const side of [-1, 1]) {
-      blot(g, ...at([side * 0.3, 0.05, 0.95]), 13, 7, 'rgba(96,60,52,0.55)'); // shadowed, tired round the eyes
-      blot(g, ...at([side * 0.52, -0.4, 0.75]), 12, 9, 'rgba(110,72,60,0.4)'); // under the cheekbones
-      blot(g, ...at([side * 0.6, -0.12, 0.79]), 9, 4, 'rgba(206,170,148,0.45)'); // the cheekbones, lit
-      blot(g, ...at([side * 0.14, -0.15, 0.98]), 3, 8, 'rgba(110,70,58,0.45)'); // the sides of the nose
-      blot(g, ...at([side * 0.66, -0.72, 0.25]), 12, 5, 'rgba(90,58,48,0.5)'); // under the jaw
-      blot(g, ...at([side * 0.55, -0.3, 0.78]), 10, 6, 'rgba(200,120,110,0.3)'); // flushed
+      blot(g, ...at([side * 0.3, 0.08, 0.95]), 14, 8, 'rgba(110,70,60,0.5)'); // the sockets, shadowed
+      blot(g, ...at([side * 0.5, -0.42, 0.75]), 12, 9, 'rgba(116,76,62,0.45)'); // under the cheekbones
+      blot(g, ...at([side * 0.6, -0.1, 0.79]), 9, 4, 'rgba(204,166,142,0.5)'); // the cheekbones, lit
+      blot(g, ...at([side * 0.64, -0.7, 0.3]), 13, 5, 'rgba(92,58,48,0.55)'); // under the jaw
+      blot(g, ...at([side * 0.52, -0.3, 0.78]), 9, 5, 'rgba(196,112,100,0.3)'); // flushed
       eye(g, ...at([side * 0.3, 0.06, 0.95]), side);
-      brow(g, ...at([side * 0.3, 0.2, 0.93]), side);
+      brow(g, ...at([side * 0.3, 0.21, 0.93]), side);
     }
-    const [nx, ny] = at([0, -0.26, 0.97]);
-    g.fillStyle = 'rgba(150,100,86,0.8)'; // under the nose
-    g.fillRect(nx - 5, ny + 2, 10, 2);
-    mouth(g, ...at([0, -0.52, 0.86]));
-    blot(g, ...at([0.56, -0.08, 0.8]), 9, 6, 'rgba(96,60,110,0.7)'); // the bruise on her left cheekbone
-    blot(g, ...at([0.6, -0.04, 0.78]), 5, 3, 'rgba(150,140,70,0.4)');
-    cut(g, ...at([-0.36, 0.24, 0.9]));
-    g.fillStyle = 'rgba(70,50,40,0.25)'; // dirt from the basement floor
-    for (let i = 0; i < 40; i++) g.fillRect(w * 0.4 + random() * w * 0.2, 40 + random() * 70, 2, 1);
+    blot(g, ...at([0, 0.38, 0.92]), 18, 7, 'rgba(196,160,136,0.4)'); // the forehead, catching the light
+    for (const side of [-1, 1]) {
+      blot(g, ...at([side * 0.62, 0.3, 0.72]), 8, 10, 'rgba(110,72,58,0.45)'); // the temples, by the hair
+      blot(g, ...at([side * 0.22, -0.4, 0.9]), 3, 7, 'rgba(120,80,66,0.45)'); // from the nose to the mouth
+    }
+    nose(g, at);
+    mouth(g, ...at([0, -0.54, 0.84]));
+    blot(g, ...at([0, -0.84, 0.54]), 10, 3, 'rgba(110,72,58,0.45)'); // under the lower lip
+    blot(g, ...at([0.58, -0.1, 0.8]), 6, 4, 'rgba(100,62,112,0.7)'); // the bruise on her left cheekbone
+    blot(g, ...at([0.62, -0.06, 0.78]), 4, 2, 'rgba(150,140,70,0.4)');
+    cut(g, ...at([-0.42, 0.46, 0.78]));
+    g.fillStyle = 'rgba(70,50,40,0.22)'; // dirt from the basement floor
+    for (let i = 0; i < 30; i++) g.fillRect(w * 0.42 + random() * w * 0.16, 50 + random() * 50, 2, 1);
     hairline(g, w, h, random);
   });
 }
 
-// An eye wide open, the white showing round the iris; she looks to her
-// right, at you (side -1 is her right, the canvas left).
+// An almond eye opened wide (a line of white above the iris), looking at
+// you; side -1 is her right, the canvas left.
 function eye(g, x, y, side) {
-  g.fillStyle = '#d4cabe';
+  g.fillStyle = '#d6cec4';
   g.beginPath();
-  g.ellipse(x, y, 7, 3, 0, 0, Math.PI * 2);
+  g.moveTo(x - 9, y + 0.5);
+  g.quadraticCurveTo(x - 2, y - 5, x + 8, y - 0.5);
+  g.quadraticCurveTo(x + 1, y + 4.5, x - 9, y + 0.5);
   g.fill();
-  g.fillStyle = '#4a3020'; // brown iris, turned to you
-  g.fillRect(Math.round(x - 5), Math.round(y - 2), 4, 4);
-  g.fillStyle = '#0c0806';
-  g.fillRect(Math.round(x - 4), Math.round(y - 1), 2, 2);
-  g.fillStyle = '#2a1a14'; // lashes, the upper lid
-  g.fillRect(Math.round(x - 8), Math.round(y - 3), 16, 1);
-  g.fillStyle = 'rgba(120,80,64,0.6)'; // the crease above
-  g.fillRect(Math.round(x - 7), Math.round(y - 5), 14, 1);
-  g.fillStyle = 'rgba(60,36,30,0.7)';
-  g.fillRect(Math.round(x - 7), Math.round(y + 4), 14, 1);
-  if (side < 0) { // a catchlight
-    g.fillStyle = 'rgba(255,255,255,0.9)';
-    g.fillRect(Math.round(x - 4), Math.round(y - 1), 1, 1);
-  }
-}
-
-// Brows drawn up in the middle: frightened.
-function brow(g, x, y, side) {
-  g.strokeStyle = '#3a2216';
-  g.lineWidth = 2;
+  const ix = Math.round(x - 1 - side * 0.5); // the iris, turned a little to you
+  g.fillStyle = '#3e2618';
+  g.fillRect(ix - 3, Math.round(y - 2), 6, 6);
+  g.fillStyle = '#5e3e26';
+  g.fillRect(ix - 2, Math.round(y - 1), 4, 4);
+  g.fillStyle = '#080404';
+  g.fillRect(ix - 1, Math.round(y), 2, 2);
+  g.fillStyle = 'rgba(255,255,255,0.85)'; // the catchlight
+  g.fillRect(ix + 1, Math.round(y - 1), 1, 1);
+  g.strokeStyle = '#3a2218'; // the upper lid and lashes, the lower lid
+  g.lineWidth = 1.5;
   g.beginPath();
-  g.moveTo(x + side * 9, y + 2);
-  g.quadraticCurveTo(x + side * 2, y - 1, x - side * 5, y - 4);
+  g.moveTo(x - 10, y + 1);
+  g.quadraticCurveTo(x - 2, y - 6, x + 9, y - 1);
+  g.stroke();
+  g.strokeStyle = 'rgba(80,46,38,0.7)';
+  g.lineWidth = 1;
+  g.beginPath();
+  g.moveTo(x - 8, y + 2);
+  g.quadraticCurveTo(x, y + 5, x + 7, y + 1);
   g.stroke();
 }
 
-function mouth(g, x, y) {
-  g.fillStyle = '#a8605c'; // lips
+// Brows drawn up at the inner ends: frightened.
+function brow(g, x, y, side) {
+  g.strokeStyle = '#4a2c1c';
+  g.lineWidth = 2;
   g.beginPath();
-  g.ellipse(x, y, 11, 6, 0, 0, Math.PI * 2);
-  g.fill();
-  g.fillStyle = '#2a0c0c'; // open
-  g.beginPath();
-  g.ellipse(x, y + 0.5, 8, 4, 0, 0, Math.PI * 2);
-  g.fill();
-  g.fillStyle = '#e0d8cc'; // her top teeth
-  g.fillRect(Math.round(x - 5), Math.round(y - 3), 10, 2);
+  g.moveTo(x + side * 10, y + 3);
+  g.quadraticCurveTo(x + side * 3, y - 1, x - side * 6, y - 4);
+  g.stroke();
 }
 
-// A cut through her right brow, dried, a trickle down to her temple.
+// The nose: light down the bridge, shade down one side and under the tip,
+// the nostrils.
+function nose(g, at) {
+  const [x, y] = at([0, -0.1, 1]);
+  g.fillStyle = 'rgba(200,164,142,0.6)';
+  g.fillRect(Math.round(x - 1), Math.round(y - 12), 2, 16);
+  blot(g, x + 5, y - 2, 3, 9, 'rgba(120,78,64,0.55)');
+  blot(g, x, y + 7, 7, 3, 'rgba(100,62,52,0.6)');
+  g.fillStyle = '#4a2a22';
+  g.fillRect(Math.round(x - 5), Math.round(y + 6), 3, 2);
+  g.fillRect(Math.round(x + 2), Math.round(y + 6), 3, 2);
+}
+
+// Her mouth open in fright: wide, the jaw dropped, the top teeth showing.
+function mouth(g, x, y) {
+  g.fillStyle = '#8a4642'; // lips: a bow above, fuller below
+  g.beginPath();
+  g.moveTo(x - 15, y);
+  g.quadraticCurveTo(x - 7, y - 7, x, y - 5);
+  g.quadraticCurveTo(x + 7, y - 7, x + 15, y);
+  g.quadraticCurveTo(x + 7, y + 11, x, y + 11);
+  g.quadraticCurveTo(x - 7, y + 11, x - 15, y);
+  g.fill();
+  g.fillStyle = '#200808'; // open
+  g.beginPath();
+  g.moveTo(x - 12, y);
+  g.quadraticCurveTo(x, y - 5, x + 12, y);
+  g.quadraticCurveTo(x, y + 9, x - 12, y);
+  g.fill();
+  g.fillStyle = '#ddd4c6'; // the top teeth
+  g.fillRect(Math.round(x - 7), Math.round(y - 3), 14, 2);
+}
+
+// A cut at her right temple by the hair, dried, a thin trickle down.
 function cut(g, x, y) {
   g.strokeStyle = '#6a1c16';
   g.lineWidth = 1.5;
   g.beginPath();
-  g.moveTo(x - 4, y - 3);
-  g.lineTo(x + 3, y + 3);
-  g.moveTo(x - 2, y);
-  g.quadraticCurveTo(x - 8, y + 6, x - 10, y + 14);
+  g.moveTo(x - 3, y);
+  g.lineTo(x + 3, y - 1);
+  g.stroke();
+  g.strokeStyle = 'rgba(106,28,22,0.7)';
+  g.lineWidth = 1;
+  g.beginPath();
+  g.moveTo(x - 2, y + 1);
+  g.quadraticCurveTo(x - 4, y + 8, x - 3, y + 16);
   g.stroke();
 }
 
@@ -166,8 +205,9 @@ function hairTexture() {
 // The hair round her head: a shell over the crown, the back and over the
 // ears; under the skin (hidden) across her face.
 function hairVolume(d) {
-  const front = d.z > 0.35 && d.y < 0.62 && Math.abs(d.x) < 0.84; // the face
-  if (front) return -0.15;
+  const front = d.z > 0.3 && d.y < 0.5 - 0.5 * d.x * d.x && Math.abs(d.x) < 0.66; // the face, framed
+  const jaw = d.y < -0.25 && d.z > -0.15; // her jaw and chin bare: the hair falls back off them
+  if (front || jaw) return -0.15;
   const parting = Math.exp(-((d.x + 0.12) ** 2) / 0.004) * 0.03; // a parting, a little to her right
   return 0.12 - parting + (d.y < -0.3 ? 0.04 : 0);
 }
