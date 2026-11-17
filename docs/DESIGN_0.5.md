@@ -1,6 +1,9 @@
 # 0.5 the chapel and the basement: design proposal
 
-**Status: a proposal (2026-11-17). Nothing here is approved yet and nothing is built.** The brief
+**Status (2026-11-17): every wing 4 still is approved; the content sheet (all of the wing's text,
+English and Greek) waits for the owner's yes; nothing is built yet.** Content sheet: the Claude Doc
+"Lights Out at St. Agnes: wing 4 content sheet (0.5)",
+https://claude.ai/artifact/BTuaqxchpYDVYGNJHJWg4c. The brief
 wins on anything not listed. The owner's picks get written into this file as they are made; until
 then every line below is a proposal, with the open questions at the end.
 
@@ -293,6 +296,11 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
 - **Nora: her chin "softer, smaller, rounder: she's a woman"; everything else fine.** The firmer
   chin of the last pass is gone: her chin is small and round, with only soft shade under it and
   along her jaw.
+
+## Owner's notes on the thirteenth pass (2026-11-17)
+- **Nora: approved.** With her, every wing 4 still is approved: the chapel, St. Agnes whole, the
+  crypt, Dr. Venn (his face, his pose, his belt of tools), Sam, the morgue, Nora, and the breath ring.
+- Next: the content sheet for the owner's yes, then part A is built.
 
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.

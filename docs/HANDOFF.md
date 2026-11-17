@@ -305,5 +305,8 @@ fuller on top with a lower hairline. Waiting on Nora.
 neck set under her jaw. Waiting on Nora.
 **0.5 stills, thirteenth pass (0.2.95):** Nora's chin smaller, softer and rounder (all else fine
 by the owner). Waiting on Nora.
+**0.5 stills approved (0.2.96):** Nora approved, so every wing 4 still is. The wing's content sheet
+(all its text, EN and EL, with seven open questions) is drafted as a Claude Doc,
+https://claude.ai/artifact/BTuaqxchpYDVYGNJHJWg4c, and waits for the owner's yes before part A is built.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
