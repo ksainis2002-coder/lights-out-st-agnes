@@ -64,7 +64,7 @@ function theatre(world, look = 'terrified') {
     ['instrumentCabinet', 34, 2.2, -90], ['instrumentTray', 31.7, 4.0, -20],
   ]);
   world.flashlight.toggle();
-  light(world, '#c8d0e0', 0.5, 2.0, [29.6, 2.6], 1.5); // a little light back off the tiles
+  light(world, '#a8b4c8', 0.25, 2.0, [29.6, 2.6], 1.3); // a little light back off the tiles
 }
 
 // Your breath held (owner 2026-11-17: the first bar was hard to read and the

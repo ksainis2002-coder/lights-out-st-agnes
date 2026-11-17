@@ -240,6 +240,20 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   The owner picks one (or mixes, e.g. one face with another's hair); the other two are then removed.
   Until then `theatre_nora` and `nora_close` show version A.
 
+## Owner's notes on the seventh pass (2026-11-17) and the eighth
+- **Nora: none of the three; "still fake, like a mannequin"** (the skin too smooth and pink, the
+  neck a long pale tube, nothing about her alive). The three versions stay to pick from; all three
+  now have living skin: never one colour (warmer, cooler and yellower blotches, a fine grain),
+  freckles over her nose and cheeks, the shine of sweat on her forehead, nose, lip and cheekbones,
+  her ears red, the skin under her eyes cooler; wet eyes (the pink inner corners, wet rims, the
+  lamp caught in them) and a shine on her lower lip. No two sides of her face are the same: one
+  brow and eye a little higher, her mouth higher on one side, the bruised cheekbone swollen, her
+  nose a little off true; her eyes are set deeper and her cheekbones stronger. Her neck is short
+  and straining as she lifts her head (the cords down her throat stand out, the skin flushed)
+  and goes into the jumper's knitted collar; her hands have the same living skin; her clothes
+  have weave, wear and creases (a knitted jumper, a creased waxed jacket with a dull shine,
+  denim). The light on her is less flat.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.

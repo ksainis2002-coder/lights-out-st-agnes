@@ -292,5 +292,8 @@ on Nora's face.
 **0.5 stills, seventh pass (0.2.89):** Dr. Venn approved. Nora's face in three versions to pick
 from (`nora_a` terrified with loose hair, `nora_b` crying with her hair tied back, `nora_c`
 exhausted with damp hair), all in adult proportions with hair that falls. Waiting on the pick.
+**0.5 stills, eighth pass (0.2.90):** Nora "still fake, like a mannequin": living skin (freckles,
+uneven tone, sweat, wet eyes), a straining neck into a knitted collar, cloth with weave and
+creases, in the same three versions. Waiting on the pick.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

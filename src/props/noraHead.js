@@ -29,9 +29,9 @@ function bumps(look) {
     { at: [0, -0.06, 1], size: 0.12, stretch: [0.42, 1.9, 1], amount: 0.17 }, // the bridge of her nose
     { at: FACE.noseTip, size: 0.08, amount: 0.09 }, // its tip
     { at: [0.09, -0.36, 0.93], size: 0.05, amount: 0.04 }, // its wings
-    { at: FACE.brow, size: 0.15, stretch: [1.5, 0.5, 1], amount: 0.05 }, // her brows
-    { at: FACE.eye, size: 0.12, amount: -0.07 }, // her eyes
-    { at: [0.6, -0.12, 0.79], size: 0.15, amount: 0.07 }, // her cheekbones
+    { at: FACE.brow, size: 0.15, stretch: [1.5, 0.5, 1], amount: 0.07 }, // her brows
+    { at: FACE.eye, size: 0.12, amount: -0.1 }, // her eyes, set deep
+    { at: [0.6, -0.12, 0.79], size: 0.15, amount: 0.08 }, // her cheekbones
     { at: [0.56, -0.46, 0.69], size: 0.16, amount: -0.04 }, // under them
     { at: [0, -0.6, 0.8], size: 0.12, stretch: [1.7, 0.8, 1], amount: 0.05 }, // her lips
     { at: FACE.mouth, size: 0.06, stretch: mouth.stretch, amount: mouth.amount }, // her mouth open
@@ -39,6 +39,10 @@ function bumps(look) {
     { at: [0.62, -0.7, 0.32], size: 0.2, amount: 0.02 }, // her jaw
     { at: [0.85, 0.32, 0.4], size: 0.2, amount: -0.04 }, // her temples
     { at: [1, 0, -0.05], size: 0.12, stretch: [0.5, 1.4, 0.7], amount: 0.08 }, // her ears
+  ]).concat([ // no face is the same on both sides
+    { at: [0.6, -0.1, 0.79], size: 0.1, amount: 0.025 }, // the bruised cheekbone, swollen
+    { at: [-0.58, 0.44, 0.68], size: 0.07, amount: 0.02 }, // and by the cut
+    { at: [0.03, -0.12, 1], size: 0.08, amount: 0.015 }, // her nose a little off true
   ]);
 }
 
@@ -50,7 +54,7 @@ const RADIUS = 0.1;
 export function noraHead(t, { look = 'terrified' } = {}) {
   const style = HAIR_FOR[look] ?? 'loose';
   const shape = bumps(look);
-  const head = sculptedHead(RADIUS, shape, { scale: SCALE, width: 32, height: 22 });
+  const head = sculptedHead(RADIUS, shape, { scale: SCALE, width: 40, height: 28 });
   const skin = new THREE.Mesh(head.geometry, materialFor(noraFaceTexture(look, (d) => hasHair(style, d))));
   const hair = hairOnHead(style, head, { radius: RADIUS, bumps: shape, scale: SCALE });
   const group = new THREE.Group().add(skin, ...hair.meshes);

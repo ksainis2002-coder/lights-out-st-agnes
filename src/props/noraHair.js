@@ -56,8 +56,9 @@ function scalpTexture(style) {
       for (let px = 0; px < w; px++) {
         const d = texelDirection(px + 0.5, py + 0.5, w, h);
         if (!hasHair(style, { x: d.x, y: d.y + tips[px], z: d.z })) continue;
-        const shine = streak[px] > 0.86 ? (wet ? 0.6 : 0.35) : 0;
-        const k = 0.72 + streak[px] * 0.45 + shine + (random() - 0.5) * 0.12;
+        const shine = streak[px] > 0.84 ? (wet ? 0.65 : 0.45) : 0;
+        const gap = px % 3 === 0 ? -0.22 : 0; // the dark between strands
+        const k = 0.66 + streak[px] * 0.55 + shine + gap + (random() - 0.5) * 0.14;
         const i = (py * w + px) * 4;
         image.data.set([Math.min(255, r * k), Math.min(255, gr * k), Math.min(255, b * k), 255], i);
       }
