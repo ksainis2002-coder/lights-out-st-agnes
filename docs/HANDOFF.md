@@ -269,5 +269,8 @@ the priority 1 sounds, then 0.4's release checklist (performance, balance) and t
 (the ground floor is the heaviest scene yet), the release checks pass ("0.4 release prep" in
 `docs/DESIGN_0.4.md`; `docs/balance/balance_0.4.html`). Left: the owner's playtest (fps, time,
 catches), the priority 1 sounds, the content sheet's checklist, the 0.2.x PR to main, the tag.
+**0.5 started (0.2.82):** wing 4 proposed in `docs/DESIGN_0.5.md` with its plan
+(`docs/mockups/stills-0.5/wing_map.png`): the chapel (St. Agnes rebuilt), the crypt, the basement,
+the surgeon, Sam, Nora met, the endings. Waiting on the owner's picks before the first stills.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
