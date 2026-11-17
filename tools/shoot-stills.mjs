@@ -1,5 +1,5 @@
 // Screenshots mockup stills at 1280×720 into docs/mockups/stills-0.2/
-// (0.3 school stills into docs/mockups/stills-0.3/, 0.4 ward stills into stills-0.4/).
+// (0.3 school stills into docs/mockups/stills-0.3/, 0.4 ward stills into stills-0.4/, 0.5 into stills-0.5/).
 // Usage: npx vite --port 5199 &  then  node tools/shoot-stills.mjs [names…]
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
@@ -16,8 +16,9 @@ const WARDS = ['ward', 'nun', 'nun_dark', 'nun_catch', 'edith', 'camcorder_night
   'admissions', 'fuse_room', 'baths', 'dispensary', 'day_room', 'childrens_ward', 'ui_fuseBoard',
   'observation', 'treatment_room', 'isolation', 'isolation_night', 'venn_office', 'ui_tape',
   'sister_room', 'sister_shrine', 'sister_trunk', 'box_mended', 'way_out', 'hub_after_wards'];
-const names = process.argv.slice(2).length ? process.argv.slice(2) : [...ALL, ...SCHOOL, ...WARDS];
-const version = (name) => (WARDS.includes(name) ? '0.4' : SCHOOL.includes(name) ? '0.3' : '0.2');
+const BASEMENT = ['chapel', 'statue_whole', 'crypt', 'surgeon', 'surgeon_face', 'surgeon_listens', 'ui_breath', 'sam', 'morgue', 'theatre_nora'];
+const names = process.argv.slice(2).length ? process.argv.slice(2) : [...ALL, ...SCHOOL, ...WARDS, ...BASEMENT];
+const version = (name) => (BASEMENT.includes(name) ? '0.5' : WARDS.includes(name) ? '0.4' : SCHOOL.includes(name) ? '0.3' : '0.2');
 const folder = (name) => new URL(`../docs/mockups/stills-${version(name)}/`, import.meta.url).pathname;
 
 const browser = await chromium.launch({ executablePath, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });

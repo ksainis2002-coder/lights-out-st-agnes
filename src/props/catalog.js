@@ -25,6 +25,9 @@ import { WARD_ROOM_PROPS } from './wardRooms.js';
 import { WARD_UPPER_PROPS } from './wardUpper.js';
 import { SISTER_ROOM_PROPS } from './sisterRoom.js';
 import { WARD_FIGURES } from './wardFigures.js';
+import { CHAPEL_PROPS } from './chapel.js'; // 0.5 proposal: mockup stills only so far
+import { BASEMENT_PROPS } from './basement.js';
+import { BASEMENT_FIGURES } from './basementFigures.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -352,4 +355,7 @@ export const PROPS = {
   ...WARD_UPPER_PROPS,
   ...SISTER_ROOM_PROPS,
   ...WARD_FIGURES,
+  ...CHAPEL_PROPS,
+  ...BASEMENT_PROPS,
+  ...BASEMENT_FIGURES,
 };

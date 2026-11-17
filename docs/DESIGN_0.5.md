@@ -98,12 +98,32 @@ then every line below is a proposal, with the open questions at the end.
   goes to. A settings migration adds the key.
 - **Lockers** to hide in (the morgue, the staff room), like the ward beds.
 
-## Stills to draw once the open questions are answered
-`wing_map` (with this proposal), then `chapel` (the watcher on her plinth, missing her pieces),
-`statue_whole`, `crypt`, `surgeon`, `surgeon_listens` (the tell), `sam` (the boiler room, the
-water), `morgue`, `theatre_nora`, and the breath on the pulse line.
+## First stills (2026-11-17, waiting for a yes)
+In `docs/mockups/stills-0.5/`, after the owner's picks: `chapel` (St. Agnes on her plinth before
+the altar, her hand gone at the wrist), `statue_whole` (her hand and palm back, the lamb in her arm,
+her stone heart in her breast; the bell, the rain stops), `crypt` (the plaques, two pushed home; her
+heart in the niche), `surgeon` (Dr. Venn coming down the cold corridor, his tray before him),
+`surgeon_face` (up close: the bandage over his eyes), `surgeon_listens` (the tell, through the
+camcorder: he has stopped and turned his head; your held breath under the pulse line),
+`ui_breath` (the held breath without the camcorder: a short bar low in the middle), `sam` (the
+boiler room under water, Sam faceless and dripping), `morgue` (drawers typed with dates, one out, a
+sheet over an adult, a tag on a toe), `theatre_nora` (Nora strapped to the table under its lamp,
+his cabinet and tray). Reshoot: `node tools/shoot-stills.mjs <names>` with the dev server on 5199.
+Mockup-only code so far: `src/props/chapel.js`, `src/props/basement.js`,
+`src/props/basementFigures.js` (registered in the catalog for the stills), the mock level
+`src/mockups/levels/basement.json` and `src/mockups/basementStills.js`. No game level, enemy,
+item or text exists yet; the mockup captions are mockup copy (game text will go through i18n).
 
-## Open questions (quick picks for the owner)
+## Picked by the owner (2026-11-17)
+- **The fourth piece: her stone heart,** the size of a child's fist, in the crypt's niche ("a house
+  needs a heart"; it points at the building's real heart, Little Aggie, for the secret ending).
+- **The surgeon is Dr. Venn,** bandaged over the eyes.
+- **The secret ending comes whole in 0.6,** with Little Aggie and the 3:00 room. 0.5 builds Escape,
+  Acceptance and Becomes the building.
+- **Nora is found strapped to the surgeon's table** in the theatre; you free her (she follows you
+  out, two to keep quiet) or leave her (the building takes her).
+
+## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.
 3. **The secret ending:** in 0.5 (with the 3:00 room left for 0.6), or all of it in 0.6.

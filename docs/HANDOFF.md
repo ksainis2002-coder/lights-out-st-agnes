@@ -272,5 +272,8 @@ catches), the priority 1 sounds, the content sheet's checklist, the 0.2.x PR to 
 **0.5 started (0.2.82):** wing 4 proposed in `docs/DESIGN_0.5.md` with its plan
 (`docs/mockups/stills-0.5/wing_map.png`): the chapel (St. Agnes rebuilt), the crypt, the basement,
 the surgeon, Sam, Nora met, the endings. Waiting on the owner's picks before the first stills.
+**0.5 picks and first stills (0.2.83):** her stone heart, Dr. Venn the surgeon, the secret ending
+whole in 0.6, Nora on his table. Ten stills in `docs/mockups/stills-0.5/` wait for a yes ("First
+stills" in `docs/DESIGN_0.5.md`).
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
