@@ -158,11 +158,14 @@ function theatreLamp(t, { height = 3.6, lit = true } = {}) {
 }
 
 // A steel tray of instruments: scalpels, forceps, a saw. "held": no legs.
-function instrumentTray(t, { held = false } = {}) {
+// "bloody": the blades dark with it, a smear across the tray (his own, in his hands).
+function instrumentTray(t, { held = false, bloody = false } = {}) {
   const y = held ? 0 : 0.9;
+  const blade = { color: bloody ? '#5a1a14' : '#d0d4d8' };
   const parts = [box(t.iron, [0.42, 0.025, 0.28], [0, y, 0], STEEL)];
-  [-0.14, -0.07, 0, 0.07].forEach((x, i) => parts.push(box(t.iron, [0.012, 0.01, 0.18 - i * 0.02], [x, y + 0.025, 0], { color: '#d0d4d8' })));
+  [-0.14, -0.07, 0, 0.07].forEach((x, i) => parts.push(box(t.iron, [0.012, 0.01, 0.18 - i * 0.02], [x, y + 0.025, 0], i % 2 ? { color: '#d0d4d8' } : blade)));
   parts.push(box(t.iron, [0.1, 0.012, 0.16], [0.14, y + 0.025, 0], { color: '#b8bcc0' }));
+  if (bloody) parts.push(box(t.sheet, [0.2, 0.004, 0.1], [-0.04, y + 0.025, 0.05], { color: '#4a100c' }));
   if (!held) parts.push(box(t.iron, [0.03, 0.9, 0.03], [0, 0, 0], { color: '#4a4e52' }));
   return group(...parts);
 }

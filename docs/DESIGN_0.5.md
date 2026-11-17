@@ -123,6 +123,29 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
 - **Nora is found strapped to the surgeon's table** in the theatre; you free her (she follows you
   out, two to keep quiet) or leave her (the building takes her).
 
+## Owner's notes on the first stills (2026-11-17) and the second pass
+- **Dr. Venn: "not scary enough".** Now longer and thinner and stooped from the waist, his gown grey
+  with old blood down the front, a narrow black rubber apron smeared dark, rubber gauntlets wet with
+  it, the bandage wound twice and soaked through where his eyes were with a run down from each, a
+  loose end hanging at his jaw, a thin slit of a mouth, the blades on his tray dark. His figure is in
+  `src/props/surgeon.js`. Blood is drawn dried-dark: bright red read as paint under the lamp. His
+  close-up is lit from above (a torch in his face blew him out).
+- **St. Agnes whole:** her heart is grey stone like the rest of her (the red-brown one read as a
+  wound), set in a hollow carved in her breast with a faint warmth; her hand (with its wrist) and the
+  lamb are bigger and read at a glance; candles on stands either side of her and a closer view.
+- **Sam:** greyer and dimmer than the other children; plainly drowned: hair flat to his head with
+  strands stuck down over the blank face, clothes dark and clinging, water running off his hem and
+  fingers, rings on the water round his legs; his own clothes: a collared jersey, braces, bare feet.
+- **Nora:** a body with shoulders and a waist, her arms down her sides under the strap with the
+  elbows pulling up and the fists clenched, her chest lifting, her head turned to you, her hair loose
+  off the end of the table. Her face is built on her head (no flat card): eyes wide, brows drawn up,
+  mouth open, a bruise on her cheekbone, a cut through her brow. Seen leaning over her.
+- **Your held breath:** larger and clearer, two shapes to choose from: a ring round the centre of
+  your view that empties (`ui_breath`, and in `surgeon_listens` through the camcorder) or a small
+  pair of lungs low in the middle that empty from the top (`ui_breath_lungs`), both labelled
+  HOLDING BREATH and turning red near the end.
+- Approved as drawn: the chapel, the crypt, the morgue.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.

@@ -122,8 +122,9 @@ function memorialPlaque(t, { name = 'AGNES', set = false } = {}) {
 }
 
 // St. Agnes' heart: stone, the size of a child's fist, a faint warmth in it.
+// Grey stone like the rest of her (owner 2026-11-17: the first, red-brown, read as a wound).
 function stoneHeart(t) {
-  const material = materialFor(t.stone, { color: '#8a6f68', flatShading: true });
+  const material = materialFor(t.stone, { color: '#86837a', flatShading: true });
   const lobe = (x) => {
     const m = new THREE.Mesh(new THREE.SphereGeometry(0.035, 7, 5), material);
     m.position.set(x, 0.07, 0);
@@ -168,14 +169,26 @@ function statueWhole(t) {
   part([0.06, 0.12, 0.03], [0, 0.06, 0]); // the palm, open, towards you
   [-0.02, -0.007, 0.007, 0.02].forEach((x, i) => part([0.011, 0.06 - Math.abs(i - 1.5) * 0.008, 0.012], [x, 0.14, 0]));
   part([0.012, 0.045, 0.012], [0.04, 0.07, 0], -0.7); // the thumb
-  hand.position.set(0.11, 1.3, 0.32);
+  part([0.05, 0.05, 0.05], [0, -0.02, -0.02]); // the wrist, joined where it broke
+  hand.scale.setScalar(1.5); // owner 2026-11-17: the hand and the lamb should read at a glance
+  hand.position.set(0.12, 1.3, 0.33);
   const lamb = CEMETERY_PROPS.stoneLamb(t); // the size it was cut to fill her arm
-  lamb.rotation.y = -0.35;
-  lamb.position.set(-0.12, 1.18, 0.27);
+  lamb.scale.multiplyScalar(1.25);
+  lamb.rotation.y = -0.2;
+  lamb.position.set(-0.14, 1.16, 0.3);
+  // Her heart set into a hollow carved in her breast, grey stone, a faint warmth in it.
+  const hollow = new THREE.Mesh(new THREE.CircleGeometry(0.085, 10), materialFor(t.stone, { color: '#2e2c28' }));
+  hollow.scale.y = 1.15;
+  hollow.position.set(0, 1.56, 0.245);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(0.088, 0.012, 4, 12), stone);
+  rim.scale.y = 1.15;
+  rim.position.set(0, 1.56, 0.247);
   const heart = stoneHeart(t);
-  heart.scale.setScalar(1.3);
-  heart.position.set(0, 1.5, 0.26);
-  return group(her, hand, lamb, heart);
+  heart.scale.setScalar(1.25);
+  heart.position.set(0, 1.505, 0.255);
+  const warmth = new THREE.PointLight('#ffcc90', 0.35, 0.6, 1.5);
+  warmth.position.set(0, 1.56, 0.4);
+  return group(her, hand, lamb, hollow, rim, heart, warmth);
 }
 
 export const CHAPEL_PROPS = { pew, altar, votiveRack, font, nameBoard, memorialPlaque, stoneHeart, cryptNiche, statueWhole };

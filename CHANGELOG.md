@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.84 — Wing 4 stills redrawn after the owner's notes: Dr. Venn scarier (longer, stooped, the bandage soaked through, blood on his gloves and apron), St. Agnes whole with a grey stone heart and lit by candles, Sam plainly drowned, Nora frightened and better made, and two clearer shapes for the held breath. Nothing in the game changes.
 - 0.2.83 — First stills of wing 4 for the owner: the chapel and St. Agnes whole, the crypt, Dr. Venn the surgeon (in the corridor, up close, and listening for you), your held breath, Sam in the flooded boiler room, the morgue, and Nora on the surgeon's table. Nothing in the game changes.
 - 0.2.82 — Wing 4 planned (the chapel, its crypt and the basement): a proposal and its map, waiting for the owner's picks. Nothing in the game changes.
 - 0.2.81 — Ready for the 0.4 checks: the whole west wing finishes by bot in one go (7.8 minutes at bot pace, nobody caught), its performance is measured room by room, and the balance page shows what is left for the playtest. The ground floor's bot route opens doors only if shut and hides off Sister M.'s path.
