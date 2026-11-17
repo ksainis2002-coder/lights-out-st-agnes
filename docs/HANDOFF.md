@@ -303,5 +303,7 @@ the middle; the three versions dropped. Waiting on Nora.
 fuller on top with a lower hairline. Waiting on Nora.
 **0.5 stills, twelfth pass (0.2.94):** Nora's mouth less open, her chin and jawline firmer, her
 neck set under her jaw. Waiting on Nora.
+**0.5 stills, thirteenth pass (0.2.95):** Nora's chin smaller, softer and rounder (all else fine
+by the owner). Waiting on Nora.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

@@ -289,6 +289,11 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   shade under it and along her jawline; her neck goes into the underside of her head, so her jaw
   overhangs her throat instead of running straight into it.
 
+## Owner's notes on the twelfth pass (2026-11-17) and the thirteenth
+- **Nora: her chin "softer, smaller, rounder: she's a woman"; everything else fine.** The firmer
+  chin of the last pass is gone: her chin is small and round, with only soft shade under it and
+  along her jaw.
+
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.
 2. **The surgeon:** Dr. Venn himself, or a surgeon of his we have not met.

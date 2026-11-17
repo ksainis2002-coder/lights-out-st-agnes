@@ -76,13 +76,13 @@ function lightAndShade(g, at) {
     blot(g, ...at(mirror([0.6, -0.52, 0.6], side)), 10, 7, 'rgba(132,96,82,0.18)'); // softly under them
     blot(g, ...at(mirror([0.72, 0.3, 0.62], side)), 9, 10, 'rgba(132,98,84,0.3)'); // the temples
     blot(g, ...at(mirror([0.6, -0.74, 0.32], side)), 15, 6, 'rgba(90,60,52,0.6)'); // under the jaw
-    blot(g, ...at(mirror([0.5, -0.82, 0.28], side)), 12, 4, 'rgba(84,56,48,0.55)'); // along the jawline, underneath
+    blot(g, ...at(mirror([0.5, -0.82, 0.28], side)), 13, 5, 'rgba(88,58,50,0.38)'); // along the jawline, underneath, soft
     blot(g, ...at(mirror([0.5, -0.3, 0.8], side)), 8, 5, 'rgba(198,120,108,0.16)'); // a little colour in her cheeks
     blot(g, ...at(mirror([0.97, 0.0, -0.05], side)), 5, 6, 'rgba(190,110,98,0.3)'); // her ears
   }
   blot(g, ...at([0, 0.44, 0.9]), 20, 8, 'rgba(216,190,168,0.3)'); // the forehead, catching the light
-  blot(g, ...at([0, -0.84, 0.54]), 8, 3.5, 'rgba(214,186,164,0.45)'); // the chin, catching the light
-  blot(g, ...at([0, -0.97, 0.22]), 12, 4, 'rgba(84,56,48,0.6)'); // under the chin
+  blot(g, ...at([0, -0.84, 0.54]), 10, 4, 'rgba(214,186,164,0.3)'); // the chin, round, catching the light
+  blot(g, ...at([0, -0.97, 0.22]), 14, 5, 'rgba(88,58,50,0.45)'); // under the chin, soft
   blot(g, ...at([0, -0.66, 0.75]), 9, 2.5, 'rgba(120,82,70,0.4)'); // under her lower lip
   nose(g, at);
 }

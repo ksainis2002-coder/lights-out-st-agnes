@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.95 — Wing 4 stills, thirteenth pass: Nora's chin smaller, softer and rounder, with only soft shade under it and along her jaw. Nothing in the game changes.
 - 0.2.94 — Wing 4 stills, twelfth pass: Nora's mouth less open, her chin firmer with shade under it and along her jaw, and her neck set under her jaw instead of running straight from her chin. Nothing in the game changes.
 - 0.2.93 — Wing 4 stills, eleventh pass: Nora's nose smaller, shorter and softer, her face rounder with fuller cheeks, her hair fuller on top and her hairline lower (her mouth kept a lip's height under her nose). Nothing in the game changes.
 - 0.2.92 — Wing 4 stills, tenth pass: Nora's mouth moved up under her nose, and her fear a step plainer (wider eyes with white above the irises, brows higher and drawn in, lips further apart). Nothing in the game changes.
