@@ -1,10 +1,11 @@
 // Mockup stills for 0.5, wing 4 (docs/DESIGN_0.5.md; owner picks 2026-11-17:
 // her stone heart, Dr. Venn the surgeon, Nora on his table): the chapel with
-// St. Agnes on her plinth, St. Agnes whole, the crypt, the surgeon in the cold
-// corridor, the surgeon listening (with your held breath on the camcorder's
-// pulse line), the held breath without the camcorder, Sam in the flooded
-// boiler room, the morgue, and Nora on the table. Text here is mockup copy,
-// not game text (game text goes through i18n).
+// St. Agnes on her plinth, St. Agnes whole, the crypt, the surgeon coming at
+// you down the cold corridor and looming over you, the surgeon listening
+// (with your held breath on the camcorder's pulse line), the held breath
+// without the camcorder, Sam in the flooded boiler room, the morgue, and Nora
+// on the table, from the doorway and leaning over her. Text here is mockup
+// copy, not game text (game text goes through i18n).
 import * as THREE from 'three';
 import { PROPS } from '../props/catalog.js';
 import { CHILDREN } from '../props/chapel.js';
@@ -53,6 +54,17 @@ function corridor(world) {
     ['hangingBulb', 21, 8.0, 0, { ceiling: 2.6 }],
   ]);
   light(world, '#d8c8a0', 1.2, 6, [21, 8.0], 2.0);
+}
+
+// The surgeon's theatre: the table under its lamp, Nora strapped to it, his
+// cabinet, his tray of instruments on its stand.
+function theatre(world) {
+  furnish(world, [
+    ['operatingTable', 30.5, 3.0, 0, { straps: false }], ['noraStrapped', 30.5, 3.0, 0, {}, 0.92], ['theatreLamp', 30.5, 3.0, 0, { height: 3.8 }],
+    ['instrumentCabinet', 34, 2.2, -90], ['instrumentTray', 31.7, 4.0, -20],
+  ]);
+  world.flashlight.toggle();
+  light(world, '#c8d0e0', 0.5, 2.0, [29.6, 2.6], 1.5); // a little light back off the tiles
 }
 
 // Your breath held (owner 2026-11-17: the first bar was hard to read and the
@@ -116,8 +128,8 @@ export const BASEMENT_STILLS = {
     level: basement,
     setup({ world }) {
       corridor(world);
-      furnish(world, [['surgeon', 16.3, 8.0, -90]]);
-      eye(world, [12.6, 8.1], [16.3, 8.0], 1.6, 1.55);
+      furnish(world, [['surgeon', 15.4, 8.35, -68, { facing: 0.55 }]]);
+      eye(world, [12.8, 7.45], [15.4, 8.3], 1.6, 1.4); // from the wall: you see him side on, coming
     },
   },
   // Dr. Venn up close in your light: the bandage wound over his eyes, two
@@ -131,7 +143,7 @@ export const BASEMENT_STILLS = {
       light(world, '#d8c8a0', 2.2, 4, [14.2, 8.4], 2.5);
       light(world, '#8a9ac8', 1.2, 4, [13.6, 7.4], 1.4);
       light(world, '#9aa8c8', 0.9, 2.4, [13.5, 8.0], 2.0); // just enough on the bandage
-      eye(world, [13.55, 8.08], [14.4, 8.0], 1.72, 1.98); // his head and shoulders, from a little below
+      eye(world, [13.66, 8.06], [14.4, 7.97], 1.6, 1.86); // he looms over you
     },
   },
   // The tell: he has stopped, the clinking with him, and turned his head
@@ -140,10 +152,10 @@ export const BASEMENT_STILLS = {
     level: basement,
     setup({ world, fx }) {
       corridor(world);
-      furnish(world, [['surgeon', 16.4, 7.9, -90, { listening: true }]]);
+      furnish(world, [['surgeon', 16.4, 7.75, -90, { listening: true }]]);
       world.flashlight.toggle();
       const lamp = new THREE.PointLight(0xffffff, 1.8, 14, 1.1);
-      eye(world, [13.0, 8.4], [16.4, 7.9], 1.0, 1.7);
+      eye(world, [13.0, 8.4], [16.4, 8.25], 1.0, 1.4); // the ring left clear of him
       lamp.position.copy(world.camera.position);
       world.scene.add(lamp);
       Object.assign(fx, { nightVision: 1, vignette: 0.5 });
@@ -160,7 +172,7 @@ export const BASEMENT_STILLS = {
     setup({ world }) {
       corridor(world);
       furnish(world, [['surgeon', 15.2, 7.8, -90, { listening: true }]]);
-      eye(world, [12.7, 8.5], [15.2, 7.8], 1.0, 1.8);
+      eye(world, [12.7, 8.5], [15.2, 8.3], 1.0, 1.5); // the ring left clear of him
     },
     ui(ctx) {
       breathRing(ctx, 0.33);
@@ -195,20 +207,27 @@ export const BASEMENT_STILLS = {
     },
   },
   // The theatre: Nora strapped to the surgeon's table under its lamp, the
-  // only light; his cabinet and his tray. From the doorway.
+  // only light; his cabinet and his tray. From a few steps in, at her side.
   theatre_nora: {
     level: basement,
     setup({ world }) {
-      furnish(world, [
-        ['operatingTable', 30.5, 3.0, 0], ['noraStrapped', 30.5, 3.0, 0, {}, 0.92], ['theatreLamp', 30.5, 3.0, 0, { height: 3.8 }],
-        ['instrumentCabinet', 34, 2.2, -90], ['instrumentTray', 31.7, 4.0, -20],
-      ]);
-      world.flashlight.toggle();
-      eye(world, [29.3, 2.7], [30.5, 2.95], 1.7, 0.95); // at her right side, the way she has turned her head; the room behind
+      theatre(world);
+      eye(world, [29.0, 2.55], [30.5, 2.85], 1.65, 0.9);
     },
     ui(ctx) {
       usePrompt(ctx, 'CLICK  Undo the straps');
       subtitle(ctx, '(Nora) Who is that? I can hear you breathing. Please.', { whisper: false });
+    },
+  },
+  // Leaning over her: her face turned to you, the straps, her fist in its cuff.
+  nora_close: {
+    level: basement,
+    setup({ world }) {
+      theatre(world);
+      eye(world, [30.2, 2.62], [30.47, 2.43], 1.38, 1.08); // leaning over her, her face turned up to yours
+    },
+    ui(ctx) {
+      subtitle(ctx, '(Nora) Please. Before he comes back.', { whisper: false });
     },
   },
 };

@@ -52,7 +52,7 @@ then every line below is a proposal, with the open questions at the end.
   any sound. What he hears, how far: running about 12 m, walking 5 m, crouching 1.5 m, standing
   still nothing; a door opened fast, things knocked over, a thrown bottle where it lands; your
   breath after running (panting) unless you hold it. Through one wall at half the distance.
-  - **Warning before any catch:** his instruments clink on their tray as he walks (heard through a
+  - **Warning before any catch:** his instruments clink on his belt as he walks (heard through a
     wall); when he hears you the clinking stops dead (the silence is the tell), he turns his head
     towards the sound, then comes, fast, for about 2 s of warning (comfort mode 3.5 s).
   - **Catch:** he reaches you while you make a sound, or you walk into him: his hand over your mouth,
@@ -102,15 +102,18 @@ then every line below is a proposal, with the open questions at the end.
 In `docs/mockups/stills-0.5/`, after the owner's picks: `chapel` (St. Agnes on her plinth before
 the altar, her hand gone at the wrist), `statue_whole` (her hand and palm back, the lamb in her arm,
 her stone heart in her breast; the bell, the rain stops), `crypt` (the plaques, two pushed home; her
-heart in the niche), `surgeon` (Dr. Venn coming down the cold corridor, his tray before him),
-`surgeon_face` (up close: the bandage over his eyes), `surgeon_listens` (the tell, through the
+heart in the niche), `surgeon` (Dr. Venn coming down the cold corridor at you, a knife raised),
+`surgeon_face` (up close, looming over you: the bandage, the stitched eye, the teeth), `surgeon_listens` (the tell, through the
 camcorder: he has stopped and turned his head; your held breath under the pulse line),
-`ui_breath` (the held breath without the camcorder: a short bar low in the middle), `sam` (the
+`ui_breath` (the held breath without the camcorder: a ring round the centre of your view), `sam` (the
 boiler room under water, Sam faceless and dripping), `morgue` (drawers typed with dates, one out, a
 sheet over an adult, a tag on a toe), `theatre_nora` (Nora strapped to the table under its lamp,
-his cabinet and tray). Reshoot: `node tools/shoot-stills.mjs <names>` with the dev server on 5199.
+his cabinet and tray), `nora_close` (leaning over her: her face turned to you). Reshoot:
+`node tools/shoot-stills.mjs <names>` with the dev server on 5199.
 Mockup-only code so far: `src/props/chapel.js`, `src/props/basement.js`,
-`src/props/basementFigures.js` (registered in the catalog for the stills), the mock level
+`src/props/basementFigures.js` (registered in the catalog for the stills), the figures
+`src/props/surgeon.js`, `surgeonHead.js`, `surgeonTools.js`, `nora.js`, `noraHead.js` and their
+shape helpers `src/props/sculpt.js`, the mock level
 `src/mockups/levels/basement.json` and `src/mockups/basementStills.js`. No game level, enemy,
 item or text exists yet; the mockup captions are mockup copy (game text will go through i18n).
 
@@ -176,6 +179,28 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   drawn up, her head lifted and turned to you; her face painted round the front of her head (eyes
   wide, brows drawn up, mouth open, a bruise), her hair dark and tied back. Seen from her side, the
   room behind.
+
+## Owner's notes on the fourth pass (2026-11-17) and the fifth
+- **Dr. Venn: "too blocky, crude", the face "not scary", the pose "not threatening", the coat's
+  collar crooked on his right, and no tray: he carries his tools on a belt.** Now built from smooth
+  shapes (`src/props/sculpt.js`: tubes that change shape along a curve, straps, heads sculpted from
+  a sphere, hands with jointed fingers). He looms: hunched forward, his head low and thrust out
+  between his shoulders, a long amputation knife raised in his right hand, his left reaching for
+  you, long gloved fingers spread. His face is sculpted: grey skin sunk round the eyes and under
+  the cheekbones, the lips drawn back off long yellowed teeth, the bandage slipped off his left eye
+  to show it stitched shut in black thread, an old stitched scar up his forehead, thin hair combed
+  back (the head mirror is gone: at this size it read as an eye). The coat hangs even on both sides,
+  open at the throat, buttoned to the belt, parting below it, torn at the hem. His belt holds his
+  instruments: scalpels, forceps, scissors, a bone saw, two rings of clamps that clink as he walks,
+  a pouch on each hip.
+- **Nora: still "doll-like", her face odd, "bald with a black smudge", the straps "like planks".**
+  Now built smooth and in layers: a waxed jacket open over a knitted jumper, jeans, boots; her back
+  arched, her right knee drawn up, her fists clenched in leather cuffs. Her head is sculpted (a
+  small nose, full lips, a soft jaw), her face painted at its true scale (eyes wide and looking at
+  you, brows up, mouth open, a bruise, a cut through her brow), and her hair is real: dark auburn,
+  loose, over her ears, spilling off the back of her head onto the table. Leather straps with steel
+  buckles go over her chest and arms, her hips and her shins and under the table's edge (the table's
+  own flat straps are gone). A new close-up, `nora_close`, shows her face as you lean over her.
 
 ## Open questions (asked 2026-11-17, answered above)
 1. **The fourth piece:** her heart (a stone heart: "a house needs a heart"), her crown, or her face.

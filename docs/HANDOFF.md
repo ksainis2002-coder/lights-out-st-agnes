@@ -281,5 +281,10 @@ Sam, Nora, the held breath with two shapes to choose from); the chapel, crypt an
 and Sam approved, Nora redrawn struggling in the theatre. Waiting on Dr. Venn and Nora.
 **0.5 stills, fourth pass (0.2.86):** Dr. Venn in the spirit the owner picked (wrecked, a ruined
 white coat, he drives you mad), Nora rebuilt with ordinary proportions and her hands down. Waiting on both.
+**0.5 stills, fifth pass (0.2.87):** both figures rebuilt from smooth sculpted shapes
+(`src/props/sculpt.js`: sweeps, straps, sculpted heads, jointed hands). Dr. Venn hunched and
+looming, a knife raised, a hand reaching, his tools on a belt (no tray), a sculpted grey face with
+the lips drawn back and the stitched eye; Nora in layered clothes with real hair and leather straps,
+plus a close-up (`nora_close`). Waiting on both.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.87 — Wing 4 stills, fifth pass: Dr. Venn and Nora rebuilt from smooth sculpted shapes. Dr. Venn looms hunched over you with a knife raised and a hand reaching, his tools on a belt instead of a tray, a grey sunken face with the lips pulled back off the teeth and his stitched eye plain to see; Nora in layered clothes with real hair and leather straps with buckles, and a new close-up of her face. Nothing in the game changes.
 - 0.2.86 — Wing 4 stills, fourth pass: Dr. Venn redrawn as our own wrecked asylum doctor (a long ruined white coat, a head mirror over the bandage, an eye stitched shut, the jaw hanging, a twitchy stance), and Nora a woman of ordinary build fighting the straps with her hands down and her face painted on, not stuck on. Nothing in the game changes.
 - 0.2.85 — Wing 4 stills, third pass after the owner's notes: Dr. Venn's blood back to a few marks (the threat is his silence and his tools), the held breath as a ring round the centre of the view, and Nora struggling against the straps in the surgeon's theatre with a simpler face. St. Agnes whole and Sam approved. Nothing in the game changes.
 - 0.2.84 — Wing 4 stills redrawn after the owner's notes: Dr. Venn scarier (longer, stooped, the bandage soaked through, blood on his gloves and apron), St. Agnes whole with a grey stone heart and lit by candles, Sam plainly drowned, Nora frightened and better made, and two clearer shapes for the held breath. Nothing in the game changes.
