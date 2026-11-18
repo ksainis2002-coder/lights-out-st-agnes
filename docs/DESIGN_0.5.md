@@ -353,5 +353,10 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   wall, with its caption and a `noise` event. The bottle's label catches a dim glint, as the battery's
   cap does. The first one taken teaches the key (a tutorial lesson; other systems can now ask for a
   lesson with a `teach` event).
-- Next: slow doors, lockers (a still first); then Dr. Venn; Sam and the boiler; the morgue.
+- **Slow doors (0.2.102):** `levels/doorDrag.js`. A level with `"loudDoors": true` (the basement):
+  a click swings a plain door at once and bangs (`noise` 10 m, "(the door bangs)"); holding the use
+  button and dragging eases it, at most 1.1 rad/s however hard you pull, silent, the view held still;
+  let go and it settles the way it was going. The prompt: "HOLD + DRAG  Open slowly" (the owner's
+  pick for prompts with an input of their own); the first one teaches it.
+- Next: lockers (a still first); then Dr. Venn; Sam and the boiler; the morgue.
 

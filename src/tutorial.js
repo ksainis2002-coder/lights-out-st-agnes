@@ -33,6 +33,7 @@ const LESSONS = {
   journal: [{ key: 'tutorial.journal', params: (k) => ({ journal: keyName(k.journal), hold: keyName(k.hold) }) }],
   map: [{ key: 'tutorial.map', params: (k) => ({ key: keyName(k.map) }) }],
   throw: [{ key: 'tutorial.throw', params: (k) => ({ key: keyName(k.throw) }) }], // the first bottle or stone
+  slowDoor: [{ key: 'tutorial.slowDoor' }], // the first door that shouts (the basement)
 };
 
 export function setupTutorial(game) {
@@ -90,6 +91,7 @@ export function setupTutorial(game) {
     if (!prompt) return;
     teach('use');
     if (prompt.key === 'prompt.save') teach('save');
+    if (prompt.inputLabel === 'input.holdDrag') teach('slowDoor');
   }
 
   return { update, basicsPending: () => game.messages.pending('basics') };

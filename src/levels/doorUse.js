@@ -7,6 +7,8 @@
 //   "exit": { ..., "returns": true }    leads back the way you came in, if
 //                             that was a door with "back" (the hub's door)
 //   an exit to a level that is not built yet says "Not yet"
+// A level with "loudDoors": true (the basement): its plain doors are eased open by
+// holding the use button and dragging, or bang when clicked (levels/doorDrag.js).
 import * as THREE from 'three';
 import { itemDef, itemText } from '../items/catalog.js';
 import { LEVELS } from './index.js';
@@ -59,8 +61,9 @@ export function doorInteractables(game) {
         if (door.locked) {
           return game.hasItem(door.locked) ? { key: 'prompt.unlock', params: { item: itemName(door.locked) } } : { key: 'prompt.locked' };
         }
-        if (door.open) return playerInDoorway() ? null : { key: 'prompt.close' };
-        return { key: 'prompt.open' };
+        const loud = level.loudDoors ? { inputLabel: 'input.holdDrag' } : {};
+        if (door.open) return playerInDoorway() ? null : { key: 'prompt.close', ...loud };
+        return { key: level.loudDoors ? 'prompt.openSlowly' : 'prompt.open', ...loud };
       },
       use() {
         if (waiting(door)) return refuse(door, door.lockedMessage);
@@ -69,6 +72,7 @@ export function doorInteractables(game) {
         if (door.exit) return game.travel(exitOf(door).level, exitOf(door).spawn, door.exit.back);
         if (door.locked && !game.hasItem(door.locked)) return refuse(door, door.lockedMessage); // its line, if it has one (Sister M.'s door)
         if (door.locked) unlock(door);
+        if (level.loudDoors && game.doorDrag) return game.doorDrag.begin(door);
         toggle(door);
       },
     };

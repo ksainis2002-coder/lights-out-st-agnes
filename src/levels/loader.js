@@ -106,6 +106,7 @@ export function parseLevel(data) {
     setPieces: data.setPieces ?? [], // the bell, the roll call, the film (ghosts/setPieces.js)
     weather: data.weather ?? null, // the storm, once a flag is set (levels/storm.js)
     safe: data.safe === true, // safe rooms restore sanity (the patient room)
+    loudDoors: data.loudDoors === true, // doors that shout: drag to ease them, or they bang (levels/doorDrag.js)
     ambient: data.ambient ?? { color: '#ffffff', intensity: 0.45 },
     // Outdoors: the buildings behind the facades (levels/buildings.js), a night
     // sky the colour of the fog, and a moon behind the clouds.

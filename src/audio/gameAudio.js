@@ -187,6 +187,9 @@ export function createGameAudio(game) {
   // Your breath (player/breath.js): drawn in and held; a gasp when you held it too long (gasp_air's stand-in).
   events.on('breath.held', () => play('breath_hold', { volume: 0.35 }));
   events.on('breath.gasp', () => play('wake_gasp', { volume: 0.6 }));
+  // A door that shouts (levels/doorDrag.js): banged, or eased so softly only you hear it.
+  events.on('door.banged', (door) => play('door_bang', { position: doorPosition(door), volume: 0.9, refDistance: 4 }));
+  events.on('door.eased', (door) => play('door_open_slow', { position: doorPosition(door), volume: 0.2, refDistance: 1.5 }));
   // Something thrown lands (player/throwing.js): bottle_smash and stone_clatter's stand-ins, where it fell.
   const LANDING = { bottle: ['drawer_metal', 0.9], stone: ['stone_step', 0.8] };
   events.on('throw.landed', ({ item, position }) => {

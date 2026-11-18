@@ -164,6 +164,7 @@ def basement():
     return {
         # Walls 3 m as the approved stills' level, so brick and tile keep their scale.
         "id": "basement", "wing": "basement", "cellSize": 1.2, "wallHeight": 3.0,
+        "loudDoors": True,  # "The doors shout down here": drag to ease them (levels/doorDrag.js)
         "floorTexture": "stone", "ceilingTexture": "ceiling",
         "ambient": {"color": "#8a98c8", "intensity": 0.9},
         "legend": {".": "floor", "#": "brick"},

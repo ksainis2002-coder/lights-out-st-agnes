@@ -38,11 +38,13 @@ export function createController(startLevel) {
     exhausted: false,
     running: false,
     noise: 0,
+    lookHeld: false,
     bobPhase: 0,
     eyeHeight: TUNING.eyeStand,
   };
 
   function look(input, settings) {
+    if (state.lookHeld) return; // a door is being dragged: the mouse moves it (levels/doorDrag.js)
     const { x, y } = input.takeLook();
     const scale = TUNING.lookScale * settings.get('mouseSensitivity');
     const invert = settings.get('invertY') ? -1 : 1;

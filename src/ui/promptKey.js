@@ -1,8 +1,9 @@
 // The key on a use prompt (owner 2026-11-18: "no need for every text to say
 // click"). While you learn it, the first few prompts read "CLICK  Look";
 // after that only the action shows. A prompt with an input of its own
-// ("input": the settings action it takes, as G for throwing) always names it,
-// because that one is not the plain use click.
+// ("input": the settings action it takes, as G for throwing; or "inputLabel",
+// words for it, as HOLD + DRAG for a door that shouts) always names it, because
+// that one is not the plain use click.
 import { keyName } from './settingsRows.js';
 
 const USED = 'prompts_used'; // progress value: things used so far (it stops counting at LEARN)
@@ -18,5 +19,6 @@ export function countUse(progress) {
 export function promptKey(game, prompt) {
   const keys = game.settings.get('keys');
   if (prompt.input) return keyName(keys[prompt.input]);
+  if (prompt.inputLabel) return game.i18n.t(prompt.inputLabel);
   return game.progress.getValue(USED, 0) < LEARN ? keyName(keys.use) : null;
 }

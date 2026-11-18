@@ -855,5 +855,9 @@
   "caption.bottleLands": "(glass breaks, over there)",
   "caption.stoneLands": "(a stone clatters, over there)",
   "settings.action.throw": "Throw",
-  "tutorial.throw": "{key} throws what you are holding. He goes where it lands."
+  "tutorial.throw": "{key} throws what you are holding. He goes where it lands.",
+  "input.holdDrag": "HOLD + DRAG",
+  "prompt.openSlowly": "Open slowly",
+  "caption.doorBangs": "(the door bangs)",
+  "tutorial.slowDoor": "Hold the mouse button and drag to open a door slowly."
 }

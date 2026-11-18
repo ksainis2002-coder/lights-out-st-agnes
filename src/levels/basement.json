@@ -3,6 +3,7 @@
  "wing": "basement",
  "cellSize": 1.2,
  "wallHeight": 3.0,
+ "loudDoors": true,
  "floorTexture": "stone",
  "ceilingTexture": "ceiling",
  "ambient": {

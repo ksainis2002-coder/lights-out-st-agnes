@@ -8,6 +8,7 @@ import { box } from '../props/parts.js';
 
 const DOOR_HEIGHT = 2.1;
 const SWING_SPEED = 3; // radians per second
+const EASE_SPEED = 0.8; // an eased door settles this slowly (levels/doorDrag.js)
 
 // The panel spans x when the walls are left and right of the door cell.
 function spansX(level, [col, row]) {
@@ -67,9 +68,12 @@ export function createDoors(level, textures) {
 
   function update(dt) {
     for (const { door, hinge } of panels) {
-      const target = door.open ? -Math.PI / 2 : 0;
-      const step = SWING_SPEED * dt;
-      door.angle += Math.max(-step, Math.min(step, target - door.angle));
+      if (!door.dragging) {
+        const target = door.open ? -Math.PI / 2 : 0;
+        const step = (door.easing ? EASE_SPEED : SWING_SPEED) * dt;
+        door.angle += Math.max(-step, Math.min(step, target - door.angle));
+        if (door.angle === target) door.easing = false;
+      }
       hinge.rotation.y = door.angle;
     }
   }
