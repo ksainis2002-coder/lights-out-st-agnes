@@ -845,5 +845,15 @@
   "nora.basement": "If anyone can hear this: I'm in the basement. There's a man down here. He doesn't look at you. He listens. Don't run. Don't—",
   "caption.radioDies": "(the radio hisses, then nothing)",
   "hud.holdingBreath": "HOLDING BREATH",
-  "caption.gasp": "(you gasp for air)"
+  "caption.gasp": "(you gasp for air)",
+  "item.bottle.name": "Bottle",
+  "item.bottle.desc": "An empty medicine bottle. It would smash.",
+  "item.bottle.short": "An empty bottle.",
+  "item.stone.name": "Stone",
+  "item.stone.desc": "A loose stone from the floor, the size of an egg.",
+  "item.stone.short": "A stone.",
+  "caption.bottleLands": "(glass breaks, over there)",
+  "caption.stoneLands": "(a stone clatters, over there)",
+  "settings.action.throw": "Throw",
+  "tutorial.throw": "{key} throws what you are holding. He goes where it lands."
 }

@@ -32,6 +32,7 @@ const LESSONS = {
   inventory: [{ key: 'tutorial.inventory', params: (k) => ({ open: keyName(k.inventory), use: keyName(k.use) }) }],
   journal: [{ key: 'tutorial.journal', params: (k) => ({ journal: keyName(k.journal), hold: keyName(k.hold) }) }],
   map: [{ key: 'tutorial.map', params: (k) => ({ key: keyName(k.map) }) }],
+  throw: [{ key: 'tutorial.throw', params: (k) => ({ key: keyName(k.throw) }) }], // the first bottle or stone
 };
 
 export function setupTutorial(game) {
@@ -62,7 +63,9 @@ export function setupTutorial(game) {
       game.openScreen('itemCard', { item: pickup.item });
     }
     if (game.inventory.has(pickup.item)) teach('inventory');
+    if (itemDef(pickup.item).throwable) teach('throw');
   });
+  events.on('teach', (id) => teach(id)); // a lesson another system knows the moment for
 
   // The "your mind" card: the first time sanity slips (when its effects
   // begin), and once after the first blackout. Remembered for the run even

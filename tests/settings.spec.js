@@ -57,3 +57,14 @@ test('comfort mode on also turns on reduce effects and flicker off, which stay e
   expect(settings.get('flickerOff')).toBe(false);
   expect(settings.get('comfortMode')).toBe(true);
 });
+
+test('settings from before the throw key (version 4) get G for throwing and keep their other keys', () => {
+  const storage = memoryStorage();
+  const keys = { ...DEFAULT_SETTINGS.keys, use: 'KeyE' };
+  delete keys.throw;
+  storage.setItem('st-agnes:settings', JSON.stringify({ version: 4, values: { language: 'el', keys } }));
+  const settings = createSettings(createStore(storage));
+  expect(settings.get('keys').throw).toBe('KeyG');
+  expect(settings.get('keys').use).toBe('KeyE');
+  expect(settings.get('language')).toBe('el');
+});

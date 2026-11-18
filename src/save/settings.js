@@ -4,7 +4,7 @@
 
 import { migrate } from './migrate.js';
 
-export const SETTINGS_VERSION = 4;
+export const SETTINGS_VERSION = 5;
 export const SETTINGS_MIGRATIONS = {
   // 0.1.59: crouch toggle (owner request), off for existing players.
   1: (data) => ({ ...data, crouchToggle: false }),
@@ -12,7 +12,23 @@ export const SETTINGS_MIGRATIONS = {
   2: (data) => ({ ...data, keys: { ...data.keys, battery: data.keys?.battery ?? 'KeyB' } }),
   // 0.2.71: the camcorder's night view (N) and flash (right mouse button).
   3: (data) => ({ ...data, keys: { ...data.keys, nightView: data.keys?.nightView ?? 'KeyN', flash: data.keys?.flash ?? 'Mouse2' } }),
+  // 0.2.101: G throws a bottle or a stone (wing 4's basement); a player who already
+  // gave G to something else gets the first free key of T, X, Z, V instead. A step gets
+  // the stored file ({ version, values }): the settings are its "values". (Steps 1 to 3
+  // wrote beside them, which changed nothing only because each default was the value.)
+  4: (data) => ({ ...data, values: withThrowKey(data.values) }),
 };
+
+function withThrowKey(values = {}) {
+  const keys = values.keys ?? {};
+  return { ...values, keys: { ...keys, throw: keys.throw ?? freeKey(keys, ['KeyG', 'KeyT', 'KeyX', 'KeyZ', 'KeyV']) } };
+}
+
+// The first of these codes no action uses yet (the last one if all are taken).
+function freeKey(keys, codes) {
+  const used = new Set(Object.values(keys));
+  return codes.find((code) => !used.has(code)) ?? codes.at(-1);
+}
 
 export const DEFAULT_KEYS = {
   forward: 'KeyW',
@@ -35,6 +51,7 @@ export const DEFAULT_KEYS = {
   use: 'Mouse0',
   inventory: 'Tab',
   combine: 'KeyR',
+  throw: 'KeyG',
 };
 
 export const DEFAULT_SETTINGS = {

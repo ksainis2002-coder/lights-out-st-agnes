@@ -140,8 +140,10 @@ test('settings saved before the camcorder get its two new keys', () => {
   const keys = { ...DEFAULT_KEYS, flashlight: 'KeyG' };
   delete keys.nightView;
   delete keys.flash;
+  delete keys.throw; // nor the throw key (0.2.101)
   storage.setItem('st-agnes:settings', JSON.stringify({ version: 3, values: { keys } }));
   const settings = createSettings(createStore(storage));
-  expect(SETTINGS_VERSION).toBe(4);
+  expect(SETTINGS_VERSION).toBeGreaterThanOrEqual(4);
   expect(settings.get('keys')).toMatchObject({ nightView: 'KeyN', flash: 'Mouse2', flashlight: 'KeyG', camcorder: 'KeyC' });
+  expect(settings.get('keys').throw).toBe('KeyT'); // 0.2.101: G was the flashlight's here, so throwing takes T
 });

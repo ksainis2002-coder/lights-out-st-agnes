@@ -37,7 +37,12 @@ class Room:
 
 class Level:
     def __init__(self):
-        self.props, self.lights, self.emitters = [], [], []
+        self.props, self.lights, self.emitters, self.pickups = [], [], [], []
+
+    def throwable(self, room, pid, item, x, z):
+        """A bottle or a stone lying there to be taken and thrown (player/throwing.js)."""
+        model = {"bottle": "medicineBottle", "stone": "looseStone"}[item]
+        self.pickups.append({"id": pid, "item": item, "at": room.at(x, z), "model": model, "radius": 0.25})
 
     def prop(self, room, type_, x, z, rotation=0, lift=None, extra=None, **options):
         p = {"type": type_, "at": room.at(x, z)}
@@ -108,9 +113,11 @@ def basement():
     L.bulb(stairs, 1.5, 4.2, 3.0, intensity=0.9, distance=5)
     L.prop(stairs, 'puddle', 0.7, 5.2, width=0.8, depth=0.6)
 
-    # The coal store: what is left of the coal; things to throw come with part B's throwing.
+    # The coal store: what is left of the coal, and things to throw (the wing map: "bottles, stones").
     L.prop(coal, 'coalHeap', 1.3, 0.9)
     L.prop(coal, 'coalHeap', 4.6, 1.1, 30)
+    for i, (item, x, z) in enumerate((('bottle', 2.6, 3.4), ('bottle', 4.0, 3.8), ('stone', 1.6, 2.6), ('stone', 2.2, 2.9), ('stone', 5.1, 2.8))):
+        L.throwable(coal, f'coal_{item}_{i}', item, x, z)
     L.bulb(coal, 3.0, 2.4, 2.6, lit=False)
 
     # The laundry: the chute from the wards above, its baskets, a staff table.
@@ -119,6 +126,7 @@ def basement():
     L.prop(laundry, 'sheetPile', 1.0, 0.7, 40)
     L.prop(laundry, 'table', 4.0, 3.0)
     L.prop(laundry, 'chair', 4.0, 3.8, 180)
+    L.throwable(laundry, 'laundry_bottle', 'bottle', 1.6, 3.6)
     L.bulb(laundry, 3.0, 2.0, 2.8, intensity=0.8, distance=5)
 
     # The passage to the Founder's door, and someone humming behind it.
@@ -163,7 +171,7 @@ def basement():
         # Spawn cells are cell indices: you stand at their centre (+0.5), here (2.5, 4.8).
         "spawns": {"default": {"cell": [2.0, 4.3], "yawDegrees": 180}, "stairs": {"cell": [2.0, 4.3], "yawDegrees": 180}},
         "rooms": [room.data() for room in rooms], "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
-        "emitters": L.emitters, "pickups": [], "documents": [],
+        "emitters": L.emitters, "pickups": L.pickups, "documents": [],
     }
 
 

@@ -23,6 +23,8 @@ export const ICONS = {
   boxCase: { pal: { t: '#8a8e88', d: '#4a4e4a', k: '#2a2c2a' }, rows: ['................', '................', '..tttttttttttt..', '..tddddddddddt..', '..tttttttttttt..', '..tkkkkkkkkkkt..', '..tkkkkkkkkkkt..', '..tttttttttttt..'] },
   musicBox: { pal: { t: '#8a8e88', d: '#4a4e4a', r: '#6a2c2a', b: '#c8a050', k: '#b8923a' }, rows: ['...tttttttttt...', '...trrrrrrrrt...', '...trrrrrrrrt...', '..tttttttttttt..', '..tbbbbbbbbbbt.k', '..ttttttttttttkk', '..tddddddddddt..', '..tttttttttttt..'] },
   cylinder: { pal: { b: '#b8923a', d: '#6a5a2a', p: '#ffe9a0' }, rows: ['................', '................', '...dbbbbbbbbd...', '...dbpbbpbbbd...', '...dbbbpbbpbd...', '...dbpbbbpbbd...', '...dbbbbbbbbd...'] },
+  bottle: { pal: { g: '#7a4a22', d: '#3a2410', c: '#2a2622' }, rows: ['.......cc.......', '.......gg.......', '.......gg.......', '......gggg......', '.....gggggg.....', '.....ggddgg.....', '.....gggggg.....', '.....dddddd.....'] },
+  pebble: { pal: { s: '#8a867c', d: '#5a5750' }, rows: ['................', '................', '................', '.....ssss.......', '....ssssss......', '...sssssssd.....', '....ssssdd......', '.....dddd.......'] },
   heart: { pal: { s: '#a8a49a', d: '#6a675f' }, rows: ['................', '....ss...ss.....', '...ssss.ssss....', '...sssssssss....', '....sssssssd....', '.....sssssd.....', '......sssd......', '.......sd.......'] },
   lamb: { pal: { s: '#a8a49a', d: '#6a675f', w: '#d6d2c6' }, rows: ['................', '..........ss....', '.........ssss...', '...ssssssssdss..', '..sssswsssss....', '..ssssssssss....', '...ssssssss.....', '...d.d..d.d.....'] },
 };

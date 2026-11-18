@@ -197,4 +197,28 @@ function tinSoldier(t) {
   );
 }
 
-export const BASEMENT_PROPS = { boiler, pipeRun, valveWheel, floodWater, coalHeap, morgueDrawers, morgueTray, operatingTable, theatreLamp, instrumentTray, instrumentCabinet, tinSoldier };
+// Things to throw (part B): an empty brown medicine bottle, standing, its
+// label catching a dim glint; a pale loose stone the size of an egg. The same
+// models fly when thrown.
+function medicineBottle(t) {
+  const glass = { color: '#8a5a2a', transparent: true, opacity: 0.9 };
+  return group(
+    cylinder(t, 0.042, 0.15, [0, 0.075, 0], glass, { segments: 8 }),
+    cylinder(t, 0.018, 0.045, [0, 0.172, 0], glass, { segments: 6 }),
+    cylinder(t, 0.02, 0.016, [0, 0.202, 0], { color: '#3a3430' }, { segments: 6 }), // the cap
+    box(t.sheet, [0.05, 0.06, 0.002], [0, 0.05, 0.043], { color: '#7a7262', unlit: true }), // its label: a dim glint even in the dark, as the battery's cap
+  );
+}
+
+// A paler stone than the floor, so your light finds it.
+function looseStone(t) {
+  const stone = new THREE.Mesh(new THREE.DodecahedronGeometry(0.05, 0), materialFor(t.stone, { color: '#a8a498', flatShading: true }));
+  stone.scale.set(1.2, 0.8, 1);
+  stone.position.y = 0.04;
+  return group(stone);
+}
+
+export const BASEMENT_PROPS = {
+  boiler, pipeRun, valveWheel, floodWater, coalHeap, morgueDrawers, morgueTray, operatingTable, theatreLamp, instrumentTray,
+  instrumentCabinet, tinSoldier, medicineBottle, looseStone,
+};

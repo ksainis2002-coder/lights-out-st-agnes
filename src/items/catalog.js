@@ -33,6 +33,9 @@ export const ITEMS = {
   sister_key: { icon: 'key', consumed: true }, // the night sister's door (Dr. Venn kept it)
   stone_palm: { icon: 'palm' }, // statue piece 3 (wing 3)
   stone_heart: { icon: 'heart' }, // statue piece 4 (wing 4: the crypt, puzzles/plaques.js)
+  // Things to throw (G; player/throwing.js): where one lands, a noise carries this far (metres).
+  bottle: { icon: 'bottle', throwable: { radius: 14, model: 'medicineBottle' } },
+  stone: { icon: 'pebble', throwable: { radius: 10, model: 'looseStone' } },
   music_box: { icon: 'musicBox' }, // Edith's, mended: wing 3's toy (ghosts/edithBox.js)
 };
 

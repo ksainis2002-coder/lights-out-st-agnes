@@ -347,5 +347,11 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   6 s on Normal (Story 8, Hard 5), refilling half as fast; then a gasp, a `noise` event of 9 m and its
   caption. Panting after a run (stamina under 60) carries 3 m unless held. Wing 4's systems are made
   and run in `src/wing4.js`, so `main.js` stays under 400 lines.
-- Next: throwing, slow doors, lockers (a still first); then Dr. Venn; Sam and the boiler; the morgue.
+- **Throwing (0.2.101):** `player/throwing.js`; G (settings version 5 adds it to older settings).
+  Bottles (14 m) and stones (10 m) lie in the coal store and the laundry; G throws the selected one,
+  else the first carried; it arcs from your eyes and lands on the floor or drops where it strikes a
+  wall, with its caption and a `noise` event. The bottle's label catches a dim glint, as the battery's
+  cap does. The first one taken teaches the key (a tutorial lesson; other systems can now ask for a
+  lesson with a `teach` event).
+- Next: slow doors, lockers (a still first); then Dr. Venn; Sam and the boiler; the morgue.
 
