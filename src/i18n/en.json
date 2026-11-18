@@ -843,5 +843,7 @@
   "msg.basementGateOpen": "The gate stands open. Water is dripping somewhere below.",
   "msg.foundersDoor": "Locked. No handle on this side. Someone on the other side is humming.",
   "nora.basement": "If anyone can hear this: I'm in the basement. There's a man down here. He doesn't look at you. He listens. Don't run. Don't—",
-  "caption.radioDies": "(the radio hisses, then nothing)"
+  "caption.radioDies": "(the radio hisses, then nothing)",
+  "hud.holdingBreath": "HOLDING BREATH",
+  "caption.gasp": "(you gasp for air)"
 }

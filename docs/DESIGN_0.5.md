@@ -343,6 +343,9 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   The Founder's door is locked with its line and a quiet hum behind it (0.6); the theatre stays shut
   until part C. Spawn cells are cell indices (you stand at their centre): the chapel, crypt and
   grounds spawns from 0.2.97 now stand where they were meant to.
-- Next: holding your breath, throwing, lockers and slow doors; then Dr. Venn; Sam and the boiler;
-  the morgue.
+- **Holding your breath (0.2.100):** `player/breath.js`, the approved ring (`ui/breathHud.js`). Space,
+  6 s on Normal (Story 8, Hard 5), refilling half as fast; then a gasp, a `noise` event of 9 m and its
+  caption. Panting after a run (stamina under 60) carries 3 m unless held. Wing 4's systems are made
+  and run in `src/wing4.js`, so `main.js` stays under 400 lines.
+- Next: throwing, slow doors, lockers (a still first); then Dr. Venn; Sam and the boiler; the morgue.
 

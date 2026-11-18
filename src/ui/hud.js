@@ -9,6 +9,7 @@ import { drawTape } from './tapeHud.js';
 import { osdText, wrapText, capitals, COLORS, UI_FONT } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { promptKey } from './promptKey.js';
+import { drawBreath } from './breathHud.js';
 import { drawIcon } from './icons.js';
 import { drawHeldNote } from './heldNote.js';
 import { drawBattery } from './battery.js';
@@ -38,8 +39,9 @@ function drawPrompt(ctx, game) {
   const text = key ? `${key}  ${words}` : words;
   ctx.font = `bold 10px ${UI_FONT}`; // measure in the font it is drawn in
   const width = ctx.measureText(text).width + 16;
-  panel(ctx, W / 2 - width / 2, H / 2 + 22, width, 16, 0.55);
-  osdText(ctx, text, W / 2, H / 2 + 25, 10, COLORS.text, 'center');
+  const y = H / 2 + 22 + (game.breath?.holding() ? 14 : 0); // under the breath ring's words while you hold it
+  panel(ctx, W / 2 - width / 2, y, width, 16, 0.55);
+  osdText(ctx, text, W / 2, y + 3, 10, COLORS.text, 'center');
   // A short line about the item in view (approved still ui_itemHover).
   if (prompt.detail) osdText(ctx, game.i18n.t(prompt.detail), W / 2, H / 2 + 42, 9, COLORS.soft, 'center');
   return true;
@@ -130,9 +132,10 @@ export function drawHud(ctx, game) {
   const battery = drawBattery(ctx, game, W, H);
   const pulse = drawPulse(ctx, game, H);
   const camcorder = drawCamcorder(ctx, game);
+  const breath = drawBreath(ctx, game, W, H);
   const subtitle = game.subtitles.draw(ctx);
   const prompt = drawPrompt(ctx, game);
   const inventory = drawInventory(ctx, game);
   const message = drawMessage(ctx, game);
-  return prompt || inventory || message || subtitle || held || battery || pulse || camcorder;
+  return prompt || inventory || message || subtitle || held || battery || pulse || camcorder || breath;
 }

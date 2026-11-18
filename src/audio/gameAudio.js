@@ -184,6 +184,9 @@ export function createGameAudio(game) {
   events.on('agnes.piece', ({ position }) => play('stone_step', { position: at(position, 1.2), volume: 0.8, refDistance: 2 }));
   events.on('agnes.whole', ({ position }) => play('church_bell', { position: at(position, 6), volume: 1, refDistance: 10, pitchJitter: 0 }));
   events.on('weather.calm', () => (lastRoom = undefined)); // the current room's beds again, without the rain
+  // Your breath (player/breath.js): drawn in and held; a gasp when you held it too long (gasp_air's stand-in).
+  events.on('breath.held', () => play('breath_hold', { volume: 0.35 }));
+  events.on('breath.gasp', () => play('wake_gasp', { volume: 0.6 }));
   // The crypt's plaques: each goes in with a knock of stone; out of turn, they all grind back out.
   events.on('plaque.pushed', ({ position }) => play('stone_step', { position: at(position, 1.2), volume: 0.6, refDistance: 2 }));
   events.on('plaques.reset', ({ position }) => play('stone_grind', { position: at(position, 1.2), volume: 0.8, refDistance: 3 }));
