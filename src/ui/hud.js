@@ -8,6 +8,7 @@ import { drawCamcorder } from './camcorderHud.js';
 import { drawTape } from './tapeHud.js';
 import { osdText, wrapText, capitals, COLORS, UI_FONT } from './osd.js';
 import { keyName } from './settingsRows.js';
+import { promptKey } from './promptKey.js';
 import { drawIcon } from './icons.js';
 import { drawHeldNote } from './heldNote.js';
 import { drawBattery } from './battery.js';
@@ -32,7 +33,9 @@ function drawPrompt(ctx, game) {
   if (!prompt) return false;
   ctx.fillStyle = 'rgba(232,240,255,0.8)';
   ctx.fillRect(W / 2 - 1, H / 2 - 1, 2, 2);
-  const text = `${keyName(game.settings.get('keys').use)}  ${game.i18n.t(prompt.key, prompt.params)}`;
+  const key = promptKey(game, prompt); // the key while you learn it, or an input of its own
+  const words = game.i18n.t(prompt.key, prompt.params);
+  const text = key ? `${key}  ${words}` : words;
   ctx.font = `bold 10px ${UI_FONT}`; // measure in the font it is drawn in
   const width = ctx.measureText(text).width + 16;
   panel(ctx, W / 2 - width / 2, H / 2 + 22, width, 16, 0.55);

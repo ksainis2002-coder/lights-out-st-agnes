@@ -1,12 +1,13 @@
 // What the player is looking at and can use. Systems register interactables:
 //   { position: Vector3, radius, prompt(): { key, params } | null, use() }
+// onUse (optional) hears every use: the prompts' key shows while you learn it (ui/promptKey.js).
 // Each frame the nearest one under the centre of the view, within reach,
 // becomes the target; the use key (left click by default) calls use().
 import * as THREE from 'three';
 
 const REACH = 1.9;
 
-export function createInteraction() {
+export function createInteraction({ onUse = null } = {}) {
   const sources = new Set();
   const forward = new THREE.Vector3();
   const toTarget = new THREE.Vector3();
@@ -34,7 +35,9 @@ export function createInteraction() {
 
   function update(camera, input) {
     target = find(camera);
-    if (target && input.wasPressed('use')) target.use();
+    if (!target || !input.wasPressed('use')) return;
+    target.use();
+    onUse?.();
   }
 
   return {

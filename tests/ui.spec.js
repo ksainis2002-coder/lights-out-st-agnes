@@ -129,6 +129,52 @@ test('a long use prompt fits inside its box', async ({ page }) => {
   expect(fits).toBe(true);
 });
 
+// Owner 2026-11-18: "no need for every text to say click". The use key shows on
+// the first few prompts while you learn it, then only the action; a prompt with
+// an input of its own keeps its key.
+test('the use key shows on the first few prompts, then only the action', async ({ page }) => {
+  const errors = trackErrors(page);
+  const lines = await page.evaluate(() => {
+    const g = window.__stAgnes;
+    g.realTime = false;
+    g.newGame();
+    g.intro.finish();
+    g.loadLevel('chapel', 'door');
+    const size = g.world.level.cellSize;
+    const drawn = () => {
+      const ctx = document.createElement('canvas').getContext('2d');
+      const texts = [];
+      const fillText = ctx.fillText.bind(ctx);
+      ctx.fillText = (text, ...rest) => {
+        texts.push(String(text));
+        fillText(text, ...rest);
+      };
+      g.ui.drawHud(ctx);
+      return texts.find((text) => text.endsWith(g.i18n.t('prompt.look'))) ?? null;
+    };
+    // At the font, a thing to look at as often as you like.
+    Object.assign(g.player.state.position, { x: 6.9 * size, z: 12.3 * size });
+    g.player.state.yaw = Math.PI;
+    g.player.state.pitch = Math.atan2(0.9 - g.player.state.eyeHeight, 0.9 * size);
+    const out = [];
+    for (let i = 0; i < 4; i++) {
+      g.advance(1 / 30);
+      out.push(drawn());
+      g.input.tap('use');
+      g.advance(0.3);
+    }
+    out.push(drawn());
+    // A prompt that takes another input names it, learnt or not.
+    const target = { position: null, prompt: () => ({ key: 'prompt.look', input: 'flashlight' }) };
+    g.interaction.target = () => target;
+    out.push(drawn());
+    return { out, look: g.i18n.t('prompt.look') };
+  });
+  const { out, look } = lines;
+  expect(out).toEqual([`CLICK  ${look}`, `CLICK  ${look}`, `CLICK  ${look}`, look, look, `F  ${look}`]);
+  expect(errors).toEqual([]);
+});
+
 test('menu: STOP (pressed twice) ends the run and goes back to the title screen', async ({ page }) => {
   const state = () => page.evaluate(() => {
     const game = window.__stAgnes;

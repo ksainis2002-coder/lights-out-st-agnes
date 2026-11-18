@@ -14,6 +14,7 @@ import { runBot } from './debug/bot.js';
 import { LEVELS, START_LEVEL } from './levels/index.js';
 import { createEvents } from './events.js';
 import { createInteraction } from './player/interact.js';
+import { countUse } from './ui/promptKey.js';
 import { setupLevelFlow } from './levelFlow.js';
 import { drawHud } from './ui/hud.js';
 import { createGameAudio } from './audio/gameAudio.js';
@@ -83,7 +84,7 @@ function createGame() {
     player: createController(world.level),
     triggers: createTriggers(world.level),
     mixer: createMixer(settings),
-    interaction: createInteraction(),
+    interaction: createInteraction({ onUse: () => countUse(game.progress) }),
     progress: createProgress(),
     messages: createMessages(),
     session: { active: false, playTime: 0 },
