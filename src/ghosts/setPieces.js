@@ -4,8 +4,9 @@
 // (the room goes quiet, or its lamps die), then the hit. They keep a
 // cooldown of their own (data "cooldown") so two never stack, start the
 // ghost children's scare cooldown too, and comfort mode cuts them (scare
-// rules §1, §5). They are silent: the content sheet gives them no text.
-// Event fields: id, kind ("bell" | "rollCall" | "film"), room, requires (a
+// rules §1, §5). The school's are silent: the content sheet gives them no text;
+// wing 4's drawer (the morgue) has a caption.
+// Event fields: id, kind ("bell" | "rollCall" | "film" | "drawer"), room, requires (a
 // flag), setup { tell, seconds, sound, at } (a sound with the tell, played
 // at [c, r]: a ruler slapped on Class 3's teacher's table), cooldownGroup, cooldown
 // (seconds), comfort ("skip" | "keep"), drain (sanity at the hit), and the
@@ -14,9 +15,10 @@ import { roomAt } from '../levels/loader.js';
 import { bellPiece } from './bell.js';
 import { rollCallPiece } from './rollCall.js';
 import { filmPiece } from './film.js';
+import { drawerPiece } from './drawerPiece.js';
 import { worldAt } from './setPieceKit.js';
 
-const KINDS = { bell: bellPiece, rollCall: rollCallPiece, film: filmPiece };
+const KINDS = { bell: bellPiece, rollCall: rollCallPiece, film: filmPiece, drawer: drawerPiece };
 
 export function createSetPieces(game) {
   let active = null; // { event, piece, t }

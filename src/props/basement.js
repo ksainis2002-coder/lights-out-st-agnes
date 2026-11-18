@@ -6,6 +6,7 @@
 // are empty (their name cards only). Origin on the floor, front facing +z.
 import * as THREE from 'three';
 import { box, decal, materialFor, canvasTexture } from './parts.js';
+import { i18n } from '../i18n/index.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -95,18 +96,33 @@ function cardTexture(text) {
 }
 
 // The morgue's wall of drawers: steel fronts, a handle and a card slot each.
-// "cards": what is typed on them, row by row (dates, not names).
+// "cards": what is typed on them, row by row from the bottom (dates, not
+// names), as text or i18n keys ("morgue.card.feb2"). Each drawer is its own
+// group, "drawer_<index>", with a steel tray behind its front, inside the
+// wall until the drawer is pulled out (levels/morgue.js).
 function morgueDrawers(t, { columns = 4, rows = 3, cards = [] } = {}) {
   const w = 0.62;
   const h = 0.56;
+  const typed = (card) => (card?.includes('.') ? i18n.t(card) : card ?? '');
   const parts = [box(t.iron, [columns * w + 0.1, rows * h + 0.2, 0.06], [0, 0.2, 0], { color: '#5c6064' })];
+  const hinge = (w - 0.06) / 2; // each door hangs on its left edge (puzzles/morgue.js swings it open)
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < columns; c++) {
-      const x = (c - (columns - 1) / 2) * w;
-      const y = 0.3 + r * h;
-      parts.push(box(t.iron, [w - 0.06, h - 0.06, 0.03], [x, y, 0.045], STEEL));
-      parts.push(box(t.iron, [0.18, 0.03, 0.04], [x, y + 0.14, 0.075], { color: '#4a4e52' }));
-      parts.push(decal(cardTexture(cards[r * columns + c] ?? ''), [0.15, 0.05], [x, y + 0.37, 0.062]));
+      const door = group(
+        box(t.iron, [w - 0.06, h - 0.06, 0.03], [hinge, 0, 0.045], STEEL),
+        box(t.iron, [0.18, 0.03, 0.04], [hinge, 0.14, 0.075], { color: '#4a4e52' }),
+        decal(cardTexture(typed(cards[r * columns + c])), [0.15, 0.05], [hinge, 0.37, 0.062]),
+      );
+      door.name = 'door';
+      door.position.x = -hinge;
+      const pan = box(t.iron, [w - 0.12, 0.03, 0.5], [0, 0.02, -0.22], STEEL);
+      pan.name = 'pan';
+      const tray = group(pan); // slides out behind the open door
+      tray.name = 'tray';
+      const drawer = group(door, tray);
+      drawer.name = `drawer_${r * columns + c}`;
+      drawer.position.set((c - (columns - 1) / 2) * w, 0.3 + r * h, 0);
+      parts.push(drawer);
     }
   }
   return group(...parts);

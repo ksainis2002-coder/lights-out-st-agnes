@@ -316,5 +316,8 @@ in `docs/DESIGN_0.5.md`. Next: part B (the basement, Dr. Venn, Sam, the boiler, 
 **0.5 part B started (0.2.98–0.2.99):** the sound list for wing 4 (34 sounds, a Claude Doc for the
 owner, `docs/SOUNDS_0.5.md`); the use prompt shows its key only while you learn it; the basement level
 and its link to the west wing. Progress in "Part B as built so far" in `docs/DESIGN_0.5.md`.
+**0.5 part B built (0.2.100–0.2.106):** holding your breath, throwing, doors that shout, lockers, Dr.
+Venn, Sam and the valves, the morgue (drawers, page four, the 12 MAY set piece, Dr. Venn's notes),
+and a bot route through it all that is never caught. Next: part C (Nora and the way out).
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

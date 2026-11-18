@@ -26,13 +26,16 @@ for (const route of routes) {
         game.loadLevel(r.level, r.spawn);
       }
       const result = game.runBot(r);
-      return { ...result, level: game.world.level.id, items: game.inventory.items(), flags: game.progress.toJSON().flags };
+      const { flags, read } = game.progress.toJSON();
+      return { ...result, level: game.world.level.id, items: game.inventory.items(), flags, read };
     }, route);
     mkdirSync('test-results/bot', { recursive: true });
     writeFileSync(`test-results/bot/${route.id}.json`, JSON.stringify(result, null, 2));
     expect(result.failedStep).toBeNull();
     expect(result.finished).toBe(true);
     expect(result.flags).toEqual(expect.arrayContaining(route.expectFlags ?? [])); // what the route must leave done
+    expect(result.read).toEqual(expect.arrayContaining(route.expectRead ?? [])); // the documents it must have read
+    if (route.maxCollapses !== undefined) expect(result.collapses).toBeLessThanOrEqual(route.maxCollapses); // never caught
   });
 }
 

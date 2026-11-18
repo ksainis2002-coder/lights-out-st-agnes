@@ -18,6 +18,15 @@ afresh (wards_part_a.py, wards_part_b.py)."""
 import json, os
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src', 'levels')
+# The morgue's drawers by index (row by row from the bottom, four to a row): typed with the
+# roll's and the charts' dates, not names (puzzles/morgue.js; the wing 4 content sheet).
+MORGUE = {
+    "0": {"card": "morgue.card.oct30", "is": "empty"}, "2": {"card": "morgue.card.jan3", "is": "empty"},
+    "3": {"card": "morgue.card.mar18", "is": "empty"}, "4": {"card": "morgue.card.feb2", "is": "tommy"},
+    "5": {"card": "morgue.card.may12", "is": "sister"}, "7": {"card": "morgue.card.jun9", "is": "sam"},
+    "9": {"card": "morgue.card.nov14", "is": "child", "name": "CARR, E."},
+    "10": {"card": "morgue.card.apr2", "is": "child", "name": "ROWE, M."},
+}
 BULB = '#d8c8a0'
 OPEN = "basement_open"  # St. Agnes is whole (ai/agnesPieces.js)
 r3 = lambda v: round(v, 3)
@@ -167,8 +176,17 @@ def basement():
     L.drip(boiler, 2.0, 2.0, 0.3)
 
     # The morgue: the steel drawers typed with dates (approved still "morgue"), a dead tube light.
-    cards = ['30 OCT', '12 MAY', '', '3 JAN', '2 FEB', '', '18 MAR', '14 NOV', '', '9 JUN', '', '2 APR']
+    # Row by row from the bottom; 12 MAY in the middle row, where the still's long tray lies.
+    cards = [''] * 12
+    for index, entry in MORGUE.items():
+        cards[int(index)] = entry.pop('card')
     L.prop(morgue, 'morgueDrawers', 2.6, 0, extra={"id": "morgue_drawers"}, cards=cards)
+    # Page four of his file, on Tommy's tray once pulled (drawer 4: left column, middle row).
+    L.documents.append({"id": "hale_file_4", "at": morgue.at(2.6 - 0.93 / 1.2, 0.28 / 1.2), "y": 0.92, "rotation": 8,
+                        "appearsWith": "morgue_tommy"})
+    # Dr. Venn's theatre notes, on a little table in the corner by the theatre's wall.
+    L.prop(morgue, 'sideTable', 6.0, 4.4)
+    L.documents.append({"id": "venn_theatre_notes", "at": morgue.at(6.0, 4.4), "y": 0.6, "rotation": 200, "model": "ledger", "height": 0.05})
     L.prop(morgue, 'fluorescent', 2.6, 2.4, height=2.9)
     L.prop(morgue, 'puddle', 4.0, 3.2, width=1.0, depth=0.8)
     L.lockers(morgue, 6.75, 2.2, 3, -90)  # along its east wall, as in the approved still
@@ -190,7 +208,14 @@ def basement():
         "spawns": {"default": {"cell": [2.0, 4.3], "yawDegrees": 180}, "stairs": {"cell": [2.0, 4.3], "yawDegrees": 180}},
         "rooms": [room.data() for room in rooms], "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "emitters": L.emitters, "pickups": L.pickups, "documents": L.documents,
-        "puzzles": {"valves": {"wheels": ["valve_red", "valve_blue", "valve_brass"], "flood": "boiler_flood", "boiler": "boiler"}},
+        "puzzles": {"valves": {"wheels": ["valve_red", "valve_blue", "valve_brass"], "flood": "boiler_flood", "boiler": "boiler"},
+                    "morgue": {"drawers": "morgue_drawers", "contents": MORGUE}},
+        # The 12 MAY drawer rolls out on its own, once you have pulled another (ghosts/drawerPiece.js).
+        # A story beat: comfort mode keeps it. Its tell: the morgue goes quiet.
+        "setPieces": [{"id": "morgue_drawer", "kind": "drawer", "room": "morgue", "requires": "morgue_pulled",
+                       "cooldownGroup": "setPiece", "cooldown": 30, "comfort": "keep", "drain": 4,
+                       "setup": {"tell": "the morgue goes quiet", "seconds": 3}, "wait": 4,
+                       "drawers": "morgue_drawers", "index": 5}],
         # Sam (ghosts/sam.js): in the flood where the still has him; once met he looks to the corridor.
         # His far knocks, and your taps for him, are at the pipes along the corridor and in the boiler room.
         "sam": {"at": boiler.at(2.9, 3.4), "rotation": 15, "room": "boiler_room", "lookTo": [7.5, 9.0],

@@ -16,6 +16,7 @@ import { medicineLockPuzzle, SOLVED as MEDICINE_SOLVED } from './medicineLock.js
 import { doorLockPuzzle, SOLVED as DOOR_LOCK_SOLVED } from './doorLock.js';
 import { plaquesPuzzle, SOLVED as PLAQUES_SOLVED } from './plaques.js';
 import { valvesPuzzle, SOLVED as VALVES_SOLVED } from './valves.js';
+import { morguePuzzle, FOUND as MORGUE_FOUND } from './morgue.js';
 
 const PUZZLES = {
   namePlates: { create: namePlatesPuzzle, solved: PLATES_SOLVED, symbol: 'plates' },
@@ -32,6 +33,7 @@ const PUZZLES = {
   doorLock: { create: doorLockPuzzle, solved: DOOR_LOCK_SOLVED, symbol: 'lock' },
   plaques: { create: plaquesPuzzle, solved: PLAQUES_SOLVED, symbol: 'lock' },
   valves: { create: valvesPuzzle, solved: VALVES_SOLVED, symbol: 'lock' },
+  morgue: { create: morguePuzzle, solved: MORGUE_FOUND, symbol: 'lock' },
 };
 
 // For the paper map: each puzzle's solved flag and the symbol in its ring.

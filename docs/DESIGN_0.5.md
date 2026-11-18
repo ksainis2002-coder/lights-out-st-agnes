@@ -387,6 +387,27 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   the soldier's pickup appears (flag `puzzle_valves`). Given the soldier (flag `sam_soldier`), three taps
   at the pipes ("Tap the pipe for Sam ({n} left)"): he knocks at the pipe furthest from you, a noise of
   40 m that Dr. Venn goes to. The stoker's log on a table inside the door (its journal line).
-- Next: the morgue (drawers, the set piece, page four), Dr. Venn's theatre notes, a bot route through
-  part B.
+- **The morgue (0.2.106):** `puzzles/morgue.js`: twelve drawers on the north wall, eight typed with
+  the roll's and the charts' dates (3 JAN, 2 FEB, 18 MAR, 2 APR, 12 MAY, 9 JUN, 30 OCT, 14 NOV), in
+  level data by index (row by row from the bottom). "Pull out the drawer": its door swings open on its
+  left hinge and its tray slides out 0.5 m, "(the drawer screeches on its runners)", a noise of 8 m
+  Dr. Venn hears; then its line: empty, a child's name tag (CARR, E.; ROWE, M.), Sam's wet tag, or
+  Tommy's (2 FEB) with page four of his file on the steel (flag `morgue_tommy`; the page shows once the
+  tray is out; its journal line). 12 MAY has no prompt: once you have pulled another (flag
+  `morgue_pulled`) and are in the morgue, the set piece `morgue_drawer` (`ghosts/drawerPiece.js`,
+  level data: tell "the morgue goes quiet" 3 s after a 4 s wait so your screech dies away, cooldown
+  group `setPiece`, comfort `keep`: a story beat, drain 4): its door swings open and the long tray
+  rolls out 2 m, "(a drawer rolls out on its own)"; on it Sister M. under a sheet, a tag on her toe
+  ("Look"). The long tray is longer than the wall is thick, so it stays hidden while in, and out of the
+  morgue you only hear it (it is out when you come back). Dr. Venn does not hear it roll. Dr. Venn's
+  theatre notes lie on a side table in the morgue's south-east corner (their journal line). Stand-in
+  sound `drawer_metal` (slow and low for the roll) until `morgue_drawer` comes. The basement's sounds
+  now live in `audio/basementSounds.js`.
+- **Bot route `basement_part_b` (0.2.106):** from the west wing's well down the steps; waits out his
+  first crossing, follows his round (boiler room while he walks east; the morgue while he is in the coal
+  store, crouched past his door; a morgue locker while he comes through), eases the loud doors open
+  (new bot step `easeDoor`; `waitUntil` takes `vennIn`), turns the valves, gives Sam his soldier, reads
+  the log, page four and his notes, sees the 12 MAY drawer roll out. Never heard, never caught (the
+  route sets `maxCollapses: 0`; the bot test now checks it and `expectRead`). About 155 s of game time.
+- Next: part C (Nora, the theatre, the choice, the way out, the endings).
 

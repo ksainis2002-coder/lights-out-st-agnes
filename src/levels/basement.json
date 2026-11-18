@@ -610,21 +610,28 @@
    ],
    "options": {
     "cards": [
-     "30 OCT",
-     "12 MAY",
+     "morgue.card.oct30",
      "",
-     "3 JAN",
-     "2 FEB",
+     "morgue.card.jan3",
+     "morgue.card.mar18",
+     "morgue.card.feb2",
+     "morgue.card.may12",
      "",
-     "18 MAR",
-     "14 NOV",
+     "morgue.card.jun9",
      "",
-     "9 JUN",
-     "",
-     "2 APR"
+     "morgue.card.nov14",
+     "morgue.card.apr2",
+     ""
     ]
    },
    "id": "morgue_drawers"
+  },
+  {
+   "type": "sideTable",
+   "at": [
+    16.0,
+    14.4
+   ]
   },
   {
    "type": "fluorescent",
@@ -915,6 +922,27 @@
    "rotation": 160,
    "model": "ledger",
    "height": 0.05
+  },
+  {
+   "id": "hale_file_4",
+   "at": [
+    11.825,
+    10.233
+   ],
+   "y": 0.92,
+   "rotation": 8,
+   "appearsWith": "morgue_tommy"
+  },
+  {
+   "id": "venn_theatre_notes",
+   "at": [
+    16.0,
+    14.4
+   ],
+   "y": 0.6,
+   "rotation": 200,
+   "model": "ledger",
+   "height": 0.05
   }
  ],
  "puzzles": {
@@ -926,8 +954,58 @@
    ],
    "flood": "boiler_flood",
    "boiler": "boiler"
+  },
+  "morgue": {
+   "drawers": "morgue_drawers",
+   "contents": {
+    "0": {
+     "is": "empty"
+    },
+    "2": {
+     "is": "empty"
+    },
+    "3": {
+     "is": "empty"
+    },
+    "4": {
+     "is": "tommy"
+    },
+    "5": {
+     "is": "sister"
+    },
+    "7": {
+     "is": "sam"
+    },
+    "9": {
+     "is": "child",
+     "name": "CARR, E."
+    },
+    "10": {
+     "is": "child",
+     "name": "ROWE, M."
+    }
+   }
   }
  },
+ "setPieces": [
+  {
+   "id": "morgue_drawer",
+   "kind": "drawer",
+   "room": "morgue",
+   "requires": "morgue_pulled",
+   "cooldownGroup": "setPiece",
+   "cooldown": 30,
+   "comfort": "keep",
+   "drain": 4,
+   "setup": {
+    "tell": "the morgue goes quiet",
+    "seconds": 3
+   },
+   "wait": 4,
+   "drawers": "morgue_drawers",
+   "index": 5
+  }
+ ],
  "sam": {
   "at": [
    3.9,
