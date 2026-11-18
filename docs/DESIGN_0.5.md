@@ -2,7 +2,7 @@
 
 **Status (2026-11-18): every wing 4 still and the content sheet (all of the wing's text, English and
 Greek) are approved; part A (the chapel and the crypt) is built (0.2.97); part B is being built (the
-basement level, 0.2.99); part C is next.** Sound list: the Claude Doc "Sound List for 0.5 (Chapel and
+basement level, 0.2.99); part B is built (0.2.106); part C's stills wait for a yes (0.2.107).** Sound list: the Claude Doc "Sound List for 0.5 (Chapel and
 Basement)", https://claude.ai/artifact/T81UhaxvC8c9CUrBiF8n7E (`docs/SOUNDS_0.5.md`).
 Content sheet: the Claude Doc "Lights Out at St. Agnes: wing 4 content sheet (0.5)",
 https://claude.ai/artifact/BTuaqxchpYDVYGNJHJWg4c. The brief wins on anything not listed. The
@@ -410,4 +410,30 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   the log, page four and his notes, sees the 12 MAY drawer roll out. Never heard, never caught (the
   route sets `maxCollapses: 0`; the bot test now checks it and `expectRead`). About 155 s of game time.
 - Next: part C (Nora, the theatre, the choice, the way out, the endings).
+
+## Part C: the owner's picks (2026-11-18) and its stills
+The content sheet leaves four calls open; the owner picked:
+- **The theatre's door is locked until page four** (Tommy's drawer, flag `morgue_tommy`). New line,
+  for the sheet: "Locked from the inside. Through the glass, a lamp over a table." / "Κλειδωμένη
+  από μέσα. Μέσα από το τζάμι, μια λάμπα πάνω από ένα τραπέζι." The door has a pane of wired glass.
+- **Your room at high sanity without Nora plays Becomes the building** (its "without Nora" line).
+  Acceptance needs high sanity and Nora freed; low sanity is Becomes the building either way.
+- **High sanity is 65 or more**, read as you reach your room.
+- **Nora is one pace louder than you:** you crouch, her steps carry as a walk (4 m); you walk, they
+  carry as a run (10 m); you stand still, she does. Dr. Venn hears her where she is.
+
+Proposal stills (waiting for a yes), in `docs/mockups/stills-0.5/`, from
+`src/mockups/finaleStills.js` on the game's own levels: `theatre_door` (the corridor door, locked;
+through its glass the lamp's light on the table and Nora), `nora_follow` (Nora on her feet behind you
+in the cold corridor, whispering; her standing figure is `src/props/noraStanding.js`: her table body
+stood up, her arms and legs swinging from hip and shoulder, her hair hanging to her shoulders, her
+colours a little darker so your flashlight does not burn her out), `cabinet_lock` (the cabinet's lock
+up close: a steel plate, five brass keys with Edith's pictures), `west_stairs` (up the stairs, looking
+back: he is at their foot, knife up, clinking), the endings' key moments in letterbox with their lines
+(`ending_road`: out of the gate, every dormitory window orange under a sky lit by the fire;
+`ending_lamp`: on his table, looking up into the lamp; `ending_morning`: a window your room never had,
+morning in it, Nora by it; `ending_walls`: your room's walls warm and veined; `ending_coal`: the
+coal store's door shutting on the corridor's light, at a child's height), `end_card` (black, the
+ending's name, "Endings found: 1 of 4", a tape's STOP in the corner), and `room_last` (your room's
+last change: the bed made, your wooden horse on the pillow).
 

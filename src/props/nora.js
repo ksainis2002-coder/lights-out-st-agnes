@@ -55,7 +55,7 @@ function cloth(rgb, { seed = 3, size = 64, pattern = () => 0, creases = 6, shine
 const KNIT = (x, y) => ((y + Math.abs((x % 4) - 1.5)) % 3 < 1 ? 16 : 0) + (x % 8 === 0 ? 10 : 0); // rows of small Vs, ribbed
 const TWILL = (x, y) => ((x + y) % 4 < 1 ? 12 : 0); // denim's diagonal
 
-const TEXTURES = () => ({
+export const noraTextures = () => ({
   jumper: cloth([136, 122, 100], { seed: 5, pattern: KNIT, creases: 4 }),
   jacket: cloth([80, 80, 52], { seed: 7, creases: 16, shine: 0.12 }),
   jeans: cloth([60, 72, 98], { seed: 9, pattern: TWILL, creases: 8 }),
@@ -65,7 +65,7 @@ const TEXTURES = () => ({
   neck: noraSkinTexture({ flush: 1, shade: 0.55 }),
 });
 
-function mesh(geometry, texture, options) {
+export function mesh(geometry, texture, options) {
   return new THREE.Mesh(geometry, materialFor(texture, options));
 }
 
@@ -73,11 +73,13 @@ function mesh(geometry, texture, options) {
 const SPINE = [[0, 0.1, 0.0], [0, 0.1, -0.19], [0, 0.128, -0.32], [0, 0.128, -0.42], [0, 0.112, -0.52]];
 const BODY = [[0.172, 0.1], [0.138, 0.088], [0.152, 0.108], [0.166, 0.104], [0.17, 0.072]];
 
-function torso(tex) {
+// On her feet (noraStanding.js) the jacket hangs; on the table its sides fall to the table.
+export function torso(tex, { standing = false } = {}) {
   const rucked = (theta, u) => 1 + 0.025 * Math.sin(theta * 8 + u * 9) + 0.015 * Math.sin(theta * 13 - u * 17); // the wool pulled about
   const jumper = mesh(sweepGeometry(SPINE, BODY, { radial: 20, steps: 4, front: [0, 1, 0], shape: rucked }), tex.jumper);
-  const open = [1.5, 1.3, 1.1, 0.95, 0.8]; // the jacket open over her front, its sides fallen to the table
-  const sides = (theta, u) => (1 + 0.18 * Math.max(0, -Math.sin(theta)) ** 2) * (1 + 0.035 * Math.sin(theta * 6 + u * 7));
+  const open = standing ? [0.9, 0.85, 0.8, 0.75, 0.7] : [1.5, 1.3, 1.1, 0.95, 0.8]; // the jacket open over her front
+  const fallen = standing ? 0 : 0.18;
+  const sides = (theta, u) => (1 + fallen * Math.max(0, -Math.sin(theta)) ** 2) * (1 + 0.035 * Math.sin(theta * 6 + u * 7));
   const jacket = mesh(sweepGeometry(SPINE, BODY.map(([x, y]) => [x * 1.1, y * 1.12]), { radial: 22, steps: 4, front: [0, 1, 0], gap: open, shape: sides }), tex.jacket, { side: THREE.DoubleSide });
   const collar = mesh(sweepGeometry([[-0.1, 0.13, -0.52], [0, 0.07, -0.56], [0.1, 0.13, -0.52]], [0.02, 0.022, 0.02], { radial: 6, steps: 3 }), tex.leather, { color: '#8a6a50' });
   return [jumper, jacket, collar];
@@ -152,7 +154,7 @@ function neck(tex) {
 }
 
 function noraStrapped(t, { turn = 0.18, lift = 0.7 } = {}) {
-  const tex = TEXTURES();
+  const tex = noraTextures();
   const head = noraHead();
   head.position.set(-0.04, 0.19, -0.67); // straining up off the table
   const lifted = new THREE.Quaternion().setFromAxisAngle(v(1, 0, 0), -Math.PI / 2 + lift);

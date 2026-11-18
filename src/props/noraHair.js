@@ -146,3 +146,23 @@ export function hairFall(head) {
     return new THREE.Mesh(geometry, cut(lockTexture(51 + i)));
   });
 }
+
+// The same locks hanging from her head when she is on her feet (noraStanding.js):
+// each falls past her ear or her nape along `down` (her body's frame) to her
+// shoulders, a little out from her head and her neck.
+export function hairHanging(head, down) {
+  const { at } = head.userData.hair;
+  head.updateMatrix();
+  const centre = head.position;
+  return FALLING.map(([around, rise, run, width], i) => {
+    const root = at(towards(around, rise), 0.002).applyMatrix4(head.matrix);
+    const out = root.clone().sub(centre).normalize();
+    const away = out.clone().addScaledVector(down, -out.dot(down)).normalize(); // out from her, square to the fall
+    const springs = root.clone().addScaledVector(out, 0.012).addScaledVector(down, 0.02);
+    const past = springs.clone().addScaledVector(down, 0.09).addScaledVector(away, 0.03);
+    const falls = springs.clone().addScaledVector(down, 0.17).addScaledVector(away, 0.045);
+    const ends = springs.clone().addScaledVector(down, 0.22 + run * 0.5).addScaledVector(away, 0.05);
+    const geometry = cardGeometry([root, springs, past, falls, ends], [width * 0.7, width, width * 1.05, width, width * 0.8], [out, out, away, away, away]);
+    return new THREE.Mesh(geometry, cut(lockTexture(51 + i)));
+  });
+}

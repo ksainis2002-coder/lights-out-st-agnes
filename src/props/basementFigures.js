@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import { box, materialFor, canvasTexture } from './parts.js';
 import { SURGEON_FIGURES } from './surgeon.js';
 import { NORA_FIGURES } from './nora.js';
+import { NORA_STANDING } from './noraStanding.js';
 
 function group(...children) {
   const g = new THREE.Group();
@@ -73,4 +74,4 @@ function ghostSam(t, { opacity = 0.42, waterline = 0 } = {}) {
   return group(...parts);
 }
 
-export const BASEMENT_FIGURES = { ...SURGEON_FIGURES, ...NORA_FIGURES, ghostSam };
+export const BASEMENT_FIGURES = { ...SURGEON_FIGURES, ...NORA_FIGURES, ...NORA_STANDING, ghostSam };
