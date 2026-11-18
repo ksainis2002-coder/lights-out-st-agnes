@@ -21,6 +21,7 @@ import { WARD_STILLS } from './wardStills.js';
 import { WARD_ROOM_STILLS } from './wardRoomStills.js';
 import { WARD_PARTC_STILLS } from './wardPartCStills.js';
 import { BASEMENT_STILLS } from './basementStills.js';
+import { LOCKER_STILLS } from './lockerStills.js';
 import { mapMarks } from './mapUi.js';
 import patientRoom from '../levels/patient_room.json';
 import dorms from '../levels/dorms.json';
@@ -123,6 +124,7 @@ const STILLS = {
   ...WARD_ROOM_STILLS,
   ...WARD_PARTC_STILLS,
   ...BASEMENT_STILLS,
+  ...LOCKER_STILLS,
   // Owner requests (wing 1): the washroom and linen cupboard furnished, and the
   // quiet room marked by the child kept in it. Real level, flashlight on.
   room_washroom: { level: orphanageWing, setup: ({ world }) => aim(world.camera, [11.9, 1.6, 17.4], 129, -10) },

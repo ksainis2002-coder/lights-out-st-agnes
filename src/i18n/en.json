@@ -859,5 +859,7 @@
   "input.holdDrag": "HOLD + DRAG",
   "prompt.openSlowly": "Open slowly",
   "caption.doorBangs": "(the door bangs)",
-  "tutorial.slowDoor": "Hold the mouse button and drag to open a door slowly."
+  "tutorial.slowDoor": "Hold the mouse button and drag to open a door slowly.",
+  "prompt.hideLocker": "Hide in the locker",
+  "msg.lockerFirst": "He walks past what he cannot hear."
 }

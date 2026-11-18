@@ -56,6 +56,13 @@ class Level:
             p.update(extra)
         self.props.append(p)
 
+    def lockers(self, room, x, z, count, rotation):
+        """Staff lockers in a row along a wall, each one to hide in (player/hide.js; approved still locker)."""
+        for i in range(count):
+            # An id keeps it out of the merged furniture: hidden inside it, its model is put away.
+            self.prop(room, 'staffLocker', x, z + i * 0.42, rotation, extra={"id": f"locker_{room.id}_{i}", "use": "hide",
+                      "prompt": "prompt.hideLocker", "useHeight": 1.3, "useRadius": 0.4})
+
     def bulb(self, room, x, z, ceiling, intensity=1.2, distance=6, lit=True):
         """A bare bulb on its flex, and its light (dim and warm: the basement's only light)."""
         self.prop(room, 'hangingBulb', x, z, ceiling=ceiling, lit=lit)
@@ -127,6 +134,7 @@ def basement():
     L.prop(laundry, 'table', 4.0, 3.0)
     L.prop(laundry, 'chair', 4.0, 3.8, 180)
     L.throwable(laundry, 'laundry_bottle', 'bottle', 1.6, 3.6)
+    L.lockers(laundry, 5.75, 2.4, 2, -90)  # the staff room's lockers, along its east wall
     L.bulb(laundry, 3.0, 2.0, 2.8, intensity=0.8, distance=5)
 
     # The passage to the Founder's door, and someone humming behind it.
@@ -157,6 +165,9 @@ def basement():
     L.prop(morgue, 'morgueDrawers', 2.6, 0, extra={"id": "morgue_drawers"}, cards=cards)
     L.prop(morgue, 'fluorescent', 2.6, 2.4, height=2.9)
     L.prop(morgue, 'puddle', 4.0, 3.2, width=1.0, depth=0.8)
+    L.lockers(morgue, 6.75, 2.2, 3, -90)  # along its east wall, as in the approved still
+    # A bulb left burning over the drawers (approved still locker_inside: what you see him by from a locker).
+    L.bulb(morgue, 3.4, 1.9, 3.0, intensity=2.6, distance=8)
 
     # The theatre, shut until part C (Nora).
     L.bulb(theatre, 3.5, 3.5, 3.8, lit=False)

@@ -213,8 +213,9 @@ export function createGameAudio(game) {
   events.on('nun.snuff', ({ position }) => play('candle_snuff', { position: at(position, 2.4), volume: 0.9, refDistance: 4 }));
   events.on('nun.catch', ({ position }) => play('candle_snuff', { position: at(position, 1.6), volume: 1, rate: 0.8 }));
   events.on('callBoard.rang', ({ position }) => play('school_bell', { position: at(position, 2.1), volume: 0.45, rate: 1.6, refDistance: 3 })); // stand-in for call_bell
-  events.on('hide.entered', () => play('cloth_crouch', { volume: 0.8 }));
-  events.on('hide.left', () => play('cloth_crouch', { volume: 0.7 }));
+  // Under a bed, cloth; a locker's steel door (locker_close's stand-in on the way out).
+  events.on('hide.entered', (prop) => play(prop?.type === 'staffLocker' ? 'locker_open' : 'cloth_crouch', { volume: 0.8 }));
+  events.on('hide.left', (kind) => play(kind === 'locker' ? 'locker_open' : 'cloth_crouch', { volume: 0.6 }));
   events.on('watcher.introStarted', () => play('fluorescent_buzz', { volume: 0.5, rate: 0.8 }));
   // Maggie's chalk on a board and Classroom 1's desks dragged round. A taunt
   // (always a lie) starts with a screech of the chalk and a hint ends with the

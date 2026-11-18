@@ -10,6 +10,7 @@ import { osdText, wrapText, capitals, COLORS, UI_FONT } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { promptKey } from './promptKey.js';
 import { drawBreath } from './breathHud.js';
+import { drawLocker } from './lockerHud.js';
 import { drawIcon } from './icons.js';
 import { drawHeldNote } from './heldNote.js';
 import { drawBattery } from './battery.js';
@@ -128,6 +129,7 @@ export function drawHud(ctx, game) {
     game.subtitles.draw(ctx);
     return true;
   }
+  const locker = drawLocker(ctx, game, W, H); // first: the rest shows over the dark of the locker
   const held = drawHeldNote(ctx, game);
   const battery = drawBattery(ctx, game, W, H);
   const pulse = drawPulse(ctx, game, H);
@@ -137,5 +139,5 @@ export function drawHud(ctx, game) {
   const prompt = drawPrompt(ctx, game);
   const inventory = drawInventory(ctx, game);
   const message = drawMessage(ctx, game);
-  return prompt || inventory || message || subtitle || held || battery || pulse || camcorder || breath;
+  return prompt || inventory || message || subtitle || held || battery || pulse || camcorder || breath || locker;
 }

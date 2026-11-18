@@ -218,7 +218,23 @@ function looseStone(t) {
   return group(stone);
 }
 
+// A staff locker (proposal for part B's hiding: mockup stills locker,
+// locker_inside): tall, steel, painted a hospital green gone grey; three vent
+// slits across the top of its door you can see out through from inside.
+function staffLocker(t) {
+  const paint = { color: '#8a988a' };
+  const dark = { color: '#141614' };
+  const parts = [
+    box(t.sheet, [0.48, 1.86, 0.46], [0, 0, 0], paint), // the body
+    box(t.sheet, [0.44, 1.78, 0.02], [0, 0.04, 0.235], { color: '#98a698' }), // the door
+    box(t.iron, [0.03, 0.14, 0.03], [0.17, 0.95, 0.255], { color: '#9a9c94' }), // its handle
+    box(t.sheet, [0.12, 0.05, 0.004], [0, 1.35, 0.247], { color: '#c8c0a8' }), // a name card, blank
+  ];
+  for (let i = 0; i < 3; i++) parts.push(box(t.iron, [0.3, 0.018, 0.004], [0, 1.55 + i * 0.05, 0.247], dark)); // the slits
+  return group(...parts);
+}
+
 export const BASEMENT_PROPS = {
   boiler, pipeRun, valveWheel, floodWater, coalHeap, morgueDrawers, morgueTray, operatingTable, theatreLamp, instrumentTray,
-  instrumentCabinet, tinSoldier, medicineBottle, looseStone,
+  instrumentCabinet, tinSoldier, medicineBottle, looseStone, staffLocker,
 };

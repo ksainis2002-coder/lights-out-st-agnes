@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.103 — Hide in a staff locker (approved stills locker, locker_inside): three in the morgue, two in the laundry's staff room. Inside you look out of the door through its three slits, your light off; the first time, "He walks past what he cannot hear." A bulb now burns over the morgue's drawers to see by. The boiler, the coal heaps and the lockers can no longer be walked through.
 - 0.2.102 — In the basement the doors shout: clicked, a door swings at once and bangs, a noise that carries 10 m; hold the use button and drag to ease it open or shut, slowly and quietly (the prompt reads "HOLD + DRAG  Open slowly"; the first such door teaches it). Doors elsewhere work as before.
 - 0.2.101 — Throw (G, a new key; older settings get it by migration, or T if G was already taken): bottles and stones in the basement's coal store and laundry. G throws what you are holding (else the first one you carry); where it lands, glass breaks or a stone clatters, a noise that carries 14 m or 10 m. The first one you pick up teaches the key.
 - 0.2.100 — Hold your breath (Space): about 6 s on Normal (8 on Story, 5 on Hard), the ring from the approved still in the middle of the view, then "(you gasp for air)", loud enough to be heard. After a run you pant, close by, unless you hold it. Wing 4's systems now live in their own file.

@@ -358,5 +358,10 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   button and dragging eases it, at most 1.1 rad/s however hard you pull, silent, the view held still;
   let go and it settles the way it was going. The prompt: "HOLD + DRAG  Open slowly" (the owner's
   pick for prompts with an input of their own); the first one teaches it.
-- Next: lockers (a still first); then Dr. Venn; Sam and the boiler; the morgue.
+- **Lockers (0.2.103; stills locker and locker_inside approved 2026-11-18):** `player/hide.js` hides
+  you in a `staffLocker` as under a ward bed: standing inside (eye 1.62 m), facing out of its door,
+  0.3 rad to either side, light off; the locker's own model is put away while you are in it and
+  `ui/lockerHud.js` draws its door's three slits. Three in the morgue, two in the laundry's staff room;
+  a bulb burns over the morgue's drawers. The boiler, coal heaps and lockers now have footprints.
+- Next: Dr. Venn; Sam and the boiler; the morgue.
 

@@ -6,6 +6,9 @@ import { asMoved } from './moves.js';
 // Each gives { size: [w, d], offset: [x, z] } for the prop's options.
 const FOOTPRINTS = {
   bed: () => ({ size: [0.9, 1.9] }),
+  boiler: () => ({ size: [2.6, 1.7] }), // the basement (0.5)
+  coalHeap: () => ({ size: [1.6, 1.0] }),
+  staffLocker: () => ({ size: [0.48, 0.46] }),
   table: () => ({ size: [1.1, 0.7] }),
   cubbies: () => ({ size: [1.6, 0.35] }),
   cabinet: () => ({ size: [0.7, 0.35] }),
