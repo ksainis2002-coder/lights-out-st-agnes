@@ -75,11 +75,18 @@ export function doorInteractables(game) {
   });
 }
 
-// Restores doors from progress after a level loads.
+// Restores doors from progress after a level loads. A door with
+// "opensWith": "<flag>" is found standing open the first time after that
+// flag (the west wing's basement gate, once St. Agnes is whole); from then on
+// it stays as you leave it.
 export function applyDoorProgress(level, progress) {
   for (const door of level.doors) {
     if (progress.isUnlocked(door.id)) door.locked = null;
     if (progress.hasFlag(`revealed_${door.id}`)) door.revealed = true;
+    if (door.opensWith && progress.hasFlag(door.opensWith) && !progress.hasFlag(`swung_${door.id}`)) {
+      progress.setFlag(`swung_${door.id}`);
+      progress.setOpen(door.id, true);
+    }
     door.open = progress.isOpen(door.id);
     door.angle = door.open ? -Math.PI / 2 : 0;
   }

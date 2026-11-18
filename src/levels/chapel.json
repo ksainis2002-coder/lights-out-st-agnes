@@ -33,22 +33,22 @@
  "spawns": {
   "default": {
    "cell": [
-    1.5,
-    12.5
+    1.0,
+    12.0
    ],
    "yawDegrees": -20
   },
   "door": {
    "cell": [
-    1.5,
-    12.5
+    1.0,
+    12.0
    ],
    "yawDegrees": -20
   },
   "crypt": {
    "cell": [
-    6.6,
-    3.8
+    6.1,
+    3.3
    ],
    "yawDegrees": 95
   }

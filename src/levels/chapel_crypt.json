@@ -27,15 +27,15 @@
  "spawns": {
   "default": {
    "cell": [
-    2.0,
-    4.2
+    1.5,
+    3.7
    ],
    "yawDegrees": -30
   },
   "stairs": {
    "cell": [
-    2.0,
-    4.2
+    1.5,
+    3.7
    ],
    "yawDegrees": -30
   }

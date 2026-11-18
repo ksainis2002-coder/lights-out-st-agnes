@@ -832,5 +832,16 @@
   "clue.took_stone_heart": "Her heart was behind the children's names. It is warm, like something that was alive. A house needs a heart.",
   "item.stone_heart.name": "Stone heart",
   "item.stone_heart.desc": "A heart of grey stone, the size of a child's fist. It is warm.",
-  "item.stone_heart.short": "A stone heart."
+  "item.stone_heart.short": "A stone heart.",
+  "room.coal_store": "Basement — the coal store",
+  "room.boiler_room": "Basement — the boiler room",
+  "room.laundry": "Basement — the laundry chute",
+  "room.cold_corridor": "Basement — the cold corridor",
+  "room.morgue": "Basement — the morgue",
+  "room.theatre": "Basement — the theatre",
+  "room.founders_door": "Basement — a locked door",
+  "msg.basementGateOpen": "The gate stands open. Water is dripping somewhere below.",
+  "msg.foundersDoor": "Locked. No handle on this side. Someone on the other side is humming.",
+  "nora.basement": "If anyone can hear this: I'm in the basement. There's a man down here. He doesn't look at you. He listens. Don't run. Don't—",
+  "caption.radioDies": "(the radio hisses, then nothing)"
 }

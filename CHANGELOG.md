@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.99 — Wing 4, part B begins: the basement under the west wing (stairs foot, coal store, laundry, the Founder's locked door, the cold corridor, the flooded boiler room, the morgue, the theatre, shut for now). Once St. Agnes is whole the west wing's gate stands open; Nora's last call plays on a radio by the steps down. The sound list for wing 4 is ready for the owner. The chapel's spawn points now stand where they were meant to.
 - 0.2.98 — Use prompts show the key (CLICK) only on your first three prompts, while you learn it; after that only the action ("Look", "Go downstairs"). A prompt that takes a different input will keep its key.
 - 0.2.97 — Wing 4, part A: the chapel opens after the west wing. Give St. Agnes back her hand, palm, lamb and the stone heart from the crypt (five plaques pushed in the roll's order) with your eyes on her; whole, the bell tolls once, the rain stops for good and the gate under the west wing unlocks. All text in English and Greek.
 - 0.2.96 — Wing 4: every still approved (Nora last), and the wing's content sheet (all its text, English and Greek) drafted for the owner's yes. Nothing in the game changes.

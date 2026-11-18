@@ -1,7 +1,9 @@
 # 0.5 the chapel and the basement: design proposal
 
-**Status (2026-11-17): every wing 4 still and the content sheet (all of the wing's text, English and
-Greek) are approved; part A (the chapel and the crypt) is built (0.2.97); parts B and C are next.**
+**Status (2026-11-18): every wing 4 still and the content sheet (all of the wing's text, English and
+Greek) are approved; part A (the chapel and the crypt) is built (0.2.97); part B is being built (the
+basement level, 0.2.99); part C is next.** Sound list: the Claude Doc "Sound List for 0.5 (Chapel and
+Basement)", https://claude.ai/artifact/T81UhaxvC8c9CUrBiF8n7E (`docs/SOUNDS_0.5.md`).
 Content sheet: the Claude Doc "Lights Out at St. Agnes: wing 4 content sheet (0.5)",
 https://claude.ai/artifact/BTuaqxchpYDVYGNJHJWg4c. The brief wins on anything not listed. The
 owner's picks are written into this file as they are made.
@@ -327,4 +329,20 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   step away; coming up from the crypt you face her.
 - **Tests:** `tests/chapel.spec.js` (door, pieces, calm, steps, plaques right and wrong, reloads) and
   the bot route `tests/bot-routes/chapel_part_a.json` (the bot now sidesteps with its eyes on her).
+
+## Part B as built so far
+- **The prompt key (0.2.98, owner 2026-11-18: "no need for every text to say click"):** use prompts
+  show the key only on your first three uses; a prompt with an input of its own keeps its key.
+- **The basement level (0.2.99):** `tools/levels/basement.py` writes `basement.json` as the wing map
+  has it (the stairs foot, the coal store, the laundry, the passage to the Founder's door along the
+  top; the cold corridor; the boiler room, the morgue and the theatre along the bottom), furnished from
+  the approved stills' props, and edits the west wing: steps down behind the gate, Nora's last radio
+  on the landing (her line, then "(the radio hisses, then nothing)"), a spawn for coming back up, and
+  the gate standing open once St. Agnes is whole (a door's `opensWith`, once; after that it stays as
+  you leave it), with "The gate stands open…" the first time you come into the west wing after it.
+  The Founder's door is locked with its line and a quiet hum behind it (0.6); the theatre stays shut
+  until part C. Spawn cells are cell indices (you stand at their centre): the chapel, crypt and
+  grounds spawns from 0.2.97 now stand where they were meant to.
+- Next: holding your breath, throwing, lockers and slow doors; then Dr. Venn; Sam and the boiler;
+  the morgue.
 

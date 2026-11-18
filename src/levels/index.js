@@ -9,6 +9,7 @@ import wardsGround from './wards_ground.json';
 import wardsUpper from './wards_upper.json';
 import chapel from './chapel.json';
 import chapelCrypt from './chapel_crypt.json';
+import basement from './basement.json';
 
 export const LEVELS = {
   test_corridor: testCorridor,
@@ -21,6 +22,7 @@ export const LEVELS = {
   wards_upper: wardsUpper,
   chapel,
   chapel_crypt: chapelCrypt,
+  basement,
 };
 
 export const START_LEVEL = 'patient_room';

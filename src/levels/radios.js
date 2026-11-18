@@ -2,7 +2,8 @@
 // the building's old valve radios pick her up. Each radio plays once, the
 // first time you come near it: static, then her lines as subtitles, one after
 // another. She never answers. Level data:
-//   "radios": [{ "id": "radio_day", "at": [c, r], "hear": 4, "lines": ["nora.dayRoom"] }]
+//   "radios": [{ "id": "radio_day", "at": [c, r], "hear": 4, "lines": ["nora.dayRoom"],
+//                "after": "<caption key>" (optional: a sound line once she stops: the basement stairs) }]
 // The flag heard_<id> keeps a radio from playing twice; her first line gives
 // her name (name_nora), so later ones are labelled with it.
 import * as THREE from 'three';
@@ -24,6 +25,7 @@ export function createRadios(game) {
   function nextLine() {
     playing.line += 1;
     if (playing.line >= playing.radio.lines.length) {
+      if (playing.radio.after) game.subtitles.show(playing.radio.after, { speaker: null, whisper: false, seconds: 3.5 });
       playing = null;
       return;
     }

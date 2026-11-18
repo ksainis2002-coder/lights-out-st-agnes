@@ -313,5 +313,8 @@ table, becomes the building = the coal store; rewind lines by Sam through the wa
 in the 12 MAY drawer). The chapel and the crypt are built: St. Agnes rebuilt with your eyes on her,
 the crypt plaques and her stone heart, the dead calm, `basement_open`. Details in "Part A as built"
 in `docs/DESIGN_0.5.md`. Next: part B (the basement, Dr. Venn, Sam, the boiler, the morgue).
+**0.5 part B started (0.2.98–0.2.99):** the sound list for wing 4 (34 sounds, a Claude Doc for the
+owner, `docs/SOUNDS_0.5.md`); the use prompt shows its key only while you learn it; the basement level
+and its link to the west wing. Progress in "Part B as built so far" in `docs/DESIGN_0.5.md`.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

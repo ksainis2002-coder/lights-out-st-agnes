@@ -61,6 +61,13 @@
     6.0
    ],
    "yawDegrees": 180
+  },
+  "basement": {
+   "cell": [
+    7.0,
+    11.7
+   ],
+   "yawDegrees": 0
   }
  },
  "rooms": [
@@ -238,6 +245,12 @@
      "name": "amb_building_hum",
      "volume": 0.3
     }
+   ],
+   "well": [
+    6,
+    13,
+    8,
+    16
    ]
   },
   {
@@ -349,7 +362,8 @@
    ],
    "look": "gate",
    "requires": "basement_open",
-   "lockedMessage": "msg.basementGateLocked"
+   "lockedMessage": "msg.basementGateLocked",
+   "opensWith": "basement_open"
   },
   {
    "id": "ward_day",
@@ -2238,6 +2252,43 @@
    "prompt": "prompt.stairsUp",
    "useHeight": 0.9,
    "useRadius": 0.8
+  },
+  {
+   "type": "stairHead",
+   "at": [
+    7.5,
+    13.0
+   ],
+   "rotation": 180,
+   "id": "basement_steps",
+   "options": {
+    "width": 2.6,
+    "steps": 8
+   },
+   "use": "travel",
+   "to": {
+    "level": "basement",
+    "spawn": "stairs"
+   },
+   "prompt": "prompt.stairsDown",
+   "useAt": [
+    7.5,
+    12.6
+   ],
+   "useHeight": 0.8,
+   "useRadius": 0.9
+  },
+  {
+   "type": "radioSet",
+   "at": [
+    6.35,
+    12.0
+   ],
+   "rotation": 90,
+   "id": "radio_basement",
+   "options": {
+    "lit": true
+   }
   }
  ],
  "lights": [
@@ -2643,6 +2694,18 @@
    "lines": [
     "nora.dayRoom"
    ]
+  },
+  {
+   "id": "radio_basement",
+   "at": [
+    6.35,
+    12.0
+   ],
+   "hear": 2.4,
+   "lines": [
+    "nora.basement"
+   ],
+   "after": "caption.radioDies"
   }
  ],
  "weather": {
@@ -2955,5 +3018,13 @@
     "edith.box.take"
    ]
   }
- }
+ },
+ "arrivals": [
+  {
+   "after": {
+    "flag": "basement_open"
+   },
+   "message": "msg.basementGateOpen"
+  }
+ ]
 }

@@ -116,8 +116,9 @@ def chapel():
         "ambient": {"color": "#8a98c8", "intensity": 0.9},
         "legend": {".": "floor", "#": "wallStone"},
         "map": carve(9, 15, [nave], doors),
-        "spawns": {"default": {"cell": [1.5, 12.5], "yawDegrees": -20}, "door": {"cell": [1.5, 12.5], "yawDegrees": -20},
-                   "crypt": {"cell": [6.6, 3.8], "yawDegrees": 95}},  # up from the crypt, facing her
+        # Spawn cells are cell indices: you stand at their centre (+0.5).
+        "spawns": {"default": {"cell": [1.0, 12.0], "yawDegrees": -20}, "door": {"cell": [1.0, 12.0], "yawDegrees": -20},
+                   "crypt": {"cell": [6.1, 3.3], "yawDegrees": 95}},  # up from the crypt, facing her
         "rooms": [nave.data()], "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "pickups": [], "documents": [],
         "arrivals": [{"after": WINGS_DONE, "message": "msg.agnesFirstLook"}],
@@ -159,7 +160,7 @@ def crypt():
         "ambient": {"color": "#6a7090", "intensity": 0.7},
         "legend": {".": "floor", "#": "wallStone"},
         "map": carve(10, 9, [room, stairs], []),
-        "spawns": {"default": {"cell": [2.0, 4.2], "yawDegrees": -30}, "stairs": {"cell": [2.0, 4.2], "yawDegrees": -30}},
+        "spawns": {"default": {"cell": [1.5, 3.7], "yawDegrees": -30}, "stairs": {"cell": [1.5, 3.7], "yawDegrees": -30}},
         "rooms": [room.data(), stairs.data()], "doors": [], "triggers": [], "props": L.props, "lights": L.lights,
         "pickups": L.pickups, "documents": [],
         "puzzles": {"plaques": {"plaques": ["plaque_agnes", "plaque_tommy", "plaque_maggie", "plaque_sam", "plaque_edith"],
@@ -186,7 +187,7 @@ def chapel_door():
         if p['type'] == 'rain':
             p['until'] = {"flag": CALM}
     d['props'] = props
-    d['spawns']['chapel_door'] = {"cell": [6.5, 19.6], "yawDegrees": 0}
+    d['spawns']['chapel_door'] = {"cell": [6.0, 19.1], "yawDegrees": 0}  # you stand at the cell's centre: (6.5, 19.6)
     for still in d['watcher']['still']:
         if still.get('afterTaken') == 'agnes_lamb':
             still['until'] = WINGS_DONE['flag']
