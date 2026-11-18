@@ -197,6 +197,16 @@ export function createGameAudio(game) {
   events.on('surgeon.cry', ({ position }) => play('wake_gasp', { position: at(position, 1.7), volume: 1, rate: 0.7 }));
   events.on('surgeon.fakeClink', () => play('chain_rattle', { volume: 0.25, rate: 1.4 }));
   events.on('surgeon.catch', () => play('mus_stinger_low', { volume: 0.9 }));
+  // Sam's knocks on the pipes (ghosts/sam.js; pipe_knock's stand-in): once far off, twice close.
+  events.on('sam.knock', ({ position, times }) => {
+    for (let i = 0; i < times; i++) play('lock_wheel_click', { position, volume: 1, rate: 0.55, refDistance: 6, delay: i * 0.4 });
+  });
+  // The boiler room's valves (puzzles/valves.js): a wheel turns; the water bubbles back; the flood
+  // drains; the boiler roars (valve_wheel, water_bubble, drain_gurgle, boiler_roar's stand-ins).
+  events.on('valves.turn', ({ position }) => play('lock_wheel_click', { position, volume: 0.8, rate: 0.8 }));
+  events.on('valves.wrong', ({ position }) => play('amb_pipes', { position, volume: 0.9, rate: 1.3 }));
+  events.on('valves.draining', ({ position }) => play('amb_pipes', { position, volume: 1, rate: 0.7 }));
+  events.on('valves.roar', ({ position }) => play('thunder_far', { position, volume: 1, rate: 1.3, refDistance: 4 }));
   // A door that shouts (levels/doorDrag.js): banged, or eased so softly only you hear it.
   events.on('door.banged', (door) => play('door_bang', { position: doorPosition(door), volume: 0.9, refDistance: 4 }));
   events.on('door.eased', (door) => play('door_open_slow', { position: doorPosition(door), volume: 0.2, refDistance: 1.5 }));

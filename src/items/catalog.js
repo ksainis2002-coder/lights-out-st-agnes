@@ -36,6 +36,7 @@ export const ITEMS = {
   // Things to throw (G; player/throwing.js): where one lands, a noise carries this far (metres).
   bottle: { icon: 'bottle', throwable: { radius: 14, model: 'medicineBottle' } },
   stone: { icon: 'pebble', throwable: { radius: 10, model: 'looseStone' } },
+  tin_soldier: { icon: 'soldier' }, // Sam's toy, under the boiler room's flood (ghosts/sam.js)
   music_box: { icon: 'musicBox' }, // Edith's, mended: wing 3's toy (ghosts/edithBox.js)
 };
 

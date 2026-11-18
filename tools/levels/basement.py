@@ -37,7 +37,7 @@ class Room:
 
 class Level:
     def __init__(self):
-        self.props, self.lights, self.emitters, self.pickups = [], [], [], []
+        self.props, self.lights, self.emitters, self.pickups, self.documents = [], [], [], [], []
 
     def throwable(self, room, pid, item, x, z):
         """A bottle or a stone lying there to be taken and thrown (player/throwing.js)."""
@@ -151,13 +151,19 @@ def basement():
     L.drip(corridor, 12.5, 0.6)
     L.drip(corridor, 4.5, 1.4, 0.2)
 
-    # The boiler room under water to the knee (approved still "sam"); the valves on the west wall.
-    L.prop(boiler, 'boiler', 4.4, 1.4)
+    # The boiler room under water to the knee (approved still "sam"); the valves on the west wall,
+    # turned in the order the stoker's log gives (puzzles/valves.js); Sam's soldier under the water.
+    L.prop(boiler, 'boiler', 4.4, 1.4, extra={"id": "boiler"})
     L.prop(boiler, 'floodWater', 4.0, 3.5, extra={"id": "boiler_flood"}, width=9.6, depth=8.4, height=0.45)
     for z, colour, wid in ((2.0, '#8a2a22', 'valve_red'), (3.0, '#2a5a8a', 'valve_blue'), (4.0, '#8a7a2a', 'valve_brass')):
         L.prop(boiler, 'valveWheel', 0, z, 90, extra={"id": wid}, color=colour)
     L.prop(boiler, 'pipeRun', 4.0, 6.6, length=9.6, height=2.9)
     L.bulb(boiler, 5.5, 2.0, 3.4, intensity=1.6, distance=7)
+    L.pickups.append({"id": "sam_soldier", "item": "tin_soldier", "at": boiler.at(2.2, 4.6), "y": 0.02, "model": "tinSoldier",
+                      "appearsWith": "puzzle_valves", "radius": 0.25})
+    # The stoker's log on a little table by the east wall, just inside the door.
+    L.prop(boiler, 'sideTable', 7.5, 1.6)
+    L.documents.append({"id": "boiler_log", "at": boiler.at(7.5, 1.6), "y": 0.6, "rotation": 160, "model": "ledger", "height": 0.05})
     L.drip(boiler, 2.0, 2.0, 0.3)
 
     # The morgue: the steel drawers typed with dates (approved still "morgue"), a dead tube light.
@@ -183,7 +189,12 @@ def basement():
         # Spawn cells are cell indices: you stand at their centre (+0.5), here (2.5, 4.8).
         "spawns": {"default": {"cell": [2.0, 4.3], "yawDegrees": 180}, "stairs": {"cell": [2.0, 4.3], "yawDegrees": 180}},
         "rooms": [room.data() for room in rooms], "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
-        "emitters": L.emitters, "pickups": L.pickups, "documents": [],
+        "emitters": L.emitters, "pickups": L.pickups, "documents": L.documents,
+        "puzzles": {"valves": {"wheels": ["valve_red", "valve_blue", "valve_brass"], "flood": "boiler_flood", "boiler": "boiler"}},
+        # Sam (ghosts/sam.js): in the flood where the still has him; once met he looks to the corridor.
+        # His far knocks, and your taps for him, are at the pipes along the corridor and in the boiler room.
+        "sam": {"at": boiler.at(2.9, 3.4), "rotation": 15, "room": "boiler_room", "lookTo": [7.5, 9.0],
+                "pipes": [[*corridor.at(x, 0.35), 2.25] for x in (2.0, 8.5, 14.5, 20.5)] + [[*boiler.at(4.0, 6.6), 2.9]]},
         # Dr. Venn (ai/surgeon.js): his first crossing, ahead of you at the stairs foot (he cannot
         # catch you then), and his round through every room but the stairs foot and the theatre.
         "surgeon": {

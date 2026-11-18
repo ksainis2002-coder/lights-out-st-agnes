@@ -49,16 +49,18 @@ function pipeRun(t, { length = 4, height = 2.4, radius = 0.07 } = {}) {
   return group(...parts);
 }
 
-// A wheel valve on a stub of pipe, at chest height, facing +z.
+// A wheel valve on a stub of pipe, at chest height, facing +z. The wheel and
+// its spokes turn together on the stub ("spin": puzzles/valves.js turns it).
 function valveWheel(t, { color = '#8a2a22' } = {}) {
   const wheel = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.022, 5, 12), materialFor(t.iron, { color }));
-  wheel.position.set(0, 1.3, 0.2);
-  return group(
-    cylinder(t, 0.05, 0.2, [0, 1.3, 0.1], RUST, { axis: 'z', segments: 8 }),
+  const spin = group(
     wheel,
-    box(t.iron, [0.3, 0.02, 0.02], [0, 1.29, 0.2], { color }),
-    box(t.iron, [0.02, 0.3, 0.02], [0, 1.15, 0.2], { color }),
+    box(t.iron, [0.3, 0.02, 0.02], [0, -0.01, 0], { color }),
+    box(t.iron, [0.02, 0.3, 0.02], [0, -0.15, 0], { color }),
   );
+  spin.name = 'spin';
+  spin.position.set(0, 1.3, 0.2);
+  return group(cylinder(t, 0.05, 0.2, [0, 1.3, 0.1], RUST, { axis: 'z', segments: 8 }), spin);
 }
 
 // Standing water: dark, a little see-through, "height" deep.

@@ -521,7 +521,8 @@
    "at": [
     5.4,
     11.4
-   ]
+   ],
+   "id": "boiler"
   },
   {
    "type": "floodWater",
@@ -593,6 +594,13 @@
     "ceiling": 3.4,
     "lit": true
    }
+  },
+  {
+   "type": "sideTable",
+   "at": [
+    8.5,
+    11.6
+   ]
   },
   {
    "type": "morgueDrawers",
@@ -882,9 +890,83 @@
    ],
    "model": "medicineBottle",
    "radius": 0.25
+  },
+  {
+   "id": "sam_soldier",
+   "item": "tin_soldier",
+   "at": [
+    3.2,
+    14.6
+   ],
+   "y": 0.02,
+   "model": "tinSoldier",
+   "appearsWith": "puzzle_valves",
+   "radius": 0.25
   }
  ],
- "documents": [],
+ "documents": [
+  {
+   "id": "boiler_log",
+   "at": [
+    8.5,
+    11.6
+   ],
+   "y": 0.6,
+   "rotation": 160,
+   "model": "ledger",
+   "height": 0.05
+  }
+ ],
+ "puzzles": {
+  "valves": {
+   "wheels": [
+    "valve_red",
+    "valve_blue",
+    "valve_brass"
+   ],
+   "flood": "boiler_flood",
+   "boiler": "boiler"
+  }
+ },
+ "sam": {
+  "at": [
+   3.9,
+   13.4
+  ],
+  "rotation": 15,
+  "room": "boiler_room",
+  "lookTo": [
+   7.5,
+   9.0
+  ],
+  "pipes": [
+   [
+    3.0,
+    7.35,
+    2.25
+   ],
+   [
+    9.5,
+    7.35,
+    2.25
+   ],
+   [
+    15.5,
+    7.35,
+    2.25
+   ],
+   [
+    21.5,
+    7.35,
+    2.25
+   ],
+   [
+    5.0,
+    16.6,
+    2.9
+   ]
+  ]
+ },
  "surgeon": {
   "territory": [
    "cold_corridor",

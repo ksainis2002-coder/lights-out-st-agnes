@@ -379,5 +379,14 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   "through the water", chosen by what he heard (a door, your breath; else your feet, throwing, the
   flash in turn). Low sanity: clinking behind you with no place in the room, never a threat. The
   first time near him teaches holding your breath. Stand-in sounds until wing 4's files come.
-- Next: Sam and the boiler; the morgue; a bot route through part B.
+- **Sam and the boiler room (0.2.105):** `ghosts/sam.js`: met within 4 m with him in view (flag
+  `sam_met`): two knocks, the journal; then every 14–20 s he knocks where Dr. Venn is (twice if he is
+  within 10 m of you, once if not), sound and caption. `puzzles/valves.js`: the wheels (they spin on
+  their stub now) in the stoker's order; wrong: "(water bubbles back up…)", all back; right: the flood
+  sinks over 5 s, "(the flood drains away…)", the boiler is lit, "(the boiler roars…)", checkpoint, and
+  the soldier's pickup appears (flag `puzzle_valves`). Given the soldier (flag `sam_soldier`), three taps
+  at the pipes ("Tap the pipe for Sam ({n} left)"): he knocks at the pipe furthest from you, a noise of
+  40 m that Dr. Venn goes to. The stoker's log on a table inside the door (its journal line).
+- Next: the morgue (drawers, the set piece, page four), Dr. Venn's theatre notes, a bot route through
+  part B.
 
