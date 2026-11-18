@@ -6,7 +6,7 @@
 //      Your flashlight goes off with it. Writing that only the night view
 //      shows appears (props with userData.setShown).
 //   Right mouse button  the flash, while it is raised: a burst of white that
-//      stuns Sister M. for 5 s if she is in front of you within 9 m. It then
+//      stuns Sister M. (or Dr. Venn) for 5 s if in front of you within 9 m. It then
 //      charges for 20 s.
 // Its own battery (progress value camcorder_battery, 0–100; half gone when
 // found) runs down while it is raised, faster in the night view; flat, it
@@ -67,15 +67,20 @@ export function createCamcorder(game) {
     flashT = 0;
     setBattery(battery() - FLASH_COST);
     game.events.emit('camcorder.flash');
-    const her = game.nun.position();
-    if (!her) return;
+    for (const hunter of game.enemies ?? []) if (hunter.stun) stunIfBefore(hunter); // Sister M., Dr. Venn
+  }
+
+  // A hunter in front of you, within reach of the flash, nothing solid between: stunned.
+  function stunIfBefore(hunter) {
+    const at = hunter.position();
+    if (!at) return;
     const p = game.player.state.position;
     const forward = new THREE.Vector3();
     game.world.camera.getWorldDirection(forward);
-    const to = new THREE.Vector3(her.x - p.x, 0, her.z - p.z);
+    const to = new THREE.Vector3(at.x - p.x, 0, at.z - p.z);
     const distance = to.length();
     const facing = distance < 0.01 || to.normalize().dot(forward.setY(0).normalize()) > 0.35;
-    if (distance <= RANGE && facing && clearLine(game.world.level, p, her)) game.nun.stun(STUN);
+    if (distance <= RANGE && facing && clearLine(game.world.level, p, at)) hunter.stun(STUN);
   }
 
   // Writing only the night view shows (props/wardUpper.js: nightWriting).

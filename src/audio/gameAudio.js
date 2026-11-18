@@ -187,6 +187,16 @@ export function createGameAudio(game) {
   // Your breath (player/breath.js): drawn in and held; a gasp when you held it too long (gasp_air's stand-in).
   events.on('breath.held', () => play('breath_hold', { volume: 0.35 }));
   events.on('breath.gasp', () => play('wake_gasp', { volume: 0.6 }));
+  // Dr. Venn (ai/surgeon.js), with stand-ins until wing 4's files come (docs/SOUNDS_0.5.md): his tools
+  // clinking (venn_tools), his quick steps (venn_rush), his wet breath, his mutter, his cry at the flash.
+  // The clinking that is not him has no place in the room: the fake's tell.
+  events.on('surgeon.clink', ({ position, fast }) => play('chain_rattle', { position: at(position, 1.0), volume: fast ? 0.45 : 0.3, refDistance: 2, rate: 1.4 }));
+  events.on('surgeon.rush', ({ position }) => play('step_stone', { position: at(position, 0.1), volume: 1, rate: 1.4 }));
+  events.on('surgeon.breath', ({ position }) => play('stone_near_breath', { position: at(position, 1.7), volume: 0.6, rate: 0.75 }));
+  events.on('surgeon.mutter', ({ position }) => play('whisper', { position: at(position, 1.7), volume: 0.6, rate: 0.7 }));
+  events.on('surgeon.cry', ({ position }) => play('wake_gasp', { position: at(position, 1.7), volume: 1, rate: 0.7 }));
+  events.on('surgeon.fakeClink', () => play('chain_rattle', { volume: 0.25, rate: 1.4 }));
+  events.on('surgeon.catch', () => play('mus_stinger_low', { volume: 0.9 }));
   // A door that shouts (levels/doorDrag.js): banged, or eased so softly only you hear it.
   events.on('door.banged', (door) => play('door_bang', { position: doorPosition(door), volume: 0.9, refDistance: 4 }));
   events.on('door.eased', (door) => play('door_open_slow', { position: doorPosition(door), volume: 0.2, refDistance: 1.5 }));

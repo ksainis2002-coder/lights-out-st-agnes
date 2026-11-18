@@ -51,13 +51,13 @@ export function createCollapse(game) {
   let rewinds = 0;
 
   // options: { grab: true } for the watcher's catch ({ grab: 'nunCatch' }: Sister M.'s); { whisper, speaker } for
-  // the line over the rewind (else the wing's blackout line).
+  // the line over the rewind (else the wing's blackout line); "spoken": not whispered (Sam, through the water).
   function start(why, options = {}) {
     if (phase) return;
     t = 0;
     cause = why;
     const wing = WING_WHISPER[game.world.level.wing];
-    whisper = options.whisper ? { key: options.whisper, speaker: options.speaker ?? null } : wing ?? null;
+    whisper = options.whisper ? { key: options.whisper, speaker: options.speaker ?? null, spoken: Boolean(options.spoken) } : wing ?? null;
     counterFrom = game.session.playTime;
     game.inventory.setOpen(false);
     if (options.grab && !game.settings.get('comfortMode')) {
@@ -127,7 +127,7 @@ export function createCollapse(game) {
     const fx = game.pipeline.fx;
     Object.assign(fx, { rewind: 0, eyelid: 0, aberration: 0, blur: 0, vignette: 0 });
     const line = whisper ?? { key: WHISPER[cause] ?? WHISPER.default, speaker: 'tommy' };
-    game.subtitles.show(line.key, { speaker: line.speaker, seconds: 5 });
+    game.subtitles.show(line.key, { speaker: line.speaker, whisper: !line.spoken, seconds: 5 }); // Sam's is spoken, through the water
     game.events.emit('collapse.ended', cause);
     phase = null;
   }

@@ -363,5 +363,21 @@ item or text exists yet; the mockup captions are mockup copy (game text will go 
   0.3 rad to either side, light off; the locker's own model is put away while you are in it and
   `ui/lockerHud.js` draws its door's three slits. Three in the morgue, two in the laundry's staff room;
   a bulb burns over the morgue's drawers. The boiler, coal heaps and lockers now have footprints.
-- Next: Dr. Venn; Sam and the boiler; the morgue.
+- **Dr. Venn (0.2.104):** `ai/surgeon.js` (his round and catch), `ai/hearing.js` (what he hears),
+  `ai/surgeonVoice.js` (his sounds and subtitles), `ai/surgeonDebug.js`. Hearing: your steps (the
+  controller's noise: crouch 1.5 m, walk 4, run 10), your breath (panting 3 m unless held; your steps
+  are silent in a locker or under a bed), and `noise` events (door 10, bottle 14, stone 10, gasp 9); a
+  wall between halves a sound, but a doorway's jambs do not stop what is made or heard in it; Story
+  0.8, Hard 1.2. Round at 1.1 m/s through the corridor, coal store, laundry, the Founder's passage,
+  boiler room and morgue (the stairs foot and the theatre are never on it); heard something: the
+  clinking stops, he listens 2 s (comfort 3.5 s), comes at 2.5 m/s (comfort ×0.6), listens 3.5 s where
+  it was, then goes back to his round ("(the clinking moves away)"). A catch only once he has come and
+  hears you within 1 m, or if you walk into him (0.55 m; never while you hide). His first crossing,
+  past the stairs foot, cannot catch (flag `venn_met`, then a checkpoint). The flash stuns him 5 s
+  (the camcorder now stuns whichever hunter is before it). The catch: his figure framed and lit as the
+  approved close-up (surgeon_face), your light knocked off, then the rewind with Sam's line, spoken
+  "through the water", chosen by what he heard (a door, your breath; else your feet, throwing, the
+  flash in turn). Low sanity: clinking behind you with no place in the room, never a threat. The
+  first time near him teaches holding your breath. Stand-in sounds until wing 4's files come.
+- Next: Sam and the boiler; the morgue; a bot route through part B.
 

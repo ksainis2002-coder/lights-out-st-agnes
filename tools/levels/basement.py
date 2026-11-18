@@ -184,6 +184,14 @@ def basement():
         "spawns": {"default": {"cell": [2.0, 4.3], "yawDegrees": 180}, "stairs": {"cell": [2.0, 4.3], "yawDegrees": 180}},
         "rooms": [room.data() for room in rooms], "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "emitters": L.emitters, "pickups": L.pickups, "documents": [],
+        # Dr. Venn (ai/surgeon.js): his first crossing, ahead of you at the stairs foot (he cannot
+        # catch you then), and his round through every room but the stairs foot and the theatre.
+        "surgeon": {
+            "territory": ["cold_corridor", "coal_store", "laundry", "founders_door", "boiler_room", "morgue"],
+            "intro": {"from": corridor.at(10.5, 1.2), "to": corridor.at(0.6, 1.2)},
+            "round": [corridor.at(1.0, 1.0), boiler.at(3.5, 3.0), corridor.at(11.0, 1.0), morgue.at(3.0, 2.5),
+                      corridor.at(19.5, 1.0), founders.at(1.5, 1.5), laundry.at(3.0, 2.5), coal.at(3.0, 2.5)],
+        },
     }
 
 

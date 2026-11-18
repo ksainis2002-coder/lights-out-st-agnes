@@ -123,7 +123,7 @@ function createGame() {
   game.edith = createEdith(game); // Edith, who hears her coming
   game.wardsEnd = createWardsEnd(game); // her music box mended, the way out, its tune
   game.camcorder = createCamcorder(game); // Nora's: night view and flash
-  game.enemies = [game.watcher, game.nun]; // the debug overlay shows their senses and state
+  game.enemies = [game.watcher, game.nun, game.surgeon]; // the debug overlay shows their senses and state
   game.moves = createMoves(game); // props that stand another way once a flag is set
   game.chalk = createChalk(game); // Maggie's chalk on the corridor boards
   game.tricks = createTricks(game); // Maggie's tricks on rooms (Classroom 1's desks)

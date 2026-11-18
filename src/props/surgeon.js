@@ -150,4 +150,20 @@ function surgeon(t, { listening = false, facing = 0 } = {}) {
   return new THREE.Group().add(...coat(t), ...legs(t), ...belt(t), ...knifeArm(t), ...reachingArm(t), neck, head);
 }
 
-export const SURGEON_FIGURES = { surgeon };
+// His catch (ai/surgeon.js): over you, his face in yours, framed and lit as
+// the approved close-up (surgeon_face: 0.9 m off, looking up into the
+// bandage, lit from above and aside), for the moment before the dark.
+function surgeonCatch(t) {
+  const him = surgeon(t);
+  const above = new THREE.PointLight('#d8c8a0', 2.2, 4, 1.3);
+  above.position.set(-0.24, 2.5, -0.5);
+  const aside = new THREE.PointLight('#8a9ac8', 1.2, 4, 1.3);
+  aside.position.set(0.7, 1.4, 0.95);
+  const onBandage = new THREE.PointLight('#9aa8c8', 0.9, 2.4, 1.3);
+  onBandage.position.set(0, 2.0, 1.0);
+  const pose = new THREE.Group().add(him, above, aside, onBandage);
+  pose.userData.grab = { from: 0.9, pitch: 0.28, roll: -0.04 }; // how the collapse frames him (sanity/collapse.js)
+  return pose;
+}
+
+export const SURGEON_FIGURES = { surgeon, surgeonCatch };

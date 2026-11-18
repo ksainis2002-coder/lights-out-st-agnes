@@ -34,6 +34,7 @@ const LESSONS = {
   map: [{ key: 'tutorial.map', params: (k) => ({ key: keyName(k.map) }) }],
   throw: [{ key: 'tutorial.throw', params: (k) => ({ key: keyName(k.throw) }) }], // the first bottle or stone
   slowDoor: [{ key: 'tutorial.slowDoor' }], // the first door that shouts (the basement)
+  breath: [{ key: 'tutorial.breath', params: (k) => ({ key: keyName(k.holdBreath) }) }], // the first time near Dr. Venn
 };
 
 export function setupTutorial(game) {
