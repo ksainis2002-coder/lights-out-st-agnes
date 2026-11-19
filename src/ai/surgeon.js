@@ -44,7 +44,7 @@ export function createSurgeon(game) {
   let pose = null; // 'walk' | 'listen': which model stands there
   let obstacle = null;
   let pathing = null;
-  let mode = null; // null | 'intro' | 'round' | 'listening' | 'coming' | 'searching' | 'stunned'
+  let mode = null; // null | 'intro' | 'rising' | 'round' | 'listening' | 'coming' | 'searching' | 'stunned'
   let route = [];
   let target = null;
   let timer = 0;
@@ -107,15 +107,33 @@ export function createSurgeon(game) {
     return data().round.reduce((best, at, i) => (far(at) > far(data().round[best]) ? i : best), 0);
   }
 
+  // A level's plan for him: "requires" a flag (the west wing: only on the way out), and
+  // "rise": { "at", "seconds" }: he comes up the stairs after you, and is there that much later.
   function setup(next) {
     remove();
-    if (!next.surgeon) return;
-    const intro = !game.progress.hasFlag(MET) && next.surgeon.intro;
+    const plan = next.surgeon;
+    if (!plan || (plan.requires && !game.progress.hasFlag(plan.requires))) return;
+    const intro = !game.progress.hasFlag(MET) && plan.intro;
     stop = intro ? 0 : farStop();
-    place(intro ? intro.from : next.surgeon.round[stop]);
-    mode = intro ? 'intro' : 'round';
+    place(intro ? intro.from : plan.rise?.at ?? plan.round[stop]);
+    mode = intro ? 'intro' : plan.rise ? 'rising' : 'round';
     target = intro ? toWorld(intro.to) : null;
     introListening = false;
+    if (!plan.rise) return;
+    timer = plan.rise.seconds * (comfort() ? 1.6 : 1);
+    model.visible = false; // still on the stairs below you
+  }
+
+  // Coming up the stairs after you: unseen and deaf, his tools clinking below; then there, listening.
+  function rise(dt) {
+    timer -= dt;
+    voice.walking(dt, position);
+    if (timer > 0) return;
+    mode = 'searching';
+    timer = 0;
+    dress(true);
+    model.visible = true;
+    game.events.emit('surgeon.risen', { position: position.clone() });
   }
 
   function face(p) {
@@ -238,6 +256,7 @@ export function createSurgeon(game) {
 
   function update(dt) {
     hearing.update(dt);
+    if (model && mode === 'rising') return rise(dt);
     voice.update(dt, model ? position : null);
     if (!model || !data()) return;
     if (distanceTo(player()) < NEAR) game.events.emit('teach', 'breath');
@@ -301,11 +320,11 @@ export function createSurgeon(game) {
   return {
     update,
     ...debug,
-    state: () => ({ mode, x: position.x, z: position.z, active: Boolean(model), heardYou }),
+    state: () => ({ mode, x: position.x, z: position.z, active: Boolean(model), seen: Boolean(model?.visible), heardYou }),
     position: () => (model ? position.clone() : null),
     // The camcorder's flash (player/camcorder.js): he stands blinded and deaf for that long.
     stun(seconds) {
-      if (!model || mode === 'intro') return false;
+      if (!model || mode === 'intro' || mode === 'rising') return false;
       mode = 'stunned';
       timer = seconds;
       dress(false);

@@ -805,7 +805,7 @@
    "use": "travel",
    "to": {
     "level": "wards_ground",
-    "spawn": "basement"
+    "spawn": "theatre_stairs"
    },
    "prompt": "prompt.stairsUp",
    "useHeight": 0.9,

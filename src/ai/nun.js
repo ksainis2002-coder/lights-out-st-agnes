@@ -30,6 +30,7 @@ import { nunOpens, openDoorAhead, openNearest } from './nunDoors.js';
 import { nunDebug } from './nunDebug.js';
 
 export const WALKING = 'nun_walking';
+const WAY_UP = 'way_up'; // up the theatre's back stairs (levels/wayUp.js)
 export const FLOOR = 'nun_floor'; // progress value: the level she walks now (ai/nunFloors.js brings her after you)
 const SPEED = 1.5; // m/s on Normal: a little under your walk (1.7), far under your run (3.3)
 const DIFFICULTY = { story: 0.8, normal: 1, hard: 1.2 };
@@ -116,6 +117,7 @@ export function createNun(game) {
     remove();
     if (!level.nun || !game.progress.hasFlag(WALKING)) return;
     if (game.progress.getValue(FLOOR, 'wards_ground') !== level.id) return; // she is on the other floor
+    if (game.progress.hasFlag(WAY_UP)) return; // the way out of the basement: nothing hunts up here but him
     stop = hunt() ? 0 : farStop();
     place(hunt()?.from ?? round()[stop]); // on the way out she waits between you and the door
     mode = 'round';

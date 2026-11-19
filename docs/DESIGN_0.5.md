@@ -514,4 +514,16 @@ last change: the bed made, your wooden horse on the pillow).
   `props/noraPoses.js` (legs swing, the back knee bends and its heel lifts, her arms still round
   her). Her footfalls sound by the floor under her. The debug overlay shows how far behind she is and
   how loud. Tests: `tests/noraFollow.spec.js` (6).
-- Next: C3, the way out (the west stairs, Dr. Venn following, the dark wards, the courtyard).
+- **The way out (0.2.112)** (`levels/wayUp.js`). The theatre's back stairs arrive at the top of the
+  west wing's basement steps (spawn `theatre_stairs`); taking them sets `way_up` as you leave, so the
+  wards are ready: "(instruments clinking, on the stairs below you)", the journal ("The wards are dark
+  and empty…"), a checkpoint. The wards' lamps died for good on the west wing's own way out
+  (`lamps_dead`); Sister M. no longer walks them once `way_up` is set (`ai/nun.js`). Dr. Venn's plan
+  for the west wing (`wards_ground.json` "surgeon", written by `tools/levels/basement.py`) "requires"
+  `way_up` and has him "rise": unseen and deaf on the stairs below for 6 s (9.6 s in comfort mode),
+  his tools clinking from there, unable to catch you or be flashed; then he is at the top of the
+  stairs, listening, and hunts the dark wards by ear on a round down the corridor, through the day
+  room and the admissions room to the courtyard door. Out in the courtyard on the way out, the
+  arrival line "The front gate, or my room." (`tools/levels/finale.py` edits the grounds). Tests:
+  `tests/wayUp.spec.js` (4).
+- Next: C4, the endings.

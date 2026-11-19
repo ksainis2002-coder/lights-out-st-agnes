@@ -11,6 +11,7 @@ import { createSurgeon } from './ai/surgeon.js';
 import { createSam } from './ghosts/sam.js';
 import { createNoraTable } from './ai/noraTable.js';
 import { createNoraFollow } from './ai/noraFollow.js';
+import { createWayUp } from './levels/wayUp.js';
 
 export function createWingFour(game) {
   game.agnes = createAgnesPieces(game, game.watcher); // in the chapel: her pieces given back
@@ -21,6 +22,7 @@ export function createWingFour(game) {
   game.sam = createSam(game); // Sam in the boiler room: his knocks say where Dr. Venn is
   game.nora = createNoraTable(game); // Nora on his table (part C): undo her straps, or walk out without her
   game.noraFollow = createNoraFollow(game); // free, she follows you out, one pace louder than you
+  game.wayUp = createWayUp(game); // up the back stairs into the dark wards, Dr. Venn after you
 
   // Every frame of play, after the player has moved.
   function update(dt, input) {

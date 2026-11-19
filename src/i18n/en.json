@@ -952,5 +952,8 @@
   "clue.cabinet_lock": "Edith's tune has a note missing. The cabinet's lock has the same five pictures as the keys of the music box in the dorm.",
   "item.theatre_key.name": "Theatre key",
   "item.theatre_key.desc": "A steel key on a ring stamped WEST STAIRS.",
-  "item.theatre_key.short": "The theatre's key."
+  "item.theatre_key.short": "The theatre's key.",
+  "caption.vennOnStairs": "(instruments clinking, on the stairs below you)",
+  "clue.wards_dark": "The wards are dark and empty. Nothing hunts up here any more but the surgeon, coming up behind me.",
+  "msg.gateOrRoom": "The front gate, or my room."
 }

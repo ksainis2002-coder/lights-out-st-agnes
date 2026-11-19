@@ -68,6 +68,13 @@
     11.7
    ],
    "yawDegrees": 0
+  },
+  "theatre_stairs": {
+   "cell": [
+    7.0,
+    11.7
+   ],
+   "yawDegrees": 0
   }
  },
  "rooms": [
@@ -3026,5 +3033,69 @@
    },
    "message": "msg.basementGateOpen"
   }
- ]
+ ],
+ "surgeon": {
+  "requires": "way_up",
+  "territory": [
+   "basement_stairs",
+   "ward_corridor",
+   "ward_a",
+   "childrens_ward",
+   "baths",
+   "day_room",
+   "admissions",
+   "fuse_room",
+   "dispensary",
+   "nurses_station"
+  ],
+  "rise": {
+   "at": [
+    7.5,
+    13.9
+   ],
+   "seconds": 6
+  },
+  "round": [
+   [
+    7.5,
+    9.0
+   ],
+   [
+    16.5,
+    9.0
+   ],
+   [
+    16.5,
+    13.5
+   ],
+   [
+    23.5,
+    9.0
+   ],
+   [
+    30.5,
+    9.0
+   ],
+   [
+    31.0,
+    13.5
+   ],
+   [
+    37.5,
+    13.0
+   ],
+   [
+    30.5,
+    9.0
+   ],
+   [
+    13.5,
+    4.0
+   ],
+   [
+    3.5,
+    9.0
+   ]
+  ]
+ }
 }

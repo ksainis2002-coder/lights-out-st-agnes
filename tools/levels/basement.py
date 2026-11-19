@@ -210,7 +210,7 @@ def basement():
                       "model": "brassKey", "color": "#9aa0a4", "appearsWith": "puzzle_cabinet", "radius": 0.1})
     L.bulb(theatre, 3.5, 5.6, 3.8, lit=False)
     # The back stairs up to the west wing: the flight rises north from the back door.
-    L.prop(back_stairs, 'stairs', 1.0, 3.9, 0, extra={"use": "travel", "to": {"level": "wards_ground", "spawn": "basement"},
+    L.prop(back_stairs, 'stairs', 1.0, 3.9, 0, extra={"use": "travel", "to": {"level": "wards_ground", "spawn": "theatre_stairs"},
                                                      "prompt": "prompt.stairsUp", "useHeight": 0.9, "useRadius": 0.8}, steps=8, landing=0.6, width=1.5)
     L.bulb(back_stairs, 1.0, 1.6, 3.0, intensity=0.6, distance=4)
 
@@ -272,6 +272,18 @@ def west_wing_link():
     d['radios'] = [r for r in d['radios'] if r['id'] != 'radio_basement'] + [
         {"id": "radio_basement", "at": [6.35, 12.0], "hear": 2.4, "lines": ["nora.basement"], "after": "caption.radioDies"}]
     d['spawns']['basement'] = {"cell": [7.0, 11.7], "yawDegrees": 0}  # you stand at the cell's centre: (7.5, 12.2)
+    # Up the theatre's back stairs, the way out (levels/wayUp.js): the same top of the steps.
+    d['spawns']['theatre_stairs'] = {"cell": [7.0, 11.7], "yawDegrees": 0}
+    # Dr. Venn comes up the stairs after you (ai/surgeon.js "rise"), only on the way out, and hunts the
+    # dark wards by ear; his round sweeps the corridor and the rooms off it, the way to the courtyard door.
+    d['surgeon'] = {
+        "requires": "way_up",
+        "territory": ["basement_stairs", "ward_corridor", "ward_a", "childrens_ward", "baths", "day_room", "admissions",
+                      "fuse_room", "dispensary", "nurses_station"],
+        "rise": {"at": [7.5, 13.9], "seconds": 6},
+        "round": [[7.5, 9.0], [16.5, 9.0], [16.5, 13.5], [23.5, 9.0], [30.5, 9.0], [31.0, 13.5], [37.5, 13.0],
+                  [30.5, 9.0], [13.5, 4.0], [3.5, 9.0]],
+    }
     for door in d['doors']:
         if door['id'] == 'ward_basement':
             door['opensWith'] = OPEN

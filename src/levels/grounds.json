@@ -1225,5 +1225,13 @@
     "rotation": 0
    }
   }
- }
+ },
+ "arrivals": [
+  {
+   "after": {
+    "flag": "way_up"
+   },
+   "message": "msg.gateOrRoom"
+  }
+ ]
 }
