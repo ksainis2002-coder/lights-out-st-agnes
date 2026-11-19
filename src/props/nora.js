@@ -73,18 +73,14 @@ export function mesh(geometry, texture, options) {
 const SPINE = [[0, 0.1, 0.0], [0, 0.1, -0.19], [0, 0.128, -0.32], [0, 0.128, -0.42], [0, 0.112, -0.52]];
 const BODY = [[0.172, 0.1], [0.138, 0.088], [0.152, 0.108], [0.166, 0.104], [0.17, 0.072]];
 
-// On her feet (noraStanding.js) the jacket hangs; on the table its sides fall to the table.
-export function torso(tex, { standing = false } = {}) {
+function torso(tex) {
   const rucked = (theta, u) => 1 + 0.025 * Math.sin(theta * 8 + u * 9) + 0.015 * Math.sin(theta * 13 - u * 17); // the wool pulled about
-  // Standing, the jumper goes on up and in round her neck, its shoulders sloping (ended flat, it showed as a dark bar).
-  const [spine, body] = standing ? [[...SPINE, [0, 0.106, -0.565]], [...BODY, [0.07, 0.052]]] : [SPINE, BODY];
-  const jumper = mesh(sweepGeometry(spine, body, { radial: 20, steps: 4, front: [0, 1, 0], shape: rucked }), tex.jumper);
-  const open = standing ? [0.9, 0.85, 0.8, 0.75, 0.7] : [1.5, 1.3, 1.1, 0.95, 0.8]; // the jacket open over her front
-  const fallen = standing ? 0 : 0.18;
-  const sides = (theta, u) => (1 + fallen * Math.max(0, -Math.sin(theta)) ** 2) * (1 + 0.035 * Math.sin(theta * 6 + u * 7));
+  const jumper = mesh(sweepGeometry(SPINE, BODY, { radial: 20, steps: 4, front: [0, 1, 0], shape: rucked }), tex.jumper);
+  const open = [1.5, 1.3, 1.1, 0.95, 0.8]; // the jacket open over her front, its sides fallen to the table
+  const sides = (theta, u) => (1 + 0.18 * Math.max(0, -Math.sin(theta)) ** 2) * (1 + 0.035 * Math.sin(theta * 6 + u * 7));
   const jacket = mesh(sweepGeometry(SPINE, BODY.map(([x, y]) => [x * 1.1, y * 1.12]), { radial: 22, steps: 4, front: [0, 1, 0], gap: open, shape: sides }), tex.jacket, { side: THREE.DoubleSide });
   const collar = mesh(sweepGeometry([[-0.1, 0.13, -0.52], [0, 0.07, -0.56], [0.1, 0.13, -0.52]], [0.02, 0.022, 0.02], { radial: 6, steps: 3 }), tex.leather, { color: '#8a6a50' });
-  return standing ? [jumper, jacket] : [jumper, jacket, collar]; // standing, her shoulders cover the collar (noraStanding.js)
+  return [jumper, jacket, collar];
 }
 
 // Her arms down her sides in the jacket's sleeves, fists clenched in the cuffs.

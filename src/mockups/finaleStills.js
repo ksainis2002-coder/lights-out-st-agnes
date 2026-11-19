@@ -131,8 +131,8 @@ export const FINALE_STILLS = {
   nora_follow: {
     level: basement,
     setup({ world }) {
-      put(world, 'noraStanding', at(world, 10.7, 7.95), { turn: 90, options: { stride: 0.35, turn: 0.15 } });
-      look(world, at(world, 11.78, 8.0), at(world, 10.7, 7.95), 1.6, 1.3);
+      put(world, 'noraStanding', at(world, 10.7, 7.95), { turn: 90, options: { pose: 'follow' } });
+      look(world, at(world, 12.15, 8.0), at(world, 10.7, 7.95), 1.6, 1.2);
     },
     ui(ctx) {
       subtitle(ctx, '(Nora, whispering) Is he close?');
@@ -222,8 +222,8 @@ export const FINALE_STILLS = {
       world.scene.add(sun, sun.target);
       light(world, '#ffd8a0', 2.5, 4, [4.4, 2.6], 1.7);
       light(world, '#ffe0b8', 9, 3, [3.3, 4.3], 1.7); // the morning back off the walls, on her face
-      put(world, 'noraStanding', [4.15, 3.55], { turn: -48, options: { turn: 0.1 } });
-      look(world, [2.0, 5.5], [4.3, 2.7], 1.6, 1.5);
+      put(world, 'noraStanding', [4.15, 3.55], { turn: -48, options: { pose: 'window' } });
+      look(world, [2.75, 4.95], [4.25, 3.2], 1.6, 1.42);
     },
     ui(ctx) {
       ending(ctx, 'Morning comes in at the window. I have never seen it from here.');

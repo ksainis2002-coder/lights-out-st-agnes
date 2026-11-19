@@ -446,4 +446,15 @@ last change: the bed made, your wooden horse on the pillow).
   afraid, her elbows in and her hands held in front of her, her head a little down; her jumper goes up
   round her neck (its flat top showed as a black bar); her colours darker in your flashlight, her
   jacket olive as under his lamp and her face, hair and hands no longer burnt white.
+- **Second pass, owner (2026-11-19): her body or pose still off: all four** of: too boxy, not a woman;
+  her arms and hands wrong; too stiff, statue-like; her proportions (short legs, long wide body).
+  Third pass: she is no longer the table figure stood up. `src/props/noraStanding.js` builds her
+  standing as a jointed body (hips, knees, ankles; shoulders, elbows, wrists; neck, head) with an
+  ordinary woman's proportions: 1.66 m, long in the leg (hip joints at 0.88 m), a waist, soft
+  sloping shoulders, fuller straight-leg jeans over ankle boots, the waxed jacket fitted and hanging
+  open over the jumper, its corduroy collar. Her arms are placed by where her hands go (a two-bone
+  reach), and her poses are in `src/props/noraPoses.js`: `follow` (mid-step towards you, hugging
+  herself, stooped, glancing back past her shoulder), `window` (her weight on one leg, one arm across
+  her, the other loose), `stand`. Her hair hangs from her head as she holds it. The joints will
+  walk her in the game.
 
