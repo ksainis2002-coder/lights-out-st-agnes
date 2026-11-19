@@ -437,3 +437,13 @@ coal store's door shutting on the corridor's light, at a child's height), `end_c
 ending's name, "Endings found: 1 of 4", a tape's STOP in the corner), and `room_last` (your room's
 last change: the bed made, your wooden horse on the pillow).
 
+## Owner's notes on the part C stills (2026-11-19) and the second pass of Nora on her feet
+- **The cabinet: hear the gap.** Opening its lock, Edith's music box plays her tune from your pocket
+  and stops at the gap; each brass key plays its note in the gap; the one that fits (the note her
+  box lost) opens it; a wrong one, "(the lock does not give)". No new text.
+- **Nora on her feet: redo.** Second pass (`nora_follow`, `ending_morning`): no longer a mannequin
+  standing to attention: her shoulders slope and are rounded, she stoops a little from the hips,
+  afraid, her elbows in and her hands held in front of her, her head a little down; her jumper goes up
+  round her neck (its flat top showed as a black bar); her colours darker in your flashlight, her
+  jacket olive as under his lamp and her face, hair and hands no longer burnt white.
+

@@ -132,7 +132,7 @@ export const FINALE_STILLS = {
     level: basement,
     setup({ world }) {
       put(world, 'noraStanding', at(world, 10.7, 7.95), { turn: 90, options: { stride: 0.35, turn: 0.15 } });
-      look(world, at(world, 11.92, 8.0), at(world, 10.7, 7.95), 1.6, 1.24);
+      look(world, at(world, 11.78, 8.0), at(world, 10.7, 7.95), 1.6, 1.3);
     },
     ui(ctx) {
       subtitle(ctx, '(Nora, whispering) Is he close?');
@@ -221,7 +221,7 @@ export const FINALE_STILLS = {
       sun.target.position.set(2.0, 0, 3.6);
       world.scene.add(sun, sun.target);
       light(world, '#ffd8a0', 2.5, 4, [4.4, 2.6], 1.7);
-      light(world, '#ffe0b8', 5, 3, [3.3, 4.3], 1.7); // the morning back off the walls, on her face
+      light(world, '#ffe0b8', 9, 3, [3.3, 4.3], 1.7); // the morning back off the walls, on her face
       put(world, 'noraStanding', [4.15, 3.55], { turn: -48, options: { turn: 0.1 } });
       look(world, [2.0, 5.5], [4.3, 2.7], 1.6, 1.5);
     },
