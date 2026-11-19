@@ -9,7 +9,8 @@ the laundry (the chute from the wards, a staff room, lockers) and a passage
 to the Founder's door (locked: 0.6); the cold corridor along the middle,
 pipes overhead and water on the floor, where Dr. Venn walks his round; along
 the bottom the boiler room (flooded; Sam; the valves), the morgue (the
-drawers by date) and the theatre (Nora: part C; shut until then).
+drawers by date) and the theatre (part C: Nora on his table; the cabinet
+with the key to its back door, and the back stairs up to the west wing).
 
 The JSON is the game's data; this script is how it was laid out. Change the
 layout here and run it again (python3 tools/levels/basement.py). It also
@@ -111,7 +112,8 @@ def basement():
     boiler = Room('boiler_room', 1, 10, 8, 16, height=3.4, **stone)
     morgue = Room('morgue', 10, 10, 16, 15, height=3.0, wall='tile', floor='tile', ceiling='ceiling')
     theatre = Room('theatre', 18, 10, 24, 16, height=3.8, wall='tile', floor='tile', ceiling='ceiling')
-    rooms = [stairs, coal, laundry, founders, corridor, boiler, morgue, theatre]
+    back_stairs = Room('west_stairs', 26, 11, 27, 16, height=3.0, **stone)  # behind the theatre's back door
+    rooms = [stairs, coal, laundry, founders, corridor, boiler, morgue, theatre, back_stairs]
     for room in rooms:
         room.extra["ambience"] = [{"name": "amb_pipes", "volume": 0.25}, {"name": "amb_building_hum", "volume": 0.2}]
     doors = [
@@ -119,7 +121,11 @@ def basement():
         {"id": "laundry_door", "cell": [14, 6]},
         {"id": "boiler_door", "cell": [7, 9]},
         {"id": "morgue_door", "cell": [15, 9]},
-        {"id": "theatre_door", "cell": [21, 9], "requires": "theatre_open"},  # part C
+        # Locked until page four (owner 2026-11-18); through its glass, the lamp over his table.
+        {"id": "theatre_door", "cell": [21, 9], "requires": "morgue_tommy", "lockedMessage": "msg.theatreLocked", "look": "glass"},
+        # The way out: the cabinet's key opens it; walk out without Nora and it shuts for good (ai/noraTable.js).
+        {"id": "theatre_back", "cell": [25, 15], "locked": "theatre_key", "lockedMessage": "msg.theatreBackDoor", "look": "glass",
+         "shutBy": "nora_left"},
         {"id": "founders_door", "cell": [20, 1], "requires": "founders_open", "lockedMessage": "msg.foundersDoor"},  # 0.6
     ]
 
@@ -193,8 +199,20 @@ def basement():
     # A bulb left burning over the drawers (approved still locker_inside: what you see him by from a locker).
     L.bulb(morgue, 3.4, 1.9, 3.0, intensity=2.6, distance=8)
 
-    # The theatre, shut until part C (Nora).
-    L.bulb(theatre, 3.5, 3.5, 3.8, lit=False)
+    # The theatre (approved stills theatre_nora, cabinet_lock): his table under its lamp, the only
+    # light, Nora strapped to it (ai/noraTable.js); his tray; the cabinet with the key to the back door.
+    L.prop(theatre, 'operatingTable', 3.5, 3.2, straps=False)
+    L.prop(theatre, 'theatreLamp', 3.5, 3.2, height=3.8)
+    L.prop(theatre, 'instrumentTray', 4.6, 4.3, -20)
+    L.prop(theatre, 'instrumentCabinet', 0.18, 3.0, 90, extra={"id": "theatre_cabinet"}, lock=True)
+    # The key on its middle shelf (the cabinet's local (0.15, 1.0, 0.05), turned to face the room).
+    L.pickups.append({"id": "theatre_key", "item": "theatre_key", "at": theatre.at(0.18 + 0.05 / 1.2, 3.0 - 0.15 / 1.2), "y": 1.0,
+                      "model": "brassKey", "color": "#9aa0a4", "appearsWith": "puzzle_cabinet", "radius": 0.1})
+    L.bulb(theatre, 3.5, 5.6, 3.8, lit=False)
+    # The back stairs up to the west wing: the flight rises north from the back door.
+    L.prop(back_stairs, 'stairs', 1.0, 3.9, 0, extra={"use": "travel", "to": {"level": "wards_ground", "spawn": "basement"},
+                                                     "prompt": "prompt.stairsUp", "useHeight": 0.9, "useRadius": 0.8}, steps=8, landing=0.6, width=1.5)
+    L.bulb(back_stairs, 1.0, 1.6, 3.0, intensity=0.6, distance=4)
 
     return {
         # Walls 3 m as the approved stills' level, so brick and tile keep their scale.
@@ -203,13 +221,18 @@ def basement():
         "floorTexture": "stone", "ceilingTexture": "ceiling",
         "ambient": {"color": "#8a98c8", "intensity": 0.9},
         "legend": {".": "floor", "#": "brick"},
-        "map": carve(26, 18, rooms, doors),
+        "map": carve(29, 18, rooms, doors),
         # Spawn cells are cell indices: you stand at their centre (+0.5), here (2.5, 4.8).
         "spawns": {"default": {"cell": [2.0, 4.3], "yawDegrees": 180}, "stairs": {"cell": [2.0, 4.3], "yawDegrees": 180}},
         "rooms": [room.data() for room in rooms], "doors": doors, "triggers": [], "props": L.props, "lights": L.lights,
         "emitters": L.emitters, "pickups": L.pickups, "documents": L.documents,
         "puzzles": {"valves": {"wheels": ["valve_red", "valve_blue", "valve_brass"], "flood": "boiler_flood", "boiler": "boiler"},
-                    "morgue": {"drawers": "morgue_drawers", "contents": MORGUE}},
+                    "morgue": {"drawers": "morgue_drawers", "contents": MORGUE},
+                    # Its lock's five keys: the note in the gap of Edith's tune opens it (puzzles/cabinet.js).
+                    "cabinet": {"prop": "theatre_cabinet", "gap": "sun"}},
+        # Nora on his table (ai/noraTable.js): free, she stands by it; past the back door without her, she is left.
+        "nora": {"at": theatre.at(3.5, 3.2), "y": 0.92, "rotation": 0, "room": "theatre", "backDoor": "theatre_back",
+                 "beyond": "west_stairs", "standAt": theatre.at(4.6, 2.6), "standRotation": -90},
         # The 12 MAY drawer rolls out on its own, once you have pulled another (ghosts/drawerPiece.js).
         # A story beat: comfort mode keeps it. Its tell: the morgue goes quiet.
         "setPieces": [{"id": "morgue_drawer", "kind": "drawer", "room": "morgue", "requires": "morgue_pulled",

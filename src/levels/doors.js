@@ -25,6 +25,18 @@ function gatePanel(textures, s) {
   return gate;
 }
 
+// A door with a pane of glass at eye height (the basement theatre's, part C:
+// "Through the glass, a lamp over a table"): the panel round it, the pane.
+function glassPanel(textures, s) {
+  const parts = [
+    box(textures.door, [s, 1.2, 0.06], [s / 2, 0, 0]), box(textures.door, [s, 0.3, 0.06], [s / 2, 1.8, 0]),
+    box(textures.door, [0.3, 0.6, 0.06], [0.15, 1.2, 0]), box(textures.door, [0.3, 0.6, 0.06], [s - 0.15, 1.2, 0]),
+  ];
+  const pane = new THREE.Mesh(new THREE.PlaneGeometry(s - 0.6, 0.6), new THREE.MeshBasicMaterial({ color: '#9fb0a8', transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide }));
+  pane.position.set(s / 2, 1.5, 0);
+  return new THREE.Group().add(...parts, pane);
+}
+
 // The wall texture as build.js lays it on a wall, from `bottom` up to `top`
 // metres, instead of the whole texture squeezed onto each face of the box.
 function wallPart(geometry, level, bottom, top) {
@@ -55,7 +67,7 @@ function buildDoor(level, door, textures) {
 
   // Hidden doors look like the wall around them until they open.
   const panelTexture = door.hidden ? wallTexture : textures.door;
-  hinge.add(box(panelTexture, [s, DOOR_HEIGHT, 0.06], [s / 2, 0, 0]));
+  hinge.add(door.look === 'glass' ? glassPanel(textures, s) : box(panelTexture, [s, DOOR_HEIGHT, 0.06], [s / 2, 0, 0]));
   holder.add(lintel, hinge);
   return { door, holder, hinge };
 }

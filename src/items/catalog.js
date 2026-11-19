@@ -38,6 +38,7 @@ export const ITEMS = {
   stone: { icon: 'pebble', throwable: { radius: 10, model: 'looseStone' } },
   tin_soldier: { icon: 'soldier' }, // Sam's toy, under the boiler room's flood (ghosts/sam.js)
   music_box: { icon: 'musicBox' }, // Edith's, mended: wing 3's toy (ghosts/edithBox.js)
+  theatre_key: { icon: 'key', consumed: true }, // in the theatre's cabinet (puzzles/cabinet.js): the back door, the way out
 };
 
 const FAMILIES = { plate: { icon: 'plate' } };

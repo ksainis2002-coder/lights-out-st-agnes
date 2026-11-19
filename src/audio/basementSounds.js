@@ -1,6 +1,6 @@
 // Wing 4's basement (0.5, part B), its sounds hung on game events: your held
 // breath and gasp, Dr. Venn, Sam's knocks, the boiler's valves, the doors
-// that shout, things thrown, the morgue's drawers. Stand-ins until wing 4's
+// that shout, things thrown, the morgue's drawers; the theatre (part C). Stand-ins until wing 4's
 // files come (docs/SOUNDS_0.5.md names each one it stands in for).
 // play(name, options) and the helpers are audio/gameAudio.js's.
 export function basementSounds({ events, play, at, doorPosition }) {
@@ -40,4 +40,11 @@ export function basementSounds({ events, play, at, doorPosition }) {
   // drawer rolls out on its own, slow and low (morgue_drawer's stand-in, both).
   events.on('morgue.pulled', ({ position }) => play('drawer_metal', { position, volume: 1, rate: 0.7, refDistance: 3 }));
   events.on('morgue.rolls', ({ position }) => play('drawer_metal', { position, volume: 1, rate: 0.45, refDistance: 4 }));
+  // The theatre (ai/noraTable.js, puzzles/cabinet.js): a buckle eased open (buckle_open's stand-in);
+  // the cabinet's lock that does not give, and clicks open (key_unlock's); the back door
+  // shutting by itself behind you (heavy_door_shut's).
+  events.on('nora.buckle', ({ position }) => play('key_pickup', { position, volume: 0.45, rate: 0.75, refDistance: 1.5 }));
+  events.on('cabinet.wrong', ({ position }) => play('door_locked', { position, volume: 0.5, rate: 1.4, refDistance: 2 }));
+  events.on('cabinet.open', ({ position }) => play('lock_wheel_click', { position, volume: 0.9, refDistance: 2 }));
+  events.on('nora.doorShut', (door) => play('door_bang', { position: doorPosition(door), volume: 0.85, rate: 0.8, refDistance: 4 }));
 }

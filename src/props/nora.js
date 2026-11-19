@@ -120,6 +120,8 @@ function legs(tex) {
 
 // A strap over her at z: up from under the table's edge, over the profile
 // [x, y] points, down under the other edge; a steel buckle on your side.
+// Each strap's parts carry its number (userData.strap: 0 chest, 1 hips, 2
+// shins) so it can come undone (ai/noraTable.js).
 function strap(tex, t, z, profile) {
   const points = [[-0.37, -0.045], [-0.36, 0.02], ...profile, [0.36, 0.02], [0.37, -0.045]].map(([x, y]) => [x, y, z]);
   const band = mesh(strapGeometry(points, 0.055, 0.007, { across: [0, 0, 1] }), tex.leather, { flatShading: true });
@@ -130,12 +132,16 @@ function strap(tex, t, z, profile) {
   return [band, buckle];
 }
 
+// Where each strap crosses her and its buckle sits (table frame): chest, hips, shins.
+export const STRAPS = [
+  { z: -0.38, profile: [[-0.31, 0.12], [-0.25, 0.17], [-0.14, 0.235], [0, 0.248], [0.14, 0.235], [0.25, 0.17], [0.31, 0.12]] }, // over her chest and arms
+  { z: -0.08, profile: [[-0.24, 0.12], [-0.18, 0.18], [-0.08, 0.205], [0, 0.208], [0.08, 0.205], [0.18, 0.18], [0.24, 0.12]] }, // over her hips
+  { z: 0.6, profile: [[-0.2, 0.06], [-0.16, 0.12], [-0.1, 0.14], [-0.02, 0.1], [0.04, 0.105], [0.1, 0.13], [0.16, 0.1]] }, // over her shins
+];
+export const buckleAt = ({ z, profile }) => [profile[1][0], profile[1][1] + 0.008, z];
+
 function straps(tex, t) {
-  return [
-    ...strap(tex, t, -0.38, [[-0.31, 0.12], [-0.25, 0.17], [-0.14, 0.235], [0, 0.248], [0.14, 0.235], [0.25, 0.17], [0.31, 0.12]]), // over her chest and arms
-    ...strap(tex, t, -0.08, [[-0.24, 0.12], [-0.18, 0.18], [-0.08, 0.205], [0, 0.208], [0.08, 0.205], [0.18, 0.18], [0.24, 0.12]]), // over her hips
-    ...strap(tex, t, 0.6, [[-0.2, 0.06], [-0.16, 0.12], [-0.1, 0.14], [-0.02, 0.1], [0.04, 0.105], [0.1, 0.13], [0.16, 0.1]]), // over her shins
-  ];
+  return STRAPS.flatMap(({ z, profile }, i) => strap(tex, t, z, profile).map((part) => Object.assign(part, { userData: { strap: i } })));
 }
 
 // Her neck as she lifts her head: the long muscles down each side of her

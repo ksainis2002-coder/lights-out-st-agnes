@@ -70,6 +70,7 @@ export function createDebugOverlay(game) {
     if (game.watcherOutside && game.world.level.watcher?.outside) lines.push([game.watcherOutside.debugLine(), COLORS.enemy]);
     if (game.agnes && game.world.level.watcher?.pieces) lines.push([game.agnes.debugLine(), COLORS.enemy]); // her pieces, in the chapel
     if (game.breath) lines.push([game.breath.debugLine(), COLORS.info]);
+    if (game.nora && game.world.level?.nora) lines.push([game.nora.debugLine(), COLORS.info]);
     return lines;
   }
 

@@ -15,24 +15,24 @@
   "#": "brick"
  },
  "map": [
-  "##########################",
-  "#...#......#......##.#####",
-  "#...#......#......#...####",
-  "#...#......#......#...####",
-  "#...#......#......#...####",
-  "#...#......#......#...####",
-  "#...###.######.####...####",
-  "#.......................##",
-  "#.......................##",
-  "#######.#######.#####.####",
-  "#........#.......#.......#",
-  "#........#.......#.......#",
-  "#........#.......#.......#",
-  "#........#.......#.......#",
-  "#........#.......#.......#",
-  "#........#.......#.......#",
-  "#........#########.......#",
-  "##########################"
+  "#############################",
+  "#...#......#......##.########",
+  "#...#......#......#...#######",
+  "#...#......#......#...#######",
+  "#...#......#......#...#######",
+  "#...#......#......#...#######",
+  "#...###.######.####...#######",
+  "#.......................#####",
+  "#.......................#####",
+  "#######.#######.#####.#######",
+  "#........#.......#.......####",
+  "#........#.......#.......#..#",
+  "#........#.......#.......#..#",
+  "#........#.......#.......#..#",
+  "#........#.......#.......#..#",
+  "#........#.......#..........#",
+  "#........#########.......#..#",
+  "#############################"
  ],
  "spawns": {
   "default": {
@@ -234,6 +234,29 @@
      "volume": 0.2
     }
    ]
+  },
+  {
+   "id": "west_stairs",
+   "cells": [
+    26,
+    11,
+    27,
+    16
+   ],
+   "height": 3.0,
+   "wall": "brick",
+   "floor": "stone",
+   "ceiling": "ceiling",
+   "ambience": [
+    {
+     "name": "amb_pipes",
+     "volume": 0.25
+    },
+    {
+     "name": "amb_building_hum",
+     "volume": 0.2
+    }
+   ]
   }
  ],
  "doors": [
@@ -271,7 +294,20 @@
     21,
     9
    ],
-   "requires": "theatre_open"
+   "requires": "morgue_tommy",
+   "lockedMessage": "msg.theatreLocked",
+   "look": "glass"
+  },
+  {
+   "id": "theatre_back",
+   "cell": [
+    25,
+    15
+   ],
+   "locked": "theatre_key",
+   "lockedMessage": "msg.theatreBackDoor",
+   "look": "glass",
+   "shutBy": "nora_left"
   },
   {
    "id": "founders_door",
@@ -705,14 +741,85 @@
    }
   },
   {
+   "type": "operatingTable",
+   "at": [
+    21.5,
+    13.2
+   ],
+   "options": {
+    "straps": false
+   }
+  },
+  {
+   "type": "theatreLamp",
+   "at": [
+    21.5,
+    13.2
+   ],
+   "options": {
+    "height": 3.8
+   }
+  },
+  {
+   "type": "instrumentTray",
+   "at": [
+    22.6,
+    14.3
+   ],
+   "rotation": -20
+  },
+  {
+   "type": "instrumentCabinet",
+   "at": [
+    18.18,
+    13.0
+   ],
+   "rotation": 90,
+   "options": {
+    "lock": true
+   },
+   "id": "theatre_cabinet"
+  },
+  {
    "type": "hangingBulb",
    "at": [
     21.5,
-    13.5
+    15.6
    ],
    "options": {
     "ceiling": 3.8,
     "lit": false
+   }
+  },
+  {
+   "type": "stairs",
+   "at": [
+    27.0,
+    14.9
+   ],
+   "options": {
+    "steps": 8,
+    "landing": 0.6,
+    "width": 1.5
+   },
+   "use": "travel",
+   "to": {
+    "level": "wards_ground",
+    "spawn": "basement"
+   },
+   "prompt": "prompt.stairsUp",
+   "useHeight": 0.9,
+   "useRadius": 0.8
+  },
+  {
+   "type": "hangingBulb",
+   "at": [
+    27.0,
+    12.6
+   ],
+   "options": {
+    "ceiling": 3.0,
+    "lit": true
    }
   }
  ],
@@ -793,6 +900,17 @@
    "color": "#d8c8a0",
    "intensity": 2.6,
    "distance": 8
+  },
+  {
+   "type": "point",
+   "at": [
+    27.0,
+    12.6
+   ],
+   "height": 2.4,
+   "color": "#d8c8a0",
+   "intensity": 0.6,
+   "distance": 4
   }
  ],
  "emitters": [
@@ -909,6 +1027,19 @@
    "model": "tinSoldier",
    "appearsWith": "puzzle_valves",
    "radius": 0.25
+  },
+  {
+   "id": "theatre_key",
+   "item": "theatre_key",
+   "at": [
+    18.222,
+    12.875
+   ],
+   "y": 1.0,
+   "model": "brassKey",
+   "color": "#9aa0a4",
+   "appearsWith": "puzzle_cabinet",
+   "radius": 0.1
   }
  ],
  "documents": [
@@ -985,7 +1116,27 @@
      "name": "ROWE, M."
     }
    }
+  },
+  "cabinet": {
+   "prop": "theatre_cabinet",
+   "gap": "sun"
   }
+ },
+ "nora": {
+  "at": [
+   21.5,
+   13.2
+  ],
+  "y": 0.92,
+  "rotation": 0,
+  "room": "theatre",
+  "backDoor": "theatre_back",
+  "beyond": "west_stairs",
+  "standAt": [
+   22.6,
+   12.6
+  ],
+  "standRotation": -90
  },
  "setPieces": [
   {

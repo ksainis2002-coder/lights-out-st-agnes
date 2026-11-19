@@ -102,6 +102,7 @@ export function parseLevel(data) {
     nun: data.nun ?? null, // Sister M. (ai/nun.js)
     surgeon: data.surgeon ?? null, // Dr. Venn (ai/surgeon.js)
     sam: data.sam ?? null, // Sam in the boiler room (ghosts/sam.js)
+    nora: data.nora ?? null, // Nora on Dr. Venn's table (ai/noraTable.js)
     edith: data.edith ?? null, // Edith on her bed (ghosts/edith.js)
     wayOut: data.wayOut ?? null, // the chase out of the west wing (levels/wayOut.js)
     arrivals: data.arrivals ?? [], // a line on coming in after something happened (levels/arrivals.js)

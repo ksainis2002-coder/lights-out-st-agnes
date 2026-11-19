@@ -3,6 +3,8 @@
 // usable until revealed. Door changes are recorded in game.progress.
 //   "requires": "<flag>"      stays locked until the flag is set; using it
 //                             shows "lockedMessage" (the garden door: wing 1 done)
+//   "shutBy": "<flag>"        once the flag is set it is shut for good (the
+//                             theatre's back door, once Nora is left behind)
 //   "exit": { ..., "back": "<spawn>" }  remembers this spot as the way back
 //   "exit": { ..., "returns": true }    leads back the way you came in, if
 //                             that was a door with "back" (the hub's door)
@@ -34,6 +36,7 @@ export function doorInteractables(game) {
   }
 
   const waiting = (door) => door.requires && !progress.hasFlag(door.requires);
+  const shut = (door) => door.shutBy && progress.hasFlag(door.shutBy);
   const exitOf = (door) => (door.exit?.returns && progress.getValue(`back_${level.id}`)) || door.exit;
   const notBuilt = (door) => door.exit && !LEVELS[exitOf(door).level];
 
@@ -54,7 +57,7 @@ export function doorInteractables(game) {
       radius: 0.75, // a door is big: anywhere on its face counts
       prompt() {
         if (door.hidden && !door.revealed) return null;
-        if (waiting(door)) return { key: 'prompt.locked' };
+        if (waiting(door) || shut(door)) return { key: 'prompt.locked' };
         if (notBuilt(door)) return { key: 'prompt.notYet' };
         if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return { key: 'prompt.notYet' };
         if (door.exit) return { key: door.exit.prompt ?? 'prompt.leave' };
@@ -67,6 +70,7 @@ export function doorInteractables(game) {
       },
       use() {
         if (waiting(door)) return refuse(door, door.lockedMessage);
+        if (shut(door)) return refuse(door, null);
         if (notBuilt(door)) return null;
         if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return null;
         if (door.exit) return game.travel(exitOf(door).level, exitOf(door).spawn, door.exit.back);
@@ -91,7 +95,7 @@ export function applyDoorProgress(level, progress) {
       progress.setFlag(`swung_${door.id}`);
       progress.setOpen(door.id, true);
     }
-    door.open = progress.isOpen(door.id);
+    door.open = progress.isOpen(door.id) && !(door.shutBy && progress.hasFlag(door.shutBy));
     door.angle = door.open ? -Math.PI / 2 : 0;
   }
 }

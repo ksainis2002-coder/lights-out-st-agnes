@@ -457,4 +457,46 @@ last change: the bed made, your wooden horse on the pillow).
   herself, stooped, glancing back past her shoulder), `window` (her weight on one leg, one arm across
   her, the other loose), `stand`. Her hair hangs from her head as she holds it. The joints will
   walk her in the game.
+- **Third pass approved (2026-11-19), and with it every part C still.** Part C is being built.
+- **A fix to the content sheet (owner, 2026-11-19):** Edith's box has no keys; the five picture keys
+  are on the dorm's music box (wing 1). The cabinet's journal line now reads "Edith's tune has a note
+  missing. The cabinet's lock has the same five pictures as the keys of the music box in the dorm." /
+  "Στη μελωδία της Edith λείπει μια νότα. Η κλειδαριά του ντουλαπιού έχει τις ίδιες πέντε εικόνες με
+  τα πλήκτρα του μουσικού κουτιού στον κοιτώνα." The lock's keys play the dorm box's notes (sun C5,
+  moon D5, star E5, bird G5, heart A5); the sun is the note Edith's tune lost (B4, C5, B4, A4).
 
+
+## Part C as built so far
+- **The theatre (0.2.110).** Its corridor door has a pane of wired glass (door `"look": "glass"`,
+  `levels/doors.js`) and stays locked until page four (`requires: morgue_tommy`) with the owner's line
+  "Locked from the inside. Through the glass, a lamp over a table." Inside, as in the approved stills:
+  his table under its lamp, the only light, Nora strapped to it, his tray, and on the west wall his
+  instrument cabinet, its glass front now a door with a lock plate of five brass keys
+  (`instrumentCabinet` with `lock`). The basement is three cells wider for the back stairs.
+- **Nora on the table** (`ai/noraTable.js`, level data `"nora"`): coming in, "(Nora) Who is that? I
+  can hear you breathing. Please." (her speaker label "Nora" in person, `speaker.nora_here`); close
+  over her face, "Please. Before he comes back." once; her face "Look": "A woman strapped to the table,
+  alive…". Each of the three buckles (chest, hips, shins; the table model's straps now carry their
+  number, no change to how she looks) is its own "Undo the straps": "(a buckle, eased open)", the
+  strap gone, no noise for Dr. Venn. The third frees her (`nora_freed`, the journal): her three lines,
+  and she gets down after the first; she stands by the table (part C2 walks her out). Progress keeps
+  which straps are undone.
+- **The cabinet** (`puzzles/cabinet.js`, screen `ui/screens/cabinetLock.js` as the approved still):
+  "Look" at its lock: its line, the journal line (the owner's fix: "…the keys of the music box in the
+  dorm"), and up close Edith's tune from your pocket up to the gap (F5 D5 E5 C5 B4,
+  `audio/edithTune.js` `playToGap`). Each key (1–5 or a click) plays the dorm box's note in the gap and
+  the tune's end after it (`playGapWith`); a wrong one "(the lock does not give)" over the plate and as
+  a caption; the sun "(the lock clicks open)", you step back, its door swings open, a checkpoint, and
+  the theatre key lies on the middle shelf (`puzzle_cabinet`). Stand-in sounds: `door_locked`,
+  `lock_wheel_click` (for `key_unlock`).
+- **The back door and the west stairs.** On the theatre's east wall, glass-paned, locked with the
+  theatre key ("The theatre's back door, to the west stairs." without it; the key is used up). Past it,
+  a stair room `west_stairs` (its name "Basement — the west stairs" / "Υπόγειο — η δυτική σκάλα", from
+  the sheet's own words) and a flight up to the top of the west wing's basement steps (spawn
+  `basement`). Walk past the back door without freeing her and it swings shut behind you, "(the
+  theatre door swings shut behind you)", her "No. No, please, don't leave me with—", "(silence)", the
+  journal; the table is empty from then on and the door is shut for good (door `"shutBy": "nora_left"`,
+  `levels/doorUse.js`). Stand-ins: `key_pickup` for `buckle_open`, `door_bang` for `heavy_door_shut`.
+- Tests: `tests/theatre.spec.js` (6). Debug overlay: a NORA line (on the table and straps undone, free,
+  or left behind).
+- Next: C2, Nora follows you out.

@@ -16,6 +16,29 @@ const TUNE = [
 ];
 const REST = 2; // beats of quiet before it starts again
 const WIND_DOWN = 4; // notes it still plays, slower and slower, once you are out
+const GAP = TUNE.findIndex(([note]) => note === null);
+const POCKET = { position: null, volume: 0.3, bus: 'music' };
+
+// Her tune's second line up to the gap, from your pocket (the cabinet in the
+// theatre, puzzles/cabinet.js): F5 D5 E5 C5 B4, and then nothing. Returns its seconds.
+export function playToGap(mixer) {
+  let at = 0;
+  for (const [note, beats] of TUNE.slice(8, GAP)) {
+    playNote(mixer, NOTE[note], { ...POCKET, delay: at });
+    at += beats * BEAT;
+  }
+  return at;
+}
+
+// A note in the gap, then the tune's end after it (B4, A4).
+export function playGapWith(mixer, frequency, options = {}) {
+  playNote(mixer, frequency, { ...POCKET, ...options });
+  let at = TUNE[GAP][1] * BEAT;
+  for (const [note, beats] of TUNE.slice(GAP + 1)) {
+    playNote(mixer, NOTE[note], { ...POCKET, delay: at });
+    at += beats * BEAT;
+  }
+}
 
 export function createEdithTune(game) {
   let index = 0;

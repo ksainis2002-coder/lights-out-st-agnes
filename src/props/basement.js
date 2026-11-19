@@ -190,12 +190,26 @@ function instrumentTray(t, { held = false, bloody = false, glint = false } = {})
 }
 
 // A tall glass-fronted cabinet of instruments, a dial lock on it.
-function instrumentCabinet(t) {
-  const parts = [
-    box(t.iron, [0.9, 1.9, 0.4], [0, 0, 0], { color: '#c8ccc8' }),
-    box(t.sheet, [0.8, 1.5, 0.01], [0, 0.3, 0.205], { color: '#6a7a80', transparent: true, opacity: 0.55 }),
-    box(t.iron, [0.06, 0.06, 0.04], [0.32, 1.0, 0.22], { color: '#3a3e42' }),
-  ];
+// With "lock" (the theatre's, part C: puzzles/cabinet.js) its glass front is
+// a door hinged on its left (named "door") with a steel lock plate and five
+// little brass keys where the handle was.
+function instrumentCabinet(t, { lock = false } = {}) {
+  const glass = box(t.sheet, [0.8, 1.5, 0.01], [0, 0.3, 0.205], { color: '#6a7a80', transparent: true, opacity: 0.55 });
+  const handle = box(t.iron, [0.06, 0.06, 0.04], [0.32, 1.0, 0.22], { color: '#3a3e42' });
+  const parts = [box(t.iron, [0.9, 1.9, 0.4], [0, 0, 0], { color: '#c8ccc8' })];
+  if (lock) {
+    const door = group(
+      box(t.iron, [0.8, 0.03, 0.02], [0.4, 0.29, 0.005], { color: '#b8bcb8' }), box(t.iron, [0.8, 0.03, 0.02], [0.4, 1.78, 0.005], { color: '#b8bcb8' }),
+      box(t.sheet, [0.8, 1.5, 0.01], [0.4, 0.3, 0], { color: '#6a7a80', transparent: true, opacity: 0.55 }),
+      box(t.iron, [0.1, 0.12, 0.012], [0.72, 0.94, 0.012], { color: '#6c7074' }), // the lock plate
+      ...[0, 1, 2, 3, 4].map((i) => box(t.iron, [0.014, 0.018, 0.01], [0.688 + i * 0.016, 0.965, 0.022], { color: '#b0884a' })), // its brass keys
+    );
+    door.name = 'door';
+    door.position.set(-0.4, 0, 0.205);
+    parts.push(door);
+  } else {
+    parts.push(glass, handle);
+  }
   for (let s = 0; s < 3; s++) {
     parts.push(box(t.iron, [0.78, 0.02, 0.34], [0, 0.55 + s * 0.42, 0], STEEL));
     for (let i = 0; i < 4; i++) parts.push(box(t.iron, [0.02, 0.012, 0.16], [-0.25 + i * 0.16, 0.57 + s * 0.42, 0.02], { color: '#d0d4d8' }));

@@ -4,10 +4,11 @@
 const MUSIC_BOX = { partials: [[1, 1], [2, 0.25], [3, 0.08]], decay: 1.6 };
 export const PIANO = { partials: [[1, 1], [2, 0.45], [3, 0.2], [4, 0.1], [5, 0.04]], decay: 2.6 };
 
-export function playNote(mixer, frequency, { position = null, volume = 0.5, bus = 'effects', timbre = MUSIC_BOX } = {}) {
+// `delay`: seconds from now (a tune's notes are scheduled together).
+export function playNote(mixer, frequency, { position = null, volume = 0.5, bus = 'effects', timbre = MUSIC_BOX, delay = 0 } = {}) {
   const ctx = mixer.context();
   if (!ctx) return;
-  const now = ctx.currentTime;
+  const now = ctx.currentTime + delay;
   const gain = ctx.createGain();
   gain.gain.setValueAtTime(0, now);
   gain.gain.linearRampToValueAtTime(volume, now + 0.005);
