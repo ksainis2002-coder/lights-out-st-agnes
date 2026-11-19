@@ -175,6 +175,7 @@ export function createSurgeon(game) {
   function lineFor(cause) {
     if (drawnBy === 'door') return 'door';
     if (cause === 'breath' || drawnBy === 'gasp' || drawnBy === 'breath') return 'breath';
+    if (cause === 'nora' || drawnBy === 'nora') return 'feet'; // her steps (ai/noraFollow.js)
     const lines = ['feet'];
     if (game.inventory.items().some(isThrowable)) lines.push('throw');
     if (game.progress.hasFlag('tool_camcorder')) lines.push('flash');
@@ -191,13 +192,16 @@ export function createSurgeon(game) {
     game.collapse.start('surgeon', { grab: 'surgeonCatch', whisper: `sam.rewind.${line}`, speaker: 'sam_water', spoken: true });
   }
 
-  // Caught now? Walking into him, any time; once he has come, any sound he hears from you this close.
+  // Caught now? Walking into him, any time; once he has come, any sound he hears from you this close,
+  // or from Nora following you (ai/noraFollow.js): then you are both caught.
   function catchNow() {
     const d = distanceTo(player());
     if (!game.hiding.active() && d <= TOUCH) return 'touch';
     const you = hearing.yours();
     const alert = mode === 'coming' || mode === 'searching';
-    return alert && you && d <= Math.min(CATCH, you.radius) ? you.kind : null;
+    if (alert && you && d <= Math.min(CATCH, you.radius)) return you.kind;
+    const her = game.noraFollow?.audible();
+    return alert && her && distanceTo(her) <= Math.min(CATCH, her.radius) ? 'nora' : null;
   }
 
   function updateIntro(dt, heard) {

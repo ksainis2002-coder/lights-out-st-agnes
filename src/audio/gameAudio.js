@@ -263,12 +263,15 @@ export function createGameAudio(game) {
     startEmitters();
   });
 
-  function floorUnderPlayer() {
+  function floorUnder(p = game.player.state.position) {
     const { level } = game.world;
-    const p = game.player.state.position;
     const cell = level.worldToCell(p.x, p.z);
     return level.textures.floor(cell.col, cell.row);
   }
+  // Nora's footfalls as she follows you (ai/noraFollow.js): her floor's sound, quieter than yours; louder when she runs.
+  events.on('nora.step', ({ position, pace }) => {
+    play(FLOOR_SOUND[floorUnder(position)] ?? 'step_tile', { position: { x: position.x, y: 0.1, z: position.z }, volume: pace === 'run' ? 0.7 : 0.4, refDistance: 2 });
+  });
 
   function updateFootsteps() {
     const state = game.player.state;
@@ -278,7 +281,7 @@ export function createGameAudio(game) {
     const pace = state.crouch > 0.5 ? 'crouch' : state.running ? 'run' : 'walk';
     if (stepDistance < STRIDE[pace]) return;
     stepDistance = 0;
-    const floor = floorUnderPlayer();
+    const floor = floorUnder();
     play(FLOOR_SOUND[floor] ?? 'step_tile', { volume: STEP_VOLUME[pace] });
     if (creakWait > 0 || !CREAKY.has(floor) || Math.random() >= game.world.level.creaks) return;
     creakWait = CREAK_GAP;

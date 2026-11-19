@@ -123,10 +123,11 @@ function bendLeg({ hip, knee, ankle }, side, { lift = 0, out = 0.03, bend = 0.02
   ankle.rotation.x = lift - bend + toe; // the foot level with the floor
 }
 
-// Puts her in a pose (noraPoses.js): her legs, then her hips at the height
-// the longer leg holds them, her body above them, her arms, her head.
-export function pose(nora, name) {
-  const p = POSES[name];
+// Puts her in a pose (a name in noraPoses.js, or a pose itself): her legs,
+// then her hips at the height the longer leg holds them, her body above
+// them, her arms, her head.
+export function pose(nora, which) {
+  const p = typeof which === 'string' ? POSES[which] : which;
   const { pelvis, torso, legs, arms, neck, head } = nora.userData.joints;
   bendLeg(legs.right, -1, p.right);
   bendLeg(legs.left, 1, p.left);

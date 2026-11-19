@@ -5,7 +5,7 @@
 // close over her: "Please. Before he comes back." Each strap's buckle eases
 // open in turn ("Undo the straps", quietly: he does not hear it); with the
 // third she is free: her three lines, the journal, and she gets down (and
-// follows you out: part C2). Walk out through the back door without her and
+// follows you out: ai/noraFollow.js). Walk out through the back door without her and
 // it swings shut behind you (shut for good: its "shutBy"), her voice behind
 // it, then silence: the building takes her, and the table is empty.
 // Level data: "nora": { "at": [c, r], "y": 0.92, "rotation": 0, "room": "theatre",
@@ -29,7 +29,7 @@ const FREED_LINES = [['nora.freed1', 3.5], ['nora.freed2', 6.5], ['nora.freed3',
 
 export function createNoraTable(game) {
   const { progress, events } = game;
-  let figure = null; // her model: on the table, strapped; or beside it, free
+  let figure = null; // her model on the table, strapped (free, she is ai/noraFollow.js's)
   let queue = []; // lines to come: { key, options, at }
   let clock = 0;
 
@@ -51,18 +51,17 @@ export function createNoraTable(game) {
     figure = null;
     queue = [];
     const d = data();
-    if (!d || progress.hasFlag(LEFT)) return; // left behind: the table is empty
-    if (progress.hasFlag(FREED)) return standUp();
+    if (!d || progress.hasFlag(LEFT) || progress.hasFlag(FREED)) return; // left behind, the table is empty; free, she is up
     figure = place(PROPS.noraStrapped(game.world.textures), d.at, d.y ?? 0.92, d.rotation);
     figure.userData.strapped = true;
     figure.traverse((o) => undone().includes(o.userData.strap) && (o.visible = false));
   }
 
-  // Free: on her feet beside the table (part C2 walks her out).
-  function standUp() {
+  // Free: off the table and on her feet beside it (ai/noraFollow.js takes her from here).
+  function getDown() {
     figure?.parent?.remove(figure);
-    const d = data();
-    figure = place(PROPS.noraStanding(game.world.textures, { pose: 'stand' }), d.standAt, 0, d.standRotation);
+    figure = null;
+    events.emit('nora.getsDown', { at: data().standAt, rotation: data().standRotation });
   }
 
   // Lines one after another: [key, options, seconds it shows, seconds before it].
@@ -81,7 +80,8 @@ export function createNoraTable(game) {
       const { key, options } = queue.shift();
       game.subtitles.show(key, options);
       events.emit('nora.line', key);
-      if (key === 'nora.freed1') standUp(); // she gets down while she says it
+      if (key === 'nora.freed1') getDown(); // she gets down while she says it
+      if (key === 'nora.freed3') events.emit('nora.ready'); // "Get us out": she follows you
     }
   }
 

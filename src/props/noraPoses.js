@@ -49,3 +49,28 @@ export const POSES = {
     look: 0.1, nod: -0.02, tilt: -0.04,
   },
 };
+
+// Walking as she follows you, hugging herself (ai/noraFollow.js): `phase`
+// (radians) runs through each pair of steps, `amount` (0 standing … 1 a full
+// stride). Each leg swings forward and back; the leg swinging back bends its
+// knee and comes off its heel; she leans a little more the faster she goes.
+export function walking(phase, amount) {
+  const swing = Math.sin(phase);
+  const leg = (s) => ({
+    lift: amount * 0.32 * s,
+    out: 0.03,
+    bend: amount * (0.06 + 0.42 * Math.max(0, -s) + 0.12 * Math.max(0, Math.cos(phase))),
+    toe: amount * 0.25 * Math.max(0, -s),
+  });
+  return {
+    ...POSES.follow,
+    right: leg(-swing),
+    left: leg(swing),
+    hips: 0.03 * amount * swing,
+    sway: -0.02 * amount * swing,
+    lean: 0.08 + 0.06 * amount,
+    twist: 0.08 * amount * swing,
+    look: 0.15 * Math.sin(phase * 0.25), // now and then a glance back
+    nod: 0.08,
+  };
+}

@@ -4,6 +4,8 @@
 //     1.5 m, walking 4, running 10) and your breath (player/breath.js:
 //     panting after a run 3 m, nothing while held); in a locker or under a bed
 //     your steps make no sound, your breath still does;
+//   - Nora following you (ai/noraFollow.js), all the time she walks: her
+//     steps where she is, one pace louder than yours (4 m or 10 m);
 //   - things, once: "noise" events (a door banged 10 m, a bottle 14 m, a
 //     stone 10 m, a gasp 9 m, Sam's knock on a pipe).
 // A sound carries its radius in the open, and half of it through a wall (a
@@ -54,7 +56,8 @@ export function createHearing(game) {
     const ears = EARS[game.settings.get('difficulty')] ?? 1;
     let best = null;
     let bestMargin = 0;
-    for (const sound of [yours(), ...things]) {
+    const hers = game.noraFollow?.audible();
+    for (const sound of [yours(), hers && { ...hers, kind: 'nora' }, ...things]) {
       if (!sound) continue;
       const d = Math.hypot(sound.x - at.x, sound.z - at.z);
       const reach = sound.radius * ears * (openWay(level, sound, at) ? 1 : 0.5);

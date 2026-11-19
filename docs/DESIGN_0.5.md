@@ -499,4 +499,19 @@ last change: the bed made, your wooden horse on the pillow).
   `levels/doorUse.js`). Stand-ins: `key_pickup` for `buckle_open`, `door_bang` for `heavy_door_shut`.
 - Tests: `tests/theatre.spec.js` (6). Debug overlay: a NORA line (on the table and straps undone, free,
   or left behind).
-- Next: C2, Nora follows you out.
+- **Nora follows you out (0.2.111)** (`ai/noraFollow.js`). Freed, she gets down by the table while
+  she says her first line (the table hands her over: `nora.getsDown`); with her third, "Get us out…",
+  she follows (`nora_following`). She walks your own way (the points you passed, 0.25 m apart) a
+  couple of steps behind (1.6 m), at your pace, and stops when you stop; left more than 3.2 m behind
+  she hurries. Her steps are one pace louder than yours (owner): you crouch, they carry 4 m; you walk,
+  10 m; she hurrying, 10 m; still, nothing. Dr. Venn hears them where she is, as he hears you
+  (`ai/hearing.js`: her live sound beside yours), and once he has come, finding her within a metre while
+  she walks is a catch for you both (cause `nora`, Sam's line about feet), and she says "I'm sorry. I'm
+  so sorry." She whispers, never heard by him: "Is he close?" when he is within 8 m and not stunned
+  (every 30 s at most); "I can't see you. Don't go too far ahead." when you are 7 m ahead along your
+  way, or 3.5 m with your light off (every 25 s). A shut door on her way she eases open, without a
+  bang. Wherever you arrive (stairs, doors, a rewind), she is behind you. Her walk: `walking()` in
+  `props/noraPoses.js` (legs swing, the back knee bends and its heel lifts, her arms still round
+  her). Her footfalls sound by the floor under her. The debug overlay shows how far behind she is and
+  how loud. Tests: `tests/noraFollow.spec.js` (6).
+- Next: C3, the way out (the west stairs, Dr. Venn following, the dark wards, the courtyard).
