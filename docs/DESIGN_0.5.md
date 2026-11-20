@@ -610,3 +610,7 @@ last change: the bed made, your wooden horse on the pillow).
   rests and then goes straight to her and out reaches Acceptance. Measured for the owner's next pick:
   with Nora keeping the dark off entirely, the rested run comes home at 69 (Acceptance) and the
   unrested one at 54 (Becomes the building).
+- **Nora keeps the dark off (0.2.121, owner 2026-11-20).** While she walks with you the dark costs
+  you nothing (`COMPANY` in `sanity/meter.js`, was half). Rest under a basement lamp before the
+  theatre and you come home steady (about 69 at a human pace: Acceptance); go in shaken and you
+  don't (about 54: Becomes the building). Test: `tests/noraFollow.spec.js`.

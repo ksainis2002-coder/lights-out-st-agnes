@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.121 — Nora keeps the dark off: while she walks with you, the dark no longer wears on your sanity (it used to cost half). Rest under a basement lamp before the theatre and you come home steady enough for Acceptance.
 - 0.2.120 — Three spare flashlight batteries to find in wing 4: at the foot of the candles in the crypt, on the laundry table, and on the coal store floor.
 - 0.2.119 — The basement's boiler room and morgue lamps now steady you: stand in their light and your sanity comes back up to 60, as under the lamps upstairs.
 - 0.2.118 — Ready for the 0.5 checks: the whole of wing 4 finishes by bot in one go (6.3 minutes at bot pace, nobody caught, Acceptance); at a human pace it takes 36 minutes and shows the basement wearing sanity down with no light to steady you, and the flashlight needing 4 batteries the wing does not have. Performance measured room by room; the balance page is docs/balance/balance_0.5.html.

@@ -99,7 +99,7 @@ export function createNoraTable(game) {
 
   function free() {
     progress.setFlag(FREED);
-    game.sanity.restore(STEADIES); // and while she walks with you the dark costs half (sanity/meter.js)
+    game.sanity.restore(STEADIES); // and while she walks with you the dark costs nothing (sanity/meter.js)
     events.emit('clue', 'nora_freed');
     events.emit('nora.freed');
     say(FREED_LINES.map(([key, seconds], i) => [key, VOICE, seconds, i ? 0.4 : 0.6]));

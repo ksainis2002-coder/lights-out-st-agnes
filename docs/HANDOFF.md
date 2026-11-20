@@ -337,6 +337,8 @@ Acceptance (two picks asked). Performance per room: the way out with Nora is the
 draw calls). Release checks pass ("0.5 release prep" in `docs/DESIGN_0.5.md`;
 `docs/balance/balance_0.5.html`). Left: the picks, the playtest, the 0.5 sounds, the 0.2.x PR, the tag.
 **The owner's picks after it (0.2.119–0.2.120):** the boiler room's and the morgue's lamps steady you;
-three batteries in wing 4 (crypt, laundry, coal store). Left: the playtest, the 0.5 sounds, the 0.2.x PR, the tag.
+three batteries in wing 4 (crypt, laundry, coal store); Nora keeps the dark off while she walks with you
+(0.2.121), so resting under a basement lamp before the theatre brings you home steady (Acceptance).
+Left: the playtest, the 0.5 sounds, the 0.2.x PR, the tag.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
