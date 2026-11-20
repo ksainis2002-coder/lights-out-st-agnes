@@ -330,5 +330,11 @@ Fixes on the way (0.2.115–0.2.116), found in the part C screenshots: a line at
 climbs.
 **Freeing Nora steadies you (0.2.117, owner's pick 2026-11-20):** +30 sanity as she is freed, and
 the dark drains half as fast while she walks with you, so Acceptance is reachable without saving pills.
+**0.5 release prep (0.2.118):** the whole wing finishes by bot in one go (6.3 min, nobody caught,
+Acceptance). At a human pace (36 min) the basement wears sanity down with no light to steady you and
+the flashlight burns 4 batteries that wing 4 doesn't have, so a careful player still comes home short of
+Acceptance (two picks asked). Performance per room: the way out with Nora is the heaviest scene (466
+draw calls). Release checks pass ("0.5 release prep" in `docs/DESIGN_0.5.md`;
+`docs/balance/balance_0.5.html`). Left: the picks, the playtest, the 0.5 sounds, the 0.2.x PR, the tag.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

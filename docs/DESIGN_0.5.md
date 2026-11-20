@@ -559,5 +559,41 @@ last change: the bed made, your wooden horse on the pillow).
   doorway; in your room, sanity 91 and Nora behind you: Acceptance. Never heard, never caught
   (`maxCollapses: 0`); about 175 s of game time. Each ending now sets `ended_<kind>` for the run, which
   the route checks (`ended_acceptance`) with `nora_freed`, `puzzle_cabinet` and `way_up`.
-- Next: 0.5 release prep when the owner asks (the wing at human pace against the targets,
-  performance in the new rooms, the milestone checklist).
+
+## 0.5 release prep (0.2.118)
+- **The milestone (the brief):** "Chapel and basement finale with the surgeon, Sam, Nora met, all four
+  endings": the chapel and the crypt (St. Agnes rebuilt, her heart, the basement open), the basement
+  with Dr. Venn and Sam, Nora met and saved or left, the way out and three endings. The fourth, Frees
+  the children, comes whole in 0.6 (owner's pick, 2026-11-17). The brief's wing 4 notes: puzzles that
+  combine clues from every wing (the crypt's plaques, the morgue's dates, the cabinet's dorm-box keys
+  and Edith's tune), dead calm before the finale (`levels/calm.js`); the basement drone is on the sound
+  list (priority 2) and plays once its file comes.
+- **Bot runs:** the three wing 4 routes pass on their own (`tests/bot.spec.js`); played one after
+  another (the walks between them skipped) they finish the wing in 6.3 min at bot pace, never heard or
+  caught, lowest sanity 70, home with 97 and Nora: Acceptance (`docs/balance/balance_0.5.html`).
+- **At a human pace** (15 s of looking around after every step, eyes on St. Agnes while she is in the
+  room; when Dr. Venn reaches the bot he is stunned 20 s instead of a rewind, 11 times, as a bot cannot
+  dodge him; the light kept on, dead batteries swapped): 36 min (A 9.1, B 15.3, C 11.7), one blackout
+  from the dark in the basement, 4 batteries, sanity 11 → 41 as Nora is freed, home at 25: Becomes the
+  building.
+- **What it shows:** the basement has no light that steadies you (sanity comes back in light of 0.8 or
+  more; the basement's brightest lamp, the morgue's, reaches 0.87 only right under it), so sanity falls
+  about 5 a minute there even with the flashlight on; a player at a human pace blacks out there once
+  and reaches the theatre low. Acceptance needs about 50 as you free Nora. The flashlight burns about 4
+  batteries over the wing; wing 4 has none to find, the whole game 6 (wings 1 and 2). Keeping St. Agnes
+  in view costs sanity (99 over part A for a bot that never looks away).
+- **Performance** (as for 0.4: the highest of four directions per room at 320×180, software renderer,
+  every door open, the flashlight on): the chapel up to 71 draw calls (St. Agnes whole), 6k triangles,
+  11 point lights; the crypt 31; the basement up to 326 (the stairs foot; boiler room 309, coal store
+  265, west stairs 262, laundry 255, cold corridor 232, the Founder's door 220, theatre 215, morgue 190),
+  37k triangles, 13 point lights; the way out through the west wing with Nora up to 466 (the fuse room;
+  the stairs 418, the nurses' station 382), 51k triangles, 22 point lights: the heaviest scene so far
+  (0.4's way out: 429); your room 16. If the playtest laptop drops below 60 fps on the way out, first
+  merge the wards' beds and clutter into fewer meshes (as 0.4 said), then fewer point lights.
+- **Release checks:** `base: './'` kept; no absolute `/assets/` paths; the debug overlay is off until
+  F3; the full suite passes.
+- **Left before 0.5 can be tagged:** the owner's picks on the basement's light and its batteries
+  (asked 2026-11-20); the owner's playtest of wing 4 on the playtest PC (fps on the way out, the time,
+  Dr. Venn's catches, which ending a careful player gets); the 0.5 sound files (stand-ins until then,
+  `docs/SOUNDS_0.5.md`); the 0.2.x pull request to main; then the tag, which the owner pushes from
+  their PC (this session cannot push tags).
