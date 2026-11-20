@@ -77,13 +77,16 @@ function drawInventory(ctx, game) {
 }
 
 // Long lines wrap to the middle of the screen, over a faint panel, so the
-// dark screen edges never swallow them.
+// dark screen edges never swallow them. With a subtitle showing, the line goes
+// above the subtitle's box (subtitleTop), never over it.
 const MESSAGE_WIDTH = 300;
-function drawMessage(ctx, game) {
+function drawMessage(ctx, game, subtitleTop = null) {
   const message = game.messages.current();
   if (!message) return false;
   const lines = wrapText(ctx, game.i18n.t(message.key, message.params), 10, MESSAGE_WIDTH);
-  const bottom = game.inventory.isOpen() ? H - 112 : H - 34;
+  const under = message.tag ? 25 : 16; // what the last line has under it: its panel (and "ENTER skip")
+  let bottom = game.inventory.isOpen() ? H - 112 : H - 34;
+  if (subtitleTop !== null) bottom = Math.min(bottom, subtitleTop - under);
   const top = bottom - (lines.length - 1) * 13;
   const iconSpace = message.icon ? 20 : 0;
   const width = Math.max(...lines.map((line) => ctx.measureText(line).width)) + 16 + iconSpace;
@@ -140,6 +143,6 @@ export function drawHud(ctx, game) {
   const subtitle = game.subtitles.draw(ctx);
   const prompt = drawPrompt(ctx, game);
   const inventory = drawInventory(ctx, game);
-  const message = drawMessage(ctx, game);
+  const message = drawMessage(ctx, game, subtitle === false ? null : subtitle);
   return prompt || inventory || message || subtitle || held || battery || pulse || camcorder || breath || locker;
 }

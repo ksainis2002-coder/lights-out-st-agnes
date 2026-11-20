@@ -129,6 +129,35 @@ test('a long use prompt fits inside its box', async ({ page }) => {
   expect(fits).toBe(true);
 });
 
+// A line at the bottom ("Journal updated", a tip, a look) showing with a
+// subtitle goes above the subtitle's box, never over it; alone, it stays put.
+test('a line showing with a subtitle sits above it, not over it', async ({ page }) => {
+  const rows = await page.evaluate(() => {
+    const game = window.__stAgnes;
+    game.play();
+    const ctx = document.createElement('canvas').getContext('2d');
+    const texts = [];
+    const fillText = ctx.fillText.bind(ctx);
+    ctx.fillText = (text, x, y) => {
+      texts.push({ text, y });
+      fillText(text, x, y);
+    };
+    const { t } = game.i18n;
+    const at = (key) => texts.filter((row) => row.text.includes(t(key))).at(-1)?.y ?? null; // the line, not its shadow
+    game.messages.show('msg.journal');
+    game.subtitles.show('nora.isHeClose', { speaker: 'nora_here', whisper: true, seconds: 3 });
+    game.ui.drawHud(ctx);
+    const together = { subtitle: at('nora.isHeClose'), line: at('msg.journal') };
+    texts.length = 0;
+    game.subtitles.update(5); // the subtitle gone
+    game.ui.drawHud(ctx);
+    return { ...together, alone: at('msg.journal'), height: 270 };
+  });
+  expect(rows.subtitle).not.toBeNull();
+  expect(rows.line + 14).toBeLessThanOrEqual(rows.subtitle - 4); // its panel ends above the subtitle's box
+  expect(rows.alone).toBe(rows.height - 34);
+});
+
 // Owner 2026-11-18: "no need for every text to say click". The use key shows on
 // the first few prompts while you learn it, then only the action; a prompt with
 // an input of its own keeps its key.
