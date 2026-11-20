@@ -319,5 +319,11 @@ and its link to the west wing. Progress in "Part B as built so far" in `docs/DES
 **0.5 part B built (0.2.100–0.2.106):** holding your breath, throwing, doors that shout, lockers, Dr.
 Venn, Sam and the valves, the morgue (drawers, page four, the 12 MAY set piece, Dr. Venn's notes),
 and a bot route through it all that is never caught. Next: part C (Nora and the way out).
+**0.5 part C built (0.2.107–0.2.114):** the theatre and Nora on Dr. Venn's table, the cabinet opened
+by ear, Nora following you out one pace louder than you, the back stairs up into the dark west wing
+with Dr. Venn rising after you, and the three endings (Escape at the front gate; Acceptance or Becomes
+the building in your room) with their cards and "Endings found". A bot plays all of part C to
+Acceptance without being caught. Details in "Part C as built" in `docs/DESIGN_0.5.md`; stand-in
+sounds against `docs/SOUNDS_0.5.md`. Next: 0.5 release prep when the owner asks.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

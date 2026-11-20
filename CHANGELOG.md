@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.114 — A bot now plays through the whole of the last part: frees Nora, opens the cabinet by ear, takes her up the back stairs, crosses the dark wards ahead of Dr. Venn and reaches your room for Acceptance, never heard or caught. Each ending is now noted on the run, so the bot can check which one it got.
 - 0.2.113 — The endings: on the way out, the front gate opens on Escape (the road, the burning dormitories, the roll call, your bed again); your room, after its last change (your wooden horse on the pillow), ends in Acceptance (sanity high and Nora with you) or Becomes the building. Each plays its scenes and lines in letterbox, then its card with how many of the four endings you have found, then the title. ENTER skips.
 - 0.2.112 — The way out: the theatre's back stairs come up in the west wing, where the lamps are dead and Sister M. no longer walks; Dr. Venn comes up the stairs after you (his tools clinking below; he can't catch you until he's up) and hunts the dark wards by ear. Out in the courtyard: "The front gate, or my room."
 - 0.2.111 — Nora follows you out: a couple of steps behind along your way, stopping when you stop, one pace louder than you (your crouch is her walk, your walk is her run). Dr. Venn hears her, and if he finds her he has you both ("I'm sorry. I'm so sorry."). She whispers when he is near, or when you get too far ahead; she eases shut doors open; she comes with you up the stairs and wherever you go.

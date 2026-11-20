@@ -466,7 +466,7 @@ last change: the bed made, your wooden horse on the pillow).
   moon D5, star E5, bird G5, heart A5); the sun is the note Edith's tune lost (B4, C5, B4, A4).
 
 
-## Part C as built so far
+## Part C as built (0.2.110–0.2.114)
 - **The theatre (0.2.110).** Its corridor door has a pane of wired glass (door `"look": "glass"`,
   `levels/doors.js`) and stays locked until page four (`requires: morgue_tommy`) with the owner's line
   "Locked from the inside. Through the glass, a lamp over a table." Inside, as in the approved stills:
@@ -544,4 +544,13 @@ last change: the bed made, your wooden horse on the pillow).
   of 4" (kept on this computer for every run: storage key `endings`), "CLICK TO CONTINUE", and the
   title. Stand-in sounds for fire_bell, hand_bell, theatre_lamp, wall_breath. In person Nora's lines are
   always labelled "Nora". Tests: `tests/endings.spec.js` (6).
-- Next: C5, the bot route through part C, the docs, the hand-off.
+- **Bot route `basement_part_c` (0.2.114):** from the foot of the basement stairs with parts A and B
+  done, the flashlight on: waits out his first crossing, eases the theatre door open behind him, undoes
+  the three buckles and hears Nora out, opens the cabinet by the gap (the sun), takes the key, unlocks
+  and eases the back door, climbs the back stairs, runs the dark corridor while he is still rising on
+  the stairs below, walks round the stretcher and on to the nurses' station, goes home through its
+  doorway; in your room, sanity 91 and Nora behind you: Acceptance. Never heard, never caught
+  (`maxCollapses: 0`); about 175 s of game time. Each ending now sets `ended_<kind>` for the run, which
+  the route checks (`ended_acceptance`) with `nora_freed`, `puzzle_cabinet` and `way_up`.
+- Next: 0.5 release prep when the owner asks (the wing at human pace against the targets,
+  performance in the new rooms, the milestone checklist).

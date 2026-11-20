@@ -94,6 +94,7 @@ export function createEnding(game) {
   // The card, and how many endings you have found; then the title.
   function finish() {
     run.done = true;
+    progress.setFlag(`ended_${run.kind}`); // this run ended so (bot routes check it)
     const found = new Set(endingsFound());
     found.add(run.kind);
     store.write('endings', [...found]);
