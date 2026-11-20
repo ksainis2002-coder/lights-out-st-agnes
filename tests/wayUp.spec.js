@@ -18,8 +18,9 @@ test.beforeEach(async ({ page }) => {
     g.realTime = false; // time moves only by advance()
     g.newGame();
     g.intro.finish();
-    // The west wing done (its lamps dead, Sister M. still walking it), the basement, the theatre's key used.
-    ['venn_met', 'nun_walking', 'lamps_dead', 'wards_way_out', 'wards_escaped', 'wing_wards_done', 'morgue_tommy', 'puzzle_cabinet']
+    // The west wing done (its lamps dead, Sister M. still walking it), the basement (her radio on its steps
+    // heard on the way down), the theatre's key used.
+    ['venn_met', 'nun_walking', 'lamps_dead', 'wards_way_out', 'wards_escaped', 'wing_wards_done', 'heard_radio_basement', 'morgue_tommy', 'puzzle_cabinet']
       .forEach((f) => g.progress.setFlag(f));
     g.progress.unlock('theatre_back');
     g.progress.setOpen('theatre_back', true);
@@ -58,6 +59,8 @@ test('up the back stairs: the wards are dark and Sister M. is gone; he comes up 
   await advance(page, 3);
   expect(await game(page, () => window.__stAgnes.collapse.active())).toBe(false);
   expect((await venn(page)).mode).toBe('rising');
+  // His clinking below has its own line; nothing says over it while he climbs.
+  expect(await game(page, () => window.__stAgnes.subtitles.current()?.key)).toBe('caption.vennOnStairs');
   await advance(page, 3.5);
   expect((await venn(page)).mode).not.toBe('rising');
   expect((await venn(page)).seen).toBe(true); // up, at the top of the stairs

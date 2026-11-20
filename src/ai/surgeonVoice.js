@@ -39,15 +39,16 @@ export function createSurgeonVoice(game) {
     return null;
   }
 
-  // Every frame he moves: the clink of his tools (quicker when he comes), and its line now and then.
-  function walking(dt, at, fast = false) {
+  // Every frame he moves: the clink of his tools (quicker when he comes), and its line now and then
+  // (quiet: no line, as he comes up the stairs below you; the way up says it: levels/wayUp.js).
+  function walking(dt, at, fast = false, { quiet = false } = {}) {
     clinkIn -= dt;
     captionIn -= dt;
     if (clinkIn > 0) return;
     clinkIn = fast ? 0.32 : 0.6;
     game.events.emit('surgeon.clink', { position: at.clone(), fast });
     const where = earshot(at);
-    if (!where || captionIn > 0) return;
+    if (quiet || !where || captionIn > 0) return;
     show(where === 'close' ? 'caption.clinkClose' : 'caption.clinkWall');
     captionIn = CAPTION_EVERY;
   }

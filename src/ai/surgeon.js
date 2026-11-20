@@ -127,7 +127,7 @@ export function createSurgeon(game) {
   // Coming up the stairs after you: unseen and deaf, his tools clinking below; then there, listening.
   function rise(dt) {
     timer -= dt;
-    voice.walking(dt, position);
+    voice.walking(dt, position, false, { quiet: true }); // his clinking says itself: "(…, on the stairs below you)"
     if (timer > 0) return;
     mode = 'searching';
     timer = 0;

@@ -2,7 +2,7 @@
   "id": "basement_part_c",
   "level": "basement",
   "spawn": "stairs",
-  "given": {"flags": ["wing_school_done", "wing_wards_done", "wards_escaped", "lamps_dead", "nun_walking", "watcher_awake", "tool_flashlight", "tool_camcorder", "puzzle_records", "puzzle_lanterns", "name_tommy", "name_maggie", "name_edith", "name_nora", "visited_entrance_hall", "set_bell", "set_roll_call", "set_film", "agnes_hand", "agnes_palm", "agnes_lamb", "puzzle_plaques", "agnes_heart", "agnes_whole", "basement_open", "venn_met", "sam_met", "name_sam", "puzzle_valves", "sam_soldier", "morgue_pulled", "morgue_tommy", "set_morgue_drawer"], "items": ["music_box"], "values": {"watcher_floor": "chapel"}},
+  "given": {"flags": ["wing_school_done", "wing_wards_done", "wards_escaped", "lamps_dead", "nun_walking", "watcher_awake", "tool_flashlight", "tool_camcorder", "puzzle_records", "puzzle_lanterns", "name_tommy", "name_maggie", "name_edith", "name_nora", "visited_entrance_hall", "set_bell", "set_roll_call", "set_film", "agnes_hand", "agnes_palm", "agnes_lamb", "puzzle_plaques", "agnes_heart", "agnes_whole", "basement_open", "venn_met", "sam_met", "name_sam", "puzzle_valves", "sam_soldier", "morgue_pulled", "morgue_tommy", "set_morgue_drawer", "heard_radio_admissions", "heard_radio_day", "heard_radio_basement", "tutorial_move", "tutorial_moveMore", "tutorial_use", "tutorial_save", "tutorial_inventory", "tutorial_journal", "tutorial_map", "tutorial_throw", "tutorial_slowDoor", "tutorial_breath", "said_msg.basementGateOpen", "said_msg.homeAfterWards", "said_msg.agnesFirstLook"], "items": ["music_box"], "values": {"watcher_floor": "chapel"}},
   "expectFlags": ["nora_freed", "puzzle_cabinet", "way_up", "ended_acceptance"],
   "maxCollapses": 0,
   "steps": [

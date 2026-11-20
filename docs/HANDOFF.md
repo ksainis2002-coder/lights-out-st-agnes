@@ -325,5 +325,8 @@ with Dr. Venn rising after you, and the three endings (Escape at the front gate;
 the building in your room) with their cards and "Endings found". A bot plays all of part C to
 Acceptance without being caught. Details in "Part C as built" in `docs/DESIGN_0.5.md`; stand-in
 sounds against `docs/SOUNDS_0.5.md`. Next: 0.5 release prep when the owner asks.
+Fixes on the way (0.2.115–0.2.116), found in the part C screenshots: a line at the bottom (tip,
+"Journal updated", look) no longer prints over a subtitle; the stairs line keeps its time while Dr. Venn
+climbs.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.
