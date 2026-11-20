@@ -142,6 +142,8 @@ def basement():
     for i, (item, x, z) in enumerate((('bottle', 2.6, 3.4), ('bottle', 4.0, 3.8), ('stone', 1.6, 2.6), ('stone', 2.2, 2.9), ('stone', 5.1, 2.8))):
         L.throwable(coal, f'coal_{item}_{i}', item, x, z)
     L.bulb(coal, 3.0, 2.4, 2.6, lit=False)
+    # Spare batteries (owner 2026-11-20: wing 4 had none to find): one on the coal store's floor, one on the laundry's table.
+    L.pickups.append({"id": "coal_battery", "item": "battery", "at": coal.at(3.2, 4.2), "model": "batteryCell", "rotation": 35})
 
     # The laundry: the chute from the wards above, its baskets, a staff table.
     L.prop(laundry, 'laundryChute', 2.0, 0, 0)
@@ -149,6 +151,7 @@ def basement():
     L.prop(laundry, 'sheetPile', 1.0, 0.7, 40)
     L.prop(laundry, 'table', 4.0, 3.0)
     L.prop(laundry, 'chair', 4.0, 3.8, 180)
+    L.pickups.append({"id": "laundry_battery", "item": "battery", "at": laundry.at(4.25, 2.85), "y": 0.76, "model": "batteryCell", "rotation": 35})
     L.throwable(laundry, 'laundry_bottle', 'bottle', 1.6, 3.6)
     L.lockers(laundry, 5.75, 2.4, 2, -90)  # the staff room's lockers, along its east wall
     L.bulb(laundry, 3.0, 2.0, 2.8, intensity=0.8, distance=5)

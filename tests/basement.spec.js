@@ -102,3 +102,20 @@ test("the boiler room's and the morgue's lamps steady you; the corridor's dim bu
   expect(errors).toEqual([]);
 });
 
+// Owner 2026-11-20: wing 4 had no batteries to find; now three.
+test('spare batteries: by the crypt candles, on the laundry table, on the coal store floor', async ({ page }) => {
+  const errors = trackErrors(page);
+  const batteries = () => game(page, () => window.__stAgnes.inventory.items().filter((item) => item === 'battery').length);
+  await afterChapel(page, 'chapel_crypt', 'stairs');
+  expect(await lookAt(page, [7.0, 4.6], [7.9, 4.3, 0.05])).toBe('prompt.take');
+  await use(page);
+  expect(await batteries()).toBe(1);
+  await game(page, () => window.__stAgnes.mode === 'ui' && window.__stAgnes.resume()); // the battery's card, read
+  await game(page, () => window.__stAgnes.loadLevel('basement', 'stairs'));
+  expect(await lookAt(page, [16.5, 4.85], [16.25, 3.85, 0.81])).toBe('prompt.take');
+  await use(page);
+  expect(await lookAt(page, [7.3, 4.8], [8.2, 5.2, 0.05])).toBe('prompt.take');
+  await use(page);
+  expect(await batteries()).toBe(3);
+  expect(errors).toEqual([]);
+});

@@ -146,6 +146,8 @@ def crypt():
     L.prop(room, 'cryptNiche', 6.35, 0, 0, extra={"id": "crypt_niche"}, heart=False)
     L.prop(room, 'nicheSlab', 6.35, 0, 0, extra={"id": "niche_slab"})  # grinds aside once open (puzzles/plaques.js)
     L.prop(room, 'votiveRack', 7.4, 2.6, -90, lit=2)
+    # A spare battery at its foot (owner 2026-11-20: wing 4 had none to find).
+    L.pickups.append({"id": "crypt_battery", "item": "battery", "at": room.at(6.9, 3.3), "model": "batteryCell", "rotation": 35})
     L.pickups.append({"id": "crypt_heart", "item": "stone_heart", "at": room.at(6.35, 0.2), "y": 1.06, "model": "stoneHeart",
                       "appearsWith": "puzzle_plaques", "radius": 0.2})
     # The steps back up, at the south-west.

@@ -592,8 +592,7 @@ last change: the bed made, your wooden horse on the pillow).
   merge the wards' beds and clutter into fewer meshes (as 0.4 said), then fewer point lights.
 - **Release checks:** `base: './'` kept; no absolute `/assets/` paths; the debug overlay is off until
   F3; the full suite passes.
-- **Left before 0.5 can be tagged:** the owner's picks on the basement's light and its batteries
-  (asked 2026-11-20); the owner's playtest of wing 4 on the playtest PC (fps on the way out, the time,
+- **Left before 0.5 can be tagged:** the owner's playtest of wing 4 on the playtest PC (fps on the way out, the time,
   Dr. Venn's catches, which ending a careful player gets); the 0.5 sound files (stand-ins until then,
   `docs/SOUNDS_0.5.md`); the 0.2.x pull request to main; then the tag, which the owner pushes from
   their PC (this session cannot push tags).
@@ -602,3 +601,12 @@ last change: the bed made, your wooden horse on the pillow).
   within about 2 m of them), so standing by one lifts sanity back to 60, as the lamps upstairs do; the
   rooms look much as before (the pools of light on their ceilings a little wider). At a human pace the
   bot no longer blacks out in the basement (lowest sanity 16, was 4). Test: `tests/basement.spec.js`.
+- **Three batteries in wing 4 (0.2.120, owner 2026-11-20).** One at the foot of the crypt's votive
+  candles, one on the laundry's table, one on the coal store's floor (`batteryCell`, as in wing 1), so
+  the wing's light no longer rests on batteries carried from wings 1 and 2. Test: `tests/basement.spec.js`.
+- **After both picks, at a human pace:** no blackout; lowest sanity 16; freeing Nora at 25 → 55, home
+  at 40 (Becomes the building). Resting by the morgue lamp first (50 s, to 60): Nora freed at 40 → 70,
+  home at 55, still short of 65: the way out costs about 15 even at half drain, so only a player who
+  rests and then goes straight to her and out reaches Acceptance. Measured for the owner's next pick:
+  with Nora keeping the dark off entirely, the rested run comes home at 69 (Acceptance) and the
+  unrested one at 54 (Becomes the building).

@@ -250,6 +250,16 @@
  ],
  "pickups": [
   {
+   "id": "crypt_battery",
+   "item": "battery",
+   "at": [
+    7.9,
+    4.3
+   ],
+   "model": "batteryCell",
+   "rotation": 35
+  },
+  {
    "id": "crypt_heart",
    "item": "stone_heart",
    "at": [
