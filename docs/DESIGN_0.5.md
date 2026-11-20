@@ -597,3 +597,8 @@ last change: the bed made, your wooden horse on the pillow).
   Dr. Venn's catches, which ending a careful player gets); the 0.5 sound files (stand-ins until then,
   `docs/SOUNDS_0.5.md`); the 0.2.x pull request to main; then the tag, which the owner pushes from
   their PC (this session cannot push tags).
+- **The basement's two lamps steady you (0.2.119, owner 2026-11-20).** The boiler room's and the
+  morgue's bulbs are bright enough to count (`STEADY` in `tools/levels/basement.py`: light 0.8 or more
+  within about 2 m of them), so standing by one lifts sanity back to 60, as the lamps upstairs do; the
+  rooms look much as before (the pools of light on their ceilings a little wider). At a human pace the
+  bot no longer blacks out in the basement (lowest sanity 16, was 4). Test: `tests/basement.spec.js`.

@@ -81,3 +81,24 @@ test("the Founder's door: locked, no handle, someone humming behind it", async (
   expect(await game(page, () => window.__stAgnes.world.level.doorAt(20, 1).open)).toBe(false);
   expect(errors).toEqual([]);
 });
+
+// Owner 2026-11-20: the boiler room's and the morgue's lamps steady you (light lifts sanity back
+// to 60 there, as the lamps upstairs do); the corridor's dim bulbs do not.
+test("the boiler room's and the morgue's lamps steady you; the corridor's dim bulbs do not", async ({ page }) => {
+  const errors = trackErrors(page);
+  await afterChapel(page, 'basement', 'stairs');
+  const after5s = (spot) => game(page, (spot) => {
+    const g = window.__stAgnes;
+    const size = g.world.level.cellSize;
+    Object.assign(g.player.state.position, { x: spot[0] * size, z: spot[1] * size });
+    g.world.flashlight.setOn(true);
+    g.sanity.set(40);
+    g.advance(5);
+    return g.sanity.value();
+  }, spot);
+  expect(await after5s([6.9, 13.0])).toBeGreaterThan(40); // in the boiler room, by its lamp
+  expect(await after5s([13.4, 12.6])).toBeGreaterThan(40); // in the morgue, under its lamp
+  expect(await after5s([10.5, 8.5])).toBeLessThan(40); // in the cold corridor
+  expect(errors).toEqual([]);
+});
+

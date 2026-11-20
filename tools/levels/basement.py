@@ -29,6 +29,7 @@ MORGUE = {
     "10": {"card": "morgue.card.apr2", "is": "child", "name": "ROWE, M."},
 }
 BULB = '#d8c8a0'
+STEADY = 3.4  # a bulb bright enough to steady you: light 0.8 or more within about 2 m (sanity/meter.js)
 OPEN = "basement_open"  # St. Agnes is whole (ai/agnesPieces.js)
 r3 = lambda v: round(v, 3)
 
@@ -173,7 +174,9 @@ def basement():
     for z, colour, wid in ((2.0, '#8a2a22', 'valve_red'), (3.0, '#2a5a8a', 'valve_blue'), (4.0, '#8a7a2a', 'valve_brass')):
         L.prop(boiler, 'valveWheel', 0, z, 90, extra={"id": wid}, color=colour)
     L.prop(boiler, 'pipeRun', 4.0, 6.6, length=9.6, height=2.9)
-    L.bulb(boiler, 5.5, 2.0, 3.4, intensity=1.6, distance=7)
+    # Bright enough to steady you (owner 2026-11-20): within about 2 m of it the light lifts sanity back
+    # to 60, as the lamps upstairs do (sanity/meter.js); the only such places in the basement.
+    L.bulb(boiler, 5.5, 2.0, 3.4, intensity=STEADY, distance=7)
     L.pickups.append({"id": "sam_soldier", "item": "tin_soldier", "at": boiler.at(2.2, 4.6), "y": 0.02, "model": "tinSoldier",
                       "appearsWith": "puzzle_valves", "radius": 0.25})
     # The stoker's log on a little table by the east wall, just inside the door.
@@ -197,7 +200,7 @@ def basement():
     L.prop(morgue, 'puddle', 4.0, 3.2, width=1.0, depth=0.8)
     L.lockers(morgue, 6.75, 2.2, 3, -90)  # along its east wall, as in the approved still
     # A bulb left burning over the drawers (approved still locker_inside: what you see him by from a locker).
-    L.bulb(morgue, 3.4, 1.9, 3.0, intensity=2.6, distance=8)
+    L.bulb(morgue, 3.4, 1.9, 3.0, intensity=STEADY, distance=8)  # bright enough to steady you, as the boiler room's
 
     # The theatre (approved stills theatre_nora, cabinet_lock): his table under its lamp, the only
     # light, Nora strapped to it (ai/noraTable.js); his tray; the cabinet with the key to the back door.
