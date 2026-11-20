@@ -47,4 +47,13 @@ export function basementSounds({ events, play, at, doorPosition }) {
   events.on('cabinet.wrong', ({ position }) => play('door_locked', { position, volume: 0.5, rate: 1.4, refDistance: 2 }));
   events.on('cabinet.open', ({ position }) => play('lock_wheel_click', { position, volume: 0.9, refDistance: 2 }));
   events.on('nora.doorShut', (door) => play('door_bang', { position: doorPosition(door), volume: 0.85, rate: 0.8, refDistance: 4 }));
+  // The endings (cutscenes/ending.js), stand-ins for the 0.5 list's fire_bell, hand_bell, theatre_lamp and wall_breath.
+  const ENDING = {
+    gate: ['gate_creak', { volume: 0.7 }], fireBell: ['school_bell', { volume: 0.3, rate: 0.75 }],
+    lightsOut: ['school_bell', { volume: 0.45, rate: 1.6 }], rain: ['amb_rain_inside', { volume: 0.6 }],
+    lamp: ['fluorescent_buzz', { volume: 0.4 }], pulse: ['heartbeat', { volume: 0.7 }],
+    coalDoor: ['door_bang', { volume: 0.6, rate: 0.7 }], wallBreath: ['stone_near_breath', { volume: 0.8, rate: 0.6 }],
+    farDoor: ['door_open_slow', { volume: 0.35 }],
+  };
+  events.on('ending.sound', (cue) => ENDING[cue] && play(ENDING[cue][0], { ...ENDING[cue][1], pitchJitter: 0 }));
 }

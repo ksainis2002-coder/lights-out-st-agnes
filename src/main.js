@@ -288,9 +288,9 @@ function simulate(game, dt) {
     world.update(dt);
     return;
   }
-  if (game.intro.active() || game.tape.active()) {
-    if (game.intro.active()) game.intro.update(dt, input);
-    else game.tape.update(dt, input);
+  const cutscene = [game.intro, game.tape, game.ending].find((scene) => scene?.active());
+  if (cutscene) {
+    cutscene.update(dt, input);
     world.update(dt);
     game.sfx.update(dt);
     return;
@@ -348,6 +348,7 @@ function tick(game, dt) {
   if (game.collapse.active()) game.collapse.applyCamera(world.camera);
   else if (game.intro.active()) game.intro.applyCamera(world.camera);
   else if (game.tape.active()) game.tape.applyCamera(world.camera);
+  else if (game.ending?.active()) game.ending.applyCamera(world.camera);
   else if (game.session.active) applySanityEffects(game, game.sanity.value(), game.time);
   world.camera.updateMatrixWorld();
   updateListener(game.mixer, world.camera);

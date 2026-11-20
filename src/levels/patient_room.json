@@ -1,385 +1,404 @@
 {
-  "id": "patient_room",
-  "wing": "hub",
-  "cellSize": 1.0,
-  "wallHeight": 2.6,
-  "floorTexture": "floor",
-  "ceilingTexture": "ceiling",
-  "legend": {
-    "0": "floor",
-    "1": "tile",
-    "2": "tile"
+ "id": "patient_room",
+ "wing": "hub",
+ "cellSize": 1.0,
+ "wallHeight": 2.6,
+ "floorTexture": "floor",
+ "ceilingTexture": "ceiling",
+ "legend": {
+  "0": "floor",
+  "1": "tile",
+  "2": "tile"
+ },
+ "map": [
+  "111111",
+  "100001",
+  "100001",
+  "100001",
+  "100001",
+  "100001",
+  "112111"
+ ],
+ "rooms": [
+  {
+   "id": "patient_room",
+   "cells": [
+    1,
+    1,
+    4,
+    5
+   ]
+  }
+ ],
+ "triggers": [],
+ "props": [
+  {
+   "type": "bed",
+   "at": [
+    1.6,
+    2.0
+   ]
   },
-  "map": [
-    "111111",
-    "100001",
-    "100001",
-    "100001",
-    "100001",
-    "100001",
-    "112111"
-  ],
-  "rooms": [
-    {
-      "id": "patient_room",
-      "cells": [
-        1,
-        1,
-        4,
-        5
-      ]
-    }
-  ],
-  "triggers": [],
-  "props": [
-    {
-      "type": "bed",
-      "at": [
-        1.6,
-        2.0
-      ]
-    },
-    {
-      "type": "table",
-      "at": [
-        4.6,
-        3.2
-      ],
-      "rotation": 90
-    },
-    {
-      "type": "tapeRecorder",
-      "at": [
-        4.65,
-        3.2
-      ],
-      "y": 0.76,
-      "rotation": -90,
-      "use": "save"
-    },
-    {
-      "type": "drawing",
-      "at": [
-        3.4,
-        1.0
-      ],
-      "options": {
-        "kind": "horse"
-      }
-    },
-    {
-      "type": "fluorescent",
-      "at": [
-        3.0,
-        3.2
-      ],
-      "options": {
-        "height": 2.6
-      }
-    },
-    {
-      "type": "drawing",
-      "id": "hub_skipping",
-      "at": [
-        2.2,
-        1.0
-      ],
-      "options": {
-        "kind": "skipping"
-      },
-      "after": {
-        "flag": "puzzle_hopscotch"
-      }
-    },
-    {
-      "type": "tileDecay",
-      "id": "hub_damp",
-      "at": [
-        1.7,
-        1.0
-      ],
-      "options": {
-        "width": 1.8,
-        "height": 1.6,
-        "y": 1.2,
-        "seed": 3,
-        "missing": false
-      },
-      "after": {
-        "flag": "puzzle_records"
-      },
-      "until": {
-        "flag": "puzzle_lanterns"
-      }
-    },
-    {
-      "type": "tileDecay",
-      "id": "hub_damp_side",
-      "at": [
-        1.0,
-        3.6
-      ],
-      "rotation": 90,
-      "options": {
-        "width": 1.2,
-        "height": 1.0,
-        "y": 0.9,
-        "seed": 8,
-        "missing": false
-      },
-      "after": {
-        "flag": "puzzle_records"
-      },
-      "until": {
-        "flag": "puzzle_lanterns"
-      }
-    },
-    {
-      "type": "doorPane",
-      "id": "hub_pane",
-      "at": [
-        2.5,
-        6.459
-      ],
-      "rotation": 180,
-      "options": {
-        "cracked": true
-      },
-      "after": {
-        "flag": "puzzle_records"
-      }
-    },
-    {
-      "type": "tileDecay",
-      "id": "hub_tiles",
-      "at": [
-        1.7,
-        1.0
-      ],
-      "options": {
-        "width": 1.8,
-        "height": 1.6,
-        "y": 1.2,
-        "seed": 3,
-        "missing": true
-      },
-      "after": {
-        "flag": "puzzle_lanterns"
-      }
-    },
-    {
-      "type": "tileDecay",
-      "id": "hub_tiles_side",
-      "at": [
-        1.0,
-        3.6
-      ],
-      "rotation": 90,
-      "options": {
-        "width": 1.2,
-        "height": 1.0,
-        "y": 0.9,
-        "seed": 8,
-        "missing": true
-      },
-      "after": {
-        "flag": "puzzle_lanterns"
-      }
-    },
-    {
-      "type": "fallenTiles",
-      "id": "hub_fallen",
-      "at": [
-        1.6,
-        1.2
-      ],
-      "options": {
-        "seed": 5
-      },
-      "after": {
-        "flag": "puzzle_lanterns"
-      }
-    },
-    {
-      "type": "sootStain",
-      "id": "hub_soot_ceiling",
-      "at": [
-        3.0,
-        3.2
-      ],
-      "options": {
-        "ceiling": true,
-        "width": 2.6,
-        "depth": 2.0,
-        "height": 2.6,
-        "seed": 7
-      },
-      "after": {
-        "flag": "wing_wards_done"
-      }
-    },
-    {
-      "type": "sootStain",
-      "id": "hub_soot_door",
-      "at": [
-        2.5,
-        6
-      ],
-      "rotation": 180,
-      "options": {
-        "width": 1.6,
-        "depth": 1.4,
-        "y": 1.3,
-        "seed": 2
-      },
-      "after": {
-        "flag": "wing_wards_done"
-      }
-    },
-    {
-      "type": "sootStain",
-      "id": "hub_soot_west",
-      "at": [
-        1,
-        2.4
-      ],
-      "rotation": 90,
-      "options": {
-        "width": 1.2,
-        "depth": 1.0,
-        "y": 1.7,
-        "seed": 9
-      },
-      "after": {
-        "flag": "wing_wards_done"
-      }
-    },
-    {
-      "type": "candle",
-      "id": "hub_candle",
-      "at": [
-        4.55,
-        3.45
-      ],
-      "y": 0.76,
-      "options": {
-        "lit": false,
-        "height": 0.02
-      },
-      "after": {
-        "flag": "wing_wards_done"
-      }
-    }
-  ],
-  "lights": [
-    {
-      "type": "point",
-      "at": [
-        3.0,
-        3.2
-      ],
-      "height": 2.4,
-      "color": "#e6fff0",
-      "intensity": 3.2,
-      "distance": 7,
-      "until": {
-        "flag": "puzzle_lanterns"
-      }
-    },
-    {
-      "type": "point",
-      "at": [
-        3.0,
-        3.2
-      ],
-      "height": 2.4,
-      "color": "#e6fff0",
-      "intensity": 1.76,
-      "distance": 7,
-      "after": {
-        "flag": "puzzle_lanterns"
-      },
-      "until": {
-        "flag": "wing_wards_done"
-      }
-    },
-    {
-      "type": "point",
-      "at": [
-        3.0,
-        3.2
-      ],
-      "height": 2.4,
-      "color": "#e6fff0",
-      "intensity": 1.06,
-      "distance": 7,
-      "after": {
-        "flag": "wing_wards_done"
-      }
-    }
-  ],
-  "spawns": {
-    "default": {
-      "cell": [
-        2.45,
-        2.3
-      ],
-      "yawDegrees": 180
-    },
-    "door": {
-      "cell": [
-        2,
-        5.2
-      ],
-      "yawDegrees": 0
-    }
+  {
+   "type": "table",
+   "at": [
+    4.6,
+    3.2
+   ],
+   "rotation": 90
   },
-  "doors": [
-    {
-      "id": "hub_door",
-      "cell": [
-        2,
-        6
-      ],
-      "exit": {
-        "level": "orphanage_wing",
-        "spawn": "landing",
-        "prompt": "prompt.leave",
-        "afterBasics": true,
-        "returns": true
-      }
-    }
-  ],
-  "ambience": [
-    {
-      "name": "fluorescent_buzz",
-      "volume": 0.3
-    },
-    {
-      "name": "amb_building_hum",
-      "volume": 0.45
-    }
-  ],
-  "safe": true,
-  "pickups": [
-    {
-      "id": "room_flashlight",
-      "item": "flashlight",
-      "at": [
-        4.55,
-        2.85
-      ],
-      "y": 0.76,
-      "rotation": 30,
-      "model": "torch"
-    }
-  ],
-  "arrivals": [
-    {
-      "after": {
-        "flag": "wing_wards_done"
-      },
-      "message": "msg.homeAfterWards"
-    }
-  ]
+  {
+   "type": "tapeRecorder",
+   "at": [
+    4.65,
+    3.2
+   ],
+   "y": 0.76,
+   "rotation": -90,
+   "use": "save"
+  },
+  {
+   "type": "drawing",
+   "at": [
+    3.4,
+    1.0
+   ],
+   "options": {
+    "kind": "horse"
+   }
+  },
+  {
+   "type": "fluorescent",
+   "at": [
+    3.0,
+    3.2
+   ],
+   "options": {
+    "height": 2.6
+   }
+  },
+  {
+   "type": "drawing",
+   "id": "hub_skipping",
+   "at": [
+    2.2,
+    1.0
+   ],
+   "options": {
+    "kind": "skipping"
+   },
+   "after": {
+    "flag": "puzzle_hopscotch"
+   }
+  },
+  {
+   "type": "tileDecay",
+   "id": "hub_damp",
+   "at": [
+    1.7,
+    1.0
+   ],
+   "options": {
+    "width": 1.8,
+    "height": 1.6,
+    "y": 1.2,
+    "seed": 3,
+    "missing": false
+   },
+   "after": {
+    "flag": "puzzle_records"
+   },
+   "until": {
+    "flag": "puzzle_lanterns"
+   }
+  },
+  {
+   "type": "tileDecay",
+   "id": "hub_damp_side",
+   "at": [
+    1.0,
+    3.6
+   ],
+   "rotation": 90,
+   "options": {
+    "width": 1.2,
+    "height": 1.0,
+    "y": 0.9,
+    "seed": 8,
+    "missing": false
+   },
+   "after": {
+    "flag": "puzzle_records"
+   },
+   "until": {
+    "flag": "puzzle_lanterns"
+   }
+  },
+  {
+   "type": "doorPane",
+   "id": "hub_pane",
+   "at": [
+    2.5,
+    6.459
+   ],
+   "rotation": 180,
+   "options": {
+    "cracked": true
+   },
+   "after": {
+    "flag": "puzzle_records"
+   }
+  },
+  {
+   "type": "tileDecay",
+   "id": "hub_tiles",
+   "at": [
+    1.7,
+    1.0
+   ],
+   "options": {
+    "width": 1.8,
+    "height": 1.6,
+    "y": 1.2,
+    "seed": 3,
+    "missing": true
+   },
+   "after": {
+    "flag": "puzzle_lanterns"
+   }
+  },
+  {
+   "type": "tileDecay",
+   "id": "hub_tiles_side",
+   "at": [
+    1.0,
+    3.6
+   ],
+   "rotation": 90,
+   "options": {
+    "width": 1.2,
+    "height": 1.0,
+    "y": 0.9,
+    "seed": 8,
+    "missing": true
+   },
+   "after": {
+    "flag": "puzzle_lanterns"
+   }
+  },
+  {
+   "type": "fallenTiles",
+   "id": "hub_fallen",
+   "at": [
+    1.6,
+    1.2
+   ],
+   "options": {
+    "seed": 5
+   },
+   "after": {
+    "flag": "puzzle_lanterns"
+   }
+  },
+  {
+   "type": "sootStain",
+   "id": "hub_soot_ceiling",
+   "at": [
+    3.0,
+    3.2
+   ],
+   "options": {
+    "ceiling": true,
+    "width": 2.6,
+    "depth": 2.0,
+    "height": 2.6,
+    "seed": 7
+   },
+   "after": {
+    "flag": "wing_wards_done"
+   }
+  },
+  {
+   "type": "sootStain",
+   "id": "hub_soot_door",
+   "at": [
+    2.5,
+    6
+   ],
+   "rotation": 180,
+   "options": {
+    "width": 1.6,
+    "depth": 1.4,
+    "y": 1.3,
+    "seed": 2
+   },
+   "after": {
+    "flag": "wing_wards_done"
+   }
+  },
+  {
+   "type": "sootStain",
+   "id": "hub_soot_west",
+   "at": [
+    1,
+    2.4
+   ],
+   "rotation": 90,
+   "options": {
+    "width": 1.2,
+    "depth": 1.0,
+    "y": 1.7,
+    "seed": 9
+   },
+   "after": {
+    "flag": "wing_wards_done"
+   }
+  },
+  {
+   "type": "candle",
+   "id": "hub_candle",
+   "at": [
+    4.55,
+    3.45
+   ],
+   "y": 0.76,
+   "options": {
+    "lit": false,
+    "height": 0.02
+   },
+   "after": {
+    "flag": "wing_wards_done"
+   }
+  },
+  {
+   "type": "toyHorse",
+   "at": [
+    1.62,
+    1.3
+   ],
+   "y": 0.565,
+   "rotation": 20,
+   "id": "hub_horse",
+   "after": {
+    "flag": "way_up"
+   }
+  }
+ ],
+ "lights": [
+  {
+   "type": "point",
+   "at": [
+    3.0,
+    3.2
+   ],
+   "height": 2.4,
+   "color": "#e6fff0",
+   "intensity": 3.2,
+   "distance": 7,
+   "until": {
+    "flag": "puzzle_lanterns"
+   }
+  },
+  {
+   "type": "point",
+   "at": [
+    3.0,
+    3.2
+   ],
+   "height": 2.4,
+   "color": "#e6fff0",
+   "intensity": 1.76,
+   "distance": 7,
+   "after": {
+    "flag": "puzzle_lanterns"
+   },
+   "until": {
+    "flag": "wing_wards_done"
+   }
+  },
+  {
+   "type": "point",
+   "at": [
+    3.0,
+    3.2
+   ],
+   "height": 2.4,
+   "color": "#e6fff0",
+   "intensity": 1.06,
+   "distance": 7,
+   "after": {
+    "flag": "wing_wards_done"
+   }
+  }
+ ],
+ "spawns": {
+  "default": {
+   "cell": [
+    2.45,
+    2.3
+   ],
+   "yawDegrees": 180
+  },
+  "door": {
+   "cell": [
+    2,
+    5.2
+   ],
+   "yawDegrees": 0
+  }
+ },
+ "doors": [
+  {
+   "id": "hub_door",
+   "cell": [
+    2,
+    6
+   ],
+   "exit": {
+    "level": "orphanage_wing",
+    "spawn": "landing",
+    "prompt": "prompt.leave",
+    "afterBasics": true,
+    "returns": true
+   }
+  }
+ ],
+ "ambience": [
+  {
+   "name": "fluorescent_buzz",
+   "volume": 0.3
+  },
+  {
+   "name": "amb_building_hum",
+   "volume": 0.45
+  }
+ ],
+ "safe": true,
+ "pickups": [
+  {
+   "id": "room_flashlight",
+   "item": "flashlight",
+   "at": [
+    4.55,
+    2.85
+   ],
+   "y": 0.76,
+   "rotation": 30,
+   "model": "torch"
+  }
+ ],
+ "arrivals": [
+  {
+   "after": {
+    "flag": "wing_wards_done"
+   },
+   "message": "msg.homeAfterWards"
+  },
+  {
+   "after": {
+    "flag": "way_up"
+   },
+   "message": "msg.roomLast"
+  }
+ ]
 }

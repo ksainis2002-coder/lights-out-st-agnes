@@ -5,6 +5,9 @@
 //                             shows "lockedMessage" (the garden door: wing 1 done)
 //   "shutBy": "<flag>"        once the flag is set it is shut for good (the
 //                             theatre's back door, once Nora is left behind)
+//   "ending": { "kind", "after": "<flag>", "prompt" }   once the flag is set, using
+//                             it ends the game there (the front gate on the way out:
+//                             cutscenes/ending.js)
 //   "exit": { ..., "back": "<spawn>" }  remembers this spot as the way back
 //   "exit": { ..., "returns": true }    leads back the way you came in, if
 //                             that was a door with "back" (the hub's door)
@@ -37,6 +40,7 @@ export function doorInteractables(game) {
 
   const waiting = (door) => door.requires && !progress.hasFlag(door.requires);
   const shut = (door) => door.shutBy && progress.hasFlag(door.shutBy);
+  const ends = (door) => door.ending && progress.hasFlag(door.ending.after) && game.ending;
   const exitOf = (door) => (door.exit?.returns && progress.getValue(`back_${level.id}`)) || door.exit;
   const notBuilt = (door) => door.exit && !LEVELS[exitOf(door).level];
 
@@ -57,6 +61,7 @@ export function doorInteractables(game) {
       radius: 0.75, // a door is big: anywhere on its face counts
       prompt() {
         if (door.hidden && !door.revealed) return null;
+        if (ends(door)) return { key: door.ending.prompt };
         if (waiting(door) || shut(door)) return { key: 'prompt.locked' };
         if (notBuilt(door)) return { key: 'prompt.notYet' };
         if (door.exit && door.exit.afterBasics && game.tutorial?.basicsPending()) return { key: 'prompt.notYet' };
@@ -69,6 +74,7 @@ export function doorInteractables(game) {
         return { key: level.loudDoors ? 'prompt.openSlowly' : 'prompt.open', ...loud };
       },
       use() {
+        if (ends(door)) return game.ending.start(door.ending.kind);
         if (waiting(door)) return refuse(door, door.lockedMessage);
         if (shut(door)) return refuse(door, null);
         if (notBuilt(door)) return null;

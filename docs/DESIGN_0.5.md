@@ -526,4 +526,22 @@ last change: the bed made, your wooden horse on the pillow).
   room and the admissions room to the courtyard door. Out in the courtyard on the way out, the
   arrival line "The front gate, or my room." (`tools/levels/finale.py` edits the grounds). Tests:
   `tests/wayUp.spec.js` (4).
-- Next: C4, the endings.
+- **The endings (0.2.113)** (`cutscenes/ending.js`, scenes `cutscenes/endingScenes.js`, letterbox
+  `ui/endingHud.js`, card `ui/screens/endCard.js`). On the way out the front gate's "Open the gate"
+  (`prompt.openGate`; the door's `"ending"` in `tools/levels/finale.py`, `levels/doorUse.js`) plays
+  Escape: "(the gate opens)", the road with every dormitory window orange (the approved still's
+  view), the fire bell, the roll, Nora's "Tommy? Where are you going?…" only if she is with you, the
+  lights-out bell over black, and your bed as you first woke, the rain. In your room on the way out:
+  its last change (your wooden horse on the pillow, `hub_horse`; "My room. The bed is made…"), and
+  5.5 s later the ending your sanity as you came in and your company decide: Acceptance (65 or more
+  and Nora with you): her line in the room, on his table looking up into the lamp, "I got to seven.",
+  her "Tommy. It's all right…", morning at a window your room never had with her by it; or Becomes
+  the building: the walls warm and veined with a pulse (no pulsing with reduce effects), the coal store
+  at a child's height with the door shutting on the light, the breathing in the walls, "I know where
+  everyone is now…", then Nora far off ("(Nora, far off) Tommy? Where did you go?") or, without her,
+  "(far off, a door opens: someone new has come in)". Each step a scene in letterbox with its line;
+  ENTER skips to the card. The card: black, the tape's "■ STOP", the ending's line, "Endings found: n
+  of 4" (kept on this computer for every run: storage key `endings`), "CLICK TO CONTINUE", and the
+  title. Stand-in sounds for fire_bell, hand_bell, theatre_lamp, wall_breath. In person Nora's lines are
+  always labelled "Nora". Tests: `tests/endings.spec.js` (6).
+- Next: C5, the bot route through part C, the docs, the hand-off.

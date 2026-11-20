@@ -6,6 +6,7 @@
 // lines. Nothing else.
 import { drawCamcorder } from './camcorderHud.js';
 import { drawTape } from './tapeHud.js';
+import { drawEnding } from './endingHud.js';
 import { osdText, wrapText, capitals, COLORS, UI_FONT } from './osd.js';
 import { keyName } from './settingsRows.js';
 import { promptKey } from './promptKey.js';
@@ -125,6 +126,7 @@ export function drawHud(ctx, game) {
   if (drawClickToContinue(ctx, game)) return true;
   if (drawIntro(ctx, game)) return true;
   if (drawTape(ctx, game)) return true;
+  if (drawEnding(ctx, game)) return true;
   if (drawRewind(ctx, game)) {
     game.subtitles.draw(ctx);
     return true;

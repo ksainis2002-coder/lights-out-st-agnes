@@ -10,6 +10,7 @@ import { createDocumentScreen } from './screens/document.js';
 import { createTapeScreen } from './screens/tapes.js';
 import { createMusicBoxScreen } from './screens/musicBox.js';
 import { createCabinetLockScreen } from './screens/cabinetLock.js';
+import { createEndCardScreen } from './screens/endCard.js';
 import { createFuseBoxScreen } from './screens/fuseBox.js';
 import { createPianoScreen } from './screens/piano.js';
 import { createCardIndexScreen } from './screens/cardIndex.js';
@@ -33,6 +34,7 @@ const SCREENS = {
   document: createDocumentScreen,
   musicBox: createMusicBoxScreen,
   cabinetLock: createCabinetLockScreen,
+  endCard: createEndCardScreen,
   fuseBox: createFuseBoxScreen,
   piano: createPianoScreen,
   cardIndex: createCardIndexScreen,

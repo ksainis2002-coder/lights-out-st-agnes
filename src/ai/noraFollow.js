@@ -205,6 +205,7 @@ export function createNoraFollow(game) {
     with: () => following() && Boolean(figure),
     regroup: () => following() && behindYou(), // behind you, where you stand now
     position: () => figure?.position.clone() ?? null,
+    figure: () => figure, // her model, for the endings' scenes (cutscenes/endingScenes.js)
     // Her steps as he hears them, while she walks: { x, z, radius }.
     audible: () => (figure && moving ? { x: figure.position.x, z: figure.position.z, radius: moving.radius } : null),
   };

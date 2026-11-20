@@ -263,7 +263,12 @@
    ],
    "look": "gate",
    "requires": "front_gate_open",
-   "lockedMessage": "msg.frontGateChained"
+   "lockedMessage": "msg.frontGateChained",
+   "ending": {
+    "kind": "escape",
+    "after": "way_up",
+    "prompt": "prompt.openGate"
+   }
   }
  ],
  "triggers": [],
