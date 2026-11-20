@@ -86,7 +86,8 @@ test('Nora hears you come in and pleads when you lean over her; three buckles, e
   await use(page);
   expect(await message(page)).toBe('msg.noraLook');
 
-  // The three buckles, from her side: each one quietly.
+  // The three buckles, from her side: each one quietly. Freeing her steadies you (+30).
+  await game(page, () => window.__stAgnes.sanity.set(40));
   for (const [i, buckle] of BUCKLES.entries()) {
     expect(await lookAt(page, [20.6, buckle[1]], buckle)).toBe('prompt.undoStraps');
     await use(page);
@@ -97,6 +98,7 @@ test('Nora hears you come in and pleads when you lean over her; three buckles, e
   expect(said.filter((h) => h === 'caption.buckle')).toHaveLength(3);
   expect(said.filter((h) => typeof h !== 'string')).toEqual([]); // no noise: he does not hear a buckle eased open
   expect(await flags(page, ['nora_freed'])).toEqual(['nora_freed']);
+  expect(await game(page, () => window.__stAgnes.sanity.value())).toBeGreaterThanOrEqual(69); // 40 + 30, less a moment of dark
   expect(await game(page, () => window.__stAgnes.journal.clues())).toContain('nora_freed');
   await advance(page, 16);
   expect(await heard(page)).toEqual(expect.arrayContaining(['nora.freed1', 'nora.freed2', 'nora.freed3']));

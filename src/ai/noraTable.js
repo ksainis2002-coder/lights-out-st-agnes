@@ -26,6 +26,7 @@ const VOICE = { speaker: 'nora_here', whisper: false };
 const CAPTION = { speaker: null, whisper: false };
 // Her lines once free, each with how long it shows (seconds): she gets down after the first.
 const FREED_LINES = [['nora.freed1', 3.5], ['nora.freed2', 6.5], ['nora.freed3', 4.5]];
+const STEADIES = 30; // sanity freeing her gives back (owner 2026-11-20: "freeing Nora steadies you")
 
 export function createNoraTable(game) {
   const { progress, events } = game;
@@ -98,6 +99,7 @@ export function createNoraTable(game) {
 
   function free() {
     progress.setFlag(FREED);
+    game.sanity.restore(STEADIES); // and while she walks with you the dark costs half (sanity/meter.js)
     events.emit('clue', 'nora_freed');
     events.emit('nora.freed');
     say(FREED_LINES.map(([key, seconds], i) => [key, VOICE, seconds, i ? 0.4 : 0.6]));

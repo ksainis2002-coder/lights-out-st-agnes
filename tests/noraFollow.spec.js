@@ -172,3 +172,23 @@ test('a door shut on her way she eases open, with no bang', async ({ page }) => 
   expect(at[1]).toBeGreaterThan(6.9); // through it, out in the corridor
   expect(errors).toEqual([]);
 });
+
+// Owner 2026-11-20, "freeing Nora steadies you": with her beside you the dark costs half.
+test('with her beside you, the dark wears on you half as fast', async ({ page }) => {
+  const errors = trackErrors(page);
+  await venn(page, [14, 3]);
+  await startAt(page, [10.5, 8.5]); // the cold corridor
+  const darkFor = (seconds) => game(page, (seconds) => {
+    const g = window.__stAgnes;
+    g.world.flashlight.setOn(false);
+    g.sanity.set(80);
+    g.advance(seconds);
+    return 80 - g.sanity.value();
+  }, seconds);
+  const withHer = await darkFor(2);
+  await game(page, () => window.__stAgnes.progress.setFlag('nora_left')); // as if she were not with you
+  const alone = await darkFor(2);
+  expect(alone).toBeGreaterThan(0.05);
+  expect(withHer).toBeCloseTo(alone / 2, 2);
+  expect(errors).toEqual([]);
+});

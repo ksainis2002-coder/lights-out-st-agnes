@@ -544,6 +544,13 @@ last change: the bed made, your wooden horse on the pillow).
   of 4" (kept on this computer for every run: storage key `endings`), "CLICK TO CONTINUE", and the
   title. Stand-in sounds for fire_bell, hand_bell, theatre_lamp, wall_breath. In person Nora's lines are
   always labelled "Nora". Tests: `tests/endings.spec.js` (6).
+- **Freeing Nora steadies you (0.2.117, owner 2026-11-20).** Acceptance needs 65 as you reach your
+  room, but light lifts sanity only to 60 and the dark way home costs about 5 a minute even with the
+  flashlight, so only pills saved for the end got there (the bot only by starting full and taking two
+  minutes). Now freeing her gives back 30 (`ai/noraTable.js`), and while she walks with you the dark
+  drains half as fast (`sanity/meter.js`, `COMPANY`). A player who stayed steady usually reaches 65;
+  one falling apart does not. To be checked at human pace in the release prep. Tests: the freeing in
+  `tests/theatre.spec.js`, the half drain in `tests/noraFollow.spec.js`.
 - **Bot route `basement_part_c` (0.2.114):** from the foot of the basement stairs with parts A and B
   done, the flashlight on: waits out his first crossing, eases the theatre door open behind him, undoes
   the three buckles and hears Nora out, opens the cabinet by the gap (the sun), takes the key, unlocks

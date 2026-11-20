@@ -1,6 +1,7 @@
 // The sanity meter (0–100, hidden: shown only through effects and the debug
 // overlay). Darkness drains it, faster with the flashlight off; light slowly
 // restores it up to LIGHT_CAP; safe rooms (the patient room) restore it fully.
+// With Nora walking with you, the dark drains half as fast (owner 2026-11-20).
 // Other systems call drain(amount, cause) for one-off hits (ghost children).
 
 export const MAX = 100;
@@ -14,6 +15,7 @@ const RATES = {
   safeRecovery: 3,
 };
 const DIFFICULTY = { story: 0.5, normal: 1, hard: 1.3 };
+const COMPANY = 0.5; // how much of the dark's drain you feel with someone beside you (Nora)
 
 // How lit the player's spot is, 0 (pitch black) … 1+ (well lit), from the level's lights.
 export function lightAt(level, position) {
@@ -51,7 +53,8 @@ export function createSanity(game) {
       const light = lightAt(level, player.state.position);
       const darkness = Math.max(0, 1 - light);
       const flashlightOn = world.flashlight.isOn() || Boolean(game.camcorder?.nightOn()); // the night view lets you see, too
-      rate = -darkness * (flashlightOn ? RATES.darkWithFlashlight : RATES.dark) * scale;
+      const company = game.noraFollow?.with() ? COMPANY : 1;
+      rate = -darkness * (flashlightOn ? RATES.darkWithFlashlight : RATES.dark) * scale * company;
       if (light > 0.8 && value < LIGHT_CAP) rate = RATES.lightRecovery;
       if (rate < 0) lastCause = 'dark';
     }

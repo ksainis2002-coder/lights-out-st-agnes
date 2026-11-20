@@ -328,5 +328,7 @@ sounds against `docs/SOUNDS_0.5.md`. Next: 0.5 release prep when the owner asks.
 Fixes on the way (0.2.115–0.2.116), found in the part C screenshots: a line at the bottom (tip,
 "Journal updated", look) no longer prints over a subtitle; the stairs line keeps its time while Dr. Venn
 climbs.
+**Freeing Nora steadies you (0.2.117, owner's pick 2026-11-20):** +30 sanity as she is freed, and
+the dark drains half as fast while she walks with you, so Acceptance is reachable without saving pills.
 A fix on the way (0.2.30): the journal's map page in the courtyard threw errors once the hall plan
 was taken.

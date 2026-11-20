@@ -2,6 +2,7 @@
 
 Newest first. One line per change.
 
+- 0.2.117 — Freeing Nora steadies you: setting her free gives back some of your sanity, and while she walks with you the dark wears on you half as fast, so a player who kept steady can reach Acceptance without saving pills for the end.
 - 0.2.116 — Fix: coming up the back stairs, "(instruments clinking, on the stairs below you)" now stays its full time; Dr. Venn's own clinking line no longer replaces it while he climbs.
 - 0.2.115 — Fix: a line at the bottom of the screen (a tip, "Journal updated", a look) that shows with a subtitle now sits above it instead of being printed over it.
 - 0.2.114 — A bot now plays through the whole of the last part: frees Nora, opens the cabinet by ear, takes her up the back stairs, crosses the dark wards ahead of Dr. Venn and reaches your room for Acceptance, never heard or caught. Each ending is now noted on the run, so the bot can check which one it got.
